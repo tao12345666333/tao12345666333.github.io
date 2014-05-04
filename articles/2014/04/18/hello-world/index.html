@@ -4,8 +4,10 @@
     <meta charset="utf-8">
     <title>Hello World !</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
+    <meta name="description" content="Welcom to MoeLove">
     <meta name="author" content="TaoBeier">
+
+    <script type="text/javascript" src="https://api.hitokoto.us:214/rand?encode=js&charset=utf-8&length=26"></script>
 
     <!-- Le styles -->
     <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css" />
@@ -13,6 +15,17 @@
       body {
         padding-top: 60px;
         padding-bottom: 40px;
+      }
+      #hitokoto{
+        margin: 0;
+        padding: 0;
+      }
+      #hitokoto a{
+        color: #003366;
+      }
+      #hitokoto a:hover{
+        text-decoration: none;
+        color: #99CCFF;
       }
       .sidebar-nav {
         padding: 9px 0;
@@ -117,6 +130,20 @@
 </footer><!-- /.post-info -->                </div>
                 <p>Hello World ! 使用pelican 搭建的博客总算可以使用了</p>
                 </div><!-- /.entry-content -->
+                <!-- Duoshuo Comment BEGIN -->
+                <div class="ds-thread"></div>
+                <script type="text/javascript">
+                var duoshuoQuery = {short_name:"taobeier"};
+                    (function() {
+                            var ds = document.createElement('script');
+                                ds.type = 'text/javascript';ds.async = true;
+                                ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                                ds.charset = 'UTF-8';
+                                (document.getElementsByTagName('head')[0]   || 
+                                document.getElementsByTagName('body')[0]).appendChild(ds);
+                  })();
+                 </script>
+                <!-- Duoshuo Comment END -->
         </article>
 </section>
         </div><!--/span-->
@@ -155,12 +182,10 @@
       <hr>
 
       <footer>
-        <!--<address id="about">
-                 感谢基于 <a href="http://python.org">Python <i class="icon-external-link"></i></a> 的 <a href="http://pelican.notmyidea.org/">Pelican <i class="icon-external-link"></i></a> 强力驱动.
-
-        </address> -->
+        <address id="about">
+          <div id="hitokoto"><script>hitokoto()</script></div>
+        </address>
         <!-- /#about -->
-
         <p>主题基于 <a href="http://twitter.github.com/bootstrap/">Bootstrap from Twitter <i class="icon-external-link"></i></a> 
                    和 <a href="http://fortawesome.github.com/Font-Awesome/">Font-Awesome <i class="icon-external-link"></i></a> 修改 </p>
       </footer>
@@ -168,6 +193,15 @@
     </div><!--/.fluid-container-->
 
 
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+	var pageTracker = _gat._getTracker("UA-50163692-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
 
     <!-- Le javascript -->
     <!-- Placed at the end of the document so the pages load faster -->
