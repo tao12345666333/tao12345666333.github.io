@@ -5,28 +5,28 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/index.html</loc>
-<lastmod>2014-05-01T11:04:05-00:00</lastmod>
+<lastmod>2014-05-04T10:06:14-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/archives.html</loc>
-<lastmod>2014-05-01T11:04:05-00:00</lastmod>
+<lastmod>2014-05-04T10:06:14-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/tags.html</loc>
-<lastmod>2014-05-01T11:04:05-00:00</lastmod>
+<lastmod>2014-05-04T10:06:14-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/categories.html</loc>
-<lastmod>2014-05-01T11:04:05-00:00</lastmod>
+<lastmod>2014-05-04T10:06:14-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -39,36 +39,36 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>/articles/2013/04/18/ce-shi-fen-lei/</loc>
-<lastmod>2013-04-18T00:00:00-00:00</lastmod>
+<loc>/articles/2014/04/18/ce-shi-fen-lei/</loc>
+<lastmod>2014-04-18T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/articles/2013/04/18/hello-world/</loc>
-<lastmod>2013-04-18T00:00:00-00:00</lastmod>
+<loc>/articles/2014/04/18/hello-world/</loc>
+<lastmod>2014-04-18T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/category/ji-shi.html</loc>
-<lastmod>2013-04-18T00:00:00-00:00</lastmod>
+<lastmod>2014-04-18T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/category/ji-zhu.html</loc>
-<lastmod>2013-04-18T00:00:00-00:00</lastmod>
+<lastmod>2014-04-18T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/author/taobeier.html</loc>
-<lastmod>2013-04-18T00:00:00-00:00</lastmod>
+<lastmod>2014-04-18T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
