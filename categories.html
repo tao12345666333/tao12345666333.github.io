@@ -111,6 +111,19 @@
 
                 <div class="span3 well sidebar-nav" id="sidebar">
 <ul class="nav nav-list">
+<li class="nav-header"><h4><i class="icon-search"></i>Google Search</h4></li>
+<div id="cse" style="width: 100%;">Loading</div>
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript">
+  google.load('search', '1');
+  google.setOnLoadCallback(function() {
+    var customSearchOptions = {};  var customSearchControl = new google.search.CustomSearchControl(
+      '014606742175594068852:k8gbhhgnvti', customSearchOptions);
+    customSearchControl.setResultSetSize(google.search.Search.SMALL_RESULTSET);
+    customSearchControl.draw('cse');
+  }, true);
+</script>
+<link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
 <li class="nav-header"><h4><i class="icon-external-link"></i>blogroll</h4></li>
     <li><a href="http://getpelican.com/"><i class="icon-external-link"></i>Pelican</a></li>
     <li><a href="http://python.org/"><i class="icon-external-link"></i>Python.org</a></li>
@@ -134,6 +147,16 @@
 </li>
 
 <li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
+<li class="tag-4">
+    <a href="/tag/test.html">
+        <i class="icon-tag icon-large"></i>test
+    </a>
+</li>
+<li class="tag-4">
+    <a href="/tag/hello.html">
+        <i class="icon-tag icon-large"></i>Hello
+    </a>
+</li>
 
 
 </ul>        </div><!--/.well -->
@@ -168,6 +191,9 @@ pageTracker._trackPageview();
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/theme/js/jquery-1.7.2.min.js"></script>
     <script src="/theme/js/bootstrap.min.js"></script>
+    <!-- UJian Button BEGIN -->
+    <script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide"></script>
+    <!-- UJian Button END -->
     <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
   </body>
 </html>
