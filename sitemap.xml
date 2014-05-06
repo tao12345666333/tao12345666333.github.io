@@ -4,84 +4,84 @@ xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitem
 xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
-<loc>/index.html</loc>
-<lastmod>2014-05-06T14:12:53-00:00</lastmod>
+<loc>http://moelove.info/index.html</loc>
+<lastmod>2014-05-06T20:39:23-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/archives.html</loc>
-<lastmod>2014-05-06T14:12:53-00:00</lastmod>
+<loc>http://moelove.info/archives.html</loc>
+<lastmod>2014-05-06T20:39:23-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/tags.html</loc>
-<lastmod>2014-05-06T14:12:53-00:00</lastmod>
+<loc>http://moelove.info/tags.html</loc>
+<lastmod>2014-05-06T20:39:23-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/categories.html</loc>
-<lastmod>2014-05-06T14:12:53-00:00</lastmod>
+<loc>http://moelove.info/categories.html</loc>
+<lastmod>2014-05-06T20:39:23-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/pages/about.html</loc>
-<lastmod>2014-05-06T14:12:53-00:00</lastmod>
+<loc>http://moelove.info/pages/about.html</loc>
+<lastmod>2014-05-06T20:39:23-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/articles/2014/04/18/ce-shi-fen-lei/</loc>
+<loc>http://moelove.info/articles/2014/04/18/ce-shi-fen-lei/</loc>
 <lastmod>2014-04-18T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/articles/2014/04/18/hello-world/</loc>
+<loc>http://moelove.info/articles/2014/04/18/hello-world/</loc>
 <lastmod>2014-04-18T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/category/ji-shi.html</loc>
+<loc>http://moelove.info/category/ji-shi.html</loc>
 <lastmod>2014-04-18T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/category/ji-zhu.html</loc>
+<loc>http://moelove.info/category/ji-zhu.html</loc>
 <lastmod>2014-04-18T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/tag/test.html</loc>
+<loc>http://moelove.info/tag/test.html</loc>
 <lastmod>2014-04-18T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/tag/pelican-blog.html</loc>
+<loc>http://moelove.info/tag/pelican-blog.html</loc>
 <lastmod>2014-04-18T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/author/taobeier.html</loc>
+<loc>http://moelove.info/author/taobeier.html</loc>
 <lastmod>2014-04-18T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
