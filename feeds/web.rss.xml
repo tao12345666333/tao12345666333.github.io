@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MoeLove</title><link>/</link><description></description><atom:link href="/feeds/web.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 07 May 2014 00:00:00 +0800</lastBuildDate><item><title>使用Pelican搭建Blog</title><link>/articles/2014/05/07/shi-yong-pelicanda-jian-blog/</link><description>&lt;h2&gt;安装配置Pelican&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;h5&gt;使用环境：&lt;/h5&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="err"&gt;系统&lt;/span&gt; &lt;span class="err"&gt;：&lt;/span&gt; &lt;span class="n"&gt;Linux&lt;/span&gt; &lt;span class="n"&gt;X86_64&lt;/span&gt;
+    &lt;span class="n"&gt;Pelican&lt;/span&gt; &lt;span class="err"&gt;：&lt;/span&gt;&lt;span class="mf"&gt;3.3.0&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;首先说一下安装： 网上有不少建议说使用虚拟环境  &lt;a href="https://virtualenv.pypa.io/en/latest/virtualenv.html"&gt;virtualenv&lt;/a&gt;，以免污染本地的环境。不过，如果不是去更改&lt;code&gt;Python&lt;/code&gt;的全局设置的话，也不至于影响本地环境的。我是直接安装的。根据 Pelican 官方的文档，我是使用 &lt;code&gt;pip&lt;/code&gt; 安装的，不过&lt;code&gt;pip&lt;/code&gt;又是依赖于&lt;code&gt;distribute&lt;/code&gt; 安装的。所以，我使用的命令如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;curl&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;O&lt;/span&gt; &lt;span class="n"&gt;http:&lt;/span&gt;&lt;span class="sr"&gt;//&lt;/span&gt;&lt;span class="n"&gt;python&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;distribute&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;distribute_setup&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
+    &lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="n"&gt;distribute_setup&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
+
+    &lt;span class="n"&gt;curl&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;O&lt;/span&gt; &lt;span class="n"&gt;https:&lt;/span&gt;&lt;span class="sr"&gt;//&lt;/span&gt;&lt;span class="n"&gt;raw&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="sr"&gt;/pypa/&lt;/span&gt;&lt;span class="n"&gt;pip&lt;/span&gt;&lt;span class="sr"&gt;/master/co&lt;/span&gt;&lt;span class="n"&gt;ntrib&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pip&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
+    &lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pip&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;
+
+    &lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;pip&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;pelican&lt;/span&gt;    
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;还有，如果要用 &lt;a href="http://zh.wikipedia.org/zh-cn/Markdown"&gt;&lt;code&gt;Markdown&lt;/code&gt;&lt;/a&gt;来写文章，也需要执行如下命令：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;pip&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;markdown&lt;/span&gt; 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;新建一个目录，用来存放你的博客文件（我直接建立了"blog"文件夹）&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="nb"&gt;mkdir&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt; 
+
+    &lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt;  
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr /&gt;
+&lt;h2&gt;新建博客：&lt;/h2&gt;
+&lt;p&gt;使用如下命令：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;pelican&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;quickstart&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;按照提示一步步即可完成新建， 这些配置之后可以在&lt;code&gt;pelicanconf.py&lt;/code&gt;这个文件中修改&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;Where&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;want&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;create&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;web&lt;/span&gt; &lt;span class="n"&gt;site&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="err"&gt;（你想在哪里创建你的网站，默认为当前目录）&lt;/span&gt;
+    &lt;span class="n"&gt;What&lt;/span&gt; &lt;span class="n"&gt;will&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;title&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt; &lt;span class="n"&gt;web&lt;/span&gt; &lt;span class="n"&gt;site&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt;&lt;span class="err"&gt;（网站的标题是什么）&lt;/span&gt;
+    &lt;span class="n"&gt;Who&lt;/span&gt; &lt;span class="n"&gt;will&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;author&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt; &lt;span class="n"&gt;web&lt;/span&gt; &lt;span class="n"&gt;site&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt;&lt;span class="err"&gt;（网站的作者是谁）&lt;/span&gt;
+    &lt;span class="n"&gt;What&lt;/span&gt; &lt;span class="n"&gt;will&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;default&lt;/span&gt; &lt;span class="n"&gt;language&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt; &lt;span class="n"&gt;web&lt;/span&gt; &lt;span class="n"&gt;site&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;en&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="err"&gt;（网站的默认语言是），这里我们写‘&lt;/span&gt;&lt;span class="n"&gt;zh&lt;/span&gt;&lt;span class="err"&gt;’&lt;/span&gt; &lt;span class="err"&gt;中文&lt;/span&gt;
+    &lt;span class="n"&gt;Do&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;want&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;specify&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;URL&lt;/span&gt; &lt;span class="n"&gt;prefix&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;http:&lt;/span&gt;&lt;span class="sr"&gt;//&lt;/span&gt;&lt;span class="n"&gt;example&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Y&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;（是否指定域名），&lt;/span&gt;&lt;span class="n"&gt;Y&lt;/span&gt;
+    &lt;span class="n"&gt;What&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="n"&gt;URL&lt;/span&gt; &lt;span class="n"&gt;prefix&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;see&lt;/span&gt; &lt;span class="n"&gt;above&lt;/span&gt; &lt;span class="n"&gt;example&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nb"&gt;no&lt;/span&gt; &lt;span class="n"&gt;trailing&lt;/span&gt; &lt;span class="n"&gt;slash&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;（输入域名，不能包含反斜杠‘&lt;/span&gt;&lt;span class="sr"&gt;/’），http:/&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;moelove&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;info&lt;/span&gt;
+    &lt;span class="n"&gt;Do&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;want&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;enable&lt;/span&gt; &lt;span class="n"&gt;article&lt;/span&gt; &lt;span class="n"&gt;pagination&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt;&lt;span class="err"&gt;（是否启用文章分页）&lt;/span&gt;
+    &lt;span class="n"&gt;Do&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;want&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;generate&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;Makefile&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;easily&lt;/span&gt; &lt;span class="n"&gt;manage&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="n"&gt;website&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt;&lt;span class="err"&gt;（是否生成一个&lt;/span&gt;&lt;span class="n"&gt;Makefile&lt;/span&gt;&lt;span class="err"&gt;来管理网站&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;这里我建议生成，因为会比较方便的&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="err"&gt;）&lt;/span&gt;
+    &lt;span class="n"&gt;Do&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;want&lt;/span&gt; &lt;span class="n"&gt;an&lt;/span&gt; &lt;span class="n"&gt;auto&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;reload&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;simpleHTTP&lt;/span&gt; &lt;span class="n"&gt;script&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;assist&lt;/span&gt; &lt;span class="n"&gt;with&lt;/span&gt; &lt;span class="n"&gt;theme&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;site&lt;/span&gt; &lt;span class="n"&gt;development&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt;&lt;span class="err"&gt;（是否想有一个自动加载的小型&lt;/span&gt;&lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="err"&gt;脚本用来修改主题和站点开发）&lt;/span&gt;
+    &lt;span class="n"&gt;Do&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;want&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;upload&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="n"&gt;website&lt;/span&gt; &lt;span class="n"&gt;using&lt;/span&gt; &lt;span class="n"&gt;FTP&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt;
+    &lt;span class="n"&gt;Do&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;want&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;upload&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="n"&gt;website&lt;/span&gt; &lt;span class="n"&gt;using&lt;/span&gt; &lt;span class="n"&gt;SSH&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt;
+    &lt;span class="n"&gt;Do&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;want&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;upload&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="n"&gt;website&lt;/span&gt; &lt;span class="n"&gt;using&lt;/span&gt; &lt;span class="n"&gt;Dropbox&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt;
+    &lt;span class="n"&gt;Do&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;want&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;upload&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="n"&gt;website&lt;/span&gt; &lt;span class="n"&gt;using&lt;/span&gt; &lt;span class="n"&gt;S3&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr /&gt;
+&lt;h2&gt;新建博文：&lt;/h2&gt;
+&lt;p&gt;这个时候就可以写博客了。具体的写作方式可以参考 &lt;a href="http://docs.getpelican.com/en/latest/internals.html"&gt;Pelican的官方文档&lt;/a&gt;
+  我以&lt;a href="http://daringfireball.net/projects/markdown/syntax"&gt;Markdown&lt;/a&gt; 为例说明一下。&lt;/p&gt;
+&lt;p&gt;在content 目录，新建一个 &lt;code&gt;hello.md&lt;/code&gt;文件  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;vim&lt;/span&gt; &lt;span class="n"&gt;content&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;htllo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;md&lt;/span&gt;
+
+
+
+    &lt;span class="n"&gt;Date:&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mo"&gt;04&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;18&lt;/span&gt; &lt;span class="c1"&gt;#日期&lt;/span&gt;
+    &lt;span class="n"&gt;Title:&lt;/span&gt; &lt;span class="n"&gt;HelloWorld&lt;/span&gt; &lt;span class="c1"&gt;#标题&lt;/span&gt;
+    &lt;span class="n"&gt;Tags:&lt;/span&gt; &lt;span class="n"&gt;hello&lt;/span&gt; &lt;span class="c1"&gt;#标签&lt;/span&gt;
+    &lt;span class="n"&gt;Category:&lt;/span&gt; &lt;span class="n"&gt;test&lt;/span&gt; &lt;span class="c1"&gt;#分类&lt;/span&gt;
+    &lt;span class="n"&gt;Hello&lt;/span&gt; &lt;span class="n"&gt;World&lt;/span&gt; &lt;span class="o"&gt;!&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;之后，执行&lt;code&gt;make html&lt;/code&gt; 或者 &lt;code&gt;pelican content&lt;/code&gt;即可将 md文件转换成html文件。执行 &lt;code&gt;make serve&lt;/code&gt;   即可打开本地浏览器，&lt;a href="http://127.0.0.1:8000/"&gt;预览&lt;/a&gt;。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;现在一个使用默认主题的博客就建立好了。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr /&gt;
+&lt;h2&gt;后续&lt;/h2&gt;
+&lt;h4&gt;接下来说一下修改主题和使用插件的方法&lt;/h4&gt;
+&lt;p&gt;Pelican 默认提供了很多主题可以 github 上下载，当然也可以自己制作。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;clone&lt;/span&gt; &lt;span class="n"&gt;git:&lt;/span&gt;&lt;span class="sr"&gt;//gi&lt;/span&gt;&lt;span class="n"&gt;thub&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="sr"&gt;/getpelican/&lt;/span&gt;&lt;span class="n"&gt;pelican&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;themes&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;在里面找到你喜欢的主题，使用&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;pelican&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;theme&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="sr"&gt;/path/&lt;/span&gt;&lt;span class="n"&gt;to&lt;/span&gt;&lt;span class="sr"&gt;/your/&lt;/span&gt;&lt;span class="n"&gt;themes&lt;/span&gt; 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;命令进行主题的安装。&lt;/p&gt;
+&lt;p&gt;随后可以使用&lt;code&gt;pelican-themes -l -v&lt;/code&gt; 查看已经安装好的主题。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="sr"&gt;/usr/&lt;/span&gt;&lt;span class="n"&gt;lib&lt;/span&gt;&lt;span class="sr"&gt;/python2.7/si&lt;/span&gt;&lt;span class="n"&gt;te&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;packages&lt;/span&gt;&lt;span class="sr"&gt;/pelican/&lt;/span&gt;&lt;span class="n"&gt;themes&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;simple&lt;/span&gt;
+    &lt;span class="sr"&gt;/usr/&lt;/span&gt;&lt;span class="n"&gt;lib&lt;/span&gt;&lt;span class="sr"&gt;/python2.7/si&lt;/span&gt;&lt;span class="n"&gt;te&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;packages&lt;/span&gt;&lt;span class="sr"&gt;/pelican/&lt;/span&gt;&lt;span class="n"&gt;themes&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;notmyidea&lt;/span&gt;
+    &lt;span class="sr"&gt;/usr/&lt;/span&gt;&lt;span class="n"&gt;lib&lt;/span&gt;&lt;span class="sr"&gt;/python2.7/si&lt;/span&gt;&lt;span class="n"&gt;te&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;packages&lt;/span&gt;&lt;span class="sr"&gt;/pelican/&lt;/span&gt;&lt;span class="n"&gt;themes&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bootstrap2&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;想要开始使用主题的话， 只需要在&lt;code&gt;pelicanconf.py&lt;/code&gt;文件中添加 &lt;code&gt;THEME&lt;/code&gt;项为主题名,例如：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;THEME&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;bootstrap2&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;重新 &lt;em&gt;make html&lt;/em&gt;  即可, 这时候声成的页面就是所要使用的主题了。&lt;/p&gt;
+&lt;h4&gt;为博客使用插件&lt;/h4&gt;
+&lt;p&gt;Pelican 也提供了不少的插件来方便使用， 可以从github 上面下载到博客所在目录：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;clone&lt;/span&gt; &lt;span class="n"&gt;git:&lt;/span&gt;&lt;span class="sr"&gt;//gi&lt;/span&gt;&lt;span class="n"&gt;thub&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="sr"&gt;/getpelican/&lt;/span&gt;&lt;span class="n"&gt;pelican&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;plugins&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;现在博客目录就新添了一个 pelican-plugins 目录，接下来在 pelicanconf.py 里面添加配置即可(里面是我最开始使用的三个插件):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;PLUGIN_PATH&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;pelican-plugins&amp;quot;&lt;/span&gt;
+    &lt;span class="n"&gt;PLUGINS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;sitemap&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;summary&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;neighbors&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;再添加 sitemap 的配置&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;SITEMAP&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;#39;format&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;xml&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;#39;priorities&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="s"&gt;&amp;#39;articles&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s"&gt;&amp;#39;indexes&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s"&gt;&amp;#39;pages&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mf"&gt;0.5&lt;/span&gt;
+        &lt;span class="p"&gt;},&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;#39;changefreqs&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="s"&gt;&amp;#39;articles&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;weekly&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s"&gt;&amp;#39;indexes&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;daily&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="s"&gt;&amp;#39;pages&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;monthly&amp;#39;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;然后执行 &lt;em&gt;make html&lt;/em&gt; 即可&lt;/p&gt;
+&lt;h4&gt;添加多说评论&lt;/h4&gt;
+&lt;p&gt;一开始搭建静态博客的时候，使用的&lt;a href="http://disqus.com/"&gt;disqus&lt;/a&gt; 并且Pelican 的主题中默认提供了支持，只要在 pelicanconf.py 的里面加入 disqus 的short_name 即可开始使用了。不过，身在天朝，还是尽量本地化一些吧，使用&lt;a href="http://duoshuo.com/"&gt;多说&lt;/a&gt;评论插件。
+在&lt;a href="http://duoshuo.com/"&gt;多说&lt;/a&gt;注册一个帐号，&lt;a href="http://duoshuo.com/create-site/"&gt;添加一个站点&lt;/a&gt;，获取自己的 &lt;em&gt;short_name&lt;/em&gt; ，点击工具一栏--&amp;gt;获取代码&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;&amp;lt;!-- 多说评论框 start --&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;div&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;ds-thread&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;data-thread-key=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;请将此处替换成文章在你的站点中的ID&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;data-title=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;请替换成文章的标题&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;data-url=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;请替换成文章的网址&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;span class="c"&gt;&amp;lt;!-- 多说评论框 end --&amp;gt;&lt;/span&gt;
+&lt;span class="c"&gt;&amp;lt;!-- 多说公共JS代码 start (一个网页只需插入一次) --&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;script&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;text/javascript&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+var duoshuoQuery = {short_name:&amp;quot;替换成你自己的&amp;quot;};
+    (function() {
+        var ds = document.createElement(&amp;#39;script&amp;#39;);
+        ds.type = &amp;#39;text/javascript&amp;#39;;ds.async = true;
+        ds.src = (document.location.protocol == &amp;#39;https:&amp;#39; ? &amp;#39;https:&amp;#39; : &amp;#39;http:&amp;#39;) + &amp;#39;//static.duoshuo.com/embed.js&amp;#39;;
+        ds.charset = &amp;#39;UTF-8&amp;#39;;
+        (document.getElementsByTagName(&amp;#39;head&amp;#39;)[0] 
+         || document.getElementsByTagName(&amp;#39;body&amp;#39;)[0]).appendChild(ds);
+    })();
+    &lt;span class="nt"&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span class="c"&gt;&amp;lt;!-- 多说公共JS代码 end --&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;把这段代码放在你想要显示评论的地方就可以了。建议直接修改放在article.html模板里面。&lt;/p&gt;
+&lt;h4&gt;添加其他功能&lt;/h4&gt;
+&lt;p&gt;这里我还加入了&lt;a href="http://share.baidu.com/code"&gt;百度分享&lt;/a&gt;的功能。直接定制个人想要的代码， 放在你需要出现分享按钮的地方即可，我放在了文章的下面。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;div&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;bdsharebuttonbox&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;a&lt;/span&gt; &lt;span class="na"&gt;href=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;#&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;bds_more&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;data-cmd=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;more&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a&lt;/span&gt; &lt;span class="na"&gt;href=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;#&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;bds_qzone&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;data-cmd=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;qzone&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a&lt;/span&gt; &lt;span class="na"&gt;href=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;#&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;bds_tsina&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;data-cmd=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;tsina&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a&lt;/span&gt; &lt;span class="na"&gt;href=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;#&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;bds_tqq&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;data-cmd=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;tqq&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a&lt;/span&gt; &lt;span class="na"&gt;href=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;#&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;bds_renren&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;data-cmd=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;renren&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;a&lt;/span&gt; &lt;span class="na"&gt;href=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;#&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;bds_weixin&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;data-cmd=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;weixin&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/a&amp;gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+
+&lt;span class="nt"&gt;&amp;lt;script&amp;gt;&lt;/span&gt;window._bd_share_config={&amp;quot;common&amp;quot;:{&amp;quot;bdSnsKey&amp;quot;:{},&amp;quot;bdText&amp;quot;:&amp;quot;&amp;quot;,&amp;quot;bdMini&amp;quot;:&amp;quot;2&amp;quot;,&amp;quot;bdPic&amp;quot;:&amp;quot;&amp;quot;,&amp;quot;bdStyle&amp;quot;:&amp;quot;0&amp;quot;,&amp;quot;bdSize&amp;quot;:&amp;quot;16&amp;quot;},&amp;quot;share&amp;quot;:{},&amp;quot;image&amp;quot;:{&amp;quot;viewList&amp;quot;:[&amp;quot;qzone&amp;quot;,&amp;quot;tsina&amp;quot;,&amp;quot;tqq&amp;quot;,&amp;quot;renren&amp;quot;,&amp;quot;weixin&amp;quot;],&amp;quot;viewText&amp;quot;:&amp;quot;分享到：&amp;quot;,&amp;quot;viewSize&amp;quot;:&amp;quot;16&amp;quot;},&amp;quot;selectShare&amp;quot;:{&amp;quot;bdContainerClass&amp;quot;:null,&amp;quot;bdSelectMiniList&amp;quot;:[&amp;quot;qzone&amp;quot;,&amp;quot;tsina&amp;quot;,&amp;quot;tqq&amp;quot;,&amp;quot;renren&amp;quot;,&amp;quot;weixin&amp;quot;]}};with(document)0[(getElementsByTagName(&amp;#39;head&amp;#39;)[0]||body).appendChild(createElement(&amp;#39;script&amp;#39;)).src=&amp;#39;http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=&amp;#39;+~(-new Date()/36e5)];&lt;span class="nt"&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;还有加入了 &lt;a href="http://www.google.com/analytics/"&gt;Google Analytics&lt;/a&gt; 谷歌站内搜索 以及七牛提供的云存储 等。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">TaoBeier</dc:creator><pubDate>Wed, 07 May 2014 00:00:00 +0800</pubDate><guid>tag:,2014-05-07:articles/2014/05/07/shi-yong-pelicanda-jian-blog/</guid><category>web</category><category>pelican</category><category>blog</category></item><item><title>Hello World !</title><link>/articles/2014/04/18/hello-world/</link><description>&lt;hr /&gt;
+&lt;blockquote&gt;
+&lt;p&gt;几乎所有的程序猿的第一个演示程序都是Hello World .那我也就一样咯， 也写一个同样的吧。
+其实我的博客从很早前就已经开始在写了， 换了很多的平台：&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;从腾讯空间&lt;/span&gt;&lt;span class="o"&gt;--&amp;gt;&lt;/span&gt; &lt;span class="err"&gt;百度空间&lt;/span&gt;&lt;span class="o"&gt;--&amp;gt;&lt;/span&gt; &lt;span class="err"&gt;新浪博客&lt;/span&gt;&lt;span class="o"&gt;--&amp;gt;&lt;/span&gt; &lt;span class="err"&gt;自己搭建的&lt;/span&gt;&lt;span class="n"&gt;Wordpress&lt;/span&gt;&lt;span class="err"&gt;博客&lt;/span&gt;&lt;span class="o"&gt;--&amp;gt;&lt;/span&gt; &lt;span class="err"&gt;点点（点点我其实是用来碎碎念的）&lt;/span&gt;
+&lt;span class="o"&gt;--&amp;gt;&lt;/span&gt; &lt;span class="err"&gt;博客园（个人感觉体验不是很好的说）&lt;/span&gt;&lt;span class="o"&gt;--&amp;gt;&lt;/span&gt; &lt;span class="err"&gt;静态博客&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;选择了这么多，我最后决定还是使用 &lt;strong&gt;静态博客&lt;/strong&gt; 来做个人博客。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;原因有以下几个：&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;使用其他平台提供的博客不是很爽， 可个性化的方面不是很多， 点点相对来说做的还是很不错的
+不仅提供个性化定制而且还支持绑定个人域名之类的。但是其他网站就不是那么人性化了。&lt;/li&gt;
+&lt;li&gt;写博客总是需要贴代码的，但是除了WP外，其他的我不是很满意。&lt;/li&gt;
+&lt;li&gt;用静态博客方便备份，而且是本地编辑就可以了，在线编辑的，感觉会被束缚很多。&lt;/li&gt;
+&lt;li&gt;本人属于折腾党，喜欢可以个人定制的， 直到符合个人满意的程度为止。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;接下来说说这次博客的安装：&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;选择&lt;strong&gt;Pelica&lt;/strong&gt;是因为我对Python 比较熟悉，之前尝试过用Jekyll 和 Octopress 搭建，都比较方便
+尤其是Jekyll 用户很多，文档什么的都很多了。只不过我更喜欢Python 多一些（虽然我有用ROR开发过WEB应用程序）
+因为如果有什么需要的话，我也可以自己来开发插件或者自己再尝试做一个系统。&lt;/li&gt;
+&lt;li&gt;Pelican 相对来说配置也很方便， 很简单， 虽然用户不是很多，但是基本上的问题也都可以解决的&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/getpelican/pelican"&gt;Pelican&lt;/a&gt; 支持restructuredText和Markdown写文章，配置灵活，扩展性强。我用的是3.3.0。&lt;/li&gt;
+&lt;/ol&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">TaoBeier</dc:creator><pubDate>Fri, 18 Apr 2014 00:00:00 +0800</pubDate><guid>tag:,2014-04-18:articles/2014/04/18/hello-world/</guid><category>Pelican</category><category>Blog</category></item></channel></rss>
