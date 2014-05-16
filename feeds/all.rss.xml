@@ -1,5 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MoeLove</title><link>/</link><description></description><atom:link href="/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 07 May 2014 00:00:00 +0800</lastBuildDate><item><title>使用Pelican搭建Blog</title><link>/articles/2014/05/07/shi-yong-pelicanda-jian-blog/</link><description>&lt;h2&gt;安装配置Pelican&lt;/h2&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MoeLove</title><link>/</link><description></description><atom:link href="/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Fri, 16 May 2014 00:00:00 +0800</lastBuildDate><item><title>upyun-for-pelican</title><link>/articles/2014/05/16/upyun-for-pelican/</link><description>&lt;p&gt;这几天写了一个插件，方便把pelican生成静态博客部署到又拍云上。
+整体思路就是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;先格式化路径，以/为根目录&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;def&lt;/span&gt; &lt;span class="n"&gt;formatPath&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;replace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sep&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;定义两个列表来存储文件和目录 &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;之后就是验证用户，以及bucketname 之类的了。&lt;/p&gt;
+&lt;h3&gt;简介&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://github.com/getpelican/pelican"&gt;pelican&lt;/a&gt; 是一款基于python的静态博客生成工具，本程序可以方便的把生成的静态博客部署到&lt;a href="https://www.upyun.com/index.html"&gt;又拍云&lt;/a&gt;上。演示地址：&lt;a href="http://pelican-for-upyun.b0.upaiyun.com/"&gt;upyun-for-pelican &lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;生成网站&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;html&lt;/span&gt;
+
+    &lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;serve&lt;/span&gt;   &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;进行本地预览&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;说明&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;程序使用了又拍云的&lt;a href="https://github.com/upyun/python-sdk"&gt;官方SDK&lt;/a&gt; 需要先安装 upyun&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;pip&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;upyun&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;可以自定义要上传的文件目录。在最下方的&lt;code&gt;local_dir&lt;/code&gt; 中指定即可。Pelican默认的上传目录是 output 目录&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;使用&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;可以在 &lt;strong&gt;pelicanconf.py&lt;/strong&gt; 文件中直接设置 &lt;code&gt;BUCKETNAME, USERNAME, PASSWORD&lt;/code&gt; 参数（这些参数的使用大写命名格式也是为了符合&lt;em&gt;pelicanconf.py&lt;/em&gt;中的习惯），也可以直接在 &lt;code&gt;upyun-for-pelican.py&lt;/code&gt;文件的最下方直接设置。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;执行
+    &lt;code&gt;python upyun-for-pelican.py&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;程序在 &lt;code&gt;Python 2.7&lt;/code&gt; 环境下测试通过。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;其他说明&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;程序执行开始会有上传确认提示，输入&lt;code&gt;Y / y&lt;/code&gt; 都可以继续上传。 &lt;/li&gt;
+&lt;li&gt;可以使用项目中的&lt;code&gt;pelicanconf.py&lt;/code&gt;作为个人站点的配置文件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;未完待续...&lt;/h4&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">TaoBeier</dc:creator><pubDate>Fri, 16 May 2014 00:00:00 +0800</pubDate><guid>tag:,2014-05-16:articles/2014/05/16/upyun-for-pelican/</guid><category>pelican</category><category>upyun</category></item><item><title>使用Pelican搭建Blog</title><link>/articles/2014/05/07/shi-yong-pelicanda-jian-blog/</link><description>&lt;h2&gt;安装配置Pelican&lt;/h2&gt;
 &lt;hr /&gt;
 &lt;h5&gt;使用环境：&lt;/h5&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="err"&gt;系统&lt;/span&gt; &lt;span class="err"&gt;：&lt;/span&gt; &lt;span class="n"&gt;Linux&lt;/span&gt; &lt;span class="n"&gt;X86_64&lt;/span&gt;
