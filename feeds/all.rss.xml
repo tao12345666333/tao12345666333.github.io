@@ -114,8 +114,6 @@
 &lt;p&gt;在content 目录，新建一个 &lt;code&gt;hello.md&lt;/code&gt;文件  &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;vim&lt;/span&gt; &lt;span class="n"&gt;content&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;htllo&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;md&lt;/span&gt;
 
-
-
     &lt;span class="n"&gt;Date:&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mo"&gt;04&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;18&lt;/span&gt; &lt;span class="c1"&gt;#日期&lt;/span&gt;
     &lt;span class="n"&gt;Title:&lt;/span&gt; &lt;span class="n"&gt;HelloWorld&lt;/span&gt; &lt;span class="c1"&gt;#标题&lt;/span&gt;
     &lt;span class="n"&gt;Tags:&lt;/span&gt; &lt;span class="n"&gt;hello&lt;/span&gt; &lt;span class="c1"&gt;#标签&lt;/span&gt;
