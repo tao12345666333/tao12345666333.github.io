@@ -5,42 +5,42 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/index.html</loc>
-<lastmod>2014-06-08T16:01:26-00:00</lastmod>
+<lastmod>2014-06-08T21:20:39-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/archives.html</loc>
-<lastmod>2014-06-08T16:01:26-00:00</lastmod>
+<lastmod>2014-06-08T21:20:39-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/tags.html</loc>
-<lastmod>2014-06-08T16:01:26-00:00</lastmod>
+<lastmod>2014-06-08T21:20:39-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/categories.html</loc>
-<lastmod>2014-06-08T16:01:26-00:00</lastmod>
+<lastmod>2014-06-08T21:20:39-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/pages/cha-shui-biao.html</loc>
-<lastmod>2014-06-08T16:01:26-00:00</lastmod>
+<lastmod>2014-06-08T21:20:39-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/pages/qiu-tu-cao.html</loc>
-<lastmod>2014-06-08T16:01:26-00:00</lastmod>
+<lastmod>2014-06-08T21:20:39-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
@@ -74,8 +74,22 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>/articles/2013/08/07/lamphuan-jing-de-kuai-su-da-jian/</loc>
+<lastmod>2013-08-07T00:00:00-00:00</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>/category/life</loc>
 <lastmod>2013-08-10T00:00:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>/category/linux</loc>
+<lastmod>2013-08-07T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -95,15 +109,15 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>/tag/blog/</loc>
-<lastmod>2014-05-07T00:00:00-00:00</lastmod>
+<loc>/tag/pelican/</loc>
+<lastmod>2014-05-16T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/tag/pelican/</loc>
-<lastmod>2014-05-16T00:00:00-00:00</lastmod>
+<loc>/tag/web/</loc>
+<lastmod>2014-05-07T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -116,15 +130,29 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>/tag/upyun/</loc>
-<lastmod>2014-05-16T00:00:00-00:00</lastmod>
+<loc>/tag/blog/</loc>
+<lastmod>2014-05-07T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/tag/web/</loc>
-<lastmod>2014-05-07T00:00:00-00:00</lastmod>
+<loc>/tag/lamp/</loc>
+<lastmod>2013-08-07T00:00:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>/tag/linux/</loc>
+<lastmod>2013-08-07T00:00:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>/tag/upyun/</loc>
+<lastmod>2014-05-16T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>

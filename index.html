@@ -84,6 +84,11 @@
 					</a>
                   </li>
                   <li >
+                    <a href="./category/linux">
+						<i class="icon-folder-open icon-large"></i>Linux
+					</a>
+                  </li>
+                  <li >
                     <a href="./category/python">
 						<i class="icon-folder-open icon-large"></i>Python
 					</a>
@@ -186,8 +191,8 @@
                 <div class="summary"><h2>安装配置Pelican</h2>
 <hr />
 <h5>使用环境：</h5>
-<div class="highlight"><pre>    <span class="err">系统</span> <span class="err">：</span> <span class="n">Linux</span> <span class="n">X86_64</span>
-    <span class="n">Pelican</span> <span class="err">：</span><span class="mf">3.3.0</span>
+<div class="highlight"><pre>    <span class="err">系统</span>  <span class="p">:</span>  <span class="n">Linux</span> <span class="n">X86_64</span>
+    <span class="n">Pelican</span> <span class="p">:</span> <span class="mf">3.3.0</span>
 </pre></div>
 
 
@@ -282,6 +287,37 @@
                 </div>
         </div>
         <hr />
+        <div class="article">
+                <h1><a href="./articles/2013/08/07/lamphuan-jing-de-kuai-su-da-jian/">LAMP环境的快速搭建</a></h1>
+                <div class="well small"><footer class="post-info">
+<span class="label">Date</span>
+<abbr class="published" title="2013-08-07T00:00:00">
+        <i class="icon-calendar"></i>三 07 八月 2013
+</abbr>
+<span class="label">By</span>
+<a href="./author/taobeier.html"><i class="icon-user"></i>TaoBeier</a>
+<span class="label">分类</span>
+<a href="./category/linux"><i class="icon-folder-open"></i>Linux</a>.
+
+
+<span class="label">Tags</span>
+	<a href="./tag/linux/"><i class="icon-tag"></i>Linux</a>
+	<a href="./tag/lamp/"><i class="icon-tag"></i>LAMP</a>
+</footer><!-- /.post-info --></div>
+                <div class="summary"><blockquote>
+<p>这是我在我的<a href="http://tieba.baidu.com/f?kw=centos">centos 吧</a>专门写的教程帖，目的也就是为了让新手可以更快的搭建起来环境，而不是一直在门外徘徊。所以就搬过来了，时间神马的就按照<a href="http://tieba.baidu.com/p/2514694347">原帖</a>来吧。</p>
+</blockquote>
+<h3>写在前面</h3>
+<p>本篇文章是面向linux新手，文中采用环境是<em>Win7+V-BOX</em>，配置过程用putty进行操作（个人习惯而已），linux系统使用CentOS6.3版本。CentOS的安装方法及虚拟机中网络配置请参阅centos吧精品帖<a href="http://tieba.baidu.com/p/2068921476">【教程】最全centos 安装方法及内容详解</a>。为了尽量一次性可以让读者完成LAMP环境的搭建，本次安装过程都采用<code>yum</code>包管理机制进行安装。当然生产环境下一般都是采用源码编译的。在近期我也会再出连载文，使用源码包进行LAMP环境的搭建，欢迎关注。如果有任何意见或者建议都可以到centos吧发帖询问。
+Ps:本文LAMP = Linux + Apache + Mysql + PHP</p>
+<h3>安装过程（先确保你的系统网络正常或者搭建好了本地源）</h3>
+<h4>1. 首先安装Apache，使用命令：</h4>
+<p><code>sudo yum install httpd –y</code></p>
+<h4>2. 然后安装Mysql ...</h4>
+                        <a class="btn primary xsmall" href="./articles/2013/08/07/lamphuan-jing-de-kuai-su-da-jian/">more ...</a>
+                </div>
+        </div>
+        <hr />
 
                 <section id="content" class="body">
                 <h1>Pages</h1>
@@ -311,6 +347,11 @@
 </a>
 </li>
 <li>
+<a href="./category/linux">
+    <i class="icon-folder-open icon-large"></i>Linux
+</a>
+</li>
+<li>
 <a href="./category/python">
     <i class="icon-folder-open icon-large"></i>Python
 </a>
@@ -327,6 +368,21 @@
         <i class="icon-tag icon-large"></i>web
     </a>
 </li>
+<li class="tag-4">
+    <a href="./tag/upyun/">
+        <i class="icon-tag icon-large"></i>upyun
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/vim/">
+        <i class="icon-tag icon-large"></i>Vim
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/linux/">
+        <i class="icon-tag icon-large"></i>Linux
+    </a>
+</li>
 <li class="tag-1">
     <a href="./tag/pelican/">
         <i class="icon-tag icon-large"></i>pelican
@@ -338,13 +394,8 @@
     </a>
 </li>
 <li class="tag-4">
-    <a href="./tag/vim/">
-        <i class="icon-tag icon-large"></i>Vim
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/upyun/">
-        <i class="icon-tag icon-large"></i>upyun
+    <a href="./tag/lamp/">
+        <i class="icon-tag icon-large"></i>LAMP
     </a>
 </li>
 

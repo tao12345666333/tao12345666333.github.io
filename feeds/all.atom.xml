@@ -55,8 +55,8 @@
 &lt;h4&gt;未完待续...&lt;/h4&gt;</summary><category term="pelican"></category><category term="upyun"></category></entry><entry><title>使用Pelican搭建Blog</title><link href="/articles/2014/05/07/shi-yong-pelicanda-jian-blog/" rel="alternate"></link><updated>2014-05-07T00:00:00+08:00</updated><author><name>TaoBeier</name></author><id>tag:,2014-05-07:articles/2014/05/07/shi-yong-pelicanda-jian-blog/</id><summary type="html">&lt;h2&gt;安装配置Pelican&lt;/h2&gt;
 &lt;hr /&gt;
 &lt;h5&gt;使用环境：&lt;/h5&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="err"&gt;系统&lt;/span&gt; &lt;span class="err"&gt;：&lt;/span&gt; &lt;span class="n"&gt;Linux&lt;/span&gt; &lt;span class="n"&gt;X86_64&lt;/span&gt;
-    &lt;span class="n"&gt;Pelican&lt;/span&gt; &lt;span class="err"&gt;：&lt;/span&gt;&lt;span class="mf"&gt;3.3.0&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="err"&gt;系统&lt;/span&gt;  &lt;span class="p"&gt;:&lt;/span&gt;  &lt;span class="n"&gt;Linux&lt;/span&gt; &lt;span class="n"&gt;X86_64&lt;/span&gt;
+    &lt;span class="n"&gt;Pelican&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mf"&gt;3.3.0&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -91,15 +91,15 @@
 
 
 &lt;p&gt;按照提示一步步即可完成新建， 这些配置之后可以在&lt;code&gt;pelicanconf.py&lt;/code&gt;这个文件中修改&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;Where&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;want&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;create&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;web&lt;/span&gt; &lt;span class="n"&gt;site&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="err"&gt;（你想在哪里创建你的网站，默认为当前目录）&lt;/span&gt;
-    &lt;span class="n"&gt;What&lt;/span&gt; &lt;span class="n"&gt;will&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;title&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt; &lt;span class="n"&gt;web&lt;/span&gt; &lt;span class="n"&gt;site&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt;&lt;span class="err"&gt;（网站的标题是什么）&lt;/span&gt;
-    &lt;span class="n"&gt;Who&lt;/span&gt; &lt;span class="n"&gt;will&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;author&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt; &lt;span class="n"&gt;web&lt;/span&gt; &lt;span class="n"&gt;site&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt;&lt;span class="err"&gt;（网站的作者是谁）&lt;/span&gt;
-    &lt;span class="n"&gt;What&lt;/span&gt; &lt;span class="n"&gt;will&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;default&lt;/span&gt; &lt;span class="n"&gt;language&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt; &lt;span class="n"&gt;web&lt;/span&gt; &lt;span class="n"&gt;site&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;en&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="err"&gt;（网站的默认语言是），这里我们写‘&lt;/span&gt;&lt;span class="n"&gt;zh&lt;/span&gt;&lt;span class="err"&gt;’&lt;/span&gt; &lt;span class="err"&gt;中文&lt;/span&gt;
-    &lt;span class="n"&gt;Do&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;want&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;specify&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;URL&lt;/span&gt; &lt;span class="n"&gt;prefix&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;http:&lt;/span&gt;&lt;span class="sr"&gt;//&lt;/span&gt;&lt;span class="n"&gt;example&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Y&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;（是否指定域名），&lt;/span&gt;&lt;span class="n"&gt;Y&lt;/span&gt;
-    &lt;span class="n"&gt;What&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="n"&gt;URL&lt;/span&gt; &lt;span class="n"&gt;prefix&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;see&lt;/span&gt; &lt;span class="n"&gt;above&lt;/span&gt; &lt;span class="n"&gt;example&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nb"&gt;no&lt;/span&gt; &lt;span class="n"&gt;trailing&lt;/span&gt; &lt;span class="n"&gt;slash&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;（输入域名，不能包含反斜杠‘&lt;/span&gt;&lt;span class="sr"&gt;/’），http:/&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;moelove&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;info&lt;/span&gt;
-    &lt;span class="n"&gt;Do&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;want&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;enable&lt;/span&gt; &lt;span class="n"&gt;article&lt;/span&gt; &lt;span class="n"&gt;pagination&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt;&lt;span class="err"&gt;（是否启用文章分页）&lt;/span&gt;
-    &lt;span class="n"&gt;Do&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;want&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;generate&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;Makefile&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;easily&lt;/span&gt; &lt;span class="n"&gt;manage&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="n"&gt;website&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt;&lt;span class="err"&gt;（是否生成一个&lt;/span&gt;&lt;span class="n"&gt;Makefile&lt;/span&gt;&lt;span class="err"&gt;来管理网站&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;这里我建议生成，因为会比较方便的&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="err"&gt;）&lt;/span&gt;
-    &lt;span class="n"&gt;Do&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;want&lt;/span&gt; &lt;span class="n"&gt;an&lt;/span&gt; &lt;span class="n"&gt;auto&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;reload&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;simpleHTTP&lt;/span&gt; &lt;span class="n"&gt;script&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;assist&lt;/span&gt; &lt;span class="n"&gt;with&lt;/span&gt; &lt;span class="n"&gt;theme&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;site&lt;/span&gt; &lt;span class="n"&gt;development&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt;&lt;span class="err"&gt;（是否想有一个自动加载的小型&lt;/span&gt;&lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="err"&gt;脚本用来修改主题和站点开发）&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;    &lt;span class="n"&gt;Where&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;want&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;create&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;web&lt;/span&gt; &lt;span class="n"&gt;site&lt;/span&gt;&lt;span class="p"&gt;?[&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;  &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;你想在哪里创建你的网站，默认为当前目录&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;What&lt;/span&gt; &lt;span class="n"&gt;will&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;title&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt; &lt;span class="n"&gt;web&lt;/span&gt; &lt;span class="n"&gt;site&lt;/span&gt;&lt;span class="p"&gt;?(&lt;/span&gt;&lt;span class="err"&gt;网站的标题是什么&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;Who&lt;/span&gt; &lt;span class="n"&gt;will&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;author&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt; &lt;span class="n"&gt;web&lt;/span&gt; &lt;span class="n"&gt;site&lt;/span&gt;&lt;span class="p"&gt;?(&lt;/span&gt;&lt;span class="err"&gt;网站的作者是谁&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;What&lt;/span&gt; &lt;span class="n"&gt;will&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;default&lt;/span&gt; &lt;span class="n"&gt;language&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;this&lt;/span&gt; &lt;span class="n"&gt;web&lt;/span&gt; &lt;span class="n"&gt;site&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;en&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;   &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;网站的默认语言是&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="err"&gt;这里我们写&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;zh&amp;#39;&lt;/span&gt;&lt;span class="err"&gt;中文&lt;/span&gt;
+    &lt;span class="n"&gt;Do&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;want&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;specify&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;URL&lt;/span&gt; &lt;span class="n"&gt;prefix&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;g&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;http:&lt;/span&gt;&lt;span class="sr"&gt;//&lt;/span&gt;&lt;span class="n"&gt;example&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Y&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;是否指定域名&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="n"&gt;Y&lt;/span&gt;
+    &lt;span class="n"&gt;What&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="n"&gt;URL&lt;/span&gt; &lt;span class="n"&gt;prefix&lt;/span&gt;&lt;span class="p"&gt;?(&lt;/span&gt;&lt;span class="n"&gt;see&lt;/span&gt; &lt;span class="n"&gt;above&lt;/span&gt; &lt;span class="n"&gt;example&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="nb"&gt;no&lt;/span&gt; &lt;span class="n"&gt;trailing&lt;/span&gt; &lt;span class="n"&gt;slash&lt;/span&gt;&lt;span class="p"&gt;)(&lt;/span&gt;&lt;span class="err"&gt;输入域名，不能包含反斜杠&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="n"&gt;http:&lt;/span&gt;&lt;span class="sr"&gt;//mo&lt;/span&gt;&lt;span class="n"&gt;elove&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;info&lt;/span&gt;
+    &lt;span class="n"&gt;Do&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;want&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;enable&lt;/span&gt; &lt;span class="n"&gt;article&lt;/span&gt; &lt;span class="n"&gt;pagination&lt;/span&gt;&lt;span class="p"&gt;?(&lt;/span&gt;&lt;span class="err"&gt;是否启用文章分页&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;Do&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;want&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;generate&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;Makefile&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;easily&lt;/span&gt; &lt;span class="n"&gt;manage&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="n"&gt;website&lt;/span&gt;&lt;span class="p"&gt;?(&lt;/span&gt;&lt;span class="err"&gt;是否生成一个&lt;/span&gt;&lt;span class="n"&gt;Makefile&lt;/span&gt;&lt;span class="err"&gt;来管理网站&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;这里我建议生成，因为会比较方便的&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+    &lt;span class="n"&gt;Do&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;want&lt;/span&gt; &lt;span class="n"&gt;an&lt;/span&gt; &lt;span class="n"&gt;auto&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;reload&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;simpleHTTP&lt;/span&gt; &lt;span class="n"&gt;script&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;assist&lt;/span&gt; &lt;span class="n"&gt;with&lt;/span&gt; &lt;span class="n"&gt;theme&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;site&lt;/span&gt; &lt;span class="n"&gt;development&lt;/span&gt;&lt;span class="p"&gt;?(&lt;/span&gt;&lt;span class="err"&gt;是否想有一个自动加载的小型&lt;/span&gt;&lt;span class="n"&gt;http&lt;/span&gt;&lt;span class="err"&gt;脚本用来修改主题和站点开发&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="n"&gt;Do&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;want&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;upload&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="n"&gt;website&lt;/span&gt; &lt;span class="n"&gt;using&lt;/span&gt; &lt;span class="n"&gt;FTP&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt;
     &lt;span class="n"&gt;Do&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;want&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;upload&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="n"&gt;website&lt;/span&gt; &lt;span class="n"&gt;using&lt;/span&gt; &lt;span class="n"&gt;SSH&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt;
     &lt;span class="n"&gt;Do&lt;/span&gt; &lt;span class="n"&gt;you&lt;/span&gt; &lt;span class="n"&gt;want&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;upload&lt;/span&gt; &lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="n"&gt;website&lt;/span&gt; &lt;span class="n"&gt;using&lt;/span&gt; &lt;span class="n"&gt;Dropbox&lt;/span&gt;&lt;span class="p"&gt;?&lt;/span&gt;
@@ -354,4 +354,83 @@ var duoshuoQuery = {short_name:&amp;quot;替换成你自己的&amp;quot;};
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;以上就是我关于windows下VIM的配置修改了。我使用的配置文件可以在&lt;a href="https://github.com/tao12345666333/VimforWindowssetting"&gt;Vim for Windows setting&lt;/a&gt;下载得到。&lt;/p&gt;</summary><category term="Vim"></category></entry></feed>
+&lt;p&gt;以上就是我关于windows下VIM的配置修改了。我使用的配置文件可以在&lt;a href="https://github.com/tao12345666333/VimforWindowssetting"&gt;Vim for Windows setting&lt;/a&gt;下载得到。&lt;/p&gt;</summary><category term="Vim"></category></entry><entry><title>LAMP环境的快速搭建</title><link href="/articles/2013/08/07/lamphuan-jing-de-kuai-su-da-jian/" rel="alternate"></link><updated>2013-08-07T00:00:00+08:00</updated><author><name>TaoBeier</name></author><id>tag:,2013-08-07:articles/2013/08/07/lamphuan-jing-de-kuai-su-da-jian/</id><summary type="html">&lt;blockquote&gt;
+&lt;p&gt;这是我在我的&lt;a href="http://tieba.baidu.com/f?kw=centos"&gt;centos 吧&lt;/a&gt;专门写的教程帖，目的也就是为了让新手可以更快的搭建起来环境，而不是一直在门外徘徊。所以就搬过来了，时间神马的就按照&lt;a href="http://tieba.baidu.com/p/2514694347"&gt;原帖&lt;/a&gt;来吧。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;写在前面&lt;/h3&gt;
+&lt;p&gt;本篇文章是面向linux新手，文中采用环境是&lt;em&gt;Win7+V-BOX&lt;/em&gt;，配置过程用putty进行操作（个人习惯而已），linux系统使用CentOS6.3版本。CentOS的安装方法及虚拟机中网络配置请参阅centos吧精品帖&lt;a href="http://tieba.baidu.com/p/2068921476"&gt;【教程】最全centos 安装方法及内容详解&lt;/a&gt;。为了尽量一次性可以让读者完成LAMP环境的搭建，本次安装过程都采用&lt;code&gt;yum&lt;/code&gt;包管理机制进行安装。当然生产环境下一般都是采用源码编译的。在近期我也会再出连载文，使用源码包进行LAMP环境的搭建，欢迎关注。如果有任何意见或者建议都可以到centos吧发帖询问。
+Ps:本文LAMP = Linux + Apache + Mysql + PHP&lt;/p&gt;
+&lt;h3&gt;安装过程（先确保你的系统网络正常或者搭建好了本地源）&lt;/h3&gt;
+&lt;h4&gt;1. 首先安装Apache，使用命令：&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;sudo yum install httpd –y&lt;/code&gt;&lt;/p&gt;
+&lt;h4&gt;2. 然后安装Mysql，使用命令&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;sudo yum install mysql mysql-server –y&lt;/code&gt;&lt;/p&gt;
+&lt;h4&gt;3. 再安装php ，使用命令&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;sudo yum install php –y&lt;/code&gt;&lt;/p&gt;
+&lt;h4&gt;4. 安装完毕之后启动apache. 使用&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;sudo service httpd start&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://moelove.qiniudn.com/serverstart.jpg" width="70%" /&gt;&lt;/p&gt;
+&lt;p&gt;启动成功了，我们访问一下，在浏览器的地址栏输入虚拟机IP。&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://moelove.qiniudn.com/view.jpg" width="70%" /&gt;&lt;/p&gt;
+&lt;p&gt;好，这里遇到了我们的第一个问题， &lt;strong&gt;无法访问&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;apache服务已经打开，但是却无法访问
+这里很可能是&lt;strong&gt;iptables&lt;/strong&gt;的防御规则导致的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;执行&lt;code&gt;iptables –L&lt;/code&gt;查看所有的iptables的规则。&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://moelove.qiniudn.com/lampiptables.jpg" width="70%" /&gt;&lt;/p&gt;
+&lt;p&gt;关于iptables的知识可以自行了解或者关注后续讲解
+我们执行 &lt;code&gt;sudo iptables –F&lt;/code&gt; 清除所有规则&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://moelove.qiniudn.com/lampcleariptables.jpg" width="70%" /&gt;&lt;/p&gt;
+&lt;p&gt;接下来在浏览器输入虚拟机地址 ，我们看到如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://moelove.qiniudn.com/lampsuccess.jpg" width="70%" /&gt;&lt;/p&gt;
+&lt;p&gt;我们已经访问成功了！&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;s&gt;当然在这里的时候也许还有人是访问不了的，&lt;/s&gt;可能是因为CentOS自带的&lt;strong&gt;SElinux&lt;/strong&gt;机制影响的&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;我们执行&lt;code&gt;getenforce&lt;/code&gt;命令来查看SElinux的状态，使用&lt;code&gt;sudo setenforce 0&lt;/code&gt;来改变SElinux为&lt;em&gt;permission&lt;/em&gt;状态。&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://moelove.qiniudn.com/lampSELinuxstatus.jpg" width="70%" /&gt;&lt;/p&gt;
+&lt;p&gt;都执行完成后，&lt;s&gt;应该&lt;/s&gt;就可以访问了。&lt;/p&gt;
+&lt;h4&gt;5.测试是否可以执行php代码&lt;/h4&gt;
+&lt;p&gt;执行 &lt;code&gt;vim /var/www/html/test.php&lt;/code&gt; 写入测试代码&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://moelove.qiniudn.com/lampphpinfo.jpg" width="70%" /&gt;&lt;/p&gt;
+&lt;p&gt;保存退出，用浏览器进行访问&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://moelove.qiniudn.com/lampviewstatus.jpg" width="70%" /&gt;&lt;/p&gt;
+&lt;p&gt;成功！&lt;/p&gt;
+&lt;p&gt;但是向后看，发现组成模块里面没有&lt;strong&gt;mysql&lt;/strong&gt;。说明现在还不支持mysql模块，因为我们少安装了一个东西 现在执行&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;yum&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;php&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;mysql&lt;/span&gt; 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;添加php和mysql的中间模块，重启apache服务:&lt;code&gt;sudo service httpd restart&lt;/code&gt; 再次访问，发现组成模块中有了mysql的信息，说明可以访问mysql的数据库了。&lt;/p&gt;
+&lt;p&gt;接下来执行&lt;code&gt;sudo service mysqld start&lt;/code&gt; 启动mysql服务。
+执行&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;mysql&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="n"&gt;root&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;访问mysql数据库&lt;/p&gt;
+&lt;p&gt;&lt;img src="http://moelove.qiniudn.com/lampmysqlstatus.jpg" width="70%" /&gt;&lt;/p&gt;
+&lt;p&gt;表示mysql数据库也正常，到此，&lt;strong&gt;LAMP环境初步建成&lt;/strong&gt;。&lt;/p&gt;
+&lt;h4&gt;6.设置服务的开机自动启动&lt;s&gt;（可以不做）&lt;/s&gt;&lt;/h4&gt;
+&lt;p&gt;使用&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;chkconfig&lt;/span&gt; &lt;span class="n"&gt;httpd&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; 
+&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;chkconfig&lt;/span&gt; &lt;span class="n"&gt;mysqld&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt; 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;7.LAMP环境的配置文件&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;Apache:&lt;/span&gt; &lt;span class="sr"&gt;/etc/&lt;/span&gt;&lt;span class="n"&gt;httpd&lt;/span&gt;&lt;span class="sr"&gt;/conf/&lt;/span&gt;&lt;span class="n"&gt;httpd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;
+&lt;span class="n"&gt;Php:&lt;/span&gt; &lt;span class="sr"&gt;/etc/&lt;/span&gt;&lt;span class="n"&gt;php&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ini&lt;/span&gt;
+&lt;span class="n"&gt;Mysql:&lt;/span&gt; &lt;span class="sr"&gt;/etc/m&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cnf&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;LAMP环境搭建小结&lt;/h3&gt;
+&lt;p&gt;通过以上过程，你就已经成功的搭建好了LAMP环境，剩下的配置就是修改你的配置文件，进而达到效果。类似启动类型，模块，超时，地址，状态之类的，都会在下篇文章中写出。
+使用&lt;em&gt;yum&lt;/em&gt;安装LAMP环境是最简单的，也是最方便的。不过生产环境都是用的源码包，因为源码包可以更加个性化的定义你需要的模块。&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://wenku.baidu.com/view/fd825c8551e79b8969022614.html"&gt;CentOS安装方法&lt;/a&gt;&lt;/p&gt;</summary><category term="Linux"></category><category term="LAMP"></category></entry></feed>

@@ -2,7 +2,7 @@
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8">
-    <title>MoeLove - Vim</title>
+    <title>MoeLove - LAMP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Welcom to MoeLove">
     <meta name="author" content="TaoBeier">
@@ -114,36 +114,33 @@
       <div class="row">
         <div class="span9" id="content">
         <div class="article">
-                <h1><a href="../../articles/2013/08/10/vim73-for-windows-pei-zhi/">Vim7.3 for Windows 配置</a></h1>
+                <h1><a href="../../articles/2013/08/07/lamphuan-jing-de-kuai-su-da-jian/">LAMP环境的快速搭建</a></h1>
                 <div class="well small"><footer class="post-info">
 <span class="label">Date</span>
-<abbr class="published" title="2013-08-10T00:00:00">
-        <i class="icon-calendar"></i>六 10 八月 2013
+<abbr class="published" title="2013-08-07T00:00:00">
+        <i class="icon-calendar"></i>三 07 八月 2013
 </abbr>
 <span class="label">By</span>
 <a href="../../author/taobeier.html"><i class="icon-user"></i>TaoBeier</a>
 <span class="label">分类</span>
-<a href="../../category/life"><i class="icon-folder-open"></i>Life</a>.
+<a href="../../category/linux"><i class="icon-folder-open"></i>Linux</a>.
 
 
 <span class="label">Tags</span>
-	<a href="../../tag/vim/"><i class="icon-tag"></i>Vim</a>
+	<a href="../../tag/linux/"><i class="icon-tag"></i>Linux</a>
+	<a href="../../tag/lamp/"><i class="icon-tag"></i>LAMP</a>
 </footer><!-- /.post-info --></div>
                 <div class="summary"><blockquote>
-<p>一直是在Linux下用Vim，但是有些时候在别人电脑或者机房又不得不用windows来写代码，所以也就下载了vim for windows。但是今天打开一个朋友写的网页的时候，出现了乱码的问题，所以把解决方法记录一下，也就是和在linux下面一样，修改配置文件就可以了。接下来进入正题。</p>
+<p>这是我在我的<a href="http://tieba.baidu.com/f?kw=centos">centos 吧</a>专门写的教程帖，目的也就是为了让新手可以更快的搭建起来环境，而不是一直在门外徘徊。所以就搬过来了，时间神马的就按照<a href="http://tieba.baidu.com/p/2514694347">原帖</a>来吧。</p>
 </blockquote>
-<h3>选项意义概述</h3>
-<p>Vim有四个跟字符编码方式有关的选项，分别是:<code>encoding</code>、<code>fileencoding</code>、<code>fileencodings</code>、<code>termencoding</code> (这些选项可能的取值可以参考 Vim 的帮助 :<em>help encoding-names</em>)，它们各自的意义:</p>
-<ul>
-<li>
-<p><strong>encoding</strong>: Vim 内部使用的字符编码方式，包括Vim的buffer(缓冲区)、菜单文本、消息文本等。用户手册上建议只在<em>.vimrc</em>中改变它的值，事实上似乎也只有在<em>.vimrc</em> 中改变它的值才有意义。</p>
-</li>
-<li>
-<p><strong>fileencoding</strong>: Vim 中当前编辑的文件的字符编码方式，Vim 保存文件时也会将文件保存为这种字符编码方式 (不管是否新文件都如此)。 </p>
-</li>
-<li>
-<p><strong>fileencodings</strong>: Vim 启动时会按照它所列出的字符编码方式逐一探测即将打开的文件的字符编码方式，并且将 fileencoding 设置为最终探测到的字符编码方式。因此最好将 ...</p></li></ul>
-                        <a class="btn primary xsmall" href="../../articles/2013/08/10/vim73-for-windows-pei-zhi/">more ...</a>
+<h3>写在前面</h3>
+<p>本篇文章是面向linux新手，文中采用环境是<em>Win7+V-BOX</em>，配置过程用putty进行操作（个人习惯而已），linux系统使用CentOS6.3版本。CentOS的安装方法及虚拟机中网络配置请参阅centos吧精品帖<a href="http://tieba.baidu.com/p/2068921476">【教程】最全centos 安装方法及内容详解</a>。为了尽量一次性可以让读者完成LAMP环境的搭建，本次安装过程都采用<code>yum</code>包管理机制进行安装。当然生产环境下一般都是采用源码编译的。在近期我也会再出连载文，使用源码包进行LAMP环境的搭建，欢迎关注。如果有任何意见或者建议都可以到centos吧发帖询问。
+Ps:本文LAMP = Linux + Apache + Mysql + PHP</p>
+<h3>安装过程（先确保你的系统网络正常或者搭建好了本地源）</h3>
+<h4>1. 首先安装Apache，使用命令：</h4>
+<p><code>sudo yum install httpd –y</code></p>
+<h4>2. 然后安装Mysql ...</h4>
+                        <a class="btn primary xsmall" href="../../articles/2013/08/07/lamphuan-jing-de-kuai-su-da-jian/">more ...</a>
                 </div>
         </div>
         <hr />

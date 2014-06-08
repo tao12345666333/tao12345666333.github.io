@@ -2,7 +2,7 @@
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8">
-    <title>Hello World !</title>
+    <title>LAMP环境的快速搭建</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Welcom to MoeLove">
     <meta name="author" content="TaoBeier">
@@ -83,7 +83,7 @@
 						<i class="icon-folder-open icon-large"></i>Life
 					</a>
                   </li>
-                  <li >
+                  <li class="active">
                     <a href="../../../../../category/linux">
 						<i class="icon-folder-open icon-large"></i>Linux
 					</a>
@@ -93,7 +93,7 @@
 						<i class="icon-folder-open icon-large"></i>Python
 					</a>
                   </li>
-                  <li class="active">
+                  <li >
                     <a href="../../../../../category/web">
 						<i class="icon-folder-open icon-large"></i>Web
 					</a>
@@ -119,8 +119,8 @@
                         <h1>
                                 <a href=""
                                         rel="bookmark"
-                                        title="Permalink to Hello World !">
-                                        Hello World !
+                                        title="Permalink to LAMP环境的快速搭建">
+                                        LAMP环境的快速搭建
                                 </a>
                         </h1>
                 </header>
@@ -128,50 +128,99 @@
                 <div class="well">
 <footer class="post-info">
 <span class="label">Date</span>
-<abbr class="published" title="2014-04-18T00:00:00">
-        <i class="icon-calendar"></i>五 18 四月 2014
+<abbr class="published" title="2013-08-07T00:00:00">
+        <i class="icon-calendar"></i>三 07 八月 2013
 </abbr>
 <span class="label">By</span>
 <a href="../../../../../author/taobeier.html"><i class="icon-user"></i>TaoBeier</a>
 <span class="label">分类</span>
-<a href="../../../../../category/web"><i class="icon-folder-open"></i>Web</a>.
+<a href="../../../../../category/linux"><i class="icon-folder-open"></i>Linux</a>.
 
 
 <span class="label">Tags</span>
-	<a href="../../../../../tag/pelican/"><i class="icon-tag"></i>Pelican</a>
-	<a href="../../../../../tag/blog/"><i class="icon-tag"></i>Blog</a>
+	<a href="../../../../../tag/linux/"><i class="icon-tag"></i>Linux</a>
+	<a href="../../../../../tag/lamp/"><i class="icon-tag"></i>LAMP</a>
 </footer><!-- /.post-info -->                </div>
-                <hr />
-<blockquote>
-<p>几乎所有的程序猿的第一个演示程序都是Hello World .那我也就一样咯， 也写一个同样的吧。
-其实我的博客从很早前就已经开始在写了， 换了很多的平台：</p>
+                <blockquote>
+<p>这是我在我的<a href="http://tieba.baidu.com/f?kw=centos">centos 吧</a>专门写的教程帖，目的也就是为了让新手可以更快的搭建起来环境，而不是一直在门外徘徊。所以就搬过来了，时间神马的就按照<a href="http://tieba.baidu.com/p/2514694347">原帖</a>来吧。</p>
 </blockquote>
-<div class="highlight"><pre><span class="err">从腾讯空间</span><span class="o">--&gt;</span> <span class="err">百度空间</span><span class="o">--&gt;</span> <span class="err">新浪博客</span><span class="o">--&gt;</span> <span class="err">自己搭建的</span><span class="n">Wordpress</span><span class="err">博客</span><span class="o">--&gt;</span> <span class="err">点点（点点我其实是用来碎碎念的）</span>
-<span class="o">--&gt;</span> <span class="err">博客园（个人感觉体验不是很好的说）</span><span class="o">--&gt;</span> <span class="err">静态博客</span>
+<h3>写在前面</h3>
+<p>本篇文章是面向linux新手，文中采用环境是<em>Win7+V-BOX</em>，配置过程用putty进行操作（个人习惯而已），linux系统使用CentOS6.3版本。CentOS的安装方法及虚拟机中网络配置请参阅centos吧精品帖<a href="http://tieba.baidu.com/p/2068921476">【教程】最全centos 安装方法及内容详解</a>。为了尽量一次性可以让读者完成LAMP环境的搭建，本次安装过程都采用<code>yum</code>包管理机制进行安装。当然生产环境下一般都是采用源码编译的。在近期我也会再出连载文，使用源码包进行LAMP环境的搭建，欢迎关注。如果有任何意见或者建议都可以到centos吧发帖询问。
+Ps:本文LAMP = Linux + Apache + Mysql + PHP</p>
+<h3>安装过程（先确保你的系统网络正常或者搭建好了本地源）</h3>
+<h4>1. 首先安装Apache，使用命令：</h4>
+<p><code>sudo yum install httpd –y</code></p>
+<h4>2. 然后安装Mysql，使用命令</h4>
+<p><code>sudo yum install mysql mysql-server –y</code></p>
+<h4>3. 再安装php ，使用命令</h4>
+<p><code>sudo yum install php –y</code></p>
+<h4>4. 安装完毕之后启动apache. 使用</h4>
+<p><code>sudo service httpd start</code></p>
+<p><img src="http://moelove.qiniudn.com/serverstart.jpg" width="70%" /></p>
+<p>启动成功了，我们访问一下，在浏览器的地址栏输入虚拟机IP。</p>
+<p><img src="http://moelove.qiniudn.com/view.jpg" width="70%" /></p>
+<p>好，这里遇到了我们的第一个问题， <strong>无法访问</strong></p>
+<blockquote>
+<ul>
+<li>apache服务已经打开，但是却无法访问
+这里很可能是<strong>iptables</strong>的防御规则导致的。</li>
+</ul>
+</blockquote>
+<p>执行<code>iptables –L</code>查看所有的iptables的规则。</p>
+<p><img src="http://moelove.qiniudn.com/lampiptables.jpg" width="70%" /></p>
+<p>关于iptables的知识可以自行了解或者关注后续讲解
+我们执行 <code>sudo iptables –F</code> 清除所有规则</p>
+<p><img src="http://moelove.qiniudn.com/lampcleariptables.jpg" width="70%" /></p>
+<p>接下来在浏览器输入虚拟机地址 ，我们看到如下：</p>
+<p><img src="http://moelove.qiniudn.com/lampsuccess.jpg" width="70%" /></p>
+<p>我们已经访问成功了！</p>
+<blockquote>
+<ul>
+<li><s>当然在这里的时候也许还有人是访问不了的，</s>可能是因为CentOS自带的<strong>SElinux</strong>机制影响的</li>
+</ul>
+</blockquote>
+<p>我们执行<code>getenforce</code>命令来查看SElinux的状态，使用<code>sudo setenforce 0</code>来改变SElinux为<em>permission</em>状态。</p>
+<p><img src="http://moelove.qiniudn.com/lampSELinuxstatus.jpg" width="70%" /></p>
+<p>都执行完成后，<s>应该</s>就可以访问了。</p>
+<h4>5.测试是否可以执行php代码</h4>
+<p>执行 <code>vim /var/www/html/test.php</code> 写入测试代码</p>
+<p><img src="http://moelove.qiniudn.com/lampphpinfo.jpg" width="70%" /></p>
+<p>保存退出，用浏览器进行访问</p>
+<p><img src="http://moelove.qiniudn.com/lampviewstatus.jpg" width="70%" /></p>
+<p>成功！</p>
+<p>但是向后看，发现组成模块里面没有<strong>mysql</strong>。说明现在还不支持mysql模块，因为我们少安装了一个东西 现在执行</p>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">php</span><span class="o">-</span><span class="n">mysql</span> 
 </pre></div>
 
 
-<p>选择了这么多，我最后决定还是使用 <strong>静态博客</strong> 来做个人博客。</p>
-<blockquote>
-<p>原因有以下几个：</p>
-</blockquote>
-<ol>
-<li>使用其他平台提供的博客不是很爽， 可个性化的方面不是很多， 点点相对来说做的还是很不错的
-不仅提供个性化定制而且还支持绑定个人域名之类的。但是其他网站就不是那么人性化了。</li>
-<li>写博客总是需要贴代码的，但是除了WP外，其他的我不是很满意。</li>
-<li>用静态博客方便备份，而且是本地编辑就可以了，在线编辑的，感觉会被束缚很多。</li>
-<li>本人属于折腾党，喜欢可以个人定制的， 直到符合个人满意的程度为止。</li>
-</ol>
-<blockquote>
-<p>接下来说说这次博客的安装：</p>
-</blockquote>
-<ol>
-<li>选择<strong>Pelica</strong>是因为我对Python 比较熟悉，之前尝试过用Jekyll 和 Octopress 搭建，都比较方便
-尤其是Jekyll 用户很多，文档什么的都很多了。只不过我更喜欢Python 多一些（虽然我有用ROR开发过WEB应用程序）
-因为如果有什么需要的话，我也可以自己来开发插件或者自己再尝试做一个系统。</li>
-<li>Pelican 相对来说配置也很方便， 很简单， 虽然用户不是很多，但是基本上的问题也都可以解决的</li>
-<li><a href="https://github.com/getpelican/pelican">Pelican</a> 支持restructuredText和Markdown写文章，配置灵活，扩展性强。我用的是3.3.0。</li>
-</ol>
+<p>添加php和mysql的中间模块，重启apache服务:<code>sudo service httpd restart</code> 再次访问，发现组成模块中有了mysql的信息，说明可以访问mysql的数据库了。</p>
+<p>接下来执行<code>sudo service mysqld start</code> 启动mysql服务。
+执行</p>
+<div class="highlight"><pre><span class="n">mysql</span> <span class="o">-</span><span class="n">u</span> <span class="n">root</span> <span class="o">-</span><span class="n">p</span> 
+</pre></div>
+
+
+<p>访问mysql数据库</p>
+<p><img src="http://moelove.qiniudn.com/lampmysqlstatus.jpg" width="70%" /></p>
+<p>表示mysql数据库也正常，到此，<strong>LAMP环境初步建成</strong>。</p>
+<h4>6.设置服务的开机自动启动<s>（可以不做）</s></h4>
+<p>使用</p>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">chkconfig</span> <span class="n">httpd</span> <span class="n">on</span> 
+<span class="n">sudo</span> <span class="n">chkconfig</span> <span class="n">mysqld</span> <span class="n">on</span> 
+</pre></div>
+
+
+<h4>7.LAMP环境的配置文件</h4>
+<div class="highlight"><pre><span class="n">Apache:</span> <span class="sr">/etc/</span><span class="n">httpd</span><span class="sr">/conf/</span><span class="n">httpd</span><span class="o">.</span><span class="n">conf</span>
+<span class="n">Php:</span> <span class="sr">/etc/</span><span class="n">php</span><span class="o">.</span><span class="n">ini</span>
+<span class="n">Mysql:</span> <span class="sr">/etc/m</span><span class="n">y</span><span class="o">.</span><span class="n">cnf</span>
+</pre></div>
+
+
+<h3>LAMP环境搭建小结</h3>
+<p>通过以上过程，你就已经成功的搭建好了LAMP环境，剩下的配置就是修改你的配置文件，进而达到效果。类似启动类型，模块，超时，地址，状态之类的，都会在下篇文章中写出。
+使用<em>yum</em>安装LAMP环境是最简单的，也是最方便的。不过生产环境都是用的源码包，因为源码包可以更加个性化的定义你需要的模块。</p>
+<p><a href="http://wenku.baidu.com/view/fd825c8551e79b8969022614.html">CentOS安装方法</a></p>
                 </div><!-- /.entry-content -->
           
 
@@ -191,15 +240,9 @@
 
         <ul>
              <li>
-                上一篇文章
+                下一篇文章
                  <a href="../../../../../articles/2013/08/10/vim73-for-windows-pei-zhi/">
                      Vim7.3 for Windows 配置
-                 </a>
-             </li>
-             <li>
-                下一篇文章
-                 <a href="../../../../../articles/2014/05/07/shi-yong-pelicanda-jian-blog/">
-                     使用Pelican搭建Blog
                  </a>
              </li>
         </ul>

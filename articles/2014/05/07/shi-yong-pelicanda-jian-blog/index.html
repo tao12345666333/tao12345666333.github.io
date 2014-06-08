@@ -84,6 +84,11 @@
 					</a>
                   </li>
                   <li >
+                    <a href="../../../../../category/linux">
+						<i class="icon-folder-open icon-large"></i>Linux
+					</a>
+                  </li>
+                  <li >
                     <a href="../../../../../category/python">
 						<i class="icon-folder-open icon-large"></i>Python
 					</a>
@@ -140,8 +145,8 @@
                 <h2>安装配置Pelican</h2>
 <hr />
 <h5>使用环境：</h5>
-<div class="highlight"><pre>    <span class="err">系统</span> <span class="err">：</span> <span class="n">Linux</span> <span class="n">X86_64</span>
-    <span class="n">Pelican</span> <span class="err">：</span><span class="mf">3.3.0</span>
+<div class="highlight"><pre>    <span class="err">系统</span>  <span class="p">:</span>  <span class="n">Linux</span> <span class="n">X86_64</span>
+    <span class="n">Pelican</span> <span class="p">:</span> <span class="mf">3.3.0</span>
 </pre></div>
 
 
@@ -176,15 +181,15 @@
 
 
 <p>按照提示一步步即可完成新建， 这些配置之后可以在<code>pelicanconf.py</code>这个文件中修改</p>
-<div class="highlight"><pre>    <span class="n">Where</span> <span class="k">do</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="n">create</span> <span class="n">your</span> <span class="k">new</span> <span class="n">web</span> <span class="n">site</span><span class="p">?</span> <span class="p">[</span><span class="o">.</span><span class="p">]</span><span class="err">（你想在哪里创建你的网站，默认为当前目录）</span>
-    <span class="n">What</span> <span class="n">will</span> <span class="n">be</span> <span class="n">the</span> <span class="n">title</span> <span class="n">of</span> <span class="n">this</span> <span class="n">web</span> <span class="n">site</span><span class="p">?</span><span class="err">（网站的标题是什么）</span>
-    <span class="n">Who</span> <span class="n">will</span> <span class="n">be</span> <span class="n">the</span> <span class="n">author</span> <span class="n">of</span> <span class="n">this</span> <span class="n">web</span> <span class="n">site</span><span class="p">?</span><span class="err">（网站的作者是谁）</span>
-    <span class="n">What</span> <span class="n">will</span> <span class="n">be</span> <span class="n">the</span> <span class="n">default</span> <span class="n">language</span> <span class="n">of</span> <span class="n">this</span> <span class="n">web</span> <span class="n">site</span><span class="p">?</span> <span class="p">[</span><span class="n">en</span><span class="p">]</span><span class="err">（网站的默认语言是），这里我们写‘</span><span class="n">zh</span><span class="err">’</span> <span class="err">中文</span>
-    <span class="n">Do</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="n">specify</span> <span class="n">a</span> <span class="n">URL</span> <span class="n">prefix</span><span class="p">?</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="p">,</span> <span class="n">http:</span><span class="sr">//</span><span class="n">example</span><span class="o">.</span><span class="n">com</span> <span class="p">(</span><span class="n">Y</span><span class="o">/</span><span class="n">n</span><span class="p">)</span> <span class="err">（是否指定域名），</span><span class="n">Y</span>
-    <span class="n">What</span> <span class="n">is</span> <span class="n">your</span> <span class="n">URL</span> <span class="n">prefix</span><span class="p">?</span> <span class="p">(</span><span class="n">see</span> <span class="n">above</span> <span class="n">example</span><span class="p">;</span> <span class="nb">no</span> <span class="n">trailing</span> <span class="n">slash</span><span class="p">)</span> <span class="err">（输入域名，不能包含反斜杠‘</span><span class="sr">/’），http:/</span><span class="o">/</span><span class="n">moelove</span><span class="o">.</span><span class="n">info</span>
-    <span class="n">Do</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="n">enable</span> <span class="n">article</span> <span class="n">pagination</span><span class="p">?</span><span class="err">（是否启用文章分页）</span>
-    <span class="n">Do</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="n">generate</span> <span class="n">a</span> <span class="n">Makefile</span> <span class="n">to</span> <span class="n">easily</span> <span class="n">manage</span> <span class="n">your</span> <span class="n">website</span><span class="p">?</span><span class="err">（是否生成一个</span><span class="n">Makefile</span><span class="err">来管理网站</span> <span class="p">(</span><span class="err">这里我建议生成，因为会比较方便的</span><span class="p">)</span><span class="err">）</span>
-    <span class="n">Do</span> <span class="n">you</span> <span class="n">want</span> <span class="n">an</span> <span class="n">auto</span><span class="o">-</span><span class="n">reload</span> <span class="o">&amp;</span> <span class="n">simpleHTTP</span> <span class="n">script</span> <span class="n">to</span> <span class="n">assist</span> <span class="n">with</span> <span class="n">theme</span> <span class="ow">and</span> <span class="n">site</span> <span class="n">development</span><span class="p">?</span><span class="err">（是否想有一个自动加载的小型</span><span class="n">http</span><span class="err">脚本用来修改主题和站点开发）</span>
+<div class="highlight"><pre>    <span class="n">Where</span> <span class="k">do</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="n">create</span> <span class="n">your</span> <span class="k">new</span> <span class="n">web</span> <span class="n">site</span><span class="p">?[</span><span class="o">.</span><span class="p">]</span>  <span class="p">(</span><span class="err">你想在哪里创建你的网站，默认为当前目录</span><span class="p">)</span>
+    <span class="n">What</span> <span class="n">will</span> <span class="n">be</span> <span class="n">the</span> <span class="n">title</span> <span class="n">of</span> <span class="n">this</span> <span class="n">web</span> <span class="n">site</span><span class="p">?(</span><span class="err">网站的标题是什么</span><span class="p">)</span>
+    <span class="n">Who</span> <span class="n">will</span> <span class="n">be</span> <span class="n">the</span> <span class="n">author</span> <span class="n">of</span> <span class="n">this</span> <span class="n">web</span> <span class="n">site</span><span class="p">?(</span><span class="err">网站的作者是谁</span><span class="p">)</span>
+    <span class="n">What</span> <span class="n">will</span> <span class="n">be</span> <span class="n">the</span> <span class="n">default</span> <span class="n">language</span> <span class="n">of</span> <span class="n">this</span> <span class="n">web</span> <span class="n">site</span><span class="p">?</span> <span class="p">[</span><span class="n">en</span><span class="p">]</span>   <span class="p">(</span><span class="err">网站的默认语言是</span><span class="p">),</span><span class="err">这里我们写</span><span class="s">&#39;zh&#39;</span><span class="err">中文</span>
+    <span class="n">Do</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="n">specify</span> <span class="n">a</span> <span class="n">URL</span> <span class="n">prefix</span><span class="p">?</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="p">,</span> <span class="n">http:</span><span class="sr">//</span><span class="n">example</span><span class="o">.</span><span class="n">com</span><span class="p">(</span><span class="n">Y</span><span class="o">/</span><span class="n">n</span><span class="p">)</span> <span class="p">(</span><span class="err">是否指定域名</span><span class="p">),</span><span class="n">Y</span>
+    <span class="n">What</span> <span class="n">is</span> <span class="n">your</span> <span class="n">URL</span> <span class="n">prefix</span><span class="p">?(</span><span class="n">see</span> <span class="n">above</span> <span class="n">example</span><span class="p">;</span> <span class="nb">no</span> <span class="n">trailing</span> <span class="n">slash</span><span class="p">)(</span><span class="err">输入域名，不能包含反斜杠</span><span class="s">&#39;/&#39;</span><span class="p">),</span><span class="n">http:</span><span class="sr">//mo</span><span class="n">elove</span><span class="o">.</span><span class="n">info</span>
+    <span class="n">Do</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="n">enable</span> <span class="n">article</span> <span class="n">pagination</span><span class="p">?(</span><span class="err">是否启用文章分页</span><span class="p">)</span>
+    <span class="n">Do</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="n">generate</span> <span class="n">a</span> <span class="n">Makefile</span> <span class="n">to</span> <span class="n">easily</span> <span class="n">manage</span> <span class="n">your</span> <span class="n">website</span><span class="p">?(</span><span class="err">是否生成一个</span><span class="n">Makefile</span><span class="err">来管理网站</span><span class="p">(</span><span class="err">这里我建议生成，因为会比较方便的</span><span class="p">))</span>
+    <span class="n">Do</span> <span class="n">you</span> <span class="n">want</span> <span class="n">an</span> <span class="n">auto</span><span class="o">-</span><span class="n">reload</span> <span class="o">&amp;</span> <span class="n">simpleHTTP</span> <span class="n">script</span> <span class="n">to</span> <span class="n">assist</span> <span class="n">with</span> <span class="n">theme</span> <span class="ow">and</span> <span class="n">site</span> <span class="n">development</span><span class="p">?(</span><span class="err">是否想有一个自动加载的小型</span><span class="n">http</span><span class="err">脚本用来修改主题和站点开发</span><span class="p">)</span>
     <span class="n">Do</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="n">upload</span> <span class="n">your</span> <span class="n">website</span> <span class="n">using</span> <span class="n">FTP</span><span class="p">?</span>
     <span class="n">Do</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="n">upload</span> <span class="n">your</span> <span class="n">website</span> <span class="n">using</span> <span class="n">SSH</span><span class="p">?</span>
     <span class="n">Do</span> <span class="n">you</span> <span class="n">want</span> <span class="n">to</span> <span class="n">upload</span> <span class="n">your</span> <span class="n">website</span> <span class="n">using</span> <span class="n">Dropbox</span><span class="p">?</span>
@@ -356,6 +361,11 @@ var duoshuoQuery = {short_name:&quot;替换成你自己的&quot;};
 </a>
 </li>
 <li>
+<a href="../../../../../category/linux">
+    <i class="icon-folder-open icon-large"></i>Linux
+</a>
+</li>
+<li>
 <a href="../../../../../category/python">
     <i class="icon-folder-open icon-large"></i>Python
 </a>
@@ -372,6 +382,21 @@ var duoshuoQuery = {short_name:&quot;替换成你自己的&quot;};
         <i class="icon-tag icon-large"></i>web
     </a>
 </li>
+<li class="tag-4">
+    <a href="../../../../../tag/upyun/">
+        <i class="icon-tag icon-large"></i>upyun
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../../../../../tag/vim/">
+        <i class="icon-tag icon-large"></i>Vim
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../../../../../tag/linux/">
+        <i class="icon-tag icon-large"></i>Linux
+    </a>
+</li>
 <li class="tag-1">
     <a href="../../../../../tag/pelican/">
         <i class="icon-tag icon-large"></i>pelican
@@ -383,13 +408,8 @@ var duoshuoQuery = {short_name:&quot;替换成你自己的&quot;};
     </a>
 </li>
 <li class="tag-4">
-    <a href="../../../../../tag/vim/">
-        <i class="icon-tag icon-large"></i>Vim
-    </a>
-</li>
-<li class="tag-4">
-    <a href="../../../../../tag/upyun/">
-        <i class="icon-tag icon-large"></i>upyun
+    <a href="../../../../../tag/lamp/">
+        <i class="icon-tag icon-large"></i>LAMP
     </a>
 </li>
 
