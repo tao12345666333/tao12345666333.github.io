@@ -5,42 +5,42 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/index.html</loc>
-<lastmod>2014-05-28T19:55:54-00:00</lastmod>
+<lastmod>2014-06-08T16:01:26-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/archives.html</loc>
-<lastmod>2014-05-28T19:55:54-00:00</lastmod>
+<lastmod>2014-06-08T16:01:26-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/tags.html</loc>
-<lastmod>2014-05-28T19:55:54-00:00</lastmod>
+<lastmod>2014-06-08T16:01:26-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/categories.html</loc>
-<lastmod>2014-05-28T19:55:54-00:00</lastmod>
+<lastmod>2014-06-08T16:01:26-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/pages/cha-shui-biao.html</loc>
-<lastmod>2014-05-28T19:55:54-00:00</lastmod>
+<lastmod>2014-06-08T16:01:26-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/pages/qiu-tu-cao.html</loc>
-<lastmod>2014-05-28T19:55:54-00:00</lastmod>
+<lastmod>2014-06-08T16:01:26-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
@@ -63,6 +63,20 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <loc>/articles/2014/04/18/hello-world/</loc>
 <lastmod>2014-04-18T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>/articles/2013/08/10/vim73-for-windows-pei-zhi/</loc>
+<lastmod>2013-08-10T00:00:00-00:00</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>/category/life</loc>
+<lastmod>2013-08-10T00:00:00-00:00</lastmod>
+<changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
@@ -90,6 +104,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>/tag/pelican/</loc>
 <lastmod>2014-05-16T00:00:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>/tag/vim/</loc>
+<lastmod>2013-08-10T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>

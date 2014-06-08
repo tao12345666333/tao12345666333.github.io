@@ -6,10 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Welcom to MoeLove">
     <meta name="author" content="TaoBeier">
-
     <script type="text/javascript" src="https://api.hitokoto.us:214/rand?encode=js&charset=utf-8&length=26"></script>
 
-    <!-- Le styles -->
     <link rel="stylesheet" href="./theme/css/bootstrap.min.css" type="text/css" />
     <style type="text/css">
       body {
@@ -81,6 +79,11 @@
                 <li><a href="./pages/qiu-tu-cao.html">求吐槽</a></li>
                           <li class="divider-vertical"></li>
                   <li >
+                    <a href="./category/life">
+						<i class="icon-folder-open icon-large"></i>Life
+					</a>
+                  </li>
+                  <li >
                     <a href="./category/python">
 						<i class="icon-folder-open icon-large"></i>Python
 					</a>
@@ -115,25 +118,15 @@
 	<dd><a href='articles/2014/05/07/shi-yong-pelicanda-jian-blog/'>使用Pelican搭建Blog</a></dd>
 	<dt>五 18 四月 2014</dt>
 	<dd><a href='articles/2014/04/18/hello-world/'>Hello World !</a></dd>
+	<dt>六 10 八月 2013</dt>
+	<dd><a href='articles/2013/08/10/vim73-for-windows-pei-zhi/'>Vim7.3 for Windows 配置</a></dd>
 </dl>
 </section>
         </div><!--/span-->
 
         <div class="span3 well sidebar-nav" id="sidebar">
 <ul class="nav nav-list">
-<li class="nav-header"><h4><i class="icon-search"></i>Google Search</h4></li>
-<div id="cse" style="width: 100%;">Loading</div>
-<script src="http://www.google.com/jsapi" type="text/javascript"></script>
-<script type="text/javascript">
-  google.load('search', '1');
-  google.setOnLoadCallback(function() {
-    var customSearchOptions = {};  var customSearchControl = new google.search.CustomSearchControl(
-      '014606742175594068852:k8gbhhgnvti', customSearchOptions);
-    customSearchControl.setResultSetSize(google.search.Search.SMALL_RESULTSET);
-    customSearchControl.draw('cse');
-  }, true);
-</script>
-<link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />
+
 <li class="nav-header"><h4><i class="icon-external-link"></i>blogroll</h4></li>
     <li><a href="http://python.org/"><i class="icon-external-link"></i>Python.org</a></li>
     <li><a href="http://www.v2ex.com/?r=taobeier"><i class="icon-external-link"></i>V2EX</a></li>
@@ -146,6 +139,11 @@
     <li><a href="https://github.com/tao12345666333"><i class="icon-github-sign icon-large"></i>github</a></li>
 
 <li class="nav-header"><h4><i class="icon-folder-close icon-large"></i>Categories</h4></li>
+<li>
+<a href="./category/life">
+    <i class="icon-folder-open icon-large"></i>Life
+</a>
+</li>
 <li>
 <a href="./category/python">
     <i class="icon-folder-open icon-large"></i>Python
@@ -163,11 +161,6 @@
         <i class="icon-tag icon-large"></i>web
     </a>
 </li>
-<li class="tag-4">
-    <a href="./tag/upyun/">
-        <i class="icon-tag icon-large"></i>upyun
-    </a>
-</li>
 <li class="tag-1">
     <a href="./tag/pelican/">
         <i class="icon-tag icon-large"></i>pelican
@@ -178,8 +171,31 @@
         <i class="icon-tag icon-large"></i>blog
     </a>
 </li>
+<li class="tag-4">
+    <a href="./tag/vim/">
+        <i class="icon-tag icon-large"></i>Vim
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/upyun/">
+        <i class="icon-tag icon-large"></i>upyun
+    </a>
+</li>
 
 
+<li class="nav-header"><h4><i class="icon-search"></i>Google Search</h4></li>
+<div id="cse" style="width: 100%;">Loading</div>
+<script src="http://1.179.248.17/jsapi" type="text/javascript"></script>
+<script type="text/javascript">
+  google.load('search', '1');
+  google.setOnLoadCallback(function() {
+    var customSearchOptions = {};  var customSearchControl = new google.search.CustomSearchControl(
+      '014606742175594068852:k8gbhhgnvti', customSearchOptions);
+    customSearchControl.setResultSetSize(google.search.Search.SMALL_RESULTSET);
+    customSearchControl.draw('cse');
+  }, true);
+</script>
+<link rel="stylesheet" href="./theme/css/default.css" type="text/css" />
 </ul>        </div><!--/.well -->
 
       </div><!--/row-->
