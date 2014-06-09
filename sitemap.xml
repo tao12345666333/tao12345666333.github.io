@@ -5,42 +5,42 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/index.html</loc>
-<lastmod>2014-06-08T21:20:39-00:00</lastmod>
+<lastmod>2014-06-09T12:36:18-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/archives.html</loc>
-<lastmod>2014-06-08T21:20:39-00:00</lastmod>
+<lastmod>2014-06-09T12:36:18-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/tags.html</loc>
-<lastmod>2014-06-08T21:20:39-00:00</lastmod>
+<lastmod>2014-06-09T12:36:18-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/categories.html</loc>
-<lastmod>2014-06-08T21:20:39-00:00</lastmod>
+<lastmod>2014-06-09T12:36:18-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/pages/cha-shui-biao.html</loc>
-<lastmod>2014-06-08T21:20:39-00:00</lastmod>
+<lastmod>2014-06-09T12:36:18-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/pages/qiu-tu-cao.html</loc>
-<lastmod>2014-06-08T21:20:39-00:00</lastmod>
+<lastmod>2014-06-09T12:36:18-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
@@ -67,6 +67,20 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>/articles/2013/09/21/ruby-on-rails-huan-jing/</loc>
+<lastmod>2013-09-21T00:00:00-00:00</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>/articles/2013/09/06/li-yong-bai-du-baeda-jian-discuzlun-tan/</loc>
+<lastmod>2013-09-06T00:00:00-00:00</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>/articles/2013/08/10/vim73-for-windows-pei-zhi/</loc>
 <lastmod>2013-08-10T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
@@ -82,7 +96,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/category/life</loc>
-<lastmod>2013-08-10T00:00:00-00:00</lastmod>
+<lastmod>2013-09-21T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -123,6 +137,20 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>/tag/upyun/</loc>
+<lastmod>2014-05-16T00:00:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>/tag/rails/</loc>
+<lastmod>2013-09-21T00:00:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>/tag/vim/</loc>
 <lastmod>2013-08-10T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
@@ -144,6 +172,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
+<loc>/tag/bae/</loc>
+<lastmod>2013-09-06T00:00:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>/tag/linux/</loc>
 <lastmod>2013-08-07T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
@@ -151,8 +186,8 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>/tag/upyun/</loc>
-<lastmod>2014-05-16T00:00:00-00:00</lastmod>
+<loc>/tag/ruby/</loc>
+<lastmod>2013-09-21T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>

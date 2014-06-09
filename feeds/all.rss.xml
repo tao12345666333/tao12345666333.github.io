@@ -244,7 +244,88 @@ var duoshuoQuery = {short_name:&amp;quot;替换成你自己的&amp;quot;};
 因为如果有什么需要的话，我也可以自己来开发插件或者自己再尝试做一个系统。&lt;/li&gt;
 &lt;li&gt;Pelican 相对来说配置也很方便， 很简单， 虽然用户不是很多，但是基本上的问题也都可以解决的&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://github.com/getpelican/pelican"&gt;Pelican&lt;/a&gt; 支持restructuredText和Markdown写文章，配置灵活，扩展性强。我用的是3.3.0。&lt;/li&gt;
-&lt;/ol&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">TaoBeier</dc:creator><pubDate>Fri, 18 Apr 2014 00:00:00 +0800</pubDate><guid>tag:,2014-04-18:articles/2014/04/18/hello-world/</guid><category>Pelican</category><category>Blog</category></item><item><title>Vim7.3 for Windows 配置</title><link>/articles/2013/08/10/vim73-for-windows-pei-zhi/</link><description>&lt;blockquote&gt;
+&lt;/ol&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">TaoBeier</dc:creator><pubDate>Fri, 18 Apr 2014 00:00:00 +0800</pubDate><guid>tag:,2014-04-18:articles/2014/04/18/hello-world/</guid><category>Pelican</category><category>Blog</category></item><item><title>Ruby on Rails 环境</title><link>/articles/2013/09/21/ruby-on-rails-huan-jing/</link><description>&lt;h4&gt;就这次的尝试写一下自己的记录&lt;/h4&gt;
+&lt;p&gt;安装ruby  和 ruby-devel(安装ruby-devel是因为后续的工作如果没有ruby-devel的话，会报错)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;yum&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;ruby&lt;/span&gt; &lt;span class="n"&gt;ruby&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;devel&lt;/span&gt; &lt;span class="n"&gt;rubygems&lt;/span&gt; &lt;span class="n"&gt;sqlite&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;需要的环境有了，那么就可以开始正式的工作了&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;rails&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;找到一个合适的目录来放自己的代码.然后执行&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;rails&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;mysite&lt;/span&gt;
+&lt;span class="sr"&gt;//&lt;/span&gt; &lt;span class="err"&gt;这个是建立一个叫&lt;/span&gt;&lt;span class="n"&gt;mysite&lt;/span&gt; &lt;span class="err"&gt;的&lt;/span&gt;&lt;span class="n"&gt;rails&lt;/span&gt;&lt;span class="err"&gt;程式&lt;/span&gt; &lt;span class="err"&gt;，在当前目录下面&lt;/span&gt;
+&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;mysite&lt;/span&gt;
+&lt;span class="sr"&gt;//&lt;/span&gt;&lt;span class="err"&gt;进入这个目录&lt;/span&gt;
+&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;bundle&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt;
+&lt;span class="sr"&gt;//&lt;/span&gt;&lt;span class="err"&gt;因为在做测试&lt;/span&gt; &lt;span class="err"&gt;所以&lt;/span&gt; &lt;span class="err"&gt;也没有必要安装其他的&lt;/span&gt;&lt;span class="n"&gt;gem&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;接下来看看它的数据库  配置文件是 &lt;code&gt;config/database.yml&lt;/code&gt;  默认的支持是是&lt;strong&gt;SQLite3&lt;/strong&gt;(当然也支持其他的比如mysql之类的)它有三种模式:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;development environment开发模式，用在你的开发的时候&lt;/li&gt;
+&lt;li&gt;test environment测试模式，用在自动测试时&lt;/li&gt;
+&lt;li&gt;production environment正式上线模式，用在实际的上线运作环境&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;SQLite配置大致是这样的:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;development:&lt;/span&gt;
+&lt;span class="err"&gt;adapter:&lt;/span&gt; &lt;span class="err"&gt;sqlite3&lt;/span&gt;
+&lt;span class="err"&gt;database:&lt;/span&gt; &lt;span class="err"&gt;db/development.sqlite3&lt;/span&gt;
+&lt;span class="err"&gt;pool:&lt;/span&gt; &lt;span class="err"&gt;5&lt;/span&gt;
+&lt;span class="err"&gt;timeout:&lt;/span&gt; &lt;span class="err"&gt;5000&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;接下来建立自己的数据库&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;rake&lt;/span&gt; &lt;span class="n"&gt;db:create&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;在这里我遇到一个错误&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;rake&lt;/span&gt; &lt;span class="n"&gt;aborted&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;
+&lt;span class="n"&gt;Could&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;find&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;JavaScript&lt;/span&gt; &lt;span class="n"&gt;runtime&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="n"&gt;See&lt;/span&gt; &lt;span class="n"&gt;https:&lt;/span&gt;&lt;span class="sr"&gt;//gi&lt;/span&gt;&lt;span class="n"&gt;thub&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="sr"&gt;/sstephenson/&lt;/span&gt;&lt;span class="n"&gt;execjs&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;list&lt;/span&gt; &lt;span class="n"&gt;of&lt;/span&gt; &lt;span class="n"&gt;available&lt;/span&gt; &lt;span class="n"&gt;runtimes&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; 
+
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;See&lt;/span&gt; &lt;span class="n"&gt;full&lt;/span&gt; &lt;span class="n"&gt;trace&lt;/span&gt; &lt;span class="n"&gt;by&lt;/span&gt; &lt;span class="n"&gt;running&lt;/span&gt; &lt;span class="n"&gt;task&lt;/span&gt; &lt;span class="n"&gt;with&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;trace&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;我的解决办法是&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;yum&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;nodejs&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;然后启动服务器&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;rails&lt;/span&gt; &lt;span class="n"&gt;server&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;要看结果就打开&lt;a href="http://localhost:3000"&gt;http://localhost:3000&lt;/a&gt;就会看见rails 的默认首页了&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">TaoBeier</dc:creator><pubDate>Sat, 21 Sep 2013 00:00:00 +0800</pubDate><guid>tag:,2013-09-21:articles/2013/09/21/ruby-on-rails-huan-jing/</guid><category>Ruby</category><category>Rails</category></item><item><title>利用百度BAE搭建discuz论坛</title><link>/articles/2013/09/06/li-yong-bai-du-baeda-jian-discuzlun-tan/</link><description>&lt;p&gt;最近尝试了利用百度云应用管理&lt;em&gt;BAE&lt;/em&gt;搭建discuz论坛， 这里做简要记录&lt;/p&gt;
+&lt;h3&gt;创建应用&lt;/h3&gt;
+&lt;p&gt;在 &lt;a href="http://developer.baidu.com/"&gt;百度开发者中心&lt;/a&gt; 创建一个应用，选择WEB应用下的PC &lt;strong&gt;Iframe应用&lt;/strong&gt;&lt;/p&gt;
+&lt;h3&gt;托管设置&lt;/h3&gt;
+&lt;p&gt;之后进行托管设置， 确定域名XXX.duapp.com&lt;/p&gt;
+&lt;p&gt;创建一个版本，并上传PHP代码包&lt;/p&gt;
+&lt;p&gt;(BAE有些函数规则发生改变，所以需要使用为BAE环境做过调整的&lt;a href="http://pan.baidu.com/s/1hqsYVre"&gt;discuz for BAE&lt;/a&gt; 版本)&lt;/p&gt;
+&lt;p&gt;需要注意的是在上传的代码包里面的 &lt;em&gt;bcs/config.php&lt;/em&gt; 中的内容应该修改为&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;&amp;lt;?php&lt;/span&gt;
+
+&lt;span class="nb"&gt;define&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;BAIDU_BCS_BUCKET&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;创建的bucket名称&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nb"&gt;define&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;BAIDU_BCS_AK&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;getenv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;HTTP_BAE_ENV_AK&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="nb"&gt;define&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;BAIDU_BCS_SK&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;getenv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;HTTP_BAE_ENV_SK&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+
+&lt;span class="cp"&gt;?&amp;gt;&lt;/span&gt;&lt;span class="x"&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;同时在数据库中设置为UTF-8,&lt;/p&gt;
+&lt;p&gt;注意开启缓存 cache 最少30M(亲测50M完全是OK的)&lt;/p&gt;
+&lt;h3&gt;安装&lt;/h3&gt;
+&lt;p&gt;之后上线应用，访问&lt;a href="http://你的域名.duapp.com/install/index.php"&gt;http://你的域名.duapp.com/install/index.php&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;即可完成安装(需要用到创建的数据库名称)&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">TaoBeier</dc:creator><pubDate>Fri, 06 Sep 2013 00:00:00 +0800</pubDate><guid>tag:,2013-09-06:articles/2013/09/06/li-yong-bai-du-baeda-jian-discuzlun-tan/</guid><category>BAE</category></item><item><title>Vim7.3 for Windows 配置</title><link>/articles/2013/08/10/vim73-for-windows-pei-zhi/</link><description>&lt;blockquote&gt;
 &lt;p&gt;一直是在Linux下用Vim，但是有些时候在别人电脑或者机房又不得不用windows来写代码，所以也就下载了vim for windows。但是今天打开一个朋友写的网页的时候，出现了乱码的问题，所以把解决方法记录一下，也就是和在linux下面一样，修改配置文件就可以了。接下来进入正题。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h3&gt;选项意义概述&lt;/h3&gt;

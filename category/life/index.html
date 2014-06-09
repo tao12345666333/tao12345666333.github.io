@@ -114,6 +114,91 @@
       <div class="row">
         <div class="span9" id="content">
         <div class="article">
+                <h1><a href="../../articles/2013/09/21/ruby-on-rails-huan-jing/">Ruby on Rails 环境</a></h1>
+                <div class="well small"><footer class="post-info">
+<span class="label">Date</span>
+<abbr class="published" title="2013-09-21T00:00:00">
+        <i class="icon-calendar"></i>六 21 九月 2013
+</abbr>
+<span class="label">By</span>
+<a href="../../author/taobeier.html"><i class="icon-user"></i>TaoBeier</a>
+<span class="label">分类</span>
+<a href="../../category/life"><i class="icon-folder-open"></i>Life</a>.
+
+
+<span class="label">Tags</span>
+	<a href="../../tag/ruby/"><i class="icon-tag"></i>Ruby</a>
+	<a href="../../tag/rails/"><i class="icon-tag"></i>Rails</a>
+</footer><!-- /.post-info --></div>
+                <div class="summary"><h4>就这次的尝试写一下自己的记录</h4>
+<p>安装ruby  和 ruby-devel(安装ruby-devel是因为后续的工作如果没有ruby-devel的话，会报错)</p>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">ruby</span> <span class="n">ruby</span><span class="o">-</span><span class="n">devel</span> <span class="n">rubygems</span> <span class="n">sqlite</span> <span class="o">-</span><span class="n">y</span>
+</pre></div>
+
+
+<p>需要的环境有了，那么就可以开始正式的工作了</p>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">gem</span> <span class="n">install</span> <span class="n">rails</span>
+</pre></div>
+
+
+<p>找到一个合适的目录来放自己的代码.然后执行</p>
+<div class="highlight"><pre><span class="nv">$</span> <span class="nv">rails</span> <span class="k">new</span> <span class="n">mysite</span>
+<span class="sr">//</span> <span class="err">这个是建立一个叫</span><span class="n">mysite</span> <span class="err">的</span><span class="n">rails</span><span class="err">程式</span> <span class="err">，在当前目录下面</span>
+<span class="nv">$</span> <span class="nv">cd</span> <span class="n">mysite</span>
+<span class="sr">//</span><span class="err">进入这个目录</span>
+<span class="nv">$</span> <span class="nv">bundle</span> <span class="n">install</span>
+<span class="sr">//</span><span class="err">因为在做测试</span> <span class="err">所以</span> <span class="err">也没有必要安装其他的</span><span class="n">gem</span>
+</pre></div>
+
+
+<p>接下来看看它的数据库  配置文件是 <code>config/database.yml</code>  默认的支持是是<strong>SQLite3</strong>(当然也支持其他的比如mysql之类的)它有三种模式 ...</p>
+                        <a class="btn primary xsmall" href="../../articles/2013/09/21/ruby-on-rails-huan-jing/">more ...</a>
+                </div>
+        </div>
+        <hr />
+        <div class="article">
+                <h1><a href="../../articles/2013/09/06/li-yong-bai-du-baeda-jian-discuzlun-tan/">利用百度BAE搭建discuz论坛</a></h1>
+                <div class="well small"><footer class="post-info">
+<span class="label">Date</span>
+<abbr class="published" title="2013-09-06T00:00:00">
+        <i class="icon-calendar"></i>五 06 九月 2013
+</abbr>
+<span class="label">By</span>
+<a href="../../author/taobeier.html"><i class="icon-user"></i>TaoBeier</a>
+<span class="label">分类</span>
+<a href="../../category/life"><i class="icon-folder-open"></i>Life</a>.
+
+
+<span class="label">Tags</span>
+	<a href="../../tag/bae/"><i class="icon-tag"></i>BAE</a>
+</footer><!-- /.post-info --></div>
+                <div class="summary"><p>最近尝试了利用百度云应用管理<em>BAE</em>搭建discuz论坛， 这里做简要记录</p>
+<h3>创建应用</h3>
+<p>在 <a href="http://developer.baidu.com/">百度开发者中心</a> 创建一个应用，选择WEB应用下的PC <strong>Iframe应用</strong></p>
+<h3>托管设置</h3>
+<p>之后进行托管设置， 确定域名XXX.duapp.com</p>
+<p>创建一个版本，并上传PHP代码包</p>
+<p>(BAE有些函数规则发生改变，所以需要使用为BAE环境做过调整的<a href="http://pan.baidu.com/s/1hqsYVre">discuz for BAE</a> 版本)</p>
+<p>需要注意的是在上传的代码包里面的 <em>bcs/config.php</em> 中的内容应该修改为</p>
+<div class="highlight"><pre><span class="cp">&lt;?php</span>
+
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;BAIDU_BCS_BUCKET&#39;</span><span class="p">,</span> <span class="s1">&#39;创建的bucket名称&#39;</span><span class="p">);</span>
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;BAIDU_BCS_AK&#39;</span><span class="p">,</span> <span class="nb">getenv</span><span class="p">(</span><span class="s1">&#39;HTTP_BAE_ENV_AK&#39;</span><span class="p">));</span>
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;BAIDU_BCS_SK&#39;</span><span class="p">,</span> <span class="nb">getenv</span><span class="p">(</span><span class="s1">&#39;HTTP_BAE_ENV_SK&#39;</span><span class="p">));</span>
+
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+
+
+<p>同时在数据库中设置为UTF-8,</p>
+<p>注意开启缓存 cache 最少30M(亲测50M完全是OK的)</p>
+<h3>安装</h3>
+<p>之后上线应用，访问<a href="http://你的域名.duapp.com/install/index.php">http://你的域名 ...</a></p>
+                        <a class="btn primary xsmall" href="../../articles/2013/09/06/li-yong-bai-du-baeda-jian-discuzlun-tan/">more ...</a>
+                </div>
+        </div>
+        <hr />
+        <div class="article">
                 <h1><a href="../../articles/2013/08/10/vim73-for-windows-pei-zhi/">Vim7.3 for Windows 配置</a></h1>
                 <div class="well small"><footer class="post-info">
 <span class="label">Date</span>
@@ -193,8 +278,8 @@
 
 <li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
 <li class="tag-4">
-    <a href="../../tag/web/">
-        <i class="icon-tag icon-large"></i>web
+    <a href="../../tag/rails/">
+        <i class="icon-tag icon-large"></i>Rails
     </a>
 </li>
 <li class="tag-4">
@@ -202,19 +287,14 @@
         <i class="icon-tag icon-large"></i>upyun
     </a>
 </li>
-<li class="tag-4">
-    <a href="../../tag/vim/">
-        <i class="icon-tag icon-large"></i>Vim
-    </a>
-</li>
-<li class="tag-4">
-    <a href="../../tag/linux/">
-        <i class="icon-tag icon-large"></i>Linux
-    </a>
-</li>
 <li class="tag-1">
     <a href="../../tag/pelican/">
         <i class="icon-tag icon-large"></i>pelican
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../../tag/vim/">
+        <i class="icon-tag icon-large"></i>Vim
     </a>
 </li>
 <li class="tag-2">
@@ -223,8 +303,28 @@
     </a>
 </li>
 <li class="tag-4">
+    <a href="../../tag/linux/">
+        <i class="icon-tag icon-large"></i>Linux
+    </a>
+</li>
+<li class="tag-4">
     <a href="../../tag/lamp/">
         <i class="icon-tag icon-large"></i>LAMP
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../../tag/ruby/">
+        <i class="icon-tag icon-large"></i>Ruby
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../../tag/web/">
+        <i class="icon-tag icon-large"></i>web
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../../tag/bae/">
+        <i class="icon-tag icon-large"></i>BAE
     </a>
 </li>
 

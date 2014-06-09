@@ -2,7 +2,7 @@
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8">
-    <title>Hello World !</title>
+    <title>Ruby on Rails 环境</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Welcom to MoeLove">
     <meta name="author" content="TaoBeier">
@@ -78,7 +78,7 @@
                 <li><a href="../../../../../pages/cha-shui-biao.html">查水表</a></li>
                 <li><a href="../../../../../pages/qiu-tu-cao.html">求吐槽</a></li>
                           <li class="divider-vertical"></li>
-                  <li >
+                  <li class="active">
                     <a href="../../../../../category/life">
 						<i class="icon-folder-open icon-large"></i>Life
 					</a>
@@ -93,7 +93,7 @@
 						<i class="icon-folder-open icon-large"></i>Python
 					</a>
                   </li>
-                  <li class="active">
+                  <li >
                     <a href="../../../../../category/web">
 						<i class="icon-folder-open icon-large"></i>Web
 					</a>
@@ -119,8 +119,8 @@
                         <h1>
                                 <a href=""
                                         rel="bookmark"
-                                        title="Permalink to Hello World !">
-                                        Hello World !
+                                        title="Permalink to Ruby on Rails 环境">
+                                        Ruby on Rails 环境
                                 </a>
                         </h1>
                 </header>
@@ -128,50 +128,79 @@
                 <div class="well">
 <footer class="post-info">
 <span class="label">Date</span>
-<abbr class="published" title="2014-04-18T00:00:00">
-        <i class="icon-calendar"></i>五 18 四月 2014
+<abbr class="published" title="2013-09-21T00:00:00">
+        <i class="icon-calendar"></i>六 21 九月 2013
 </abbr>
 <span class="label">By</span>
 <a href="../../../../../author/taobeier.html"><i class="icon-user"></i>TaoBeier</a>
 <span class="label">分类</span>
-<a href="../../../../../category/web"><i class="icon-folder-open"></i>Web</a>.
+<a href="../../../../../category/life"><i class="icon-folder-open"></i>Life</a>.
 
 
 <span class="label">Tags</span>
-	<a href="../../../../../tag/pelican/"><i class="icon-tag"></i>Pelican</a>
-	<a href="../../../../../tag/blog/"><i class="icon-tag"></i>Blog</a>
+	<a href="../../../../../tag/ruby/"><i class="icon-tag"></i>Ruby</a>
+	<a href="../../../../../tag/rails/"><i class="icon-tag"></i>Rails</a>
 </footer><!-- /.post-info -->                </div>
-                <hr />
-<blockquote>
-<p>几乎所有的程序猿的第一个演示程序都是Hello World .那我也就一样咯， 也写一个同样的吧。
-其实我的博客从很早前就已经开始在写了， 换了很多的平台：</p>
-</blockquote>
-<div class="highlight"><pre><span class="err">从腾讯空间</span><span class="o">--&gt;</span> <span class="err">百度空间</span><span class="o">--&gt;</span> <span class="err">新浪博客</span><span class="o">--&gt;</span> <span class="err">自己搭建的</span><span class="n">Wordpress</span><span class="err">博客</span><span class="o">--&gt;</span> <span class="err">点点（点点我其实是用来碎碎念的）</span>
-<span class="o">--&gt;</span> <span class="err">博客园（个人感觉体验不是很好的说）</span><span class="o">--&gt;</span> <span class="err">静态博客</span>
+                <h4>就这次的尝试写一下自己的记录</h4>
+<p>安装ruby  和 ruby-devel(安装ruby-devel是因为后续的工作如果没有ruby-devel的话，会报错)</p>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">ruby</span> <span class="n">ruby</span><span class="o">-</span><span class="n">devel</span> <span class="n">rubygems</span> <span class="n">sqlite</span> <span class="o">-</span><span class="n">y</span>
 </pre></div>
 
 
-<p>选择了这么多，我最后决定还是使用 <strong>静态博客</strong> 来做个人博客。</p>
-<blockquote>
-<p>原因有以下几个：</p>
-</blockquote>
-<ol>
-<li>使用其他平台提供的博客不是很爽， 可个性化的方面不是很多， 点点相对来说做的还是很不错的
-不仅提供个性化定制而且还支持绑定个人域名之类的。但是其他网站就不是那么人性化了。</li>
-<li>写博客总是需要贴代码的，但是除了WP外，其他的我不是很满意。</li>
-<li>用静态博客方便备份，而且是本地编辑就可以了，在线编辑的，感觉会被束缚很多。</li>
-<li>本人属于折腾党，喜欢可以个人定制的， 直到符合个人满意的程度为止。</li>
-</ol>
-<blockquote>
-<p>接下来说说这次博客的安装：</p>
-</blockquote>
-<ol>
-<li>选择<strong>Pelica</strong>是因为我对Python 比较熟悉，之前尝试过用Jekyll 和 Octopress 搭建，都比较方便
-尤其是Jekyll 用户很多，文档什么的都很多了。只不过我更喜欢Python 多一些（虽然我有用ROR开发过WEB应用程序）
-因为如果有什么需要的话，我也可以自己来开发插件或者自己再尝试做一个系统。</li>
-<li>Pelican 相对来说配置也很方便， 很简单， 虽然用户不是很多，但是基本上的问题也都可以解决的</li>
-<li><a href="https://github.com/getpelican/pelican">Pelican</a> 支持restructuredText和Markdown写文章，配置灵活，扩展性强。我用的是3.3.0。</li>
-</ol>
+<p>需要的环境有了，那么就可以开始正式的工作了</p>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">gem</span> <span class="n">install</span> <span class="n">rails</span>
+</pre></div>
+
+
+<p>找到一个合适的目录来放自己的代码.然后执行</p>
+<div class="highlight"><pre><span class="nv">$</span> <span class="nv">rails</span> <span class="k">new</span> <span class="n">mysite</span>
+<span class="sr">//</span> <span class="err">这个是建立一个叫</span><span class="n">mysite</span> <span class="err">的</span><span class="n">rails</span><span class="err">程式</span> <span class="err">，在当前目录下面</span>
+<span class="nv">$</span> <span class="nv">cd</span> <span class="n">mysite</span>
+<span class="sr">//</span><span class="err">进入这个目录</span>
+<span class="nv">$</span> <span class="nv">bundle</span> <span class="n">install</span>
+<span class="sr">//</span><span class="err">因为在做测试</span> <span class="err">所以</span> <span class="err">也没有必要安装其他的</span><span class="n">gem</span>
+</pre></div>
+
+
+<p>接下来看看它的数据库  配置文件是 <code>config/database.yml</code>  默认的支持是是<strong>SQLite3</strong>(当然也支持其他的比如mysql之类的)它有三种模式:</p>
+<ul>
+<li>development environment开发模式，用在你的开发的时候</li>
+<li>test environment测试模式，用在自动测试时</li>
+<li>production environment正式上线模式，用在实际的上线运作环境</li>
+</ul>
+<p>SQLite配置大致是这样的:</p>
+<div class="highlight"><pre><span class="err">development:</span>
+<span class="err">adapter:</span> <span class="err">sqlite3</span>
+<span class="err">database:</span> <span class="err">db/development.sqlite3</span>
+<span class="err">pool:</span> <span class="err">5</span>
+<span class="err">timeout:</span> <span class="err">5000</span>
+</pre></div>
+
+
+<p>接下来建立自己的数据库</p>
+<div class="highlight"><pre><span class="n">rake</span> <span class="n">db:create</span>
+</pre></div>
+
+
+<p><strong>在这里我遇到一个错误</strong></p>
+<div class="highlight"><pre><span class="n">rake</span> <span class="n">aborted</span><span class="o">!</span>
+<span class="n">Could</span> <span class="ow">not</span> <span class="n">find</span> <span class="n">a</span> <span class="n">JavaScript</span> <span class="n">runtime</span><span class="o">.</span> <span class="n">See</span> <span class="n">https:</span><span class="sr">//gi</span><span class="n">thub</span><span class="o">.</span><span class="n">com</span><span class="sr">/sstephenson/</span><span class="n">execjs</span> <span class="k">for</span> <span class="n">a</span> <span class="n">list</span> <span class="n">of</span> <span class="n">available</span> <span class="n">runtimes</span><span class="o">.</span> 
+
+<span class="p">(</span><span class="n">See</span> <span class="n">full</span> <span class="n">trace</span> <span class="n">by</span> <span class="n">running</span> <span class="n">task</span> <span class="n">with</span> <span class="o">--</span><span class="n">trace</span><span class="p">)</span>
+</pre></div>
+
+
+<p>我的解决办法是</p>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">nodejs</span>
+</pre></div>
+
+
+<p>然后启动服务器</p>
+<div class="highlight"><pre><span class="n">rails</span> <span class="n">server</span>
+</pre></div>
+
+
+<p>要看结果就打开<a href="http://localhost:3000">http://localhost:3000</a>就会看见rails 的默认首页了</p>
                 </div><!-- /.entry-content -->
           
 
@@ -192,14 +221,14 @@
         <ul>
              <li>
                 上一篇文章
-                 <a href="../../../../../articles/2013/09/21/ruby-on-rails-huan-jing/">
-                     Ruby on Rails 环境
+                 <a href="../../../../../articles/2013/09/06/li-yong-bai-du-baeda-jian-discuzlun-tan/">
+                     利用百度BAE搭建discuz论坛
                  </a>
              </li>
              <li>
                 下一篇文章
-                 <a href="../../../../../articles/2014/05/07/shi-yong-pelicanda-jian-blog/">
-                     使用Pelican搭建Blog
+                 <a href="../../../../../articles/2014/04/18/hello-world/">
+                     Hello World !
                  </a>
              </li>
         </ul>
