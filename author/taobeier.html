@@ -339,36 +339,55 @@
         </div>
         <hr />
         <div class="article">
-                <h1><a href="../articles/2013/08/10/vim73-for-windows-pei-zhi/">Vim7.3 for Windows 配置</a></h1>
+                <h1><a href="../articles/2013/08/30/fedoraxia-an-zhuang-sublime-text-2de-fang-fa/">fedora下安装sublime text 2的方法</a></h1>
                 <div class="well small"><footer class="post-info">
 <span class="label">Date</span>
-<abbr class="published" title="2013-08-10T00:00:00">
-        <i class="icon-calendar"></i>六 10 八月 2013
+<abbr class="published" title="2013-08-30T00:00:00">
+        <i class="icon-calendar"></i>五 30 八月 2013
 </abbr>
 <span class="label">By</span>
 <a href="../author/taobeier.html"><i class="icon-user"></i>TaoBeier</a>
 <span class="label">分类</span>
-<a href="../category/life"><i class="icon-folder-open"></i>Life</a>.
+<a href="../category/linux"><i class="icon-folder-open"></i>Linux</a>.
 
 
 <span class="label">Tags</span>
-	<a href="../tag/vim/"><i class="icon-tag"></i>Vim</a>
+	<a href="../tag/linux/"><i class="icon-tag"></i>Linux</a>
 </footer><!-- /.post-info --></div>
-                <div class="summary"><blockquote>
-<p>一直是在Linux下用Vim，但是有些时候在别人电脑或者机房又不得不用windows来写代码，所以也就下载了vim for windows。但是今天打开一个朋友写的网页的时候，出现了乱码的问题，所以把解决方法记录一下，也就是和在linux下面一样，修改配置文件就可以了。接下来进入正题。</p>
-</blockquote>
-<h3>选项意义概述</h3>
-<p>Vim有四个跟字符编码方式有关的选项，分别是:<code>encoding</code>、<code>fileencoding</code>、<code>fileencodings</code>、<code>termencoding</code> (这些选项可能的取值可以参考 Vim 的帮助 :<em>help encoding-names</em>)，它们各自的意义:</p>
+                <div class="summary"><h3>首先去<a href="http://www.sublimetext.com/">官网</a>下载最新的压缩包</h3>
 <ul>
-<li>
-<p><strong>encoding</strong>: Vim 内部使用的字符编码方式，包括Vim的buffer(缓冲区)、菜单文本、消息文本等。用户手册上建议只在<em>.vimrc</em>中改变它的值，事实上似乎也只有在<em>.vimrc</em> 中改变它的值才有意义。</p>
-</li>
-<li>
-<p><strong>fileencoding</strong>: Vim 中当前编辑的文件的字符编码方式，Vim 保存文件时也会将文件保存为这种字符编码方式 (不管是否新文件都如此)。 </p>
-</li>
-<li>
-<p><strong>fileencodings</strong>: Vim 启动时会按照它所列出的字符编码方式逐一探测即将打开的文件的字符编码方式，并且将 fileencoding 设置为最终探测到的字符编码方式。因此最好将 ...</p></li></ul>
-                        <a class="btn primary xsmall" href="../articles/2013/08/10/vim73-for-windows-pei-zhi/">more ...</a>
+<li>把文件解压到$HOME/.sublime_text_2文件夹中：</li>
+</ul>
+<div class="highlight"><pre><span class="n">tar</span> <span class="o">-</span><span class="n">xf</span> <span class="p">(</span><span class="n">sublime</span><span class="err">压缩包的文件名</span><span class="p">)</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">bz2</span>
+<span class="n">sudo</span> <span class="n">mv</span> <span class="p">(</span><span class="err">解压后的文件夹</span><span class="p">)</span> <span class="n">tools</span><span class="o">/</span><span class="n">Sublime_Text_2</span>
+</pre></div>
+
+
+<ul>
+<li>在/usr/bin目录下面创建一个链接</li>
+</ul>
+<div class="highlight"><pre><span class="n">vim</span> <span class="n">sublime</span>
+</pre></div>
+
+
+<p>在文件中写入这些代码：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
+<span class="nb">export </span><span class="nv">SUBLIME_HOME</span><span class="o">=</span><span class="s2">&quot;~/tools/Sublime_Text_2&quot;</span>
+
+<span class="nv">$SUBLIME_HOME</span>/sublime_text <span class="nv">$*</span>
+</pre></div>
+</td></tr></table>
+
+<p>修改文件权限并且移动</p>
+<div class="highlight"><pre><span class="nb">chmod</span> <span class="mi">555</span> <span class="n">sublime</span> <span class="o">&amp;&amp;</span> <span class="n">mv</span> <span class="n">sublime</span> <span class="sr">/usr/</span><span class="n">bin</span><span class="o">/</span><span class="n">sublime</span>
+</pre></div>
+
+
+<p>这样就可以在终端中直接执行sublime了</p>
+                        <a class="btn primary xsmall" href="../articles/2013/08/30/fedoraxia-an-zhuang-sublime-text-2de-fang-fa/">more ...</a>
                 </div>
         </div>
         <hr />
@@ -426,34 +445,9 @@
         <i class="icon-tag icon-large"></i>Rails
     </a>
 </li>
-<li class="tag-4">
-    <a href="../tag/upyun/">
-        <i class="icon-tag icon-large"></i>upyun
-    </a>
-</li>
 <li class="tag-1">
-    <a href="../tag/pelican/">
-        <i class="icon-tag icon-large"></i>pelican
-    </a>
-</li>
-<li class="tag-4">
-    <a href="../tag/vim/">
-        <i class="icon-tag icon-large"></i>Vim
-    </a>
-</li>
-<li class="tag-2">
-    <a href="../tag/blog/">
-        <i class="icon-tag icon-large"></i>blog
-    </a>
-</li>
-<li class="tag-4">
     <a href="../tag/linux/">
         <i class="icon-tag icon-large"></i>Linux
-    </a>
-</li>
-<li class="tag-4">
-    <a href="../tag/lamp/">
-        <i class="icon-tag icon-large"></i>LAMP
     </a>
 </li>
 <li class="tag-4">
@@ -462,13 +456,38 @@
     </a>
 </li>
 <li class="tag-4">
-    <a href="../tag/web/">
-        <i class="icon-tag icon-large"></i>web
+    <a href="../tag/lamp/">
+        <i class="icon-tag icon-large"></i>LAMP
+    </a>
+</li>
+<li class="tag-2">
+    <a href="../tag/blog/">
+        <i class="icon-tag icon-large"></i>blog
     </a>
 </li>
 <li class="tag-4">
     <a href="../tag/bae/">
         <i class="icon-tag icon-large"></i>BAE
+    </a>
+</li>
+<li class="tag-1">
+    <a href="../tag/pelican/">
+        <i class="icon-tag icon-large"></i>pelican
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../tag/web/">
+        <i class="icon-tag icon-large"></i>web
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../tag/upyun/">
+        <i class="icon-tag icon-large"></i>upyun
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../tag/vim/">
+        <i class="icon-tag icon-large"></i>Vim
     </a>
 </li>
 
