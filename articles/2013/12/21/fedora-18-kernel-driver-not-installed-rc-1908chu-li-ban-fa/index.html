@@ -2,7 +2,7 @@
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8">
-    <title>Hello World !</title>
+    <title>fedora 18 Kernel driver not installed (rc=-1908)处理办法</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Welcom to MoeLove">
     <meta name="author" content="TaoBeier">
@@ -83,7 +83,7 @@
 						<i class="icon-folder-open icon-large"></i>Life
 					</a>
                   </li>
-                  <li >
+                  <li class="active">
                     <a href="../../../../../category/linux">
 						<i class="icon-folder-open icon-large"></i>Linux
 					</a>
@@ -93,7 +93,7 @@
 						<i class="icon-folder-open icon-large"></i>Python
 					</a>
                   </li>
-                  <li class="active">
+                  <li >
                     <a href="../../../../../category/web">
 						<i class="icon-folder-open icon-large"></i>Web
 					</a>
@@ -119,8 +119,8 @@
                         <h1>
                                 <a href=""
                                         rel="bookmark"
-                                        title="Permalink to Hello World !">
-                                        Hello World !
+                                        title="Permalink to fedora 18 Kernel driver not installed (rc=-1908)处理办法">
+                                        fedora 18 Kernel driver not installed (rc=-1908)处理办法
                                 </a>
                         </h1>
                 </header>
@@ -128,50 +128,80 @@
                 <div class="well">
 <footer class="post-info">
 <span class="label">Date</span>
-<abbr class="published" title="2014-04-18T00:00:00">
-        <i class="icon-calendar"></i>五 18 四月 2014
+<abbr class="published" title="2013-12-21T00:00:00">
+        <i class="icon-calendar"></i>六 21 十二月 2013
 </abbr>
 <span class="label">By</span>
 <a href="../../../../../author/taobeier.html"><i class="icon-user"></i>TaoBeier</a>
 <span class="label">分类</span>
-<a href="../../../../../category/web"><i class="icon-folder-open"></i>Web</a>.
+<a href="../../../../../category/linux"><i class="icon-folder-open"></i>Linux</a>.
 
 
 <span class="label">Tags</span>
-	<a href="../../../../../tag/pelican/"><i class="icon-tag"></i>Pelican</a>
-	<a href="../../../../../tag/blog/"><i class="icon-tag"></i>Blog</a>
+	<a href="../../../../../tag/linux/"><i class="icon-tag"></i>Linux</a>
 </footer><!-- /.post-info -->                </div>
-                <hr />
-<blockquote>
-<p>几乎所有的程序猿的第一个演示程序都是Hello World .那我也就一样咯， 也写一个同样的吧。
-其实我的博客从很早前就已经开始在写了， 换了很多的平台：</p>
-</blockquote>
-<div class="highlight"><pre><span class="err">从腾讯空间</span><span class="o">--&gt;</span> <span class="err">百度空间</span><span class="o">--&gt;</span> <span class="err">新浪博客</span><span class="o">--&gt;</span> <span class="err">自己搭建的</span><span class="n">Wordpress</span><span class="err">博客</span><span class="o">--&gt;</span> <span class="err">点点（点点我其实是用来碎碎念的）</span>
-<span class="o">--&gt;</span> <span class="err">博客园（个人感觉体验不是很好的说）</span><span class="o">--&gt;</span> <span class="err">静态博客</span>
+                <h4>fedora 18 升级内核之后 使用<em>VirtualBox</em> 可以正常打开软件,但是不能启动虚拟机系统.提示信息如下:</h4>
+<div class="highlight"><pre><span class="n">Kernel</span> <span class="n">driver</span> <span class="ow">not</span> <span class="n">installed</span> <span class="p">(</span><span class="n">rc</span><span class="o">=-</span><span class="mi">1908</span><span class="p">)</span>
 </pre></div>
 
 
-<p>选择了这么多，我最后决定还是使用 <strong>静态博客</strong> 来做个人博客。</p>
-<blockquote>
-<p>原因有以下几个：</p>
-</blockquote>
-<ol>
-<li>使用其他平台提供的博客不是很爽， 可个性化的方面不是很多， 点点相对来说做的还是很不错的
-不仅提供个性化定制而且还支持绑定个人域名之类的。但是其他网站就不是那么人性化了。</li>
-<li>写博客总是需要贴代码的，但是除了WP外，其他的我不是很满意。</li>
-<li>用静态博客方便备份，而且是本地编辑就可以了，在线编辑的，感觉会被束缚很多。</li>
-<li>本人属于折腾党，喜欢可以个人定制的， 直到符合个人满意的程度为止。</li>
-</ol>
-<blockquote>
-<p>接下来说说这次博客的安装：</p>
-</blockquote>
-<ol>
-<li>选择<strong>Pelica</strong>是因为我对Python 比较熟悉，之前尝试过用Jekyll 和 Octopress 搭建，都比较方便
-尤其是Jekyll 用户很多，文档什么的都很多了。只不过我更喜欢Python 多一些（虽然我有用ROR开发过WEB应用程序）
-因为如果有什么需要的话，我也可以自己来开发插件或者自己再尝试做一个系统。</li>
-<li>Pelican 相对来说配置也很方便， 很简单， 虽然用户不是很多，但是基本上的问题也都可以解决的</li>
-<li><a href="https://github.com/getpelican/pelican">Pelican</a> 支持restructuredText和Markdown写文章，配置灵活，扩展性强。我用的是3.3.0。</li>
-</ol>
+<p>经过一系列的看文档还有google 之后,很多地方写着这个问题的处理方法是</p>
+<ul>
+<li>第一种</li>
+</ul>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="sr">/etc/i</span><span class="n">nit</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">vboxdrv</span> <span class="n">setup</span>
+</pre></div>
+
+
+<p>经过实验,对feora 18 不可行</p>
+<ul>
+<li>第二种</li>
+</ul>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">dkms</span>
+<span class="n">sudo</span> <span class="sr">/etc/i</span><span class="n">nit</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">vboxdrv</span> <span class="n">setup</span>
+</pre></div>
+
+
+<p>但是情况继续</p>
+<ul>
+<li>第三种</li>
+</ul>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">aptitude</span> <span class="n">update</span>
+<span class="n">sudo</span> <span class="n">aptitude</span> <span class="n">install</span> <span class="n">dkms</span>
+<span class="n">sudo</span> <span class="sr">/etc/i</span><span class="n">nit</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">vboxdrv</span> <span class="n">setup</span>
+</pre></div>
+
+
+<h3>最后正确的解决方法应该是酱紫的</h3>
+<ul>
+<li>先看看系统的内核</li>
+</ul>
+<div class="highlight"><pre><span class="n">uname</span> <span class="o">-</span><span class="n">r</span>
+</pre></div>
+
+
+<ul>
+<li>找对应的包</li>
+</ul>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">yum</span> <span class="n">search</span> <span class="n">kmod</span><span class="o">-</span><span class="n">VirtualBox</span>
+</pre></div>
+
+
+<ul>
+<li>然后安装和你系统内核对应的包</li>
+</ul>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">kmod</span><span class="o">-</span><span class="n">VirtualBox</span><span class="o">-</span><span class="n">XXXX</span>
+</pre></div>
+
+
+<ul>
+<li>运行</li>
+</ul>
+<div class="highlight"><pre><span class="sr">/etc/s</span><span class="n">ysconfig</span><span class="sr">/modules/</span><span class="n">VirtualBox</span><span class="o">.</span><span class="n">modules</span>
+</pre></div>
+
+
+<p>一切OK了 </p>
                 </div><!-- /.entry-content -->
           
 
@@ -192,14 +222,14 @@
         <ul>
              <li>
                 上一篇文章
-                 <a href="../../../../../articles/2013/12/21/fedora-18-kernel-driver-not-installed-rc-1908chu-li-ban-fa/">
-                     fedora 18 Kernel driver not installed (rc=-1908)处理办法
+                 <a href="../../../../../articles/2013/09/21/ruby-on-rails-huan-jing/">
+                     Ruby on Rails 环境
                  </a>
              </li>
              <li>
                 下一篇文章
-                 <a href="../../../../../articles/2014/05/07/shi-yong-pelicanda-jian-blog/">
-                     使用Pelican搭建Blog
+                 <a href="../../../../../articles/2014/04/18/hello-world/">
+                     Hello World !
                  </a>
              </li>
         </ul>

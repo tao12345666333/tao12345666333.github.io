@@ -244,7 +244,68 @@ var duoshuoQuery = {short_name:&amp;quot;替换成你自己的&amp;quot;};
 因为如果有什么需要的话，我也可以自己来开发插件或者自己再尝试做一个系统。&lt;/li&gt;
 &lt;li&gt;Pelican 相对来说配置也很方便， 很简单， 虽然用户不是很多，但是基本上的问题也都可以解决的&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://github.com/getpelican/pelican"&gt;Pelican&lt;/a&gt; 支持restructuredText和Markdown写文章，配置灵活，扩展性强。我用的是3.3.0。&lt;/li&gt;
-&lt;/ol&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">TaoBeier</dc:creator><pubDate>Fri, 18 Apr 2014 00:00:00 +0800</pubDate><guid>tag:,2014-04-18:articles/2014/04/18/hello-world/</guid><category>Pelican</category><category>Blog</category></item><item><title>Ruby on Rails 环境</title><link>/articles/2013/09/21/ruby-on-rails-huan-jing/</link><description>&lt;h4&gt;就这次的尝试写一下自己的记录&lt;/h4&gt;
+&lt;/ol&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">TaoBeier</dc:creator><pubDate>Fri, 18 Apr 2014 00:00:00 +0800</pubDate><guid>tag:,2014-04-18:articles/2014/04/18/hello-world/</guid><category>Pelican</category><category>Blog</category></item><item><title>fedora 18 Kernel driver not installed (rc=-1908)处理办法</title><link>/articles/2013/12/21/fedora-18-kernel-driver-not-installed-rc-1908chu-li-ban-fa/</link><description>&lt;h4&gt;fedora 18 升级内核之后 使用&lt;em&gt;VirtualBox&lt;/em&gt; 可以正常打开软件,但是不能启动虚拟机系统.提示信息如下:&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;Kernel&lt;/span&gt; &lt;span class="n"&gt;driver&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;installed&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rc&lt;/span&gt;&lt;span class="o"&gt;=-&lt;/span&gt;&lt;span class="mi"&gt;1908&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;经过一系列的看文档还有google 之后,很多地方写着这个问题的处理方法是&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第一种&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="sr"&gt;/etc/i&lt;/span&gt;&lt;span class="n"&gt;nit&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;vboxdrv&lt;/span&gt; &lt;span class="n"&gt;setup&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;经过实验,对feora 18 不可行&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第二种&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;dkms&lt;/span&gt;
+&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="sr"&gt;/etc/i&lt;/span&gt;&lt;span class="n"&gt;nit&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;vboxdrv&lt;/span&gt; &lt;span class="n"&gt;setup&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;但是情况继续&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第三种&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;aptitude&lt;/span&gt; &lt;span class="n"&gt;update&lt;/span&gt;
+&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;aptitude&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;dkms&lt;/span&gt;
+&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="sr"&gt;/etc/i&lt;/span&gt;&lt;span class="n"&gt;nit&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;vboxdrv&lt;/span&gt; &lt;span class="n"&gt;setup&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;最后正确的解决方法应该是酱紫的&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;先看看系统的内核&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;uname&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;r&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;找对应的包&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;yum&lt;/span&gt; &lt;span class="n"&gt;search&lt;/span&gt; &lt;span class="n"&gt;kmod&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;VirtualBox&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;然后安装和你系统内核对应的包&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;yum&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;kmod&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;VirtualBox&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;XXXX&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;运行&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="sr"&gt;/etc/s&lt;/span&gt;&lt;span class="n"&gt;ysconfig&lt;/span&gt;&lt;span class="sr"&gt;/modules/&lt;/span&gt;&lt;span class="n"&gt;VirtualBox&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;modules&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;一切OK了 &lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">TaoBeier</dc:creator><pubDate>Sat, 21 Dec 2013 00:00:00 +0800</pubDate><guid>tag:,2013-12-21:articles/2013/12/21/fedora-18-kernel-driver-not-installed-rc-1908chu-li-ban-fa/</guid><category>Linux</category></item><item><title>Ruby on Rails 环境</title><link>/articles/2013/09/21/ruby-on-rails-huan-jing/</link><description>&lt;h4&gt;就这次的尝试写一下自己的记录&lt;/h4&gt;
 &lt;p&gt;安装ruby  和 ruby-devel(安装ruby-devel是因为后续的工作如果没有ruby-devel的话，会报错)&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;yum&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;ruby&lt;/span&gt; &lt;span class="n"&gt;ruby&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;devel&lt;/span&gt; &lt;span class="n"&gt;rubygems&lt;/span&gt; &lt;span class="n"&gt;sqlite&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;

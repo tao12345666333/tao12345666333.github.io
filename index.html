@@ -254,6 +254,54 @@
         </div>
         <hr />
         <div class="article">
+                <h1><a href="./articles/2013/12/21/fedora-18-kernel-driver-not-installed-rc-1908chu-li-ban-fa/">fedora 18 Kernel driver not installed (rc=-1908)处理办法</a></h1>
+                <div class="well small"><footer class="post-info">
+<span class="label">Date</span>
+<abbr class="published" title="2013-12-21T00:00:00">
+        <i class="icon-calendar"></i>六 21 十二月 2013
+</abbr>
+<span class="label">By</span>
+<a href="./author/taobeier.html"><i class="icon-user"></i>TaoBeier</a>
+<span class="label">分类</span>
+<a href="./category/linux"><i class="icon-folder-open"></i>Linux</a>.
+
+
+<span class="label">Tags</span>
+	<a href="./tag/linux/"><i class="icon-tag"></i>Linux</a>
+</footer><!-- /.post-info --></div>
+                <div class="summary"><h4>fedora 18 升级内核之后 使用<em>VirtualBox</em> 可以正常打开软件,但是不能启动虚拟机系统.提示信息如下:</h4>
+<div class="highlight"><pre><span class="n">Kernel</span> <span class="n">driver</span> <span class="ow">not</span> <span class="n">installed</span> <span class="p">(</span><span class="n">rc</span><span class="o">=-</span><span class="mi">1908</span><span class="p">)</span>
+</pre></div>
+
+
+<p>经过一系列的看文档还有google 之后,很多地方写着这个问题的处理方法是</p>
+<ul>
+<li>第一种</li>
+</ul>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="sr">/etc/i</span><span class="n">nit</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">vboxdrv</span> <span class="n">setup</span>
+</pre></div>
+
+
+<p>经过实验,对feora 18 不可行</p>
+<ul>
+<li>第二种</li>
+</ul>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">dkms</span>
+<span class="n">sudo</span> <span class="sr">/etc/i</span><span class="n">nit</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">vboxdrv</span> <span class="n">setup</span>
+</pre></div>
+
+
+<p>但是情况继续</p>
+<ul>
+<li>第三种</li>
+</ul>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">aptitude</span> <span class="n">update</span>
+<span class="n">sudo</span> <span class="n">aptitude</span> <span class="n">install ...</span></pre></div>
+                        <a class="btn primary xsmall" href="./articles/2013/12/21/fedora-18-kernel-driver-not-installed-rc-1908chu-li-ban-fa/">more ...</a>
+                </div>
+        </div>
+        <hr />
+        <div class="article">
                 <h1><a href="./articles/2013/09/21/ruby-on-rails-huan-jing/">Ruby on Rails 环境</a></h1>
                 <div class="well small"><footer class="post-info">
 <span class="label">Date</span>
@@ -338,59 +386,6 @@
                 </div>
         </div>
         <hr />
-        <div class="article">
-                <h1><a href="./articles/2013/08/30/fedoraxia-an-zhuang-sublime-text-2de-fang-fa/">fedora下安装sublime text 2的方法</a></h1>
-                <div class="well small"><footer class="post-info">
-<span class="label">Date</span>
-<abbr class="published" title="2013-08-30T00:00:00">
-        <i class="icon-calendar"></i>五 30 八月 2013
-</abbr>
-<span class="label">By</span>
-<a href="./author/taobeier.html"><i class="icon-user"></i>TaoBeier</a>
-<span class="label">分类</span>
-<a href="./category/linux"><i class="icon-folder-open"></i>Linux</a>.
-
-
-<span class="label">Tags</span>
-	<a href="./tag/linux/"><i class="icon-tag"></i>Linux</a>
-</footer><!-- /.post-info --></div>
-                <div class="summary"><h3>首先去<a href="http://www.sublimetext.com/">官网</a>下载最新的压缩包</h3>
-<ul>
-<li>把文件解压到$HOME/.sublime_text_2文件夹中：</li>
-</ul>
-<div class="highlight"><pre><span class="n">tar</span> <span class="o">-</span><span class="n">xf</span> <span class="p">(</span><span class="n">sublime</span><span class="err">压缩包的文件名</span><span class="p">)</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">bz2</span>
-<span class="n">sudo</span> <span class="n">mv</span> <span class="p">(</span><span class="err">解压后的文件夹</span><span class="p">)</span> <span class="n">tools</span><span class="o">/</span><span class="n">Sublime_Text_2</span>
-</pre></div>
-
-
-<ul>
-<li>在/usr/bin目录下面创建一个链接</li>
-</ul>
-<div class="highlight"><pre><span class="n">vim</span> <span class="n">sublime</span>
-</pre></div>
-
-
-<p>在文件中写入这些代码：</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3
-4</pre></div></td><td class="code"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
-<span class="nb">export </span><span class="nv">SUBLIME_HOME</span><span class="o">=</span><span class="s2">&quot;~/tools/Sublime_Text_2&quot;</span>
-
-<span class="nv">$SUBLIME_HOME</span>/sublime_text <span class="nv">$*</span>
-</pre></div>
-</td></tr></table>
-
-<p>修改文件权限并且移动</p>
-<div class="highlight"><pre><span class="nb">chmod</span> <span class="mi">555</span> <span class="n">sublime</span> <span class="o">&amp;&amp;</span> <span class="n">mv</span> <span class="n">sublime</span> <span class="sr">/usr/</span><span class="n">bin</span><span class="o">/</span><span class="n">sublime</span>
-</pre></div>
-
-
-<p>这样就可以在终端中直接执行sublime了</p>
-                        <a class="btn primary xsmall" href="./articles/2013/08/30/fedoraxia-an-zhuang-sublime-text-2de-fang-fa/">more ...</a>
-                </div>
-        </div>
-        <hr />
 
         <div class="pagination">
         <ul>
@@ -441,8 +436,8 @@
 
 <li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
 <li class="tag-4">
-    <a href="./tag/rails/">
-        <i class="icon-tag icon-large"></i>Rails
+    <a href="./tag/vim/">
+        <i class="icon-tag icon-large"></i>Vim
     </a>
 </li>
 <li class="tag-1">
@@ -450,9 +445,9 @@
         <i class="icon-tag icon-large"></i>Linux
     </a>
 </li>
-<li class="tag-4">
-    <a href="./tag/ruby/">
-        <i class="icon-tag icon-large"></i>Ruby
+<li class="tag-1">
+    <a href="./tag/pelican/">
+        <i class="icon-tag icon-large"></i>pelican
     </a>
 </li>
 <li class="tag-4">
@@ -470,9 +465,9 @@
         <i class="icon-tag icon-large"></i>BAE
     </a>
 </li>
-<li class="tag-1">
-    <a href="./tag/pelican/">
-        <i class="icon-tag icon-large"></i>pelican
+<li class="tag-4">
+    <a href="./tag/ruby/">
+        <i class="icon-tag icon-large"></i>Ruby
     </a>
 </li>
 <li class="tag-4">
@@ -481,13 +476,13 @@
     </a>
 </li>
 <li class="tag-4">
-    <a href="./tag/upyun/">
-        <i class="icon-tag icon-large"></i>upyun
+    <a href="./tag/rails/">
+        <i class="icon-tag icon-large"></i>Rails
     </a>
 </li>
 <li class="tag-4">
-    <a href="./tag/vim/">
-        <i class="icon-tag icon-large"></i>Vim
+    <a href="./tag/upyun/">
+        <i class="icon-tag icon-large"></i>upyun
     </a>
 </li>
 
