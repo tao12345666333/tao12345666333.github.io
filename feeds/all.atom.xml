@@ -651,4 +651,65 @@ Ps:本文LAMP = Linux + Apache + Mysql + PHP&lt;/p&gt;
 
 &lt;p&gt;重定向至/tmp 下的testoutputs 文件中&lt;/p&gt;
 &lt;p&gt;当然查看的时候可以配合管道命令使用&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;cat /tmp/test1 /tmp/test2 /tmp/test3 | less&lt;/code&gt;&lt;/p&gt;</summary><category term="Linux"></category></entry></feed>
+&lt;p&gt;&lt;code&gt;cat /tmp/test1 /tmp/test2 /tmp/test3 | less&lt;/code&gt;&lt;/p&gt;</summary><category term="Linux"></category></entry><entry><title>fedora安装后最初的事情</title><link href="/articles/2013/03/09/fedoraan-zhuang-hou-zui-chu-de-shi-qing/" rel="alternate"></link><updated>2013-03-09T00:00:00+08:00</updated><author><name>TaoBeier</name></author><id>tag:,2013-03-09:articles/2013/03/09/fedoraan-zhuang-hou-zui-chu-de-shi-qing/</id><summary type="html">&lt;h3&gt;更新源&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;yum&lt;/span&gt; &lt;span class="n"&gt;localinstall&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;nogpgcheck&lt;/span&gt; &lt;span class="n"&gt;http:&lt;/span&gt;&lt;span class="sr"&gt;//mi&lt;/span&gt;&lt;span class="n"&gt;rrors&lt;/span&gt;&lt;span class="mf"&gt;.163&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="sr"&gt;/rpmfusion/&lt;/span&gt;&lt;span class="n"&gt;free&lt;/span&gt;&lt;span class="sr"&gt;/fedora/&lt;/span&gt;&lt;span class="n"&gt;rpmfusion&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;free&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;release&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;stable&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;noarch&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rpm&lt;/span&gt; &lt;span class="n"&gt;http:&lt;/span&gt;&lt;span class="sr"&gt;//mi&lt;/span&gt;&lt;span class="n"&gt;rrors&lt;/span&gt;&lt;span class="mf"&gt;.163&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="sr"&gt;/rpmfusion/&lt;/span&gt;&lt;span class="n"&gt;nonfree&lt;/span&gt;&lt;span class="sr"&gt;/fedora/&lt;/span&gt;&lt;span class="n"&gt;rpmfusion&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;nonfree&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;release&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;stable&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;noarch&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rpm&lt;/span&gt;      &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;这个是添加国内的软件源&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;yum&lt;/span&gt; &lt;span class="n"&gt;update&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;网络相关&lt;/h3&gt;
+&lt;h4&gt;firefox&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;yum&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;firefox&lt;/span&gt; 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;chrome / chromium&lt;/h4&gt;
+&lt;p&gt;我本人比较习惯用chrome的 &lt;s&gt;不过最近网络不是很稳定 &lt;/s&gt;先补充chromium 的安装方法吧&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;chromium的安装
+首先添加&lt;a href="http://pan.baidu.com/s/1kTIBvUZ"&gt;chromium的fedora源&lt;/a&gt;,将下载好的 &lt;strong&gt;.repo&lt;/strong&gt; 文件移动到&lt;code&gt;/etc/yum.repos.d/&lt;/code&gt;下， 执行&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;yum&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;chromium&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;chrome的安装
+从&lt;a href="http://www.google.com/intl/zh-CN/chrome/"&gt;官网&lt;/a&gt;上下载chrome 的rpm包，或者从我的网盘下载对应的&lt;a href="http://pan.baidu.com/s/1ntmdqtz"&gt;32位&lt;/a&gt; 或 &lt;a href="http://pan.baidu.com/s/1jGuqRdG"&gt;64位&lt;/a&gt; 的rpm 包
+执行&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;rpm&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;ivh&lt;/span&gt; &lt;span class="n"&gt;google&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;chrome&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rpm&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;安装证书&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;yum&lt;/span&gt; &lt;span class="n"&gt;localinstall&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;nogpgcheck&lt;/span&gt; &lt;span class="n"&gt;http:&lt;/span&gt;&lt;span class="sr"&gt;//&lt;/span&gt;&lt;span class="n"&gt;download1&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rpmfusion&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;org&lt;/span&gt;&lt;span class="sr"&gt;/free/&lt;/span&gt;&lt;span class="n"&gt;fedora&lt;/span&gt;&lt;span class="sr"&gt;/rpmfusion-free-release-branched.noarch.rpm http://download1.rpmfusion.org/&lt;/span&gt;&lt;span class="n"&gt;nonfree&lt;/span&gt;&lt;span class="sr"&gt;/fedora/&lt;/span&gt;&lt;span class="n"&gt;rpmfusion&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;nonfree&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;release&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;branched&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;noarch&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rpm&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;压缩/解压软件&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;yum&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;unrar&lt;/span&gt;
+&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;yum&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;p7zip&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;影音播放&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;yum&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;gstreamer&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;plugins&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;good&lt;/span&gt; &lt;span class="n"&gt;gstreamer&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;plugins&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;bad&lt;/span&gt; &lt;span class="n"&gt;gstreamer&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;plugins&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;ugly&lt;/span&gt; &lt;span class="n"&gt;libtunepimp&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;extras&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;freeworld&lt;/span&gt; &lt;span class="n"&gt;xine&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;lib&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;extras&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;freeworld&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;安装音频解码器&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;yum&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;ffmpeg&lt;/span&gt; &lt;span class="n"&gt;ffmpeg&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;libs&lt;/span&gt; &lt;span class="n"&gt;gstreamer&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;ffmpeg&lt;/span&gt; &lt;span class="n"&gt;libmatroska&lt;/span&gt; &lt;span class="n"&gt;xvidcore&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;安装视频解码器&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;编辑器&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;vim&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;yum&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;vim&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;Sublime Text 
+我也很喜欢因为运行速度快，而且免费。安装方法可以参考我的&lt;a href="http://moelove.info/articles/2013/08/30/fedoraxia-an-zhuang-sublime-text-2de-fang-fa/"&gt;fedora下安装sublime text 2&lt;/a&gt;这篇文章。&lt;/li&gt;
+&lt;/ul&gt;</summary><category term="Linux"></category></entry></feed>
