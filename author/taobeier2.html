@@ -114,6 +114,49 @@
       <div class="row">
         <div class="span9" id="content">
         <div class="article">
+                <h1><a href="../articles/2013/09/21/ruby-on-rails-huan-jing/">Ruby on Rails 环境</a></h1>
+                <div class="well small"><footer class="post-info">
+<span class="label">Date</span>
+<abbr class="published" title="2013-09-21T00:00:00">
+        <i class="icon-calendar"></i>六 21 九月 2013
+</abbr>
+<span class="label">By</span>
+<a href="../author/taobeier.html"><i class="icon-user"></i>TaoBeier</a>
+<span class="label">分类</span>
+<a href="../category/life"><i class="icon-folder-open"></i>Life</a>.
+
+
+<span class="label">Tags</span>
+	<a href="../tag/ruby/"><i class="icon-tag"></i>Ruby</a>
+	<a href="../tag/rails/"><i class="icon-tag"></i>Rails</a>
+</footer><!-- /.post-info --></div>
+                <div class="summary"><h4>就这次的尝试写一下自己的记录</h4>
+<p>安装ruby  和 ruby-devel(安装ruby-devel是因为后续的工作如果没有ruby-devel的话，会报错)</p>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">ruby</span> <span class="n">ruby</span><span class="o">-</span><span class="n">devel</span> <span class="n">rubygems</span> <span class="n">sqlite</span> <span class="o">-</span><span class="n">y</span>
+</pre></div>
+
+
+<p>需要的环境有了，那么就可以开始正式的工作了</p>
+<div class="highlight"><pre><span class="n">sudo</span> <span class="n">gem</span> <span class="n">install</span> <span class="n">rails</span>
+</pre></div>
+
+
+<p>找到一个合适的目录来放自己的代码.然后执行</p>
+<div class="highlight"><pre><span class="nv">$</span> <span class="nv">rails</span> <span class="k">new</span> <span class="n">mysite</span>
+<span class="sr">//</span> <span class="err">这个是建立一个叫</span><span class="n">mysite</span> <span class="err">的</span><span class="n">rails</span><span class="err">程式</span> <span class="err">，在当前目录下面</span>
+<span class="nv">$</span> <span class="nv">cd</span> <span class="n">mysite</span>
+<span class="sr">//</span><span class="err">进入这个目录</span>
+<span class="nv">$</span> <span class="nv">bundle</span> <span class="n">install</span>
+<span class="sr">//</span><span class="err">因为在做测试</span> <span class="err">所以</span> <span class="err">也没有必要安装其他的</span><span class="n">gem</span>
+</pre></div>
+
+
+<p>接下来看看它的数据库  配置文件是 <code>config/database.yml</code>  默认的支持是是<strong>SQLite3</strong>(当然也支持其他的比如mysql之类的)它有三种模式 ...</p>
+                        <a class="btn primary xsmall" href="../articles/2013/09/21/ruby-on-rails-huan-jing/">more ...</a>
+                </div>
+        </div>
+        <hr />
+        <div class="article">
                 <h1><a href="../articles/2013/09/06/li-yong-bai-du-baeda-jian-discuzlun-tan/">利用百度BAE搭建discuz论坛</a></h1>
                 <div class="well small"><footer class="post-info">
 <span class="label">Date</span>
@@ -327,50 +370,14 @@ Ps:本文LAMP = Linux + Apache + Mysql + PHP</p>
                 </div>
         </div>
         <hr />
-        <div class="article">
-                <h1><a href="../articles/2013/03/09/fedoraan-zhuang-hou-zui-chu-de-shi-qing/">fedora安装后最初的事情</a></h1>
-                <div class="well small"><footer class="post-info">
-<span class="label">Date</span>
-<abbr class="published" title="2013-03-09T00:00:00">
-        <i class="icon-calendar"></i>六 09 三月 2013
-</abbr>
-<span class="label">By</span>
-<a href="../author/taobeier.html"><i class="icon-user"></i>TaoBeier</a>
-<span class="label">分类</span>
-<a href="../category/linux"><i class="icon-folder-open"></i>Linux</a>.
-
-
-<span class="label">Tags</span>
-	<a href="../tag/linux/"><i class="icon-tag"></i>Linux</a>
-</footer><!-- /.post-info --></div>
-                <div class="summary"><h3>更新源</h3>
-<div class="highlight"><pre><span class="n">sudo</span> <span class="n">yum</span> <span class="n">localinstall</span> <span class="o">--</span><span class="n">nogpgcheck</span> <span class="n">http:</span><span class="sr">//mi</span><span class="n">rrors</span><span class="mf">.163</span><span class="o">.</span><span class="n">com</span><span class="sr">/rpmfusion/</span><span class="n">free</span><span class="sr">/fedora/</span><span class="n">rpmfusion</span><span class="o">-</span><span class="n">free</span><span class="o">-</span><span class="n">release</span><span class="o">-</span><span class="n">stable</span><span class="o">.</span><span class="n">noarch</span><span class="o">.</span><span class="n">rpm</span> <span class="n">http:</span><span class="sr">//mi</span><span class="n">rrors</span><span class="mf">.163</span><span class="o">.</span><span class="n">com</span><span class="sr">/rpmfusion/</span><span class="n">nonfree</span><span class="sr">/fedora/</span><span class="n">rpmfusion</span><span class="o">-</span><span class="n">nonfree</span><span class="o">-</span><span class="n">release</span><span class="o">-</span><span class="n">stable</span><span class="o">.</span><span class="n">noarch</span><span class="o">.</span><span class="n">rpm</span>      <span class="p">(</span><span class="err">这个是添加国内的软件源</span><span class="p">)</span>
-
-<span class="n">sudo</span> <span class="n">yum</span> <span class="n">update</span>
-</pre></div>
-
-
-<h3>网络相关</h3>
-<h4>firefox</h4>
-<div class="highlight"><pre><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">firefox</span> 
-</pre></div>
-
-
-<h4>chrome / chromium</h4>
-<p>我本人比较习惯用chrome的 <s>不过最近网络不是很稳定 </s>先补充chromium 的安装方法吧</p>
-<ul>
-<li>chromium的安装 ...</li></ul>
-                        <a class="btn primary xsmall" href="../articles/2013/03/09/fedoraan-zhuang-hou-zui-chu-de-shi-qing/">more ...</a>
-                </div>
-        </div>
-        <hr />
 
         <div class="pagination">
         <ul>
                         <li class="prev"><a href="../author/taobeier.html">&larr; Previous</a></li>
                         <li class=""><a href="../author/taobeier.html">1</a></li>
                         <li class="active"><a href="../author/taobeier2.html">2</a></li>
-                        <li class="next disabled"><a href="#">&rarr; Next</a></li>
+                        <li class=""><a href="../author/taobeier3.html">3</a></li>
+                        <li class="next"><a href="../author/taobeier3.html">Next &rarr;</a></li>
         </ul>
         </div>
 
@@ -415,6 +422,41 @@ Ps:本文LAMP = Linux + Apache + Mysql + PHP</p>
 
 <li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
 <li class="tag-4">
+    <a href="../tag/rails/">
+        <i class="icon-tag icon-large"></i>Rails
+    </a>
+</li>
+<li class="tag-2">
+    <a href="../tag/blog/">
+        <i class="icon-tag icon-large"></i>blog
+    </a>
+</li>
+<li class="tag-1">
+    <a href="../tag/linux/">
+        <i class="icon-tag icon-large"></i>Linux
+    </a>
+</li>
+<li class="tag-2">
+    <a href="../tag/pelican/">
+        <i class="icon-tag icon-large"></i>pelican
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../tag/upyun/">
+        <i class="icon-tag icon-large"></i>upyun
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../tag/web/">
+        <i class="icon-tag icon-large"></i>web
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../tag/android/">
+        <i class="icon-tag icon-large"></i>Android
+    </a>
+</li>
+<li class="tag-4">
     <a href="../tag/bae/">
         <i class="icon-tag icon-large"></i>BAE
     </a>
@@ -425,48 +467,13 @@ Ps:本文LAMP = Linux + Apache + Mysql + PHP</p>
     </a>
 </li>
 <li class="tag-4">
-    <a href="../tag/lamp/">
-        <i class="icon-tag icon-large"></i>LAMP
-    </a>
-</li>
-<li class="tag-4">
-    <a href="../tag/android/">
-        <i class="icon-tag icon-large"></i>Android
-    </a>
-</li>
-<li class="tag-4">
-    <a href="../tag/rails/">
-        <i class="icon-tag icon-large"></i>Rails
-    </a>
-</li>
-<li class="tag-4">
-    <a href="../tag/web/">
-        <i class="icon-tag icon-large"></i>web
-    </a>
-</li>
-<li class="tag-4">
-    <a href="../tag/upyun/">
-        <i class="icon-tag icon-large"></i>upyun
-    </a>
-</li>
-<li class="tag-2">
-    <a href="../tag/pelican/">
-        <i class="icon-tag icon-large"></i>pelican
-    </a>
-</li>
-<li class="tag-2">
-    <a href="../tag/blog/">
-        <i class="icon-tag icon-large"></i>blog
-    </a>
-</li>
-<li class="tag-4">
     <a href="../tag/vim/">
         <i class="icon-tag icon-large"></i>Vim
     </a>
 </li>
-<li class="tag-0">
-    <a href="../tag/linux/">
-        <i class="icon-tag icon-large"></i>Linux
+<li class="tag-4">
+    <a href="../tag/lamp/">
+        <i class="icon-tag icon-large"></i>LAMP
     </a>
 </li>
 
