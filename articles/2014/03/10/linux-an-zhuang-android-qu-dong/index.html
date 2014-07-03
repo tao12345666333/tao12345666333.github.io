@@ -2,7 +2,7 @@
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8">
-    <title>fedora安装后最初的事情</title>
+    <title>Linux 安装Android 驱动</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Welcom to MoeLove">
     <meta name="author" content="TaoBeier">
@@ -119,8 +119,8 @@
                         <h1>
                                 <a href=""
                                         rel="bookmark"
-                                        title="Permalink to fedora安装后最初的事情">
-                                        fedora安装后最初的事情
+                                        title="Permalink to Linux 安装Android 驱动">
+                                        Linux 安装Android 驱动
                                 </a>
                         </h1>
                 </header>
@@ -128,8 +128,8 @@
                 <div class="well">
 <footer class="post-info">
 <span class="label">Date</span>
-<abbr class="published" title="2013-03-09T00:00:00">
-        <i class="icon-calendar"></i>六 09 三月 2013
+<abbr class="published" title="2014-03-10T00:00:00">
+        <i class="icon-calendar"></i>一 10 三月 2014
 </abbr>
 <span class="label">By</span>
 <a href="../../../../../author/taobeier.html"><i class="icon-user"></i>TaoBeier</a>
@@ -139,69 +139,51 @@
 
 <span class="label">Tags</span>
 	<a href="../../../../../tag/linux/"><i class="icon-tag"></i>Linux</a>
+	<a href="../../../../../tag/android/"><i class="icon-tag"></i>Android</a>
 </footer><!-- /.post-info -->                </div>
-                <h3>更新源</h3>
-<div class="highlight"><pre><span class="n">sudo</span> <span class="n">yum</span> <span class="n">localinstall</span> <span class="o">--</span><span class="n">nogpgcheck</span> <span class="n">http:</span><span class="sr">//mi</span><span class="n">rrors</span><span class="mf">.163</span><span class="o">.</span><span class="n">com</span><span class="sr">/rpmfusion/</span><span class="n">free</span><span class="sr">/fedora/</span><span class="n">rpmfusion</span><span class="o">-</span><span class="n">free</span><span class="o">-</span><span class="n">release</span><span class="o">-</span><span class="n">stable</span><span class="o">.</span><span class="n">noarch</span><span class="o">.</span><span class="n">rpm</span> <span class="n">http:</span><span class="sr">//mi</span><span class="n">rrors</span><span class="mf">.163</span><span class="o">.</span><span class="n">com</span><span class="sr">/rpmfusion/</span><span class="n">nonfree</span><span class="sr">/fedora/</span><span class="n">rpmfusion</span><span class="o">-</span><span class="n">nonfree</span><span class="o">-</span><span class="n">release</span><span class="o">-</span><span class="n">stable</span><span class="o">.</span><span class="n">noarch</span><span class="o">.</span><span class="n">rpm</span>      <span class="p">(</span><span class="err">这个是添加国内的软件源</span><span class="p">)</span>
-
-<span class="n">sudo</span> <span class="n">yum</span> <span class="n">update</span>
-</pre></div>
-
-
-<h3>网络相关</h3>
-<h4>firefox</h4>
-<div class="highlight"><pre><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">firefox</span> 
-</pre></div>
-
-
-<h4>chrome / chromium</h4>
-<p>我本人比较习惯用chrome的 <s>不过最近网络不是很稳定 </s>先补充chromium 的安装方法吧</p>
+                <hr />
+<p>在Linux下非常适合做一些对Rom 的定制以及其他的一些操作，甚至是自己制作Rom 或者从源码编译Rom 也是OK的。</p>
+<p>不过最开始的应该就是搭建开发环境了，我先从装驱动开始说（只是做个笔记而已）</p>
 <ul>
-<li>chromium的安装
-首先添加<a href="http://pan.baidu.com/s/1kTIBvUZ">chromium的fedora源</a>,将下载好的 <strong>.repo</strong> 文件移动到<code>/etc/yum.repos.d/</code>下， 执行</li>
+<li>
+<p>使用数据线连接手机，打开<strong>adb调试模式</strong>。(在Linux上搭建开发环境， 以及adb 命令之类的， 就自行搜索吧，如果哪天更新了 我会附上链接的)</p>
+</li>
+<li>
+<p>输入<code>adb devices</code> 查看设备
+如果有机型的话就说明是已经有驱动了
+如果没有显示的话， 就是说明需要进行驱动安装了。</p>
+</li>
 </ul>
-<div class="highlight"><pre><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">chromium</span>
+<p>这个时候， <code>lsusb</code> 查看， 会看到下面这样的信息</p>
+<div class="highlight"><pre><span class="p">[</span><span class="n">tao</span><span class="nv">@localhost</span> <span class="o">~</span><span class="p">]</span><span class="nv">$</span> <span class="nv">lsusb</span>
+<span class="n">Bus</span> <span class="mo">001</span> <span class="n">Device</span> <span class="mo">002</span><span class="p">:</span> <span class="n">ID</span> <span class="mi">8087</span><span class="p">:</span><span class="mo">0020</span> <span class="n">Intel</span> <span class="n">Corp</span><span class="o">.</span> <span class="n">Integrated</span> <span class="n">Rate</span> <span class="n">Matching</span> <span class="n">Hub</span>
+<span class="n">Bus</span> <span class="mo">002</span> <span class="n">Device</span> <span class="mo">002</span><span class="p">:</span> <span class="n">ID</span> <span class="mi">8087</span><span class="p">:</span><span class="mo">0020</span> <span class="n">Intel</span> <span class="n">Corp</span><span class="o">.</span> <span class="n">Integrated</span> <span class="n">Rate</span> <span class="n">Matching</span> <span class="n">Hub</span>
+<span class="n">Bus</span> <span class="mo">001</span> <span class="n">Device</span> <span class="mo">001</span><span class="p">:</span> <span class="n">ID</span> <span class="mi">1</span><span class="n">d6b:0002</span> <span class="n">Linux</span> <span class="n">Foundation</span> <span class="mf">2.0</span> <span class="n">root</span> <span class="n">hub</span>
+<span class="n">Bus</span> <span class="mo">002</span> <span class="n">Device</span> <span class="mo">001</span><span class="p">:</span> <span class="n">ID</span> <span class="mi">1</span><span class="n">d6b:0002</span> <span class="n">Linux</span> <span class="n">Foundation</span> <span class="mf">2.0</span> <span class="n">root</span> <span class="n">hub</span>
+<span class="n">Bus</span> <span class="mo">002</span> <span class="n">Device</span> <span class="mo">006</span><span class="p">:</span> <span class="n">ID</span> <span class="mi">12</span><span class="n">d1:2229</span> <span class="n">Huawei</span> <span class="n">Technologies</span> <span class="n">Co</span><span class="o">.</span><span class="p">,</span> <span class="n">Ltd</span><span class="o">.</span> 
+<span class="n">Bus</span> <span class="mo">002</span> <span class="n">Device</span> <span class="mo">004</span><span class="p">:</span> <span class="n">ID</span> <span class="mo">04</span><span class="n">f2:b1c1</span> <span class="n">Chicony</span> <span class="n">Electronics</span> <span class="n">Co</span><span class="o">.</span><span class="p">,</span> <span class="n">Ltd</span> 
+<span class="n">Bus</span> <span class="mo">002</span> <span class="n">Device</span> <span class="mo">005</span><span class="p">:</span> <span class="n">ID</span> <span class="mo">062</span><span class="n">a:4101</span> <span class="n">Creative</span> <span class="n">Labs</span> 
 </pre></div>
 
 
-<ul>
-<li>chrome的安装
-从<a href="http://www.google.com/intl/zh-CN/chrome/">官网</a>上下载chrome 的rpm包，或者从我的网盘下载对应的<a href="http://pan.baidu.com/s/1ntmdqtz">32位</a> 或 <a href="http://pan.baidu.com/s/1jGuqRdG">64位</a> 的rpm 包
-执行</li>
-</ul>
-<div class="highlight"><pre><span class="n">sudo</span> <span class="n">rpm</span> <span class="o">-</span><span class="n">ivh</span> <span class="n">google</span><span class="o">-</span><span class="n">chrome</span><span class="o">.</span><span class="n">rpm</span>
+<p>可以在<a href="https://developer.android.com/tools/device.html">Android Developer</a> ， 看到对其他的产品的支持，窝的手机是Huawei的所以就是要输入对应的ID ：<strong>12d1</strong> 然后，再新建一个文件，</p>
+<div class="highlight"><pre><span class="n">vim</span> <span class="sr">/etc/</span><span class="n">udev</span><span class="sr">/rules.d/</span><span class="mi">50</span><span class="o">-</span><span class="n">android</span><span class="o">.</span><span class="n">rules</span>
+
+<span class="err">写入内容：</span>
+
+<span class="n">SUBSYSTEM</span><span class="o">==</span><span class="s">&quot;usb&quot;</span><span class="p">,</span> <span class="n">ATTR</span><span class="p">{</span><span class="n">idVendor</span><span class="p">}</span><span class="o">==</span><span class="s">&quot;12d1&quot;</span><span class="p">,</span> <span class="n">ATTR</span><span class="p">{</span><span class="n">idProduct</span><span class="p">}</span><span class="o">==</span><span class="s">&quot;2229&quot;</span><span class="p">,</span> <span class="n">MODE</span><span class="o">=</span><span class="s">&quot;0600&quot;</span><span class="p">,</span> <span class="n">OWNER</span><span class="o">=</span><span class="s">&quot;tao&quot;</span><span class="p">,</span><span class="n">GROUP</span> <span class="o">=</span><span class="s">&quot;plugdev&quot;</span>
 </pre></div>
 
 
-<h3>安装证书</h3>
-<div class="highlight"><pre><span class="n">sudo</span> <span class="n">yum</span> <span class="n">localinstall</span> <span class="o">--</span><span class="n">nogpgcheck</span> <span class="n">http:</span><span class="sr">//</span><span class="n">download1</span><span class="o">.</span><span class="n">rpmfusion</span><span class="o">.</span><span class="n">org</span><span class="sr">/free/</span><span class="n">fedora</span><span class="sr">/rpmfusion-free-release-branched.noarch.rpm http://download1.rpmfusion.org/</span><span class="n">nonfree</span><span class="sr">/fedora/</span><span class="n">rpmfusion</span><span class="o">-</span><span class="n">nonfree</span><span class="o">-</span><span class="n">release</span><span class="o">-</span><span class="n">branched</span><span class="o">.</span><span class="n">noarch</span><span class="o">.</span><span class="n">rpm</span>
+<p>50是说是手机， 其他的命名也有各自的解释</p>
+<p>然后我们就可以新建这个文件， 修改权限  </p>
+<div class="highlight"><pre><span class="nb">chmod</span> <span class="n">a</span><span class="o">+</span><span class="n">x</span> <span class="sr">/etc/</span><span class="n">udev</span><span class="sr">/rules.d/</span><span class="mi">50</span><span class="o">-</span><span class="n">android</span><span class="o">.</span><span class="n">rules</span>
 </pre></div>
 
 
-<h3>压缩/解压软件</h3>
-<div class="highlight"><pre><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">unrar</span>
-<span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">p7zip</span>
-</pre></div>
-
-
-<h3>影音播放</h3>
-<div class="highlight"><pre><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">gstreamer</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">good</span> <span class="n">gstreamer</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">bad</span> <span class="n">gstreamer</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">ugly</span> <span class="n">libtunepimp</span><span class="o">-</span><span class="n">extras</span><span class="o">-</span><span class="n">freeworld</span> <span class="n">xine</span><span class="o">-</span><span class="n">lib</span><span class="o">-</span><span class="n">extras</span><span class="o">-</span><span class="n">freeworld</span><span class="p">(</span><span class="err">安装音频解码器</span><span class="p">)</span>
-
-<span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">ffmpeg</span> <span class="n">ffmpeg</span><span class="o">-</span><span class="n">libs</span> <span class="n">gstreamer</span><span class="o">-</span><span class="n">ffmpeg</span> <span class="n">libmatroska</span> <span class="n">xvidcore</span><span class="p">(</span><span class="err">安装视频解码器</span><span class="p">)</span>
-</pre></div>
-
-
-<h3>编辑器</h3>
-<ul>
-<li>vim</li>
-</ul>
-<div class="highlight"><pre><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">vim</span>
-</pre></div>
-
-
-<ul>
-<li>Sublime Text 
-我也很喜欢因为运行速度快，而且免费。安装方法可以参考我的<a href="http://moelove.info/articles/2013/08/30/fedoraxia-an-zhuang-sublime-text-2de-fang-fa/">fedora下安装sublime text 2</a>这篇文章。</li>
-</ul>
+<p>这个时候 就成功了，我们使用<code>adb devices</code> 命令就可以看到我们的设备了， 使用<code>adb shell</code>  就可以对手机进行操作了 </p>
+<p>当然我在这里进行了一次重启，就可以使用了
+(话说这篇文章虽然一直在云端编辑，但是一直木有结束，现在才发出来。。一定要提高效率！)</p>
                 </div><!-- /.entry-content -->
           
 
@@ -221,9 +203,15 @@
 
         <ul>
              <li>
+                上一篇文章
+                 <a href="../../../../../articles/2013/12/21/fedora-18-kernel-driver-not-installed-rc-1908chu-li-ban-fa/">
+                     fedora 18 Kernel driver not installed (rc=-1908)处理办法
+                 </a>
+             </li>
+             <li>
                 下一篇文章
-                 <a href="../../../../../articles/2013/03/20/cat-ming-ling-yan-jiu/">
-                     cat 命令研究
+                 <a href="../../../../../articles/2014/04/18/hello-world/">
+                     Hello World !
                  </a>
              </li>
         </ul>

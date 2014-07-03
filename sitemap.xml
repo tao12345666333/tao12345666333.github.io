@@ -5,42 +5,42 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/index.html</loc>
-<lastmod>2014-06-24T19:33:51-00:00</lastmod>
+<lastmod>2014-07-03T14:08:03-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/archives.html</loc>
-<lastmod>2014-06-24T19:33:51-00:00</lastmod>
+<lastmod>2014-07-03T14:08:03-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/tags.html</loc>
-<lastmod>2014-06-24T19:33:51-00:00</lastmod>
+<lastmod>2014-07-03T14:08:03-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/categories.html</loc>
-<lastmod>2014-06-24T19:33:51-00:00</lastmod>
+<lastmod>2014-07-03T14:08:03-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/pages/cha-shui-biao.html</loc>
-<lastmod>2014-06-24T19:33:51-00:00</lastmod>
+<lastmod>2014-07-03T14:08:03-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/pages/qiu-tu-cao.html</loc>
-<lastmod>2014-06-24T19:33:51-00:00</lastmod>
+<lastmod>2014-07-03T14:08:03-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
@@ -62,6 +62,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>/articles/2014/04/18/hello-world/</loc>
 <lastmod>2014-04-18T00:00:00-00:00</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>/articles/2014/03/10/linux-an-zhuang-android-qu-dong/</loc>
+<lastmod>2014-03-10T00:00:00-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
@@ -131,7 +138,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/category/linux</loc>
-<lastmod>2013-12-21T00:00:00-00:00</lastmod>
+<lastmod>2014-03-10T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -208,7 +215,14 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/tag/linux/</loc>
-<lastmod>2013-12-21T00:00:00-00:00</lastmod>
+<lastmod>2014-03-10T00:00:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>/tag/android/</loc>
+<lastmod>2014-03-10T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>

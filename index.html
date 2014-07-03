@@ -254,6 +254,44 @@
         </div>
         <hr />
         <div class="article">
+                <h1><a href="./articles/2014/03/10/linux-an-zhuang-android-qu-dong/">Linux 安装Android 驱动</a></h1>
+                <div class="well small"><footer class="post-info">
+<span class="label">Date</span>
+<abbr class="published" title="2014-03-10T00:00:00">
+        <i class="icon-calendar"></i>一 10 三月 2014
+</abbr>
+<span class="label">By</span>
+<a href="./author/taobeier.html"><i class="icon-user"></i>TaoBeier</a>
+<span class="label">分类</span>
+<a href="./category/linux"><i class="icon-folder-open"></i>Linux</a>.
+
+
+<span class="label">Tags</span>
+	<a href="./tag/linux/"><i class="icon-tag"></i>Linux</a>
+	<a href="./tag/android/"><i class="icon-tag"></i>Android</a>
+</footer><!-- /.post-info --></div>
+                <div class="summary"><hr />
+<p>在Linux下非常适合做一些对Rom 的定制以及其他的一些操作，甚至是自己制作Rom 或者从源码编译Rom 也是OK的。</p>
+<p>不过最开始的应该就是搭建开发环境了，我先从装驱动开始说（只是做个笔记而已）</p>
+<ul>
+<li>
+<p>使用数据线连接手机，打开<strong>adb调试模式</strong>。(在Linux上搭建开发环境， 以及adb 命令之类的， 就自行搜索吧，如果哪天更新了 我会附上链接的)</p>
+</li>
+<li>
+<p>输入<code>adb devices</code> 查看设备
+如果有机型的话就说明是已经有驱动了
+如果没有显示的话， 就是说明需要进行驱动安装了。</p>
+</li>
+</ul>
+<p>这个时候， <code>lsusb</code> 查看， 会看到下面这样的信息</p>
+<div class="highlight"><pre><span class="p">[</span><span class="n">tao</span><span class="nv">@localhost</span> <span class="o">~</span><span class="p">]</span><span class="nv">$</span> <span class="nv">lsusb</span>
+<span class="n">Bus</span> <span class="mo">001</span> <span class="n">Device</span> <span class="mo">002</span><span class="p">:</span> <span class="n">ID</span> <span class="mi">8087</span><span class="p">:</span><span class="mo">0020</span> <span class="n">Intel</span> <span class="n">Corp</span><span class="o">.</span> <span class="n">Integrated</span> <span class="n">Rate</span> <span class="n">Matching</span> <span class="n">Hub</span>
+<span class="n">Bus</span> <span class="mo">002</span> <span class="n">Device</span> <span class="mo">002</span><span class="p">:</span> <span class="n">ID</span> <span class="mi">8087 ...</span></pre></div>
+                        <a class="btn primary xsmall" href="./articles/2014/03/10/linux-an-zhuang-android-qu-dong/">more ...</a>
+                </div>
+        </div>
+        <hr />
+        <div class="article">
                 <h1><a href="./articles/2013/12/21/fedora-18-kernel-driver-not-installed-rc-1908chu-li-ban-fa/">fedora 18 Kernel driver not installed (rc=-1908)处理办法</a></h1>
                 <div class="well small"><footer class="post-info">
 <span class="label">Date</span>
@@ -344,48 +382,6 @@
                 </div>
         </div>
         <hr />
-        <div class="article">
-                <h1><a href="./articles/2013/09/06/li-yong-bai-du-baeda-jian-discuzlun-tan/">利用百度BAE搭建discuz论坛</a></h1>
-                <div class="well small"><footer class="post-info">
-<span class="label">Date</span>
-<abbr class="published" title="2013-09-06T00:00:00">
-        <i class="icon-calendar"></i>五 06 九月 2013
-</abbr>
-<span class="label">By</span>
-<a href="./author/taobeier.html"><i class="icon-user"></i>TaoBeier</a>
-<span class="label">分类</span>
-<a href="./category/life"><i class="icon-folder-open"></i>Life</a>.
-
-
-<span class="label">Tags</span>
-	<a href="./tag/bae/"><i class="icon-tag"></i>BAE</a>
-</footer><!-- /.post-info --></div>
-                <div class="summary"><p>最近尝试了利用百度云应用管理<em>BAE</em>搭建discuz论坛， 这里做简要记录</p>
-<h3>创建应用</h3>
-<p>在 <a href="http://developer.baidu.com/">百度开发者中心</a> 创建一个应用，选择WEB应用下的PC <strong>Iframe应用</strong></p>
-<h3>托管设置</h3>
-<p>之后进行托管设置， 确定域名XXX.duapp.com</p>
-<p>创建一个版本，并上传PHP代码包</p>
-<p>(BAE有些函数规则发生改变，所以需要使用为BAE环境做过调整的<a href="http://pan.baidu.com/s/1hqsYVre">discuz for BAE</a> 版本)</p>
-<p>需要注意的是在上传的代码包里面的 <em>bcs/config.php</em> 中的内容应该修改为</p>
-<div class="highlight"><pre><span class="cp">&lt;?php</span>
-
-<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;BAIDU_BCS_BUCKET&#39;</span><span class="p">,</span> <span class="s1">&#39;创建的bucket名称&#39;</span><span class="p">);</span>
-<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;BAIDU_BCS_AK&#39;</span><span class="p">,</span> <span class="nb">getenv</span><span class="p">(</span><span class="s1">&#39;HTTP_BAE_ENV_AK&#39;</span><span class="p">));</span>
-<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;BAIDU_BCS_SK&#39;</span><span class="p">,</span> <span class="nb">getenv</span><span class="p">(</span><span class="s1">&#39;HTTP_BAE_ENV_SK&#39;</span><span class="p">));</span>
-
-<span class="cp">?&gt;</span><span class="x"></span>
-</pre></div>
-
-
-<p>同时在数据库中设置为UTF-8,</p>
-<p>注意开启缓存 cache 最少30M(亲测50M完全是OK的)</p>
-<h3>安装</h3>
-<p>之后上线应用，访问<a href="http://你的域名.duapp.com/install/index.php">http://你的域名 ...</a></p>
-                        <a class="btn primary xsmall" href="./articles/2013/09/06/li-yong-bai-du-baeda-jian-discuzlun-tan/">more ...</a>
-                </div>
-        </div>
-        <hr />
 
         <div class="pagination">
         <ul>
@@ -437,23 +433,8 @@
 
 <li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
 <li class="tag-4">
-    <a href="./tag/upyun/">
-        <i class="icon-tag icon-large"></i>upyun
-    </a>
-</li>
-<li class="tag-1">
-    <a href="./tag/linux/">
-        <i class="icon-tag icon-large"></i>Linux
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/vim/">
-        <i class="icon-tag icon-large"></i>Vim
-    </a>
-</li>
-<li class="tag-2">
-    <a href="./tag/blog/">
-        <i class="icon-tag icon-large"></i>blog
+    <a href="./tag/bae/">
+        <i class="icon-tag icon-large"></i>BAE
     </a>
 </li>
 <li class="tag-4">
@@ -467,6 +448,11 @@
     </a>
 </li>
 <li class="tag-4">
+    <a href="./tag/android/">
+        <i class="icon-tag icon-large"></i>Android
+    </a>
+</li>
+<li class="tag-4">
     <a href="./tag/rails/">
         <i class="icon-tag icon-large"></i>Rails
     </a>
@@ -477,13 +463,28 @@
     </a>
 </li>
 <li class="tag-4">
-    <a href="./tag/bae/">
-        <i class="icon-tag icon-large"></i>BAE
+    <a href="./tag/upyun/">
+        <i class="icon-tag icon-large"></i>upyun
     </a>
 </li>
-<li class="tag-1">
+<li class="tag-2">
     <a href="./tag/pelican/">
         <i class="icon-tag icon-large"></i>pelican
+    </a>
+</li>
+<li class="tag-2">
+    <a href="./tag/blog/">
+        <i class="icon-tag icon-large"></i>blog
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/vim/">
+        <i class="icon-tag icon-large"></i>Vim
+    </a>
+</li>
+<li class="tag-0">
+    <a href="./tag/linux/">
+        <i class="icon-tag icon-large"></i>Linux
     </a>
 </li>
 

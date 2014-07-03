@@ -244,7 +244,49 @@ var duoshuoQuery = {short_name:&amp;quot;替换成你自己的&amp;quot;};
 因为如果有什么需要的话，我也可以自己来开发插件或者自己再尝试做一个系统。&lt;/li&gt;
 &lt;li&gt;Pelican 相对来说配置也很方便， 很简单， 虽然用户不是很多，但是基本上的问题也都可以解决的&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://github.com/getpelican/pelican"&gt;Pelican&lt;/a&gt; 支持restructuredText和Markdown写文章，配置灵活，扩展性强。我用的是3.3.0。&lt;/li&gt;
-&lt;/ol&gt;</summary><category term="Pelican"></category><category term="Blog"></category></entry><entry><title>fedora 18 Kernel driver not installed (rc=-1908)处理办法</title><link href="/articles/2013/12/21/fedora-18-kernel-driver-not-installed-rc-1908chu-li-ban-fa/" rel="alternate"></link><updated>2013-12-21T00:00:00+08:00</updated><author><name>TaoBeier</name></author><id>tag:,2013-12-21:articles/2013/12/21/fedora-18-kernel-driver-not-installed-rc-1908chu-li-ban-fa/</id><summary type="html">&lt;h4&gt;fedora 18 升级内核之后 使用&lt;em&gt;VirtualBox&lt;/em&gt; 可以正常打开软件,但是不能启动虚拟机系统.提示信息如下:&lt;/h4&gt;
+&lt;/ol&gt;</summary><category term="Pelican"></category><category term="Blog"></category></entry><entry><title>Linux 安装Android 驱动</title><link href="/articles/2014/03/10/linux-an-zhuang-android-qu-dong/" rel="alternate"></link><updated>2014-03-10T00:00:00+08:00</updated><author><name>TaoBeier</name></author><id>tag:,2014-03-10:articles/2014/03/10/linux-an-zhuang-android-qu-dong/</id><summary type="html">&lt;hr /&gt;
+&lt;p&gt;在Linux下非常适合做一些对Rom 的定制以及其他的一些操作，甚至是自己制作Rom 或者从源码编译Rom 也是OK的。&lt;/p&gt;
+&lt;p&gt;不过最开始的应该就是搭建开发环境了，我先从装驱动开始说（只是做个笔记而已）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;使用数据线连接手机，打开&lt;strong&gt;adb调试模式&lt;/strong&gt;。(在Linux上搭建开发环境， 以及adb 命令之类的， 就自行搜索吧，如果哪天更新了 我会附上链接的)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;输入&lt;code&gt;adb devices&lt;/code&gt; 查看设备
+如果有机型的话就说明是已经有驱动了
+如果没有显示的话， 就是说明需要进行驱动安装了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这个时候， &lt;code&gt;lsusb&lt;/code&gt; 查看， 会看到下面这样的信息&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;tao&lt;/span&gt;&lt;span class="nv"&gt;@localhost&lt;/span&gt; &lt;span class="o"&gt;~&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="nv"&gt;$&lt;/span&gt; &lt;span class="nv"&gt;lsusb&lt;/span&gt;
+&lt;span class="n"&gt;Bus&lt;/span&gt; &lt;span class="mo"&gt;001&lt;/span&gt; &lt;span class="n"&gt;Device&lt;/span&gt; &lt;span class="mo"&gt;002&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;ID&lt;/span&gt; &lt;span class="mi"&gt;8087&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mo"&gt;0020&lt;/span&gt; &lt;span class="n"&gt;Intel&lt;/span&gt; &lt;span class="n"&gt;Corp&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="n"&gt;Integrated&lt;/span&gt; &lt;span class="n"&gt;Rate&lt;/span&gt; &lt;span class="n"&gt;Matching&lt;/span&gt; &lt;span class="n"&gt;Hub&lt;/span&gt;
+&lt;span class="n"&gt;Bus&lt;/span&gt; &lt;span class="mo"&gt;002&lt;/span&gt; &lt;span class="n"&gt;Device&lt;/span&gt; &lt;span class="mo"&gt;002&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;ID&lt;/span&gt; &lt;span class="mi"&gt;8087&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mo"&gt;0020&lt;/span&gt; &lt;span class="n"&gt;Intel&lt;/span&gt; &lt;span class="n"&gt;Corp&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="n"&gt;Integrated&lt;/span&gt; &lt;span class="n"&gt;Rate&lt;/span&gt; &lt;span class="n"&gt;Matching&lt;/span&gt; &lt;span class="n"&gt;Hub&lt;/span&gt;
+&lt;span class="n"&gt;Bus&lt;/span&gt; &lt;span class="mo"&gt;001&lt;/span&gt; &lt;span class="n"&gt;Device&lt;/span&gt; &lt;span class="mo"&gt;001&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;ID&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="n"&gt;d6b:0002&lt;/span&gt; &lt;span class="n"&gt;Linux&lt;/span&gt; &lt;span class="n"&gt;Foundation&lt;/span&gt; &lt;span class="mf"&gt;2.0&lt;/span&gt; &lt;span class="n"&gt;root&lt;/span&gt; &lt;span class="n"&gt;hub&lt;/span&gt;
+&lt;span class="n"&gt;Bus&lt;/span&gt; &lt;span class="mo"&gt;002&lt;/span&gt; &lt;span class="n"&gt;Device&lt;/span&gt; &lt;span class="mo"&gt;001&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;ID&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="n"&gt;d6b:0002&lt;/span&gt; &lt;span class="n"&gt;Linux&lt;/span&gt; &lt;span class="n"&gt;Foundation&lt;/span&gt; &lt;span class="mf"&gt;2.0&lt;/span&gt; &lt;span class="n"&gt;root&lt;/span&gt; &lt;span class="n"&gt;hub&lt;/span&gt;
+&lt;span class="n"&gt;Bus&lt;/span&gt; &lt;span class="mo"&gt;002&lt;/span&gt; &lt;span class="n"&gt;Device&lt;/span&gt; &lt;span class="mo"&gt;006&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;ID&lt;/span&gt; &lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="n"&gt;d1:2229&lt;/span&gt; &lt;span class="n"&gt;Huawei&lt;/span&gt; &lt;span class="n"&gt;Technologies&lt;/span&gt; &lt;span class="n"&gt;Co&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Ltd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; 
+&lt;span class="n"&gt;Bus&lt;/span&gt; &lt;span class="mo"&gt;002&lt;/span&gt; &lt;span class="n"&gt;Device&lt;/span&gt; &lt;span class="mo"&gt;004&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;ID&lt;/span&gt; &lt;span class="mo"&gt;04&lt;/span&gt;&lt;span class="n"&gt;f2:b1c1&lt;/span&gt; &lt;span class="n"&gt;Chicony&lt;/span&gt; &lt;span class="n"&gt;Electronics&lt;/span&gt; &lt;span class="n"&gt;Co&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Ltd&lt;/span&gt; 
+&lt;span class="n"&gt;Bus&lt;/span&gt; &lt;span class="mo"&gt;002&lt;/span&gt; &lt;span class="n"&gt;Device&lt;/span&gt; &lt;span class="mo"&gt;005&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;ID&lt;/span&gt; &lt;span class="mo"&gt;062&lt;/span&gt;&lt;span class="n"&gt;a:4101&lt;/span&gt; &lt;span class="n"&gt;Creative&lt;/span&gt; &lt;span class="n"&gt;Labs&lt;/span&gt; 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;可以在&lt;a href="https://developer.android.com/tools/device.html"&gt;Android Developer&lt;/a&gt; ， 看到对其他的产品的支持，窝的手机是Huawei的所以就是要输入对应的ID ：&lt;strong&gt;12d1&lt;/strong&gt; 然后，再新建一个文件，&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;vim&lt;/span&gt; &lt;span class="sr"&gt;/etc/&lt;/span&gt;&lt;span class="n"&gt;udev&lt;/span&gt;&lt;span class="sr"&gt;/rules.d/&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;android&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rules&lt;/span&gt;
+
+&lt;span class="err"&gt;写入内容：&lt;/span&gt;
+
+&lt;span class="n"&gt;SUBSYSTEM&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;usb&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ATTR&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;idVendor&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;12d1&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ATTR&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;idProduct&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;2229&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;MODE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;0600&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;OWNER&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;tao&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;GROUP&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;plugdev&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;50是说是手机， 其他的命名也有各自的解释&lt;/p&gt;
+&lt;p&gt;然后我们就可以新建这个文件， 修改权限  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;chmod&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="sr"&gt;/etc/&lt;/span&gt;&lt;span class="n"&gt;udev&lt;/span&gt;&lt;span class="sr"&gt;/rules.d/&lt;/span&gt;&lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;android&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rules&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这个时候 就成功了，我们使用&lt;code&gt;adb devices&lt;/code&gt; 命令就可以看到我们的设备了， 使用&lt;code&gt;adb shell&lt;/code&gt;  就可以对手机进行操作了 &lt;/p&gt;
+&lt;p&gt;当然我在这里进行了一次重启，就可以使用了
+(话说这篇文章虽然一直在云端编辑，但是一直木有结束，现在才发出来。。一定要提高效率！)&lt;/p&gt;</summary><category term="Linux"></category><category term="Android"></category></entry><entry><title>fedora 18 Kernel driver not installed (rc=-1908)处理办法</title><link href="/articles/2013/12/21/fedora-18-kernel-driver-not-installed-rc-1908chu-li-ban-fa/" rel="alternate"></link><updated>2013-12-21T00:00:00+08:00</updated><author><name>TaoBeier</name></author><id>tag:,2013-12-21:articles/2013/12/21/fedora-18-kernel-driver-not-installed-rc-1908chu-li-ban-fa/</id><summary type="html">&lt;h4&gt;fedora 18 升级内核之后 使用&lt;em&gt;VirtualBox&lt;/em&gt; 可以正常打开软件,但是不能启动虚拟机系统.提示信息如下:&lt;/h4&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;Kernel&lt;/span&gt; &lt;span class="n"&gt;driver&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;installed&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;rc&lt;/span&gt;&lt;span class="o"&gt;=-&lt;/span&gt;&lt;span class="mi"&gt;1908&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
