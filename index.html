@@ -114,6 +114,44 @@
       <div class="row">
         <div class="span9" id="content">
         <div class="article">
+                <h1><a href="./articles/2014/07/17/bash-xian-shi-gitfen-zhi/">Bash 显示git分支</a></h1>
+                <div class="well small"><footer class="post-info">
+<span class="label">Date</span>
+<abbr class="published" title="2014-07-17T00:00:00">
+        <i class="icon-calendar"></i>四 17 七月 2014
+</abbr>
+<span class="label">By</span>
+<a href="./author/taobeier.html"><i class="icon-user"></i>TaoBeier</a>
+<span class="label">分类</span>
+<a href="./category/linux"><i class="icon-folder-open"></i>Linux</a>.
+
+
+<span class="label">Tags</span>
+	<a href="./tag/linux/"><i class="icon-tag"></i>Linux</a>
+</footer><!-- /.post-info --></div>
+                <div class="summary"><hr />
+<h3>虽然一直都在用git，但是并没有注意到还有这个方便的用法</h3>
+<p>于是乎赶快学习一下 ：-）</p>
+<p>上网查了一下资料，都说Ubuntu下如何如何方便，其他的发行版需要先下载一个文件，然后添加source，再如何如何。。</p>
+<p>其实查再多都不如实践。以下是窝经过查资料加上对个人bash的配色后写出的配置文件，加入到 <code>~/.bashrc</code> 中即可（对各个发行版通用的）</p>
+<div class="highlight"><pre>function git_branch {
+    ref=$(git symbolic-ref HEAD 2&gt; /dev/null) || return;
+    echo &quot;(&quot;<span class="cp">${</span><span class="n">ref</span><span class="c">#refs/heads/</span><span class="cp">}</span>&quot;) &quot;;
+}
+
+PS1=&quot;[\[\e[1;35m\]\u\[\e[1;32m\]\w\[\e[0m\]] \[\e[0m\]\[\e[1;36m\]\$(git_branch)\[\e[0;33m\]\$&quot; 
+</pre></div>
+
+
+<script src="https://gist.github.com/tao12345666333/4a81478aa5db7c30e94e.js"></script>
+
+<p>按照惯例，上一张图
+<img alt="屏幕截图" src="http://moelove.qiniudn.com/bashrc2014-07%2022:57:55.png" /></p>
+                        <a class="btn primary xsmall" href="./articles/2014/07/17/bash-xian-shi-gitfen-zhi/">more ...</a>
+                </div>
+        </div>
+        <hr />
+        <div class="article">
                 <h1><a href="./articles/2014/07/02/grub2-rescue-xiu-fu/">Grub2 rescue 修复</a></h1>
                 <div class="well small"><footer class="post-info">
 <span class="label">Date</span>
@@ -333,54 +371,6 @@
                 </div>
         </div>
         <hr />
-        <div class="article">
-                <h1><a href="./articles/2013/12/21/fedora-18-kernel-driver-not-installed-rc-1908chu-li-ban-fa/">fedora 18 Kernel driver not installed (rc=-1908)处理办法</a></h1>
-                <div class="well small"><footer class="post-info">
-<span class="label">Date</span>
-<abbr class="published" title="2013-12-21T00:00:00">
-        <i class="icon-calendar"></i>六 21 十二月 2013
-</abbr>
-<span class="label">By</span>
-<a href="./author/taobeier.html"><i class="icon-user"></i>TaoBeier</a>
-<span class="label">分类</span>
-<a href="./category/linux"><i class="icon-folder-open"></i>Linux</a>.
-
-
-<span class="label">Tags</span>
-	<a href="./tag/linux/"><i class="icon-tag"></i>Linux</a>
-</footer><!-- /.post-info --></div>
-                <div class="summary"><h4>fedora 18 升级内核之后 使用<em>VirtualBox</em> 可以正常打开软件,但是不能启动虚拟机系统.提示信息如下:</h4>
-<div class="highlight"><pre><span class="n">Kernel</span> <span class="n">driver</span> <span class="ow">not</span> <span class="n">installed</span> <span class="p">(</span><span class="n">rc</span><span class="o">=-</span><span class="mi">1908</span><span class="p">)</span>
-</pre></div>
-
-
-<p>经过一系列的看文档还有google 之后,很多地方写着这个问题的处理方法是</p>
-<ul>
-<li>第一种</li>
-</ul>
-<div class="highlight"><pre><span class="n">sudo</span> <span class="sr">/etc/i</span><span class="n">nit</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">vboxdrv</span> <span class="n">setup</span>
-</pre></div>
-
-
-<p>经过实验,对feora 18 不可行</p>
-<ul>
-<li>第二种</li>
-</ul>
-<div class="highlight"><pre><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">dkms</span>
-<span class="n">sudo</span> <span class="sr">/etc/i</span><span class="n">nit</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">vboxdrv</span> <span class="n">setup</span>
-</pre></div>
-
-
-<p>但是情况继续</p>
-<ul>
-<li>第三种</li>
-</ul>
-<div class="highlight"><pre><span class="n">sudo</span> <span class="n">aptitude</span> <span class="n">update</span>
-<span class="n">sudo</span> <span class="n">aptitude</span> <span class="n">install ...</span></pre></div>
-                        <a class="btn primary xsmall" href="./articles/2013/12/21/fedora-18-kernel-driver-not-installed-rc-1908chu-li-ban-fa/">more ...</a>
-                </div>
-        </div>
-        <hr />
 
         <div class="pagination">
         <ul>
@@ -433,11 +423,36 @@
 
 <li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
 <li class="tag-4">
+    <a href="./tag/android/">
+        <i class="icon-tag icon-large"></i>Android
+    </a>
+</li>
+<li class="tag-2">
+    <a href="./tag/pelican/">
+        <i class="icon-tag icon-large"></i>pelican
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/web/">
+        <i class="icon-tag icon-large"></i>web
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/vim/">
+        <i class="icon-tag icon-large"></i>Vim
+    </a>
+</li>
+<li class="tag-4">
     <a href="./tag/rails/">
         <i class="icon-tag icon-large"></i>Rails
     </a>
 </li>
-<li class="tag-2">
+<li class="tag-4">
+    <a href="./tag/lamp/">
+        <i class="icon-tag icon-large"></i>LAMP
+    </a>
+</li>
+<li class="tag-3">
     <a href="./tag/blog/">
         <i class="icon-tag icon-large"></i>blog
     </a>
@@ -447,9 +462,9 @@
         <i class="icon-tag icon-large"></i>Linux
     </a>
 </li>
-<li class="tag-2">
-    <a href="./tag/pelican/">
-        <i class="icon-tag icon-large"></i>pelican
+<li class="tag-4">
+    <a href="./tag/bae/">
+        <i class="icon-tag icon-large"></i>BAE
     </a>
 </li>
 <li class="tag-4">
@@ -458,33 +473,8 @@
     </a>
 </li>
 <li class="tag-4">
-    <a href="./tag/web/">
-        <i class="icon-tag icon-large"></i>web
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/android/">
-        <i class="icon-tag icon-large"></i>Android
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/bae/">
-        <i class="icon-tag icon-large"></i>BAE
-    </a>
-</li>
-<li class="tag-4">
     <a href="./tag/ruby/">
         <i class="icon-tag icon-large"></i>Ruby
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/vim/">
-        <i class="icon-tag icon-large"></i>Vim
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/lamp/">
-        <i class="icon-tag icon-large"></i>LAMP
     </a>
 </li>
 

@@ -114,6 +114,44 @@
       <div class="row">
         <div class="span9" id="content">
         <div class="article">
+                <h1><a href="../../articles/2014/07/17/bash-xian-shi-gitfen-zhi/">Bash 显示git分支</a></h1>
+                <div class="well small"><footer class="post-info">
+<span class="label">Date</span>
+<abbr class="published" title="2014-07-17T00:00:00">
+        <i class="icon-calendar"></i>四 17 七月 2014
+</abbr>
+<span class="label">By</span>
+<a href="../../author/taobeier.html"><i class="icon-user"></i>TaoBeier</a>
+<span class="label">分类</span>
+<a href="../../category/linux"><i class="icon-folder-open"></i>Linux</a>.
+
+
+<span class="label">Tags</span>
+	<a href="../../tag/linux/"><i class="icon-tag"></i>Linux</a>
+</footer><!-- /.post-info --></div>
+                <div class="summary"><hr />
+<h3>虽然一直都在用git，但是并没有注意到还有这个方便的用法</h3>
+<p>于是乎赶快学习一下 ：-）</p>
+<p>上网查了一下资料，都说Ubuntu下如何如何方便，其他的发行版需要先下载一个文件，然后添加source，再如何如何。。</p>
+<p>其实查再多都不如实践。以下是窝经过查资料加上对个人bash的配色后写出的配置文件，加入到 <code>~/.bashrc</code> 中即可（对各个发行版通用的）</p>
+<div class="highlight"><pre>function git_branch {
+    ref=$(git symbolic-ref HEAD 2&gt; /dev/null) || return;
+    echo &quot;(&quot;<span class="cp">${</span><span class="n">ref</span><span class="c">#refs/heads/</span><span class="cp">}</span>&quot;) &quot;;
+}
+
+PS1=&quot;[\[\e[1;35m\]\u\[\e[1;32m\]\w\[\e[0m\]] \[\e[0m\]\[\e[1;36m\]\$(git_branch)\[\e[0;33m\]\$&quot; 
+</pre></div>
+
+
+<script src="https://gist.github.com/tao12345666333/4a81478aa5db7c30e94e.js"></script>
+
+<p>按照惯例，上一张图
+<img alt="屏幕截图" src="http://moelove.qiniudn.com/bashrc2014-07%2022:57:55.png" /></p>
+                        <a class="btn primary xsmall" href="../../articles/2014/07/17/bash-xian-shi-gitfen-zhi/">more ...</a>
+                </div>
+        </div>
+        <hr />
+        <div class="article">
                 <h1><a href="../../articles/2014/07/02/grub2-rescue-xiu-fu/">Grub2 rescue 修复</a></h1>
                 <div class="well small"><footer class="post-info">
 <span class="label">Date</span>
@@ -325,60 +363,6 @@ Ps:本文LAMP = Linux + Apache + Mysql + PHP</p>
                 </div>
         </div>
         <hr />
-        <div class="article">
-                <h1><a href="../../articles/2013/03/20/cat-ming-ling-yan-jiu/">cat 命令研究</a></h1>
-                <div class="well small"><footer class="post-info">
-<span class="label">Date</span>
-<abbr class="published" title="2013-03-20T00:00:00">
-        <i class="icon-calendar"></i>三 20 三月 2013
-</abbr>
-<span class="label">By</span>
-<a href="../../author/taobeier.html"><i class="icon-user"></i>TaoBeier</a>
-<span class="label">分类</span>
-<a href="../../category/linux"><i class="icon-folder-open"></i>Linux</a>.
-
-
-<span class="label">Tags</span>
-	<a href="../../tag/linux/"><i class="icon-tag"></i>Linux</a>
-</footer><!-- /.post-info --></div>
-                <div class="summary"><blockquote>
-<p>有人问我关于centos里面使用cat命令的问题，我在这里简单记录一下。
-在linux下，cat应该是使用最频繁的命令之一了吧。</p>
-</blockquote>
-<h3>cat命令在Linux作以下用途：</h3>
-<ul>
-<li>在屏幕上显示文本文件。</li>
-<li>复制文本文件。</li>
-<li>合并文本文件。</li>
-<li>创建新的文本文件。</li>
-</ul>
-<h3>cat命令支持的语法如下：</h3>
-<div class="highlight"><pre><span class="n">cat</span> <span class="n">filename</span>
-<span class="n">cat</span> <span class="n">options</span> <span class="n">filename</span>
-<span class="n">cat</span> <span class="n">file1</span> <span class="n">file2</span>
-<span class="n">cat</span> <span class="n">file1</span> <span class="n">file2</span> <span class="o">&gt;</span> <span class="n">newcombinedfile</span>
-</pre></div>
-
-
-<h4>显示文件的内容：</h4>
-<div class="highlight"><pre><span class="n">cat</span> <span class="sr">/tmp/</span><span class="n">test</span>
-</pre></div>
-
-
-<p>上面的命令就是查看文件<code>/tmp/test</code>的内容，把内容输出到屏幕。
-但是也可以使用</p>
-<div class="highlight"><pre><span class="n">cat</span> <span class="sr">/tmp/</span><span class="n">test</span> <span class="o">&gt;</span> <span class="sr">/tmp/</span><span class="n">test2</span>
-</pre></div>
-
-
-<p>使用上面的命令，可以把文件内容<strong><a href="http://linux-wiki.cn/wiki/zh-hans/Bash%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91">重定向</a></strong>到/tmp/test2文件中</p>
-<h4>串联文件：</h4>
-<p>串联文件是把文件内容一起输出，但是不会改变源文件的内容  </p>
-<div class="highlight"><pre><span class="n">cat</span> <span class="sr">/tmp/</span><span class="n">test1</span> <span class="sr">/tmp ...</span></pre></div>
-                        <a class="btn primary xsmall" href="../../articles/2013/03/20/cat-ming-ling-yan-jiu/">more ...</a>
-                </div>
-        </div>
-        <hr />
 
         <div class="pagination">
         <ul>
@@ -430,11 +414,36 @@ Ps:本文LAMP = Linux + Apache + Mysql + PHP</p>
 
 <li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
 <li class="tag-4">
+    <a href="../../tag/android/">
+        <i class="icon-tag icon-large"></i>Android
+    </a>
+</li>
+<li class="tag-2">
+    <a href="../../tag/pelican/">
+        <i class="icon-tag icon-large"></i>pelican
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../../tag/web/">
+        <i class="icon-tag icon-large"></i>web
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../../tag/vim/">
+        <i class="icon-tag icon-large"></i>Vim
+    </a>
+</li>
+<li class="tag-4">
     <a href="../../tag/rails/">
         <i class="icon-tag icon-large"></i>Rails
     </a>
 </li>
-<li class="tag-2">
+<li class="tag-4">
+    <a href="../../tag/lamp/">
+        <i class="icon-tag icon-large"></i>LAMP
+    </a>
+</li>
+<li class="tag-3">
     <a href="../../tag/blog/">
         <i class="icon-tag icon-large"></i>blog
     </a>
@@ -444,9 +453,9 @@ Ps:本文LAMP = Linux + Apache + Mysql + PHP</p>
         <i class="icon-tag icon-large"></i>Linux
     </a>
 </li>
-<li class="tag-2">
-    <a href="../../tag/pelican/">
-        <i class="icon-tag icon-large"></i>pelican
+<li class="tag-4">
+    <a href="../../tag/bae/">
+        <i class="icon-tag icon-large"></i>BAE
     </a>
 </li>
 <li class="tag-4">
@@ -455,33 +464,8 @@ Ps:本文LAMP = Linux + Apache + Mysql + PHP</p>
     </a>
 </li>
 <li class="tag-4">
-    <a href="../../tag/web/">
-        <i class="icon-tag icon-large"></i>web
-    </a>
-</li>
-<li class="tag-4">
-    <a href="../../tag/android/">
-        <i class="icon-tag icon-large"></i>Android
-    </a>
-</li>
-<li class="tag-4">
-    <a href="../../tag/bae/">
-        <i class="icon-tag icon-large"></i>BAE
-    </a>
-</li>
-<li class="tag-4">
     <a href="../../tag/ruby/">
         <i class="icon-tag icon-large"></i>Ruby
-    </a>
-</li>
-<li class="tag-4">
-    <a href="../../tag/vim/">
-        <i class="icon-tag icon-large"></i>Vim
-    </a>
-</li>
-<li class="tag-4">
-    <a href="../../tag/lamp/">
-        <i class="icon-tag icon-large"></i>LAMP
     </a>
 </li>
 

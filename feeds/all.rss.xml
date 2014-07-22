@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MoeLove</title><link>/</link><description></description><atom:link href="/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 02 Jul 2014 00:00:00 +0800</lastBuildDate><item><title>Grub2 rescue 修复</title><link>/articles/2014/07/02/grub2-rescue-xiu-fu/</link><description>&lt;hr /&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MoeLove</title><link>/</link><description></description><atom:link href="/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 17 Jul 2014 00:00:00 +0800</lastBuildDate><item><title>Bash 显示git分支</title><link>/articles/2014/07/17/bash-xian-shi-gitfen-zhi/</link><description>&lt;hr /&gt;
+&lt;h3&gt;虽然一直都在用git，但是并没有注意到还有这个方便的用法&lt;/h3&gt;
+&lt;p&gt;于是乎赶快学习一下 ：-）&lt;/p&gt;
+&lt;p&gt;上网查了一下资料，都说Ubuntu下如何如何方便，其他的发行版需要先下载一个文件，然后添加source，再如何如何。。&lt;/p&gt;
+&lt;p&gt;其实查再多都不如实践。以下是窝经过查资料加上对个人bash的配色后写出的配置文件，加入到 &lt;code&gt;~/.bashrc&lt;/code&gt; 中即可（对各个发行版通用的）&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;function git_branch {
+    ref=$(git symbolic-ref HEAD 2&amp;gt; /dev/null) || return;
+    echo &amp;quot;(&amp;quot;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;ref&lt;/span&gt;&lt;span class="c"&gt;#refs/heads/&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;&amp;quot;) &amp;quot;;
+}
+
+PS1=&amp;quot;[\[\e[1;35m\]\u\[\e[1;32m\]\w\[\e[0m\]] \[\e[0m\]\[\e[1;36m\]\$(git_branch)\[\e[0;33m\]\$&amp;quot; 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;script src="https://gist.github.com/tao12345666333/4a81478aa5db7c30e94e.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;按照惯例，上一张图
+&lt;img alt="屏幕截图" src="http://moelove.qiniudn.com/bashrc2014-07%2022:57:55.png" /&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">TaoBeier</dc:creator><pubDate>Thu, 17 Jul 2014 00:00:00 +0800</pubDate><guid>tag:,2014-07-17:articles/2014/07/17/bash-xian-shi-gitfen-zhi/</guid><category>Linux</category></item><item><title>Grub2 rescue 修复</title><link>/articles/2014/07/02/grub2-rescue-xiu-fu/</link><description>&lt;hr /&gt;
 &lt;p&gt;昨天下午的时候想要把分区处理一下，突然发现硬盘里面有一个未使用的102M的分区,很果断的把这些乱七八糟的分区都给干掉了。结果呢，再次开机的时候就坑了（虽然酱紫的事情干过很多次了，这次做个记录吧）开机时提示如下：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;GRUB&lt;/span&gt; &lt;span class="n"&gt;loading&lt;/span&gt;&lt;span class="o"&gt;..&lt;/span&gt;
 &lt;span class="n"&gt;error:&lt;/span&gt; &lt;span class="n"&gt;unknown&lt;/span&gt; &lt;span class="n"&gt;filesystem&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;

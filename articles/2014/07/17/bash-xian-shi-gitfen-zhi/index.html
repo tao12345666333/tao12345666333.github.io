@@ -2,7 +2,7 @@
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8">
-    <title>Linux 安装Android 驱动</title>
+    <title>Bash 显示git分支</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Welcom to MoeLove">
     <meta name="author" content="TaoBeier">
@@ -119,8 +119,8 @@
                         <h1>
                                 <a href=""
                                         rel="bookmark"
-                                        title="Permalink to Linux 安装Android 驱动">
-                                        Linux 安装Android 驱动
+                                        title="Permalink to Bash 显示git分支">
+                                        Bash 显示git分支
                                 </a>
                         </h1>
                 </header>
@@ -128,8 +128,8 @@
                 <div class="well">
 <footer class="post-info">
 <span class="label">Date</span>
-<abbr class="published" title="2014-03-10T00:00:00">
-        <i class="icon-calendar"></i>一 10 三月 2014
+<abbr class="published" title="2014-07-17T00:00:00">
+        <i class="icon-calendar"></i>四 17 七月 2014
 </abbr>
 <span class="label">By</span>
 <a href="../../../../../author/taobeier.html"><i class="icon-user"></i>TaoBeier</a>
@@ -139,51 +139,25 @@
 
 <span class="label">Tags</span>
 	<a href="../../../../../tag/linux/"><i class="icon-tag"></i>Linux</a>
-	<a href="../../../../../tag/android/"><i class="icon-tag"></i>Android</a>
 </footer><!-- /.post-info -->                </div>
                 <hr />
-<p>在Linux下非常适合做一些对Rom 的定制以及其他的一些操作，甚至是自己制作Rom 或者从源码编译Rom 也是OK的。</p>
-<p>不过最开始的应该就是搭建开发环境了，我先从装驱动开始说（只是做个笔记而已）</p>
-<ul>
-<li>
-<p>使用数据线连接手机，打开<strong>adb调试模式</strong>。(在Linux上搭建开发环境， 以及adb 命令之类的， 就自行搜索吧，如果哪天更新了 我会附上链接的)</p>
-</li>
-<li>
-<p>输入<code>adb devices</code> 查看设备
-如果有机型的话就说明是已经有驱动了
-如果没有显示的话， 就是说明需要进行驱动安装了。</p>
-</li>
-</ul>
-<p>这个时候， <code>lsusb</code> 查看， 会看到下面这样的信息</p>
-<div class="highlight"><pre><span class="p">[</span><span class="n">tao</span><span class="nv">@localhost</span> <span class="o">~</span><span class="p">]</span><span class="nv">$</span> <span class="nv">lsusb</span>
-<span class="n">Bus</span> <span class="mo">001</span> <span class="n">Device</span> <span class="mo">002</span><span class="p">:</span> <span class="n">ID</span> <span class="mi">8087</span><span class="p">:</span><span class="mo">0020</span> <span class="n">Intel</span> <span class="n">Corp</span><span class="o">.</span> <span class="n">Integrated</span> <span class="n">Rate</span> <span class="n">Matching</span> <span class="n">Hub</span>
-<span class="n">Bus</span> <span class="mo">002</span> <span class="n">Device</span> <span class="mo">002</span><span class="p">:</span> <span class="n">ID</span> <span class="mi">8087</span><span class="p">:</span><span class="mo">0020</span> <span class="n">Intel</span> <span class="n">Corp</span><span class="o">.</span> <span class="n">Integrated</span> <span class="n">Rate</span> <span class="n">Matching</span> <span class="n">Hub</span>
-<span class="n">Bus</span> <span class="mo">001</span> <span class="n">Device</span> <span class="mo">001</span><span class="p">:</span> <span class="n">ID</span> <span class="mi">1</span><span class="n">d6b:0002</span> <span class="n">Linux</span> <span class="n">Foundation</span> <span class="mf">2.0</span> <span class="n">root</span> <span class="n">hub</span>
-<span class="n">Bus</span> <span class="mo">002</span> <span class="n">Device</span> <span class="mo">001</span><span class="p">:</span> <span class="n">ID</span> <span class="mi">1</span><span class="n">d6b:0002</span> <span class="n">Linux</span> <span class="n">Foundation</span> <span class="mf">2.0</span> <span class="n">root</span> <span class="n">hub</span>
-<span class="n">Bus</span> <span class="mo">002</span> <span class="n">Device</span> <span class="mo">006</span><span class="p">:</span> <span class="n">ID</span> <span class="mi">12</span><span class="n">d1:2229</span> <span class="n">Huawei</span> <span class="n">Technologies</span> <span class="n">Co</span><span class="o">.</span><span class="p">,</span> <span class="n">Ltd</span><span class="o">.</span> 
-<span class="n">Bus</span> <span class="mo">002</span> <span class="n">Device</span> <span class="mo">004</span><span class="p">:</span> <span class="n">ID</span> <span class="mo">04</span><span class="n">f2:b1c1</span> <span class="n">Chicony</span> <span class="n">Electronics</span> <span class="n">Co</span><span class="o">.</span><span class="p">,</span> <span class="n">Ltd</span> 
-<span class="n">Bus</span> <span class="mo">002</span> <span class="n">Device</span> <span class="mo">005</span><span class="p">:</span> <span class="n">ID</span> <span class="mo">062</span><span class="n">a:4101</span> <span class="n">Creative</span> <span class="n">Labs</span> 
+<h3>虽然一直都在用git，但是并没有注意到还有这个方便的用法</h3>
+<p>于是乎赶快学习一下 ：-）</p>
+<p>上网查了一下资料，都说Ubuntu下如何如何方便，其他的发行版需要先下载一个文件，然后添加source，再如何如何。。</p>
+<p>其实查再多都不如实践。以下是窝经过查资料加上对个人bash的配色后写出的配置文件，加入到 <code>~/.bashrc</code> 中即可（对各个发行版通用的）</p>
+<div class="highlight"><pre>function git_branch {
+    ref=$(git symbolic-ref HEAD 2&gt; /dev/null) || return;
+    echo &quot;(&quot;<span class="cp">${</span><span class="n">ref</span><span class="c">#refs/heads/</span><span class="cp">}</span>&quot;) &quot;;
+}
+
+PS1=&quot;[\[\e[1;35m\]\u\[\e[1;32m\]\w\[\e[0m\]] \[\e[0m\]\[\e[1;36m\]\$(git_branch)\[\e[0;33m\]\$&quot; 
 </pre></div>
 
 
-<p>可以在<a href="https://developer.android.com/tools/device.html">Android Developer</a> ， 看到对其他的产品的支持，窝的手机是Huawei的所以就是要输入对应的ID ：<strong>12d1</strong> 然后，再新建一个文件，</p>
-<div class="highlight"><pre><span class="n">vim</span> <span class="sr">/etc/</span><span class="n">udev</span><span class="sr">/rules.d/</span><span class="mi">50</span><span class="o">-</span><span class="n">android</span><span class="o">.</span><span class="n">rules</span>
+<script src="https://gist.github.com/tao12345666333/4a81478aa5db7c30e94e.js"></script>
 
-<span class="err">写入内容：</span>
-
-<span class="n">SUBSYSTEM</span><span class="o">==</span><span class="s">&quot;usb&quot;</span><span class="p">,</span> <span class="n">ATTR</span><span class="p">{</span><span class="n">idVendor</span><span class="p">}</span><span class="o">==</span><span class="s">&quot;12d1&quot;</span><span class="p">,</span> <span class="n">ATTR</span><span class="p">{</span><span class="n">idProduct</span><span class="p">}</span><span class="o">==</span><span class="s">&quot;2229&quot;</span><span class="p">,</span> <span class="n">MODE</span><span class="o">=</span><span class="s">&quot;0600&quot;</span><span class="p">,</span> <span class="n">OWNER</span><span class="o">=</span><span class="s">&quot;tao&quot;</span><span class="p">,</span><span class="n">GROUP</span> <span class="o">=</span><span class="s">&quot;plugdev&quot;</span>
-</pre></div>
-
-
-<p>50是说是手机， 其他的命名也有各自的解释</p>
-<p>然后我们就可以新建这个文件， 修改权限  </p>
-<div class="highlight"><pre><span class="nb">chmod</span> <span class="n">a</span><span class="o">+</span><span class="n">x</span> <span class="sr">/etc/</span><span class="n">udev</span><span class="sr">/rules.d/</span><span class="mi">50</span><span class="o">-</span><span class="n">android</span><span class="o">.</span><span class="n">rules</span>
-</pre></div>
-
-
-<p>这个时候 就成功了，我们使用<code>adb devices</code> 命令就可以看到我们的设备了， 使用<code>adb shell</code>  就可以对手机进行操作了 </p>
-<p>当然我在这里进行了一次重启，就可以使用了
-(话说这篇文章虽然一直在云端编辑，但是一直木有结束，现在才发出来。。一定要提高效率！)</p>
+<p>按照惯例，上一张图
+<img alt="屏幕截图" src="http://moelove.qiniudn.com/bashrc2014-07%2022:57:55.png" /></p>
                 </div><!-- /.entry-content -->
           
 
@@ -204,14 +178,8 @@
         <ul>
              <li>
                 上一篇文章
-                 <a href="../../../../../articles/2013/12/21/fedora-18-kernel-driver-not-installed-rc-1908chu-li-ban-fa/">
-                     fedora 18 Kernel driver not installed (rc=-1908)处理办法
-                 </a>
-             </li>
-             <li>
-                下一篇文章
-                 <a href="../../../../../articles/2014/04/18/hello-world/">
-                     Hello World !
+                 <a href="../../../../../articles/2014/07/02/grub2-rescue-xiu-fu/">
+                     Grub2 rescue 修复
                  </a>
              </li>
         </ul>
