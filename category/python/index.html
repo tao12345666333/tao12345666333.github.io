@@ -114,6 +114,47 @@
       <div class="row">
         <div class="span9" id="content">
         <div class="article">
+                <h1><a href="../../articles/2014/07/22/zheng-ze-pi-pei-zhong-wen-ji-zi-fu-bian-ma-wen-ti/">正则匹配中文及字符编码问题</a></h1>
+                <div class="well small"><footer class="post-info">
+<span class="label">Date</span>
+<abbr class="published" title="2014-07-22T00:00:00">
+        <i class="icon-calendar"></i>二 22 七月 2014
+</abbr>
+<span class="label">By</span>
+<a href="../../author/taobeier.html"><i class="icon-user"></i>TaoBeier</a>
+<span class="label">分类</span>
+<a href="../../category/python"><i class="icon-folder-open"></i>Python</a>.
+
+
+<span class="label">Tags</span>
+	<a href="../../tag/regex/"><i class="icon-tag"></i>Regex</a>
+</footer><!-- /.post-info --></div>
+                <div class="summary"><hr />
+<h2>匹配中文的正则表达式</h2>
+<p>窝写了一小段<a href="http://moelove.qiniudn.com/regex-match-Chinese.py">代码</a>（虽然写的不太好，但是基本可以表达意思）</p>
+<script src="https://gist.github.com/tao12345666333/13edb463b04da758dade.js"></script>
+
+<div class="highlight"><pre><span class="nb">import</span> <span class="n">re</span>
+
+<span class="n">nickname</span> <span class="o">=</span> <span class="n">raw_input</span><span class="p">(</span><span class="s">&#39;Please input your nickname &gt; &#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">u</span><span class="s">&#39;^[\u4e00-\u9fa5a-zA-Z0-9]+$&#39;</span><span class="p">,</span> <span class="n">unicode</span><span class="p">(</span><span class="n">nickname</span><span class="p">,</span><span class="s">&#39;utf8&#39;</span><span class="p">)):</span>
+    <span class="k">print</span> <span class="s">&#39;Your nickname format is error, please try again !&#39;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;Hello %s&#39;</span><span class="nv">%</span> <span class="nv">nickname</span>
+</pre></div>
+
+
+<p>如你所见，上面第5行的代码，就是匹配中文和字母，数字的正则表达式了。里面的<code>\u4e00-\u9fa5</code> 就是中文汉字的<code>unicode</code>编码所在位置。</p>
+<p><img alt="运行截图" src="http://moelove.qiniudn.com/2014-07-23%2023:21.png" /></p>
+<hr />
+<h2>Python字符串的编码问题</h2>
+<p>还是以上面那段代码来说。注意看第5行的代码 ...</p>
+                        <a class="btn primary xsmall" href="../../articles/2014/07/22/zheng-ze-pi-pei-zhong-wen-ji-zi-fu-bian-ma-wen-ti/">more ...</a>
+                </div>
+        </div>
+        <hr />
+        <div class="article">
                 <h1><a href="../../articles/2014/05/16/upyun-for-pelican/">upyun-for-pelican</a></h1>
                 <div class="well small"><footer class="post-info">
 <span class="label">Date</span>
@@ -217,18 +258,8 @@
 
 <li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
 <li class="tag-4">
-    <a href="../../tag/android/">
-        <i class="icon-tag icon-large"></i>Android
-    </a>
-</li>
-<li class="tag-2">
-    <a href="../../tag/pelican/">
-        <i class="icon-tag icon-large"></i>pelican
-    </a>
-</li>
-<li class="tag-4">
-    <a href="../../tag/web/">
-        <i class="icon-tag icon-large"></i>web
+    <a href="../../tag/upyun/">
+        <i class="icon-tag icon-large"></i>upyun
     </a>
 </li>
 <li class="tag-4">
@@ -237,8 +268,13 @@
     </a>
 </li>
 <li class="tag-4">
-    <a href="../../tag/rails/">
-        <i class="icon-tag icon-large"></i>Rails
+    <a href="../../tag/bae/">
+        <i class="icon-tag icon-large"></i>BAE
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../../tag/regex/">
+        <i class="icon-tag icon-large"></i>Regex
     </a>
 </li>
 <li class="tag-4">
@@ -251,24 +287,34 @@
         <i class="icon-tag icon-large"></i>blog
     </a>
 </li>
+<li class="tag-4">
+    <a href="../../tag/web/">
+        <i class="icon-tag icon-large"></i>web
+    </a>
+</li>
+<li class="tag-2">
+    <a href="../../tag/pelican/">
+        <i class="icon-tag icon-large"></i>pelican
+    </a>
+</li>
 <li class="tag-1">
     <a href="../../tag/linux/">
         <i class="icon-tag icon-large"></i>Linux
     </a>
 </li>
 <li class="tag-4">
-    <a href="../../tag/bae/">
-        <i class="icon-tag icon-large"></i>BAE
-    </a>
-</li>
-<li class="tag-4">
-    <a href="../../tag/upyun/">
-        <i class="icon-tag icon-large"></i>upyun
-    </a>
-</li>
-<li class="tag-4">
     <a href="../../tag/ruby/">
         <i class="icon-tag icon-large"></i>Ruby
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../../tag/android/">
+        <i class="icon-tag icon-large"></i>Android
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../../tag/rails/">
+        <i class="icon-tag icon-large"></i>Rails
     </a>
 </li>
 

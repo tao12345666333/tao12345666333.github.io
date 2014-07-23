@@ -5,43 +5,50 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/index.html</loc>
-<lastmod>2014-07-22T23:02:32-00:00</lastmod>
+<lastmod>2014-07-23T23:57:51-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/archives.html</loc>
-<lastmod>2014-07-22T23:02:32-00:00</lastmod>
+<lastmod>2014-07-23T23:57:51-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/tags.html</loc>
-<lastmod>2014-07-22T23:02:32-00:00</lastmod>
+<lastmod>2014-07-23T23:57:51-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/categories.html</loc>
-<lastmod>2014-07-22T23:02:32-00:00</lastmod>
+<lastmod>2014-07-23T23:57:51-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/pages/cha-shui-biao.html</loc>
-<lastmod>2014-07-22T23:02:32-00:00</lastmod>
+<lastmod>2014-07-23T23:57:51-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>/pages/qiu-tu-cao.html</loc>
-<lastmod>2014-07-22T23:02:32-00:00</lastmod>
+<lastmod>2014-07-23T23:57:51-00:00</lastmod>
 <changefreq>monthly</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>/articles/2014/07/22/zheng-ze-pi-pei-zhong-wen-ji-zi-fu-bian-ma-wen-ti/</loc>
+<lastmod>2014-07-22T00:00:00-00:00</lastmod>
+<changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
@@ -159,7 +166,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/category/python</loc>
-<lastmod>2014-05-16T00:00:00-00:00</lastmod>
+<lastmod>2014-07-22T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -167,6 +174,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>/category/web</loc>
 <lastmod>2014-05-07T00:00:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>/tag/regex/</loc>
+<lastmod>2014-07-22T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -250,7 +264,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>/author/taobeier.html</loc>
-<lastmod>2014-07-17T00:00:00-00:00</lastmod>
+<lastmod>2014-07-22T00:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>

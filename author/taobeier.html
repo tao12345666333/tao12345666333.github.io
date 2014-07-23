@@ -114,6 +114,47 @@
       <div class="row">
         <div class="span9" id="content">
         <div class="article">
+                <h1><a href="../articles/2014/07/22/zheng-ze-pi-pei-zhong-wen-ji-zi-fu-bian-ma-wen-ti/">正则匹配中文及字符编码问题</a></h1>
+                <div class="well small"><footer class="post-info">
+<span class="label">Date</span>
+<abbr class="published" title="2014-07-22T00:00:00">
+        <i class="icon-calendar"></i>二 22 七月 2014
+</abbr>
+<span class="label">By</span>
+<a href="../author/taobeier.html"><i class="icon-user"></i>TaoBeier</a>
+<span class="label">分类</span>
+<a href="../category/python"><i class="icon-folder-open"></i>Python</a>.
+
+
+<span class="label">Tags</span>
+	<a href="../tag/regex/"><i class="icon-tag"></i>Regex</a>
+</footer><!-- /.post-info --></div>
+                <div class="summary"><hr />
+<h2>匹配中文的正则表达式</h2>
+<p>窝写了一小段<a href="http://moelove.qiniudn.com/regex-match-Chinese.py">代码</a>（虽然写的不太好，但是基本可以表达意思）</p>
+<script src="https://gist.github.com/tao12345666333/13edb463b04da758dade.js"></script>
+
+<div class="highlight"><pre><span class="nb">import</span> <span class="n">re</span>
+
+<span class="n">nickname</span> <span class="o">=</span> <span class="n">raw_input</span><span class="p">(</span><span class="s">&#39;Please input your nickname &gt; &#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">u</span><span class="s">&#39;^[\u4e00-\u9fa5a-zA-Z0-9]+$&#39;</span><span class="p">,</span> <span class="n">unicode</span><span class="p">(</span><span class="n">nickname</span><span class="p">,</span><span class="s">&#39;utf8&#39;</span><span class="p">)):</span>
+    <span class="k">print</span> <span class="s">&#39;Your nickname format is error, please try again !&#39;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;Hello %s&#39;</span><span class="nv">%</span> <span class="nv">nickname</span>
+</pre></div>
+
+
+<p>如你所见，上面第5行的代码，就是匹配中文和字母，数字的正则表达式了。里面的<code>\u4e00-\u9fa5</code> 就是中文汉字的<code>unicode</code>编码所在位置。</p>
+<p><img alt="运行截图" src="http://moelove.qiniudn.com/2014-07-23%2023:21.png" /></p>
+<hr />
+<h2>Python字符串的编码问题</h2>
+<p>还是以上面那段代码来说。注意看第5行的代码 ...</p>
+                        <a class="btn primary xsmall" href="../articles/2014/07/22/zheng-ze-pi-pei-zhong-wen-ji-zi-fu-bian-ma-wen-ti/">more ...</a>
+                </div>
+        </div>
+        <hr />
+        <div class="article">
                 <h1><a href="../articles/2014/07/17/bash-xian-shi-gitfen-zhi/">Bash 显示git分支</a></h1>
                 <div class="well small"><footer class="post-info">
 <span class="label">Date</span>
@@ -333,44 +374,6 @@ PS1=&quot;[\[\e[1;35m\]\u\[\e[1;32m\]\w\[\e[0m\]] \[\e[0m\]\[\e[1;36m\]\$(git_br
                 </div>
         </div>
         <hr />
-        <div class="article">
-                <h1><a href="../articles/2014/03/10/linux-an-zhuang-android-qu-dong/">Linux 安装Android 驱动</a></h1>
-                <div class="well small"><footer class="post-info">
-<span class="label">Date</span>
-<abbr class="published" title="2014-03-10T00:00:00">
-        <i class="icon-calendar"></i>一 10 三月 2014
-</abbr>
-<span class="label">By</span>
-<a href="../author/taobeier.html"><i class="icon-user"></i>TaoBeier</a>
-<span class="label">分类</span>
-<a href="../category/linux"><i class="icon-folder-open"></i>Linux</a>.
-
-
-<span class="label">Tags</span>
-	<a href="../tag/linux/"><i class="icon-tag"></i>Linux</a>
-	<a href="../tag/android/"><i class="icon-tag"></i>Android</a>
-</footer><!-- /.post-info --></div>
-                <div class="summary"><hr />
-<p>在Linux下非常适合做一些对Rom 的定制以及其他的一些操作，甚至是自己制作Rom 或者从源码编译Rom 也是OK的。</p>
-<p>不过最开始的应该就是搭建开发环境了，我先从装驱动开始说（只是做个笔记而已）</p>
-<ul>
-<li>
-<p>使用数据线连接手机，打开<strong>adb调试模式</strong>。(在Linux上搭建开发环境， 以及adb 命令之类的， 就自行搜索吧，如果哪天更新了 我会附上链接的)</p>
-</li>
-<li>
-<p>输入<code>adb devices</code> 查看设备
-如果有机型的话就说明是已经有驱动了
-如果没有显示的话， 就是说明需要进行驱动安装了。</p>
-</li>
-</ul>
-<p>这个时候， <code>lsusb</code> 查看， 会看到下面这样的信息</p>
-<div class="highlight"><pre><span class="p">[</span><span class="n">tao</span><span class="nv">@localhost</span> <span class="o">~</span><span class="p">]</span><span class="nv">$</span> <span class="nv">lsusb</span>
-<span class="n">Bus</span> <span class="mo">001</span> <span class="n">Device</span> <span class="mo">002</span><span class="p">:</span> <span class="n">ID</span> <span class="mi">8087</span><span class="p">:</span><span class="mo">0020</span> <span class="n">Intel</span> <span class="n">Corp</span><span class="o">.</span> <span class="n">Integrated</span> <span class="n">Rate</span> <span class="n">Matching</span> <span class="n">Hub</span>
-<span class="n">Bus</span> <span class="mo">002</span> <span class="n">Device</span> <span class="mo">002</span><span class="p">:</span> <span class="n">ID</span> <span class="mi">8087 ...</span></pre></div>
-                        <a class="btn primary xsmall" href="../articles/2014/03/10/linux-an-zhuang-android-qu-dong/">more ...</a>
-                </div>
-        </div>
-        <hr />
 
         <div class="pagination">
         <ul>
@@ -423,18 +426,8 @@ PS1=&quot;[\[\e[1;35m\]\u\[\e[1;32m\]\w\[\e[0m\]] \[\e[0m\]\[\e[1;36m\]\$(git_br
 
 <li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
 <li class="tag-4">
-    <a href="../tag/android/">
-        <i class="icon-tag icon-large"></i>Android
-    </a>
-</li>
-<li class="tag-2">
-    <a href="../tag/pelican/">
-        <i class="icon-tag icon-large"></i>pelican
-    </a>
-</li>
-<li class="tag-4">
-    <a href="../tag/web/">
-        <i class="icon-tag icon-large"></i>web
+    <a href="../tag/upyun/">
+        <i class="icon-tag icon-large"></i>upyun
     </a>
 </li>
 <li class="tag-4">
@@ -443,8 +436,13 @@ PS1=&quot;[\[\e[1;35m\]\u\[\e[1;32m\]\w\[\e[0m\]] \[\e[0m\]\[\e[1;36m\]\$(git_br
     </a>
 </li>
 <li class="tag-4">
-    <a href="../tag/rails/">
-        <i class="icon-tag icon-large"></i>Rails
+    <a href="../tag/bae/">
+        <i class="icon-tag icon-large"></i>BAE
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../tag/regex/">
+        <i class="icon-tag icon-large"></i>Regex
     </a>
 </li>
 <li class="tag-4">
@@ -457,24 +455,34 @@ PS1=&quot;[\[\e[1;35m\]\u\[\e[1;32m\]\w\[\e[0m\]] \[\e[0m\]\[\e[1;36m\]\$(git_br
         <i class="icon-tag icon-large"></i>blog
     </a>
 </li>
+<li class="tag-4">
+    <a href="../tag/web/">
+        <i class="icon-tag icon-large"></i>web
+    </a>
+</li>
+<li class="tag-2">
+    <a href="../tag/pelican/">
+        <i class="icon-tag icon-large"></i>pelican
+    </a>
+</li>
 <li class="tag-1">
     <a href="../tag/linux/">
         <i class="icon-tag icon-large"></i>Linux
     </a>
 </li>
 <li class="tag-4">
-    <a href="../tag/bae/">
-        <i class="icon-tag icon-large"></i>BAE
-    </a>
-</li>
-<li class="tag-4">
-    <a href="../tag/upyun/">
-        <i class="icon-tag icon-large"></i>upyun
-    </a>
-</li>
-<li class="tag-4">
     <a href="../tag/ruby/">
         <i class="icon-tag icon-large"></i>Ruby
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../tag/android/">
+        <i class="icon-tag icon-large"></i>Android
+    </a>
+</li>
+<li class="tag-4">
+    <a href="../tag/rails/">
+        <i class="icon-tag icon-large"></i>Rails
     </a>
 </li>
 

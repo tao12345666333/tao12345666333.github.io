@@ -1,5 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MoeLove</title><link>/</link><description></description><atom:link href="/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 17 Jul 2014 00:00:00 +0800</lastBuildDate><item><title>Bash 显示git分支</title><link>/articles/2014/07/17/bash-xian-shi-gitfen-zhi/</link><description>&lt;hr /&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MoeLove</title><link>/</link><description></description><atom:link href="/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 22 Jul 2014 00:00:00 +0800</lastBuildDate><item><title>正则匹配中文及字符编码问题</title><link>/articles/2014/07/22/zheng-ze-pi-pei-zhong-wen-ji-zi-fu-bian-ma-wen-ti/</link><description>&lt;hr /&gt;
+&lt;h2&gt;匹配中文的正则表达式&lt;/h2&gt;
+&lt;p&gt;窝写了一小段&lt;a href="http://moelove.qiniudn.com/regex-match-Chinese.py"&gt;代码&lt;/a&gt;（虽然写的不太好，但是基本可以表达意思）&lt;/p&gt;
+&lt;script src="https://gist.github.com/tao12345666333/13edb463b04da758dade.js"&gt;&lt;/script&gt;
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;import&lt;/span&gt; &lt;span class="n"&gt;re&lt;/span&gt;
+
+&lt;span class="n"&gt;nickname&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;raw_input&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;Please input your nickname &amp;gt; &amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;re&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;search&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;^[\u4e00-\u9fa5a-zA-Z0-9]+$&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;unicode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nickname&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;utf8&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)):&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;Your nickname format is error, please try again !&amp;#39;&lt;/span&gt;
+&lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt; &lt;span class="s"&gt;&amp;#39;Hello %s&amp;#39;&lt;/span&gt;&lt;span class="nv"&gt;%&lt;/span&gt; &lt;span class="nv"&gt;nickname&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;如你所见，上面第5行的代码，就是匹配中文和字母，数字的正则表达式了。里面的&lt;code&gt;\u4e00-\u9fa5&lt;/code&gt; 就是中文汉字的&lt;code&gt;unicode&lt;/code&gt;编码所在位置。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="运行截图" src="http://moelove.qiniudn.com/2014-07-23%2023:21.png" /&gt;&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2&gt;Python字符串的编码问题&lt;/h2&gt;
+&lt;p&gt;还是以上面那段代码来说。注意看第5行的代码&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;re&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;search&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;^[\u4e00-\u9fa5a-zA-Z0-9]+$&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;unicode&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nickname&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s"&gt;&amp;#39;utf8&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)):&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;其实这样的代码并不严谨。因为在Python 中默认是用&lt;code&gt;unicode&lt;/code&gt;编码来处理字符串的，因此做编码转换的时候，一般要以&lt;code&gt;unicode&lt;/code&gt;作为中间编码，也就是说： 
+其他编码格式的字符串---&amp;gt;解码(decode)---&amp;gt;&lt;code&gt;unicode&lt;/code&gt;---&amp;gt;编码(encode)---&amp;gt;所需要的编码格式。&lt;/p&gt;
+&lt;p&gt;因此，处理字符串编码的问题的时候，先要明白需要转换的字符串的编码格式是什么。&lt;/p&gt;
+&lt;h3&gt;代码中字符串的默认编码格式与代码文件本身的编码格式是一样的&lt;/h3&gt;
+&lt;p&gt;比如： s = '涛' 在utf8的文件中，那么s就是utf8编码的，但是如果文件是gb2312编码，那么s就是gb2312编码的。此时，如果想要处理s这个字符串就要先decode成unicode编码了。&lt;/p&gt;
+&lt;p&gt;不过如果是酱紫 s = u'涛'，那么s就是unicode编码了，这个时候s的编码方式不会被文件的编码所影响。&lt;/p&gt;
+&lt;h3&gt;如果一个字符串已经是unicode编码了，再解码就会出错&lt;/h3&gt;
+&lt;p&gt;因此严谨的方式就是先对字符串进行编码格式的判别，最简单的办法就是使用Python 默认提供的&lt;code&gt;isinstance()&lt;/code&gt; 方法.&lt;/p&gt;
+&lt;p&gt;代码可以这样写
+&lt;code&gt;isinstance(s, unicode)&lt;/code&gt; 如果不是unicode编码就会报错。&lt;/p&gt;
+&lt;p&gt;窝今天在处理用户昵称的地方，忘记字符串会直接使用文件的编码了，所以对它进行了重新编码orz果断就报错了。。。以后还是要好好注意细节的说。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">TaoBeier</dc:creator><pubDate>Tue, 22 Jul 2014 00:00:00 +0800</pubDate><guid>tag:,2014-07-22:articles/2014/07/22/zheng-ze-pi-pei-zhong-wen-ji-zi-fu-bian-ma-wen-ti/</guid><category>Regex</category></item><item><title>Bash 显示git分支</title><link>/articles/2014/07/17/bash-xian-shi-gitfen-zhi/</link><description>&lt;hr /&gt;
 &lt;h3&gt;虽然一直都在用git，但是并没有注意到还有这个方便的用法&lt;/h3&gt;
 &lt;p&gt;于是乎赶快学习一下 ：-）&lt;/p&gt;
 &lt;p&gt;上网查了一下资料，都说Ubuntu下如何如何方便，其他的发行版需要先下载一个文件，然后添加source，再如何如何。。&lt;/p&gt;
