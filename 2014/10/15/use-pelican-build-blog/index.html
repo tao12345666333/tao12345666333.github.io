@@ -1,0 +1,426 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>MoeLove</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="TaoBeier">
+    
+    <meta name="description" content="Title:使用Pelican搭建BlogDate: 2014-05-07Category: WebTags: web,pelican,blog
+安装配置Pelican
+
+使用环境：
+12系统  :  Linux X86_64Pelican : 3.3.0
+
+首先说一下安装： 网上有不少建议说使用虚">
+    
+    
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="BeierTao" />
+    <meta name="twitter:title" content="MoeLove" />
+      
+    
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="MoeLove" title="MoeLove"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="MoeLove">MoeLove</a></h1>
+				<h2 class="blog-motto">不忘初心</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/categories">Categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="off" name="q" maxlength="20" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/10/15/use-pelican-build-blog/" title="" itemprop="url"></a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://plus.google.com/111099802544541897352?rel=author" title="TaoBeier" target="_blank" itemprop="author">TaoBeier</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2014-10-14T16:09:05.000Z" itemprop="datePublished">2014-10-15</time>
+    更新日期:<time datetime="2014-06-08T13:14:56.000Z" itemprop="dateModified">2014-06-8</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装配置Pelican"><span class="toc-number">1.</span> <span class="toc-text">安装配置Pelican</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#使用环境："><span class="toc-number">1.0.0.1.</span> <span class="toc-text">使用环境：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新建博客："><span class="toc-number">2.</span> <span class="toc-text">新建博客：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新建博文："><span class="toc-number">3.</span> <span class="toc-text">新建博文：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后续"><span class="toc-number">4.</span> <span class="toc-text">后续</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#接下来说一下修改主题和使用插件的方法"><span class="toc-number">4.0.1.</span> <span class="toc-text">接下来说一下修改主题和使用插件的方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#为博客使用插件"><span class="toc-number">4.0.2.</span> <span class="toc-text">为博客使用插件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#添加多说评论"><span class="toc-number">4.0.3.</span> <span class="toc-text">添加多说评论</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#添加其他功能"><span class="toc-number">4.0.4.</span> <span class="toc-text">添加其他功能</span></a></li></ol></li></ol></li></ol>
+		</div>
+		
+		<p>Title:使用Pelican搭建Blog<br>Date: 2014-05-07<br>Category: Web<br>Tags: web,pelican,blog</p>
+<h2 id="安装配置Pelican">安装配置Pelican</h2>
+<hr>
+<h5 id="使用环境：">使用环境：</h5>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">系统  :  Linux X86_64</div><div class="line">Pelican : 3.3.0</div></pre></td></tr></table></figure>
+
+<p>首先说一下安装： 网上有不少建议说使用虚拟环境  <a href="https://virtualenv.pypa.io/en/latest/virtualenv.html" target="_blank" rel="external">virtualenv</a>，以免污染本地的环境。不过，如果不是去更改<code>Python</code>的全局设置的话，也不至于影响本地环境的。我是直接安装的。根据 Pelican 官方的文档，我是使用 <code>pip</code> 安装的，不过<code>pip</code>又是依赖于<code>distribute</code> 安装的。所以，我使用的命令如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">curl -<span class="constant">O</span> <span class="symbol">http:</span>/<span class="regexp">/python-distribute.org/distribute</span>_setup.py</div><div class="line">sudo python distribute_setup.py</div><div class="line"></div><div class="line">curl -<span class="constant">O</span> <span class="symbol">https:</span>/<span class="regexp">/raw.github.com/pypa</span><span class="regexp">/pip/master</span><span class="regexp">/contrib/get</span>-pip.py</div><div class="line">sudo python get-pip.py</div><div class="line"></div><div class="line">sudo pip install pelican</div></pre></td></tr></table></figure>
+
+<p>还有，如果要用 <a href="http://zh.wikipedia.org/zh-cn/Markdown" target="_blank" rel="external"><code>Markdown</code></a>来写文章，也需要执行如下命令：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip <span class="operator"><span class="keyword">install</span> markdown</span></div></pre></td></tr></table></figure>
+
+<p>新建一个目录，用来存放你的博客文件（我直接建立了”blog”文件夹）</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">mkdir</span> blog </div><div class="line"></div><div class="line"><span class="keyword">cd</span> blog</div></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="新建博客：">新建博客：</h2>
+<p>使用如下命令：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pelican-quickstart</div></pre></td></tr></table></figure>
+
+<p>按照提示一步步即可完成新建， 这些配置之后可以在<code>pelicanconf.py</code>这个文件中修改</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Where</span> <span class="keyword">do</span> you want <span class="keyword">to</span> <span class="keyword">create</span> your <span class="keyword">new</span> web site?[.]  (你想在哪里创建你的网站，默认为当前目录)</div><div class="line">What will be the title <span class="keyword">of</span> this web site?(网站的标题是什么)</div><div class="line">Who will be the author <span class="keyword">of</span> this web site?(网站的作者是谁)</div><div class="line">What will be the <span class="keyword">default</span> language <span class="keyword">of</span> this web site? [en]   (网站的默认语言是),这里我们写<span class="string">'zh'</span>中文</div><div class="line"><span class="keyword">Do</span> you want <span class="keyword">to</span> specify a URL prefix? e.g., http:<span class="comment">//example.com(Y/n) (是否指定域名),Y</span></div><div class="line">What <span class="keyword">is</span> your URL prefix?(see above example; no trailing slash)(输入域名，不能包含反斜杠<span class="string">'/'</span>),http:<span class="comment">//moelove.info</span></div><div class="line"><span class="keyword">Do</span> you want <span class="keyword">to</span> enable article pagination?(是否启用文章分页)</div><div class="line"><span class="keyword">Do</span> you want <span class="keyword">to</span> generate a Makefile <span class="keyword">to</span> easily manage your website?(是否生成一个Makefile来管理网站(这里我建议生成，因为会比较方便的))</div><div class="line"><span class="keyword">Do</span> you want an auto-reload & simpleHTTP script <span class="keyword">to</span> assist <span class="keyword">with</span> theme <span class="keyword">and</span> site development?(是否想有一个自动加载的小型http脚本用来修改主题和站点开发)</div><div class="line"><span class="keyword">Do</span> you want <span class="keyword">to</span> upload your website <span class="keyword">using</span> FTP?</div><div class="line"><span class="keyword">Do</span> you want <span class="keyword">to</span> upload your website <span class="keyword">using</span> SSH?</div><div class="line"><span class="keyword">Do</span> you want <span class="keyword">to</span> upload your website <span class="keyword">using</span> Dropbox?</div><div class="line"><span class="keyword">Do</span> you want <span class="keyword">to</span> upload your website <span class="keyword">using</span> S3?</div></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="新建博文：">新建博文：</h2>
+<p>这个时候就可以写博客了。具体的写作方式可以参考 <a href="http://docs.getpelican.com/en/latest/internals.html" target="_blank" rel="external">Pelican的官方文档</a><br>  我以<a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> 为例说明一下。</p>
+<p>在content 目录，新建一个 <code>hello.md</code>文件  </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">vim content/htllo.md</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="label">Date:</span> <span class="number">2014</span>-<span class="number">04</span>-<span class="number">18</span> <span class="preprocessor">#日期</span></div><div class="line"><span class="label">Title:</span> HelloWorld <span class="preprocessor">#标题</span></div><div class="line"><span class="label">Tags:</span> hello <span class="preprocessor">#标签</span></div><div class="line"><span class="label">Category:</span> test <span class="preprocessor">#分类</span></div><div class="line">Hello World !</div></pre></td></tr></table></figure>
+
+<p>之后，执行<code>make html</code> 或者 <code>pelican content</code>即可将 md文件转换成html文件。执行 <code>make serve</code>   即可打开本地浏览器，<a href="http://127.0.0.1:8000/" target="_blank" rel="external">预览</a>。</p>
+<blockquote>
+<p><strong>现在一个使用默认主题的博客就建立好了。</strong></p>
+</blockquote>
+<hr>
+<h2 id="后续">后续</h2>
+<h4 id="接下来说一下修改主题和使用插件的方法">接下来说一下修改主题和使用插件的方法</h4>
+<p>Pelican 默认提供了很多主题可以 github 上下载，当然也可以自己制作。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone gi<span class="variable">t:</span>//github.<span class="keyword">com</span>/getpelican/pelican-themes.git</div></pre></td></tr></table></figure>
+
+<p>在里面找到你喜欢的主题，使用</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pelican-theme -i <span class="regexp">/path/</span>to<span class="regexp">/your/</span>themes</div></pre></td></tr></table></figure>
+
+<p>命令进行主题的安装。</p>
+<p>随后可以使用<code>pelican-themes -l -v</code> 查看已经安装好的主题。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/usr/<span class="keyword">lib</span>/python2<span class="number">.7</span>/site-packages/pelican/themes/simple</div><div class="line">/usr/<span class="keyword">lib</span>/python2<span class="number">.7</span>/site-packages/pelican/themes/notmyidea</div><div class="line">/usr/<span class="keyword">lib</span>/python2<span class="number">.7</span>/site-packages/pelican/themes/bootstrap2</div></pre></td></tr></table></figure>
+
+<p>想要开始使用主题的话， 只需要在<code>pelicanconf.py</code>文件中添加 <code>THEME</code>项为主题名,例如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="constant">THEME</span> = <span class="string">"bootstrap2"</span></div></pre></td></tr></table></figure>
+
+<p>重新 <em>make html</em>  即可, 这时候声成的页面就是所要使用的主题了。</p>
+<h4 id="为博客使用插件">为博客使用插件</h4>
+<p>Pelican 也提供了不少的插件来方便使用， 可以从github 上面下载到博客所在目录：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone gi<span class="variable">t:</span>//github.<span class="keyword">com</span>/getpelican/pelican-plugins.git</div></pre></td></tr></table></figure>
+
+<p>现在博客目录就新添了一个 pelican-plugins 目录，接下来在 pelicanconf.py 里面添加配置即可(里面是我最开始使用的三个插件):</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PLUGIN_PATH = <span class="string">u"pelican-plugins"</span></div><div class="line">PLUGINS = [<span class="string">"sitemap"</span>, <span class="string">"summary"</span>, <span class="string">"neighbors"</span>]</div></pre></td></tr></table></figure>
+
+<p>再添加 sitemap 的配置</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">SITEMAP = {</div><div class="line"><span class="string">'format'</span>: <span class="string">'xml'</span>,</div><div class="line"><span class="string">'priorities'</span>: {</div><div class="line">    <span class="string">'articles'</span>: <span class="number">0.5</span>,</div><div class="line">    <span class="string">'indexes'</span>: <span class="number">0.5</span>,</div><div class="line">    <span class="string">'pages'</span>: <span class="number">0.5</span></div><div class="line">    },</div><div class="line"><span class="string">'changefreqs'</span>: {</div><div class="line">    <span class="string">'articles'</span>: <span class="string">'weekly'</span>,</div><div class="line">    <span class="string">'indexes'</span>: <span class="string">'daily'</span>,</div><div class="line">    <span class="string">'pages'</span>: <span class="string">'monthly'</span></div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>然后执行 <em>make html</em> 即可</p>
+<h4 id="添加多说评论">添加多说评论</h4>
+<p>一开始搭建静态博客的时候，使用的<a href="http://disqus.com/" target="_blank" rel="external">disqus</a> 并且Pelican 的主题中默认提供了支持，只要在 pelicanconf.py 的里面加入 disqus 的short_name 即可开始使用了。不过，身在天朝，还是尽量本地化一些吧，使用<a href="http://duoshuo.com/" target="_blank" rel="external">多说</a>评论插件。<br>在<a href="http://duoshuo.com/" target="_blank" rel="external">多说</a>注册一个帐号，<a href="http://duoshuo.com/create-site/" target="_blank" rel="external">添加一个站点</a>，获取自己的 <em>short_name</em> ，点击工具一栏—&gt;获取代码</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 多说评论框 start --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"ds-thread"</span> <span class="attribute">data-thread-key</span>=<span class="value">"请将此处替换成文章在你的站点中的ID"</span> <span class="attribute">data-title</span>=<span class="value">"请替换成文章的标题"</span> <span class="attribute">data-url</span>=<span class="value">"请替换成文章的网址"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 多说评论框 end --&gt;</span></div><div class="line"><span class="comment">&lt;!-- 多说公共JS代码 start (一个网页只需插入一次) --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="keyword">var</span> duoshuoQuery = {short_name:<span class="string">"替换成你自己的"</span>};</div><div class="line">    (<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</div><div class="line">        <span class="keyword">var</span> ds = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</div><div class="line">        ds.type = <span class="string">'text/javascript'</span>;ds.async = <span class="literal">true</span>;</div><div class="line">        ds.src = (<span class="built_in">document</span>.location.protocol == <span class="string">'https:'</span> ? <span class="string">'https:'</span> : <span class="string">'http:'</span>) + <span class="string">'//static.duoshuo.com/embed.js'</span>;</div><div class="line">        ds.charset = <span class="string">'UTF-8'</span>;</div><div class="line">        (<span class="built_in">document</span>.getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>] </div><div class="line">         || <span class="built_in">document</span>.getElementsByTagName(<span class="string">'body'</span>)[<span class="number">0</span>]).appendChild(ds);</div><div class="line">    })();</div><div class="line">    <span class="tag">&lt;/<span class="title">script</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 多说公共JS代码 end --&gt;</span></div></pre></td></tr></table></figure>
+
+<p>把这段代码放在你想要显示评论的地方就可以了。建议直接修改放在article.html模板里面。</p>
+<h4 id="添加其他功能">添加其他功能</h4>
+<p>这里我还加入了<a href="http://share.baidu.com/code" target="_blank" rel="external">百度分享</a>的功能。直接定制个人想要的代码， 放在你需要出现分享按钮的地方即可，我放在了文章的下面。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"bdsharebuttonbox"</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"bds_more"</span> <span class="attribute">data-cmd</span>=<span class="value">"more"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"bds_qzone"</span> <span class="attribute">data-cmd</span>=<span class="value">"qzone"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"bds_tsina"</span> <span class="attribute">data-cmd</span>=<span class="value">"tsina"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"bds_tqq"</span> <span class="attribute">data-cmd</span>=<span class="value">"tqq"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"bds_renren"</span> <span class="attribute">data-cmd</span>=<span class="value">"renren"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"bds_weixin"</span> <span class="attribute">data-cmd</span>=<span class="value">"weixin"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"><span class="built_in">window</span>._bd_share_config={<span class="string">"common"</span>:{<span class="string">"bdSnsKey"</span>:{},<span class="string">"bdText"</span>:<span class="string">""</span>,<span class="string">"bdMini"</span>:<span class="string">"2"</span>,<span class="string">"bdPic"</span>:<span class="string">""</span>,<span class="string">"bdStyle"</span>:<span class="string">"0"</span>,<span class="string">"bdSize"</span>:<span class="string">"16"</span>},<span class="string">"share"</span>:{},<span class="string">"image"</span>:{<span class="string">"viewList"</span>:[<span class="string">"qzone"</span>,<span class="string">"tsina"</span>,<span class="string">"tqq"</span>,<span class="string">"renren"</span>,<span class="string">"weixin"</span>],<span class="string">"viewText"</span>:<span class="string">"分享到："</span>,<span class="string">"viewSize"</span>:<span class="string">"16"</span>},<span class="string">"selectShare"</span>:{<span class="string">"bdContainerClass"</span>:<span class="literal">null</span>,<span class="string">"bdSelectMiniList"</span>:[<span class="string">"qzone"</span>,<span class="string">"tsina"</span>,<span class="string">"tqq"</span>,<span class="string">"renren"</span>,<span class="string">"weixin"</span>]}};<span class="keyword">with</span>(<span class="built_in">document</span>)<span class="number">0</span>[(getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>]||body).appendChild(createElement(<span class="string">'script'</span>)).src=<span class="string">'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='</span>+~(-<span class="keyword">new</span> <span class="built_in">Date</span>()/<span class="number">36e5</span>)];</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<p>还有加入了 <a href="http://www.google.com/analytics/" target="_blank" rel="external">Google Analytics</a> 谷歌站内搜索 以及七牛提供的云存储 等。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://moelove.info/2014/10/15/use-pelican-build-blog/" data-title="MoeLove" data-tsina="1581898810" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/10/15/vim-for-Windows/" title="">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  (no title)</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/10/15/upyun-for-pelican/"  title="">
+ <strong>NEXT:</strong><br/> 
+ <span>(no title)
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装配置Pelican"><span class="toc-number">1.</span> <span class="toc-text">安装配置Pelican</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#使用环境："><span class="toc-number">1.0.0.1.</span> <span class="toc-text">使用环境：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新建博客："><span class="toc-number">2.</span> <span class="toc-text">新建博客：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新建博文："><span class="toc-number">3.</span> <span class="toc-text">新建博文：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后续"><span class="toc-number">4.</span> <span class="toc-text">后续</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#接下来说一下修改主题和使用插件的方法"><span class="toc-number">4.0.1.</span> <span class="toc-text">接下来说一下修改主题和使用插件的方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#为博客使用插件"><span class="toc-number">4.0.2.</span> <span class="toc-text">为博客使用插件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#添加多说评论"><span class="toc-number">4.0.3.</span> <span class="toc-text">添加多说评论</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#添加其他功能"><span class="toc-number">4.0.4.</span> <span class="toc-text">添加其他功能</span></a></li></ol></li></ol></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/Life/" title="Life">Life<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/test/" title="test">test<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="null" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 常年混迹在二次元中 <br/>
+			偶尔也会有些小感悟</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/9020taobeier" target="_blank" title="weibo"></a>
+		
+		
+		<a href="https://twitter.com/BeierTao" target="_blank" title="twitter"></a>
+		
+		
+		<a href="https://github.com/tao12345666333" target="_blank" title="github"></a>
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2014 
+		
+		<a href="http://moelove.info" target="_blank" title="TaoBeier">TaoBeier</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"taobeier"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-50163692-1', 'moelove.info');  
+ga('send', 'pageview');
+</script>
+
+
+  </body>
+</html>
