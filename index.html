@@ -1,0 +1,428 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>MoeLove</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="TaoBeier">
+    
+    <meta name="description" content="TaoBeier&#39;s Blog">
+    
+    
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="BeierTao" />
+    <meta name="twitter:title" content="MoeLove" />
+      
+    
+    
+    <link rel="alternate" href="/atom.xml" title="MoeLove" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="MoeLove" title="MoeLove"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="MoeLove">MoeLove</a></h1>
+				<h2 class="blog-motto">不忘初心</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/categories">Categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="off" name="q" maxlength="20" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main">
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2014/07/22/正则匹配中文及字符编码问题/" title="正则匹配中文及字符编码问题" itemprop="url">
+  
+    <h1 itemprop="name">正则匹配中文及字符编码问题</h1>
+    
+     
+           <p itemprop="description" >匹配中文的正则表达式
+窝写了一小段代码（虽然写的不太好，但是基本可以表达意思）
+
+
+12345678import renickname = raw_input(&#39;Please input your nickname &amp;gt; &#39;)if not re.search(u&#39;^[\u4e</p>
+        
+    
+    <time datetime="2014-07-22T13:16:34.000Z" itemprop="datePublished">2014-07-22</time>
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2014/07/17/Bash-显示git分支/" title="Bash 显示git分支" itemprop="url">
+  
+    <h1 itemprop="name">Bash 显示git分支</h1>
+    
+     
+           <p itemprop="description" >虽然一直都在用git，但是并没有注意到还有这个方便的用法
+于是乎赶快学习一下 ：-）
+上网查了一下资料，都说Ubuntu下如何如何方便，其他的发行版需要先下载一个文件，然后添加source，再如何如何。。
+其实查再多都不如实践。以下是窝经过查资料加上对个人bash的配色后写出的配</p>
+        
+    
+    <time datetime="2014-07-17T13:54:33.000Z" itemprop="datePublished">2014-07-17</time>
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2014/07/02/Grub2-rescue-修复/" title="Grub2 rescue 修复" itemprop="url">
+  
+    <h1 itemprop="name">Grub2 rescue 修复</h1>
+    
+     
+           <p itemprop="description" >昨天下午的时候想要把分区处理一下，突然发现硬盘里面有一个未使用的102M的分区,很果断的把这些乱七八糟的分区都给干掉了。结果呢，再次开机的时候就坑了（虽然酱紫的事情干过很多次了，这次做个记录吧）开机时提示如下：
+1234GRUB loading..error: unknown f</p>
+        
+    
+    <time datetime="2014-07-02T13:53:03.000Z" itemprop="datePublished">2014-07-2</time>
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2014/05/16/upyun-for-pelican/" title="upyun-for-pelican" itemprop="url">
+  
+    <h1 itemprop="name">upyun-for-pelican</h1>
+    
+     
+           <p itemprop="description" >这几天写了一个插件，方便把pelican生成静态博客部署到又拍云上。整体思路就是：
+
+先格式化路径，以/为根目录
+
+123def formatPath(path):path = path.replace(os.sep, &#39;/&#39;)return path
+
+
+定义两个列表来存储文件和</p>
+        
+    
+    <time datetime="2014-05-16T13:51:41.000Z" itemprop="datePublished">2014-05-16</time>
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2014/05/07/使用Pelican搭建Blog/" title="使用Pelican搭建Blog" itemprop="url">
+  
+    <h1 itemprop="name">使用Pelican搭建Blog</h1>
+    
+     
+           <p itemprop="description" >安装配置Pelican
+
+使用环境：
+12系统  :  Linux X86_64Pelican : 3.3.0
+
+首先说一下安装： 网上有不少建议说使用虚拟环境  virtualenv，以免污染本地的环境。不过，如果不是去更改Python的全局设置的话，也不至于影响本地环境的。我</p>
+        
+    
+    <time datetime="2014-05-07T13:48:59.000Z" itemprop="datePublished">2014-05-7</time>
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2014/04/18/Hello-World/" title="Hello World !" itemprop="url">
+  
+    <h1 itemprop="name">Hello World !</h1>
+    
+     
+           <p itemprop="description" >几乎所有的程序猿的第一个演示程序都是Hello World .那我也就一样咯， 也写一个同样的吧。其实我的博客从很早前就已经开始在写了， 换了很多的平台：
+
+从腾讯空间--&amp;gt; 百度空间--&amp;gt; 新浪博客--&amp;gt; 自己搭建的Wordpress博客--&amp;gt; 点点（点</p>
+        
+    
+    <time datetime="2014-04-18T13:46:06.000Z" itemprop="datePublished">2014-04-18</time>
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2014/03/10/Linux-安装Android-驱动/" title="Linux 安装Android 驱动" itemprop="url">
+  
+    <h1 itemprop="name">Linux 安装Android 驱动</h1>
+    
+     
+           <p itemprop="description" >在Linux下非常适合做一些对Rom 的定制以及其他的一些操作，甚至是自己制作Rom 或者从源码编译Rom 也是OK的。
+不过最开始的应该就是搭建开发环境了，我先从装驱动开始说（只是做个笔记而已）
+
+使用数据线连接手机，打开adb调试模式。(在Linux上搭建开发环境， 以及ad</p>
+        
+    
+    <time datetime="2014-03-10T13:44:06.000Z" itemprop="datePublished">2014-03-10</time>
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2013/12/21/fedora-18-Kernel-driver-not-installed-rc-1908-处理办法/" title="fedora 18 Kernel driver not installed (rc=-1908)处理办法" itemprop="url">
+  
+    <h1 itemprop="name">fedora 18 Kernel driver not installed (rc=-1908)处理办法</h1>
+    
+     
+           <p itemprop="description" >fedora 18 升级内核之后 使用VirtualBox 可以正常打开软件,但是不能启动虚拟机系统.提示信息如下:
+1Kernel driver not installed (rc=-1908)
+
+经过一系列的看文档还有google 之后,很多地方写着这个问题的处理方法是
+
+第</p>
+        
+    
+    <time datetime="2013-12-21T13:42:18.000Z" itemprop="datePublished">2013-12-21</time>
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2013/09/21/Ruby-on-Rails-环境/" title="Ruby on Rails 环境" itemprop="url">
+  
+    <h1 itemprop="name">Ruby on Rails 环境</h1>
+    
+     
+           <p itemprop="description" >就这次的尝试写一下自己的记录
+安装ruby  和 ruby-devel(安装ruby-devel是因为后续的工作如果没有ruby-devel的话，会报错)
+1sudo yum install ruby ruby-devel rubygems sqlite -y
+
+需要的环境有了，</p>
+        
+    
+    <time datetime="2013-09-21T13:39:55.000Z" itemprop="datePublished">2013-09-21</time>
+  </a>
+</section>
+
+  <section class="post" itemscope itemprop="blogPost">
+  
+    <a href="/2013/09/06/利用百度BAE搭建discuz论坛/" title="利用百度BAE搭建discuz论坛" itemprop="url">
+  
+    <h1 itemprop="name">利用百度BAE搭建discuz论坛</h1>
+    
+     
+           <p itemprop="description" >最近尝试了利用百度云应用管理BAE搭建discuz论坛， 这里做简要记录
+创建应用
+在 百度开发者中心 创建一个应用，选择WEB应用下的PC Iframe应用
+托管设置
+之后进行托管设置， 确定域名XXX.duapp.com
+创建一个版本，并上传PHP代码包
+(BAE有些函数规则</p>
+        
+    
+    <time datetime="2013-09-06T13:38:39.000Z" itemprop="datePublished">2013-09-6</time>
+  </a>
+</section>
+
+
+  <nav id="page-nav" class="clearfix">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
+
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/Life/" title="Life">Life<sup>0</sup></a></li>
+		
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>9</sup></a></li>
+		
+			<li><a href="/categories/Python/" title="Python">Python<sup>2</sup></a></li>
+		
+			<li><a href="/categories/Web/" title="Web">Web<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/Android/" title="Android">Android<sup>1</sup></a></li>
+		
+			<li><a href="/tags/BAE/" title="BAE">BAE<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Blog/" title="Blog">Blog<sup>2</sup></a></li>
+		
+			<li><a href="/tags/LAMP/" title="LAMP">LAMP<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Linux/" title="Linux">Linux<sup>8</sup></a></li>
+		
+			<li><a href="/tags/Pelican/" title="Pelican">Pelican<sup>3</sup></a></li>
+		
+			<li><a href="/tags/Rails/" title="Rails">Rails<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Regex/" title="Regex">Regex<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Ruby/" title="Ruby">Ruby<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Sbulime-Text/" title="Sbulime Text">Sbulime Text<sup>1</sup></a></li>
+		
+			<li><a href="/tags/VIM/" title="VIM">VIM<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Web/" title="Web">Web<sup>1</sup></a></li>
+		
+			<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
+		
+			<li><a href="/tags/grub2/" title="grub2">grub2<sup>1</sup></a></li>
+		
+			<li><a href="/tags/test/" title="test">test<sup>0</sup></a></li>
+		
+			<li><a href="/tags/upyun/" title="upyun">upyun<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Strive to do better <br/>
+			 Be Moe Be Love ! </p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/9020taobeier" target="_blank" title="weibo"></a>
+		
+		
+		<a href="https://twitter.com/BeierTao" target="_blank" title="twitter"></a>
+		
+		
+		<a href="https://github.com/tao12345666333" target="_blank" title="github"></a>
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2014 
+		
+		<a href="http://moelove.info" target="_blank" title="TaoBeier">TaoBeier</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-50163692-1', 'moelove.info');  
+ga('send', 'pageview');
+</script>
+
+
+  </body>
+ </html>

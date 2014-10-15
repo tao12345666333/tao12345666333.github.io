@@ -1,0 +1,801 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[MoeLove]]></title>
+  <subtitle><![CDATA[不忘初心]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://moelove.info/"/>
+  <updated>2014-10-15T15:17:41.031Z</updated>
+  <id>http://moelove.info/</id>
+  
+  <author>
+    <name><![CDATA[TaoBeier]]></name>
+    <email><![CDATA[zhangjintao9020@gmail.com]]></email>
+  </author>
+  
+  <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[正则匹配中文及字符编码问题]]></title>
+    <link href="http://moelove.info/2014/07/22/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%AD%E6%96%87%E5%8F%8A%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/"/>
+    <id>http://moelove.info/2014/07/22/正则匹配中文及字符编码问题/</id>
+    <published>2014-07-22T13:16:34.000Z</published>
+    <updated>2014-10-15T13:30:17.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="匹配中文的正则表达式">匹配中文的正则表达式</h2>
+<p>窝写了一小段<a href="http://moelove.qiniudn.com/regex-match-Chinese.py" target="_blank" rel="external">代码</a>（虽然写的不太好，但是基本可以表达意思）</p>
+<script src="https://gist.github.com/tao12345666333/13edb463b04da758dade.js"></script>
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> re</div><div class="line"></div><div class="line">nickname = raw_input(<span class="string">'Please input your nickname &gt; '</span>)</div><div class="line"></div><div class="line"><span class="keyword">if</span> <span class="keyword">not</span> re.search(<span class="string">u'^[\u4e00-\u9fa5a-zA-Z0-9]+$'</span>, unicode(nickname,<span class="string">'utf8'</span>)):</div><div class="line">    <span class="keyword">print</span> <span class="string">'Your nickname format is error, please try again !'</span></div><div class="line"><span class="keyword">else</span>:</div><div class="line">    <span class="keyword">print</span> <span class="string">'Hello %s'</span>% nickname</div></pre></td></tr></table></figure>
+
+<p>如你所见，上面第5行的代码，就是匹配中文和字母，数字的正则表达式了。里面的<code>\u4e00-\u9fa5</code> 就是中文汉字的<code>unicode</code>编码所在位置。</p>
+<p><img src="http://moelove.qiniudn.com/2014-07-23%2023:21.png" alt="运行截图"></p>
+<hr>
+<h2 id="Python字符串的编码问题">Python字符串的编码问题</h2>
+<p>还是以上面那段代码来说。注意看第5行的代码</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="keyword">not</span> re.search(<span class="string">u'^[\u4e00-\u9fa5a-zA-Z0-9]+$'</span>, unicode(nickname,<span class="string">'utf8'</span>)):</div></pre></td></tr></table></figure>
+
+<p>其实这样的代码并不严谨。因为在Python 中默认是用<code>unicode</code>编码来处理字符串的，因此做编码转换的时候，一般要以<code>unicode</code>作为中间编码，也就是说：<br>其他编码格式的字符串—-&gt;解码(decode)—-&gt;<code>unicode</code>—-&gt;编码(encode)—-&gt;所需要的编码格式。</p>
+<p>因此，处理字符串编码的问题的时候，先要明白需要转换的字符串的编码格式是什么。</p>
+<h3 id="代码中字符串的默认编码格式与代码文件本身的编码格式是一样的">代码中字符串的默认编码格式与代码文件本身的编码格式是一样的</h3>
+<p>比如： s = ‘涛’ 在utf8的文件中，那么s就是utf8编码的，但是如果文件是gb2312编码，那么s就是gb2312编码的。此时，如果想要处理s这个字符串就要先decode成unicode编码了。</p>
+<p>不过如果是酱紫 s = u’涛’，那么s就是unicode编码了，这个时候s的编码方式不会被文件的编码所影响。</p>
+<h3 id="如果一个字符串已经是unicode编码了，再解码就会出错">如果一个字符串已经是unicode编码了，再解码就会出错</h3>
+<p>因此严谨的方式就是先对字符串进行编码格式的判别，最简单的办法就是使用Python 默认提供的<code>isinstance()</code> 方法.</p>
+<p>代码可以这样写<br><code>isinstance(s, unicode)</code> 如果不是unicode编码就会报错。</p>
+<p>窝今天在处理用户昵称的地方，忘记字符串会直接使用文件的编码了，所以对它进行了重新编码orz果断就报错了。。。以后还是要好好注意细节的说。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="匹配中文的正则表达式">匹配中文的正则表达式</h2>
+<p>窝写了一小段<a href="http://moelove.qiniudn.com/regex-match-Chinese.py" target="_blank" rel="external">代码</]]>
+    </summary>
+    
+      <category term="Regex" scheme="http://moelove.info/tags/Regex/"/>
+    
+      <category term="Python" scheme="http://moelove.info/categories/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Bash 显示git分支]]></title>
+    <link href="http://moelove.info/2014/07/17/Bash-%E6%98%BE%E7%A4%BAgit%E5%88%86%E6%94%AF/"/>
+    <id>http://moelove.info/2014/07/17/Bash-显示git分支/</id>
+    <published>2014-07-17T13:54:33.000Z</published>
+    <updated>2014-10-15T13:55:28.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="虽然一直都在用git，但是并没有注意到还有这个方便的用法">虽然一直都在用git，但是并没有注意到还有这个方便的用法</h3>
+<p>于是乎赶快学习一下 ：-）</p>
+<p>上网查了一下资料，都说Ubuntu下如何如何方便，其他的发行版需要先下载一个文件，然后添加source，再如何如何。。</p>
+<p>其实查再多都不如实践。以下是窝经过查资料加上对个人bash的配色后写出的配置文件，加入到 <code>~/.bashrc</code> 中即可（对各个发行版通用的）</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function git_branch {</div><div class="line">    <span class="keyword">ref</span>=$(git symbolic-<span class="keyword">ref</span> <span class="type">HEAD</span> <span class="number">2</span>&gt; /dev/null) || <span class="keyword">return</span>;</div><div class="line">    echo <span class="string">"("</span>${<span class="keyword">ref</span><span class="comment">#refs/heads/}") ";</span></div><div class="line">}</div><div class="line"></div><div class="line"><span class="type">PS1</span>=<span class="string">"[\[\e[1;35m\]\u\[\e[1;32m\]\w\[\e[0m\]] \[\e[0m\]\[\e[1;36m\]\$(git_branch)\[\e[0;33m\]\$"</span></div></pre></td></tr></table></figure>
+
+<script src="https://gist.github.com/tao12345666333/4a81478aa5db7c30e94e.js"></script>
+
+<p>按照惯例，上一张图<br><img src="http://moelove.qiniudn.com/bashrc2014-07%2022:57:55.png" alt="屏幕截图"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="虽然一直都在用git，但是并没有注意到还有这个方便的用法">虽然一直都在用git，但是并没有注意到还有这个方便的用法</h3>
+<p>于是乎赶快学习一下 ：-）</p>
+<p>上网查了一下资料，都说Ubuntu下如何如何方便，其他的发行版需要先下载一个文件，然后添]]>
+    </summary>
+    
+      <category term="Linux" scheme="http://moelove.info/tags/Linux/"/>
+    
+      <category term="git" scheme="http://moelove.info/tags/git/"/>
+    
+      <category term="Linux" scheme="http://moelove.info/categories/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Grub2 rescue 修复]]></title>
+    <link href="http://moelove.info/2014/07/02/Grub2-rescue-%E4%BF%AE%E5%A4%8D/"/>
+    <id>http://moelove.info/2014/07/02/Grub2-rescue-修复/</id>
+    <published>2014-07-02T13:53:03.000Z</published>
+    <updated>2014-10-15T13:54:15.000Z</updated>
+    <content type="html"><![CDATA[<p>昨天下午的时候想要把分区处理一下，突然发现硬盘里面有一个未使用的102M的分区,很果断的把这些乱七八糟的分区都给干掉了。结果呢，再次开机的时候就坑了（虽然酱紫的事情干过很多次了，这次做个记录吧）开机时提示如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="variable">GRUB</span> loading..</div><div class="line">error: unknown filesystem.</div><div class="line"><span class="variable">Entering</span> rescue mode....</div><div class="line">grub rescue&gt;</div></pre></td></tr></table></figure>
+
+<h3 id="grub_rescue_支持的命令">grub rescue 支持的命令</h3>
+<ul>
+<li><strong>ls</strong> 查看硬盘的分区情况，如果你已知自己的grub的安装位置（比如我的在<code>(hd0,msdos9)/boot/grub2</code>），那么就直接进行下一步。<br>如果不知道，那就ls每个分区，比如:</li>
+</ul>
+<figure class="highlight ls"><figcaption><span>(hd0,msdos2)/```,如果正确就会显示里面到内容，直到找到grub</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="subst">**</span>这里一个很关键的地方就是在硬盘位置后应该加入<span class="string">`/`</span><span class="subst">**</span></div><div class="line"></div><div class="line"><span class="subst">*</span> <span class="subst">**</span><span class="built_in">set</span><span class="subst">**</span> 直接输入的话， 可以看到root 和 prefix 的设置。这里需要把这两个选项改成我们已经找到的位置。</div><div class="line">窝的设置如下</div></pre></td></tr></table></figure>
+
+<p>grub rescue&gt; set<br>grub rescue&gt; prefix=(hd0,msdos9)/boot/grub2<br>grub rescue&gt; root=hd0,msdos9</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span>insmod<span class="keyword">*</span><span class="keyword">*</span> 载入模块。这里区别是窝这次记录的关键。</div><div class="line">grub2和grub的一个很重要的区别就是模块的位置。grub2的模块位置在`/boot/grub2/i386-pc/normal.mod`</div><div class="line">执行命令：</div></pre></td></tr></table></figure>
+
+<p>grub rescue&gt;insmod (hd0,msdos9)/boot/grub2/i386-pc/normal.mod</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">执行成功之后，提示符会变成`normal`</div><div class="line"></div><div class="line"><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span>normal<span class="keyword">*</span><span class="keyword">*</span> 进入正常模式，直接输入命令即可</div></pre></td></tr></table></figure>
+
+<p>grub rescue&gt;normal</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">这个时候，就可以看到熟悉的引导界面了。</div><div class="line"></div><div class="line"><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span>grub2-install<span class="keyword">*</span><span class="keyword">*</span></div><div class="line">进入系统后执行命令</div></pre></td></tr></table></figure>
+
+<p>$ sudo update-grub<br>$ sudo grub2-install /dev/sda<br>```</p>
+<p>如果不执行这样的命令的话，重启之后还会回到之前的界面orz</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>昨天下午的时候想要把分区处理一下，突然发现硬盘里面有一个未使用的102M的分区,很果断的把这些乱七八糟的分区都给干掉了。结果呢，再次开机的时候就坑了（虽然酱紫的事情干过很多次了，这次做个记录吧）开机时提示如下：</p>
+<figure class="highlight"><]]>
+    </summary>
+    
+      <category term="Linux" scheme="http://moelove.info/tags/Linux/"/>
+    
+      <category term="grub2" scheme="http://moelove.info/tags/grub2/"/>
+    
+      <category term="Linux" scheme="http://moelove.info/categories/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[upyun-for-pelican]]></title>
+    <link href="http://moelove.info/2014/05/16/upyun-for-pelican/"/>
+    <id>http://moelove.info/2014/05/16/upyun-for-pelican/</id>
+    <published>2014-05-16T13:51:41.000Z</published>
+    <updated>2014-10-15T13:52:43.000Z</updated>
+    <content type="html"><![CDATA[<p>这几天写了一个插件，方便把pelican生成静态博客部署到又拍云上。<br>整体思路就是：</p>
+<ul>
+<li>先格式化路径，以/为根目录</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">formatPath</span><span class="params">(path)</span>:</span></div><div class="line">path = path.replace(os.sep, <span class="string">'/'</span>)</div><div class="line"><span class="keyword">return</span> path</div></pre></td></tr></table></figure>
+
+<ul>
+<li>定义两个列表来存储文件和目录</li>
+</ul>
+<p>之后就是验证用户，以及bucketname 之类的了。</p>
+<h3 id="简介">简介</h3>
+<p><a href="https://github.com/getpelican/pelican" target="_blank" rel="external">pelican</a> 是一款基于python的静态博客生成工具，本程序可以方便的把生成的静态博客部署到<a href="https://www.upyun.com/index.html" target="_blank" rel="external">又拍云</a>上。演示地址：<a href="http://pelican-for-upyun.b0.upaiyun.com/" target="_blank" rel="external">upyun-for-pelican </a></p>
+<h3 id="生成网站">生成网站</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">make</span> html</div><div class="line"></div><div class="line"><span class="keyword">make</span> serve   (进行本地预览)</div></pre></td></tr></table></figure>
+
+<h3 id="说明">说明</h3>
+<ul>
+<li>程序使用了又拍云的<a href="https://github.com/upyun/python-sdk" target="_blank" rel="external">官方SDK</a> 需要先安装 upyun</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip <span class="operator"><span class="keyword">install</span> upyun</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>可以自定义要上传的文件目录。在最下方的<code>local_dir</code> 中指定即可。Pelican默认的上传目录是 output 目录</li>
+</ul>
+<h3 id="使用">使用</h3>
+<ol>
+<li><p>可以在 <strong>pelicanconf.py</strong> 文件中直接设置 <code>BUCKETNAME, USERNAME, PASSWORD</code> 参数（这些参数的使用大写命名格式也是为了符合<em>pelicanconf.py</em>中的习惯），也可以直接在 <code>upyun-for-pelican.py</code>文件的最下方直接设置。</p>
+</li>
+<li><p>执行</p>
+</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">python</span> upyun-<span class="keyword">for</span>-pelican.<span class="keyword">py</span></div></pre></td></tr></table></figure>
+
+<ol>
+<li>程序在 <code>Python 2.7</code> 环境下测试通过。</li>
+</ol>
+<h4 id="其他说明">其他说明</h4>
+<ul>
+<li>程序执行开始会有上传确认提示，输入<code>Y / y</code> 都可以继续上传。</li>
+<li>可以使用项目中的<code>pelicanconf.py</code>作为个人站点的配置文件。</li>
+</ul>
+<h4 id="未完待续…">未完待续…</h4>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>这几天写了一个插件，方便把pelican生成静态博客部署到又拍云上。<br>整体思路就是：</p>
+<ul>
+<li>先格式化路径，以/为根目录</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutte]]>
+    </summary>
+    
+      <category term="Pelican" scheme="http://moelove.info/tags/Pelican/"/>
+    
+      <category term="upyun" scheme="http://moelove.info/tags/upyun/"/>
+    
+      <category term="Python" scheme="http://moelove.info/categories/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[使用Pelican搭建Blog]]></title>
+    <link href="http://moelove.info/2014/05/07/%E4%BD%BF%E7%94%A8Pelican%E6%90%AD%E5%BB%BABlog/"/>
+    <id>http://moelove.info/2014/05/07/使用Pelican搭建Blog/</id>
+    <published>2014-05-07T13:48:59.000Z</published>
+    <updated>2014-10-15T13:50:10.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="安装配置Pelican">安装配置Pelican</h2>
+<hr>
+<h5 id="使用环境：">使用环境：</h5>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">系统  :  Linux X86_64</div><div class="line">Pelican : 3.3.0</div></pre></td></tr></table></figure>
+
+<p>首先说一下安装： 网上有不少建议说使用虚拟环境  <a href="https://virtualenv.pypa.io/en/latest/virtualenv.html" target="_blank" rel="external">virtualenv</a>，以免污染本地的环境。不过，如果不是去更改<code>Python</code>的全局设置的话，也不至于影响本地环境的。我是直接安装的。根据 Pelican 官方的文档，我是使用 <code>pip</code> 安装的，不过<code>pip</code>又是依赖于<code>distribute</code> 安装的。所以，我使用的命令如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">curl -<span class="constant">O</span> <span class="symbol">http:</span>/<span class="regexp">/python-distribute.org/distribute</span>_setup.py</div><div class="line">sudo python distribute_setup.py</div><div class="line"></div><div class="line">curl -<span class="constant">O</span> <span class="symbol">https:</span>/<span class="regexp">/raw.github.com/pypa</span><span class="regexp">/pip/master</span><span class="regexp">/contrib/get</span>-pip.py</div><div class="line">sudo python get-pip.py</div><div class="line"></div><div class="line">sudo pip install pelican</div></pre></td></tr></table></figure>
+
+<p>还有，如果要用 <a href="http://zh.wikipedia.org/zh-cn/Markdown" target="_blank" rel="external"><code>Markdown</code></a>来写文章，也需要执行如下命令：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip <span class="operator"><span class="keyword">install</span> markdown</span></div></pre></td></tr></table></figure>
+
+<p>新建一个目录，用来存放你的博客文件（我直接建立了”blog”文件夹）</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">mkdir</span> blog</div><div class="line"></div><div class="line"><span class="keyword">cd</span> blog</div></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="新建博客：">新建博客：</h2>
+<p>使用如下命令：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pelican-quickstart</div></pre></td></tr></table></figure>
+
+<p>按照提示一步步即可完成新建， 这些配置之后可以在<code>pelicanconf.py</code>这个文件中修改</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">Where</span> <span class="keyword">do</span> you want <span class="keyword">to</span> <span class="keyword">create</span> your <span class="keyword">new</span> web site?[.]  (你想在哪里创建你的网站，默认为当前目录)</div><div class="line">What will be the title <span class="keyword">of</span> this web site?(网站的标题是什么)</div><div class="line">Who will be the author <span class="keyword">of</span> this web site?(网站的作者是谁)</div><div class="line">What will be the <span class="keyword">default</span> language <span class="keyword">of</span> this web site? [en]   (网站的默认语言是),这里我们写<span class="string">'zh'</span>中文</div><div class="line"><span class="keyword">Do</span> you want <span class="keyword">to</span> specify a URL prefix? e.g., http:<span class="comment">//example.com(Y/n) (是否指定域名),Y</span></div><div class="line">What <span class="keyword">is</span> your URL prefix?(see above example; no trailing slash)(输入域名，不能包含反斜杠<span class="string">'/'</span>),http:<span class="comment">//moelove.info</span></div><div class="line"><span class="keyword">Do</span> you want <span class="keyword">to</span> enable article pagination?(是否启用文章分页)</div><div class="line"><span class="keyword">Do</span> you want <span class="keyword">to</span> generate a Makefile <span class="keyword">to</span> easily manage your website?(是否生成一个Makefile来管理网站(这里我建议生成，因为会比较方便的))</div><div class="line"><span class="keyword">Do</span> you want an auto-reload & simpleHTTP script <span class="keyword">to</span> assist <span class="keyword">with</span> theme <span class="keyword">and</span> site development?(是否想有一个自动加载的小型http脚本用来修改主题和站点开发)</div><div class="line"><span class="keyword">Do</span> you want <span class="keyword">to</span> upload your website <span class="keyword">using</span> FTP?</div><div class="line"><span class="keyword">Do</span> you want <span class="keyword">to</span> upload your website <span class="keyword">using</span> SSH?</div><div class="line"><span class="keyword">Do</span> you want <span class="keyword">to</span> upload your website <span class="keyword">using</span> Dropbox?</div><div class="line"><span class="keyword">Do</span> you want <span class="keyword">to</span> upload your website <span class="keyword">using</span> S3?</div></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="新建博文：">新建博文：</h2>
+<p>这个时候就可以写博客了。具体的写作方式可以参考 <a href="http://docs.getpelican.com/en/latest/internals.html" target="_blank" rel="external">Pelican的官方文档</a><br>  我以<a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> 为例说明一下。</p>
+<p>在content 目录，新建一个 <code>hello.md</code>文件</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">vim content/htllo.md</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="label">Date:</span> <span class="number">2014</span>-<span class="number">04</span>-<span class="number">18</span> <span class="preprocessor">#日期</span></div><div class="line"><span class="label">Title:</span> HelloWorld <span class="preprocessor">#标题</span></div><div class="line"><span class="label">Tags:</span> hello <span class="preprocessor">#标签</span></div><div class="line"><span class="label">Category:</span> test <span class="preprocessor">#分类</span></div><div class="line">Hello World !</div></pre></td></tr></table></figure>
+
+<p>之后，执行<code>make html</code> 或者 <code>pelican content</code>即可将 md文件转换成html文件。执行 <code>make serve</code>   即可打开本地浏览器，<a href="http://127.0.0.1:8000/" target="_blank" rel="external">预览</a>。</p>
+<blockquote>
+<p><strong>现在一个使用默认主题的博客就建立好了。</strong></p>
+</blockquote>
+<hr>
+<h2 id="后续">后续</h2>
+<h4 id="接下来说一下修改主题和使用插件的方法">接下来说一下修改主题和使用插件的方法</h4>
+<p>Pelican 默认提供了很多主题可以 github 上下载，当然也可以自己制作。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone gi<span class="variable">t:</span>//github.<span class="keyword">com</span>/getpelican/pelican-themes.git</div></pre></td></tr></table></figure>
+
+<p>在里面找到你喜欢的主题，使用</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pelican-theme -i <span class="regexp">/path/</span>to<span class="regexp">/your/</span>themes</div></pre></td></tr></table></figure>
+
+<p>命令进行主题的安装。</p>
+<p>随后可以使用<code>pelican-themes -l -v</code> 查看已经安装好的主题。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/usr/<span class="keyword">lib</span>/python2<span class="number">.7</span>/site-packages/pelican/themes/simple</div><div class="line">/usr/<span class="keyword">lib</span>/python2<span class="number">.7</span>/site-packages/pelican/themes/notmyidea</div><div class="line">/usr/<span class="keyword">lib</span>/python2<span class="number">.7</span>/site-packages/pelican/themes/bootstrap2</div></pre></td></tr></table></figure>
+
+<p>想要开始使用主题的话， 只需要在<code>pelicanconf.py</code>文件中添加 <code>THEME</code>项为主题名,例如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="constant">THEME</span> = <span class="string">"bootstrap2"</span></div></pre></td></tr></table></figure>
+
+<p>重新 <em>make html</em>  即可, 这时候声成的页面就是所要使用的主题了。</p>
+<h4 id="为博客使用插件">为博客使用插件</h4>
+<p>Pelican 也提供了不少的插件来方便使用， 可以从github 上面下载到博客所在目录：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone gi<span class="variable">t:</span>//github.<span class="keyword">com</span>/getpelican/pelican-plugins.git</div></pre></td></tr></table></figure>
+
+<p>现在博客目录就新添了一个 pelican-plugins 目录，接下来在 pelicanconf.py 里面添加配置即可(里面是我最开始使用的三个插件):</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PLUGIN_PATH = <span class="string">u"pelican-plugins"</span></div><div class="line">PLUGINS = [<span class="string">"sitemap"</span>, <span class="string">"summary"</span>, <span class="string">"neighbors"</span>]</div></pre></td></tr></table></figure>
+
+<p>再添加 sitemap 的配置</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">SITEMAP = {</div><div class="line"><span class="string">'format'</span>: <span class="string">'xml'</span>,</div><div class="line"><span class="string">'priorities'</span>: {</div><div class="line">    <span class="string">'articles'</span>: <span class="number">0.5</span>,</div><div class="line">    <span class="string">'indexes'</span>: <span class="number">0.5</span>,</div><div class="line">    <span class="string">'pages'</span>: <span class="number">0.5</span></div><div class="line">    },</div><div class="line"><span class="string">'changefreqs'</span>: {</div><div class="line">    <span class="string">'articles'</span>: <span class="string">'weekly'</span>,</div><div class="line">    <span class="string">'indexes'</span>: <span class="string">'daily'</span>,</div><div class="line">    <span class="string">'pages'</span>: <span class="string">'monthly'</span></div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>然后执行 <em>make html</em> 即可</p>
+<h4 id="添加多说评论">添加多说评论</h4>
+<p>一开始搭建静态博客的时候，使用的<a href="http://disqus.com/" target="_blank" rel="external">disqus</a> 并且Pelican 的主题中默认提供了支持，只要在 pelicanconf.py 的里面加入 disqus 的short_name 即可开始使用了。不过，身在天朝，还是尽量本地化一些吧，使用<a href="http://duoshuo.com/" target="_blank" rel="external">多说</a>评论插件。<br>在<a href="http://duoshuo.com/" target="_blank" rel="external">多说</a>注册一个帐号，<a href="http://duoshuo.com/create-site/" target="_blank" rel="external">添加一个站点</a>，获取自己的 <em>short_name</em> ，点击工具一栏—&gt;获取代码</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 多说评论框 start --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"ds-thread"</span> <span class="attribute">data-thread-key</span>=<span class="value">"请将此处替换成文章在你的站点中的ID"</span> <span class="attribute">data-title</span>=<span class="value">"请替换成文章的标题"</span> <span class="attribute">data-url</span>=<span class="value">"请替换成文章的网址"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 多说评论框 end --&gt;</span></div><div class="line"><span class="comment">&lt;!-- 多说公共JS代码 start (一个网页只需插入一次) --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span></div><div class="line"><span class="keyword">var</span> duoshuoQuery = {short_name:<span class="string">"替换成你自己的"</span>};</div><div class="line">    (<span class="function"><span class="keyword">function</span><span class="params">()</span> </span>{</div><div class="line">        <span class="keyword">var</span> ds = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</div><div class="line">        ds.type = <span class="string">'text/javascript'</span>;ds.async = <span class="literal">true</span>;</div><div class="line">        ds.src = (<span class="built_in">document</span>.location.protocol == <span class="string">'https:'</span> ? <span class="string">'https:'</span> : <span class="string">'http:'</span>) + <span class="string">'//static.duoshuo.com/embed.js'</span>;</div><div class="line">        ds.charset = <span class="string">'UTF-8'</span>;</div><div class="line">        (<span class="built_in">document</span>.getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>]</div><div class="line">         || <span class="built_in">document</span>.getElementsByTagName(<span class="string">'body'</span>)[<span class="number">0</span>]).appendChild(ds);</div><div class="line">    })();</div><div class="line">    <span class="tag">&lt;/<span class="title">script</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 多说公共JS代码 end --&gt;</span></div></pre></td></tr></table></figure>
+
+<p>把这段代码放在你想要显示评论的地方就可以了。建议直接修改放在article.html模板里面。</p>
+<h4 id="添加其他功能">添加其他功能</h4>
+<p>这里我还加入了<a href="http://share.baidu.com/code" target="_blank" rel="external">百度分享</a>的功能。直接定制个人想要的代码， 放在你需要出现分享按钮的地方即可，我放在了文章的下面。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"bdsharebuttonbox"</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"bds_more"</span> <span class="attribute">data-cmd</span>=<span class="value">"more"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"bds_qzone"</span> <span class="attribute">data-cmd</span>=<span class="value">"qzone"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"bds_tsina"</span> <span class="attribute">data-cmd</span>=<span class="value">"tsina"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"bds_tqq"</span> <span class="attribute">data-cmd</span>=<span class="value">"tqq"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"bds_renren"</span> <span class="attribute">data-cmd</span>=<span class="value">"renren"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">class</span>=<span class="value">"bds_weixin"</span> <span class="attribute">data-cmd</span>=<span class="value">"weixin"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"><span class="built_in">window</span>._bd_share_config={<span class="string">"common"</span>:{<span class="string">"bdSnsKey"</span>:{},<span class="string">"bdText"</span>:<span class="string">""</span>,<span class="string">"bdMini"</span>:<span class="string">"2"</span>,<span class="string">"bdPic"</span>:<span class="string">""</span>,<span class="string">"bdStyle"</span>:<span class="string">"0"</span>,<span class="string">"bdSize"</span>:<span class="string">"16"</span>},<span class="string">"share"</span>:{},<span class="string">"image"</span>:{<span class="string">"viewList"</span>:[<span class="string">"qzone"</span>,<span class="string">"tsina"</span>,<span class="string">"tqq"</span>,<span class="string">"renren"</span>,<span class="string">"weixin"</span>],<span class="string">"viewText"</span>:<span class="string">"分享到："</span>,<span class="string">"viewSize"</span>:<span class="string">"16"</span>},<span class="string">"selectShare"</span>:{<span class="string">"bdContainerClass"</span>:<span class="literal">null</span>,<span class="string">"bdSelectMiniList"</span>:[<span class="string">"qzone"</span>,<span class="string">"tsina"</span>,<span class="string">"tqq"</span>,<span class="string">"renren"</span>,<span class="string">"weixin"</span>]}};<span class="keyword">with</span>(<span class="built_in">document</span>)<span class="number">0</span>[(getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>]||body).appendChild(createElement(<span class="string">'script'</span>)).src=<span class="string">'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='</span>+~(-<span class="keyword">new</span> <span class="built_in">Date</span>()/<span class="number">36e5</span>)];</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></div></pre></td></tr></table></figure>
+
+<p>还有加入了 <a href="http://www.google.com/analytics/" target="_blank" rel="external">Google Analytics</a> 谷歌站内搜索 以及七牛提供的云存储 等。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="安装配置Pelican">安装配置Pelican</h2>
+<hr>
+<h5 id="使用环境：">使用环境：</h5>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class]]>
+    </summary>
+    
+      <category term="Pelican" scheme="http://moelove.info/tags/Pelican/"/>
+    
+      <category term="Blog" scheme="http://moelove.info/tags/Blog/"/>
+    
+      <category term="Web" scheme="http://moelove.info/tags/Web/"/>
+    
+      <category term="Web" scheme="http://moelove.info/categories/Web/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Hello World !]]></title>
+    <link href="http://moelove.info/2014/04/18/Hello-World/"/>
+    <id>http://moelove.info/2014/04/18/Hello-World/</id>
+    <published>2014-04-18T13:46:06.000Z</published>
+    <updated>2014-10-15T13:47:30.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>几乎所有的程序猿的第一个演示程序都是Hello World .那我也就一样咯， 也写一个同样的吧。<br>其实我的博客从很早前就已经开始在写了， 换了很多的平台：</p>
+</blockquote>
+<pre><code><span class="comment">从腾讯空间</span><span class="literal">-</span><span class="literal">-</span>&gt; <span class="comment">百度空间</span><span class="literal">-</span><span class="literal">-</span>&gt; <span class="comment">新浪博客</span><span class="literal">-</span><span class="literal">-</span>&gt; <span class="comment">自己搭建的Wordpress博客</span><span class="literal">-</span><span class="literal">-</span>&gt; <span class="comment">点点（点点我其实是用来碎碎念的）</span>
+<span class="literal">-</span><span class="literal">-</span>&gt; <span class="comment">博客园（个人感觉体验不是很好的说）</span><span class="literal">-</span><span class="literal">-</span>&gt; <span class="comment">静态博客</span>
+</code></pre><p>选择了这么多，我最后决定还是使用 <strong>静态博客</strong> 来做个人博客。</p>
+<blockquote>
+<p>原因有以下几个：</p>
+</blockquote>
+<ol>
+<li>使用其他平台提供的博客不是很爽， 可个性化的方面不是很多， 点点相对来说做的还是很不错的<br>不仅提供个性化定制而且还支持绑定个人域名之类的。但是其他网站就不是那么人性化了。</li>
+<li>写博客总是需要贴代码的，但是除了WP外，其他的我不是很满意。</li>
+<li>用静态博客方便备份，而且是本地编辑就可以了，在线编辑的，感觉会被束缚很多。</li>
+<li>本人属于折腾党，喜欢可以个人定制的， 直到符合个人满意的程度为止。</li>
+</ol>
+<blockquote>
+<p>接下来说说这次博客的安装：</p>
+</blockquote>
+<ol>
+<li>选择<strong>Pelica</strong>是因为我对Python 比较熟悉，之前尝试过用Jekyll 和 Octopress 搭建，都比较方便<br>尤其是Jekyll 用户很多，文档什么的都很多了。只不过我更喜欢Python 多一些（虽然我有用ROR开发过WEB应用程序）<br>因为如果有什么需要的话，我也可以自己来开发插件或者自己再尝试做一个系统。</li>
+<li>Pelican 相对来说配置也很方便， 很简单， 虽然用户不是很多，但是基本上的问题也都可以解决的</li>
+<li><a href="https://github.com/getpelican/pelican" target="_blank" rel="external">Pelican</a> 支持restructuredText和Markdown写文章，配置灵活，扩展性强。我用的是3.3.0。</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>几乎所有的程序猿的第一个演示程序都是Hello World .那我也就一样咯， 也写一个同样的吧。<br>其实我的博客从很早前就已经开始在写了， 换了很多的平台：</p>
+</blockquote>
+<pre><code><span class="]]>
+    </summary>
+    
+      <category term="Pelican" scheme="http://moelove.info/tags/Pelican/"/>
+    
+      <category term="Blog" scheme="http://moelove.info/tags/Blog/"/>
+    
+      <category term="Web" scheme="http://moelove.info/categories/Web/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Linux 安装Android 驱动]]></title>
+    <link href="http://moelove.info/2014/03/10/Linux-%E5%AE%89%E8%A3%85Android-%E9%A9%B1%E5%8A%A8/"/>
+    <id>http://moelove.info/2014/03/10/Linux-安装Android-驱动/</id>
+    <published>2014-03-10T13:44:06.000Z</published>
+    <updated>2014-10-15T13:45:39.000Z</updated>
+    <content type="html"><![CDATA[<p>在Linux下非常适合做一些对Rom 的定制以及其他的一些操作，甚至是自己制作Rom 或者从源码编译Rom 也是OK的。</p>
+<p>不过最开始的应该就是搭建开发环境了，我先从装驱动开始说（只是做个笔记而已）</p>
+<ul>
+<li><p>使用数据线连接手机，打开<strong>adb调试模式</strong>。(在Linux上搭建开发环境， 以及adb 命令之类的， 就自行搜索吧，如果哪天更新了 我会附上链接的)</p>
+</li>
+<li><p>输入<code>adb devices</code> 查看设备<br>如果有机型的话就说明是已经有驱动了<br>如果没有显示的话， 就是说明需要进行驱动安装了。</p>
+</li>
+</ul>
+<p>这个时候， <code>lsusb</code> 查看， 会看到下面这样的信息</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="attr_selector">[tao@localhost ~]</span>$ <span class="tag">lsusb</span></div><div class="line"><span class="tag">Bus</span> 001 <span class="tag">Device</span> 002: <span class="tag">ID</span> 8087<span class="pseudo">:0020</span> <span class="tag">Intel</span> <span class="tag">Corp</span>. <span class="tag">Integrated</span> <span class="tag">Rate</span> <span class="tag">Matching</span> <span class="tag">Hub</span></div><div class="line"><span class="tag">Bus</span> 002 <span class="tag">Device</span> 002: <span class="tag">ID</span> 8087<span class="pseudo">:0020</span> <span class="tag">Intel</span> <span class="tag">Corp</span>. <span class="tag">Integrated</span> <span class="tag">Rate</span> <span class="tag">Matching</span> <span class="tag">Hub</span></div><div class="line"><span class="tag">Bus</span> 001 <span class="tag">Device</span> 001: <span class="tag">ID</span> 1<span class="tag">d6b</span><span class="pseudo">:0002</span> <span class="tag">Linux</span> <span class="tag">Foundation</span> 2<span class="class">.0</span> <span class="tag">root</span> <span class="tag">hub</span></div><div class="line"><span class="tag">Bus</span> 002 <span class="tag">Device</span> 001: <span class="tag">ID</span> 1<span class="tag">d6b</span><span class="pseudo">:0002</span> <span class="tag">Linux</span> <span class="tag">Foundation</span> 2<span class="class">.0</span> <span class="tag">root</span> <span class="tag">hub</span></div><div class="line"><span class="tag">Bus</span> 002 <span class="tag">Device</span> 006: <span class="tag">ID</span> 12<span class="tag">d1</span><span class="pseudo">:2229</span> <span class="tag">Huawei</span> <span class="tag">Technologies</span> <span class="tag">Co</span>., <span class="tag">Ltd</span>.</div><div class="line"><span class="tag">Bus</span> 002 <span class="tag">Device</span> 004: <span class="tag">ID</span> 04<span class="tag">f2</span><span class="pseudo">:b1c1</span> <span class="tag">Chicony</span> <span class="tag">Electronics</span> <span class="tag">Co</span>., <span class="tag">Ltd</span></div><div class="line"><span class="tag">Bus</span> 002 <span class="tag">Device</span> 005: <span class="tag">ID</span> 062<span class="tag">a</span><span class="pseudo">:4101</span> <span class="tag">Creative</span> <span class="tag">Labs</span></div></pre></td></tr></table></figure>
+
+<p>可以在<a href="https://developer.android.com/tools/device.html" target="_blank" rel="external">Android Developer</a> ， 看到对其他的产品的支持，窝的手机是Huawei的所以就是要输入对应的ID ：<strong>12d1</strong> 然后，再新建一个文件，</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vim /etc/udev/rules.d/<span class="number">50</span>-android.rules</div><div class="line"></div><div class="line">写入内容：</div><div class="line"></div><div class="line"><span class="variable">SUBSYSTEM=</span>=<span class="string">"usb"</span>, ATTR{idVendor}==<span class="string">"12d1"</span>, ATTR{idProduct}==<span class="string">"2229"</span>, <span class="variable">MODE=</span><span class="string">"0600"</span>, <span class="variable">OWNER=</span><span class="string">"tao"</span>,<span class="variable">GROUP =</span><span class="string">"plugdev"</span></div></pre></td></tr></table></figure>
+
+<p>50是说是手机， 其他的命名也有各自的解释</p>
+<p>然后我们就可以新建这个文件， 修改权限</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod a+x <span class="regexp">/etc/</span>udev<span class="regexp">/rules.d/</span><span class="number">50</span>-android.rules</div></pre></td></tr></table></figure>
+
+<p>这个时候 就成功了，我们使用<code>adb devices</code> 命令就可以看到我们的设备了， 使用<code>adb shell</code>  就可以对手机进行操作了</p>
+<p>当然我在这里进行了一次重启，就可以使用了<br>(话说这篇文章虽然一直在云端编辑，但是一直木有结束，现在才发出来。。一定要提高效率！)</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在Linux下非常适合做一些对Rom 的定制以及其他的一些操作，甚至是自己制作Rom 或者从源码编译Rom 也是OK的。</p>
+<p>不过最开始的应该就是搭建开发环境了，我先从装驱动开始说（只是做个笔记而已）</p>
+<ul>
+<li><p>使用数据线连接手机，打开<st]]>
+    </summary>
+    
+      <category term="Linux" scheme="http://moelove.info/tags/Linux/"/>
+    
+      <category term="Android" scheme="http://moelove.info/tags/Android/"/>
+    
+      <category term="Linux" scheme="http://moelove.info/categories/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[fedora 18 Kernel driver not installed (rc=-1908)处理办法]]></title>
+    <link href="http://moelove.info/2013/12/21/fedora-18-Kernel-driver-not-installed-rc-1908-%E5%A4%84%E7%90%86%E5%8A%9E%E6%B3%95/"/>
+    <id>http://moelove.info/2013/12/21/fedora-18-Kernel-driver-not-installed-rc-1908-处理办法/</id>
+    <published>2013-12-21T13:42:18.000Z</published>
+    <updated>2014-10-15T13:43:35.000Z</updated>
+    <content type="html"><![CDATA[<h4 id="fedora_18_升级内核之后_使用VirtualBox_可以正常打开软件,但是不能启动虚拟机系统-提示信息如下:">fedora 18 升级内核之后 使用<em>VirtualBox</em> 可以正常打开软件,但是不能启动虚拟机系统.提示信息如下:</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">Kernel driver not installed (rc</span>=<span class="string">-1908)</span></div></pre></td></tr></table></figure>
+
+<p>经过一系列的看文档还有google 之后,很多地方写着这个问题的处理方法是</p>
+<ul>
+<li>第一种</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> /etc/init.d/vboxdrv setup</div></pre></td></tr></table></figure>
+
+<p>经过实验,对feora 18 不可行</p>
+<ul>
+<li>第二种</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> apt-get install dkms</div><div class="line"><span class="built_in">sudo</span> /etc/init.d/vboxdrv setup</div></pre></td></tr></table></figure>
+
+<p>但是情况继续</p>
+<ul>
+<li>第三种</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> aptitude update</div><div class="line"><span class="built_in">sudo</span> aptitude install dkms</div><div class="line"><span class="built_in">sudo</span> /etc/init.d/vboxdrv setup</div></pre></td></tr></table></figure>
+
+<h3 id="最后正确的解决方法应该是酱紫的">最后正确的解决方法应该是酱紫的</h3>
+<ul>
+<li>先看看系统的内核</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="title">uname</span> -r</div></pre></td></tr></table></figure>
+
+<ul>
+<li>找对应的包</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> yum search kmod-VirtualBox</div></pre></td></tr></table></figure>
+
+<ul>
+<li>然后安装和你系统内核对应的包</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> yum install kmod-VirtualBox-XXXX</div></pre></td></tr></table></figure>
+
+<ul>
+<li>运行</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">/etc/</span>sysconfig<span class="regexp">/modules/</span>VirtualBox.modules</div></pre></td></tr></table></figure>
+
+<p>一切OK了</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h4 id="fedora_18_升级内核之后_使用VirtualBox_可以正常打开软件,但是不能启动虚拟机系统-提示信息如下:">fedora 18 升级内核之后 使用<em>VirtualBox</em> 可以正常打开软件,但是不能启动虚拟机系统.提示信息如下:</h4>]]>
+    </summary>
+    
+      <category term="Linux" scheme="http://moelove.info/tags/Linux/"/>
+    
+      <category term="Linux" scheme="http://moelove.info/categories/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Ruby on Rails 环境]]></title>
+    <link href="http://moelove.info/2013/09/21/Ruby-on-Rails-%E7%8E%AF%E5%A2%83/"/>
+    <id>http://moelove.info/2013/09/21/Ruby-on-Rails-环境/</id>
+    <published>2013-09-21T13:39:55.000Z</published>
+    <updated>2014-10-15T13:41:16.000Z</updated>
+    <content type="html"><![CDATA[<h4 id="就这次的尝试写一下自己的记录">就这次的尝试写一下自己的记录</h4>
+<p>安装ruby  和 ruby-devel(安装ruby-devel是因为后续的工作如果没有ruby-devel的话，会报错)</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum install <span class="keyword">ruby</span> <span class="keyword">ruby</span>-devel rubygems sqlite -<span class="keyword">y</span></div></pre></td></tr></table></figure>
+
+<p>需要的环境有了，那么就可以开始正式的工作了</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> gem install rails</div></pre></td></tr></table></figure>
+
+<p>找到一个合适的目录来放自己的代码.然后执行</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ rails <span class="keyword">new</span> mysite</div><div class="line"><span class="comment">// 这个是建立一个叫mysite 的rails程式 ，在当前目录下面</span></div><div class="line">$ cd mysite</div><div class="line"><span class="comment">//进入这个目录</span></div><div class="line">$ bundle install</div><div class="line"><span class="comment">//因为在做测试 所以 也没有必要安装其他的gem</span></div></pre></td></tr></table></figure>
+
+<p>接下来看看它的数据库  配置文件是 <code>config/database.yml</code>  默认的支持是是<strong>SQLite3</strong>(当然也支持其他的比如mysql之类的)它有三种模式:</p>
+<ul>
+<li>development environment开发模式，用在你的开发的时候</li>
+<li>test environment测试模式，用在自动测试时</li>
+<li>production environment正式上线模式，用在实际的上线运作环境</li>
+</ul>
+<p>SQLite配置大致是这样的:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="label">development:</span></div><div class="line"><span class="label">adapter:</span> sqlite3</div><div class="line"><span class="label">database:</span> db/development.sqlite3</div><div class="line"><span class="label">pool:</span> <span class="number">5</span></div><div class="line"><span class="label">timeout:</span> <span class="number">5000</span></div></pre></td></tr></table></figure>
+
+<p>接下来建立自己的数据库</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rake <span class="keyword">d</span><span class="variable">b:create</span></div></pre></td></tr></table></figure>
+
+<p><strong>在这里我遇到一个错误</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">rake aborted!</div><div class="line">Could <span class="operator">not</span> find <span class="operator">a</span> JavaScript runtime. See <span class="keyword">https</span>://github.com/sstephenson/execjs <span class="keyword">for</span> <span class="operator">a</span> list <span class="operator">of</span> available runtimes.</div><div class="line"></div><div class="line">(See full trace <span class="keyword">by</span> running task <span class="operator">with</span> <span class="comment">--trace)</span></div></pre></td></tr></table></figure>
+
+<p>我的解决办法是</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> yum install nodejs</div></pre></td></tr></table></figure>
+
+<p>然后启动服务器</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rails <span class="keyword">server</span></div></pre></td></tr></table></figure>
+
+<p>要看结果就打开<a href="http://localhost:3000" target="_blank" rel="external">http://localhost:3000</a>就会看见rails 的默认首页了</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h4 id="就这次的尝试写一下自己的记录">就这次的尝试写一下自己的记录</h4>
+<p>安装ruby  和 ruby-devel(安装ruby-devel是因为后续的工作如果没有ruby-devel的话，会报错)</p>
+<figure class="highlight">]]>
+    </summary>
+    
+      <category term="Ruby" scheme="http://moelove.info/tags/Ruby/"/>
+    
+      <category term="Rails" scheme="http://moelove.info/tags/Rails/"/>
+    
+      <category term="Linux" scheme="http://moelove.info/categories/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[利用百度BAE搭建discuz论坛]]></title>
+    <link href="http://moelove.info/2013/09/06/%E5%88%A9%E7%94%A8%E7%99%BE%E5%BA%A6BAE%E6%90%AD%E5%BB%BAdiscuz%E8%AE%BA%E5%9D%9B/"/>
+    <id>http://moelove.info/2013/09/06/利用百度BAE搭建discuz论坛/</id>
+    <published>2013-09-06T13:38:39.000Z</published>
+    <updated>2014-10-15T13:39:33.000Z</updated>
+    <content type="html"><![CDATA[<p>最近尝试了利用百度云应用管理<em>BAE</em>搭建discuz论坛， 这里做简要记录</p>
+<h3 id="创建应用">创建应用</h3>
+<p>在 <a href="http://developer.baidu.com/" target="_blank" rel="external">百度开发者中心</a> 创建一个应用，选择WEB应用下的PC <strong>Iframe应用</strong></p>
+<h3 id="托管设置">托管设置</h3>
+<p>之后进行托管设置， 确定域名XXX.duapp.com</p>
+<p>创建一个版本，并上传PHP代码包</p>
+<p>(BAE有些函数规则发生改变，所以需要使用为BAE环境做过调整的<a href="http://pan.baidu.com/s/1hqsYVre" target="_blank" rel="external">discuz for BAE</a> 版本)</p>
+<p>需要注意的是在上传的代码包里面的 <em>bcs/config.php</em> 中的内容应该修改为</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="subst">&lt;?</span>php</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">define</span></span>(<span class="string">'BAIDU_BCS_BUCKET'</span>, <span class="string">'创建的bucket名称'</span>);</div><div class="line"><span class="class"><span class="keyword">define</span></span>(<span class="string">'BAIDU_BCS_AK'</span>, getenv(<span class="string">'HTTP_BAE_ENV_AK'</span>));</div><div class="line"><span class="class"><span class="keyword">define</span></span>(<span class="string">'BAIDU_BCS_SK'</span>, getenv(<span class="string">'HTTP_BAE_ENV_SK'</span>));</div><div class="line"></div><div class="line"><span class="preprocessor">?&gt;</span><span class="markup"></span></div></pre></td></tr></table></figure>
+
+<p>同时在数据库中设置为UTF-8,</p>
+<p>注意开启缓存 cache 最少30M(亲测50M完全是OK的)</p>
+<h3 id="安装">安装</h3>
+<p>之后上线应用，访问<a href="http://你的域名.duapp.com/install/index.php" target="_blank" rel="external">http://你的域名.duapp.com/install/index.php</a></p>
+<p>即可完成安装(需要用到创建的数据库名称)</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>最近尝试了利用百度云应用管理<em>BAE</em>搭建discuz论坛， 这里做简要记录</p>
+<h3 id="创建应用">创建应用</h3>
+<p>在 <a href="http://developer.baidu.com/" target="_blank" rel=]]>
+    </summary>
+    
+      <category term="BAE" scheme="http://moelove.info/tags/BAE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[fedora下安装sublime text 2的方法]]></title>
+    <link href="http://moelove.info/2013/08/30/fedora%E4%B8%8B%E5%AE%89%E8%A3%85sublime-text-2%E7%9A%84%E6%96%B9%E6%B3%95/"/>
+    <id>http://moelove.info/2013/08/30/fedora下安装sublime-text-2的方法/</id>
+    <published>2013-08-30T13:36:09.000Z</published>
+    <updated>2014-10-15T13:37:58.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="首先去官网下载最新的压缩包">首先去<a href="http://www.sublimetext.com/" target="_blank" rel="external">官网</a>下载最新的压缩包</h3>
+<ul>
+<li>把文件解压到$HOME/.sublime_text_2文件夹中：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tar -xf (sublime压缩包的文件名).tar.bz2</div><div class="line"><span class="built_in">sudo</span> mv (解压后的文件夹) tools/Sublime_Text_2</div></pre></td></tr></table></figure>
+
+<ul>
+<li>在/usr/bin目录下面创建一个链接</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">vim</span> sublime</div></pre></td></tr></table></figure>
+
+<p>在文件中写入这些代码：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="shebang">#!/bin/bash</span></div><div class="line"><span class="keyword">export</span> SUBLIME_HOME=<span class="string">"~/tools/Sublime_Text_2"</span></div><div class="line"></div><div class="line"><span class="variable">$SUBLIME_HOME</span>/sublime_text $*</div></pre></td></tr></table></figure>
+
+<p>修改文件权限并且移动</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod <span class="number">555</span> sublime && mv sublime <span class="regexp">/usr/</span>bin<span class="regexp">/sublime</span></div></pre></td></tr></table></figure>
+
+<p>这样就可以在终端中直接执行sublime了</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="首先去官网下载最新的压缩包">首先去<a href="http://www.sublimetext.com/" target="_blank" rel="external">官网</a>下载最新的压缩包</h3>
+<ul>
+<li>把文件解压到$HOME/.sub]]>
+    </summary>
+    
+      <category term="Linux" scheme="http://moelove.info/tags/Linux/"/>
+    
+      <category term="Sbulime Text" scheme="http://moelove.info/tags/Sbulime-Text/"/>
+    
+      <category term="Linux" scheme="http://moelove.info/categories/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Vim7.3 for Windows 配置]]></title>
+    <link href="http://moelove.info/2013/08/10/Vim7-3-for-Windows-%E9%85%8D%E7%BD%AE/"/>
+    <id>http://moelove.info/2013/08/10/Vim7-3-for-Windows-配置/</id>
+    <published>2013-08-10T13:34:17.000Z</published>
+    <updated>2014-10-15T13:35:13.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>一直是在Linux下用Vim，但是有些时候在别人电脑或者机房又不得不用windows来写代码，所以也就下载了vim for windows。但是今天打开一个朋友写的网页的时候，出现了乱码的问题，所以把解决方法记录一下，也就是和在linux下面一样，修改配置文件就可以了。接下来进入正题。</p>
+</blockquote>
+<h3 id="选项意义概述">选项意义概述</h3>
+<p>Vim有四个跟字符编码方式有关的选项，分别是:<code>encoding</code>、<code>fileencoding</code>、<code>fileencodings</code>、<code>termencoding</code> (这些选项可能的取值可以参考 Vim 的帮助 :<em>help encoding-names</em>)，它们各自的意义:</p>
+<ul>
+<li><p><strong>encoding</strong>: Vim 内部使用的字符编码方式，包括Vim的buffer(缓冲区)、菜单文本、消息文本等。用户手册上建议只在<em>.vimrc</em>中改变它的值，事实上似乎也只有在<em>.vimrc</em> 中改变它的值才有意义。</p>
+</li>
+<li><p><strong>fileencoding</strong>: Vim 中当前编辑的文件的字符编码方式，Vim 保存文件时也会将文件保存为这种字符编码方式 (不管是否新文件都如此)。</p>
+</li>
+<li><p><strong>fileencodings</strong>: Vim 启动时会按照它所列出的字符编码方式逐一探测即将打开的文件的字符编码方式，并且将 fileencoding 设置为最终探测到的字符编码方式。因此最好将 Unicode 编码方式放到这个列表的最前面，将拉丁语系编码方式 latin1 放到最后面。</p>
+</li>
+<li><strong>termencoding</strong>: Vim 所工作的终端 (或者 Windows 的 Console 窗口) 的字符编码方式。这个选项在 Windows 下对我们常用的 GUI 模式的 gVim 无效，而对 Console 模式的 Vim 而言就是Windows控制台的代码页，并且通常我们不需要改变它。（我尝试改变了它为UTF-8，但对于console模式的编码方式却没有改变）</li>
+</ul>
+<h3 id="配置说明">配置说明</h3>
+<p>由于 Unicode 能包含几乎所有的语言的字符，Unicode的UTF-8编码方式又是非常具有性价比和通用的编码方式，所以把<em>encoding</em>的值设置为<strong>utf-8</strong>。同时将encoding设置为utf-8时，Vim自动探测文件的编码方式会更准确。在中文Windows里编辑的文件，为了兼顾与其他软件的兼容性，文件编码还是设置为GB2312/GBK比较合适，因此<em>fileencoding</em>建议设置为<strong>chinese</strong> (<em>chinese是个别名，在Unix里表示<code>gb2312</code>，在Windows里表示<code>cp936</code>，也就是GBK的代码页</em>)。</p>
+<h3 id="具体配置">具体配置</h3>
+<p>最后对于文件中显示乱码、菜单乱码、右键菜单乱码以及Conlse输出乱码问题的解决方案，修改Vim编辑器所对应的配置文件<strong>_vimrc</strong>（这个文件在你安装vim 的那个目录下），添加如下配置：</p>
+<ul>
+<li>关于常规设置：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="string">"总是显示标签。0：不显示；1：多于1个时显示"</span></div><div class="line"><span class="keyword">set</span> showtabline=<span class="number">2</span></div><div class="line"><span class="string">"开启行号"</span></div><div class="line"><span class="keyword">set</span> <span class="keyword">number</span></div><div class="line"><span class="string">"开启自动缩进, 7.3以上版本已自动开启"</span></div><div class="line"><span class="keyword">set</span> autoindent</div><div class="line"><span class="string">"缩进宽度为4个字符"</span></div><div class="line"><span class="keyword">set</span> <span class="built_in">shiftwidth</span>=<span class="number">4</span></div><div class="line"><span class="string">"tab宽度为4个字符"</span></div><div class="line"><span class="keyword">set</span> tabstop=<span class="number">4</span></div><div class="line"><span class="string">"编辑时将所有tab替换为空格"</span></div><div class="line"><span class="keyword">set</span> et</div><div class="line"><span class="string">"按一次Backspace就删除4个空格"</span></div><div class="line"><span class="keyword">set</span> smarttab</div></pre></td></tr></table></figure>
+
+<ul>
+<li>关于色彩和字体之类的设置：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="string">"配色方案（这里可以自选，我比较喜欢这个配色方案）"</span></div><div class="line"><span class="keyword">colo</span> desert</div><div class="line"><span class="string">"开启语法高亮, 7.3版本已自动开启"</span></div><div class="line"><span class="keyword">syntax</span> <span class="keyword">on</span></div><div class="line"><span class="string">"字体设置"</span></div><div class="line"><span class="keyword">set</span> guifont=courier_ne<span class="variable">w:h10</span></div><div class="line"><span class="string">"关闭兼容模式"</span></div><div class="line"><span class="keyword">set</span> nocompatible</div><div class="line"><span class="string">"以下三行模拟Windows操作，如Ctrl-C复制"</span></div><div class="line"><span class="keyword">source</span> $VIMRUNTIME/vimrc_example.<span class="keyword">vim</span></div><div class="line"><span class="keyword">source</span> $VIMRUNTIME/mswin.<span class="keyword">vim</span></div><div class="line"><span class="keyword">behave</span> mswin</div><div class="line"><span class="string">"不生成备份文件，下面这句要写在behave mswin下面，否则还是会生成备份，情况不明"</span></div><div class="line"><span class="keyword">set</span> nobackup</div></pre></td></tr></table></figure>
+
+<ul>
+<li>关于编码部分的设置：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="string">"GVIM内部编码"</span></div><div class="line"><span class="keyword">set</span> encoding=utf-<span class="number">8</span></div><div class="line"><span class="string">"当前编辑的文件编码"</span></div><div class="line"><span class="keyword">set</span> fileencoding=utf-<span class="number">8</span></div><div class="line"><span class="string">"GVIM支持打开的文件编码（这里也是参考帮助手册来的）"</span></div><div class="line"><span class="keyword">set</span> fileencodings=utf-<span class="number">8</span>,gbk,gb2312,big5,latin1</div><div class="line"><span class="string">"解决菜单及右键菜单乱码"</span></div><div class="line"><span class="keyword">source</span> $VIMRUNTIME/delmenu.<span class="keyword">vim</span></div><div class="line"><span class="keyword">source</span> $VIMRUNTIME/<span class="keyword">menu</span>.<span class="keyword">vim</span></div><div class="line"><span class="string">"解决consle输出乱码"</span></div><div class="line"><span class="keyword">language</span> <span class="keyword">messages</span> zh_CN.utf-<span class="number">8</span></div><div class="line"><span class="string">"防止特殊符号无法正常显示，如五角星等1"</span></div><div class="line"><span class="keyword">set</span> ambiwidth=double</div></pre></td></tr></table></figure>
+
+<ul>
+<li>主体设置部分：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">set</span> diffexpr=MyDiff()</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyDiff</span><span class="params">()</span></span></div><div class="line">  <span class="keyword">let</span> <span class="keyword">opt</span> = <span class="string">'-a --binary '</span></div><div class="line">  <span class="keyword">if</span> &diffopt =~ <span class="string">'icase'</span> | <span class="keyword">let</span> <span class="keyword">opt</span> = <span class="keyword">opt</span> . <span class="string">'-i '</span> | <span class="keyword">endif</span></div><div class="line">  <span class="keyword">if</span> &diffopt =~ <span class="string">'iwhite'</span> | <span class="keyword">let</span> <span class="keyword">opt</span> = <span class="keyword">opt</span> . <span class="string">'-b '</span> | <span class="keyword">endif</span></div><div class="line">  <span class="keyword">let</span> arg1 = <span class="variable">v:fname_in</span></div><div class="line">  <span class="keyword">if</span> arg1 =~ <span class="string">' '</span> | <span class="keyword">let</span> arg1 = <span class="string">'"'</span> . arg1 . <span class="string">'"'</span> | <span class="keyword">endif</span></div><div class="line">  <span class="keyword">let</span> arg2 = <span class="variable">v:fname_new</span></div><div class="line">  <span class="keyword">if</span> arg2 =~ <span class="string">' '</span> | <span class="keyword">let</span> arg2 = <span class="string">'"'</span> . arg2 . <span class="string">'"'</span> | <span class="keyword">endif</span></div><div class="line">  <span class="keyword">let</span> arg3 = <span class="variable">v:fname_out</span></div><div class="line">  <span class="keyword">if</span> arg3 =~ <span class="string">' '</span> | <span class="keyword">let</span> arg3 = <span class="string">'"'</span> . arg3 . <span class="string">'"'</span> | <span class="keyword">endif</span></div><div class="line">  <span class="keyword">let</span> eq = <span class="string">''</span></div><div class="line">  <span class="keyword">if</span> $VIMRUNTIME =~ <span class="string">' '</span></div><div class="line">    <span class="keyword">if</span> &<span class="keyword">sh</span> =~ <span class="string">'\&lt;cmd'</span></div><div class="line">      <span class="keyword">let</span> cmd = <span class="string">'""'</span> . $VIMRUNTIME . <span class="string">'\diff"'</span></div><div class="line">      <span class="keyword">let</span> eq = <span class="string">'"'</span></div><div class="line">    <span class="keyword">else</span></div><div class="line">      <span class="keyword">let</span> cmd = <span class="built_in">substitute</span>($VIMRUNTIME, <span class="string">' '</span>, <span class="string">'" '</span>, <span class="string">''</span>) . <span class="string">'\diff"'</span></div><div class="line">    <span class="keyword">endif</span></div><div class="line">  <span class="keyword">else</span></div><div class="line">    <span class="keyword">let</span> cmd = $VIMRUNTIME . <span class="string">'\diff'</span></div><div class="line">  <span class="keyword">endif</span></div><div class="line">  <span class="keyword">silent</span> <span class="keyword">execute</span> <span class="string">'!'</span> . cmd . <span class="string">' '</span> . <span class="keyword">opt</span> . arg1 . <span class="string">' '</span> . arg2 . <span class="string">' &gt; '</span> . arg3 . eq</div><div class="line"><span class="keyword">endfunction</span></div></pre></td></tr></table></figure>
+
+<p>以上就是我关于windows下VIM的配置修改了。我使用的配置文件可以在<a href="https://github.com/tao12345666333/VimforWindowssetting" target="_blank" rel="external">Vim for Windows setting</a>下载得到。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>一直是在Linux下用Vim，但是有些时候在别人电脑或者机房又不得不用windows来写代码，所以也就下载了vim for windows。但是今天打开一个朋友写的网页的时候，出现了乱码的问题，所以把解决方法记录一下，也就是和在linux下面一样，]]>
+    </summary>
+    
+      <category term="VIM" scheme="http://moelove.info/tags/VIM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[LAMP环境的快速搭建]]></title>
+    <link href="http://moelove.info/2013/08/07/LAMP%E7%8E%AF%E5%A2%83%E7%9A%84%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA/"/>
+    <id>http://moelove.info/2013/08/07/LAMP环境的快速搭建/</id>
+    <published>2013-08-07T13:30:59.000Z</published>
+    <updated>2014-10-15T13:33:21.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>这是我在我的<a href="http://tieba.baidu.com/f?kw=centos" target="_blank" rel="external">centos 吧</a>专门写的教程帖，目的也就是为了让新手可以更快的搭建起来环境，而不是一直在门外徘徊。所以就搬过来了，时间神马的就按照<a href="http://tieba.baidu.com/p/2514694347" target="_blank" rel="external">原帖</a>来吧。</p>
+</blockquote>
+<h3 id="写在前面">写在前面</h3>
+<p>本篇文章是面向linux新手，文中采用环境是<em>Win7+V-BOX</em>，配置过程用putty进行操作（个人习惯而已），linux系统使用CentOS6.3版本。CentOS的安装方法及虚拟机中网络配置请参阅centos吧精品帖<a href="http://tieba.baidu.com/p/2068921476" target="_blank" rel="external">【教程】最全centos 安装方法及内容详解</a>。为了尽量一次性可以让读者完成LAMP环境的搭建，本次安装过程都采用<code>yum</code>包管理机制进行安装。当然生产环境下一般都是采用源码编译的。在近期我也会再出连载文，使用源码包进行LAMP环境的搭建，欢迎关注。如果有任何意见或者建议都可以到centos吧发帖询问。<br>Ps:本文LAMP = Linux + Apache + Mysql + PHP</p>
+<h3 id="安装过程（先确保你的系统网络正常或者搭建好了本地源）">安装过程（先确保你的系统网络正常或者搭建好了本地源）</h3>
+<h4 id="1-_首先安装Apache，使用命令：">1. 首先安装Apache，使用命令：</h4>
+<p><code>sudo yum install httpd –y</code></p>
+<h4 id="2-_然后安装Mysql，使用命令">2. 然后安装Mysql，使用命令</h4>
+<p><code>sudo yum install mysql mysql-server –y</code></p>
+<h4 id="3-_再安装php_，使用命令">3. 再安装php ，使用命令</h4>
+<p><code>sudo yum install php –y</code></p>
+<h4 id="4-_安装完毕之后启动apache-_使用">4. 安装完毕之后启动apache. 使用</h4>
+<p><code>sudo service httpd start</code></p>
+<p><img src="http://moelove.qiniudn.com/serverstart.jpg" width="70%"></p>
+<p>启动成功了，我们访问一下，在浏览器的地址栏输入虚拟机IP。</p>
+<p><img src="http://moelove.qiniudn.com/view.jpg" width="70%"></p>
+<p>好，这里遇到了我们的第一个问题， <strong>无法访问</strong></p>
+<blockquote>
+<ul>
+<li>apache服务已经打开，但是却无法访问<br>这里很可能是<strong>iptables</strong>的防御规则导致的。</li>
+</ul>
+</blockquote>
+<p>执行<code>iptables –L</code>查看所有的iptables的规则。</p>
+<p><img src="http://moelove.qiniudn.com/lampiptables.jpg" width="70%"></p>
+<p>关于iptables的知识可以自行了解或者关注后续讲解<br>我们执行 <code>sudo iptables –F</code> 清除所有规则</p>
+<p><img src="http://moelove.qiniudn.com/lampcleariptables.jpg" width="70%"></p>
+<p>接下来在浏览器输入虚拟机地址 ，我们看到如下：</p>
+<p><img src="http://moelove.qiniudn.com/lampsuccess.jpg" width="70%"></p>
+<p>我们已经访问成功了！</p>
+<blockquote>
+<ul>
+<li><s>当然在这里的时候也许还有人是访问不了的，</s>可能是因为CentOS自带的<strong>SElinux</strong>机制影响的</li>
+</ul>
+</blockquote>
+<p>我们执行<code>getenforce</code>命令来查看SElinux的状态，使用<code>sudo setenforce 0</code>来改变SElinux为<em>permission</em>状态。</p>
+<p><img src="http://moelove.qiniudn.com/lampSELinuxstatus.jpg" width="70%"></p>
+<p>都执行完成后，<s>应该</s>就可以访问了。</p>
+<h4 id="5-测试是否可以执行php代码">5.测试是否可以执行php代码</h4>
+<p>执行 <code>vim /var/www/html/test.php</code> 写入测试代码</p>
+<p><img src="http://moelove.qiniudn.com/lampphpinfo.jpg" width="70%"></p>
+<p>保存退出，用浏览器进行访问</p>
+<p><img src="http://moelove.qiniudn.com/lampviewstatus.jpg" width="70%"></p>
+<p>成功！</p>
+<p>但是向后看，发现组成模块里面没有<strong>mysql</strong>。说明现在还不支持mysql模块，因为我们少安装了一个东西 现在执行</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> yum install php-mysql</div></pre></td></tr></table></figure>
+
+<p>添加php和mysql的中间模块，重启apache服务:<code>sudo service httpd restart</code> 再次访问，发现组成模块中有了mysql的信息，说明可以访问mysql的数据库了。</p>
+<p>接下来执行<code>sudo service mysqld start</code> 启动mysql服务。<br>执行</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="title">mysql</span> -u root -p</div></pre></td></tr></table></figure>
+
+<p>访问mysql数据库</p>
+<p><img src="http://moelove.qiniudn.com/lampmysqlstatus.jpg" width="70%"></p>
+<p>表示mysql数据库也正常，到此，<strong>LAMP环境初步建成</strong>。</p>
+<h4 id="6-设置服务的开机自动启动（可以不做）">6.设置服务的开机自动启动<s>（可以不做）</s></h4>
+<p>使用</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo chkconfig httpd <span class="command"><span class="keyword">on</span></span></div><div class="line">sudo chkconfig mysqld <span class="command"><span class="keyword">on</span></span></div></pre></td></tr></table></figure>
+
+<h4 id="7-LAMP环境的配置文件">7.LAMP环境的配置文件</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">Apache</span>: <span class="string">/etc/httpd/conf/httpd.conf</span></div><div class="line"><span class="attribute">Php</span>: <span class="string">/etc/php.ini</span></div><div class="line"><span class="attribute">Mysql</span>: <span class="string">/etc/my.cnf</span></div></pre></td></tr></table></figure>
+
+<h3 id="LAMP环境搭建小结">LAMP环境搭建小结</h3>
+<p>通过以上过程，你就已经成功的搭建好了LAMP环境，剩下的配置就是修改你的配置文件，进而达到效果。类似启动类型，模块，超时，地址，状态之类的，都会在下篇文章中写出。<br>使用<em>yum</em>安装LAMP环境是最简单的，也是最方便的。不过生产环境都是用的源码包，因为源码包可以更加个性化的定义你需要的模块。</p>
+<p><a href="http://wenku.baidu.com/view/fd825c8551e79b8969022614.html" target="_blank" rel="external">CentOS安装方法</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>这是我在我的<a href="http://tieba.baidu.com/f?kw=centos" target="_blank" rel="external">centos 吧</a>专门写的教程帖，目的也就是为了让新手可以更快的搭建起来环境，]]>
+    </summary>
+    
+      <category term="Linux" scheme="http://moelove.info/tags/Linux/"/>
+    
+      <category term="LAMP" scheme="http://moelove.info/tags/LAMP/"/>
+    
+      <category term="Linux" scheme="http://moelove.info/categories/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[cat 命令研究]]></title>
+    <link href="http://moelove.info/2013/03/20/cat-%E5%91%BD%E4%BB%A4%E7%A0%94%E7%A9%B6/"/>
+    <id>http://moelove.info/2013/03/20/cat-命令研究/</id>
+    <published>2013-03-20T13:24:20.000Z</published>
+    <updated>2014-10-15T13:25:42.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>有人问我关于centos里面使用cat命令的问题，我在这里简单记录一下。<br>在linux下，cat应该是使用最频繁的命令之一了吧。</p>
+</blockquote>
+<h3 id="cat命令在Linux作以下用途：">cat命令在Linux作以下用途：</h3>
+<ul>
+<li>在屏幕上显示文本文件。</li>
+<li>复制文本文件。</li>
+<li>合并文本文件。</li>
+<li>创建新的文本文件。</li>
+</ul>
+<h3 id="cat命令支持的语法如下：">cat命令支持的语法如下：</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">cat</span> filename</div><div class="line"><span class="keyword">cat</span> <span class="keyword">options</span> filename</div><div class="line"><span class="keyword">cat</span> file1 file2</div><div class="line"><span class="keyword">cat</span> file1 file2 &gt; newcombinedfile</div></pre></td></tr></table></figure>
+
+<h4 id="显示文件的内容：">显示文件的内容：</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">cat</span> /tmp/test</div></pre></td></tr></table></figure>
+
+<p>上面的命令就是查看文件<code>/tmp/test</code>的内容，把内容输出到屏幕。<br>但是也可以使用</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="input"><span class="prompt">cat /tmp/test &gt;</span> /tmp/test2</span></div></pre></td></tr></table></figure>
+
+<p>使用上面的命令，可以把文件内容<strong><a href="http://linux-wiki.cn/wiki/zh-hans/Bash%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91" target="_blank" rel="external">重定向</a></strong>到/tmp/test2文件中</p>
+<h4 id="串联文件：">串联文件：</h4>
+<p>串联文件是把文件内容一起输出，但是不会改变源文件的内容</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat <span class="regexp">/tmp/</span>test1 <span class="regexp">/tmp/</span>test2 <span class="regexp">/tmp/</span>test3</div></pre></td></tr></table></figure>
+
+<p>以上命令会将/tmp 目录下的 test1 ,test2 ,test3 三个文件的内容一起输出，当然也可以使用重定向命令查看输出内容</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat <span class="regexp">/tmp/</span>test1 <span class="regexp">/tmp/</span>test2 <span class="regexp">/tmp/</span>test3 &gt;<span class="regexp">/tmp/</span>testoutputs</div></pre></td></tr></table></figure>
+
+<p>重定向至/tmp 下的testoutputs 文件中</p>
+<p>当然查看的时候可以配合管道命令使用</p>
+<p><code>cat /tmp/test1 /tmp/test2 /tmp/test3 | less</code></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>有人问我关于centos里面使用cat命令的问题，我在这里简单记录一下。<br>在linux下，cat应该是使用最频繁的命令之一了吧。</p>
+</blockquote>
+<h3 id="cat命令在Linux作以下用途：">cat命令在Linux]]>
+    </summary>
+    
+      <category term="Linux" scheme="http://moelove.info/tags/Linux/"/>
+    
+      <category term="Linux" scheme="http://moelove.info/categories/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[fedora安装后最初的事情]]></title>
+    <link href="http://moelove.info/2013/03/09/fedora%E5%AE%89%E8%A3%85%E5%90%8E%E6%9C%80%E5%88%9D%E7%9A%84%E4%BA%8B%E6%83%85/"/>
+    <id>http://moelove.info/2013/03/09/fedora安装后最初的事情/</id>
+    <published>2013-03-09T13:21:14.000Z</published>
+    <updated>2014-10-15T13:23:31.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="更新源">更新源</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="title">sudo</span> yum localinstall --nogpgcheck <span class="url">http://mirrors.163.com/rpmfusion/free/fedora/rpmfusion-free-release-stable.noarch.rpm</span> <span class="url">http://mirrors.163.com/rpmfusion/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm</span>      (这个是添加国内的软件源)</div><div class="line"></div><div class="line">sudo yum update</div></pre></td></tr></table></figure>
+
+<h3 id="网络相关">网络相关</h3>
+<h4 id="firefox">firefox</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> yum install firefox</div></pre></td></tr></table></figure>
+
+<h4 id="chrome_/_chromium">chrome / chromium</h4>
+<p>我本人比较习惯用chrome的 <s>不过最近网络不是很稳定 </s>先补充chromium 的安装方法吧</p>
+<ul>
+<li>chromium的安装<br>首先添加<a href="http://pan.baidu.com/s/1kTIBvUZ" target="_blank" rel="external">chromium的fedora源</a>,将下载好的 <strong>.repo</strong> 文件移动到<code>/etc/yum.repos.d/</code>下， 执行</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> yum install chromium</div></pre></td></tr></table></figure>
+
+<ul>
+<li>chrome的安装<br>从<a href="http://www.google.com/intl/zh-CN/chrome/" target="_blank" rel="external">官网</a>上下载chrome 的rpm包，或者从我的网盘下载对应的<a href="http://pan.baidu.com/s/1ntmdqtz" target="_blank" rel="external">32位</a> 或 <a href="http://pan.baidu.com/s/1jGuqRdG" target="_blank" rel="external">64位</a> 的rpm 包<br>执行</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> rpm -ivh google-chrome.rpm</div></pre></td></tr></table></figure>
+
+<h3 id="安装证书">安装证书</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum localinstall --nogpgcheck <span class="symbol">http:</span>/<span class="regexp">/download1.rpmfusion.org/free</span><span class="regexp">/fedora/rpmfusion</span>-free-release-branched.noarch.rpm <span class="symbol">http:</span>/<span class="regexp">/download1.rpmfusion.org/nonfree</span><span class="regexp">/fedora/rpmfusion</span>-nonfree-release-branched.noarch.rpm</div></pre></td></tr></table></figure>
+
+<h3 id="压缩/解压软件">压缩/解压软件</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> yum install unrar</div><div class="line"><span class="built_in">sudo</span> yum install p7zip</div></pre></td></tr></table></figure>
+
+<h3 id="影音播放">影音播放</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> yum install gstreamer-plugins-good gstreamer-plugins-bad gstreamer-plugins-ugly libtunepimp-extras-freeworld xine-lib-extras-freeworld(安装音频解码器)</div><div class="line"></div><div class="line"><span class="built_in">sudo</span> yum install ffmpeg ffmpeg-libs gstreamer-ffmpeg libmatroska xvidcore(安装视频解码器)</div></pre></td></tr></table></figure>
+
+<h3 id="编辑器">编辑器</h3>
+<ul>
+<li>vim</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> yum install vim</div></pre></td></tr></table></figure>
+
+<ul>
+<li>Sublime Text<br>我也很喜欢因为运行速度快，而且免费。安装方法可以参考我的<a href="http://moelove.info/articles/2013/08/30/fedoraxia-an-zhuang-sublime-text-2de-fang-fa/" target="_blank" rel="external">fedora下安装sublime text 2</a>这篇文章。</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="更新源">更新源</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div cl]]>
+    </summary>
+    
+      <category term="Linux" scheme="http://moelove.info/tags/Linux/"/>
+    
+      <category term="Linux" scheme="http://moelove.info/categories/Linux/"/>
+    
+  </entry>
+  
+</feed>
