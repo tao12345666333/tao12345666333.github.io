@@ -1,0 +1,464 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>LAMP环境的快速搭建 | MoeLove</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="TaoBeier">
+    
+    <meta name="description" content="这是我在我的centos 吧专门写的教程帖，目的也就是为了让新手可以更快的搭建起来环境，而不是一直在门外徘徊。所以就搬过来了，时间神马的就按照原帖来吧。
+
+写在前面
+本篇文章是面向linux新手，文中采用环境是Win7+V-BOX，配置过程用putty进行操作（个人习惯而已），linux系统使用Ce">
+    
+    
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="BeierTao" />
+    <meta name="twitter:title" content="LAMP环境的快速搭建 | MoeLove" />
+      
+    
+    
+    <link rel="alternate" href="/atom.xml" title="MoeLove" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="MoeLove" title="MoeLove"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="MoeLove">MoeLove</a></h1>
+				<h2 class="blog-motto">不忘初心</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/categories">Categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="off" name="q" maxlength="20" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2013/08/07/LAMP环境的快速搭建/" title="LAMP环境的快速搭建" itemprop="url">LAMP环境的快速搭建</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://plus.google.com/111099802544541897352?rel=author" title="TaoBeier" target="_blank" itemprop="author">TaoBeier</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2013-08-07T13:30:59.000Z" itemprop="datePublished">2013-08-7</time>
+    更新日期:<time datetime="2014-10-15T13:33:21.000Z" itemprop="dateModified">2014-10-15</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装过程（先确保你的系统网络正常或者搭建好了本地源）"><span class="toc-number">2.</span> <span class="toc-text">安装过程（先确保你的系统网络正常或者搭建好了本地源）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-_首先安装Apache，使用命令："><span class="toc-number">2.1.</span> <span class="toc-text">1. 首先安装Apache，使用命令：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-_然后安装Mysql，使用命令"><span class="toc-number">2.2.</span> <span class="toc-text">2. 然后安装Mysql，使用命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-_再安装php_，使用命令"><span class="toc-number">2.3.</span> <span class="toc-text">3. 再安装php ，使用命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-_安装完毕之后启动apache-_使用"><span class="toc-number">2.4.</span> <span class="toc-text">4. 安装完毕之后启动apache. 使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-测试是否可以执行php代码"><span class="toc-number">2.5.</span> <span class="toc-text">5.测试是否可以执行php代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-设置服务的开机自动启动（可以不做）"><span class="toc-number">2.6.</span> <span class="toc-text">6.设置服务的开机自动启动（可以不做）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-LAMP环境的配置文件"><span class="toc-number">2.7.</span> <span class="toc-text">7.LAMP环境的配置文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LAMP环境搭建小结"><span class="toc-number">3.</span> <span class="toc-text">LAMP环境搭建小结</span></a></li></ol>
+		</div>
+		
+		<blockquote>
+<p>这是我在我的<a href="http://tieba.baidu.com/f?kw=centos" target="_blank" rel="external">centos 吧</a>专门写的教程帖，目的也就是为了让新手可以更快的搭建起来环境，而不是一直在门外徘徊。所以就搬过来了，时间神马的就按照<a href="http://tieba.baidu.com/p/2514694347" target="_blank" rel="external">原帖</a>来吧。</p>
+</blockquote>
+<h3 id="写在前面">写在前面</h3>
+<p>本篇文章是面向linux新手，文中采用环境是<em>Win7+V-BOX</em>，配置过程用putty进行操作（个人习惯而已），linux系统使用CentOS6.3版本。CentOS的安装方法及虚拟机中网络配置请参阅centos吧精品帖<a href="http://tieba.baidu.com/p/2068921476" target="_blank" rel="external">【教程】最全centos 安装方法及内容详解</a>。为了尽量一次性可以让读者完成LAMP环境的搭建，本次安装过程都采用<code>yum</code>包管理机制进行安装。当然生产环境下一般都是采用源码编译的。在近期我也会再出连载文，使用源码包进行LAMP环境的搭建，欢迎关注。如果有任何意见或者建议都可以到centos吧发帖询问。<br>Ps:本文LAMP = Linux + Apache + Mysql + PHP</p>
+<h3 id="安装过程（先确保你的系统网络正常或者搭建好了本地源）">安装过程（先确保你的系统网络正常或者搭建好了本地源）</h3>
+<h4 id="1-_首先安装Apache，使用命令：">1. 首先安装Apache，使用命令：</h4>
+<p><code>sudo yum install httpd –y</code></p>
+<h4 id="2-_然后安装Mysql，使用命令">2. 然后安装Mysql，使用命令</h4>
+<p><code>sudo yum install mysql mysql-server –y</code></p>
+<h4 id="3-_再安装php_，使用命令">3. 再安装php ，使用命令</h4>
+<p><code>sudo yum install php –y</code></p>
+<h4 id="4-_安装完毕之后启动apache-_使用">4. 安装完毕之后启动apache. 使用</h4>
+<p><code>sudo service httpd start</code></p>
+<p><img src="http://moelove.qiniudn.com/serverstart.jpg" width="70%"></p>
+<p>启动成功了，我们访问一下，在浏览器的地址栏输入虚拟机IP。</p>
+<p><img src="http://moelove.qiniudn.com/view.jpg" width="70%"></p>
+<p>好，这里遇到了我们的第一个问题， <strong>无法访问</strong></p>
+<blockquote>
+<ul>
+<li>apache服务已经打开，但是却无法访问<br>这里很可能是<strong>iptables</strong>的防御规则导致的。</li>
+</ul>
+</blockquote>
+<p>执行<code>iptables –L</code>查看所有的iptables的规则。</p>
+<p><img src="http://moelove.qiniudn.com/lampiptables.jpg" width="70%"></p>
+<p>关于iptables的知识可以自行了解或者关注后续讲解<br>我们执行 <code>sudo iptables –F</code> 清除所有规则</p>
+<p><img src="http://moelove.qiniudn.com/lampcleariptables.jpg" width="70%"></p>
+<p>接下来在浏览器输入虚拟机地址 ，我们看到如下：</p>
+<p><img src="http://moelove.qiniudn.com/lampsuccess.jpg" width="70%"></p>
+<p>我们已经访问成功了！</p>
+<blockquote>
+<ul>
+<li><s>当然在这里的时候也许还有人是访问不了的，</s>可能是因为CentOS自带的<strong>SElinux</strong>机制影响的</li>
+</ul>
+</blockquote>
+<p>我们执行<code>getenforce</code>命令来查看SElinux的状态，使用<code>sudo setenforce 0</code>来改变SElinux为<em>permission</em>状态。</p>
+<p><img src="http://moelove.qiniudn.com/lampSELinuxstatus.jpg" width="70%"></p>
+<p>都执行完成后，<s>应该</s>就可以访问了。</p>
+<h4 id="5-测试是否可以执行php代码">5.测试是否可以执行php代码</h4>
+<p>执行 <code>vim /var/www/html/test.php</code> 写入测试代码</p>
+<p><img src="http://moelove.qiniudn.com/lampphpinfo.jpg" width="70%"></p>
+<p>保存退出，用浏览器进行访问</p>
+<p><img src="http://moelove.qiniudn.com/lampviewstatus.jpg" width="70%"></p>
+<p>成功！</p>
+<p>但是向后看，发现组成模块里面没有<strong>mysql</strong>。说明现在还不支持mysql模块，因为我们少安装了一个东西 现在执行</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> yum install php-mysql</div></pre></td></tr></table></figure>
+
+<p>添加php和mysql的中间模块，重启apache服务:<code>sudo service httpd restart</code> 再次访问，发现组成模块中有了mysql的信息，说明可以访问mysql的数据库了。</p>
+<p>接下来执行<code>sudo service mysqld start</code> 启动mysql服务。<br>执行</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="title">mysql</span> -u root -p</div></pre></td></tr></table></figure>
+
+<p>访问mysql数据库</p>
+<p><img src="http://moelove.qiniudn.com/lampmysqlstatus.jpg" width="70%"></p>
+<p>表示mysql数据库也正常，到此，<strong>LAMP环境初步建成</strong>。</p>
+<h4 id="6-设置服务的开机自动启动（可以不做）">6.设置服务的开机自动启动<s>（可以不做）</s></h4>
+<p>使用</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo chkconfig httpd <span class="command"><span class="keyword">on</span></span></div><div class="line">sudo chkconfig mysqld <span class="command"><span class="keyword">on</span></span></div></pre></td></tr></table></figure>
+
+<h4 id="7-LAMP环境的配置文件">7.LAMP环境的配置文件</h4>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">Apache</span>: <span class="string">/etc/httpd/conf/httpd.conf</span></div><div class="line"><span class="attribute">Php</span>: <span class="string">/etc/php.ini</span></div><div class="line"><span class="attribute">Mysql</span>: <span class="string">/etc/my.cnf</span></div></pre></td></tr></table></figure>
+
+<h3 id="LAMP环境搭建小结">LAMP环境搭建小结</h3>
+<p>通过以上过程，你就已经成功的搭建好了LAMP环境，剩下的配置就是修改你的配置文件，进而达到效果。类似启动类型，模块，超时，地址，状态之类的，都会在下篇文章中写出。<br>使用<em>yum</em>安装LAMP环境是最简单的，也是最方便的。不过生产环境都是用的源码包，因为源码包可以更加个性化的定义你需要的模块。</p>
+<p><a href="http://wenku.baidu.com/view/fd825c8551e79b8969022614.html" target="_blank" rel="external">CentOS安装方法</a></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Linux/">Linux</a><a href="/tags/LAMP/">LAMP</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://moelove.info/2013/08/07/LAMP环境的快速搭建/" data-title="LAMP环境的快速搭建 | MoeLove" data-tsina="1581898810" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2013/08/10/Vim7-3-for-Windows-配置/" title="Vim7.3 for Windows 配置">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  Vim7.3 for Windows 配置</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2013/03/20/cat-命令研究/"  title="cat 命令研究">
+ <strong>NEXT:</strong><br/> 
+ <span>cat 命令研究
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装过程（先确保你的系统网络正常或者搭建好了本地源）"><span class="toc-number">2.</span> <span class="toc-text">安装过程（先确保你的系统网络正常或者搭建好了本地源）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-_首先安装Apache，使用命令："><span class="toc-number">2.1.</span> <span class="toc-text">1. 首先安装Apache，使用命令：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-_然后安装Mysql，使用命令"><span class="toc-number">2.2.</span> <span class="toc-text">2. 然后安装Mysql，使用命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-_再安装php_，使用命令"><span class="toc-number">2.3.</span> <span class="toc-text">3. 再安装php ，使用命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-_安装完毕之后启动apache-_使用"><span class="toc-number">2.4.</span> <span class="toc-text">4. 安装完毕之后启动apache. 使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-测试是否可以执行php代码"><span class="toc-number">2.5.</span> <span class="toc-text">5.测试是否可以执行php代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-设置服务的开机自动启动（可以不做）"><span class="toc-number">2.6.</span> <span class="toc-text">6.设置服务的开机自动启动（可以不做）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-LAMP环境的配置文件"><span class="toc-number">2.7.</span> <span class="toc-text">7.LAMP环境的配置文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LAMP环境搭建小结"><span class="toc-number">3.</span> <span class="toc-text">LAMP环境搭建小结</span></a></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/Life/" title="Life">Life<sup>0</sup></a></li>
+		
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>9</sup></a></li>
+		
+			<li><a href="/categories/Python/" title="Python">Python<sup>2</sup></a></li>
+		
+			<li><a href="/categories/Web/" title="Web">Web<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/Android/" title="Android">Android<sup>1</sup></a></li>
+		
+			<li><a href="/tags/BAE/" title="BAE">BAE<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Blog/" title="Blog">Blog<sup>2</sup></a></li>
+		
+			<li><a href="/tags/LAMP/" title="LAMP">LAMP<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Linux/" title="Linux">Linux<sup>8</sup></a></li>
+		
+			<li><a href="/tags/Pelican/" title="Pelican">Pelican<sup>3</sup></a></li>
+		
+			<li><a href="/tags/Rails/" title="Rails">Rails<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Regex/" title="Regex">Regex<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Ruby/" title="Ruby">Ruby<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Sbulime-Text/" title="Sbulime Text">Sbulime Text<sup>1</sup></a></li>
+		
+			<li><a href="/tags/VIM/" title="VIM">VIM<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Web/" title="Web">Web<sup>1</sup></a></li>
+		
+			<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
+		
+			<li><a href="/tags/grub2/" title="grub2">grub2<sup>1</sup></a></li>
+		
+			<li><a href="/tags/test/" title="test">test<sup>0</sup></a></li>
+		
+			<li><a href="/tags/upyun/" title="upyun">upyun<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Strive to do better <br/>
+			 Be Moe Be Love ! </p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/9020taobeier" target="_blank" title="weibo"></a>
+		
+		
+		<a href="https://twitter.com/BeierTao" target="_blank" title="twitter"></a>
+		
+		
+		<a href="https://github.com/tao12345666333" target="_blank" title="github"></a>
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2014 
+		
+		<a href="http://moelove.info" target="_blank" title="TaoBeier">TaoBeier</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"taobeier"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-50163692-1', 'moelove.info');  
+ga('send', 'pageview');
+</script>
+
+
+  </body>
+</html>

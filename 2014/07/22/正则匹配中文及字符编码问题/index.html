@@ -1,0 +1,415 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>正则匹配中文及字符编码问题 | MoeLove</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="TaoBeier">
+    
+    <meta name="description" content="匹配中文的正则表达式
+窝写了一小段代码（虽然写的不太好，但是基本可以表达意思）
+
+
+12345678import renickname = raw_input(&#39;Please input your nickname &amp;gt; &#39;)if not re.search(u&#39;^[\u4e00-\u9fa5a">
+    
+    
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="BeierTao" />
+    <meta name="twitter:title" content="正则匹配中文及字符编码问题 | MoeLove" />
+      
+    
+    
+    <link rel="alternate" href="/atom.xml" title="MoeLove" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="MoeLove" title="MoeLove"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="MoeLove">MoeLove</a></h1>
+				<h2 class="blog-motto">不忘初心</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/categories">Categories</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="off" name="q" maxlength="20" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/07/22/正则匹配中文及字符编码问题/" title="正则匹配中文及字符编码问题" itemprop="url">正则匹配中文及字符编码问题</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://plus.google.com/111099802544541897352?rel=author" title="TaoBeier" target="_blank" itemprop="author">TaoBeier</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2014-07-22T13:16:34.000Z" itemprop="datePublished">2014-07-22</time>
+    更新日期:<time datetime="2014-10-15T13:30:17.000Z" itemprop="dateModified">2014-10-15</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#匹配中文的正则表达式"><span class="toc-number">1.</span> <span class="toc-text">匹配中文的正则表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python字符串的编码问题"><span class="toc-number">2.</span> <span class="toc-text">Python字符串的编码问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#代码中字符串的默认编码格式与代码文件本身的编码格式是一样的"><span class="toc-number">2.1.</span> <span class="toc-text">代码中字符串的默认编码格式与代码文件本身的编码格式是一样的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如果一个字符串已经是unicode编码了，再解码就会出错"><span class="toc-number">2.2.</span> <span class="toc-text">如果一个字符串已经是unicode编码了，再解码就会出错</span></a></li></ol></li></ol>
+		</div>
+		
+		<h2 id="匹配中文的正则表达式">匹配中文的正则表达式</h2>
+<p>窝写了一小段<a href="http://moelove.qiniudn.com/regex-match-Chinese.py" target="_blank" rel="external">代码</a>（虽然写的不太好，但是基本可以表达意思）</p>
+<script src="https://gist.github.com/tao12345666333/13edb463b04da758dade.js"></script>
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> re</div><div class="line"></div><div class="line">nickname = raw_input(<span class="string">'Please input your nickname &gt; '</span>)</div><div class="line"></div><div class="line"><span class="keyword">if</span> <span class="keyword">not</span> re.search(<span class="string">u'^[\u4e00-\u9fa5a-zA-Z0-9]+$'</span>, unicode(nickname,<span class="string">'utf8'</span>)):</div><div class="line">    <span class="keyword">print</span> <span class="string">'Your nickname format is error, please try again !'</span></div><div class="line"><span class="keyword">else</span>:</div><div class="line">    <span class="keyword">print</span> <span class="string">'Hello %s'</span>% nickname</div></pre></td></tr></table></figure>
+
+<p>如你所见，上面第5行的代码，就是匹配中文和字母，数字的正则表达式了。里面的<code>\u4e00-\u9fa5</code> 就是中文汉字的<code>unicode</code>编码所在位置。</p>
+<p><img src="http://moelove.qiniudn.com/2014-07-23%2023:21.png" alt="运行截图"></p>
+<hr>
+<h2 id="Python字符串的编码问题">Python字符串的编码问题</h2>
+<p>还是以上面那段代码来说。注意看第5行的代码</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="keyword">not</span> re.search(<span class="string">u'^[\u4e00-\u9fa5a-zA-Z0-9]+$'</span>, unicode(nickname,<span class="string">'utf8'</span>)):</div></pre></td></tr></table></figure>
+
+<p>其实这样的代码并不严谨。因为在Python 中默认是用<code>unicode</code>编码来处理字符串的，因此做编码转换的时候，一般要以<code>unicode</code>作为中间编码，也就是说：<br>其他编码格式的字符串—-&gt;解码(decode)—-&gt;<code>unicode</code>—-&gt;编码(encode)—-&gt;所需要的编码格式。</p>
+<p>因此，处理字符串编码的问题的时候，先要明白需要转换的字符串的编码格式是什么。</p>
+<h3 id="代码中字符串的默认编码格式与代码文件本身的编码格式是一样的">代码中字符串的默认编码格式与代码文件本身的编码格式是一样的</h3>
+<p>比如： s = ‘涛’ 在utf8的文件中，那么s就是utf8编码的，但是如果文件是gb2312编码，那么s就是gb2312编码的。此时，如果想要处理s这个字符串就要先decode成unicode编码了。</p>
+<p>不过如果是酱紫 s = u’涛’，那么s就是unicode编码了，这个时候s的编码方式不会被文件的编码所影响。</p>
+<h3 id="如果一个字符串已经是unicode编码了，再解码就会出错">如果一个字符串已经是unicode编码了，再解码就会出错</h3>
+<p>因此严谨的方式就是先对字符串进行编码格式的判别，最简单的办法就是使用Python 默认提供的<code>isinstance()</code> 方法.</p>
+<p>代码可以这样写<br><code>isinstance(s, unicode)</code> 如果不是unicode编码就会报错。</p>
+<p>窝今天在处理用户昵称的地方，忘记字符串会直接使用文件的编码了，所以对它进行了重新编码orz果断就报错了。。。以后还是要好好注意细节的说。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Regex/">Regex</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Python/">Python</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://moelove.info/2014/07/22/正则匹配中文及字符编码问题/" data-title="正则匹配中文及字符编码问题 | MoeLove" data-tsina="1581898810" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2014/07/17/Bash-显示git分支/"  title="Bash 显示git分支">
+ <strong>NEXT:</strong><br/> 
+ <span>Bash 显示git分支
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#匹配中文的正则表达式"><span class="toc-number">1.</span> <span class="toc-text">匹配中文的正则表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python字符串的编码问题"><span class="toc-number">2.</span> <span class="toc-text">Python字符串的编码问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#代码中字符串的默认编码格式与代码文件本身的编码格式是一样的"><span class="toc-number">2.1.</span> <span class="toc-text">代码中字符串的默认编码格式与代码文件本身的编码格式是一样的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如果一个字符串已经是unicode编码了，再解码就会出错"><span class="toc-number">2.2.</span> <span class="toc-text">如果一个字符串已经是unicode编码了，再解码就会出错</span></a></li></ol></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/Life/" title="Life">Life<sup>0</sup></a></li>
+		
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>9</sup></a></li>
+		
+			<li><a href="/categories/Python/" title="Python">Python<sup>2</sup></a></li>
+		
+			<li><a href="/categories/Web/" title="Web">Web<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/Android/" title="Android">Android<sup>1</sup></a></li>
+		
+			<li><a href="/tags/BAE/" title="BAE">BAE<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Blog/" title="Blog">Blog<sup>2</sup></a></li>
+		
+			<li><a href="/tags/LAMP/" title="LAMP">LAMP<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Linux/" title="Linux">Linux<sup>8</sup></a></li>
+		
+			<li><a href="/tags/Pelican/" title="Pelican">Pelican<sup>3</sup></a></li>
+		
+			<li><a href="/tags/Rails/" title="Rails">Rails<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Regex/" title="Regex">Regex<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Ruby/" title="Ruby">Ruby<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Sbulime-Text/" title="Sbulime Text">Sbulime Text<sup>1</sup></a></li>
+		
+			<li><a href="/tags/VIM/" title="VIM">VIM<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Web/" title="Web">Web<sup>1</sup></a></li>
+		
+			<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
+		
+			<li><a href="/tags/grub2/" title="grub2">grub2<sup>1</sup></a></li>
+		
+			<li><a href="/tags/test/" title="test">test<sup>0</sup></a></li>
+		
+			<li><a href="/tags/upyun/" title="upyun">upyun<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Strive to do better <br/>
+			 Be Moe Be Love ! </p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/9020taobeier" target="_blank" title="weibo"></a>
+		
+		
+		<a href="https://twitter.com/BeierTao" target="_blank" title="twitter"></a>
+		
+		
+		<a href="https://github.com/tao12345666333" target="_blank" title="github"></a>
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2014 
+		
+		<a href="http://moelove.info" target="_blank" title="TaoBeier">TaoBeier</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"taobeier"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-50163692-1', 'moelove.info');  
+ga('send', 'pageview');
+</script>
+
+
+  </body>
+</html>
