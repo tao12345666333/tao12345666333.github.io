@@ -4,22 +4,21 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Ruby on Rails 环境 | MoeLove</title>
+    <title>Linux中Sublime中文输入 | MoeLove</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="TaoBeier">
     
-    <meta name="description" content="就这次的尝试写一下自己的记录
-安装ruby  和 ruby-devel(安装ruby-devel是因为后续的工作如果没有ruby-devel的话，会报错)
-1sudo yum install ruby ruby-devel rubygems sqlite -y
+    <meta name="description" content="这篇只是为了备忘所以把以前写的东西搬这边了 -.-
 
-需要的环境有了，那么就可以开始正式的">
+代码源于网络，感谢分享
+这里的关键就是以下的代码和编译">
     
     
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="BeierTao" />
-    <meta name="twitter:title" content="Ruby on Rails 环境 | MoeLove" />
+    <meta name="twitter:title" content="Linux中Sublime中文输入 | MoeLove" />
       
     
     
@@ -81,15 +80,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2013/09/21/Ruby-on-Rails-环境/" title="Ruby on Rails 环境" itemprop="url">Ruby on Rails 环境</a>
+      <a href="/2014/06/19/Linux中Sublime中文输入/" title="Linux中Sublime中文输入" itemprop="url">Linux中Sublime中文输入</a>
   </h1>
   <p class="article-author">By
     
       <a href="https://plus.google.com/111099802544541897352?rel=author" title="TaoBeier" target="_blank" itemprop="author">TaoBeier</a>
     </p>
   <p class="article-time">
-    <time datetime="2013-09-21T13:39:55.000Z" itemprop="datePublished">2013-09-21</time>
-    更新日期:<time datetime="2014-10-15T13:41:16.000Z" itemprop="dateModified">2014-10-15</time>
+    <time datetime="2014-06-19T15:17:31.000Z" itemprop="datePublished">2014-06-19</time>
+    更新日期:<time datetime="2014-10-19T15:48:16.000Z" itemprop="dateModified">2014-10-19</time>
     
   </p>
 </header>
@@ -98,48 +97,27 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#就这次的尝试写一下自己的记录"><span class="toc-number">1.</span> <span class="toc-text">就这次的尝试写一下自己的记录</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#代码源于网络，感谢分享"><span class="toc-number">1.</span> <span class="toc-text">代码源于网络，感谢分享</span></a></li></ol>
 		</div>
 		
-		<h4 id="就这次的尝试写一下自己的记录">就这次的尝试写一下自己的记录</h4>
-<p>安装ruby  和 ruby-devel(安装ruby-devel是因为后续的工作如果没有ruby-devel的话，会报错)</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum install <span class="keyword">ruby</span> <span class="keyword">ruby</span>-devel rubygems sqlite -<span class="keyword">y</span></div></pre></td></tr></table></figure>
+		<blockquote>
+<p>这篇只是为了备忘所以把以前写的东西搬这边了 -.-</p>
+</blockquote>
+<h5 id="代码源于网络，感谢分享">代码源于网络，感谢分享</h5>
+<a id="more"></a><br>这里的关键就是以下的代码和编译<br><a id="more"></a>
 
-<p>需要的环境有了，那么就可以开始正式的工作了</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> gem install rails</div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">sublime-imfix.c</div><div class="line">Use LD_PRELOAD to interpose some function to fix sublime input method support for linux.</div><div class="line">By Cjacker Huang &lt;jianzhong.huang at i-soft.com.cn&gt;</div><div class="line"></div><div class="line">gcc -shared -o libsublime-imfix.so sublime_imfix.c  `pkg-config --libs --cflags gtk+-2.0` -fPIC</div><div class="line">LD_PRELOAD=./libsublime-imfix.so sublime_text</div><div class="line">*/</div><div class="line">#include &lt;gtk/gtk.h&gt;</div><div class="line">#include &lt;gdk/gdkx.h&gt;</div><div class="line">typedef GdkSegment GdkRegionBox;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> <span class="number">_</span>GdkRegion</div><div class="line">{</div><div class="line">  long size;</div><div class="line">  long numRects;</div><div class="line">  GdkRegionBox *rects;</div><div class="line">  GdkRegionBox extents;</div><div class="line">};</div><div class="line"></div><div class="line">GtkIMContext *local_context;</div><div class="line"></div><div class="line">void</div><div class="line">gdk_region_get_clipbox (<span class="keyword">const</span> GdkRegion *region,</div><div class="line">            GdkRectangle    *rectangle)</div><div class="line">{</div><div class="line">  g_return_if_fail (region != NULL);</div><div class="line">  g_return_if_fail (rectangle != NULL);</div><div class="line">  </div><div class="line">  rectangle-&gt;x = region-&gt;extents.x1;</div><div class="line">  rectangle-&gt;y = region-&gt;extents.y1;</div><div class="line">  rectangle-&gt;width = region-&gt;extents.x2 - region-&gt;extents.x1;</div><div class="line">  rectangle-&gt;height = region-&gt;extents.y2 - region-&gt;extents.y1;</div><div class="line">  GdkRectangle rect;</div><div class="line">  rect.x = rectangle-&gt;x;</div><div class="line">  rect.y = rectangle-&gt;y;</div><div class="line">  rect.width = <span class="number">0</span>;</div><div class="line">  rect.height = rectangle-&gt;height; </div><div class="line">  <span class="comment">//The caret width is 2; </span></div><div class="line">  <span class="comment">//Maybe sometimes we will make a mistake, but for most of the time, it should be the caret.</span></div><div class="line">  <span class="keyword">if</span>(rectangle-&gt;width == <span class="number">2</span> && GTK_IS_IM_CONTEXT(local_context)) {</div><div class="line">        gtk_im_context_set_cursor_location(local_context, rectangle);</div><div class="line">  }</div><div class="line">}</div><div class="line"></div><div class="line"><span class="comment">//this is needed, for example, if you input something in file dialog and return back the edit area</span></div><div class="line"><span class="comment">//context will lost, so here we set it again.</span></div><div class="line"></div><div class="line"><span class="keyword">static</span> GdkFilterReturn event_filter (GdkXEvent *xevent, GdkEvent *event, gpointer im_context)</div><div class="line">{</div><div class="line">    XEvent *xev = (XEvent *)xevent;</div><div class="line">    <span class="keyword">if</span>(xev-&gt;<span class="keyword">type</span> == KeyRelease && GTK_IS_IM_CONTEXT(im_context)) {</div><div class="line">       GdkWindow * win = g_object_get_data(G_OBJECT(im_context),<span class="string">"window"</span>);</div><div class="line">       <span class="keyword">if</span>(GDK_IS_WINDOW(win))</div><div class="line">         gtk_im_context_set_client_window(im_context, win);</div><div class="line">    }</div><div class="line">    <span class="keyword">return</span> GDK_FILTER_CONTINUE;</div><div class="line">}</div><div class="line"></div><div class="line">void gtk_im_context_set_client_window (GtkIMContext *context,</div><div class="line">          GdkWindow    *window)</div><div class="line">{</div><div class="line">  GtkIMContextClass *klass;</div><div class="line">  g_return_if_fail (GTK_IS_IM_CONTEXT (context));</div><div class="line">  klass = GTK_IM_CONTEXT_GET_CLASS (context);</div><div class="line">  <span class="keyword">if</span> (klass-&gt;set_client_window)</div><div class="line">    klass-&gt;set_client_window (context, window);</div><div class="line">    </div><div class="line">  <span class="keyword">if</span>(!GDK_IS_WINDOW (window))</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  g_object_set_data(G_OBJECT(context),<span class="string">"window"</span>,window);</div><div class="line">  <span class="keyword">int</span> width = gdk_window_get_width(window);</div><div class="line">  <span class="keyword">int</span> height = gdk_window_get_height(window);</div><div class="line">  <span class="keyword">if</span>(width != <span class="number">0</span> && height !=<span class="number">0</span>) {</div><div class="line">    gtk_im_context_focus_in(context);</div><div class="line">    local_context = context;</div><div class="line">  }</div><div class="line">  gdk_window_add_filter (window, event_filter, context); </div><div class="line">}</div></pre></td></tr></table></figure>
 
-<p>找到一个合适的目录来放自己的代码.然后执行</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ rails <span class="keyword">new</span> mysite</div><div class="line"><span class="comment">// 这个是建立一个叫mysite 的rails程式 ，在当前目录下面</span></div><div class="line">$ cd mysite</div><div class="line"><span class="comment">//进入这个目录</span></div><div class="line">$ bundle install</div><div class="line"><span class="comment">//因为在做测试 所以 也没有必要安装其他的gem</span></div></pre></td></tr></table></figure>
+<p>这段代码是要写入 sublime_imfix.c中的，</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /opt/sublime_text</div><div class="line"><span class="built_in">sudo</span> touch sublime_imfix.c</div><div class="line"><span class="built_in">sudo</span> vi sublime_imfix.c</div><div class="line"></div><div class="line"><span class="comment">#以下要安装的是必须的，否则编译会报错的</span></div><div class="line"></div><div class="line"><span class="built_in">sudo</span> apt-get install build-essential libgtk2.<span class="number">0</span>-dev</div><div class="line"><span class="built_in">sudo</span> gcc -shared -o libsublime-imfix.so sublime_imfix.c  `pkg-config --libs --cflags gtk+-<span class="number">2.0</span>` <span class="operator">-f</span>PIC</div></pre></td></tr></table></figure>
 
-<p>接下来看看它的数据库  配置文件是 <code>config/database.yml</code>  默认的支持是是<strong>SQLite3</strong>(当然也支持其他的比如mysql之类的)它有三种模式:</p>
-<ul>
-<li>development environment开发模式，用在你的开发的时候</li>
-<li>test environment测试模式，用在自动测试时</li>
-<li>production environment正式上线模式，用在实际的上线运作环境</li>
-</ul>
-<p>SQLite配置大致是这样的:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="label">development:</span></div><div class="line"><span class="label">adapter:</span> sqlite3</div><div class="line"><span class="label">database:</span> db/development.sqlite3</div><div class="line"><span class="label">pool:</span> <span class="number">5</span></div><div class="line"><span class="label">timeout:</span> <span class="number">5000</span></div></pre></td></tr></table></figure>
-
-<p>接下来建立自己的数据库</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rake <span class="keyword">d</span><span class="variable">b:create</span></div></pre></td></tr></table></figure>
-
-<p><strong>在这里我遇到一个错误</strong></p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">rake aborted!</div><div class="line">Could <span class="operator">not</span> find <span class="operator">a</span> JavaScript runtime. See <span class="keyword">https</span>://github.com/sstephenson/execjs <span class="keyword">for</span> <span class="operator">a</span> list <span class="operator">of</span> available runtimes.</div><div class="line"></div><div class="line">(See full trace <span class="keyword">by</span> running task <span class="operator">with</span> <span class="comment">--trace)</span></div></pre></td></tr></table></figure>
-
-<p>我的解决办法是</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> yum install nodejs</div></pre></td></tr></table></figure>
-
-<p>然后启动服务器</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rails <span class="keyword">server</span></div></pre></td></tr></table></figure>
-
-<p>要看结果就打开<a href="http://localhost:3000" target="_blank" rel="external">http://localhost:3000</a>就会看见rails 的默认首页了</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Ruby/">Ruby</a><a href="/tags/Rails/">Rails</a>
+  <span></span> <a href="/tags/Linux/">Linux</a><a href="/tags/Sublime-Text/">Sublime Text</a>
   </div>
 
 
@@ -152,7 +130,7 @@
 
 <div class="article-share" id="share">
 
-  <div data-url="http://moelove.info/2013/09/21/Ruby-on-Rails-环境/" data-title="Ruby on Rails 环境 | MoeLove" data-tsina="1581898810" class="share clearfix">
+  <div data-url="http://moelove.info/2014/06/19/Linux中Sublime中文输入/" data-title="Linux中Sublime中文输入 | MoeLove" data-tsina="1581898810" class="share clearfix">
   </div>
 
 </div>
@@ -162,18 +140,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2013/12/21/fedora-18-Kernel-driver-not-installed-rc-1908-处理办法/" title="fedora 18 Kernel driver not installed (rc=-1908)处理办法">
+ <a href="/2014/07/02/Grub2-rescue-修复/" title="Grub2 rescue 修复">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  fedora 18 Kernel driver not installed (rc=-1908)处理办法</span>
+  Grub2 rescue 修复</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2013/09/06/利用百度BAE搭建discuz论坛/"  title="利用百度BAE搭建discuz论坛">
+<a href="/2014/05/16/upyun-for-pelican/"  title="upyun-for-pelican">
  <strong>NEXT:</strong><br/> 
- <span>利用百度BAE搭建discuz论坛
+ <span>upyun-for-pelican
 </span>
 </a>
 </div>
@@ -190,7 +168,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#就这次的尝试写一下自己的记录"><span class="toc-number">1.</span> <span class="toc-text">就这次的尝试写一下自己的记录</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#代码源于网络，感谢分享"><span class="toc-number">1.</span> <span class="toc-text">代码源于网络，感谢分享</span></a></li></ol>
   </div>
 
 <div id="asidepart">

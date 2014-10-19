@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不忘初心]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://moelove.info/"/>
-  <updated>2014-10-16T17:04:48.901Z</updated>
+  <updated>2014-10-19T15:48:48.503Z</updated>
   <id>http://moelove.info/</id>
   
   <author>
@@ -157,6 +157,41 @@
       <category term="Linux" scheme="http://moelove.info/tags/Linux/"/>
     
       <category term="grub2" scheme="http://moelove.info/tags/grub2/"/>
+    
+      <category term="Linux" scheme="http://moelove.info/categories/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Linux中Sublime中文输入]]></title>
+    <link href="http://moelove.info/2014/06/19/Linux%E4%B8%ADSublime%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/"/>
+    <id>http://moelove.info/2014/06/19/Linux中Sublime中文输入/</id>
+    <published>2014-06-19T15:17:31.000Z</published>
+    <updated>2014-10-19T15:48:16.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>这篇只是为了备忘所以把以前写的东西搬这边了 -.-</p>
+</blockquote>
+<h5 id="代码源于网络，感谢分享">代码源于网络，感谢分享</h5>
+<a id="more"></a><br>这里的关键就是以下的代码和编译<br><a id="more"></a>
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line">sublime-imfix.c</div><div class="line">Use LD_PRELOAD to interpose some function to fix sublime input method support for linux.</div><div class="line">By Cjacker Huang &lt;jianzhong.huang at i-soft.com.cn&gt;</div><div class="line"></div><div class="line">gcc -shared -o libsublime-imfix.so sublime_imfix.c  `pkg-config --libs --cflags gtk+-2.0` -fPIC</div><div class="line">LD_PRELOAD=./libsublime-imfix.so sublime_text</div><div class="line">*/</div><div class="line">#include &lt;gtk/gtk.h&gt;</div><div class="line">#include &lt;gdk/gdkx.h&gt;</div><div class="line">typedef GdkSegment GdkRegionBox;</div><div class="line"></div><div class="line"><span class="keyword">struct</span> <span class="number">_</span>GdkRegion</div><div class="line">{</div><div class="line">  long size;</div><div class="line">  long numRects;</div><div class="line">  GdkRegionBox *rects;</div><div class="line">  GdkRegionBox extents;</div><div class="line">};</div><div class="line"></div><div class="line">GtkIMContext *local_context;</div><div class="line"></div><div class="line">void</div><div class="line">gdk_region_get_clipbox (<span class="keyword">const</span> GdkRegion *region,</div><div class="line">            GdkRectangle    *rectangle)</div><div class="line">{</div><div class="line">  g_return_if_fail (region != NULL);</div><div class="line">  g_return_if_fail (rectangle != NULL);</div><div class="line">  </div><div class="line">  rectangle-&gt;x = region-&gt;extents.x1;</div><div class="line">  rectangle-&gt;y = region-&gt;extents.y1;</div><div class="line">  rectangle-&gt;width = region-&gt;extents.x2 - region-&gt;extents.x1;</div><div class="line">  rectangle-&gt;height = region-&gt;extents.y2 - region-&gt;extents.y1;</div><div class="line">  GdkRectangle rect;</div><div class="line">  rect.x = rectangle-&gt;x;</div><div class="line">  rect.y = rectangle-&gt;y;</div><div class="line">  rect.width = <span class="number">0</span>;</div><div class="line">  rect.height = rectangle-&gt;height; </div><div class="line">  <span class="comment">//The caret width is 2; </span></div><div class="line">  <span class="comment">//Maybe sometimes we will make a mistake, but for most of the time, it should be the caret.</span></div><div class="line">  <span class="keyword">if</span>(rectangle-&gt;width == <span class="number">2</span> && GTK_IS_IM_CONTEXT(local_context)) {</div><div class="line">        gtk_im_context_set_cursor_location(local_context, rectangle);</div><div class="line">  }</div><div class="line">}</div><div class="line"></div><div class="line"><span class="comment">//this is needed, for example, if you input something in file dialog and return back the edit area</span></div><div class="line"><span class="comment">//context will lost, so here we set it again.</span></div><div class="line"></div><div class="line"><span class="keyword">static</span> GdkFilterReturn event_filter (GdkXEvent *xevent, GdkEvent *event, gpointer im_context)</div><div class="line">{</div><div class="line">    XEvent *xev = (XEvent *)xevent;</div><div class="line">    <span class="keyword">if</span>(xev-&gt;<span class="keyword">type</span> == KeyRelease && GTK_IS_IM_CONTEXT(im_context)) {</div><div class="line">       GdkWindow * win = g_object_get_data(G_OBJECT(im_context),<span class="string">"window"</span>);</div><div class="line">       <span class="keyword">if</span>(GDK_IS_WINDOW(win))</div><div class="line">         gtk_im_context_set_client_window(im_context, win);</div><div class="line">    }</div><div class="line">    <span class="keyword">return</span> GDK_FILTER_CONTINUE;</div><div class="line">}</div><div class="line"></div><div class="line">void gtk_im_context_set_client_window (GtkIMContext *context,</div><div class="line">          GdkWindow    *window)</div><div class="line">{</div><div class="line">  GtkIMContextClass *klass;</div><div class="line">  g_return_if_fail (GTK_IS_IM_CONTEXT (context));</div><div class="line">  klass = GTK_IM_CONTEXT_GET_CLASS (context);</div><div class="line">  <span class="keyword">if</span> (klass-&gt;set_client_window)</div><div class="line">    klass-&gt;set_client_window (context, window);</div><div class="line">    </div><div class="line">  <span class="keyword">if</span>(!GDK_IS_WINDOW (window))</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  g_object_set_data(G_OBJECT(context),<span class="string">"window"</span>,window);</div><div class="line">  <span class="keyword">int</span> width = gdk_window_get_width(window);</div><div class="line">  <span class="keyword">int</span> height = gdk_window_get_height(window);</div><div class="line">  <span class="keyword">if</span>(width != <span class="number">0</span> && height !=<span class="number">0</span>) {</div><div class="line">    gtk_im_context_focus_in(context);</div><div class="line">    local_context = context;</div><div class="line">  }</div><div class="line">  gdk_window_add_filter (window, event_filter, context); </div><div class="line">}</div></pre></td></tr></table></figure>
+
+<p>这段代码是要写入 sublime_imfix.c中的，</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /opt/sublime_text</div><div class="line"><span class="built_in">sudo</span> touch sublime_imfix.c</div><div class="line"><span class="built_in">sudo</span> vi sublime_imfix.c</div><div class="line"></div><div class="line"><span class="comment">#以下要安装的是必须的，否则编译会报错的</span></div><div class="line"></div><div class="line"><span class="built_in">sudo</span> apt-get install build-essential libgtk2.<span class="number">0</span>-dev</div><div class="line"><span class="built_in">sudo</span> gcc -shared -o libsublime-imfix.so sublime_imfix.c  `pkg-config --libs --cflags gtk+-<span class="number">2.0</span>` <span class="operator">-f</span>PIC</div></pre></td></tr></table></figure>
+
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>这篇只是为了备忘所以把以前写的东西搬这边了 -.-</p>
+</blockquote>
+<h5 id="代码源于网络，感谢分享">代码源于网络，感谢分享</h5>
+<!-- more --><br>这里的关键就是以下的代码和编译<br>]]>
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://moelove.info/tags/Linux/"/>
+    
+      <category term="Sublime Text" scheme="http://moelove.info/tags/Sublime-Text/"/>
     
       <category term="Linux" scheme="http://moelove.info/categories/Linux/"/>
     
