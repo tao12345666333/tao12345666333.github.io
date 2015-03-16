@@ -4,22 +4,19 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Ruby on Rails 环境 | MoeLove</title>
+    <title>3.17 | MoeLove</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="TaoBeier">
     
-    <meta name="description" content="就这次的尝试写一下自己的记录
-安装ruby  和 ruby-devel(安装ruby-devel是因为后续的工作如果没有ruby-devel的话，会报错)
-1sudo yum install ruby ruby-devel rubygems sqlite -y
-
-需要的环境有了，那么就可以开始正式的">
+    <meta name="description" content="8小时内求生存
+8小时外求发展">
     
     
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="BeierTao" />
-    <meta name="twitter:title" content="Ruby on Rails 环境 | MoeLove" />
+    <meta name="twitter:title" content="3.17 | MoeLove" />
       
     
     
@@ -81,15 +78,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2013/09/21/Ruby-on-Rails-环境/" title="Ruby on Rails 环境" itemprop="url">Ruby on Rails 环境</a>
+      <a href="/2015/03/17/3-17/" title="3.17" itemprop="url">3.17</a>
   </h1>
   <p class="article-author">By
     
       <a href="https://plus.google.com/111099802544541897352?rel=author" title="TaoBeier" target="_blank" itemprop="author">TaoBeier</a>
     </p>
   <p class="article-time">
-    <time datetime="2013-09-21T13:39:55.000Z" itemprop="datePublished">2013-09-21</time>
-    更新日期:<time datetime="2014-10-15T13:41:16.000Z" itemprop="dateModified">2014-10-15</time>
+    <time datetime="2015-03-16T16:34:34.000Z" itemprop="datePublished">2015-03-17</time>
+    更新日期:<time datetime="2015-03-16T16:37:21.000Z" itemprop="dateModified">2015-03-17</time>
     
   </p>
 </header>
@@ -98,61 +95,31 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#就这次的尝试写一下自己的记录"><span class="toc-number">1.</span> <span class="toc-text">就这次的尝试写一下自己的记录</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#8小时内求生存"><span class="toc-number">1.</span> <span class="toc-text">8小时内求生存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8小时外求发展"><span class="toc-number">2.</span> <span class="toc-text">8小时外求发展</span></a></li></ol>
 		</div>
 		
-		<h4 id="就这次的尝试写一下自己的记录">就这次的尝试写一下自己的记录</h4>
-<p>安装ruby  和 ruby-devel(安装ruby-devel是因为后续的工作如果没有ruby-devel的话，会报错)</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum install <span class="keyword">ruby</span> <span class="keyword">ruby</span>-devel rubygems sqlite -<span class="keyword">y</span></div></pre></td></tr></table></figure>
-
-<p>需要的环境有了，那么就可以开始正式的工作了</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> gem install rails</div></pre></td></tr></table></figure>
-
-<p>找到一个合适的目录来放自己的代码.然后执行</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ rails <span class="keyword">new</span> mysite</div><div class="line"><span class="comment">// 这个是建立一个叫mysite 的rails程式 ，在当前目录下面</span></div><div class="line">$ cd mysite</div><div class="line"><span class="comment">//进入这个目录</span></div><div class="line">$ bundle install</div><div class="line"><span class="comment">//因为在做测试 所以 也没有必要安装其他的gem</span></div></pre></td></tr></table></figure>
-
-<p>接下来看看它的数据库  配置文件是 <code>config/database.yml</code>  默认的支持是是<strong>SQLite3</strong>(当然也支持其他的比如mysql之类的)它有三种模式:</p>
-<ul>
-<li>development environment开发模式，用在你的开发的时候</li>
-<li>test environment测试模式，用在自动测试时</li>
-<li>production environment正式上线模式，用在实际的上线运作环境</li>
-</ul>
-<p>SQLite配置大致是这样的:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="label">development:</span></div><div class="line"><span class="label">adapter:</span> sqlite3</div><div class="line"><span class="label">database:</span> db/development.sqlite3</div><div class="line"><span class="label">pool:</span> <span class="number">5</span></div><div class="line"><span class="label">timeout:</span> <span class="number">5000</span></div></pre></td></tr></table></figure>
-
-<p>接下来建立自己的数据库</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rake <span class="keyword">d</span><span class="variable">b:create</span></div></pre></td></tr></table></figure>
-
-<p><strong>在这里我遇到一个错误</strong></p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">rake aborted!</div><div class="line">Could <span class="operator">not</span> find <span class="operator">a</span> JavaScript runtime. See <span class="keyword">https</span>://github.com/sstephenson/execjs <span class="keyword">for</span> <span class="operator">a</span> list <span class="operator">of</span> available runtimes.</div><div class="line"></div><div class="line">(See full trace <span class="keyword">by</span> running task <span class="operator">with</span> <span class="comment">--trace)</span></div></pre></td></tr></table></figure>
-
-<p>我的解决办法是</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> yum install nodejs</div></pre></td></tr></table></figure>
-
-<p>然后启动服务器</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rails <span class="keyword">server</span></div></pre></td></tr></table></figure>
-
-<p>要看结果就打开<a href="http://localhost:3000" target="_blank" rel="external">http://localhost:3000</a>就会看见rails 的默认首页了</p>
+		<h2 id="8小时内求生存">8小时内求生存</h2>
+<h2 id="8小时外求发展">8小时外求发展</h2>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Ruby/">Ruby</a><a href="/tags/Rails/">Rails</a>
+  <span></span> <a href="/tags/Life/">Life</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  <a class="article-category-link" href="/categories/Life/">Life</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://moelove.info/2013/09/21/Ruby-on-Rails-环境/" data-title="Ruby on Rails 环境 | MoeLove" data-tsina="1581898810" class="share clearfix">
+  <div data-url="http://moelove.info/2015/03/17/3-17/" data-title="3.17 | MoeLove" data-tsina="1581898810" class="share clearfix">
   </div>
 
 </div>
@@ -161,19 +128,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2013/12/21/fedora-18-Kernel-driver-not-installed-rc-1908-处理办法/" title="fedora 18 Kernel driver not installed (rc=-1908)处理办法">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  fedora 18 Kernel driver not installed (rc=-1908)处理办法</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2013/09/06/利用百度BAE搭建discuz论坛/"  title="利用百度BAE搭建discuz论坛">
+<a href="/2014/10/16/近况/"  title="近况">
  <strong>NEXT:</strong><br/> 
- <span>利用百度BAE搭建discuz论坛
+ <span>近况
 </span>
 </a>
 </div>
@@ -190,7 +149,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#就这次的尝试写一下自己的记录"><span class="toc-number">1.</span> <span class="toc-text">就这次的尝试写一下自己的记录</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#8小时内求生存"><span class="toc-number">1.</span> <span class="toc-text">8小时内求生存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8小时外求发展"><span class="toc-number">2.</span> <span class="toc-text">8小时外求发展</span></a></li></ol>
   </div>
 
 <div id="asidepart">
