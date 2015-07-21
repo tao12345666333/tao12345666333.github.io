@@ -4,21 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Bash 显示git分支 | MoeLove</title>
+    <title>重置Ghost博客的密码 | MoeLove</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="TaoBeier">
     
-    <meta name="description" content="虽然一直都在用git，但是并没有注意到还有这个方便的用法
-于是乎赶快学习一下 ：-）
-上网查了一下资料，都说Ubuntu下如何如何方便，其他的发行版需要先下载一个文件，然后添加source，再如何如何。。
-其实查再多都不如实践。以下是窝经过查资料加上对个人bash的配色后写出的配置文件，加入到 ~/">
+    <meta name="description" content="在搭建Ghost博客的时候，尚未配置mail服务器时，重置密码的方法做个记录
+
+打开数据库查看用户信息
+如果全部默认设置，使用生产环境的话，应该是sqlite3 content/data/ghost.db
+如果是开发环境应该是sqlite3 content/date/ghost-dev.db
+查看用">
     
     
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="BeierTao" />
-    <meta name="twitter:title" content="Bash 显示git分支 | MoeLove" />
+    <meta name="twitter:title" content="重置Ghost博客的密码 | MoeLove" />
       
     
     
@@ -80,15 +82,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/07/17/Bash-显示git分支/" title="Bash 显示git分支" itemprop="url">Bash 显示git分支</a>
+      <a href="/2015/07/21/重置Ghost博客的密码/" title="重置Ghost博客的密码" itemprop="url">重置Ghost博客的密码</a>
   </h1>
   <p class="article-author">By
     
       <a href="https://plus.google.com/111099802544541897352?rel=author" title="TaoBeier" target="_blank" itemprop="author">TaoBeier</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-07-17T13:54:33.000Z" itemprop="datePublished">2014-07-17</time>
-    更新日期:<time datetime="2014-10-15T13:55:28.000Z" itemprop="dateModified">2014-10-15</time>
+    <time datetime="2015-07-21T15:11:04.000Z" itemprop="datePublished">2015-07-21</time>
+    更新日期:<time datetime="2015-07-21T16:51:55.000Z" itemprop="dateModified">2015-07-22</time>
     
   </p>
 </header>
@@ -97,38 +99,48 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#虽然一直都在用git，但是并没有注意到还有这个方便的用法"><span class="toc-number">1.</span> <span class="toc-text">虽然一直都在用git，但是并没有注意到还有这个方便的用法</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#打开数据库查看用户信息"><span class="toc-number">1.</span> <span class="toc-text">打开数据库查看用户信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新用户密码"><span class="toc-number">2.</span> <span class="toc-text">更新用户密码</span></a></li></ol>
 		</div>
 		
-		<h3 id="虽然一直都在用git，但是并没有注意到还有这个方便的用法">虽然一直都在用git，但是并没有注意到还有这个方便的用法</h3>
-<p>于是乎赶快学习一下 ：-）</p>
-<p>上网查了一下资料，都说Ubuntu下如何如何方便，其他的发行版需要先下载一个文件，然后添加source，再如何如何。。</p>
-<p>其实查再多都不如实践。以下是窝经过查资料加上对个人bash的配色后写出的配置文件，加入到 <code>~/.bashrc</code> 中即可（对各个发行版通用的）</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function git_branch {</div><div class="line">    <span class="keyword">ref</span>=$(git symbolic-<span class="keyword">ref</span> <span class="type">HEAD</span> <span class="number">2</span>&gt; /dev/null) || <span class="keyword">return</span>;</div><div class="line">    echo <span class="string">"("</span>${<span class="keyword">ref</span><span class="comment">#refs/heads/}") ";</span></div><div class="line">}</div><div class="line"></div><div class="line"><span class="type">PS1</span>=<span class="string">"[\[\e[1;35m\]\u\[\e[1;32m\]\w\[\e[0m\]] \[\e[0m\]\[\e[1;36m\]\$(git_branch)\[\e[0;33m\]\$"</span></div></pre></td></tr></table></figure>
+		<blockquote>
+<p>在搭建Ghost博客的时候，尚未配置mail服务器时，重置密码的方法做个记录</p>
+</blockquote>
+<h3 id="打开数据库查看用户信息">打开数据库查看用户信息</h3>
+<p>如果全部默认设置，使用生产环境的话，应该是<br><code>sqlite3 content/data/ghost.db</code></p>
+<p>如果是开发环境应该是<br><code>sqlite3 content/date/ghost-dev.db</code></p>
+<p>查看用户信息<br><code>sqlite&gt;SELECT * FROM users;</code></p>
+<h3 id="更新用户密码">更新用户密码</h3>
+<ul>
+<li><p>Ghost对用户密码用的是BCrypt加密，可以使用<a href="http://bcrypthashgenerator.apphb.com/" target="_blank" rel="external">BCrypt Hash Generator</a>之类的工具生成一个想要修改的密码，例如”mypasswd”生成的密码是<br>  <code>$2a$10$QecJeBdw2lONRTnHJ0RoVO6DczdJWf4h4QgaUcgKsYFZlzTe1yeEK</code></p>
+</li>
+<li><p>假设之前查看到的用户信息，邮箱是<strong>admin@domain.com</strong> 那么，使用这样更新密码</p>
+</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="title">UPDATE</span> users SET password=<span class="string">"<span class="variable">$2</span>a<span class="variable">$10</span><span class="variable">$QecJeBdw2lONRTnHJ0RoVO6DczdJWf4h4QgaUcgKsYFZlzTe1yeEK</span>"</span> WHERE email=<span class="string">"admin<span class="variable">@domain</span>.com"</span></div></pre></td></tr></table></figure>
 
-<script src="https://gist.github.com/tao12345666333/4a81478aa5db7c30e94e.js"></script>
-
-<p>按照惯例，上一张图<br><img src="http://moelove.qiniudn.com/bashrc2014-07%2022:57:55.png" alt="屏幕截图"></p>
+<ul>
+<li>退出sqlite3<br><code>.exit</code></li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Linux/">Linux</a><a href="/tags/git/">git</a>
+  <span></span> <a href="/tags/Blog/">Blog</a><a href="/tags/sqlite/">sqlite</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  <a class="article-category-link" href="/categories/Node/">Node</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://moelove.info/2014/07/17/Bash-显示git分支/" data-title="Bash 显示git分支 | MoeLove" data-tsina="1581898810" class="share clearfix">
+  <div data-url="http://moelove.info/2015/07/21/重置Ghost博客的密码/" data-title="重置Ghost博客的密码 | MoeLove" data-tsina="1581898810" class="share clearfix">
   </div>
 
 </div>
@@ -137,19 +149,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/07/22/正则匹配中文及字符编码问题/" title="正则匹配中文及字符编码问题">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  正则匹配中文及字符编码问题</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/07/02/Grub2-rescue-修复/"  title="Grub2 rescue 修复">
+<a href="/2015/03/17/3-17/"  title="3.17">
  <strong>NEXT:</strong><br/> 
- <span>Grub2 rescue 修复
+ <span>3.17
 </span>
 </a>
 </div>
@@ -166,7 +170,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#虽然一直都在用git，但是并没有注意到还有这个方便的用法"><span class="toc-number">1.</span> <span class="toc-text">虽然一直都在用git，但是并没有注意到还有这个方便的用法</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#打开数据库查看用户信息"><span class="toc-number">1.</span> <span class="toc-text">打开数据库查看用户信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新用户密码"><span class="toc-number">2.</span> <span class="toc-text">更新用户密码</span></a></li></ol>
   </div>
 
 <div id="asidepart">

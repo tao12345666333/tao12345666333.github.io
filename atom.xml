@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不忘初心]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://moelove.info/"/>
-  <updated>2015-06-28T16:41:43.916Z</updated>
+  <updated>2015-07-21T16:52:03.135Z</updated>
   <id>http://moelove.info/</id>
   
   <author>
@@ -13,6 +13,48 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[重置Ghost博客的密码]]></title>
+    <link href="http://moelove.info/2015/07/21/%E9%87%8D%E7%BD%AEGhost%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%AF%86%E7%A0%81/"/>
+    <id>http://moelove.info/2015/07/21/重置Ghost博客的密码/</id>
+    <published>2015-07-21T15:11:04.000Z</published>
+    <updated>2015-07-21T16:51:55.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>在搭建Ghost博客的时候，尚未配置mail服务器时，重置密码的方法做个记录</p>
+</blockquote>
+<h3 id="打开数据库查看用户信息">打开数据库查看用户信息</h3>
+<p>如果全部默认设置，使用生产环境的话，应该是<br><code>sqlite3 content/data/ghost.db</code></p>
+<p>如果是开发环境应该是<br><code>sqlite3 content/date/ghost-dev.db</code></p>
+<p>查看用户信息<br><code>sqlite&gt;SELECT * FROM users;</code></p>
+<h3 id="更新用户密码">更新用户密码</h3>
+<ul>
+<li><p>Ghost对用户密码用的是BCrypt加密，可以使用<a href="http://bcrypthashgenerator.apphb.com/" target="_blank" rel="external">BCrypt Hash Generator</a>之类的工具生成一个想要修改的密码，例如”mypasswd”生成的密码是<br>  <code>$2a$10$QecJeBdw2lONRTnHJ0RoVO6DczdJWf4h4QgaUcgKsYFZlzTe1yeEK</code></p>
+</li>
+<li><p>假设之前查看到的用户信息，邮箱是<strong>admin@domain.com</strong> 那么，使用这样更新密码</p>
+</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="title">UPDATE</span> users SET password=<span class="string">"<span class="variable">$2</span>a<span class="variable">$10</span><span class="variable">$QecJeBdw2lONRTnHJ0RoVO6DczdJWf4h4QgaUcgKsYFZlzTe1yeEK</span>"</span> WHERE email=<span class="string">"admin<span class="variable">@domain</span>.com"</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>退出sqlite3<br><code>.exit</code></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>在搭建Ghost博客的时候，尚未配置mail服务器时，重置密码的方法做个记录</p>
+</blockquote>
+<h3 id="打开数据库查看用户信息">打开数据库查看用户信息</h3>
+<p>如果全部默认设置，使用生产环境的话，应该是<br><]]>
+    </summary>
+    
+      <category term="Blog" scheme="http://moelove.info/tags/Blog/"/>
+    
+      <category term="sqlite" scheme="http://moelove.info/tags/sqlite/"/>
+    
+      <category term="Node" scheme="http://moelove.info/categories/Node/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[3.17]]></title>
