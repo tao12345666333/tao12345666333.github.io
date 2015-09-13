@@ -1,0 +1,467 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>源码编译MongoDB | MoeLove</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="TaoBeier">
+    
+    <meta name="description" content="上周放假正好有时间，编译安装了MongoDB，虽然MongoDB用了挺长时间的，但还是第一次用源码编译。在此做个备忘。因为已经完整编译安装过了，所以写起来的时候，就按照先知视角来写了～ 2333
+
+下载MongoDB源码
+MongoDB的官网上是有已经编译好的二进制包的，这里选择clone Mong">
+    
+    
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="BeierTao" />
+    <meta name="twitter:title" content="源码编译MongoDB | MoeLove" />
+      
+    
+    
+    <link rel="alternate" href="/atom.xml" title="MoeLove" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.svg" alt="MoeLove" title="MoeLove"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="MoeLove">MoeLove</a></h1>
+				<h2 class="blog-motto">不忘初心</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/projects">Projects</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+					
+					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" autocomplete="off" name="q" maxlength="20" placeholder="搜索" />
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/09/13/源码编译MongoDB/" title="源码编译MongoDB" itemprop="url">源码编译MongoDB</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://plus.google.com/111099802544541897352?rel=author" title="TaoBeier" target="_blank" itemprop="author">TaoBeier</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2015-09-13T13:28:43.000Z" itemprop="datePublished">2015-09-13</time>
+    更新日期:<time datetime="2015-09-13T15:52:41.000Z" itemprop="dateModified">2015-09-13</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#下载MongoDB源码"><span class="toc-number">1.</span> <span class="toc-text">下载MongoDB源码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编译升级gcc"><span class="toc-number">2.</span> <span class="toc-text">编译升级gcc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#升级Python"><span class="toc-number">3.</span> <span class="toc-text">升级Python</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装scons"><span class="toc-number">4.</span> <span class="toc-text">安装scons</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编译安装MongoDB"><span class="toc-number">5.</span> <span class="toc-text">编译安装MongoDB</span></a></li></ol>
+		</div>
+		
+		<blockquote>
+<p>上周放假正好有时间，编译安装了MongoDB，虽然MongoDB用了挺长时间的，但还是第一次用源码编译。在此做个备忘。因为已经完整编译安装过了，所以写起来的时候，就按照先知视角来写了～ 2333</p>
+</blockquote>
+<h2 id="下载MongoDB源码">下载MongoDB源码</h2>
+<p>MongoDB的<a href="https://www.mongodb.org/" target="_blank" rel="external">官网</a>上是有已经编译好的二进制包的，这里选择clone <a href="https://github.com/mongodb/mongo" target="_blank" rel="external">MongoDB在github上的仓库</a></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/mongodb/mongo && <span class="keyword">cd</span> mongo</div></pre></td></tr></table></figure>
+
+<p>在<code>docs/building.md</code>中是编译所需的依赖。</p>
+<ul>
+<li>A modern C++ compiler. One of the following is required.<ul>
+<li>GCC 4.8.2 or newer</li>
+<li>Clang 3.4 (or Apple XCode 5.1.1 Clang) or newer</li>
+<li>Visual Studio 2013 Update 2 or newer</li>
+</ul>
+</li>
+<li>Python 2.7</li>
+<li>SCons 2.3</li>
+</ul>
+<p>我这台服务器是CentOS 6.5, 上面的gcc版本比较低，这里就先更新gcc咯.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">gcc --version</div><div class="line"><span class="function"><span class="title">gcc</span> <span class="params">(<span class="variable">GCC</span>)</span> 4.4.7 20120313 <span class="params">(<span class="variable">Red</span> <span class="variable">Hat</span> <span class="number">4.4</span>.<span class="number">7</span>-<span class="number">16</span>)</span>                                </span></div><div class="line">C<span class="title">opyright</span> © 2010 F<span class="title">ree</span> S<span class="title">oftware</span> F<span class="title">oundation</span>, I<span class="title">nc</span>.                            </div><div class="line">本程序是自由软件；请参看源代码的版权声明。</div><div class="line">本软件没有任何担保；             </div><div class="line">包括没有适销性和某一专用目的下的适用性担保。</div></pre></td></tr></table></figure>
+
+<h2 id="编译升级gcc">编译升级gcc</h2>
+<p>在gcc的<a href="https://gcc.gnu.org/" target="_blank" rel="external">官网</a>找到<a href="https://gcc.gnu.org/install/download.html" target="_blank" rel="external">下载页面</a>。使用<a href="https://gcc.gnu.org/svn.html" target="_blank" rel="external">svn</a>或者通过<a href="https://gcc.gnu.org/mirrors.html" target="_blank" rel="external">ftp镜像站</a>下载源码.<br>我使用了<a href="http://ftp.tsukuba.wide.ad.jp/software/gcc/" target="_blank" rel="external">一个ftp镜像站</a>下载的<a href="http://ftp.tsukuba.wide.ad.jp/software/gcc/releases/gcc-5.2.0/gcc-5.2.0.tar.bz2" target="_blank" rel="external">源码压缩包</a>。 然后进行解压和安装依赖。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">tar -xjf gcc-<span class="number">5.2</span>.<span class="number">0</span>.tar.bz2 && <span class="built_in">cd</span> gcc-<span class="number">5.2</span>.<span class="number">0</span></div><div class="line"></div><div class="line">./contrib/download_prerequisites(等待依赖完成)</div></pre></td></tr></table></figure>
+
+<p>之后编译</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">cd</span> <span class="string">.</span><span class="string">.</span> <span class="comment">&&</span> <span class="comment">mkdir</span> <span class="comment">gcc</span><span class="literal">-</span><span class="comment">build</span><span class="literal">-</span><span class="comment">5</span><span class="string">.</span><span class="comment">2</span><span class="string">.</span><span class="comment">0</span> <span class="comment">&&</span> <span class="comment">cd</span> <span class="comment">gcc</span><span class="literal">-</span><span class="comment">build</span><span class="literal">-</span><span class="comment">5</span><span class="string">.</span><span class="comment">2</span><span class="string">.</span><span class="comment">0</span></div><div class="line"></div><div class="line"><span class="comment">#</span> <span class="comment">编译</span></div><div class="line"></div><div class="line"><span class="string">.</span><span class="string">.</span><span class="comment">/gcc</span><span class="literal">-</span><span class="comment">5</span><span class="string">.</span><span class="comment">2</span><span class="string">.</span><span class="comment">0/configure</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">checking=release</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">enable</span><span class="literal">-</span><span class="comment">languages=c</span><span class="string">,</span><span class="comment">c</span><span class="literal">+</span><span class="literal">+</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">disable</span><span class="literal">-</span><span class="comment">multilib</span></div></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">checking build system type... x86_64-unknown-linux-gnu</div><div class="line">checking host system type... x86_64-unknown-linux-gnu</div><div class="line">checking target system type... x86_64-unknown-linux-gnu</div><div class="line">checking for a BSD-compatible <span class="operator"><span class="keyword">install</span>... /usr/<span class="keyword">bin</span>/<span class="keyword">install</span> -c</span></div><div class="line">checking whether <span class="keyword">ln</span> works... yes</div><div class="line">checking whether <span class="keyword">ln</span> -s works... yes</div><div class="line">checking <span class="keyword">for</span> a sed that does <span class="keyword">not</span> <span class="keyword">truncate</span> <span class="keyword">output</span>... /<span class="keyword">bin</span>/sed</div><div class="line">checking <span class="keyword">for</span> gawk... gawk</div><div class="line">checking <span class="keyword">for</span> libatomic support... yes</div><div class="line">checking <span class="keyword">for</span> libcilkrts support... yes</div><div class="line">checking <span class="keyword">for</span> libitm support... yes</div><div class="line">checking <span class="keyword">for</span> libsanitizer support... yes</div><div class="line">checking <span class="keyword">for</span> libvtv support... yes</div><div class="line">checking <span class="keyword">for</span> gcc... gcc</div><div class="line">checking <span class="keyword">for</span> C compiler <span class="keyword">default</span> <span class="keyword">output</span> file name... a.out</div><div class="line">checking whether the C compiler works... yes</div><div class="line">checking whether we <span class="keyword">are</span> <span class="keyword">cross</span> compiling... <span class="keyword">no</span></div><div class="line">checking <span class="keyword">for</span> suffix <span class="keyword">of</span> executables... </div><div class="line">checking <span class="keyword">for</span> suffix <span class="keyword">of</span> object files... o</div><div class="line">checking whether we <span class="keyword">are</span> <span class="keyword">using</span> the GNU C compiler... yes</div><div class="line">checking whether gcc accepts -g... yes</div><div class="line">checking <span class="keyword">for</span> gcc <span class="keyword">option</span> <span class="keyword">to</span> accept ISO C89... none needed</div><div class="line">checking <span class="keyword">for</span> g++... g++</div><div class="line">checking whether we <span class="keyword">are</span> <span class="keyword">using</span> the GNU C++ compiler... yes</div><div class="line">checking whether g++ accepts -g... yes</div><div class="line">checking whether g++ accepts -static-libstdc++ -static-libgcc... <span class="keyword">no</span></div><div class="line">checking <span class="keyword">for</span> gnatbind... <span class="keyword">no</span></div><div class="line">checking <span class="keyword">for</span> gnatmake... <span class="keyword">no</span></div><div class="line">checking whether compiler driver understands Ada... <span class="keyword">no</span></div><div class="line">checking how <span class="keyword">to</span> compare bootstrapped objects... cmp <span class="comment">--ignore-initial=16 $$f1 $$f2</span></div><div class="line">checking <span class="keyword">for</span> objdir... .libs</div><div class="line">configure: WARNING: <span class="keyword">using</span> <span class="keyword">in</span>-tree ISL, disabling <span class="keyword">version</span> <span class="keyword">check</span></div></pre></td></tr></table></figure>
+
+<p>一般情况下， 就这样gcc就可以编译完成了。 但是因为我这台机器是单核1G没有swap区， 所以我遇到了下面的问题：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 排版有点错乱惹...</span></div><div class="line"></div><div class="line">build/vec.o</div><div class="line">build/min-insn-modes.o</div><div class="line">build/gensupport.o</div><div class="line">build/print-rtl.o</div><div class="line">build/read-md.o</div><div class="line">build/errors.o ../build-x86_64-unknown-linux-gnu/libiberty/libiberty.a</div><div class="line">build/genattrtab ../../gcc-5.2.0/gcc/common.md ../../gcc-5.2.0/gcc/config/i</div><div class="line">386/i386.md insn-conditions.md \</div><div class="line">                -Atmp-attrtab.c -Dtmp-dfatab.c -Ltmp-latencytab.c</div><div class="line">make[3]: <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> [s-attrtab] 已杀死</div><div class="line">make[3]: Leaving directory `/home/tao/gcc-build-5.0.2/gcc'</div><div class="line">make[2]: <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> [all-stage1-gcc] 错误 2</div><div class="line">make[2]: Leaving directory `/home/tao/gcc-build-5.0.2'</div><div class="line">make[1]: <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> [stage1-bubble] 错误 2</div><div class="line">make[1]: Leaving directory `/home/tao/gcc-build-5.0.2'</div><div class="line">make: <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> [all] 错误 2</div></pre></td></tr></table></figure>
+
+<p>大致查了下，是因为没有swap区的原因，根据<a href="http://stackoverflow.com/questions/18389612/make-exits-with-error-2-when-trying-to-install-gcc-4-8-1#" target="_blank" rel="external">这篇</a> 得到的解决办法是：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="constant">SWAP</span>=<span class="regexp">/tmp/swap</span></div><div class="line">dd <span class="keyword">if</span>=<span class="regexp">/dev/zero</span> of=<span class="variable">$SWAP</span> bs=<span class="number">1</span>M count=<span class="number">500</span></div><div class="line">mkswap <span class="variable">$SWAP</span></div><div class="line">sudo swapon <span class="variable">$SWAP</span></div></pre></td></tr></table></figure>
+
+<p>之后就是gcc 的编译时间了， 这个时间可以去写写代码补个番啥的。这台机器只是平时拿来玩的，配置炒鸡低。编译gcc从17：20开始，一直到20：09停止。(期间我去补番啦 2333)</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="preprocessor"># 只会执行下面的命令</span></div><div class="line">make</div><div class="line">make install</div><div class="line"><span class="preprocessor"># 切换gcc到新版本</span></div><div class="line">update-alternatives --install /usr/bin/gcc gcc /usr/local/bin/gcc-<span class="number">5.0</span><span class="number">.2</span> <span class="number">66</span></div><div class="line"><span class="preprocessor"># 我重新ssh登录后才看到更新生效的</span></div><div class="line">gcc --version</div><div class="line">gcc (GCC) <span class="number">5.2</span><span class="number">.0</span></div><div class="line">Copyright © <span class="number">2015</span> Free Software Foundation, Inc.</div><div class="line">本程序是自由软件；请参看源代码的版权声明。本软件没有任何担保；</div><div class="line">包括没有适销性和某一专用目的下的适用性担保。</div></pre></td></tr></table></figure>
+
+<h2 id="升级Python">升级Python</h2>
+<p>CentOS上默认的Python对于之后要安装的scons来说，还是版本太低。再次上<a href="https://www.python.org" target="_blank" rel="external">Python 官网</a> (官网真是个好地方2333)下载Python2.7的<a href="https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tar.xz" target="_blank" rel="external">源码</a><br>编译过很多次了， 就只写主要的东西了</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">xz -<span class="keyword">d</span> <span class="keyword">python</span>-<span class="number">2.7</span>.<span class="number">10</span>.tar.xz</div><div class="line">tar -xvf <span class="keyword">python</span>-<span class="number">2.7</span>.<span class="number">10</span>.tar && <span class="keyword">cd</span> <span class="keyword">python</span>-<span class="number">2.7</span>.<span class="number">10</span></div><div class="line"># 对于这次编译MongoDB来说，一定需要安装的是bzip2依赖</div><div class="line">yum install -<span class="keyword">y</span> bzip2-devel</div><div class="line"># 编译</div><div class="line">./configure --prefix=/usr/local/python2.<span class="number">7</span></div><div class="line"><span class="keyword">make</span></div><div class="line"><span class="keyword">make</span> install</div><div class="line"># 更新</div><div class="line"><span class="keyword">update</span>-alternatives --install /usr/bin/<span class="keyword">python</span> <span class="keyword">python</span> /usr/local/bin/<span class="keyword">python</span> <span class="number">69</span></div></pre></td></tr></table></figure>
+
+<h2 id="安装scons">安装scons</h2>
+<p>在<a href="http://www.scons.org/" target="_blank" rel="external">官网</a>上找到<a href="http://iweb.dl.sourceforge.net/project/scons/scons/2.3.6/scons-2.3.6.tar.gz" target="_blank" rel="external">源码包</a>直接安装</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># 依赖解决</div><div class="line">yum install pcre-devel <span class="keyword">python</span>-devel</div><div class="line"># 解压安装</div><div class="line">tar -zxvf scons-<span class="number">2.3</span>.<span class="number">6</span>.tar.gz && <span class="keyword">cd</span> scons-<span class="number">2.3</span>.<span class="number">6</span></div><div class="line"><span class="keyword">python</span> setup.<span class="keyword">py</span> install</div></pre></td></tr></table></figure>
+
+<h2 id="编译安装MongoDB">编译安装MongoDB</h2>
+<p>最后的安装过程就不是这篇里面的重点了， 遇到的一个坑是：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">Initializer* _theGlobalInitializer </span>=<span class="string"> &getGlobalInitializer();</span></div></pre></td></tr></table></figure>
+
+<p>有这样的报错信息。 查了一下，根据<a href="https://jira.mongodb.org/browse/SERVER-19353" target="_blank" rel="external">这篇</a>只要在构建的时候，加上<code>--disable-warnings-as-errors</code>就可以解决了</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">scons <span class="literal">all</span> --disable-warnings-as-errors</div><div class="line"><span class="comment"># 其他的设置可以查看scons的相关文档</span></div></pre></td></tr></table></figure>
+
+<p>本篇的重点是编译的过程，后续MongoDB配置部分抽空再写。全文完。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Linux/">Linux</a><a href="/tags/MongoDB/">MongoDB</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://moelove.info/2015/09/13/源码编译MongoDB/" data-title="源码编译MongoDB | MoeLove" data-tsina="1581898810" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/07/21/重置Ghost博客的密码/"  title="重置Ghost博客的密码">
+ <strong>NEXT:</strong><br/> 
+ <span>重置Ghost博客的密码
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#下载MongoDB源码"><span class="toc-number">1.</span> <span class="toc-text">下载MongoDB源码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编译升级gcc"><span class="toc-number">2.</span> <span class="toc-text">编译升级gcc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#升级Python"><span class="toc-number">3.</span> <span class="toc-text">升级Python</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装scons"><span class="toc-number">4.</span> <span class="toc-text">安装scons</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编译安装MongoDB"><span class="toc-number">5.</span> <span class="toc-text">编译安装MongoDB</span></a></li></ol>
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/Life/" title="Life">Life<sup>2</sup></a></li>
+		
+			<li><a href="/categories/Linux/" title="Linux">Linux<sup>11</sup></a></li>
+		
+			<li><a href="/categories/Node/" title="Node">Node<sup>1</sup></a></li>
+		
+			<li><a href="/categories/Python/" title="Python">Python<sup>2</sup></a></li>
+		
+			<li><a href="/categories/Web/" title="Web">Web<sup>2</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/Android/" title="Android">Android<sup>1</sup></a></li>
+		
+			<li><a href="/tags/BAE/" title="BAE">BAE<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Blog/" title="Blog">Blog<sup>3</sup></a></li>
+		
+			<li><a href="/tags/LAMP/" title="LAMP">LAMP<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Life/" title="Life">Life<sup>2</sup></a></li>
+		
+			<li><a href="/tags/Linux/" title="Linux">Linux<sup>10</sup></a></li>
+		
+			<li><a href="/tags/MongoDB/" title="MongoDB">MongoDB<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Pelican/" title="Pelican">Pelican<sup>3</sup></a></li>
+		
+			<li><a href="/tags/Rails/" title="Rails">Rails<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Regex/" title="Regex">Regex<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Ruby/" title="Ruby">Ruby<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Sbulime-Text/" title="Sbulime Text">Sbulime Text<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Sublime-Text/" title="Sublime Text">Sublime Text<sup>1</sup></a></li>
+		
+			<li><a href="/tags/VIM/" title="VIM">VIM<sup>1</sup></a></li>
+		
+			<li><a href="/tags/Web/" title="Web">Web<sup>1</sup></a></li>
+		
+			<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
+		
+			<li><a href="/tags/grub2/" title="grub2">grub2<sup>1</sup></a></li>
+		
+			<li><a href="/tags/sqlite/" title="sqlite">sqlite<sup>1</sup></a></li>
+		
+			<li><a href="/tags/upyun/" title="upyun">upyun<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+      <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
+      <li><a href="http://www.flygon.net/" target="_blank" title="龙哥盟">龙哥盟</a></li>
+      <li><a href="http://andyxu.me/blog/" target="_blank" title="神岸あかり">神岸あかり</a></li>
+      <li><a href="http://blog.cee.moe/" target="_blank" title="Cee Cirno">Cee总</a></li>
+    </ul>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> Strive to do better <br/>
+			 Be Moe Be Love ! </p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		<a href="http://weibo.com/9020taobeier" target="_blank" title="weibo"></a>
+		
+		
+		<a href="https://twitter.com/BeierTao" target="_blank" title="twitter"></a>
+		
+		
+		<a href="https://github.com/tao12345666333" target="_blank" title="github"></a>
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2015 
+		
+		<a href="http://moelove.info" target="_blank" title="TaoBeier">TaoBeier</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"taobeier"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-50163692-1', 'moelove.info');  
+ga('send', 'pageview');
+</script>
+
+
+  </body>
+</html>
