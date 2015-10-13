@@ -91,7 +91,7 @@
     </p>
   <p class="article-time">
     <time datetime="2015-10-13T13:01:00.000Z" itemprop="datePublished">2015-10-13</time>
-    更新日期:<time datetime="2015-10-13T15:45:42.000Z" itemprop="dateModified">2015-10-13</time>
+    更新日期:<time datetime="2015-10-13T16:02:05.000Z" itemprop="dateModified">2015-10-14</time>
     
   </p>
 </header>
@@ -171,7 +171,7 @@
 <blockquote>
 <p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>需要配置的就是自定义的端口监控地址, 和下面的api, 其他部分保持默认即可.<br>在<a href="http://book.open-falcon.com/zh/install_from_src/alarm.html" target="_blank" rel="external">它的文档</a>中写着下面这样的说明</p>
 </blockquote>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">{<span class="keyword">...</span></div><div class="line">    <span class="string">"api"</span>: {</div><div class="line">        <span class="string">"portal"</span>: <span class="string">"http://falcon.example.com"</span>, <span class="comment"># 内网可访问的portal的地址</span></div><div class="line">        <span class="string">"uic"</span>: <span class="string">"http://uic.example.com"</span>, <span class="comment"># 内网可访问的uic(或fe)的地址</span></div><div class="line">        <span class="string">"links"</span>: <span class="string">"http://link.example.com"</span> <span class="comment"># 外网可访问的links的地址</span></div><div class="line">    }     </div><div class="line">}</div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">{<span class="keyword">...</span></div><div class="line">  <span class="string">"api"</span>: {</div><div class="line">      <span class="string">"portal"</span>: <span class="string">"http://falcon.example.com"</span>, <span class="comment"># 内网可访问的portal的地址</span></div><div class="line">      <span class="string">"uic"</span>: <span class="string">"http://uic.example.com"</span>, <span class="comment"># 内网可访问的uic(或fe)的地址</span></div><div class="line">      <span class="string">"links"</span>: <span class="string">"http://link.example.com"</span> <span class="comment"># 外网可访问的links的地址</span></div><div class="line">  }     </div><div class="line">}</div></pre></td></tr></table></figure>
 
 <blockquote>
 <p>但是如果按照这样配的话,所有东西就只能在内网访问了.这明显是不符合我们的期望的. 所以这里要全部配置成外网可以访问的地址,<strong>防止踩坑</strong>.</p>
@@ -200,8 +200,9 @@
 </blockquote>
 <h3 id="redis-monitor-py">redis-monitor.py</h3>
 <blockquote>
-<p>一个很简单的脚本, 把redis info 中的数据读出,写入数据库, 供监控使用.</p>
+<p>scripts 文件夹中一个很简单的脚本, 把redis info 中的数据读出,写入数据库, 供监控使用.</p>
 </blockquote>
+<p>最后附图一张，前几天我启动这个服务时候的终端。<br><img src="http://7fvfx0.com1.z0.glb.clouddn.com/1911x1160_scrot.png" alt="screen_shot"></p>
   
 	</div>
 		<footer class="article-footer clearfix">
