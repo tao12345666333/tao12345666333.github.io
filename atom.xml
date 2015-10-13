@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不忘初心]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://moelove.info/"/>
-  <updated>2015-09-13T15:52:50.970Z</updated>
+  <updated>2015-10-13T15:47:52.996Z</updated>
   <id>http://moelove.info/</id>
   
   <author>
@@ -13,6 +13,127 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Open-Falcon监控系统部署]]></title>
+    <link href="http://moelove.info/2015/10/13/Open-Falcon%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E9%83%A8%E7%BD%B2/"/>
+    <id>http://moelove.info/2015/10/13/Open-Falcon监控系统部署/</id>
+    <published>2015-10-13T13:01:00.000Z</published>
+    <updated>2015-10-13T15:45:42.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>本文并不分析Open-Falcon的架构或者选用它的原因，官方的文档在<a href="http://book.open-falcon.com/zh/intro/README.html" target="_blank" rel="external">这里</a>，虽然还不够完善。不过这也是我写这篇的原因，官方文档并没能把整个部署过程连在一起，而且个别地方有点问题。我在这篇文章中就不介绍各个组件的作用和功能了，只是单纯的介绍如何从零部署。</p>
+</blockquote>
+<h2 id="安装">安装</h2>
+<h3 id="下载">下载</h3>
+<blockquote>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http<span class="variable">s:</span>//github.<span class="keyword">com</span>/XiaoMi/<span class="keyword">open</span>-falcon/releases/download/<span class="number">0.0</span>.<span class="number">5</span>/<span class="keyword">open</span>-falcon-<span class="number">0.0</span>.<span class="number">5</span>.tar.gz -O <span class="keyword">open</span>-falcon.tar.gz</div></pre></td></tr></table></figure>
+
+<h3 id="解压">解压</h3>
+<blockquote>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">mkdir</span> tmp</div><div class="line">tar -zxvf <span class="keyword">open</span>-falcon.tar.gz -C ./tmp</div></pre></td></tr></table></figure>
+
+<h3 id="基础环境">基础环境</h3>
+<blockquote>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">sudo apt-get <span class="operator"><span class="keyword">install</span> redis-<span class="keyword">server</span></span></div><div class="line">sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> mysql-<span class="keyword">server</span></div><div class="line">pip <span class="keyword">install</span> virtualenv</div><div class="line"></div><div class="line"># 数据库初始化的代码来源于官方文档</div><div class="line">git clone https://github.com/<span class="keyword">open</span>-falcon/scripts.git</div><div class="line">cd scripts</div><div class="line">mysql -h localhost -u root -p &lt; db_schema/graph-db-<span class="keyword">schema</span>.<span class="keyword">sql</span></div><div class="line">mysql -h localhost -u root -p &lt; db_schema/dashboard-db-<span class="keyword">schema</span>.<span class="keyword">sql</span></div><div class="line"></div><div class="line">mysql -h localhost -u root -p &lt; db_schema/portal-db-<span class="keyword">schema</span>.<span class="keyword">sql</span></div><div class="line">mysql -h localhost -u root -p &lt; db_schema/links-db-<span class="keyword">schema</span>.<span class="keyword">sql</span></div><div class="line">mysql -h localhost -u root -p &lt; db_schema/uic-db-<span class="keyword">schema</span>.<span class="keyword">sql</span></div></pre></td></tr></table></figure>
+
+<h2 id="配置">配置</h2>
+<p><strong>数据库连接的配置格式是:</strong> <code>username:password@tcp(path:port)/xxxx</code></p>
+<h3 id="agent">agent</h3>
+<blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>开始监听1988端口,查看log.<br>默认端口是1988, 可以打开 <a href="http://127.0.0.1:1988" target="_blank" rel="external">http://127.0.0.1:1988</a> 查看一个比较简单的web dashboard. 没什么特殊需要的话, 可以使用默认配置.</p>
+</blockquote>
+<h3 id="hbs">hbs</h3>
+<blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>心跳服务默认http端口是6030, rpc 端口 6031</p>
+</blockquote>
+<h3 id="transfer">transfer</h3>
+<blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>默认http端口是6060, rpc端口8433</p>
+</blockquote>
+<h3 id="judge">judge</h3>
+<blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>http端口6081, rpc端口 6080<br>配置项中注意alarm的 redis链接 和hbs的server地址,如果修改过请记得对应.</p>
+</blockquote>
+<h3 id="graph">graph</h3>
+<blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>rpc端口 6070,  http端口 6071<br>数据库文件存储在<code>/home/work/data/6070</code> 启动报错的话, 换sudo 或者 root 用户启动.<br>注意修改数据库连接.</p>
+</blockquote>
+<p>上面的服务配置完成数据就开始采集了. </p>
+<h3 id="dashboard">dashboard</h3>
+<blockquote>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">virtualenv <span class="keyword">env</span></div><div class="line"><span class="keyword">source</span> <span class="keyword">env</span>/bin/activate</div><div class="line">./<span class="keyword">env</span>/bin/pip install -r pip_requirements.txt</div><div class="line"># 使用</div><div class="line">./<span class="keyword">env</span>/bin/<span class="keyword">python</span> wsgi.py</div><div class="line"># 或者用</div><div class="line">deactivate && ./<span class="keyword">control</span> start && ./<span class="keyword">control</span> tail</div></pre></td></tr></table></figure>
+
+<blockquote>
+<p>可以更改为自定义端口.这里可以查看Endpoints 的相关数据并绘图.</p>
+</blockquote>
+<h3 id="query">query</h3>
+<blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>只要修改cfg.json 文件即可, 注意还有 <code>graph_backends.txt</code> 文件</p>
+</blockquote>
+<h3 id="fe">fe</h3>
+<blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>注意配置项目中的数据库连接, 以及下面的<code>shortcut</code> 中需要配置外网可以访问的地址,如果不是在服务器部署的话,这里默认也没有关系.</p>
+</blockquote>
+<h3 id="portal">portal</h3>
+<blockquote>
+<p>这里要注意一个坑. 如果使用<code>./control start</code> 启动服务, 并且更改了默认端口的, 请配置 <strong>gunicorn.conf</strong> 中的<strong>bind</strong>项. 如果是使用<code>python wsgi.py</code>启动的话, 修改<strong>wsgi.py</strong>中的端口即可.<br>同时在配置 <code>frame/config.py</code> 的时候, 要注意所谓<strong>UIC_ADDRESS</strong> 选项的配置, 其实就是填写上面<strong>fe</strong> 模块的地址.</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">UIC_ADDRESS = {</div><div class="line">    <span class="string">'internal'</span>: <span class="string">'http://127.0.0.1:port'</span>, <span class="comment">#你的内网地址</span></div><div class="line">    <span class="string">'external'</span>: <span class="string">'http://your_fe_name'</span>, <span class="comment">#外网访问的地址, 如果是本地部署,这里可以和内网地址一样 </span></div><div class="line">}</div></pre></td></tr></table></figure>
+
+<h3 id="alarm">alarm</h3>
+<blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>需要配置的就是自定义的端口监控地址, 和下面的api, 其他部分保持默认即可.<br>在<a href="http://book.open-falcon.com/zh/install_from_src/alarm.html" target="_blank" rel="external">它的文档</a>中写着下面这样的说明</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">{<span class="keyword">...</span></div><div class="line">    <span class="string">"api"</span>: {</div><div class="line">        <span class="string">"portal"</span>: <span class="string">"http://falcon.example.com"</span>, <span class="comment"># 内网可访问的portal的地址</span></div><div class="line">        <span class="string">"uic"</span>: <span class="string">"http://uic.example.com"</span>, <span class="comment"># 内网可访问的uic(或fe)的地址</span></div><div class="line">        <span class="string">"links"</span>: <span class="string">"http://link.example.com"</span> <span class="comment"># 外网可访问的links的地址</span></div><div class="line">    }     </div><div class="line">}</div></pre></td></tr></table></figure>
+
+<blockquote>
+<p>但是如果按照这样配的话,所有东西就只能在内网访问了.这明显是不符合我们的期望的. 所以这里要全部配置成外网可以访问的地址,<strong>防止踩坑</strong>.</p>
+</blockquote>
+<h3 id="sender">sender</h3>
+<blockquote>
+<p>这个组件用于调用自己提供的短信和邮件接口, 编辑 cfg.json 添加</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">{<span class="keyword">...</span></div><div class="line">  <span class="string">'api'</span>: {</div><div class="line">      <span class="string">'sms'</span>: <span class="string">'http://your_send_sms_api'</span>,</div><div class="line">      <span class="string">'mail'</span>: <span class="string">'http://your_send_mail_api'</span></div><div class="line">  }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在调用的时候, 会把消息先写入redis队列中, 之后再调用接口,进行消息发送.<br>worker 参数是对队列的配置.</p>
+</blockquote>
+<h3 id="links">links</h3>
+<blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>告警合并组件, python应用, 记得修改默认端口即可.</p>
+</blockquote>
+<h2 id="其他">其他</h2>
+<h3 id="task">task</h3>
+<blockquote>
+<p>监控自检程序</p>
+</blockquote>
+<h3 id="gateway">gateway</h3>
+<blockquote>
+<p>没有跨机房问题可以忽略.(hhah</p>
+</blockquote>
+<h3 id="redis-monitor-py">redis-monitor.py</h3>
+<blockquote>
+<p>一个很简单的脚本, 把redis info 中的数据读出,写入数据库, 供监控使用.</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>本文并不分析Open-Falcon的架构或者选用它的原因，官方的文档在<a href="http://book.open-falcon.com/zh/intro/README.html" target="_blank" rel="external"]]>
+    </summary>
+    
+      <category term="DevOps" scheme="http://moelove.info/tags/DevOps/"/>
+    
+      <category term="Open-Falcon" scheme="http://moelove.info/tags/Open-Falcon/"/>
+    
+      <category term="Go" scheme="http://moelove.info/tags/Go/"/>
+    
+      <category term="Linux" scheme="http://moelove.info/categories/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[源码编译MongoDB]]></title>
@@ -949,61 +1070,6 @@
 <p>有人问我关于centos里面使用cat命令的问题，我在这里简单记录一下。<br>在linux下，cat应该是使用最频繁的命令之一了吧。</p>
 </blockquote>
 <h3 id="cat命令在Linux作以下用途：">cat命令在Linux]]>
-    </summary>
-    
-      <category term="Linux" scheme="http://moelove.info/tags/Linux/"/>
-    
-      <category term="Linux" scheme="http://moelove.info/categories/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[fedora安装后最初的事情]]></title>
-    <link href="http://moelove.info/2013/03/09/fedora%E5%AE%89%E8%A3%85%E5%90%8E%E6%9C%80%E5%88%9D%E7%9A%84%E4%BA%8B%E6%83%85/"/>
-    <id>http://moelove.info/2013/03/09/fedora安装后最初的事情/</id>
-    <published>2013-03-09T13:21:14.000Z</published>
-    <updated>2014-10-15T13:23:31.000Z</updated>
-    <content type="html"><![CDATA[<h3 id="更新源">更新源</h3>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="title">sudo</span> yum localinstall --nogpgcheck <span class="url">http://mirrors.163.com/rpmfusion/free/fedora/rpmfusion-free-release-stable.noarch.rpm</span> <span class="url">http://mirrors.163.com/rpmfusion/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm</span>      (这个是添加国内的软件源)</div><div class="line"></div><div class="line">sudo yum update</div></pre></td></tr></table></figure>
-
-<h3 id="网络相关">网络相关</h3>
-<h4 id="firefox">firefox</h4>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> yum install firefox</div></pre></td></tr></table></figure>
-
-<h4 id="chrome_/_chromium">chrome / chromium</h4>
-<p>我本人比较习惯用chrome的 <s>不过最近网络不是很稳定 </s>先补充chromium 的安装方法吧</p>
-<ul>
-<li>chromium的安装<br>首先添加<a href="http://pan.baidu.com/s/1kTIBvUZ" target="_blank" rel="external">chromium的fedora源</a>,将下载好的 <strong>.repo</strong> 文件移动到<code>/etc/yum.repos.d/</code>下， 执行</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> yum install chromium</div></pre></td></tr></table></figure>
-
-<ul>
-<li>chrome的安装<br>从<a href="http://www.google.com/intl/zh-CN/chrome/" target="_blank" rel="external">官网</a>上下载chrome 的rpm包，或者从我的网盘下载对应的<a href="http://pan.baidu.com/s/1ntmdqtz" target="_blank" rel="external">32位</a> 或 <a href="http://pan.baidu.com/s/1jGuqRdG" target="_blank" rel="external">64位</a> 的rpm 包<br>执行</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> rpm -ivh google-chrome.rpm</div></pre></td></tr></table></figure>
-
-<h3 id="安装证书">安装证书</h3>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum localinstall --nogpgcheck <span class="symbol">http:</span>/<span class="regexp">/download1.rpmfusion.org/free</span><span class="regexp">/fedora/rpmfusion</span>-free-release-branched.noarch.rpm <span class="symbol">http:</span>/<span class="regexp">/download1.rpmfusion.org/nonfree</span><span class="regexp">/fedora/rpmfusion</span>-nonfree-release-branched.noarch.rpm</div></pre></td></tr></table></figure>
-
-<h3 id="压缩/解压软件">压缩/解压软件</h3>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> yum install unrar</div><div class="line"><span class="built_in">sudo</span> yum install p7zip</div></pre></td></tr></table></figure>
-
-<h3 id="影音播放">影音播放</h3>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> yum install gstreamer-plugins-good gstreamer-plugins-bad gstreamer-plugins-ugly libtunepimp-extras-freeworld xine-lib-extras-freeworld(安装音频解码器)</div><div class="line"></div><div class="line"><span class="built_in">sudo</span> yum install ffmpeg ffmpeg-libs gstreamer-ffmpeg libmatroska xvidcore(安装视频解码器)</div></pre></td></tr></table></figure>
-
-<h3 id="编辑器">编辑器</h3>
-<ul>
-<li>vim</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">sudo</span> yum install vim</div></pre></td></tr></table></figure>
-
-<ul>
-<li>Sublime Text<br>我也很喜欢因为运行速度快，而且免费。安装方法可以参考我的<a href="http://moelove.info/articles/2013/08/30/fedoraxia-an-zhuang-sublime-text-2de-fang-fa/" target="_blank" rel="external">fedora下安装sublime text 2</a>这篇文章。</li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h3 id="更新源">更新源</h3>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div cl]]>
     </summary>
     
       <category term="Linux" scheme="http://moelove.info/tags/Linux/"/>
