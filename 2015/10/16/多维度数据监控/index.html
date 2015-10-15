@@ -4,22 +4,18 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>正则匹配中文及字符编码问题 | MoeLove</title>
+    <title>多维度数据监控 | MoeLove</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="TaoBeier">
     
-    <meta name="description" content="匹配中文的正则表达式
-窝写了一小段代码（虽然写的不太好，但是基本可以表达意思）
-
-
-12345678import renickname = raw_input(&#39;Please input your nickname &amp;gt; &#39;)if not re.search(u&#39;^[\u4e00-\u9fa5a">
+    <meta name="description" content="恩，我还没写～">
     
     
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="BeierTao" />
-    <meta name="twitter:title" content="正则匹配中文及字符编码问题 | MoeLove" />
+    <meta name="twitter:title" content="多维度数据监控 | MoeLove" />
       
     
     
@@ -81,15 +77,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/07/22/正则匹配中文及字符编码问题/" title="正则匹配中文及字符编码问题" itemprop="url">正则匹配中文及字符编码问题</a>
+      <a href="/2015/10/16/多维度数据监控/" title="多维度数据监控" itemprop="url">多维度数据监控</a>
   </h1>
   <p class="article-author">By
     
       <a href="https://plus.google.com/111099802544541897352?rel=author" title="TaoBeier" target="_blank" itemprop="author">TaoBeier</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-07-22T13:16:34.000Z" itemprop="datePublished">2014-07-22</time>
-    更新日期:<time datetime="2014-10-15T13:30:17.000Z" itemprop="dateModified">2014-10-15</time>
+    <time datetime="2015-10-15T16:59:01.000Z" itemprop="datePublished">2015-10-16</time>
+    更新日期:<time datetime="2015-10-15T17:02:04.000Z" itemprop="dateModified">2015-10-16</time>
     
   </p>
 </header>
@@ -98,51 +94,32 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#匹配中文的正则表达式"><span class="toc-number">1.</span> <span class="toc-text">匹配中文的正则表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python字符串的编码问题"><span class="toc-number">2.</span> <span class="toc-text">Python字符串的编码问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#代码中字符串的默认编码格式与代码文件本身的编码格式是一样的"><span class="toc-number">2.1.</span> <span class="toc-text">代码中字符串的默认编码格式与代码文件本身的编码格式是一样的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如果一个字符串已经是unicode编码了，再解码就会出错"><span class="toc-number">2.2.</span> <span class="toc-text">如果一个字符串已经是unicode编码了，再解码就会出错</span></a></li></ol></li></ol>
+		
 		</div>
 		
-		<h2 id="匹配中文的正则表达式">匹配中文的正则表达式</h2>
-<p>窝写了一小段<a href="http://moelove.qiniudn.com/regex-match-Chinese.py" target="_blank" rel="external">代码</a>（虽然写的不太好，但是基本可以表达意思）</p>
-<script src="https://gist.github.com/tao12345666333/13edb463b04da758dade.js"></script>
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> re</div><div class="line"></div><div class="line">nickname = raw_input(<span class="string">'Please input your nickname &gt; '</span>)</div><div class="line"></div><div class="line"><span class="keyword">if</span> <span class="keyword">not</span> re.search(<span class="string">u'^[\u4e00-\u9fa5a-zA-Z0-9]+$'</span>, unicode(nickname,<span class="string">'utf8'</span>)):</div><div class="line">    <span class="keyword">print</span> <span class="string">'Your nickname format is error, please try again !'</span></div><div class="line"><span class="keyword">else</span>:</div><div class="line">    <span class="keyword">print</span> <span class="string">'Hello %s'</span>% nickname</div></pre></td></tr></table></figure>
-
-<p>如你所见，上面第5行的代码，就是匹配中文和字母，数字的正则表达式了。里面的<code>\u4e00-\u9fa5</code> 就是中文汉字的<code>unicode</code>编码所在位置。</p>
-<p><img src="http://moelove.qiniudn.com/2014-07-23%2023:21.png" alt="运行截图"></p>
-<hr>
-<h2 id="Python字符串的编码问题">Python字符串的编码问题</h2>
-<p>还是以上面那段代码来说。注意看第5行的代码</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="keyword">not</span> re.search(<span class="string">u'^[\u4e00-\u9fa5a-zA-Z0-9]+$'</span>, unicode(nickname,<span class="string">'utf8'</span>)):</div></pre></td></tr></table></figure>
-
-<p>其实这样的代码并不严谨。因为在Python 中默认是用<code>unicode</code>编码来处理字符串的，因此做编码转换的时候，一般要以<code>unicode</code>作为中间编码，也就是说：<br>其他编码格式的字符串—-&gt;解码(decode)—-&gt;<code>unicode</code>—-&gt;编码(encode)—-&gt;所需要的编码格式。</p>
-<p>因此，处理字符串编码的问题的时候，先要明白需要转换的字符串的编码格式是什么。</p>
-<h3 id="代码中字符串的默认编码格式与代码文件本身的编码格式是一样的">代码中字符串的默认编码格式与代码文件本身的编码格式是一样的</h3>
-<p>比如： s = ‘涛’ 在utf8的文件中，那么s就是utf8编码的，但是如果文件是gb2312编码，那么s就是gb2312编码的。此时，如果想要处理s这个字符串就要先decode成unicode编码了。</p>
-<p>不过如果是酱紫 s = u’涛’，那么s就是unicode编码了，这个时候s的编码方式不会被文件的编码所影响。</p>
-<h3 id="如果一个字符串已经是unicode编码了，再解码就会出错">如果一个字符串已经是unicode编码了，再解码就会出错</h3>
-<p>因此严谨的方式就是先对字符串进行编码格式的判别，最简单的办法就是使用Python 默认提供的<code>isinstance()</code> 方法.</p>
-<p>代码可以这样写<br><code>isinstance(s, unicode)</code> 如果不是unicode编码就会报错。</p>
-<p>窝今天在处理用户昵称的地方，忘记字符串会直接使用文件的编码了，所以对它进行了重新编码orz果断就报错了。。。以后还是要好好注意细节的说。</p>
+		<blockquote>
+<p>恩，我还没写～ </p>
+</blockquote>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Regex/">Regex</a>
+  <span></span> <a href="/tags/Linux/">Linux</a><a href="/tags/DevOps/">DevOps</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/Python/">Python</a>
+  <a class="article-category-link" href="/categories/Linux/">Linux</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://moelove.info/2014/07/22/正则匹配中文及字符编码问题/" data-title="正则匹配中文及字符编码问题 | MoeLove" data-tsina="1581898810" class="share clearfix">
+  <div data-url="http://moelove.info/2015/10/16/多维度数据监控/" data-title="多维度数据监控 | MoeLove" data-tsina="1581898810" class="share clearfix">
   </div>
 
 </div>
@@ -151,19 +128,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/10/16/近况/" title="近况">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  近况</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/07/17/Bash-显示git分支/"  title="Bash 显示git分支">
+<a href="/2015/10/13/Open-Falcon监控系统部署/"  title="Open-Falcon监控系统部署">
  <strong>NEXT:</strong><br/> 
- <span>Bash 显示git分支
+ <span>Open-Falcon监控系统部署
 </span>
 </a>
 </div>
@@ -180,7 +149,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#匹配中文的正则表达式"><span class="toc-number">1.</span> <span class="toc-text">匹配中文的正则表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python字符串的编码问题"><span class="toc-number">2.</span> <span class="toc-text">Python字符串的编码问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#代码中字符串的默认编码格式与代码文件本身的编码格式是一样的"><span class="toc-number">2.1.</span> <span class="toc-text">代码中字符串的默认编码格式与代码文件本身的编码格式是一样的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如果一个字符串已经是unicode编码了，再解码就会出错"><span class="toc-number">2.2.</span> <span class="toc-text">如果一个字符串已经是unicode编码了，再解码就会出错</span></a></li></ol></li></ol>
+  
   </div>
 
 <div id="asidepart">

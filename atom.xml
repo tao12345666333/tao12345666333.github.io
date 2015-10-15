@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不忘初心]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://moelove.info/"/>
-  <updated>2015-10-13T16:02:31.321Z</updated>
+  <updated>2015-10-15T17:02:10.558Z</updated>
   <id>http://moelove.info/</id>
   
   <author>
@@ -13,6 +13,31 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[多维度数据监控]]></title>
+    <link href="http://moelove.info/2015/10/16/%E5%A4%9A%E7%BB%B4%E5%BA%A6%E6%95%B0%E6%8D%AE%E7%9B%91%E6%8E%A7/"/>
+    <id>http://moelove.info/2015/10/16/多维度数据监控/</id>
+    <published>2015-10-15T16:59:01.000Z</published>
+    <updated>2015-10-15T17:02:04.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>恩，我还没写～ </p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>恩，我还没写～ </p>
+</blockquote>
+]]>
+    </summary>
+    
+      <category term="Linux" scheme="http://moelove.info/tags/Linux/"/>
+    
+      <category term="DevOps" scheme="http://moelove.info/tags/DevOps/"/>
+    
+      <category term="Linux" scheme="http://moelove.info/categories/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Open-Falcon监控系统部署]]></title>
@@ -1024,56 +1049,6 @@
       <category term="Linux" scheme="http://moelove.info/tags/Linux/"/>
     
       <category term="LAMP" scheme="http://moelove.info/tags/LAMP/"/>
-    
-      <category term="Linux" scheme="http://moelove.info/categories/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[cat 命令研究]]></title>
-    <link href="http://moelove.info/2013/03/20/cat-%E5%91%BD%E4%BB%A4%E7%A0%94%E7%A9%B6/"/>
-    <id>http://moelove.info/2013/03/20/cat-命令研究/</id>
-    <published>2013-03-20T13:24:20.000Z</published>
-    <updated>2014-10-15T13:25:42.000Z</updated>
-    <content type="html"><![CDATA[<blockquote>
-<p>有人问我关于centos里面使用cat命令的问题，我在这里简单记录一下。<br>在linux下，cat应该是使用最频繁的命令之一了吧。</p>
-</blockquote>
-<h3 id="cat命令在Linux作以下用途：">cat命令在Linux作以下用途：</h3>
-<ul>
-<li>在屏幕上显示文本文件。</li>
-<li>复制文本文件。</li>
-<li>合并文本文件。</li>
-<li>创建新的文本文件。</li>
-</ul>
-<h3 id="cat命令支持的语法如下：">cat命令支持的语法如下：</h3>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">cat</span> filename</div><div class="line"><span class="keyword">cat</span> <span class="keyword">options</span> filename</div><div class="line"><span class="keyword">cat</span> file1 file2</div><div class="line"><span class="keyword">cat</span> file1 file2 &gt; newcombinedfile</div></pre></td></tr></table></figure>
-
-<h4 id="显示文件的内容：">显示文件的内容：</h4>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">cat</span> /tmp/test</div></pre></td></tr></table></figure>
-
-<p>上面的命令就是查看文件<code>/tmp/test</code>的内容，把内容输出到屏幕。<br>但是也可以使用</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="input"><span class="prompt">cat /tmp/test &gt;</span> /tmp/test2</span></div></pre></td></tr></table></figure>
-
-<p>使用上面的命令，可以把文件内容<strong><a href="http://linux-wiki.cn/wiki/zh-hans/Bash%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91" target="_blank" rel="external">重定向</a></strong>到/tmp/test2文件中</p>
-<h4 id="串联文件：">串联文件：</h4>
-<p>串联文件是把文件内容一起输出，但是不会改变源文件的内容</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat <span class="regexp">/tmp/</span>test1 <span class="regexp">/tmp/</span>test2 <span class="regexp">/tmp/</span>test3</div></pre></td></tr></table></figure>
-
-<p>以上命令会将/tmp 目录下的 test1 ,test2 ,test3 三个文件的内容一起输出，当然也可以使用重定向命令查看输出内容</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat <span class="regexp">/tmp/</span>test1 <span class="regexp">/tmp/</span>test2 <span class="regexp">/tmp/</span>test3 &gt;<span class="regexp">/tmp/</span>testoutputs</div></pre></td></tr></table></figure>
-
-<p>重定向至/tmp 下的testoutputs 文件中</p>
-<p>当然查看的时候可以配合管道命令使用</p>
-<p><code>cat /tmp/test1 /tmp/test2 /tmp/test3 | less</code></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<blockquote>
-<p>有人问我关于centos里面使用cat命令的问题，我在这里简单记录一下。<br>在linux下，cat应该是使用最频繁的命令之一了吧。</p>
-</blockquote>
-<h3 id="cat命令在Linux作以下用途：">cat命令在Linux]]>
-    </summary>
-    
-      <category term="Linux" scheme="http://moelove.info/tags/Linux/"/>
     
       <category term="Linux" scheme="http://moelove.info/categories/Linux/"/>
     
