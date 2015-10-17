@@ -4,18 +4,40 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>多维度数据监控 | MoeLove</title>
+    <title>对多维度数据监控的思考 | MoeLove</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="TaoBeier">
     
-    <meta name="description" content="恩，我还没写～">
+    <meta name="description" content="近期在做运维监控方面的事情，也研究了一下其他人是如何做的。把自己的想法做个总结记录一下吧。
+
+监控期望的目标
+
+及时发现
+
+
+需要的是即时监控并报警
+
+
+及时定位
+
+
+定位问题要分开讲
+
+运维层面
+
+是机器硬件问题还是上面运行的基础服务的问题，或者是新上线代码的问题，需要回滚。
+
+
+代码层面
+
+在发">
     
     
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="BeierTao" />
-    <meta name="twitter:title" content="多维度数据监控 | MoeLove" />
+    <meta name="twitter:title" content="对多维度数据监控的思考 | MoeLove" />
       
     
     
@@ -77,7 +99,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/16/多维度数据监控/" title="多维度数据监控" itemprop="url">多维度数据监控</a>
+      <a href="/2015/10/16/多维度数据监控/" title="对多维度数据监控的思考" itemprop="url">对多维度数据监控的思考</a>
   </h1>
   <p class="article-author">By
     
@@ -85,7 +107,7 @@
     </p>
   <p class="article-time">
     <time datetime="2015-10-15T16:59:01.000Z" itemprop="datePublished">2015-10-16</time>
-    更新日期:<time datetime="2015-10-15T17:02:04.000Z" itemprop="dateModified">2015-10-16</time>
+    更新日期:<time datetime="2015-10-17T15:52:48.000Z" itemprop="dateModified">2015-10-17</time>
     
   </p>
 </header>
@@ -94,12 +116,74 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		
+		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#监控期望的目标"><span class="toc-number">1.</span> <span class="toc-text">监控期望的目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#监控遇到的主要问题"><span class="toc-number">2.</span> <span class="toc-text">监控遇到的主要问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多维度数据监控"><span class="toc-number">3.</span> <span class="toc-text">多维度数据监控</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
 		</div>
 		
 		<blockquote>
-<p>恩，我还没写～ </p>
+<p>近期在做运维监控方面的事情，也研究了一下其他人是如何做的。把自己的想法做个总结记录一下吧。</p>
 </blockquote>
+<h3 id="监控期望的目标">监控期望的目标</h3>
+<ul>
+<li>及时发现</li>
+</ul>
+<blockquote>
+<p>需要的是即时监控并报警</p>
+</blockquote>
+<ul>
+<li>及时定位</li>
+</ul>
+<blockquote>
+<p>定位问题要分开讲</p>
+<ul>
+<li><p>运维层面</p>
+<blockquote>
+<p>是机器硬件问题还是上面运行的基础服务的问题，或者是新上线代码的问题，需要回滚。</p>
+</blockquote>
+</li>
+<li><p>代码层面</p>
+<blockquote>
+<p>在发生问题的时候，优先解决问题。定位代码问题提交hotfix 可以在解决问题之后做。</p>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>及时处理</li>
+<li>提前预测（尽量减少问题的发生）</li>
+</ul>
+<blockquote>
+<p>提前预测可以做的事情有很多，数据挖掘/分析之类的。当然有个更简单的方法，就是先小范围上线，进行监控。如果发现出问题了，就停止上线，进行回滚。（我们现在就是这样做的，虽然原因好像并不是这个 2333</p>
+</blockquote>
+<h3 id="监控遇到的主要问题">监控遇到的主要问题</h3>
+<ul>
+<li>监控指标多</li>
+</ul>
+<blockquote>
+<p>服务器CPU,内存，网络等的指标，基础服务Redis, MongoDB等的运行指标，对外服务的API是否正常工作，还有数据是否正确等。 </p>
+</blockquote>
+<ul>
+<li>监控报警多</li>
+</ul>
+<blockquote>
+<p>监控指标多的时候，自然报警也会相应增加，但是报警的分组与轻重缓急也是一个很麻烦的问题。</p>
+</blockquote>
+<ul>
+<li>报警多而且有关联，如何查找原因</li>
+</ul>
+<blockquote>
+<p>可能同时会有多个指标触发了报警，但是要定位的时候，如何可以快速的定位问题。</p>
+</blockquote>
+<h3 id="多维度数据监控">多维度数据监控</h3>
+<blockquote>
+<p>这个话题太大(只从Baidu的颜大大那里学到一些皮毛hahaha）<br>数据监控符合<a href="https://zh.wikipedia.org/wiki/%E5%B8%95%E9%9B%B7%E6%89%98%E6%B3%95%E5%88%99" target="_blank" rel="external">二八原则</a>,重要数据需要多角度进行观察，需要有meta管理，需要动态简单配置。<br>好的，合理的数据模型可以有效的进行处理</p>
+<p><strong>这部分还有很多内容，我之后慢慢补充</strong></p>
+</blockquote>
+<h3 id="总结">总结</h3>
+<ul>
+<li>监控数据二八定律</li>
+<li>数据需要多角度观察</li>
+<li>对开源系统的使用，需要按照自己的实际情况进行适配。保证高可用性</li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -119,7 +203,7 @@
 
 <div class="article-share" id="share">
 
-  <div data-url="http://moelove.info/2015/10/16/多维度数据监控/" data-title="多维度数据监控 | MoeLove" data-tsina="1581898810" class="share clearfix">
+  <div data-url="http://moelove.info/2015/10/16/多维度数据监控/" data-title="对多维度数据监控的思考 | MoeLove" data-tsina="1581898810" class="share clearfix">
   </div>
 
 </div>
@@ -149,7 +233,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#监控期望的目标"><span class="toc-number">1.</span> <span class="toc-text">监控期望的目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#监控遇到的主要问题"><span class="toc-number">2.</span> <span class="toc-text">监控遇到的主要问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多维度数据监控"><span class="toc-number">3.</span> <span class="toc-text">多维度数据监控</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
   </div>
 
 <div id="asidepart">
