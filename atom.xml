@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不忘初心]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://moelove.info/"/>
-  <updated>2015-10-26T14:47:19.945Z</updated>
+  <updated>2015-11-22T15:30:37.125Z</updated>
   <id>http://moelove.info/</id>
   
   <author>
@@ -19,25 +19,121 @@
     <link href="http://moelove.info/2015/10/26/%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%A7%BF%E5%8A%BF%E5%BC%80%E6%BA%90Python%E9%A1%B9%E7%9B%AE/"/>
     <id>http://moelove.info/2015/10/26/用正确的姿势开源Python项目/</id>
     <published>2015-10-26T14:17:36.000Z</published>
-    <updated>2015-10-26T14:46:43.000Z</updated>
+    <updated>2015-11-22T15:30:20.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
-<p>并没有太多经验，做个备忘，也希望可以帮到别人。<br>先挖坑，尚未填。</p>
+<p>并没有太多经验，做个备忘，也希望可以帮到别人。</p>
 </blockquote>
 <h2 id="目录结构（初始化）">目录结构（初始化）</h2>
-<h2 id="测试">测试</h2>
+<p>一般我们都会选择在项目的顶层包含较基础的文件，比如<code>setup.py</code>，<code>requirements</code>，<code>README</code>等文件。<br>一般情况下，一个预发布的Python项目中应该包含以下几类文件：</p>
+<ul>
+<li>projects (项目的主体文件)</li>
+<li>setup.py</li>
+<li>requirements</li>
+<li>Readme (项目说明)</li>
+<li>docs (项目文档)</li>
+<li>test</li>
+</ul>
+<p>其中，<code>projects</code>文件夹要以项目命名，存放实际的Python Package.<br>这里放一个<a href="https://github.com/tao12345666333/httpmultipart" target="_blank" rel="external">我的项目的目录</a>作为例子。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">➜  httpmultipart gi<span class="variable">t:</span>(master) tree -L <span class="number">2</span></div><div class="line">.</div><div class="line">├── build</div><div class="line">│   ├── bdist.linux-x86_64</div><div class="line">│   └── lib.linux-x86_64-<span class="number">2.7</span></div><div class="line">├── dist</div><div class="line">│   ├── httpmultipart-<span class="number">0.1</span>.<span class="number">0</span>-py2.<span class="keyword">py3</span>-none-any.whl</div><div class="line">│   └── httpmultipart-<span class="number">0.1</span>.<span class="number">0</span>.tar.gz</div><div class="line">├── docs</div><div class="line">│   ├── _build</div><div class="line">│   ├── <span class="keyword">conf</span>.<span class="keyword">py</span></div><div class="line">│   ├── <span class="built_in">index</span>.rst</div><div class="line">│   ├── Makefile</div><div class="line">│   ├── userguide</div><div class="line">│   └── userguide.rst</div><div class="line">├── env</div><div class="line">│   ├── bin</div><div class="line">│   ├── include</div><div class="line">│   ├── lib</div><div class="line">│   └── local</div><div class="line">├── httpmultipart</div><div class="line">│   ├── __init__.<span class="keyword">py</span></div><div class="line">│   ├── __init__.pyc</div><div class="line">│   ├── main.<span class="keyword">py</span></div><div class="line">│   └── main.pyc</div><div class="line">├── httpmultipart.egg-info</div><div class="line">│   ├── dependency_links.txt</div><div class="line">│   ├── not-zip-safe</div><div class="line">│   ├── PKG-INFO</div><div class="line">│   ├── SOURCES.txt</div><div class="line">│   └── top_level.txt</div><div class="line">├── LICENSE</div><div class="line">├── MANIFEST.in</div><div class="line">├── README.rst</div><div class="line">├── setup.cfg</div><div class="line">├── setup.<span class="keyword">py</span></div><div class="line">└── test_httpmultipart.<span class="keyword">py</span></div><div class="line"></div><div class="line"><span class="number">14</span> directories, <span class="number">21</span> <span class="keyword">files</span></div></pre></td></tr></table></figure>
+
+<p>这个目录中包含了我的<code>virtual enviroment</code> 和打包构建时候生成的文件夹。<br>这些东西在下面会提到。</p>
 <h2 id="文档">文档</h2>
-<h2 id="TravisCI_持续集成">TravisCI 持续集成</h2>
+<p>文档的话，并没有严格要求必须使用什么样的工具进行构建，也没有很严格的格式要求。不过我推荐使用<a href="http://sphinx-doc.org/" target="_blank" rel="external"><code>SPHINX</code></a>,它是用Python写的工具，使用了一种叫做<code>reStructuredText</code>的语法编辑，可以对多个文本文件重编，可以输出成HTML或者PDF等格式。</p>
+<p>这里稍微介绍下使用：</p>
+<ul>
+<li>安装</li>
+</ul>
+<figure class="highlight Bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ pip install sphinx</div></pre></td></tr></table></figure>
+
+<ul>
+<li>初始化</li>
+</ul>
+<figure class="highlight Bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> docs</div><div class="line">$ sphinx-quickstart</div><div class="line">...<span class="comment">#(这里有一系列的提问，进行初始化)</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>编译</li>
+</ul>
+<figure class="highlight Bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ make html <span class="comment">#(如果按照默认配置生成的Makefile的话，这样就可以编译出html了)</span></div></pre></td></tr></table></figure>
+
+<p>Sphinx的使用还有很多值得说的地方，推荐两个资料：</p>
+<ul>
+<li>英文的<a href="http://sphinx-doc.org/contents.html" target="_blank" rel="external">Sphinx 的官方文档</a></li>
+<li>中文的<a href="http://www.amazon.cn/%E5%9B%BE%E7%81%B5%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E4%B8%9B%E4%B9%A6-Python%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98-%E6%97%A5%E6%9C%ACBePROUD%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8/dp/B00KGQ4NRO/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1448116359&amp;sr=1-1&amp;keywords=python+%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98" target="_blank" rel="external">Python 开发实战</a></li>
+</ul>
+<p>官方文档写的非常详细，那本书偏向于实战，是很不错的书。<br>还有很关键的一点是Sphinx有<code>autodoc</code>和<code>automodule</code>的扩展，<br>可以从代码中提取出文档，与代码直接进行关联。提供一个<a href="https://tornado-zh.readthedocs.org/zh/latest/ioloop.html#running-an-ioloop" target="_blank" rel="external">例子</a>可以方便的在文档和源码中进行跳转。</p>
 <h2 id="Read_the_Docs_持续文档集成">Read the Docs 持续文档集成</h2>
+<p>说完写文档就不得不提到<a href="https://readthedocs.org/" target="_blank" rel="external"><code>Read the Dosc</code></a>了,这是一个第三方的文档托管平台,使用<code>Django</code>开发，它可以很轻松的和Github上的项目进行集成，在每次代码提交的时候会自动进行文档构建，我们可以看看<a href="https://tornado-zh.readthedocs.org/" target="_blank" rel="external">生成文档的效果</a>。现在有很多开源项目的文档都是托管在这里的，具体的配置可以参考<a href="https://read-the-docs.readthedocs.org/en/latest/getting_started.html" target="_blank" rel="external">官方文档</a>。</p>
+<h2 id="TravisCI_持续集成">TravisCI 持续集成</h2>
+<p><a href="https://travis-ci.org/" target="_blank" rel="external"><code>Travisci</code></a>可以与Github非常好的结合，可以手动导入<code>repo</code>，并设置<code>Webhooks &amp; services</code>,在每次提交的时候都会测试运行来发现是否存在异常。在使用之前，我们需要先做一些初始化的操作：</p>
+<ul>
+<li><p>创建<code>.travis.yml</code>文件</p>
+<p>  我们需要告诉它一些基本的信息：</p>
+<ul>
+<li>我们项目使用的语言</li>
+<li>项目使用的语言版本</li>
+<li>环境的依赖</li>
+<li>是否需要<code>sudo</code>权限运行</li>
+<li>使用什么命令来安装</li>
+<li><p>使用什么命令运行测试</p>
+<p>下面提供一个例子：</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight YML"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">language: python</div><div class="line">python:</div><div class="line">    -<span class="ruby"> <span class="number">2.7</span></span></div><div class="line"></div><div class="line">env:</div><div class="line">    -<span class="ruby"> <span class="constant">DEPS</span>=<span class="keyword">true</span></span></div><div class="line">    -<span class="ruby"> <span class="constant">DEPS</span>=<span class="keyword">false</span></span></div><div class="line"></div><div class="line">sudo: false</div><div class="line"></div><div class="line">install:</div><div class="line">    -<span class="ruby"> travis_retry python setup.py install</span></div><div class="line">    -<span class="ruby"> travis_retry pip install coveralls</span></div><div class="line">    -<span class="ruby"> coverage run test_httpmultipart.py</span></div><div class="line">    -<span class="ruby"> coverage report</span></div><div class="line"></div><div class="line">script:</div><div class="line">    -<span class="ruby"> python test_httpmultipart.py</span></div><div class="line"></div><div class="line">after_success:</div><div class="line">    coveralls</div></pre></td></tr></table></figure>
+
+<p>PS： 在<code>install</code>这一项配置中要注意，如果项目存在依赖，一定要进行安装，还有<code>Travisci</code>提供了多项配置，包括出错重试等，具体配置可以参考<a href="http://docs.travis-ci.com/" target="_blank" rel="external">官方文档</a>，要特别注意<code>travis_retry</code>等命令的使用，非常容易出现坑。</p>
+<h2 id="测试">测试</h2>
+<p>Python有内置的<code>unittest</code>测试库，支持断言;当然还有其他的一些测试框架，看个人喜好和项目需求。在项目中应该包含测试文件或者测试目录，测试文件一般以<code>test_projects_name.py</code>命名。我选择使用<code>coverage</code>作为测试覆盖率的检查，下面是一个运行示例：</p>
+<figure class="highlight Bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">➜  httpmultipart git:(master) coverage run test_httpmultipart.py </div><div class="line">....</div><div class="line">----------------------------------------------------------------------</div><div class="line">Ran <span class="number">4</span> tests <span class="keyword">in</span> <span class="number">36.125</span>s</div><div class="line"></div><div class="line">OK</div><div class="line"></div><div class="line"></div><div class="line">➜  httpmultipart git:(master) coverage report</div><div class="line">Name                        Stmts   Miss Branch BrPart  Cover</div><div class="line">-------------------------------------------------------------</div><div class="line">httpmultipart/__init__.py      <span class="number">10</span>      <span class="number">0</span>      <span class="number">0</span>      <span class="number">0</span>   <span class="number">100</span>%</div><div class="line">httpmultipart/main.py          <span class="number">37</span>      <span class="number">0</span>      <span class="number">4</span>      <span class="number">0</span>   <span class="number">100</span>%</div><div class="line">-------------------------------------------------------------</div><div class="line">TOTAL                          <span class="number">47</span>      <span class="number">0</span>      <span class="number">4</span>      <span class="number">0</span>   <span class="number">100</span>%</div></pre></td></tr></table></figure>
+
 <h2 id="Coveralls_测试覆盖率检查">Coveralls 测试覆盖率检查</h2>
+<p><a href="https://coveralls.io" target="_blank" rel="external">Coveralls</a>可以很友好的支持Github和Bitbucket仓库的导入，同时也可以很好的和<code>Travisci</code>集成，在上面我们的<code>.travis.yml</code>文件中，在最后一项<code>after_success</code>中，我们就配置了对<code>Coveralls</code>的支持。</p>
 <h2 id="发布包到PyPI">发布包到PyPI</h2>
+<p><a href="https://pypi.python.org/pypi" target="_blank" rel="external">PyPI - the Python Package Index</a><br>是Python的包仓库，它允许我们将自己写的包上传上去，这样就可以使用<code>pip</code>和<code>easy_install</code>进行安装了。这里说一个很重要的事情：<br><strong>请在发布自己项目之前做好测试，确认自己上传的是一个可用，无害的包</strong><br>当你已经完成上面的步骤之后，那么你只需要以下几步就可以完成了。以我的项目为例子:</p>
+<ul>
+<li>配置<code>setup.py</code>:</li>
+</ul>
+<figure class="highlight Python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/env python</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> os</div><div class="line"><span class="keyword">import</span> re</div><div class="line"><span class="keyword">import</span> sys</div><div class="line"><span class="keyword">from</span> codecs <span class="keyword">import</span> open</div><div class="line"></div><div class="line"><span class="keyword">try</span>:</div><div class="line">    <span class="keyword">from</span> setuptools <span class="keyword">import</span> setup</div><div class="line"><span class="keyword">except</span> ImportError:</div><div class="line">    <span class="keyword">from</span> distutils.core <span class="keyword">import</span> setup</div><div class="line"></div><div class="line"><span class="keyword">if</span> sys.argv[-<span class="number">1</span>] == <span class="string">'publish'</span>:</div><div class="line">    os.system(<span class="string">'python setup.py sdist upload'</span>)</div><div class="line">    sys.exit()</div><div class="line"></div><div class="line">packages = [</div><div class="line">    <span class="string">'httpmultipart'</span>,</div><div class="line">]</div><div class="line"></div><div class="line">requires = []</div><div class="line"></div><div class="line">version = <span class="string">''</span></div><div class="line"><span class="keyword">with</span> open(<span class="string">'httpmultipart/__init__.py'</span>, <span class="string">'r'</span>) <span class="keyword">as</span> fd:</div><div class="line">    version = re.search(<span class="string">r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]'</span>,</div><div class="line">                        fd.read(), re.MULTILINE).group(<span class="number">1</span>)</div><div class="line"></div><div class="line"><span class="keyword">if</span> <span class="keyword">not</span> version:</div><div class="line">    <span class="keyword">raise</span> RuntimeError(<span class="string">'Cannot find version information'</span>)</div><div class="line"></div><div class="line"><span class="keyword">with</span> open(<span class="string">'README.rst'</span>, <span class="string">'r'</span>, <span class="string">'utf-8'</span>) <span class="keyword">as</span> f:</div><div class="line">    readme = f.read()</div><div class="line"></div><div class="line">setup(</div><div class="line">    name=<span class="string">'httpmultipart'</span>,</div><div class="line">    version=version,</div><div class="line">    description=<span class="string">'A httpmultipart post handler'</span>,</div><div class="line">    long_description=readme + <span class="string">'\n\n'</span>,</div><div class="line">    author=<span class="string">'TaoBeier'</span>,</div><div class="line">    author_email=<span class="string">'zhangjintao9020@gmail.com'</span>,</div><div class="line">    url=<span class="string">'https://github.com/tao12345666333/httpmultipart'</span>,</div><div class="line">    packages=packages,</div><div class="line">    package_data={<span class="string">''</span>: [<span class="string">'LICENSE'</span>]},</div><div class="line">    package_dir={<span class="string">'httpmultipart'</span>: <span class="string">'httpmultipart'</span>},</div><div class="line">    include_package_data=<span class="keyword">True</span>,</div><div class="line">    install_requires=requires,</div><div class="line">    license=<span class="string">'MIT'</span>,</div><div class="line">    zip_safe=<span class="keyword">False</span>,</div><div class="line">    platforms=<span class="string">'any'</span>,</div><div class="line">    classifiers=(</div><div class="line">        <span class="string">'Development Status :: 5 - Production/Stable'</span>,</div><div class="line">        <span class="string">'Intended Audience :: Developers'</span>,</div><div class="line">        <span class="string">'Natural Language :: English'</span>,</div><div class="line">        <span class="string">'License :: OSI Approved :: MIT License'</span>,</div><div class="line">        <span class="string">'Programming Language :: Python'</span>,</div><div class="line">        <span class="string">'Programming Language :: Python :: 2.7'</span>,</div><div class="line">        <span class="string">'Topic :: Software Development :: Libraries'</span>,</div><div class="line">        <span class="string">'Topic :: Software Development :: Libraries :: Python Modules'</span>,</div><div class="line">    ),</div><div class="line">)</div></pre></td></tr></table></figure>
+
+<p>当然大部分时候也不需要这么麻烦，简化的配置可以参考官方的文档。注意最下面那部分<code>classifiers</code>是按照<a href="https://pypi.python.org/pypi?:action=list_classifiers" target="_blank" rel="external">PyPI官方的列表填写</a>的。还有，如果有些文件想要额外打包进去，那么需要在根目录添加<code>MANIFEST.in</code>文件。</p>
+<ul>
+<li>打包代码</li>
+</ul>
+<figure class="highlight Bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ python setup.py sdist <span class="comment"># 生成pip支持的安装包</span></div><div class="line">$ python setup.py bdist_wheel <span class="comment"># 生成支持easy_install的安装包</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li><p>发布到PyPI上</p>
+<p>  首先在<a href="https://pypi.python.org/pypi" target="_blank" rel="external">PyPI</a>上<a href="https://pypi.python.org/pypi?%3Aaction=register_form" target="_blank" rel="external">注册</a>一个帐号，然后进行下面两步：</p>
+<ul>
+<li>注册package</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$ python setup.py register</div><div class="line">$ <span class="comment"># 在这一步会有一些提示，按照提示选择，输入自己帐号密码相关的信息即可</span></div><div class="line">$ <span class="comment"># 在提示你要不要保存帐号信息的时候，</span></div><div class="line">$ <span class="comment"># 你选择了‘y’，</span></div><div class="line">$ <span class="comment"># 则会在你的用户目录下生成一个 .pypirc 的文件，</span></div><div class="line">$ <span class="comment"># 其中明文保存着你的帐号和密码。</span></div></pre></td></tr></table></figure>
+
+<p>这里稍微再提一点，如果在提示是否保存账户信息的时候，选择了‘n’，想反悔了也没关系，我们可以手动创建一个<code>~/.pypirc</code>文件。格式如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="title">[distutils]</span></div><div class="line"><span class="setting">index-servers=<span class="value">pypi</span></span></div><div class="line"></div><div class="line"><span class="title">[pypi]</span></div><div class="line"><span class="setting">repository = <span class="value">https://pypi.python.org/pypi</span></span></div><div class="line"><span class="setting">username = <span class="value">your username</span></span></div><div class="line"><span class="setting">password = <span class="value">your password</span></span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>上传package</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ python setup.py sdist bdist_wheel upload</div></pre></td></tr></table></figure>
+
+<p>在上传完成提示<code>200</code>响应的时候，你就上传成功了，去PyPI上看看有没有上传成功的包，并且试着用<code>pip</code>进行安装吧！</p>
+<p>这里我省略了一步，就是发布前的测试，你可以使用<a href="https://testpypi.python.org/pypi" target="_blank" rel="external">PyPI的测试服务器</a>进行测试发布，发布到这里的包并不会对你正式发布有任何影响。</p>
+<h2 id="项目托管在Github上">项目托管在Github上</h2>
+<p>开源到Github上后，就是继续维护和开发，这点就不多说了。</p>
+<h2 id="开发相关">开发相关</h2>
+<p>建议使用<code>virtualenv</code>之类的工具构建纯净的环境，重复的动作交给<code>Make</code>之类的工具。</p>
+<p>这篇算是一个小小的总结加备忘吧，经验尚缺，还望指正。</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<blockquote>
-<p>并没有太多经验，做个备忘，也希望可以帮到别人。<br>先挖坑，尚未填。</p>
+<p>并没有太多经验，做个备忘，也希望可以帮到别人。</p>
 </blockquote>
 <h2 id="目录结构（初始化）">目录结构（初始化）</h2>
-<h2 id="测试">测试</h2>
-<h2 id="文档">文档</]]>
+<p>一般我们都会选择在项目的顶层包含较基础的文件，比如<code>setup.py</code]]>
     </summary>
     
       <category term="pip" scheme="http://moelove.info/tags/pip/"/>
