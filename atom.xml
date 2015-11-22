@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不忘初心]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://moelove.info/"/>
-  <updated>2015-11-22T15:30:37.125Z</updated>
+  <updated>2015-11-22T15:32:18.134Z</updated>
   <id>http://moelove.info/</id>
   
   <author>
@@ -19,9 +19,9 @@
     <link href="http://moelove.info/2015/10/26/%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%A7%BF%E5%8A%BF%E5%BC%80%E6%BA%90Python%E9%A1%B9%E7%9B%AE/"/>
     <id>http://moelove.info/2015/10/26/用正确的姿势开源Python项目/</id>
     <published>2015-10-26T14:17:36.000Z</published>
-    <updated>2015-11-22T15:30:20.000Z</updated>
+    <updated>2015-11-22T15:32:13.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
-<p>并没有太多经验，做个备忘，也希望可以帮到别人。</p>
+<p>做个备忘，也希望可以帮到别人。</p>
 </blockquote>
 <h2 id="目录结构（初始化）">目录结构（初始化）</h2>
 <p>一般我们都会选择在项目的顶层包含较基础的文件，比如<code>setup.py</code>，<code>requirements</code>，<code>README</code>等文件。<br>一般情况下，一个预发布的Python项目中应该包含以下几类文件：</p>
@@ -130,10 +130,10 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<blockquote>
-<p>并没有太多经验，做个备忘，也希望可以帮到别人。</p>
+<p>做个备忘，也希望可以帮到别人。</p>
 </blockquote>
 <h2 id="目录结构（初始化）">目录结构（初始化）</h2>
-<p>一般我们都会选择在项目的顶层包含较基础的文件，比如<code>setup.py</code]]>
+<p>一般我们都会选择在项目的顶层包含较基础的文件，比如<code>setup.py</code>，<code>]]>
     </summary>
     
       <category term="pip" scheme="http://moelove.info/tags/pip/"/>
