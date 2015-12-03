@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不忘初心]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://moelove.info/"/>
-  <updated>2015-12-03T15:52:10.389Z</updated>
+  <updated>2015-12-03T15:55:17.498Z</updated>
   <id>http://moelove.info/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://moelove.info/2015/11/28/JSLint-JSHint-ESLint%E5%AF%B9%E6%AF%94%E5%92%8CVim%E9%85%8D%E7%BD%AE/"/>
     <id>http://moelove.info/2015/11/28/JSLint-JSHint-ESLint对比和Vim配置/</id>
     <published>2015-11-28T15:43:49.000Z</published>
-    <updated>2015-12-03T15:52:02.000Z</updated>
+    <updated>2015-12-03T15:55:08.000Z</updated>
     <content type="html"><![CDATA[<p>最近在用<code>React</code>写项目，但是<a href="https://github.com/tao12345666333/vim" target="_blank" rel="external">我的Vim配置</a>之前并没有配置对<code>JSX</code>和<code>ES6</code>的支持，然后看着那堆报错各种不爽了，于是还是要继续折腾，顺便也增加了点知识，记录一下。</p>
 <h1 id="主流的JS_Lint工具及介绍">主流的JS Lint工具及介绍</h1>
 <p><a href="https://en.wikipedia.org/wiki/JavaScript" target="_blank" rel="external">JavaScript</a>已经发展蛮长时间了，对应的Lint工具也是层出不穷，下面介绍一下比较主流的几个Lint工具(其实是我用过的几个XD)</p>
@@ -73,7 +73,7 @@
 <li><strong>慢</strong> (它比其他两个都要慢)</li>
 </ul>
 <h1 id="Vim支持">Vim支持</h1>
-<p>我们都使用<code>Syntastic</code>来配置</p>
+<p>我们都使用<a href="https://github.com/scrooloose/syntastic" target="_blank" rel="external"><code>Syntastic</code></a>来配置</p>
 <h2 id="JSLint的Vim配置">JSLint的Vim配置</h2>
 <p>有一个<a href="https://github.com/hallettj/jslint.vim" target="_blank" rel="external">jslint.vim</a>当然版本太老了。。我们不用这种方式做。</p>
 <ul>
