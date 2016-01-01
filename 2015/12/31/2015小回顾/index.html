@@ -4,28 +4,24 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>cat 命令研究 | MoeLove</title>
+    <title>2015小回顾 | MoeLove</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="TaoBeier">
     
-    <meta name="description" content="有人问我关于centos里面使用cat命令的问题，我在这里简单记录一下。在linux下，cat应该是使用最频繁的命令之一了吧。
+    <meta name="description" content="时间过得很快2015年最后一天。 还是继续给自己做个总结吧。 去年也有做总结，不过没有发布到Blog罢了。
+2015年初在公司定了两个主要目标:
 
-cat命令在Linux作以下用途：
+对工具的打磨
+计算机图形学
 
-在屏幕上显示文本文件。
-复制文本文件。
-合并文本文件。
-创建新的文本文件。
-
-cat命令支持的语法如下：
-1234cat filen">
+第一个目标算是基本完成，现在在用的工具都很顺手，效率能提升很多，而且用起来也很爽！现在也还会再尝试一些其他的工具，或者提升">
     
     
     
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="BeierTao" />
-    <meta name="twitter:title" content="cat 命令研究 | MoeLove" />
+    <meta name="twitter:title" content="2015小回顾 | MoeLove" />
       
     
     
@@ -87,15 +83,15 @@ cat命令支持的语法如下：
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2013/03/20/cat-命令研究/" title="cat 命令研究" itemprop="url">cat 命令研究</a>
+      <a href="/2015/12/31/2015小回顾/" title="2015小回顾" itemprop="url">2015小回顾</a>
   </h1>
   <p class="article-author">By
     
       <a href="https://plus.google.com/111099802544541897352?rel=author" title="TaoBeier" target="_blank" itemprop="author">TaoBeier</a>
     </p>
   <p class="article-time">
-    <time datetime="2013-03-20T13:24:20.000Z" itemprop="datePublished">2013-03-20</time>
-    更新日期:<time datetime="2015-11-21T13:00:11.000Z" itemprop="dateModified">2015-11-21</time>
+    <time datetime="2015-12-30T16:00:00.000Z" itemprop="datePublished">2015-12-31</time>
+    更新日期:<time datetime="2016-01-01T11:28:41.000Z" itemprop="dateModified">2016-01-1</time>
     
   </p>
 </header>
@@ -104,59 +100,65 @@ cat命令支持的语法如下：
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#cat命令在Linux作以下用途："><span class="toc-number">1.</span> <span class="toc-text">cat命令在Linux作以下用途：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cat命令支持的语法如下："><span class="toc-number">2.</span> <span class="toc-text">cat命令支持的语法如下：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#显示文件的内容："><span class="toc-number">2.1.</span> <span class="toc-text">显示文件的内容：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#串联文件："><span class="toc-number">2.2.</span> <span class="toc-text">串联文件：</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#收获"><span class="toc-number">1.</span> <span class="toc-text">收获</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li></ol>
 		</div>
 		
-		<blockquote>
-<p>有人问我关于centos里面使用cat命令的问题，我在这里简单记录一下。<br>在linux下，cat应该是使用最频繁的命令之一了吧。</p>
-</blockquote>
-<h3 id="cat命令在Linux作以下用途：">cat命令在Linux作以下用途：</h3>
+		<p>时间过得很快2015年最后一天。 还是继续给自己做个总结吧。 去年也有做总结，不过没有发布到Blog罢了。</p>
+<p>2015年初在公司定了两个主要目标:</p>
 <ul>
-<li>在屏幕上显示文本文件。</li>
-<li>复制文本文件。</li>
-<li>合并文本文件。</li>
-<li>创建新的文本文件。</li>
+<li>对工具的打磨</li>
+<li>计算机图形学</li>
 </ul>
-<h3 id="cat命令支持的语法如下：">cat命令支持的语法如下：</h3>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">cat</span> filename</div><div class="line"><span class="keyword">cat</span> <span class="keyword">options</span> filename</div><div class="line"><span class="keyword">cat</span> file1 file2</div><div class="line"><span class="keyword">cat</span> file1 file2 &gt; newcombinedfile</div></pre></td></tr></table></figure>
-
-<h4 id="显示文件的内容：">显示文件的内容：</h4>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">cat</span> /tmp/test</div></pre></td></tr></table></figure>
-
-<p>上面的命令就是查看文件<code>/tmp/test</code>的内容，把内容输出到屏幕。<br>但是也可以使用</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="input"><span class="prompt">cat /tmp/test &gt;</span> /tmp/test2</span></div></pre></td></tr></table></figure>
-
-<p>使用上面的命令，可以把文件内容<strong><a href="http://linux-wiki.cn/wiki/zh-hans/Bash%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91" target="_blank" rel="external">重定向</a></strong>到/tmp/test2文件中</p>
-<h4 id="串联文件：">串联文件：</h4>
-<p>串联文件是把文件内容一起输出，但是不会改变源文件的内容</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat <span class="regexp">/tmp/</span>test1 <span class="regexp">/tmp/</span>test2 <span class="regexp">/tmp/</span>test3</div></pre></td></tr></table></figure>
-
-<p>以上命令会将/tmp 目录下的 test1 ,test2 ,test3 三个文件的内容一起输出，当然也可以使用重定向命令查看输出内容</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat <span class="regexp">/tmp/</span>test1 <span class="regexp">/tmp/</span>test2 <span class="regexp">/tmp/</span>test3 &gt;<span class="regexp">/tmp/</span>testoutputs</div></pre></td></tr></table></figure>
-
-<p>重定向至/tmp 下的testoutputs 文件中</p>
-<p>当然查看的时候可以配合管道命令使用</p>
-<p><code>cat /tmp/test1 /tmp/test2 /tmp/test3 | less</code></p>
+<p>第一个目标算是基本完成，现在在用的工具都很顺手，效率能提升很多，而且用起来也很爽！现在也还会再尝试一些其他的工具，或者提升现在使用的工具的便利性。有时间的话可以写篇文章介绍一下。第二个目标目前没有什么进展，可以考虑是不是要留到今年了XD，当然还有一些其他自己定的目标基本完成，大致写写自己的收获好了。</p>
+<h2 id="收获">收获</h2>
+<p>(大致按照时间来写吧)</p>
+<ul>
+<li>读了一部分 <code>Nginx</code> 的源码，算是对Nginx有了比以前更深入的认识，但是现在回过头来再重新审视的话，发现对它的理解还远远不够，还需要继续深入。</li>
+<li>学习了 <code>Haskell</code>, Haskell我觉得是一门非常棒的语言，非常值得学习，通过对这门语言的学习，改变了我的一些思维方式。除了用它写过一些小程序以外，还没能在工程中大量使用，今后继续加油，尽量引入到工程中～</li>
+<li>学习了 <code>Node.js</code>, 同样的还缺乏工程中的实践</li>
+<li>学习了 <code>Backbone.js</code>,<code>AngularJS</code> 和 <code>ReactJS</code>. Backbone记忆中应该是5月份左右学习的，ReactJS要晚很多。写Backbone的时候想起来了之前用过的<code>Riot</code>, 轻量，随意，但是要写完整的应用相比AngularJS之类的要写很多代码。</li>
+<li>开源了<a href="https://pypi.python.org/pypi/qyweixin" target="_blank" rel="external">qyweixin</a>和一个<a href="https://pypi.python.org/pypi/httpmultipart" target="_blank" rel="external">HTTPmultipart</a>的库，下载量各自也都已经几千了，上次在评论中也看到确实有人在使用～ 还是蛮开心的啦！</li>
+<li>学会了使用 <code>Docker</code>，也准备学习一些内部机制之类的东西。</li>
+<li>还在翻译中的<a href="https://tornado-zh.readthedocs.org/" target="_blank" rel="external">Tornado 4.3文档</a>也会尽快抽时间翻译完成的.</li>
+<li>此外还有学习了<code>Lua</code>和正在深入学习的<code>Shell</code>，还有一系列的框架和库, 正在用来写一些自己的小东西。</li>
+<li>1383 Contributions.</li>
+<li>运营了公众号 <code>TheMoeLove</code></li>
+</ul>
+<p>还有一些目前还无法放入<em>收获</em>这一项中的东西，在2016年尽量都再多积累一些。</p>
+<p>另外，下面这部分也非常的重要！</p>
+<ul>
+<li>认识了很多好玩的小伙伴，从他们那里也学到了很多东西</li>
+<li>工作中同事们都很好，感谢给予的帮助～</li>
+</ul>
+<h2 id="总结">总结</h2>
+<ul>
+<li>学会拒绝。一些事情是可以容忍的，但是要遵守原则，也要考虑时间成本和效率问题。</li>
+<li>学习和思考。这一年之间其实学到的东西也蛮多的，只不过有些东西没能在工程实践中应用，效果不是很明显。多思考，做个靠谱的人，尽量不在相同的地方摔倒两次。</li>
+<li>多读书</li>
+<li>尝试新东西</li>
+<li>多深入一些。浅尝辄止不是应该有的状态。</li>
+<li>合理安排追番时间 2333</li>
+</ul>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Linux/">Linux</a>
+  <span></span> <a href="/tags/Life/">Life</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/Linux/">Linux</a>
+  <a class="article-category-link" href="/categories/Life/">Life</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://moelove.info/2013/03/20/cat-命令研究/" data-title="cat 命令研究 | MoeLove" data-tsina="1581898810" class="share clearfix">
+  <div data-url="http://moelove.info/2015/12/31/2015小回顾/" data-title="2015小回顾 | MoeLove" data-tsina="1581898810" class="share clearfix">
   </div>
 
 </div>
@@ -165,19 +167,11 @@ cat命令支持的语法如下：
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2013/08/07/LAMP环境的快速搭建/" title="LAMP环境的快速搭建">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  LAMP环境的快速搭建</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2013/03/09/fedora安装后最初的事情/"  title="fedora安装后最初的事情">
+<a href="/2015/11/28/JSLint-JSHint-ESLint对比和Vim配置/"  title="JSLint,JSHint,ESLint对比和Vim配置">
  <strong>NEXT:</strong><br/> 
- <span>fedora安装后最初的事情
+ <span>JSLint,JSHint,ESLint对比和Vim配置
 </span>
 </a>
 </div>
@@ -194,7 +188,7 @@ cat命令支持的语法如下：
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#cat命令在Linux作以下用途："><span class="toc-number">1.</span> <span class="toc-text">cat命令在Linux作以下用途：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cat命令支持的语法如下："><span class="toc-number">2.</span> <span class="toc-text">cat命令支持的语法如下：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#显示文件的内容："><span class="toc-number">2.1.</span> <span class="toc-text">显示文件的内容：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#串联文件："><span class="toc-number">2.2.</span> <span class="toc-text">串联文件：</span></a></li></ol></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#收获"><span class="toc-number">1.</span> <span class="toc-text">收获</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li></ol>
   </div>
 
 <div id="asidepart">

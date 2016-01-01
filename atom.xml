@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不忘初心]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://moelove.info/"/>
-  <updated>2015-12-11T14:03:25.375Z</updated>
+  <updated>2016-01-01T11:28:48.525Z</updated>
   <id>http://moelove.info/</id>
   
   <author>
@@ -13,6 +13,65 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[2015小回顾]]></title>
+    <link href="http://moelove.info/2015/12/31/2015%E5%B0%8F%E5%9B%9E%E9%A1%BE/"/>
+    <id>http://moelove.info/2015/12/31/2015小回顾/</id>
+    <published>2015-12-30T16:00:00.000Z</published>
+    <updated>2016-01-01T11:28:41.000Z</updated>
+    <content type="html"><![CDATA[<p>时间过得很快2015年最后一天。 还是继续给自己做个总结吧。 去年也有做总结，不过没有发布到Blog罢了。</p>
+<p>2015年初在公司定了两个主要目标:</p>
+<ul>
+<li>对工具的打磨</li>
+<li>计算机图形学</li>
+</ul>
+<p>第一个目标算是基本完成，现在在用的工具都很顺手，效率能提升很多，而且用起来也很爽！现在也还会再尝试一些其他的工具，或者提升现在使用的工具的便利性。有时间的话可以写篇文章介绍一下。第二个目标目前没有什么进展，可以考虑是不是要留到今年了XD，当然还有一些其他自己定的目标基本完成，大致写写自己的收获好了。</p>
+<h2 id="收获">收获</h2>
+<p>(大致按照时间来写吧)</p>
+<ul>
+<li>读了一部分 <code>Nginx</code> 的源码，算是对Nginx有了比以前更深入的认识，但是现在回过头来再重新审视的话，发现对它的理解还远远不够，还需要继续深入。</li>
+<li>学习了 <code>Haskell</code>, Haskell我觉得是一门非常棒的语言，非常值得学习，通过对这门语言的学习，改变了我的一些思维方式。除了用它写过一些小程序以外，还没能在工程中大量使用，今后继续加油，尽量引入到工程中～</li>
+<li>学习了 <code>Node.js</code>, 同样的还缺乏工程中的实践</li>
+<li>学习了 <code>Backbone.js</code>,<code>AngularJS</code> 和 <code>ReactJS</code>. Backbone记忆中应该是5月份左右学习的，ReactJS要晚很多。写Backbone的时候想起来了之前用过的<code>Riot</code>, 轻量，随意，但是要写完整的应用相比AngularJS之类的要写很多代码。</li>
+<li>开源了<a href="https://pypi.python.org/pypi/qyweixin" target="_blank" rel="external">qyweixin</a>和一个<a href="https://pypi.python.org/pypi/httpmultipart" target="_blank" rel="external">HTTPmultipart</a>的库，下载量各自也都已经几千了，上次在评论中也看到确实有人在使用～ 还是蛮开心的啦！</li>
+<li>学会了使用 <code>Docker</code>，也准备学习一些内部机制之类的东西。</li>
+<li>还在翻译中的<a href="https://tornado-zh.readthedocs.org/" target="_blank" rel="external">Tornado 4.3文档</a>也会尽快抽时间翻译完成的.</li>
+<li>此外还有学习了<code>Lua</code>和正在深入学习的<code>Shell</code>，还有一系列的框架和库, 正在用来写一些自己的小东西。</li>
+<li>1383 Contributions.</li>
+<li>运营了公众号 <code>TheMoeLove</code></li>
+</ul>
+<p>还有一些目前还无法放入<em>收获</em>这一项中的东西，在2016年尽量都再多积累一些。</p>
+<p>另外，下面这部分也非常的重要！</p>
+<ul>
+<li>认识了很多好玩的小伙伴，从他们那里也学到了很多东西</li>
+<li>工作中同事们都很好，感谢给予的帮助～</li>
+</ul>
+<h2 id="总结">总结</h2>
+<ul>
+<li>学会拒绝。一些事情是可以容忍的，但是要遵守原则，也要考虑时间成本和效率问题。</li>
+<li>学习和思考。这一年之间其实学到的东西也蛮多的，只不过有些东西没能在工程实践中应用，效果不是很明显。多思考，做个靠谱的人，尽量不在相同的地方摔倒两次。</li>
+<li>多读书</li>
+<li>尝试新东西</li>
+<li>多深入一些。浅尝辄止不是应该有的状态。</li>
+<li>合理安排追番时间 2333</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>时间过得很快2015年最后一天。 还是继续给自己做个总结吧。 去年也有做总结，不过没有发布到Blog罢了。</p>
+<p>2015年初在公司定了两个主要目标:</p>
+<ul>
+<li>对工具的打磨</li>
+<li>计算机图形学</li>
+</ul>
+<p>第一个目标算是]]>
+    </summary>
+    
+      <category term="Life" scheme="http://moelove.info/tags/Life/"/>
+    
+      <category term="Life" scheme="http://moelove.info/categories/Life/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[JSLint,JSHint,ESLint对比和Vim配置]]></title>
@@ -1180,45 +1239,6 @@
     </summary>
     
       <category term="BAE" scheme="http://moelove.info/tags/BAE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[fedora下安装sublime text 2的方法]]></title>
-    <link href="http://moelove.info/2013/08/30/fedora%E4%B8%8B%E5%AE%89%E8%A3%85sublime-text-2%E7%9A%84%E6%96%B9%E6%B3%95/"/>
-    <id>http://moelove.info/2013/08/30/fedora下安装sublime-text-2的方法/</id>
-    <published>2013-08-30T13:36:09.000Z</published>
-    <updated>2014-10-15T13:37:58.000Z</updated>
-    <content type="html"><![CDATA[<h3 id="首先去官网下载最新的压缩包">首先去<a href="http://www.sublimetext.com/" target="_blank" rel="external">官网</a>下载最新的压缩包</h3>
-<ul>
-<li>把文件解压到$HOME/.sublime_text_2文件夹中：</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tar -xf (sublime压缩包的文件名).tar.bz2</div><div class="line"><span class="built_in">sudo</span> mv (解压后的文件夹) tools/Sublime_Text_2</div></pre></td></tr></table></figure>
-
-<ul>
-<li>在/usr/bin目录下面创建一个链接</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">vim</span> sublime</div></pre></td></tr></table></figure>
-
-<p>在文件中写入这些代码：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="shebang">#!/bin/bash</span></div><div class="line"><span class="keyword">export</span> SUBLIME_HOME=<span class="string">"~/tools/Sublime_Text_2"</span></div><div class="line"></div><div class="line"><span class="variable">$SUBLIME_HOME</span>/sublime_text $*</div></pre></td></tr></table></figure>
-
-<p>修改文件权限并且移动</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chmod <span class="number">555</span> sublime && mv sublime <span class="regexp">/usr/</span>bin<span class="regexp">/sublime</span></div></pre></td></tr></table></figure>
-
-<p>这样就可以在终端中直接执行sublime了</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h3 id="首先去官网下载最新的压缩包">首先去<a href="http://www.sublimetext.com/" target="_blank" rel="external">官网</a>下载最新的压缩包</h3>
-<ul>
-<li>把文件解压到$HOME/.sub]]>
-    </summary>
-    
-      <category term="Linux" scheme="http://moelove.info/tags/Linux/"/>
-    
-      <category term="Sbulime Text" scheme="http://moelove.info/tags/Sbulime-Text/"/>
-    
-      <category term="Linux" scheme="http://moelove.info/categories/Linux/"/>
     
   </entry>
   
