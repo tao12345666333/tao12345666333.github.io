@@ -8,30 +8,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="匹配中文的正则表达式窝写了一小段代码（虽然写的不太好，但是基本可以表达意思）
 
-
-12345678import renickname = raw_input(&amp;apos;Please input your nickname &amp;gt; &amp;apos;)if not re.search(u&amp;apos;^[\u4e00-\u9fa5a-zA-Z0-9]+$&amp;apos;, unicode(nickname,">
+12345678import renickname = raw_input(&amp;apos;Please input your nickname &amp;gt; &amp;apos;)if not re.search(u&amp;apos;^[\u4e00-\u9fa5a-zA-Z0-9]+$&amp;apos;, unicode(nickname,&amp;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="正则匹配中文及字符编码问题">
 <meta property="og:url" content="http://moelove.info/2014/07/22/正则匹配中文及字符编码问题/index.html">
 <meta property="og:site_name" content="MoeLove">
 <meta property="og:description" content="匹配中文的正则表达式窝写了一小段代码（虽然写的不太好，但是基本可以表达意思）
 
-
-12345678import renickname = raw_input(&amp;apos;Please input your nickname &amp;gt; &amp;apos;)if not re.search(u&amp;apos;^[\u4e00-\u9fa5a-zA-Z0-9]+$&amp;apos;, unicode(nickname,">
+12345678import renickname = raw_input(&amp;apos;Please input your nickname &amp;gt; &amp;apos;)if not re.search(u&amp;apos;^[\u4e00-\u9fa5a-zA-Z0-9]+$&amp;apos;, unicode(nickname,&amp;">
 <meta property="og:image" content="http://moelove.qiniudn.com/2014-07-23%2023:21.png">
-<meta property="og:updated_time" content="2016-04-03T14:47:51.549Z">
+<meta property="og:updated_time" content="2016-04-03T16:04:59.653Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="正则匹配中文及字符编码问题">
 <meta name="twitter:description" content="匹配中文的正则表达式窝写了一小段代码（虽然写的不太好，但是基本可以表达意思）
 
-
-12345678import renickname = raw_input(&amp;apos;Please input your nickname &amp;gt; &amp;apos;)if not re.search(u&amp;apos;^[\u4e00-\u9fa5a-zA-Z0-9]+$&amp;apos;, unicode(nickname,">
+12345678import renickname = raw_input(&amp;apos;Please input your nickname &amp;gt; &amp;apos;)if not re.search(u&amp;apos;^[\u4e00-\u9fa5a-zA-Z0-9]+$&amp;apos;, unicode(nickname,&amp;">
 <meta name="twitter:image" content="http://moelove.qiniudn.com/2014-07-23%2023:21.png">
   
     <link rel="alternative" href="/atom.xml" title="MoeLove" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/img/favicon.ico">
   
   <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -249,8 +246,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="匹配中文的正则表达式"><a href="#匹配中文的正则表达式" class="headerlink" title="匹配中文的正则表达式"></a>匹配中文的正则表达式</h2><p>窝写了一小段<a href="http://moelove.qiniudn.com/regex-match-Chinese.py" target="_blank" rel="external">代码</a>（虽然写的不太好，但是基本可以表达意思）</p>
-<script src="https://gist.github.com/tao12345666333/13edb463b04da758dade.js"></script>
-
+<!--<script src="https://gist.github.com/tao12345666333/13edb463b04da758dade.js"></script>-->
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"></span><br><span class="line">nickname = raw_input(&apos;Please input your nickname &gt; &apos;)</span><br><span class="line"></span><br><span class="line">if not re.search(u&apos;^[\u4e00-\u9fa5a-zA-Z0-9]+$&apos;, unicode(nickname,&apos;utf8&apos;)):</span><br><span class="line">    print &apos;Your nickname format is error, please try again !&apos;</span><br><span class="line">else:</span><br><span class="line">    print &apos;Hello %s&apos;% nickname</span><br></pre></td></tr></table></figure>
 <p>如你所见，上面第5行的代码，就是匹配中文和字母，数字的正则表达式了。里面的<code>\u4e00-\u9fa5</code> 就是中文汉字的<code>unicode</code>编码所在位置。</p>
 <p><img src="http://moelove.qiniudn.com/2014-07-23%2023:21.png" alt="运行截图"></p>
