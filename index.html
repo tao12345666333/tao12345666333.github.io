@@ -1,462 +1,1270 @@
-
- <!DOCTYPE HTML>
-<html lang="zh-CN">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   
-    <title>MoeLove</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
-    
-    <meta name="author" content="TaoBeier">
-    
-    <meta name="description" content="TaoBeier&#39;s Blog MoeLove">
-    
-    
-    
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="BeierTao" />
-    <meta name="twitter:title" content="MoeLove" />
-      
-    
-    
-    <link rel="alternate" href="/atom.xml" title="MoeLove" type="application/atom+xml">
-    
-    
-    <link rel="icon" href="/img/favicon.ico">
-    
-    
-    <link rel="apple-touch-icon" href="/img/pacman.jpg">
-    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
-    
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
-
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>MoeLove</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="TaoBeier&apos;s Blog MoeLove">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MoeLove">
+<meta property="og:url" content="http://moelove.info/index.html">
+<meta property="og:site_name" content="MoeLove">
+<meta property="og:description" content="TaoBeier&apos;s Blog MoeLove">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MoeLove">
+<meta name="twitter:description" content="TaoBeier&apos;s Blog MoeLove">
+  
+    <link rel="alternative" href="/atom.xml" title="MoeLove" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 
-  <body>
-    <header>
-      <div>
-		
-			<div id="imglogo">
-				<a href="/"><img src="/img/logo.svg" alt="MoeLove" title="MoeLove"/></a>
-			</div>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
 			
-			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="MoeLove">MoeLove</a></h1>
-				<h2 class="blog-motto">不忘初心</h2>
+			<img lazy-src="/img/author.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">TaoBeier</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">不忘初心</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+					</ul>
+				</div>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
-			</a></div>
-			<nav class="animated">
-				<ul>
-					<ul>
-					 
-						<li><a href="/">Home</a></li>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">Home</a></li>
+				        
+							<li><a href="/archives">Archives</a></li>
+				        
+							<li><a href="/projects">Projects</a></li>
+				        
+							<li><a href="/about">About</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/tao12345666333" title="github">github</a>
+					        
+								<a class="google" target="_blank" href="https://plus.google.com/111099802544541897352" title="google">google</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/BeierTao" title="twitter">twitter</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/9020taobeier" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 16.67px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 13.33px;">DevOps</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 16.67px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/Pelican/" style="font-size: 16.67px;">Pelican</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/VIM/" style="font-size: 13.33px;">VIM</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/git/" style="font-size: 13.33px;">git</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
 					
-						<li><a href="/archives">Archives</a></li>
-					
-						<li><a href="/projects">Projects</a></li>
-					
-						<li><a href="/about">About</a></li>
-					
-					<li>
-					
-					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
-						<label>Search</label>
-						<input type="text" id="search" autocomplete="off" name="q" maxlength="20" placeholder="搜索" />
-					</form>
-					
-					</li>
-				</ul>
-			</nav>			
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://hexo.io/">Hexo</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.flygon.net/">龙哥盟</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://blog.andyxu.me/">神岸あかり</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.cee.moe/">Cee总</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
 </div>
 
-    </header>
-    <div id="container">
-      <div id="main">
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/12/31/2015小回顾/" title="2015小回顾" itemprop="url">
-  
-    <h1 itemprop="name">2015小回顾</h1>
-    
-     
-           <p itemprop="description" >时间过得很快2015年最后一天。 还是继续给自己做个总结吧。 去年也有做总结，不过没有发布到Blog罢了。
-2015年初在公司定了两个主要目标:
-
-对工具的打磨
-计算机图形学
-
-第一个目标算是基本完成，现在在用的工具都很顺手，效率能提升很多，而且用起来也很爽！现在也还会再尝试一些</p>
-        
-    
-    <time datetime="2015-12-30T16:00:00.000Z" itemprop="datePublished">2015-12-31</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/11/28/JSLint-JSHint-ESLint对比和Vim配置/" title="JSLint,JSHint,ESLint对比和Vim配置" itemprop="url">
-  
-    <h1 itemprop="name">JSLint,JSHint,ESLint对比和Vim配置</h1>
-    
-     
-           <p itemprop="description" >最近在用React写项目，但是我的Vim配置之前并没有配置对JSX和ES6的支持，然后看着那堆报错各种不爽了，于是还是要继续折腾，顺便也增加了点知识，记录一下。
-主流的JS Lint工具及介绍
-JavaScript已经发展蛮长时间了，对应的Lint工具也是层出不穷，下面介绍一下比</p>
-        
-    
-    <time datetime="2015-11-28T15:43:49.000Z" itemprop="datePublished">2015-11-28</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/10/26/用正确的姿势开源Python项目/" title="用正确的姿势开源Python项目" itemprop="url">
-  
-    <h1 itemprop="name">用正确的姿势开源Python项目</h1>
-    
-     
-           <p itemprop="description" >做个备忘，也希望可以帮到别人。
-
-目录结构（初始化）
-一般我们都会选择在项目的顶层包含较基础的文件，比如setup.py，requirements，README等文件。一般情况下，一个预发布的Python项目中应该包含以下几类文件：
-
-projects (项目的主体文件)
-set</p>
-        
-    
-    <time datetime="2015-10-26T14:17:36.000Z" itemprop="datePublished">2015-10-26</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/10/16/对监控系统的思考/" title="对监控系统的思考" itemprop="url">
-  
-    <h1 itemprop="name">对监控系统的思考</h1>
-    
-     
-           <p itemprop="description" >近期在做运维监控方面的事情，也研究了一下其他人是如何做的。把自己的想法做个总结记录一下吧。
-
-监控期望的目标
-
-及时发现
-
-
-需要的是即时监控并报警
-
-
-及时定位
-
-
-定位问题要分开讲
-
-运维层面
-
-是机器硬件问题还是上面运行的基础服务的问题，或者是新上线代码的问题，需要回滚。
-</p>
-        
-    
-    <time datetime="2015-10-15T16:59:01.000Z" itemprop="datePublished">2015-10-16</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/10/13/Open-Falcon监控系统部署/" title="Open-Falcon监控系统部署" itemprop="url">
-  
-    <h1 itemprop="name">Open-Falcon监控系统部署</h1>
-    
-     
-           <p itemprop="description" >本文并不分析Open-Falcon的架构或者选用它的原因，官方的文档在这里，虽然还不够完善。不过这也是我写这篇的原因，官方文档并没能把整个部署过程连在一起，而且个别地方有点问题。我在这篇文章中就不介绍各个组件的作用和功能了，只是单纯的介绍如何从零部署。
-
-安装
-下载
-
-
-1wge</p>
-        
-    
-    <time datetime="2015-10-13T13:01:00.000Z" itemprop="datePublished">2015-10-13</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/09/13/源码编译MongoDB/" title="源码编译MongoDB" itemprop="url">
-  
-    <h1 itemprop="name">源码编译MongoDB</h1>
-    
-     
-           <p itemprop="description" >上周放假正好有时间，编译安装了MongoDB，虽然MongoDB用了挺长时间的，但还是第一次用源码编译。在此做个备忘。因为已经完整编译安装过了，所以写起来的时候，就按照先知视角来写了～ 2333
-
-下载MongoDB源码
-MongoDB的官网上是有已经编译好的二进制包的，这里选择</p>
-        
-    
-    <time datetime="2015-09-13T13:28:43.000Z" itemprop="datePublished">2015-09-13</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/07/21/重置Ghost博客的密码/" title="重置Ghost博客的密码" itemprop="url">
-  
-    <h1 itemprop="name">重置Ghost博客的密码</h1>
-    
-     
-           <p itemprop="description" >在搭建Ghost博客的时候，尚未配置mail服务器时，重置密码的方法做个记录
-
-打开数据库查看用户信息
-如果全部默认设置，使用生产环境的话，应该是sqlite3 content/data/ghost.db
-如果是开发环境应该是sqlite3 content/date/ghost-</p>
-        
-    
-    <time datetime="2015-07-21T15:11:04.000Z" itemprop="datePublished">2015-07-21</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2015/03/17/3-17/" title="3.17" itemprop="url">
-  
-    <h1 itemprop="name">3.17</h1>
-    
-     
-           <p itemprop="description" >8小时内求生存
-8小时外求发展</p>
-        
-    
-    <time datetime="2015-03-16T16:34:34.000Z" itemprop="datePublished">2015-03-17</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2014/10/16/近况/" title="近况" itemprop="url">
-  
-    <h1 itemprop="name">近况</h1>
-    
-     
-           <p itemprop="description" >博客好长时间没有更新了，今天抽空大致来说一下近况吧
-
-工作
-用这个标题的话，其实感觉想写的确实好多，但是还是挑一些比较重要的来说吧。现在的公司说实话还确实没有让我失望，工位上配的是一个 22寸的 AOC 显示器和一个24寸的 Dell 显示器， 主机内存 12G （我每天跑个Li</p>
-        
-    
-    <time datetime="2014-10-16T15:34:39.000Z" itemprop="datePublished">2014-10-16</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2014/07/22/正则匹配中文及字符编码问题/" title="正则匹配中文及字符编码问题" itemprop="url">
-  
-    <h1 itemprop="name">正则匹配中文及字符编码问题</h1>
-    
-     
-           <p itemprop="description" >匹配中文的正则表达式
-窝写了一小段代码（虽然写的不太好，但是基本可以表达意思）
-
-
-12345678import renickname = raw_input(&#39;Please input your nickname &amp;gt; &#39;)if not re.search(u&#39;^[\u4e</p>
-        
-    
-    <time datetime="2014-07-22T13:16:34.000Z" itemprop="datePublished">2014-07-22</time>
-  </a>
-</section>
-
-
-  <nav id="page-nav" class="clearfix">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-  </nav>
-
-</div>
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
-
-<div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
-<aside class="clearfix">
-
-  
-<div class="categorieslist">
-	<p class="asidetitle">分类</p>
-		<ul>
-		
-			<li><a href="/categories/Life/" title="Life">Life<sup>3</sup></a></li>
-		
-			<li><a href="/categories/Linux/" title="Linux">Linux<sup>13</sup></a></li>
-		
-			<li><a href="/categories/Node/" title="Node">Node<sup>1</sup></a></li>
-		
-			<li><a href="/categories/Python/" title="Python">Python<sup>3</sup></a></li>
-		
-			<li><a href="/categories/Web/" title="Web">Web<sup>3</sup></a></li>
-		
-		</ul>
-</div>
-
-
-  
-<div class="tagslist">
-	<p class="asidetitle">标签</p>
-		<ul class="clearfix">
-		
-			<li><a href="/tags/Android/" title="Android">Android<sup>1</sup></a></li>
-		
-			<li><a href="/tags/BAE/" title="BAE">BAE<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Blog/" title="Blog">Blog<sup>3</sup></a></li>
-		
-			<li><a href="/tags/DevOps/" title="DevOps">DevOps<sup>2</sup></a></li>
-		
-			<li><a href="/tags/Go/" title="Go">Go<sup>1</sup></a></li>
-		
-			<li><a href="/tags/LAMP/" title="LAMP">LAMP<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Life/" title="Life">Life<sup>3</sup></a></li>
-		
-			<li><a href="/tags/Linux/" title="Linux">Linux<sup>11</sup></a></li>
-		
-			<li><a href="/tags/MongoDB/" title="MongoDB">MongoDB<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Open-Falcon/" title="Open-Falcon">Open-Falcon<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Pelican/" title="Pelican">Pelican<sup>3</sup></a></li>
-		
-			<li><a href="/tags/Rails/" title="Rails">Rails<sup>1</sup></a></li>
-		
-			<li><a href="/tags/React/" title="React">React<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Regex/" title="Regex">Regex<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Ruby/" title="Ruby">Ruby<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Sbulime-Text/" title="Sbulime Text">Sbulime Text<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Sublime-Text/" title="Sublime Text">Sublime Text<sup>1</sup></a></li>
-		
-			<li><a href="/tags/VIM/" title="VIM">VIM<sup>2</sup></a></li>
-		
-			<li><a href="/tags/Web/" title="Web">Web<sup>1</sup></a></li>
-		
-			<li><a href="/tags/git/" title="git">git<sup>2</sup></a></li>
-		
-		</ul>
-</div>
-
-
-  <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
-</div>
-
-  <div class="linkslist">
-  <p class="asidetitle">友情链接</p>
-    <ul>
-      <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
-      <li><a href="http://www.flygon.net/" target="_blank" title="龙哥盟">龙哥盟</a></li>
-      <li><a href="https://blog.andyxu.me/" target="_blank" title="神岸あかり">神岸あかり</a></li>
-      <li><a href="http://blog.cee.moe/" target="_blank" title="Cee Cirno">Cee总</a></li>
-    </ul>
-</div>
-
-
-</aside>
-</div>
     </div>
-    <footer><div id="footer" >
-	
-	<div class="line">
-		<span></span>
-		<div class="author"></div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">TaoBeier</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/img/author.png" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">TaoBeier</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">不忘初心</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">Home</a></li>
+		        
+					<li><a href="/archives">Archives</a></li>
+		        
+					<li><a href="/projects">Projects</a></li>
+		        
+					<li><a href="/about">About</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/tao12345666333" title="github">github</a>
+			        
+						<a class="google" target="_blank" href="https://plus.google.com/111099802544541897352" title="google">google</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/BeierTao" title="twitter">twitter</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/9020taobeier" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
 	</div>
-	
-	
-	<section class="info">
-		<p> Strive to do better <br/>
-			 Be Moe Be Love ! </p>
-	</section>
-	 
-	<div class="social-font" class="clearfix">
-		
-		<a href="http://weibo.com/9020taobeier" target="_blank" title="weibo"></a>
-		
-		
-		<a href="https://twitter.com/BeierTao" target="_blank" title="twitter"></a>
-		
-		
-		<a href="https://github.com/tao12345666333" target="_blank" title="github"></a>
-		
-		
-	</div>
-		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2016 
-		
-		<a href="http://moelove.info" target="_blank" title="TaoBeier">TaoBeier</a>
-		
-		</p>
-</div>
-</footer>
-    <script src="/js/jquery-2.1.0.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){ 
-  $('.navbar').click(function(){
-    $('header nav').toggleClass('shownav');
-  });
-  var myWidth = 0;
-  function getSize(){
-    if( typeof( window.innerWidth ) == 'number' ) {
-      myWidth = window.innerWidth;
-    } else if( document.documentElement && document.documentElement.clientWidth) {
-      myWidth = document.documentElement.clientWidth;
-    };
-  };
-  var m = $('#main'),
-      a = $('#asidepart'),
-      c = $('.closeaside'),
-      o = $('.openaside');
-  $(window).resize(function(){
-    getSize(); 
-    if (myWidth >= 1024) {
-      $('header nav').removeClass('shownav');
-    }else
-    {
-      m.removeClass('moveMain');
-      a.css('display', 'block').removeClass('fadeOut');
-      o.css('display', 'none');
+</nav>
+
+      <div class="body-wrap">
+  
+    <article id="post-2015小回顾" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/31/2015小回顾/" class="article-date">
+  	<time datetime="2015-12-30T16:00:00.000Z" itemprop="datePublished">2015-12-31</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
         
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/31/2015小回顾/">2015小回顾</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>时间过得很快2015年最后一天。 还是继续给自己做个总结吧。 去年也有做总结，不过没有发布到Blog罢了。</p>
+<p>2015年初在公司定了两个主要目标:</p>
+<ul>
+<li>对工具的打磨</li>
+<li>计算机图形学</li>
+</ul>
+<p>第一个目标算是基本完成，现在在用的工具都很顺手，效率能提升很多，而且用起来也很爽！现在也还会再尝试一些其他的工具，或者提升现在使用的工具的便利性。有时间的话可以写篇文章介绍一下。第二个目标目前没有什么进展，可以考虑是不是要留到今年了XD，当然还有一些其他自己定的目标基本完成，大致写写自己的收获好了。</p>
+<h2 id="收获"><a href="#收获" class="headerlink" title="收获"></a>收获</h2><p>(大致按照时间来写吧)</p>
+<ul>
+<li>读了一部分 <code>Nginx</code> 的源码，算是对Nginx有了比以前更深入的认识，但是现在回过头来再重新审视的话，发现对它的理解还远远不够，还需要继续深入。</li>
+<li>学习了 <code>Haskell</code>, Haskell我觉得是一门非常棒的语言，非常值得学习，通过对这门语言的学习，改变了我的一些思维方式。除了用它写过一些小程序以外，还没能在工程中大量使用，今后继续加油，尽量引入到工程中～</li>
+<li>学习了 <code>Node.js</code>, 同样的还缺乏工程中的实践</li>
+<li>学习了 <code>Backbone.js</code>,<code>AngularJS</code> 和 <code>ReactJS</code>. Backbone记忆中应该是5月份左右学习的，ReactJS要晚很多。写Backbone的时候想起来了之前用过的<code>Riot</code>, 轻量，随意，但是要写完整的应用相比AngularJS之类的要写很多代码。</li>
+<li>开源了<a href="https://pypi.python.org/pypi/qyweixin" target="_blank" rel="external">qyweixin</a>和一个<a href="https://pypi.python.org/pypi/httpmultipart" target="_blank" rel="external">HTTPmultipart</a>的库，下载量各自也都已经几千了，上次在评论中也看到确实有人在使用～ 还是蛮开心的啦！</li>
+<li>学会了使用 <code>Docker</code>，也准备学习一些内部机制之类的东西。</li>
+<li>还在翻译中的<a href="https://tornado-zh.readthedocs.org/" target="_blank" rel="external">Tornado 4.3文档</a>也会尽快抽时间翻译完成的.</li>
+<li>此外还有学习了<code>Lua</code>和正在深入学习的<code>Shell</code>，还有一系列的框架和库, 正在用来写一些自己的小东西。</li>
+<li>1383 Contributions.</li>
+<li>运营了公众号 <code>TheMoeLove</code></li>
+</ul>
+<p>还有一些目前还无法放入<em>收获</em>这一项中的东西，在2016年尽量都再多积累一些。</p>
+<p>另外，下面这部分也非常的重要！</p>
+<ul>
+<li>认识了很多好玩的小伙伴，从他们那里也学到了很多东西</li>
+<li>工作中同事们都很好，感谢给予的帮助～</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>学会拒绝。一些事情是可以容忍的，但是要遵守原则，也要考虑时间成本和效率问题。</li>
+<li>学习和思考。这一年之间其实学到的东西也蛮多的，只不过有些东西没能在工程实践中应用，效果不是很明显。多思考，做个靠谱的人，尽量不在相同的地方摔倒两次。</li>
+<li>多读书</li>
+<li>尝试新东西</li>
+<li>多深入一些。浅尝辄止不是应该有的状态。</li>
+<li>合理安排追番时间 2333</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Life/">Life</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Life/">Life</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-JSLint-JSHint-ESLint对比和Vim配置" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/28/JSLint-JSHint-ESLint对比和Vim配置/" class="article-date">
+  	<time datetime="2015-11-28T15:43:49.000Z" itemprop="datePublished">2015-11-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/28/JSLint-JSHint-ESLint对比和Vim配置/">JSLint,JSHint,ESLint对比和Vim配置</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近在用<code>React</code>写项目，但是<a href="https://github.com/tao12345666333/vim" target="_blank" rel="external">我的Vim配置</a>之前并没有配置对<code>JSX</code>和<code>ES6</code>的支持，然后看着那堆报错各种不爽了，于是还是要继续折腾，顺便也增加了点知识，记录一下。</p>
+<h1 id="主流的JS-Lint工具及介绍"><a href="#主流的JS-Lint工具及介绍" class="headerlink" title="主流的JS Lint工具及介绍"></a>主流的JS Lint工具及介绍</h1><p><a href="https://en.wikipedia.org/wiki/JavaScript" target="_blank" rel="external">JavaScript</a>已经发展蛮长时间了，对应的Lint工具也是层出不穷，下面介绍一下比较主流的几个Lint工具(其实是我用过的几个XD)</p>
+<h2 id="JSLint"><a href="#JSLint" class="headerlink" title="JSLint"></a>JSLint</h2><p><a href="https://en.wikipedia.org/wiki/JSLint" target="_blank" rel="external">JSLint</a>是由<a href="https://en.wikipedia.org/wiki/Douglas_Crockford" target="_blank" rel="external">Douglas Crockford</a>开发的，可能是最早的JavaScript Lint工具了吧，它的名字来源于著名的<code>C</code>语言工具<code>Lint</code>。老道把他认为的非<code>Good Parts</code>的部分都报了warning，而且在它的<a href="http://www.jslint.com/help.html" target="_blank" rel="external">文档</a>中也提到了你应该欣然接受所有的<code>JSLint</code>的建议。最近看了下，老道还在持续更新着<a href="https://github.com/douglascrockford/JSLint" target="_blank" rel="external">这个项目</a>，而且<a href="http://www.jslint.com/" target="_blank" rel="external">官网</a>上也有着一个在线的体验工具，可以尝试一下。对了，如果想要使用这个工具，建议看看老道在<a href="https://www.youtube.com/watch?v=taaEzHI9xyY" target="_blank" rel="external">YouTube</a>上关于JavaScript编程风格的视频，讲的还是很幽默的。</p>
+<h2 id="JSHint"><a href="#JSHint" class="headerlink" title="JSHint"></a>JSHint</h2><p><a href="https://en.wikipedia.org/wiki/JSHint" target="_blank" rel="external">JSHint</a>是由<a href="http://anton.kovalyov.net/" target="_blank" rel="external">Anton Kovalyov</a><strong>基于</strong><code>JSLint</code>的代码实现的开源项目，由于JSLint时期大多数人都在受JSLint压迫，JSHint相比较之下，更友好，也更容易配置，所以很快就发展了起来，也得到了众多IDE和编辑器的<a href="http://jshint.com/install/" target="_blank" rel="external">支持</a>。但是，由于它是基于JSLint开发的，自然原有的一些问题它也继承下来了，比如不易扩展，不容易直接根据报错定位到具体的规则配置等，虽然之前好像是有过相关的讨论，但是现在仍然没有什么好的解决办法。好在它发展的不错，很多时候遇到的问题都可以在网上找到相关的解决方案，而且文档也是非常不错的。</p>
+<h2 id="ESLint"><a href="#ESLint" class="headerlink" title="ESLint"></a>ESLint</h2><p><a href="http://eslint.org/" target="_blank" rel="external">ESLint</a>是由<a href="https://www.nczonline.net/" target="_blank" rel="external">Nicholas C. Zakas</a>在2013年开始开发的，它的初衷就是为了能让开发者能自定义自己的<code>linting rules</code>，而且它提供了一套相当完善的插件机制，可以自由的扩展，动态加载配置规则，同时可以方便的根据报错定位到具体的规则配置。而且我比较喜欢它的一点是<a href="http://eslint.org/docs/user-guide/configuring" target="_blank" rel="external">文档</a>非常详细，可能这也是灵活所必须的吧。在这里还要提一点，<code>ESLint</code>最初并不是为了造一个重复的轮子，而是作者在实际使用中的需求<a href="https://github.com/eslint/eslint#why-dont-you-like-jshint" target="_blank" rel="external">没有能得到JSHint团队的回应</a>，所以他就结合当时的<code>JSHint</code>和另一个代码风格的检查工具<code>JSCS</code>写出来了现在具备<strong>代码风格检查</strong>，<strong>自定义插件扩展</strong>功能的<code>ESLint</code>了。</p>
+<h1 id="JSLint，JSHint和ESLint的对比"><a href="#JSLint，JSHint和ESLint的对比" class="headerlink" title="JSLint，JSHint和ESLint的对比"></a>JSLint，JSHint和ESLint的对比</h1><p>这三个工具各有特色，我只是做一下对比，选择的话，看个人需求就好了。</p>
+<h2 id="JSLint-1"><a href="#JSLint-1" class="headerlink" title="JSLint"></a>JSLint</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>配置是老道已经定好的，开箱即用。</li>
+</ul>
+<h3 id="不足"><a href="#不足" class="headerlink" title="不足"></a>不足</h3><ul>
+<li>有限的配置选项，很多规则不能禁用</li>
+<li>规范严格，凡是不符合老道所认为的好的风格的，都会有警告(这一项就看你是否完全认同老道了)</li>
+<li>扩展性差</li>
+<li>无法根据错误定位到对应的规则 </li>
+</ul>
+<h2 id="JSHint-1"><a href="#JSHint-1" class="headerlink" title="JSHint"></a>JSHint</h2><h3 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>有了很多参数可以配置</li>
+<li>支持配置文件，方便使用</li>
+<li>支持了一些常用类库</li>
+<li>支持了基本的<code>ES6</code></li>
+</ul>
+<h3 id="不足-1"><a href="#不足-1" class="headerlink" title="不足"></a>不足</h3><ul>
+<li>不支持自定义规则</li>
+<li>无法根据错误定位到对应的规则 </li>
+</ul>
+<h2 id="ESLint-1"><a href="#ESLint-1" class="headerlink" title="ESLint"></a>ESLint</h2><h3 id="优点-2"><a href="#优点-2" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>默认规则里面包含了<code>JSLint</code>和<code>JSHint</code>的规则，易于迁移(这肯定是故意的XD)</li>
+<li>可配置为<code>警告</code>和<code>错误</code>两个等级，或者直接禁用掉</li>
+<li>支持插件扩展</li>
+<li>可以自定义规则</li>
+<li>可以根据错误定位到对应的规则</li>
+<li>支持<code>ES6</code></li>
+<li>唯一一个支持<code>JSX</code>的工具</li>
+</ul>
+<h3 id="不足-2"><a href="#不足-2" class="headerlink" title="不足"></a>不足</h3><ul>
+<li>需要进行一些自定义配置(因为太灵活了嘛，不过文档是很详细的)</li>
+<li><strong>慢</strong> (它比其他两个都要慢)</li>
+</ul>
+<h1 id="Vim支持"><a href="#Vim支持" class="headerlink" title="Vim支持"></a>Vim支持</h1><p>我们都使用<a href="https://github.com/scrooloose/syntastic" target="_blank" rel="external"><code>Syntastic</code></a>来配置</p>
+<h2 id="JSLint的Vim配置"><a href="#JSLint的Vim配置" class="headerlink" title="JSLint的Vim配置"></a>JSLint的Vim配置</h2><p>有一个<a href="https://github.com/hallettj/jslint.vim" target="_blank" rel="external">jslint.vim</a>当然版本太老了。。我们不用这种方式做。</p>
+<ul>
+<li>安装<code>jslint</code> </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install jslint -g</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在<code>vimrc</code>中添加如下配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let g:syntastic_javascript_checkers = [&apos;jslint&apos;]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="JSHint的Vim配置"><a href="#JSHint的Vim配置" class="headerlink" title="JSHint的Vim配置"></a>JSHint的Vim配置</h2><ul>
+<li><p>安装<code>jshint</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install jshint -g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在<code>vimrc</code>中添加如下配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let g:syntastic_javascript_checkers = [&apos;jshint&apos;]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>也可以使用独立插件<a href="https://github.com/wookiehangover/jshint.vim" target="_blank" rel="external">jshint.vim</a></p>
+</li>
+</ul>
+<h2 id="ESLint的Vim配置"><a href="#ESLint的Vim配置" class="headerlink" title="ESLint的Vim配置"></a>ESLint的Vim配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install eslint -g</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在<code>vimrc</code>中添加如下配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let g:syntastic_javascript_checkers = [&apos;eslint&apos;]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>这里有个很重要的问题，记得要在添加一份配置文件，在官网或者在我vim配置的仓库可以找到</strong></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/">React</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VIM/">VIM</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Web/">Web</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-用正确的姿势开源Python项目" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/26/用正确的姿势开源Python项目/" class="article-date">
+  	<time datetime="2015-10-26T14:17:36.000Z" itemprop="datePublished">2015-10-26</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/26/用正确的姿势开源Python项目/">用正确的姿势开源Python项目</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>做个备忘，也希望可以帮到别人。</p>
+</blockquote>
+<h2 id="目录结构（初始化）"><a href="#目录结构（初始化）" class="headerlink" title="目录结构（初始化）"></a>目录结构（初始化）</h2><p>一般我们都会选择在项目的顶层包含较基础的文件，比如<code>setup.py</code>，<code>requirements</code>，<code>README</code>等文件。<br>一般情况下，一个预发布的Python项目中应该包含以下几类文件：</p>
+<ul>
+<li>projects (项目的主体文件)</li>
+<li>setup.py</li>
+<li>requirements</li>
+<li>Readme (项目说明)</li>
+<li>docs (项目文档)</li>
+<li>test</li>
+</ul>
+<p>其中，<code>projects</code>文件夹要以项目命名，存放实际的Python Package.<br>这里放一个<a href="https://github.com/tao12345666333/httpmultipart" target="_blank" rel="external">我的项目的目录</a>作为例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">➜  httpmultipart git:(master) tree -L 2</span><br><span class="line">.</span><br><span class="line">├── build</span><br><span class="line">│   ├── bdist.linux-x86_64</span><br><span class="line">│   └── lib.linux-x86_64-2.7</span><br><span class="line">├── dist</span><br><span class="line">│   ├── httpmultipart-0.1.0-py2.py3-none-any.whl</span><br><span class="line">│   └── httpmultipart-0.1.0.tar.gz</span><br><span class="line">├── docs</span><br><span class="line">│   ├── _build</span><br><span class="line">│   ├── conf.py</span><br><span class="line">│   ├── index.rst</span><br><span class="line">│   ├── Makefile</span><br><span class="line">│   ├── userguide</span><br><span class="line">│   └── userguide.rst</span><br><span class="line">├── env</span><br><span class="line">│   ├── bin</span><br><span class="line">│   ├── include</span><br><span class="line">│   ├── lib</span><br><span class="line">│   └── local</span><br><span class="line">├── httpmultipart</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   ├── __init__.pyc</span><br><span class="line">│   ├── main.py</span><br><span class="line">│   └── main.pyc</span><br><span class="line">├── httpmultipart.egg-info</span><br><span class="line">│   ├── dependency_links.txt</span><br><span class="line">│   ├── not-zip-safe</span><br><span class="line">│   ├── PKG-INFO</span><br><span class="line">│   ├── SOURCES.txt</span><br><span class="line">│   └── top_level.txt</span><br><span class="line">├── LICENSE</span><br><span class="line">├── MANIFEST.in</span><br><span class="line">├── README.rst</span><br><span class="line">├── setup.cfg</span><br><span class="line">├── setup.py</span><br><span class="line">└── test_httpmultipart.py</span><br><span class="line"></span><br><span class="line">14 directories, 21 files</span><br></pre></td></tr></table></figure>
+<p>这个目录中包含了我的<code>virtual enviroment</code> 和打包构建时候生成的文件夹。<br>这些东西在下面会提到。</p>
+<h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><p>文档的话，并没有严格要求必须使用什么样的工具进行构建，也没有很严格的格式要求。不过我推荐使用<a href="http://sphinx-doc.org/" target="_blank" rel="external"><code>SPHINX</code></a>,它是用Python写的工具，使用了一种叫做<code>reStructuredText</code>的语法编辑，可以对多个文本文件重编，可以输出成HTML或者PDF等格式。</p>
+<p>这里稍微介绍下使用：</p>
+<ul>
+<li><p>安装</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip install sphinx</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>初始化</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> docs</span><br><span class="line">$ sphinx-quickstart</span><br><span class="line">...<span class="comment">#(这里有一系列的提问，进行初始化)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编译</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ make html <span class="comment">#(如果按照默认配置生成的Makefile的话，这样就可以编译出html了)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>Sphinx的使用还有很多值得说的地方，推荐两个资料：</p>
+<ul>
+<li>英文的<a href="http://sphinx-doc.org/contents.html" target="_blank" rel="external">Sphinx 的官方文档</a></li>
+<li>中文的<a href="http://www.amazon.cn/%E5%9B%BE%E7%81%B5%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E4%B8%9B%E4%B9%A6-Python%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98-%E6%97%A5%E6%9C%ACBePROUD%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8/dp/B00KGQ4NRO/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1448116359&amp;sr=1-1&amp;keywords=python+%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98" target="_blank" rel="external">Python 开发实战</a></li>
+</ul>
+<p>官方文档写的非常详细，那本书偏向于实战，是很不错的书。<br>还有很关键的一点是Sphinx有<code>autodoc</code>和<code>automodule</code>的扩展，<br>可以从代码中提取出文档，与代码直接进行关联。提供一个<a href="https://tornado-zh.readthedocs.org/zh/latest/ioloop.html#running-an-ioloop" target="_blank" rel="external">例子</a>可以方便的在文档和源码中进行跳转。</p>
+<h2 id="Read-the-Docs-持续文档集成"><a href="#Read-the-Docs-持续文档集成" class="headerlink" title="Read the Docs 持续文档集成"></a>Read the Docs 持续文档集成</h2><p>说完写文档就不得不提到<a href="https://readthedocs.org/" target="_blank" rel="external"><code>Read the Dosc</code></a>了,这是一个第三方的文档托管平台,使用<code>Django</code>开发，它可以很轻松的和Github上的项目进行集成，在每次代码提交的时候会自动进行文档构建，我们可以看看<a href="https://tornado-zh.readthedocs.org/" target="_blank" rel="external">生成文档的效果</a>。现在有很多开源项目的文档都是托管在这里的，具体的配置可以参考<a href="https://read-the-docs.readthedocs.org/en/latest/getting_started.html" target="_blank" rel="external">官方文档</a>。</p>
+<h2 id="TravisCI-持续集成"><a href="#TravisCI-持续集成" class="headerlink" title="TravisCI 持续集成"></a>TravisCI 持续集成</h2><p><a href="https://travis-ci.org/" target="_blank" rel="external"><code>Travisci</code></a>可以与Github非常好的结合，可以手动导入<code>repo</code>，并设置<code>Webhooks &amp; services</code>,在每次提交的时候都会测试运行来发现是否存在异常。在使用之前，我们需要先做一些初始化的操作：</p>
+<ul>
+<li><p>创建<code>.travis.yml</code>文件</p>
+<p>  我们需要告诉它一些基本的信息：</p>
+<ul>
+<li>我们项目使用的语言</li>
+<li>项目使用的语言版本</li>
+<li>环境的依赖</li>
+<li>是否需要<code>sudo</code>权限运行</li>
+<li>使用什么命令来安装</li>
+<li><p>使用什么命令运行测试</p>
+<p>下面提供一个例子：</p>
+  <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">language:</span> python</span><br><span class="line"><span class="attr">python:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="number">2.7</span></span><br><span class="line"></span><br><span class="line"><span class="attr">env:</span></span><br><span class="line"><span class="bullet">    -</span> DEPS=<span class="literal">true</span></span><br><span class="line"><span class="bullet">    -</span> DEPS=<span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="attr">sudo:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="attr">install:</span></span><br><span class="line"><span class="bullet">    -</span> travis_retry python setup.py install</span><br><span class="line"><span class="bullet">    -</span> travis_retry pip install coveralls</span><br><span class="line"><span class="bullet">    -</span> coverage run test_httpmultipart.py</span><br><span class="line"><span class="bullet">    -</span> coverage report</span><br><span class="line"></span><br><span class="line"><span class="attr">script:</span></span><br><span class="line"><span class="bullet">    -</span> python test_httpmultipart.py</span><br><span class="line"></span><br><span class="line"><span class="attr">after_success:</span></span><br><span class="line">    coveralls</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>PS： 在<code>install</code>这一项配置中要注意，如果项目存在依赖，一定要进行安装，还有<code>Travisci</code>提供了多项配置，包括出错重试等，具体配置可以参考<a href="http://docs.travis-ci.com/" target="_blank" rel="external">官方文档</a>，要特别注意<code>travis_retry</code>等命令的使用，非常容易出现坑。</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>Python有内置的<code>unittest</code>测试库，支持断言;当然还有其他的一些测试框架，看个人喜好和项目需求。在项目中应该包含测试文件或者测试目录，测试文件一般以<code>test_projects_name.py</code>命名。我选择使用<code>coverage</code>作为测试覆盖率的检查，下面是一个运行示例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">➜  httpmultipart git:(master) coverage run <span class="built_in">test</span>_httpmultipart.py </span><br><span class="line">....</span><br><span class="line">----------------------------------------------------------------------</span><br><span class="line">Ran 4 tests <span class="keyword">in</span> 36.125s</span><br><span class="line"></span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">➜  httpmultipart git:(master) coverage report</span><br><span class="line">Name                        Stmts   Miss Branch BrPart  Cover</span><br><span class="line">-------------------------------------------------------------</span><br><span class="line">httpmultipart/__init__.py      10      0      0      0   100%</span><br><span class="line">httpmultipart/main.py          37      0      4      0   100%</span><br><span class="line">-------------------------------------------------------------</span><br><span class="line">TOTAL                          47      0      4      0   100%</span><br></pre></td></tr></table></figure>
+<h2 id="Coveralls-测试覆盖率检查"><a href="#Coveralls-测试覆盖率检查" class="headerlink" title="Coveralls 测试覆盖率检查"></a>Coveralls 测试覆盖率检查</h2><p><a href="https://coveralls.io" target="_blank" rel="external">Coveralls</a>可以很友好的支持Github和Bitbucket仓库的导入，同时也可以很好的和<code>Travisci</code>集成，在上面我们的<code>.travis.yml</code>文件中，在最后一项<code>after_success</code>中，我们就配置了对<code>Coveralls</code>的支持。</p>
+<h2 id="发布包到PyPI"><a href="#发布包到PyPI" class="headerlink" title="发布包到PyPI"></a>发布包到PyPI</h2><p><a href="https://pypi.python.org/pypi" target="_blank" rel="external">PyPI - the Python Package Index</a><br>是Python的包仓库，它允许我们将自己写的包上传上去，这样就可以使用<code>pip</code>和<code>easy_install</code>进行安装了。这里说一个很重要的事情：<br><strong>请在发布自己项目之前做好测试，确认自己上传的是一个可用，无害的包</strong><br>当你已经完成上面的步骤之后，那么你只需要以下几步就可以完成了。以我的项目为例子:</p>
+<ul>
+<li>配置<code>setup.py</code>:</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> codecs <span class="keyword">import</span> open</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">from</span> setuptools <span class="keyword">import</span> setup</span><br><span class="line"><span class="keyword">except</span> ImportError:</span><br><span class="line">    <span class="keyword">from</span> distutils.core <span class="keyword">import</span> setup</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> sys.argv[<span class="number">-1</span>] == <span class="string">'publish'</span>:</span><br><span class="line">    os.system(<span class="string">'python setup.py sdist upload'</span>)</span><br><span class="line">    sys.exit()</span><br><span class="line"></span><br><span class="line">packages = [</span><br><span class="line">    <span class="string">'httpmultipart'</span>,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">requires = []</span><br><span class="line"></span><br><span class="line">version = <span class="string">''</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'httpmultipart/__init__.py'</span>, <span class="string">'r'</span>) <span class="keyword">as</span> fd:</span><br><span class="line">    version = re.search(<span class="string">r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]'</span>,</span><br><span class="line">                        fd.read(), re.MULTILINE).group(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> version:</span><br><span class="line">    <span class="keyword">raise</span> RuntimeError(<span class="string">'Cannot find version information'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'README.rst'</span>, <span class="string">'r'</span>, <span class="string">'utf-8'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    readme = f.read()</span><br><span class="line"></span><br><span class="line">setup(</span><br><span class="line">    name=<span class="string">'httpmultipart'</span>,</span><br><span class="line">    version=version,</span><br><span class="line">    description=<span class="string">'A httpmultipart post handler'</span>,</span><br><span class="line">    long_description=readme + <span class="string">'\n\n'</span>,</span><br><span class="line">    author=<span class="string">'TaoBeier'</span>,</span><br><span class="line">    author_email=<span class="string">'zhangjintao9020@gmail.com'</span>,</span><br><span class="line">    url=<span class="string">'https://github.com/tao12345666333/httpmultipart'</span>,</span><br><span class="line">    packages=packages,</span><br><span class="line">    package_data=&#123;<span class="string">''</span>: [<span class="string">'LICENSE'</span>]&#125;,</span><br><span class="line">    package_dir=&#123;<span class="string">'httpmultipart'</span>: <span class="string">'httpmultipart'</span>&#125;,</span><br><span class="line">    include_package_data=<span class="keyword">True</span>,</span><br><span class="line">    install_requires=requires,</span><br><span class="line">    license=<span class="string">'MIT'</span>,</span><br><span class="line">    zip_safe=<span class="keyword">False</span>,</span><br><span class="line">    platforms=<span class="string">'any'</span>,</span><br><span class="line">    classifiers=(</span><br><span class="line">        <span class="string">'Development Status :: 5 - Production/Stable'</span>,</span><br><span class="line">        <span class="string">'Intended Audience :: Developers'</span>,</span><br><span class="line">        <span class="string">'Natural Language :: English'</span>,</span><br><span class="line">        <span class="string">'License :: OSI Approved :: MIT License'</span>,</span><br><span class="line">        <span class="string">'Programming Language :: Python'</span>,</span><br><span class="line">        <span class="string">'Programming Language :: Python :: 2.7'</span>,</span><br><span class="line">        <span class="string">'Topic :: Software Development :: Libraries'</span>,</span><br><span class="line">        <span class="string">'Topic :: Software Development :: Libraries :: Python Modules'</span>,</span><br><span class="line">    ),</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>当然大部分时候也不需要这么麻烦，简化的配置可以参考官方的文档。注意最下面那部分<code>classifiers</code>是按照<a href="https://pypi.python.org/pypi?:action=list_classifiers" target="_blank" rel="external">PyPI官方的列表填写</a>的。还有，如果有些文件想要额外打包进去，那么需要在根目录添加<code>MANIFEST.in</code>文件。</p>
+<ul>
+<li>打包代码</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ python setup.py sdist <span class="comment"># 生成pip支持的安装包</span></span><br><span class="line">$ python setup.py bdist_wheel <span class="comment"># 生成支持easy_install的安装包</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>发布到PyPI上</p>
+<p>  首先在<a href="https://pypi.python.org/pypi" target="_blank" rel="external">PyPI</a>上<a href="https://pypi.python.org/pypi?%3Aaction=register_form" target="_blank" rel="external">注册</a>一个帐号，然后进行下面两步：</p>
+<ul>
+<li>注册package  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ python setup.py register</span><br><span class="line">$ <span class="comment"># 在这一步会有一些提示，按照提示选择，输入自己帐号密码相关的信息即可</span></span><br><span class="line">$ <span class="comment"># 在提示你要不要保存帐号信息的时候，</span></span><br><span class="line">$ <span class="comment"># 你选择了‘y’，</span></span><br><span class="line">$ <span class="comment"># 则会在你的用户目录下生成一个 .pypirc 的文件，</span></span><br><span class="line">$ <span class="comment"># 其中明文保存着你的帐号和密码。</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>这里稍微再提一点，如果在提示是否保存账户信息的时候，选择了‘n’，想反悔了也没关系，我们可以手动创建一个<code>~/.pypirc</code>文件。格式如下：<br>        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[distutils]</span><br><span class="line">index-servers=pypi</span><br><span class="line"></span><br><span class="line">[pypi]</span><br><span class="line">repository = https://pypi.python.org/pypi</span><br><span class="line">username = your username</span><br><span class="line">password = your password</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>上传package<pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python setup.py sdist bdist_wheel upload</span><br></pre></td></tr></table></figure>
+</code></pre></li>
+</ul>
+<p>在上传完成提示<code>200</code>响应的时候，你就上传成功了，去PyPI上看看有没有上传成功的包，并且试着用<code>pip</code>进行安装吧！</p>
+<p>这里我省略了一步，就是发布前的测试，你可以使用<a href="https://testpypi.python.org/pypi" target="_blank" rel="external">PyPI的测试服务器</a>进行测试发布，发布到这里的包并不会对你正式发布有任何影响。</p>
+<h2 id="项目托管在Github上"><a href="#项目托管在Github上" class="headerlink" title="项目托管在Github上"></a>项目托管在Github上</h2><p>开源到Github上后，就是继续维护和开发，这点就不多说了。</p>
+<h2 id="开发相关"><a href="#开发相关" class="headerlink" title="开发相关"></a>开发相关</h2><p>建议使用<code>virtualenv</code>之类的工具构建纯净的环境，重复的动作交给<code>Make</code>之类的工具。</p>
+<p>这篇算是一个小小的总结加备忘吧，经验尚缺，还望指正。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pip/">pip</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Python/">Python</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-对监控系统的思考" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/16/对监控系统的思考/" class="article-date">
+  	<time datetime="2015-10-15T16:59:01.000Z" itemprop="datePublished">2015-10-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/16/对监控系统的思考/">对监控系统的思考</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>近期在做运维监控方面的事情，也研究了一下其他人是如何做的。把自己的想法做个总结记录一下吧。</p>
+</blockquote>
+<h3 id="监控期望的目标"><a href="#监控期望的目标" class="headerlink" title="监控期望的目标"></a>监控期望的目标</h3><ul>
+<li>及时发现</li>
+</ul>
+<blockquote>
+<p>需要的是即时监控并报警</p>
+</blockquote>
+<ul>
+<li>及时定位</li>
+</ul>
+<blockquote>
+<p>定位问题要分开讲</p>
+<ul>
+<li><p>运维层面</p>
+<blockquote>
+<p>是机器硬件问题还是上面运行的基础服务的问题，或者是新上线代码的问题，需要回滚。</p>
+</blockquote>
+</li>
+<li><p>代码层面</p>
+<blockquote>
+<p>在发生问题的时候，优先解决问题。定位代码问题提交hotfix 可以在解决问题之后做。</p>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>及时处理</li>
+<li>提前预测（尽量减少问题的发生）</li>
+</ul>
+<blockquote>
+<p>提前预测可以做的事情有很多，数据挖掘/分析之类的。当然有个更简单的方法，就是先小范围上线，进行监控。如果发现出问题了，就停止上线，进行回滚。（我们现在就是这样做的，虽然原因并不是这个 2333</p>
+</blockquote>
+<h3 id="监控遇到的主要问题"><a href="#监控遇到的主要问题" class="headerlink" title="监控遇到的主要问题"></a>监控遇到的主要问题</h3><ul>
+<li>监控指标多</li>
+</ul>
+<blockquote>
+<p>服务器CPU,内存，网络等的指标，基础服务Redis, MongoDB等的运行指标，对外服务的API是否正常工作，还有数据是否正确等。 </p>
+</blockquote>
+<ul>
+<li>监控报警多</li>
+</ul>
+<blockquote>
+<p>监控指标多的时候，自然报警也会相应增加，但是报警的分组与轻重缓急也是一个很麻烦的问题。还有就是部署着不同服务的机器，触发报警时候的指标也不好确定。</p>
+</blockquote>
+<ul>
+<li>报警多而且有关联，如何查找原因</li>
+</ul>
+<blockquote>
+<p>可能同时会有多个指标触发了报警，但是要定位问题的时候，如何可以快速的定位问题。</p>
+</blockquote>
+<h3 id="多维度数据监控"><a href="#多维度数据监控" class="headerlink" title="多维度数据监控"></a>多维度数据监控</h3><blockquote>
+<p>这个话题太大(要感谢Baidu的颜大大的指点）</p>
+<ul>
+<li><p>数据监控符合<a href="https://zh.wikipedia.org/wiki/%E5%B8%95%E9%9B%B7%E6%89%98%E6%B3%95%E5%88%99" target="_blank" rel="external">二八原则</a>,重要数据需要多角度进行观察，需要有meta管理，需要动态简单配置。选择 好的，合理的数据模型可以有效的进行处理。</p>
+</li>
+<li><p>数据采集部分，在单机器做聚合;命名上使用正则格式化;完善的配置功能，支持数据流自定义维度。</p>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>对开源系统的使用，需要按照自己的实际情况进行适配。保证高可用性</li>
+</ul>
+<p><em>先写这些吧，之后有时间再写，还有QCon上对运维监控上的一些分享也非常值得思考</em></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Linux/">Linux</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Open-Falcon监控系统部署" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/13/Open-Falcon监控系统部署/" class="article-date">
+  	<time datetime="2015-10-13T13:01:00.000Z" itemprop="datePublished">2015-10-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/13/Open-Falcon监控系统部署/">Open-Falcon监控系统部署</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>本文并不分析Open-Falcon的架构或者选用它的原因，官方的文档在<a href="http://book.open-falcon.com/zh/intro/README.html" target="_blank" rel="external">这里</a>，虽然还不够完善。不过这也是我写这篇的原因，官方文档并没能把整个部署过程连在一起，而且个别地方有点问题。我在这篇文章中就不介绍各个组件的作用和功能了，只是单纯的介绍如何从零部署。</p>
+</blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/XiaoMi/open-falcon/releases/download/0.0.5/open-falcon-0.0.5.tar.gz -O open-falcon.tar.gz</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h3><blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir tmp</span><br><span class="line">tar -zxvf open-falcon.tar.gz -C ./tmp</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h3><blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install redis-server</span><br><span class="line">sudo apt-get install mysql-server</span><br><span class="line">pip install virtualenv</span><br><span class="line"></span><br><span class="line"># 数据库初始化的代码来源于官方文档</span><br><span class="line">git clone https://github.com/open-falcon/scripts.git</span><br><span class="line">cd scripts</span><br><span class="line">mysql -h localhost -u root -p &lt; db_schema/graph-db-schema.sql</span><br><span class="line">mysql -h localhost -u root -p &lt; db_schema/dashboard-db-schema.sql</span><br><span class="line"></span><br><span class="line">mysql -h localhost -u root -p &lt; db_schema/portal-db-schema.sql</span><br><span class="line">mysql -h localhost -u root -p &lt; db_schema/links-db-schema.sql</span><br><span class="line">mysql -h localhost -u root -p &lt; db_schema/uic-db-schema.sql</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p><strong>数据库连接的配置格式是:</strong> <code>username:password@tcp(path:port)/xxxx</code></p>
+<h3 id="agent"><a href="#agent" class="headerlink" title="agent"></a>agent</h3><blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>开始监听1988端口,查看log.<br>默认端口是1988, 可以打开 <a href="http://127.0.0.1:1988" target="_blank" rel="external">http://127.0.0.1:1988</a> 查看一个比较简单的web dashboard. 没什么特殊需要的话, 可以使用默认配置.</p>
+</blockquote>
+<h3 id="hbs"><a href="#hbs" class="headerlink" title="hbs"></a>hbs</h3><blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>心跳服务默认http端口是6030, rpc 端口 6031</p>
+</blockquote>
+<h3 id="transfer"><a href="#transfer" class="headerlink" title="transfer"></a>transfer</h3><blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>默认http端口是6060, rpc端口8433</p>
+</blockquote>
+<h3 id="judge"><a href="#judge" class="headerlink" title="judge"></a>judge</h3><blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>http端口6081, rpc端口 6080<br>配置项中注意alarm的 redis链接 和hbs的server地址,如果修改过请记得对应.</p>
+</blockquote>
+<h3 id="graph"><a href="#graph" class="headerlink" title="graph"></a>graph</h3><blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>rpc端口 6070,  http端口 6071<br>数据库文件存储在<code>/home/work/data/6070</code> 启动报错的话, 换sudo 或者 root 用户启动.<br>注意修改数据库连接.</p>
+</blockquote>
+<p>上面的服务配置完成数据就开始采集了. </p>
+<h3 id="dashboard"><a href="#dashboard" class="headerlink" title="dashboard"></a>dashboard</h3><blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">virtualenv env</span><br><span class="line">source env/bin/activate</span><br><span class="line">./env/bin/pip install -r pip_requirements.txt</span><br><span class="line"># 使用</span><br><span class="line">./env/bin/python wsgi.py</span><br><span class="line"># 或者用</span><br><span class="line">deactivate &amp;&amp; ./control start &amp;&amp; ./control tail</span><br></pre></td></tr></table></figure>
+<p>可以更改为自定义端口.这里可以查看Endpoints 的相关数据并绘图.</p>
+</blockquote>
+<h3 id="query"><a href="#query" class="headerlink" title="query"></a>query</h3><blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>只要修改cfg.json 文件即可, 注意还有 <code>graph_backends.txt</code> 文件</p>
+</blockquote>
+<h3 id="fe"><a href="#fe" class="headerlink" title="fe"></a>fe</h3><blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>注意配置项目中的数据库连接, 以及下面的<code>shortcut</code> 中需要配置外网可以访问的地址,如果不是在服务器部署的话,这里默认也没有关系.</p>
+</blockquote>
+<h3 id="portal"><a href="#portal" class="headerlink" title="portal"></a>portal</h3><blockquote>
+<p>这里要注意一个坑. 如果使用<code>./control start</code> 启动服务, 并且更改了默认端口的, 请配置 <strong>gunicorn.conf</strong> 中的<strong>bind</strong>项. 如果是使用<code>python wsgi.py</code>启动的话, 修改<strong>wsgi.py</strong>中的端口即可.<br>同时在配置 <code>frame/config.py</code> 的时候, 要注意所谓<strong>UIC_ADDRESS</strong> 选项的配置, 其实就是填写上面<strong>fe</strong> 模块的地址.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">UIC_ADDRESS = &#123;</span><br><span class="line">    &apos;internal&apos;: &apos;http://127.0.0.1:port&apos;, #你的内网地址</span><br><span class="line">    &apos;external&apos;: &apos;http://your_fe_name&apos;, #外网访问的地址, 如果是本地部署,这里可以和内网地址一样 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="alarm"><a href="#alarm" class="headerlink" title="alarm"></a>alarm</h3><blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>需要配置的就是自定义的端口监控地址, 和下面的api, 其他部分保持默认即可.<br>在<a href="http://book.open-falcon.com/zh/install_from_src/alarm.html" target="_blank" rel="external">它的文档</a>中写着下面这样的说明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;...</span><br><span class="line">  &quot;api&quot;: &#123;</span><br><span class="line">      &quot;portal&quot;: &quot;http://falcon.example.com&quot;, # 内网可访问的portal的地址</span><br><span class="line">      &quot;uic&quot;: &quot;http://uic.example.com&quot;, # 内网可访问的uic(或fe)的地址</span><br><span class="line">      &quot;links&quot;: &quot;http://link.example.com&quot; # 外网可访问的links的地址</span><br><span class="line">  &#125;     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但是如果按照这样配的话,所有东西就只能在内网访问了.这明显是不符合我们的期望的. 所以这里要全部配置成外网可以访问的地址,<strong>防止踩坑</strong>.</p>
+</blockquote>
+<h3 id="sender"><a href="#sender" class="headerlink" title="sender"></a>sender</h3><blockquote>
+<p>这个组件用于调用自己提供的短信和邮件接口, 编辑 cfg.json 添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;...</span><br><span class="line">  &apos;api&apos;: &#123;</span><br><span class="line">      &apos;sms&apos;: &apos;http://your_send_sms_api&apos;,</span><br><span class="line">      &apos;mail&apos;: &apos;http://your_send_mail_api&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在调用的时候, 会把消息先写入redis队列中, 之后再调用接口,进行消息发送.<br>worker 参数是对队列的配置.</p>
+</blockquote>
+<h3 id="links"><a href="#links" class="headerlink" title="links"></a>links</h3><blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>告警合并组件, python应用, 记得修改默认端口即可.</p>
+</blockquote>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="task"><a href="#task" class="headerlink" title="task"></a>task</h3><blockquote>
+<p>监控自检程序</p>
+</blockquote>
+<h3 id="gateway"><a href="#gateway" class="headerlink" title="gateway"></a>gateway</h3><blockquote>
+<p>没有跨机房问题可以忽略.(hhah</p>
+</blockquote>
+<h3 id="redis-monitor-py"><a href="#redis-monitor-py" class="headerlink" title="redis-monitor.py"></a>redis-monitor.py</h3><blockquote>
+<p>scripts 文件夹中一个很简单的脚本, 把redis info 中的数据读出,写入数据库, 供监控使用.</p>
+</blockquote>
+<p>最后附图一张，前几天我启动这个服务时候的终端。<br><img src="http://7fvfx0.com1.z0.glb.clouddn.com/1911x1160_scrot.png" alt="screen_shot"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go/">Go</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Open-Falcon/">Open-Falcon</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Linux/">Linux</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-源码编译MongoDB" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/09/13/源码编译MongoDB/" class="article-date">
+  	<time datetime="2015-09-13T13:28:43.000Z" itemprop="datePublished">2015-09-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/09/13/源码编译MongoDB/">源码编译MongoDB</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>上周放假正好有时间，编译安装了MongoDB，虽然MongoDB用了挺长时间的，但还是第一次用源码编译。在此做个备忘。因为已经完整编译安装过了，所以写起来的时候，就按照先知视角来写了～ 2333</p>
+</blockquote>
+<h2 id="下载MongoDB源码"><a href="#下载MongoDB源码" class="headerlink" title="下载MongoDB源码"></a>下载MongoDB源码</h2><p>MongoDB的<a href="https://www.mongodb.org/" target="_blank" rel="external">官网</a>上是有已经编译好的二进制包的，这里选择clone <a href="https://github.com/mongodb/mongo" target="_blank" rel="external">MongoDB在github上的仓库</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/mongodb/mongo &amp;&amp; cd mongo</span><br></pre></td></tr></table></figure></p>
+<p>在<code>docs/building.md</code>中是编译所需的依赖。</p>
+<ul>
+<li>A modern C++ compiler. One of the following is required.<ul>
+<li>GCC 4.8.2 or newer</li>
+<li>Clang 3.4 (or Apple XCode 5.1.1 Clang) or newer</li>
+<li>Visual Studio 2013 Update 2 or newer</li>
+</ul>
+</li>
+<li>Python 2.7</li>
+<li>SCons 2.3</li>
+</ul>
+<p>我这台服务器是CentOS 6.5, 上面的gcc版本比较低，这里就先更新gcc咯.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gcc --version</span><br><span class="line">gcc (GCC) 4.4.7 20120313 (Red Hat 4.4.7-16)                                </span><br><span class="line">Copyright © 2010 Free Software Foundation, Inc.                            </span><br><span class="line">本程序是自由软件；请参看源代码的版权声明。</span><br><span class="line">本软件没有任何担保；             </span><br><span class="line">包括没有适销性和某一专用目的下的适用性担保。</span><br></pre></td></tr></table></figure>
+<h2 id="编译升级gcc"><a href="#编译升级gcc" class="headerlink" title="编译升级gcc"></a>编译升级gcc</h2><p>在gcc的<a href="https://gcc.gnu.org/" target="_blank" rel="external">官网</a>找到<a href="https://gcc.gnu.org/install/download.html" target="_blank" rel="external">下载页面</a>。使用<a href="https://gcc.gnu.org/svn.html" target="_blank" rel="external">svn</a>或者通过<a href="https://gcc.gnu.org/mirrors.html" target="_blank" rel="external">ftp镜像站</a>下载源码.<br>我使用了<a href="http://ftp.tsukuba.wide.ad.jp/software/gcc/" target="_blank" rel="external">一个ftp镜像站</a>下载的<a href="http://ftp.tsukuba.wide.ad.jp/software/gcc/releases/gcc-5.2.0/gcc-5.2.0.tar.bz2" target="_blank" rel="external">源码压缩包</a>。 然后进行解压和安装依赖。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar -xjf gcc-5.2.0.tar.bz2 &amp;&amp; cd gcc-5.2.0</span><br><span class="line"></span><br><span class="line">./contrib/download_prerequisites(等待依赖完成)</span><br></pre></td></tr></table></figure></p>
+<p>之后编译<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd .. &amp;&amp; mkdir gcc-build-5.2.0 &amp;&amp; cd gcc-build-5.2.0</span><br><span class="line"></span><br><span class="line"># 编译</span><br><span class="line"></span><br><span class="line">../gcc-5.2.0/configure --enable-checking=release --enable-languages=c,c++ --disable-multilib</span><br></pre></td></tr></table></figure></p>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">checking build system type... x86_64-unknown-linux-gnu</span><br><span class="line">checking host system type... x86_64-unknown-linux-gnu</span><br><span class="line">checking target system type... x86_64-unknown-linux-gnu</span><br><span class="line">checking for a BSD-compatible install... /usr/bin/install -c</span><br><span class="line">checking whether ln works... yes</span><br><span class="line">checking whether ln -s works... yes</span><br><span class="line">checking for a sed that does not truncate output... /bin/sed</span><br><span class="line">checking for gawk... gawk</span><br><span class="line">checking for libatomic support... yes</span><br><span class="line">checking for libcilkrts support... yes</span><br><span class="line">checking for libitm support... yes</span><br><span class="line">checking for libsanitizer support... yes</span><br><span class="line">checking for libvtv support... yes</span><br><span class="line">checking for gcc... gcc</span><br><span class="line">checking for C compiler default output file name... a.out</span><br><span class="line">checking whether the C compiler works... yes</span><br><span class="line">checking whether we are cross compiling... no</span><br><span class="line">checking for suffix of executables... </span><br><span class="line">checking for suffix of object files... o</span><br><span class="line">checking whether we are using the GNU C compiler... yes</span><br><span class="line">checking whether gcc accepts -g... yes</span><br><span class="line">checking for gcc option to accept ISO C89... none needed</span><br><span class="line">checking for g++... g++</span><br><span class="line">checking whether we are using the GNU C++ compiler... yes</span><br><span class="line">checking whether g++ accepts -g... yes</span><br><span class="line">checking whether g++ accepts -static-libstdc++ -static-libgcc... no</span><br><span class="line">checking for gnatbind... no</span><br><span class="line">checking for gnatmake... no</span><br><span class="line">checking whether compiler driver understands Ada... no</span><br><span class="line">checking how to compare bootstrapped objects... cmp --ignore-initial=16 $$f1 $$f2</span><br><span class="line">checking for objdir... .libs</span><br><span class="line">configure: WARNING: using in-tree ISL, disabling version check</span><br></pre></td></tr></table></figure>
+<p>一般情况下， 就这样gcc就可以编译完成了。 但是因为我这台机器是单核1G没有swap区， 所以我遇到了下面的问题：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># 排版有点错乱惹...</span><br><span class="line"></span><br><span class="line">build/vec.o</span><br><span class="line">build/min-insn-modes.o</span><br><span class="line">build/gensupport.o</span><br><span class="line">build/print-rtl.o</span><br><span class="line">build/read-md.o</span><br><span class="line">build/errors.o ../build-x86_64-unknown-linux-gnu/libiberty/libiberty.a</span><br><span class="line">build/genattrtab ../../gcc-5.2.0/gcc/common.md ../../gcc-5.2.0/gcc/config/i</span><br><span class="line">386/i386.md insn-conditions.md \</span><br><span class="line">                -Atmp-attrtab.c -Dtmp-dfatab.c -Ltmp-latencytab.c</span><br><span class="line">make[3]: *** [s-attrtab] 已杀死</span><br><span class="line">make[3]: Leaving directory `/home/tao/gcc-build-5.0.2/gcc&apos;</span><br><span class="line">make[2]: *** [all-stage1-gcc] 错误 2</span><br><span class="line">make[2]: Leaving directory `/home/tao/gcc-build-5.0.2&apos;</span><br><span class="line">make[1]: *** [stage1-bubble] 错误 2</span><br><span class="line">make[1]: Leaving directory `/home/tao/gcc-build-5.0.2&apos;</span><br><span class="line">make: *** [all] 错误 2</span><br></pre></td></tr></table></figure>
+<p>大致查了下，是因为没有swap区的原因，根据<a href="http://stackoverflow.com/questions/18389612/make-exits-with-error-2-when-trying-to-install-gcc-4-8-1#" target="_blank" rel="external">这篇</a> 得到的解决办法是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SWAP=/tmp/swap</span><br><span class="line">dd if=/dev/zero of=$SWAP bs=1M count=500</span><br><span class="line">mkswap $SWAP</span><br><span class="line">sudo swapon $SWAP</span><br></pre></td></tr></table></figure>
+<p>之后就是gcc 的编译时间了， 这个时间可以去写写代码补个番啥的。这台机器只是平时拿来玩的，配置炒鸡低。编译gcc从17：20开始，一直到20：09停止。(期间我去补番啦 2333)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 只会执行下面的命令</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line"># 切换gcc到新版本</span><br><span class="line">update-alternatives --install /usr/bin/gcc gcc /usr/local/bin/gcc-5.0.2 66</span><br><span class="line"># 我重新ssh登录后才看到更新生效的</span><br><span class="line">gcc --version</span><br><span class="line">gcc (GCC) 5.2.0</span><br><span class="line">Copyright © 2015 Free Software Foundation, Inc.</span><br><span class="line">本程序是自由软件；请参看源代码的版权声明。本软件没有任何担保；</span><br><span class="line">包括没有适销性和某一专用目的下的适用性担保。</span><br></pre></td></tr></table></figure>
+<h2 id="升级Python"><a href="#升级Python" class="headerlink" title="升级Python"></a>升级Python</h2><p>CentOS上默认的Python对于之后要安装的scons来说，还是版本太低。再次上<a href="https://www.python.org" target="_blank" rel="external">Python 官网</a> (官网真是个好地方2333)下载Python2.7的<a href="https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tar.xz" target="_blank" rel="external">源码</a><br>编译过很多次了， 就只写主要的东西了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">xz -d python-2.7.10.tar.xz</span><br><span class="line">tar -xvf python-2.7.10.tar &amp;&amp; cd python-2.7.10</span><br><span class="line"># 对于这次编译MongoDB来说，一定需要安装的是bzip2依赖</span><br><span class="line">yum install -y bzip2-devel</span><br><span class="line"># 编译</span><br><span class="line">./configure --prefix=/usr/local/python2.7</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line"># 更新</span><br><span class="line">update-alternatives --install /usr/bin/python python /usr/local/bin/python 69</span><br></pre></td></tr></table></figure></p>
+<h2 id="安装scons"><a href="#安装scons" class="headerlink" title="安装scons"></a>安装scons</h2><p>在<a href="http://www.scons.org/" target="_blank" rel="external">官网</a>上找到<a href="http://iweb.dl.sourceforge.net/project/scons/scons/2.3.6/scons-2.3.6.tar.gz" target="_blank" rel="external">源码包</a>直接安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 依赖解决</span><br><span class="line">yum install pcre-devel python-devel</span><br><span class="line"># 解压安装</span><br><span class="line">tar -zxvf scons-2.3.6.tar.gz &amp;&amp; cd scons-2.3.6</span><br><span class="line">python setup.py install</span><br></pre></td></tr></table></figure>
+<h2 id="编译安装MongoDB"><a href="#编译安装MongoDB" class="headerlink" title="编译安装MongoDB"></a>编译安装MongoDB</h2><p>最后的安装过程就不是这篇里面的重点了， 遇到的一个坑是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Initializer* _theGlobalInitializer = &amp;getGlobalInitializer();</span><br></pre></td></tr></table></figure>
+<p>有这样的报错信息。 查了一下，根据<a href="https://jira.mongodb.org/browse/SERVER-19353" target="_blank" rel="external">这篇</a>只要在构建的时候，加上<code>--disable-warnings-as-errors</code>就可以解决了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scons all --disable-warnings-as-errors</span><br><span class="line"># 其他的设置可以查看scons的相关文档</span><br></pre></td></tr></table></figure>
+<p>本篇的重点是编译的过程，后续MongoDB配置部分抽空再写。全文完。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MongoDB/">MongoDB</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Linux/">Linux</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-重置Ghost博客的密码" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/07/21/重置Ghost博客的密码/" class="article-date">
+  	<time datetime="2015-07-21T15:11:04.000Z" itemprop="datePublished">2015-07-21</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/07/21/重置Ghost博客的密码/">重置Ghost博客的密码</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>在搭建Ghost博客的时候，尚未配置mail服务器时，重置密码的方法做个记录</p>
+</blockquote>
+<h3 id="打开数据库查看用户信息"><a href="#打开数据库查看用户信息" class="headerlink" title="打开数据库查看用户信息"></a>打开数据库查看用户信息</h3><p>如果全部默认设置，使用生产环境的话，应该是<br><code>sqlite3 content/data/ghost.db</code></p>
+<p>如果是开发环境应该是<br><code>sqlite3 content/date/ghost-dev.db</code></p>
+<p>查看用户信息<br><code>sqlite&gt;SELECT * FROM users;</code></p>
+<h3 id="更新用户密码"><a href="#更新用户密码" class="headerlink" title="更新用户密码"></a>更新用户密码</h3><ul>
+<li><p>Ghost对用户密码用的是BCrypt加密，可以使用<a href="http://bcrypthashgenerator.apphb.com/" target="_blank" rel="external">BCrypt Hash Generator</a>之类的工具生成一个想要修改的密码，例如”mypasswd”生成的密码是<br>  <code>$2a$10$QecJeBdw2lONRTnHJ0RoVO6DczdJWf4h4QgaUcgKsYFZlzTe1yeEK</code></p>
+</li>
+<li><p>假设之前查看到的用户信息，邮箱是<strong>admin@domain.com</strong> 那么，使用这样更新密码</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE users SET password=&quot;$2a$10$QecJeBdw2lONRTnHJ0RoVO6DczdJWf4h4QgaUcgKsYFZlzTe1yeEK&quot; WHERE email=&quot;admin@domain.com&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>退出sqlite3<br><code>.exit</code></p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Blog/">Blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sqlite/">sqlite</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Node/">Node</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-3-17" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/03/17/3-17/" class="article-date">
+  	<time datetime="2015-03-16T16:34:34.000Z" itemprop="datePublished">2015-03-17</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/17/3-17/">3.17</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="8小时内求生存"><a href="#8小时内求生存" class="headerlink" title="8小时内求生存"></a>8小时内求生存</h2><h2 id="8小时外求发展"><a href="#8小时外求发展" class="headerlink" title="8小时外求发展"></a>8小时外求发展</h2>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Life/">Life</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Life/">Life</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-近况" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/10/16/近况/" class="article-date">
+  	<time datetime="2014-10-16T15:34:39.000Z" itemprop="datePublished">2014-10-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/16/近况/">近况</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>博客好长时间没有更新了，今天抽空大致来说一下近况吧</p>
+</blockquote>
+<h3 id="工作"><a href="#工作" class="headerlink" title="工作"></a>工作</h3><p>用这个标题的话，其实感觉想写的确实好多，但是还是挑一些比较重要的来说吧。现在的公司说实话还确实没有让我失望，工位上配的是一个 22寸的 AOC 显示器和一个24寸的 Dell 显示器， 主机内存 12G （我每天跑个Linux是有点浪费）办公区每天有物业定时打扫神马的，下午的时候有茶歇（茶水间还有一堆零食）。同事们相处感觉都很不错,每天中午一起出去吃饭，各种聊天调侃神马的，只是一开始不太了解项目中的配置神马的，让老大费心了…</p>
+<p>这段时间还有很多有趣的事情 比如： 去金海湾度假村团建之类的。 再说一下最近的感受吧。</p>
+<p>因为国庆前需要上线，所以放假前就每天都是在忙着开发神马的。不过那两周也是近期感觉最爽的时候 <s>写代码高潮不断</s> 而且也确实感觉工作是蛮有挑战性的，确实是我想要的工作 :-) 。 不过我还记得那周一，一打开邮箱看到中有7份未读的需求邮件， 确实是略惊吓。<br>  在开发的项目，因为改变了设计思路，所以这些天主要都是在写前端。只不过一开始的时候感觉略虐心啊， 写Python时间长了已经是不习惯其他语言那种书写规范了 <s>一堆括号写的好烦躁</s> 但是从这两天的感觉来看，得感谢老大的这种设计思路，这段时间学到的确实很多。 从框架到一些库，一些插件， 还有程序上一些比较巧妙的用法 <s>正在努力消化中</s></p>
+<h3 id="生活"><a href="#生活" class="headerlink" title="生活"></a>生活</h3><p><s>有点后悔加上标题了</s> 其实主要要说的应该都放在这里吧。<br>从搬家后基本上每天生活都很规律，目前差不多适应了。<s>(找工作和面试神马的我写到碎碎念里面了，具体的等半年或者一年后当回忆录来写 233)</s>值得吐槽的就是电信的客服，用的是电信的网，前几天换了路由器忘记了密码，打客服重置密码，但是一直连接不成功（691错误，明显就是帐号密码的问题嘛）结果本来想到了周末放假的时候再好好处理，结果到了周末打电话却一直没有客服啊<s>用联通号打电信的客服我也是醉了</s> 最后到了周一才让客服又重置才成功。</p>
+<p>其实那也是导致我这么久没有更新博客的原因orz 。 </p>
+<ul>
+<li>一个原因是因为电脑重装了系统，环境啥的一直没有配置</li>
+<li>另一个就是因为网络坑爹，实在有心无力</li>
+</ul>
+<p>再者就是帝都的天气让人确实有点无奈，有天早上刚下楼，我还以为我要迈步进入寂静岭了 TAT ，感觉能幸存下来确实是很不容易啊。 </p>
+<p>最后说一下最近在网络弄好之后，挖了一个坑。打算独立开发一个网站的说， 重复造轮子的原因和大多数人是一样的 ，现有的东西没有我想要的 <s><b>正好把最近学到的东西都拿来练练手</b></s>  </p>
+<h2 id="Try-My-Best"><a href="#Try-My-Best" class="headerlink" title=" Try My Best ! "></a><b> Try My Best ! </b></h2>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Life/">Life</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Life/">Life</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-正则匹配中文及字符编码问题" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/07/22/正则匹配中文及字符编码问题/" class="article-date">
+  	<time datetime="2014-07-22T13:16:34.000Z" itemprop="datePublished">2014-07-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/22/正则匹配中文及字符编码问题/">正则匹配中文及字符编码问题</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="匹配中文的正则表达式"><a href="#匹配中文的正则表达式" class="headerlink" title="匹配中文的正则表达式"></a>匹配中文的正则表达式</h2><p>窝写了一小段<a href="http://moelove.qiniudn.com/regex-match-Chinese.py" target="_blank" rel="external">代码</a>（虽然写的不太好，但是基本可以表达意思）</p>
+<script src="https://gist.github.com/tao12345666333/13edb463b04da758dade.js"></script>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"></span><br><span class="line">nickname = raw_input(&apos;Please input your nickname &gt; &apos;)</span><br><span class="line"></span><br><span class="line">if not re.search(u&apos;^[\u4e00-\u9fa5a-zA-Z0-9]+$&apos;, unicode(nickname,&apos;utf8&apos;)):</span><br><span class="line">    print &apos;Your nickname format is error, please try again !&apos;</span><br><span class="line">else:</span><br><span class="line">    print &apos;Hello %s&apos;% nickname</span><br></pre></td></tr></table></figure>
+<p>如你所见，上面第5行的代码，就是匹配中文和字母，数字的正则表达式了。里面的<code>\u4e00-\u9fa5</code> 就是中文汉字的<code>unicode</code>编码所在位置。</p>
+<p><img src="http://moelove.qiniudn.com/2014-07-23%2023:21.png" alt="运行截图"></p>
+<hr>
+<h2 id="Python字符串的编码问题"><a href="#Python字符串的编码问题" class="headerlink" title="Python字符串的编码问题"></a>Python字符串的编码问题</h2><p>还是以上面那段代码来说。注意看第5行的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if not re.search(u&apos;^[\u4e00-\u9fa5a-zA-Z0-9]+$&apos;, unicode(nickname,&apos;utf8&apos;)):</span><br></pre></td></tr></table></figure></p>
+<p>其实这样的代码并不严谨。因为在Python 中默认是用<code>unicode</code>编码来处理字符串的，因此做编码转换的时候，一般要以<code>unicode</code>作为中间编码，也就是说：<br>其他编码格式的字符串—&gt;解码(decode)—&gt;<code>unicode</code>—&gt;编码(encode)—&gt;所需要的编码格式。</p>
+<p>因此，处理字符串编码的问题的时候，先要明白需要转换的字符串的编码格式是什么。</p>
+<h3 id="代码中字符串的默认编码格式与代码文件本身的编码格式是一样的"><a href="#代码中字符串的默认编码格式与代码文件本身的编码格式是一样的" class="headerlink" title="代码中字符串的默认编码格式与代码文件本身的编码格式是一样的"></a>代码中字符串的默认编码格式与代码文件本身的编码格式是一样的</h3><p>比如： s = ‘涛’ 在utf8的文件中，那么s就是utf8编码的，但是如果文件是gb2312编码，那么s就是gb2312编码的。此时，如果想要处理s这个字符串就要先decode成unicode编码了。</p>
+<p>不过如果是酱紫 s = u’涛’，那么s就是unicode编码了，这个时候s的编码方式不会被文件的编码所影响。</p>
+<h3 id="如果一个字符串已经是unicode编码了，再解码就会出错"><a href="#如果一个字符串已经是unicode编码了，再解码就会出错" class="headerlink" title="如果一个字符串已经是unicode编码了，再解码就会出错"></a>如果一个字符串已经是unicode编码了，再解码就会出错</h3><p>因此严谨的方式就是先对字符串进行编码格式的判别，最简单的办法就是使用Python 默认提供的<code>isinstance()</code> 方法.</p>
+<p>代码可以这样写<br><code>isinstance(s, unicode)</code> 如果不是unicode编码就会报错。</p>
+<p>窝今天在处理用户昵称的地方，忘记字符串会直接使用文件的编码了，所以对它进行了重新编码orz果断就报错了。。。以后还是要好好注意细节的说。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Regex/">Regex</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Python/">Python</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
+  
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 TaoBeier
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: true,
+		isPost: false,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-50163692-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
     }
-  });
-  c.click(function(){
-    a.addClass('fadeOut').css('display', 'none');
-    o.css('display', 'block').addClass('fadeIn');
-    m.addClass('moveMain');
-  });
-  o.click(function(){
-    o.css('display', 'none').removeClass('beforeFadeIn');
-    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
-    m.removeClass('moveMain');
-  });
-  $(window).scroll(function(){
-    o.css("top",Math.max(80,260-$(this).scrollTop()));
-  });
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
 });
 </script>
 
-
-
-
-
-
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-ga('create', 'UA-50163692-1', 'moelove.info');  
-ga('send', 'pageview');
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
 
-  </body>
- </html>
+  </div>
+</body>
+</html>

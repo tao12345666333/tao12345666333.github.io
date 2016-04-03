@@ -1,360 +1,703 @@
-
- <!DOCTYPE HTML>
-<html lang="zh-CN">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   
-    <title>MoeLove</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
-    
-    <meta name="author" content="TaoBeier">
-    
-    <meta name="description" content="TaoBeier&#39;s Blog MoeLove">
-    
-    
-    
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="BeierTao" />
-    <meta name="twitter:title" content="MoeLove" />
-      
-    
-    
-    <link rel="alternate" href="/atom.xml" title="MoeLove" type="application/atom+xml">
-    
-    
-    <link rel="icon" href="/img/favicon.ico">
-    
-    
-    <link rel="apple-touch-icon" href="/img/pacman.jpg">
-    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
-    
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
-
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>MoeLove</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="TaoBeier&apos;s Blog MoeLove">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MoeLove">
+<meta property="og:url" content="http://moelove.info/page/3/index.html">
+<meta property="og:site_name" content="MoeLove">
+<meta property="og:description" content="TaoBeier&apos;s Blog MoeLove">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MoeLove">
+<meta name="twitter:description" content="TaoBeier&apos;s Blog MoeLove">
+  
+    <link rel="alternative" href="/atom.xml" title="MoeLove" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 
-  <body>
-    <header>
-      <div>
-		
-			<div id="imglogo">
-				<a href="/"><img src="/img/logo.svg" alt="MoeLove" title="MoeLove"/></a>
-			</div>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
 			
-			<div id="textlogo">
-				<h1 class="site-name"><a href="/" title="MoeLove">MoeLove</a></h1>
-				<h2 class="blog-motto">不忘初心</h2>
+			<img lazy-src="/img/author.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">TaoBeier</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">不忘初心</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+					</ul>
+				</div>
 			</div>
-			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
-			</a></div>
-			<nav class="animated">
-				<ul>
-					<ul>
-					 
-						<li><a href="/">Home</a></li>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">Home</a></li>
+				        
+							<li><a href="/archives">Archives</a></li>
+				        
+							<li><a href="/projects">Projects</a></li>
+				        
+							<li><a href="/about">About</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/tao12345666333" title="github">github</a>
+					        
+								<a class="google" target="_blank" href="https://plus.google.com/111099802544541897352" title="google">google</a>
+					        
+								<a class="twitter" target="_blank" href="https://twitter.com/BeierTao" title="twitter">twitter</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/9020taobeier" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 16.67px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 13.33px;">DevOps</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 16.67px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/Pelican/" style="font-size: 16.67px;">Pelican</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/VIM/" style="font-size: 13.33px;">VIM</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/git/" style="font-size: 13.33px;">git</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
 					
-						<li><a href="/archives">Archives</a></li>
-					
-						<li><a href="/projects">Projects</a></li>
-					
-						<li><a href="/about">About</a></li>
-					
-					<li>
-					
-					<form class="search" action="/search/index.html" method="get" accept-charset="utf-8">
-						<label>Search</label>
-						<input type="text" id="search" autocomplete="off" name="q" maxlength="20" placeholder="搜索" />
-					</form>
-					
-					</li>
-				</ul>
-			</nav>			
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://hexo.io/">Hexo</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.flygon.net/">龙哥盟</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://blog.andyxu.me/">神岸あかり</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.cee.moe/">Cee总</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
 </div>
 
-    </header>
-    <div id="container">
-      <div id="main">
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2013/08/30/fedora下安装sublime-text-2的方法/" title="fedora下安装sublime text 2的方法" itemprop="url">
-  
-    <h1 itemprop="name">fedora下安装sublime text 2的方法</h1>
-    
-     
-           <p itemprop="description" >首先去官网下载最新的压缩包
-
-把文件解压到$HOME/.sublime_text_2文件夹中：
-
-12tar -xf (sublime压缩包的文件名).tar.bz2sudo mv (解压后的文件夹) tools/Sublime_Text_2
-
-
-在/usr/bin目录下面创建一</p>
-        
-    
-    <time datetime="2013-08-30T13:36:09.000Z" itemprop="datePublished">2013-08-30</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2013/08/10/Vim7-3-for-Windows-配置/" title="Vim7.3 for Windows 配置" itemprop="url">
-  
-    <h1 itemprop="name">Vim7.3 for Windows 配置</h1>
-    
-     
-           <p itemprop="description" >一直是在Linux下用Vim，但是有些时候在别人电脑或者机房又不得不用windows来写代码，所以也就下载了vim for windows。但是今天打开一个朋友写的网页的时候，出现了乱码的问题，所以把解决方法记录一下，也就是和在linux下面一样，修改配置文件就可以了。接下来进入</p>
-        
-    
-    <time datetime="2013-08-10T13:34:17.000Z" itemprop="datePublished">2013-08-10</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2013/08/07/LAMP环境的快速搭建/" title="LAMP环境的快速搭建" itemprop="url">
-  
-    <h1 itemprop="name">LAMP环境的快速搭建</h1>
-    
-     
-           <p itemprop="description" >这是我在我的centos 吧专门写的教程帖，目的也就是为了让新手可以更快的搭建起来环境，而不是一直在门外徘徊。所以就搬过来了，时间神马的就按照原帖来吧。
-
-写在前面
-本篇文章是面向linux新手，文中采用环境是Win7+V-BOX，配置过程用putty进行操作（个人习惯而已），l</p>
-        
-    
-    <time datetime="2013-08-07T13:30:59.000Z" itemprop="datePublished">2013-08-7</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2013/03/20/cat-命令研究/" title="cat 命令研究" itemprop="url">
-  
-    <h1 itemprop="name">cat 命令研究</h1>
-    
-     
-           <p itemprop="description" >有人问我关于centos里面使用cat命令的问题，我在这里简单记录一下。在linux下，cat应该是使用最频繁的命令之一了吧。
-
-cat命令在Linux作以下用途：
-
-在屏幕上显示文本文件。
-复制文本文件。
-合并文本文件。
-创建新的文本文件。
-
-cat命令支持的语法如下：
-123</p>
-        
-    
-    <time datetime="2013-03-20T13:24:20.000Z" itemprop="datePublished">2013-03-20</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2013/03/09/fedora安装后最初的事情/" title="fedora安装后最初的事情" itemprop="url">
-  
-    <h1 itemprop="name">fedora安装后最初的事情</h1>
-    
-     
-           <p itemprop="description" >更新源
-123sudo yum localinstall --nogpgcheck http://mirrors.163.com/rpmfusion/free/fedora/rpmfusion-free-release-stable.noarch.rpm http://mirro</p>
-        
-    
-    <time datetime="2013-03-09T13:21:14.000Z" itemprop="datePublished">2013-03-9</time>
-  </a>
-</section>
-
-
-  <nav id="page-nav" class="clearfix">
-    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
-  </nav>
-
-</div>
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
-
-<div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
-<aside class="clearfix">
-
-  
-<div class="categorieslist">
-	<p class="asidetitle">分类</p>
-		<ul>
-		
-			<li><a href="/categories/Life/" title="Life">Life<sup>3</sup></a></li>
-		
-			<li><a href="/categories/Linux/" title="Linux">Linux<sup>13</sup></a></li>
-		
-			<li><a href="/categories/Node/" title="Node">Node<sup>1</sup></a></li>
-		
-			<li><a href="/categories/Python/" title="Python">Python<sup>3</sup></a></li>
-		
-			<li><a href="/categories/Web/" title="Web">Web<sup>3</sup></a></li>
-		
-		</ul>
-</div>
-
-
-  
-<div class="tagslist">
-	<p class="asidetitle">标签</p>
-		<ul class="clearfix">
-		
-			<li><a href="/tags/Android/" title="Android">Android<sup>1</sup></a></li>
-		
-			<li><a href="/tags/BAE/" title="BAE">BAE<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Blog/" title="Blog">Blog<sup>3</sup></a></li>
-		
-			<li><a href="/tags/DevOps/" title="DevOps">DevOps<sup>2</sup></a></li>
-		
-			<li><a href="/tags/Go/" title="Go">Go<sup>1</sup></a></li>
-		
-			<li><a href="/tags/LAMP/" title="LAMP">LAMP<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Life/" title="Life">Life<sup>3</sup></a></li>
-		
-			<li><a href="/tags/Linux/" title="Linux">Linux<sup>11</sup></a></li>
-		
-			<li><a href="/tags/MongoDB/" title="MongoDB">MongoDB<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Open-Falcon/" title="Open-Falcon">Open-Falcon<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Pelican/" title="Pelican">Pelican<sup>3</sup></a></li>
-		
-			<li><a href="/tags/Rails/" title="Rails">Rails<sup>1</sup></a></li>
-		
-			<li><a href="/tags/React/" title="React">React<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Regex/" title="Regex">Regex<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Ruby/" title="Ruby">Ruby<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Sbulime-Text/" title="Sbulime Text">Sbulime Text<sup>1</sup></a></li>
-		
-			<li><a href="/tags/Sublime-Text/" title="Sublime Text">Sublime Text<sup>1</sup></a></li>
-		
-			<li><a href="/tags/VIM/" title="VIM">VIM<sup>2</sup></a></li>
-		
-			<li><a href="/tags/Web/" title="Web">Web<sup>1</sup></a></li>
-		
-			<li><a href="/tags/git/" title="git">git<sup>2</sup></a></li>
-		
-		</ul>
-</div>
-
-
-  <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
-</div>
-
-  <div class="linkslist">
-  <p class="asidetitle">友情链接</p>
-    <ul>
-      <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
-      <li><a href="http://www.flygon.net/" target="_blank" title="龙哥盟">龙哥盟</a></li>
-      <li><a href="https://blog.andyxu.me/" target="_blank" title="神岸あかり">神岸あかり</a></li>
-      <li><a href="http://blog.cee.moe/" target="_blank" title="Cee Cirno">Cee总</a></li>
-    </ul>
-</div>
-
-
-</aside>
-</div>
     </div>
-    <footer><div id="footer" >
-	
-	<div class="line">
-		<span></span>
-		<div class="author"></div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">TaoBeier</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/img/author.png" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">TaoBeier</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">不忘初心</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">Home</a></li>
+		        
+					<li><a href="/archives">Archives</a></li>
+		        
+					<li><a href="/projects">Projects</a></li>
+		        
+					<li><a href="/about">About</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/tao12345666333" title="github">github</a>
+			        
+						<a class="google" target="_blank" href="https://plus.google.com/111099802544541897352" title="google">google</a>
+			        
+						<a class="twitter" target="_blank" href="https://twitter.com/BeierTao" title="twitter">twitter</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/9020taobeier" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
 	</div>
-	
-	
-	<section class="info">
-		<p> Strive to do better <br/>
-			 Be Moe Be Love ! </p>
-	</section>
-	 
-	<div class="social-font" class="clearfix">
-		
-		<a href="http://weibo.com/9020taobeier" target="_blank" title="weibo"></a>
-		
-		
-		<a href="https://twitter.com/BeierTao" target="_blank" title="twitter"></a>
-		
-		
-		<a href="https://github.com/tao12345666333" target="_blank" title="github"></a>
-		
-		
-	</div>
-		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2016 
-		
-		<a href="http://moelove.info" target="_blank" title="TaoBeier">TaoBeier</a>
-		
-		</p>
-</div>
-</footer>
-    <script src="/js/jquery-2.1.0.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){ 
-  $('.navbar').click(function(){
-    $('header nav').toggleClass('shownav');
-  });
-  var myWidth = 0;
-  function getSize(){
-    if( typeof( window.innerWidth ) == 'number' ) {
-      myWidth = window.innerWidth;
-    } else if( document.documentElement && document.documentElement.clientWidth) {
-      myWidth = document.documentElement.clientWidth;
-    };
-  };
-  var m = $('#main'),
-      a = $('#asidepart'),
-      c = $('.closeaside'),
-      o = $('.openaside');
-  $(window).resize(function(){
-    getSize(); 
-    if (myWidth >= 1024) {
-      $('header nav').removeClass('shownav');
-    }else
-    {
-      m.removeClass('moveMain');
-      a.css('display', 'block').removeClass('fadeOut');
-      o.css('display', 'none');
+</nav>
+
+      <div class="body-wrap">
+  
+    <article id="post-fedora下安装sublime-text-2的方法" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2013/08/30/fedora下安装sublime-text-2的方法/" class="article-date">
+  	<time datetime="2013-08-30T13:36:09.000Z" itemprop="datePublished">2013-08-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
         
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/30/fedora下安装sublime-text-2的方法/">fedora下安装sublime text 2的方法</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="首先去官网下载最新的压缩包"><a href="#首先去官网下载最新的压缩包" class="headerlink" title="首先去官网下载最新的压缩包"></a>首先去<a href="http://www.sublimetext.com/" target="_blank" rel="external">官网</a>下载最新的压缩包</h3><ul>
+<li><p>把文件解压到$HOME/.sublime_text_2文件夹中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -xf (sublime压缩包的文件名).tar.bz2</span><br><span class="line">sudo mv (解压后的文件夹) tools/Sublime_Text_2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在/usr/bin目录下面创建一个链接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim sublime</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在文件中写入这些代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">export SUBLIME_HOME=&quot;~/tools/Sublime_Text_2&quot;</span><br><span class="line"></span><br><span class="line">$SUBLIME_HOME/sublime_text $*</span><br></pre></td></tr></table></figure></p>
+<p>修改文件权限并且移动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 555 sublime &amp;&amp; mv sublime /usr/bin/sublime</span><br></pre></td></tr></table></figure></p>
+<p>这样就可以在终端中直接执行sublime了</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sbulime-Text/">Sbulime Text</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Linux/">Linux</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Vim7-3-for-Windows-配置" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2013/08/10/Vim7-3-for-Windows-配置/" class="article-date">
+  	<time datetime="2013-08-10T13:34:17.000Z" itemprop="datePublished">2013-08-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/10/Vim7-3-for-Windows-配置/">Vim7.3 for Windows 配置</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>一直是在Linux下用Vim，但是有些时候在别人电脑或者机房又不得不用windows来写代码，所以也就下载了vim for windows。但是今天打开一个朋友写的网页的时候，出现了乱码的问题，所以把解决方法记录一下，也就是和在linux下面一样，修改配置文件就可以了。接下来进入正题。</p>
+</blockquote>
+<h3 id="选项意义概述"><a href="#选项意义概述" class="headerlink" title="选项意义概述"></a>选项意义概述</h3><p>Vim有四个跟字符编码方式有关的选项，分别是:<code>encoding</code>、<code>fileencoding</code>、<code>fileencodings</code>、<code>termencoding</code> (这些选项可能的取值可以参考 Vim 的帮助 :<em>help encoding-names</em>)，它们各自的意义:</p>
+<ul>
+<li><p><strong>encoding</strong>: Vim 内部使用的字符编码方式，包括Vim的buffer(缓冲区)、菜单文本、消息文本等。用户手册上建议只在<em>.vimrc</em>中改变它的值，事实上似乎也只有在<em>.vimrc</em> 中改变它的值才有意义。</p>
+</li>
+<li><p><strong>fileencoding</strong>: Vim 中当前编辑的文件的字符编码方式，Vim 保存文件时也会将文件保存为这种字符编码方式 (不管是否新文件都如此)。</p>
+</li>
+<li><p><strong>fileencodings</strong>: Vim 启动时会按照它所列出的字符编码方式逐一探测即将打开的文件的字符编码方式，并且将 fileencoding 设置为最终探测到的字符编码方式。因此最好将 Unicode 编码方式放到这个列表的最前面，将拉丁语系编码方式 latin1 放到最后面。</p>
+</li>
+<li><strong>termencoding</strong>: Vim 所工作的终端 (或者 Windows 的 Console 窗口) 的字符编码方式。这个选项在 Windows 下对我们常用的 GUI 模式的 gVim 无效，而对 Console 模式的 Vim 而言就是Windows控制台的代码页，并且通常我们不需要改变它。（我尝试改变了它为UTF-8，但对于console模式的编码方式却没有改变）</li>
+</ul>
+<h3 id="配置说明"><a href="#配置说明" class="headerlink" title="配置说明"></a>配置说明</h3><p>由于 Unicode 能包含几乎所有的语言的字符，Unicode的UTF-8编码方式又是非常具有性价比和通用的编码方式，所以把<em>encoding</em>的值设置为<strong>utf-8</strong>。同时将encoding设置为utf-8时，Vim自动探测文件的编码方式会更准确。在中文Windows里编辑的文件，为了兼顾与其他软件的兼容性，文件编码还是设置为GB2312/GBK比较合适，因此<em>fileencoding</em>建议设置为<strong>chinese</strong> (<em>chinese是个别名，在Unix里表示<code>gb2312</code>，在Windows里表示<code>cp936</code>，也就是GBK的代码页</em>)。</p>
+<h3 id="具体配置"><a href="#具体配置" class="headerlink" title="具体配置"></a>具体配置</h3><p>最后对于文件中显示乱码、菜单乱码、右键菜单乱码以及Conlse输出乱码问题的解决方案，修改Vim编辑器所对应的配置文件<strong>_vimrc</strong>（这个文件在你安装vim 的那个目录下），添加如下配置：</p>
+<ul>
+<li><p>关于常规设置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&quot;总是显示标签。0：不显示；1：多于1个时显示&quot;</span><br><span class="line">set showtabline=2</span><br><span class="line">&quot;开启行号&quot;</span><br><span class="line">set number</span><br><span class="line">&quot;开启自动缩进, 7.3以上版本已自动开启&quot;</span><br><span class="line">set autoindent</span><br><span class="line">&quot;缩进宽度为4个字符&quot;</span><br><span class="line">set shiftwidth=4</span><br><span class="line">&quot;tab宽度为4个字符&quot;</span><br><span class="line">set tabstop=4</span><br><span class="line">&quot;编辑时将所有tab替换为空格&quot;</span><br><span class="line">set et</span><br><span class="line">&quot;按一次Backspace就删除4个空格&quot;</span><br><span class="line">set smarttab</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关于色彩和字体之类的设置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&quot;配色方案（这里可以自选，我比较喜欢这个配色方案）&quot;</span><br><span class="line">colo desert</span><br><span class="line">&quot;开启语法高亮, 7.3版本已自动开启&quot;</span><br><span class="line">syntax on</span><br><span class="line">&quot;字体设置&quot;</span><br><span class="line">set guifont=courier_new:h10</span><br><span class="line">&quot;关闭兼容模式&quot;</span><br><span class="line">set nocompatible</span><br><span class="line">&quot;以下三行模拟Windows操作，如Ctrl-C复制&quot;</span><br><span class="line">source $VIMRUNTIME/vimrc_example.vim</span><br><span class="line">source $VIMRUNTIME/mswin.vim</span><br><span class="line">behave mswin</span><br><span class="line">&quot;不生成备份文件，下面这句要写在behave mswin下面，否则还是会生成备份，情况不明&quot;</span><br><span class="line">set nobackup</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关于编码部分的设置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&quot;GVIM内部编码&quot;</span><br><span class="line">set encoding=utf-8</span><br><span class="line">&quot;当前编辑的文件编码&quot;</span><br><span class="line">set fileencoding=utf-8</span><br><span class="line">&quot;GVIM支持打开的文件编码（这里也是参考帮助手册来的）&quot;</span><br><span class="line">set fileencodings=utf-8,gbk,gb2312,big5,latin1</span><br><span class="line">&quot;解决菜单及右键菜单乱码&quot;</span><br><span class="line">source $VIMRUNTIME/delmenu.vim</span><br><span class="line">source $VIMRUNTIME/menu.vim</span><br><span class="line">&quot;解决consle输出乱码&quot;</span><br><span class="line">language messages zh_CN.utf-8</span><br><span class="line">&quot;防止特殊符号无法正常显示，如五角星等1&quot;</span><br><span class="line">set ambiwidth=double</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>主体设置部分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">set diffexpr=MyDiff()</span><br><span class="line">function MyDiff()</span><br><span class="line">  let opt = &apos;-a --binary &apos;</span><br><span class="line">  if &amp;diffopt =~ &apos;icase&apos; | let opt = opt . &apos;-i &apos; | endif</span><br><span class="line">  if &amp;diffopt =~ &apos;iwhite&apos; | let opt = opt . &apos;-b &apos; | endif</span><br><span class="line">  let arg1 = v:fname_in</span><br><span class="line">  if arg1 =~ &apos; &apos; | let arg1 = &apos;&quot;&apos; . arg1 . &apos;&quot;&apos; | endif</span><br><span class="line">  let arg2 = v:fname_new</span><br><span class="line">  if arg2 =~ &apos; &apos; | let arg2 = &apos;&quot;&apos; . arg2 . &apos;&quot;&apos; | endif</span><br><span class="line">  let arg3 = v:fname_out</span><br><span class="line">  if arg3 =~ &apos; &apos; | let arg3 = &apos;&quot;&apos; . arg3 . &apos;&quot;&apos; | endif</span><br><span class="line">  let eq = &apos;&apos;</span><br><span class="line">  if $VIMRUNTIME =~ &apos; &apos;</span><br><span class="line">    if &amp;sh =~ &apos;\&lt;cmd&apos;</span><br><span class="line">      let cmd = &apos;&quot;&quot;&apos; . $VIMRUNTIME . &apos;\diff&quot;&apos;</span><br><span class="line">      let eq = &apos;&quot;&apos;</span><br><span class="line">    else</span><br><span class="line">      let cmd = substitute($VIMRUNTIME, &apos; &apos;, &apos;&quot; &apos;, &apos;&apos;) . &apos;\diff&quot;&apos;</span><br><span class="line">    endif</span><br><span class="line">  else</span><br><span class="line">    let cmd = $VIMRUNTIME . &apos;\diff&apos;</span><br><span class="line">  endif</span><br><span class="line">  silent execute &apos;!&apos; . cmd . &apos; &apos; . opt . arg1 . &apos; &apos; . arg2 . &apos; &gt; &apos; . arg3 . eq</span><br><span class="line">endfunction</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>以上就是我关于windows下VIM的配置修改了。我使用的配置文件可以在<a href="https://github.com/tao12345666333/VimforWindowssetting" target="_blank" rel="external">Vim for Windows setting</a>下载得到。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VIM/">VIM</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-LAMP环境的快速搭建" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2013/08/07/LAMP环境的快速搭建/" class="article-date">
+  	<time datetime="2013-08-07T13:30:59.000Z" itemprop="datePublished">2013-08-7</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/07/LAMP环境的快速搭建/">LAMP环境的快速搭建</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>这是我在我的<a href="http://tieba.baidu.com/f?kw=centos" target="_blank" rel="external">centos 吧</a>专门写的教程帖，目的也就是为了让新手可以更快的搭建起来环境，而不是一直在门外徘徊。所以就搬过来了，时间神马的就按照<a href="http://tieba.baidu.com/p/2514694347" target="_blank" rel="external">原帖</a>来吧。</p>
+</blockquote>
+<h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>本篇文章是面向linux新手，文中采用环境是<em>Win7+V-BOX</em>，配置过程用putty进行操作（个人习惯而已），linux系统使用CentOS6.3版本。CentOS的安装方法及虚拟机中网络配置请参阅centos吧精品帖<a href="http://tieba.baidu.com/p/2068921476" target="_blank" rel="external">【教程】最全centos 安装方法及内容详解</a>。为了尽量一次性可以让读者完成LAMP环境的搭建，本次安装过程都采用<code>yum</code>包管理机制进行安装。当然生产环境下一般都是采用源码编译的。在近期我也会再出连载文，使用源码包进行LAMP环境的搭建，欢迎关注。如果有任何意见或者建议都可以到centos吧发帖询问。<br>Ps:本文LAMP = Linux + Apache + Mysql + PHP</p>
+<h3 id="安装过程（先确保你的系统网络正常或者搭建好了本地源）"><a href="#安装过程（先确保你的系统网络正常或者搭建好了本地源）" class="headerlink" title="安装过程（先确保你的系统网络正常或者搭建好了本地源）"></a>安装过程（先确保你的系统网络正常或者搭建好了本地源）</h3><h4 id="1-首先安装Apache，使用命令："><a href="#1-首先安装Apache，使用命令：" class="headerlink" title="1. 首先安装Apache，使用命令："></a>1. 首先安装Apache，使用命令：</h4><p><code>sudo yum install httpd –y</code></p>
+<h4 id="2-然后安装Mysql，使用命令"><a href="#2-然后安装Mysql，使用命令" class="headerlink" title="2. 然后安装Mysql，使用命令"></a>2. 然后安装Mysql，使用命令</h4><p><code>sudo yum install mysql mysql-server –y</code></p>
+<h4 id="3-再安装php-，使用命令"><a href="#3-再安装php-，使用命令" class="headerlink" title="3. 再安装php ，使用命令"></a>3. 再安装php ，使用命令</h4><p><code>sudo yum install php –y</code></p>
+<h4 id="4-安装完毕之后启动apache-使用"><a href="#4-安装完毕之后启动apache-使用" class="headerlink" title="4. 安装完毕之后启动apache. 使用"></a>4. 安装完毕之后启动apache. 使用</h4><p><code>sudo service httpd start</code></p>
+<p><img src="http://moelove.qiniudn.com/serverstart.jpg" width="70%"></p>
+<p>启动成功了，我们访问一下，在浏览器的地址栏输入虚拟机IP。</p>
+<p><img src="http://moelove.qiniudn.com/view.jpg" width="70%"></p>
+<p>好，这里遇到了我们的第一个问题， <strong>无法访问</strong></p>
+<blockquote>
+<ul>
+<li>apache服务已经打开，但是却无法访问<br>这里很可能是<strong>iptables</strong>的防御规则导致的。</li>
+</ul>
+</blockquote>
+<p>执行<code>iptables –L</code>查看所有的iptables的规则。</p>
+<p><img src="http://moelove.qiniudn.com/lampiptables.jpg" width="70%"></p>
+<p>关于iptables的知识可以自行了解或者关注后续讲解<br>我们执行 <code>sudo iptables –F</code> 清除所有规则</p>
+<p><img src="http://moelove.qiniudn.com/lampcleariptables.jpg" width="70%"></p>
+<p>接下来在浏览器输入虚拟机地址 ，我们看到如下：</p>
+<p><img src="http://moelove.qiniudn.com/lampsuccess.jpg" width="70%"></p>
+<p>我们已经访问成功了！</p>
+<blockquote>
+<ul>
+<li><s>当然在这里的时候也许还有人是访问不了的，</s>可能是因为CentOS自带的<strong>SElinux</strong>机制影响的</li>
+</ul>
+</blockquote>
+<p>我们执行<code>getenforce</code>命令来查看SElinux的状态，使用<code>sudo setenforce 0</code>来改变SElinux为<em>permission</em>状态。</p>
+<p><img src="http://moelove.qiniudn.com/lampSELinuxstatus.jpg" width="70%"></p>
+<p>都执行完成后，<s>应该</s>就可以访问了。</p>
+<h4 id="5-测试是否可以执行php代码"><a href="#5-测试是否可以执行php代码" class="headerlink" title="5.测试是否可以执行php代码"></a>5.测试是否可以执行php代码</h4><p>执行 <code>vim /var/www/html/test.php</code> 写入测试代码</p>
+<p><img src="http://moelove.qiniudn.com/lampphpinfo.jpg" width="70%"></p>
+<p>保存退出，用浏览器进行访问</p>
+<p><img src="http://moelove.qiniudn.com/lampviewstatus.jpg" width="70%"></p>
+<p>成功！</p>
+<p>但是向后看，发现组成模块里面没有<strong>mysql</strong>。说明现在还不支持mysql模块，因为我们少安装了一个东西 现在执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install php-mysql</span><br></pre></td></tr></table></figure></p>
+<p>添加php和mysql的中间模块，重启apache服务:<code>sudo service httpd restart</code> 再次访问，发现组成模块中有了mysql的信息，说明可以访问mysql的数据库了。</p>
+<p>接下来执行<code>sudo service mysqld start</code> 启动mysql服务。<br>执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure></p>
+<p>访问mysql数据库</p>
+<p><img src="http://moelove.qiniudn.com/lampmysqlstatus.jpg" width="70%"></p>
+<p>表示mysql数据库也正常，到此，<strong>LAMP环境初步建成</strong>。</p>
+<h4 id="6-设置服务的开机自动启动（可以不做）"><a href="#6-设置服务的开机自动启动（可以不做）" class="headerlink" title="6.设置服务的开机自动启动（可以不做）"></a>6.设置服务的开机自动启动<s>（可以不做）</s></h4><p>使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo chkconfig httpd on</span><br><span class="line">sudo chkconfig mysqld on</span><br></pre></td></tr></table></figure></p>
+<h4 id="7-LAMP环境的配置文件"><a href="#7-LAMP环境的配置文件" class="headerlink" title="7.LAMP环境的配置文件"></a>7.LAMP环境的配置文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Apache: /etc/httpd/conf/httpd.conf</span><br><span class="line">Php: /etc/php.ini</span><br><span class="line">Mysql: /etc/my.cnf</span><br></pre></td></tr></table></figure>
+<h3 id="LAMP环境搭建小结"><a href="#LAMP环境搭建小结" class="headerlink" title="LAMP环境搭建小结"></a>LAMP环境搭建小结</h3><p>通过以上过程，你就已经成功的搭建好了LAMP环境，剩下的配置就是修改你的配置文件，进而达到效果。类似启动类型，模块，超时，地址，状态之类的，都会在下篇文章中写出。<br>使用<em>yum</em>安装LAMP环境是最简单的，也是最方便的。不过生产环境都是用的源码包，因为源码包可以更加个性化的定义你需要的模块。</p>
+<p><a href="http://wenku.baidu.com/view/fd825c8551e79b8969022614.html" target="_blank" rel="external">CentOS安装方法</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LAMP/">LAMP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Linux/">Linux</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-cat-命令研究" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2013/03/20/cat-命令研究/" class="article-date">
+  	<time datetime="2013-03-20T13:24:20.000Z" itemprop="datePublished">2013-03-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/03/20/cat-命令研究/">cat 命令研究</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>有人问我关于centos里面使用cat命令的问题，我在这里简单记录一下。<br>在linux下，cat应该是使用最频繁的命令之一了吧。</p>
+</blockquote>
+<h3 id="cat命令在Linux作以下用途："><a href="#cat命令在Linux作以下用途：" class="headerlink" title="cat命令在Linux作以下用途："></a>cat命令在Linux作以下用途：</h3><ul>
+<li>在屏幕上显示文本文件。</li>
+<li>复制文本文件。</li>
+<li>合并文本文件。</li>
+<li>创建新的文本文件。</li>
+</ul>
+<h3 id="cat命令支持的语法如下："><a href="#cat命令支持的语法如下：" class="headerlink" title="cat命令支持的语法如下："></a>cat命令支持的语法如下：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cat filename</span><br><span class="line">cat options filename</span><br><span class="line">cat file1 file2</span><br><span class="line">cat file1 file2 &gt; newcombinedfile</span><br></pre></td></tr></table></figure>
+<h4 id="显示文件的内容："><a href="#显示文件的内容：" class="headerlink" title="显示文件的内容："></a>显示文件的内容：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /tmp/test</span><br></pre></td></tr></table></figure>
+<p>上面的命令就是查看文件<code>/tmp/test</code>的内容，把内容输出到屏幕。<br>但是也可以使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /tmp/test &gt; /tmp/test2</span><br></pre></td></tr></table></figure></p>
+<p>使用上面的命令，可以把文件内容<strong><a href="http://linux-wiki.cn/wiki/zh-hans/Bash%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91" target="_blank" rel="external">重定向</a></strong>到/tmp/test2文件中</p>
+<h4 id="串联文件："><a href="#串联文件：" class="headerlink" title="串联文件："></a>串联文件：</h4><p>串联文件是把文件内容一起输出，但是不会改变源文件的内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /tmp/test1 /tmp/test2 /tmp/test3</span><br></pre></td></tr></table></figure></p>
+<p>以上命令会将/tmp 目录下的 test1 ,test2 ,test3 三个文件的内容一起输出，当然也可以使用重定向命令查看输出内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /tmp/test1 /tmp/test2 /tmp/test3 &gt;/tmp/testoutputs</span><br></pre></td></tr></table></figure></p>
+<p>重定向至/tmp 下的testoutputs 文件中</p>
+<p>当然查看的时候可以配合管道命令使用</p>
+<p><code>cat /tmp/test1 /tmp/test2 /tmp/test3 | less</code></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Linux/">Linux</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-fedora安装后最初的事情" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2013/03/09/fedora安装后最初的事情/" class="article-date">
+  	<time datetime="2013-03-09T13:21:14.000Z" itemprop="datePublished">2013-03-9</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/03/09/fedora安装后最初的事情/">fedora安装后最初的事情</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="更新源"><a href="#更新源" class="headerlink" title="更新源"></a>更新源</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo yum localinstall --nogpgcheck http://mirrors.163.com/rpmfusion/free/fedora/rpmfusion-free-release-stable.noarch.rpm http://mirrors.163.com/rpmfusion/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm      (这个是添加国内的软件源)</span><br><span class="line"></span><br><span class="line">sudo yum update</span><br></pre></td></tr></table></figure>
+<h3 id="网络相关"><a href="#网络相关" class="headerlink" title="网络相关"></a>网络相关</h3><h4 id="firefox"><a href="#firefox" class="headerlink" title="firefox"></a>firefox</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install firefox</span><br></pre></td></tr></table></figure>
+<h4 id="chrome-chromium"><a href="#chrome-chromium" class="headerlink" title="chrome / chromium"></a>chrome / chromium</h4><p>我本人比较习惯用chrome的 <s>不过最近网络不是很稳定 </s>先补充chromium 的安装方法吧</p>
+<ul>
+<li><p>chromium的安装<br>首先添加<a href="http://pan.baidu.com/s/1kTIBvUZ" target="_blank" rel="external">chromium的fedora源</a>,将下载好的 <strong>.repo</strong> 文件移动到<code>/etc/yum.repos.d/</code>下， 执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install chromium</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>chrome的安装<br>从<a href="http://www.google.com/intl/zh-CN/chrome/" target="_blank" rel="external">官网</a>上下载chrome 的rpm包，或者从我的网盘下载对应的<a href="http://pan.baidu.com/s/1ntmdqtz" target="_blank" rel="external">32位</a> 或 <a href="http://pan.baidu.com/s/1jGuqRdG" target="_blank" rel="external">64位</a> 的rpm 包<br>执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rpm -ivh google-chrome.rpm</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="安装证书"><a href="#安装证书" class="headerlink" title="安装证书"></a>安装证书</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum localinstall --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-branched.noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-branched.noarch.rpm</span><br></pre></td></tr></table></figure>
+<h3 id="压缩-解压软件"><a href="#压缩-解压软件" class="headerlink" title="压缩/解压软件"></a>压缩/解压软件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install unrar</span><br><span class="line">sudo yum install p7zip</span><br></pre></td></tr></table></figure>
+<h3 id="影音播放"><a href="#影音播放" class="headerlink" title="影音播放"></a>影音播放</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install gstreamer-plugins-good gstreamer-plugins-bad gstreamer-plugins-ugly libtunepimp-extras-freeworld xine-lib-extras-freeworld(安装音频解码器)</span><br><span class="line"></span><br><span class="line">sudo yum install ffmpeg ffmpeg-libs gstreamer-ffmpeg libmatroska xvidcore(安装视频解码器)</span><br></pre></td></tr></table></figure>
+<h3 id="编辑器"><a href="#编辑器" class="headerlink" title="编辑器"></a>编辑器</h3><ul>
+<li><p>vim</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install vim</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Sublime Text<br>我也很喜欢因为运行速度快，而且免费。安装方法可以参考我的<a href="http://moelove.info/articles/2013/08/30/fedoraxia-an-zhuang-sublime-text-2de-fang-fa/">fedora下安装sublime text 2</a>这篇文章。</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Linux/">Linux</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    </nav>
+  
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 TaoBeier
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: true,
+		isPost: false,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-50163692-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
     }
-  });
-  c.click(function(){
-    a.addClass('fadeOut').css('display', 'none');
-    o.css('display', 'block').addClass('fadeIn');
-    m.addClass('moveMain');
-  });
-  o.click(function(){
-    o.css('display', 'none').removeClass('beforeFadeIn');
-    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
-    m.removeClass('moveMain');
-  });
-  $(window).scroll(function(){
-    o.css("top",Math.max(80,260-$(this).scrollTop()));
-  });
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
 });
 </script>
 
-
-
-
-
-
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-ga('create', 'UA-50163692-1', 'moelove.info');  
-ga('send', 'pageview');
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
 
-  </body>
- </html>
+  </div>
+</body>
+</html>
