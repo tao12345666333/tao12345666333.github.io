@@ -4,17 +4,48 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Archives: 2014/10 | MoeLove</title>
+  <title>Python性能优化之工具篇 | MoeLove</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="TaoBeier&apos;s Blog MoeLove">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MoeLove">
-<meta property="og:url" content="http://moelove.info/archives/2014/10/index.html">
+  <meta name="description" content="之前对公司的一个后端项目做了些性能优化, 学到一些值得记录的东西, 这篇主要是介绍在做性能分析时所用到的工具, 至于如何优化基本就是智者见智吧, 如果有时间可能会写的. 
+
+Python web应用程序的常见性能指标此处忽略外部DNS解析等方面的性能
+
+响应时间
+错误率
+吞吐率
+执行时间
+内存占用
+
+Python 性能分析工具##TODO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python性能优化之工具篇">
+<meta property="og:url" content="http://moelove.info/2016/05/14/Python性能优化之工具篇/index.html">
 <meta property="og:site_name" content="MoeLove">
-<meta property="og:description" content="TaoBeier&apos;s Blog MoeLove">
+<meta property="og:description" content="之前对公司的一个后端项目做了些性能优化, 学到一些值得记录的东西, 这篇主要是介绍在做性能分析时所用到的工具, 至于如何优化基本就是智者见智吧, 如果有时间可能会写的. 
+
+Python web应用程序的常见性能指标此处忽略外部DNS解析等方面的性能
+
+响应时间
+错误率
+吞吐率
+执行时间
+内存占用
+
+Python 性能分析工具##TODO">
+<meta property="og:updated_time" content="2016-08-19T17:06:00.331Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MoeLove">
-<meta name="twitter:description" content="TaoBeier&apos;s Blog MoeLove">
+<meta name="twitter:title" content="Python性能优化之工具篇">
+<meta name="twitter:description" content="之前对公司的一个后端项目做了些性能优化, 学到一些值得记录的东西, 这篇主要是介绍在做性能分析时所用到的工具, 至于如何优化基本就是智者见智吧, 如果有时间可能会写的. 
+
+Python web应用程序的常见性能指标此处忽略外部DNS解析等方面的性能
+
+响应时间
+错误率
+吞吐率
+执行时间
+内存占用
+
+Python 性能分析工具##TODO">
   
     <link rel="alternate" href="/atom.xml" title="MoeLove" type="application/atom+xml">
   
@@ -187,57 +218,120 @@
 	</div>
 </nav>
 
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-Python性能优化之工具篇" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2014" class="archive-year">2014</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2014/10/16/近况/" class="archive-article-date">
-  	<time datetime="2014-10-16T15:34:39.000Z" itemprop="datePublished">10月 16</time>
+    <div class="article-meta">
+      <a href="/2016/05/14/Python性能优化之工具篇/" class="article-date">
+  	<time datetime="2016-05-13T16:14:54.000Z" itemprop="datePublished">2016-05-14</time>
 </a>
-        </div>
-    	 
+    </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2014/10/16/近况/">近况</a>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Python性能优化之工具篇
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Life/">Life</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Performance/">Performance</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
 	</div>
 
-          
+        
 	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Life/">Life</a>
+	<a class="article-category-link" href="/categories/Python/">Python</a>
 	</div>
 
 
-        </div>
         <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
+      </div>
+      
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>之前对公司的一个后端项目做了些性能优化, 学到一些值得记录的东西, 这篇主要是介绍在做性能分析时所用到的工具, 至于如何优化基本就是智者见智吧, 如果有时间可能会写的. </p>
+</blockquote>
+<h1 id="Python-web应用程序的常见性能指标"><a href="#Python-web应用程序的常见性能指标" class="headerlink" title="Python web应用程序的常见性能指标"></a>Python web应用程序的常见性能指标</h1><pre><code>此处忽略外部DNS解析等方面的性能
+</code></pre><ul>
+<li>响应时间</li>
+<li>错误率</li>
+<li>吞吐率</li>
+<li>执行时间</li>
+<li>内存占用</li>
+</ul>
+<h1 id="Python-性能分析工具"><a href="#Python-性能分析工具" class="headerlink" title="Python 性能分析工具"></a>Python 性能分析工具</h1><p>##TODO</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/04/16/想从二次元群体手里赚钱？你真的懂二次元吗/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">想从二次元群体手里赚钱？你真的懂二次元吗!</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_googleplus"></a>
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1409897761537978" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'taobeier'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
 
 </div>
       <footer id="footer">
@@ -263,8 +357,8 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false

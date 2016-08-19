@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://moelove.info/"/>
-  <updated>2016-04-16T14:11:06.656Z</updated>
+  <updated>2016-08-19T17:06:00.331Z</updated>
   <id>http://moelove.info/</id>
   
   <author>
@@ -14,6 +14,45 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python性能优化之工具篇</title>
+    <link href="http://moelove.info/2016/05/14/Python%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E5%B7%A5%E5%85%B7%E7%AF%87/"/>
+    <id>http://moelove.info/2016/05/14/Python性能优化之工具篇/</id>
+    <published>2016-05-13T16:14:54.000Z</published>
+    <updated>2016-08-19T17:06:00.331Z</updated>
+    
+    <content type="html">&lt;blockquote&gt;
+&lt;p&gt;之前对公司的一个后端项目做了些性能优化, 学到一些值得记录的东西, 这篇主要是介绍在做性能分析时所用到的工具, 至于如何优化基本就是智者见智吧, 如果有时间可能会写的. &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;Python-web应用程序的常见性能指标&quot;&gt;&lt;a href=&quot;#Python-web应用程序的常见性能指标&quot; class=&quot;headerlink&quot; title=&quot;Python web应用程序的常见性能指标&quot;&gt;&lt;/a&gt;Python web应用程序的常见性能指标&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;此处忽略外部DNS解析等方面的性能
+&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
+&lt;li&gt;响应时间&lt;/li&gt;
+&lt;li&gt;错误率&lt;/li&gt;
+&lt;li&gt;吞吐率&lt;/li&gt;
+&lt;li&gt;执行时间&lt;/li&gt;
+&lt;li&gt;内存占用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&quot;Python-性能分析工具&quot;&gt;&lt;a href=&quot;#Python-性能分析工具&quot; class=&quot;headerlink&quot; title=&quot;Python 性能分析工具&quot;&gt;&lt;/a&gt;Python 性能分析工具&lt;/h1&gt;&lt;p&gt;##TODO&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;之前对公司的一个后端项目做了些性能优化, 学到一些值得记录的东西, 这篇主要是介绍在做性能分析时所用到的工具, 至于如何优化基本就是智者见智吧, 如果有时间可能会写的. &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;Python-web应用
+    
+    </summary>
+    
+      <category term="Python" scheme="http://moelove.info/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://moelove.info/tags/Python/"/>
+    
+      <category term="Performance" scheme="http://moelove.info/tags/Performance/"/>
+    
+  </entry>
   
   <entry>
     <title>想从二次元群体手里赚钱？你真的懂二次元吗!</title>
@@ -1096,46 +1135,6 @@
     
     
       <category term="Linux" scheme="http://moelove.info/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Ruby on Rails 环境</title>
-    <link href="http://moelove.info/2013/09/21/Ruby-on-Rails-%E7%8E%AF%E5%A2%83/"/>
-    <id>http://moelove.info/2013/09/21/Ruby-on-Rails-环境/</id>
-    <published>2013-09-21T13:39:55.000Z</published>
-    <updated>2016-04-03T15:03:28.577Z</updated>
-    
-    <content type="html">&lt;h4 id=&quot;就这次的尝试写一下自己的记录&quot;&gt;&lt;a href=&quot;#就这次的尝试写一下自己的记录&quot; class=&quot;headerlink&quot; title=&quot;就这次的尝试写一下自己的记录&quot;&gt;&lt;/a&gt;就这次的尝试写一下自己的记录&lt;/h4&gt;&lt;p&gt;安装ruby  和 ruby-devel(安装ruby-devel是因为后续的工作如果没有ruby-devel的话，会报错)&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo yum install ruby ruby-devel rubygems sqlite -y&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;需要的环境有了，那么就可以开始正式的工作了&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo gem install rails&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;找到一个合适的目录来放自己的代码.然后执行&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ rails new mysite&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;// 这个是建立一个叫mysite 的rails程式 ，在当前目录下面&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ cd mysite&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//进入这个目录&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$ bundle install&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;//因为在做测试 所以 也没有必要安装其他的gem&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;接下来看看它的数据库  配置文件是 &lt;code&gt;config/database.yml&lt;/code&gt;  默认的支持是是&lt;strong&gt;SQLite3&lt;/strong&gt;(当然也支持其他的比如mysql之类的)它有三种模式:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;development environment开发模式，用在你的开发的时候&lt;/li&gt;
-&lt;li&gt;test environment测试模式，用在自动测试时&lt;/li&gt;
-&lt;li&gt;production environment正式上线模式，用在实际的上线运作环境&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;SQLite配置大致是这样的:&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;development:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;adapter: sqlite3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;database: db/development.sqlite3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;pool: 5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;timeout: 5000&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;接下来建立自己的数据库&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;rake db:create&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;在这里我遇到一个错误&lt;/strong&gt;&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;rake aborted!&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Could not find a JavaScript runtime. See https://github.com/sstephenson/execjs for a list of available runtimes.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;(See full trace by running task with --trace)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;我的解决办法是&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo yum install nodejs&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;然后启动服务器&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;rails server&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;要看结果就打开&lt;a href=&quot;http://localhost:3000&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://localhost:3000&lt;/a&gt;就会看见rails 的默认首页了&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;就这次的尝试写一下自己的记录&quot;&gt;&lt;a href=&quot;#就这次的尝试写一下自己的记录&quot; class=&quot;headerlink&quot; title=&quot;就这次的尝试写一下自己的记录&quot;&gt;&lt;/a&gt;就这次的尝试写一下自己的记录&lt;/h4&gt;&lt;p&gt;安装ruby  和 ruby-devel(安
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://moelove.info/categories/Linux/"/>
-    
-    
-      <category term="Ruby" scheme="http://moelove.info/tags/Ruby/"/>
-    
-      <category term="Rails" scheme="http://moelove.info/tags/Rails/"/>
     
   </entry>
   
