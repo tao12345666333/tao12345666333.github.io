@@ -111,7 +111,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 15px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 12.5px;">DevOps</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 17.5px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/Pelican/" style="font-size: 15px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/VIM/" style="font-size: 12.5px;">VIM</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/git/" style="font-size: 12.5px;">git</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a>
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 15px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 12.5px;">DevOps</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 17.5px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/Pelican/" style="font-size: 15px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 10px;">Tool</a> <a href="/tags/VIM/" style="font-size: 10px;">VIM</a> <a href="/tags/Vim/" style="font-size: 12.5px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/git/" style="font-size: 12.5px;">git</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a>
 					</div>
 				</section>
 				
@@ -188,6 +188,341 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-利器系列-更高效的Vim" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/16/利器系列-更高效的Vim/" class="article-date">
+  	<time datetime="2016-09-16T08:55:44.000Z" itemprop="datePublished">2016-09-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/16/利器系列-更高效的Vim/">利器系列-更高效的Vim</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>这是利器系列第0篇, 当然要以每天我使用率最高的Vim来开始啦!</p>
+</blockquote>
+<h2 id="截图"><a href="#截图" class="headerlink" title="截图"></a>截图</h2><p><img src="http://moelove.qiniudn.com/vim.png" alt="screenshot.png"></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>(你需要一个有Python支持的Vim版本. 请使用 <code>vim --version | grep +python</code> 来检查)</p>
+<ul>
+<li><p><strong>依赖</strong>(Debian/Ubuntu 平台)</p>
+<p>  <code>sudo apt-get install python vim exuberant-ctags git</code></p>
+<p>  <code>sudo pip install dbgp vim-debug pep8 flake8 pyflakes isort</code></p>
+</li>
+<li><p><strong>依赖</strong>(RedHat/CentOS 平台)</p>
+<p>  CentOS 6.7的yum源自带的Python版本较旧，推荐自行安装Python2.7.</p>
+<p>  <code>sudo yum install python vim ctags git</code></p>
+<p>  <code>sudo pip install dbgp vim-debug pep8 flake8 pyflakes isort</code></p>
+</li>
+<li><p><strong>依赖</strong>(Mac OS 平台)</p>
+<p>  <code>brew install python vim git</code></p>
+<p>  <code>wget http://tenet.dl.sourceforge.net/project/ctags/ctags/5.8/ctags-5.8.tar.gz &amp;&amp; tar -zxvf ctags-5.8.tar.gz &amp;&amp; cd ctags-5.8 &amp;&amp; ./configure &amp;&amp; make &amp;&amp; sudo make install</code></p>
+<p>  <code>sudo pip install dbgp vim-debug pep8 flake8 pyflakes isort</code></p>
+</li>
+<li><p><strong>下载vimrc 文件到用户主目录</strong></p>
+<p>  <code>wget https://raw.githubusercontent.com/tao12345666333/vim/master/vimrc -O $HOME/.vimrc</code></p>
+</li>
+<li><p><strong>打开 Vim</strong></p>
+<p>  打开Vim, 它将会自动安装插件. 请耐心等待它完成. 或者你可以使用下面的命令来自行安装.</p>
+<p>  <code>vim -E -u $HOME/.vimrc +qall</code></p>
+</li>
+<li><p><strong>享受你的Vim并个性化它吧!</strong></p>
+</li>
+</ul>
+<h2 id="支持特性"><a href="#支持特性" class="headerlink" title="支持特性"></a>支持特性</h2><h3 id="插件管理（Vundle）"><a href="#插件管理（Vundle）" class="headerlink" title="插件管理（Vundle）"></a>插件管理（Vundle）</h3><p>在这份配置中，使用了<a href="https://github.com/VundleVim/Vundle.vim" target="_blank" rel="external"><strong>Vundle</strong></a>作为插件管理器. Vundle会自动接管 <code>.vim</code> 文件夹，所有配置好的插件将默认下载至<code>~/.vim/bundle/</code>， 在使用之前请确保<code>.vim</code>文件夹干净. Vundle的插件安装需要触发 <code>git clone</code> 操作，搜索需要 <code>curl</code> 支持.</p>
+<h4 id="配置-截取了部分"><a href="#配置-截取了部分" class="headerlink" title="配置(截取了部分)"></a>配置(截取了部分)</h4><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">" let Vundle manage Vundle</span></span><br><span class="line">Bundle <span class="string">'gmarik/vundle'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">" ============================================================================</span></span><br><span class="line"><span class="comment">" Active plugins</span></span><br><span class="line"><span class="comment">" You can disable or add new ones here:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">" Plugins from github repos:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">" Python and PHP Debugger</span></span><br><span class="line">Bundle <span class="string">'fisadev/vim-debug.vim'</span></span><br><span class="line"><span class="comment">" Better file browser</span></span><br><span class="line">Bundle <span class="string">'scrooloose/nerdtree'</span></span><br><span class="line"><span class="comment">" Code commenter</span></span><br><span class="line">Bundle <span class="string">'scrooloose/nerdcommenter'</span></span><br><span class="line"><span class="comment">" Class/module browser</span></span><br><span class="line">Bundle <span class="string">'majutsushi/tagbar'</span></span><br><span class="line"><span class="comment">" Code and files fuzzy finder</span></span><br><span class="line">Bundle <span class="string">'kien/ctrlp.vim'</span></span><br><span class="line"><span class="comment">" Extension to ctrlp, for fuzzy command finder</span></span><br><span class="line">Bundle <span class="string">'fisadev/vim-ctrlp-cmdpalette'</span></span><br><span class="line"><span class="comment">" Zen coding</span></span><br><span class="line">Bundle <span class="string">'mattn/emmet-vim'</span></span><br><span class="line"><span class="comment">" Git integration</span></span><br><span class="line">Bundle <span class="string">'motemen/git-vim'</span></span><br><span class="line"><span class="comment">" Tab list panel</span></span><br><span class="line">Bundle <span class="string">'kien/tabman.vim'</span></span><br></pre></td></tr></table></figure>
+<h4 id="支持操作"><a href="#支持操作" class="headerlink" title="支持操作"></a>支持操作</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:PluginList</td>
+<td style="text-align:center">列出所有Plugin</td>
+</tr>
+<tr>
+<td>:PluginInstall(!)</td>
+<td style="text-align:center">安装/更新Plugin</td>
+</tr>
+<tr>
+<td>:PluginSearch(!) foo</td>
+<td style="text-align:center">搜索foo相关的Plugin</td>
+</tr>
+<tr>
+<td>:PluginClean(!)</td>
+<td style="text-align:center">清理未使用的Plugin</td>
+</tr>
+<tr>
+<td>:PluginUpdate</td>
+<td style="text-align:center">更新插件</td>
+</tr>
+</tbody>
+</table>
+<h3 id="工程文件浏览（NERDTree）"><a href="#工程文件浏览（NERDTree）" class="headerlink" title="工程文件浏览（NERDTree）"></a>工程文件浏览（NERDTree）</h3><p>在这份配置中, 使用了<a href="https://github.com/scrooloose/nerdtree" target="_blank" rel="external"><strong>NERDTree</strong></a>查看文件列表. 你可以在NERDTree中浏览和打开你文件系统中的目录或文件. 还可以进行文件隐藏和过滤, 设置添加书签等. 在NERDTree窗口输入<code>?</code>可获得操作指南. 这份配置中默认过滤掉了<code>.pyc</code>, <code>.git</code>, <code>.hg</code>, <code>.svn</code>等文件或文件夹的显示.</p>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">" auto open or close NERDTree</span><br><span class="line">autocmd vimenter * if !argc() | NERDTree | endif</span><br><span class="line">autocmd bufenter * if (winnr("$") == 1 &amp;&amp; exists("b:NERDTreeType") &amp;&amp; b:NERDTreeType == "primary") | q | endif</span><br><span class="line"></span><br><span class="line">" NERDTree -----------------------------</span><br><span class="line"></span><br><span class="line">" toggle nerdtree display</span><br><span class="line">map &lt;F3&gt; :NERDTreeToggle&lt;CR&gt;</span><br><span class="line">" open nerdtree with the current file selected</span><br><span class="line">nmap ,t :NERDTreeFind&lt;CR&gt;</span><br><span class="line">" don;t show these file types</span><br><span class="line">let NERDTreeIgnore = ['\.pyc$', '\.pyo$']</span><br></pre></td></tr></table></figure>
+<h4 id="支持操作-1"><a href="#支持操作-1" class="headerlink" title="支持操作"></a>支持操作</h4><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F3</td>
+<td style="text-align:center">打开/关闭NERDTree</td>
+</tr>
+<tr>
+<td>,t</td>
+<td style="text-align:center">打开NERDTree并选中当前文件</td>
+</tr>
+</tbody>
+</table>
+<h3 id="语法检查"><a href="#语法检查" class="headerlink" title="语法检查"></a>语法检查</h3><p>在这份配置中， 使用<a href="https://github.com/scrooloose/syntastic" target="_blank" rel="external"><strong>Syntastic</strong></a>插件进行语法静态检查. 包括但不限于<code>C/C++/Go/Python/Haskell/Ruby/JavaScript</code>等. 在本配置中对JavaScript的静态检查使用<code>eslint</code>,可以支持ES6及JSX等, 细节可以参考<a href="http://moelove.info/2015/11/28/JSLint-JSHint-ESLint%E5%AF%B9%E6%AF%94%E5%92%8CVim%E9%85%8D%E7%BD%AE/">JSLint, JSHint和ESLint的对比及Vim配置</a>, 想要切换检查工具只要修改对应位置即可.</p>
+<h4 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">" Syntastic ------------------------------</span><br><span class="line"></span><br><span class="line">" show list of errors and warnings on the current file</span><br><span class="line">nmap &lt;leader&gt;e :Errors&lt;CR&gt;</span><br><span class="line">" turn to next or previous errors, after open errors list</span><br><span class="line">nmap &lt;leader&gt;n :lnext&lt;CR&gt;</span><br><span class="line">nmap &lt;leader&gt;p :lprevious&lt;CR&gt;</span><br><span class="line">" check also when just opened the file</span><br><span class="line">let g:syntastic_check_on_open = 1</span><br><span class="line">" syntastic checker for javascript.</span><br><span class="line">" eslint is the only tool support JSX.</span><br><span class="line">" If you don't need write JSX, you can use jshint.</span><br><span class="line">" And eslint is slow, but not a hindrance</span><br><span class="line">" let g:syntastic_javascript_checkers = ['jshint']</span><br><span class="line">let g:syntastic_javascript_checkers = ['eslint']</span><br><span class="line">" don't put icons on the sign column (it hides the vcs status icons of signify)</span><br><span class="line">let g:syntastic_enable_signs = 0</span><br><span class="line">" custom icons (enable them if you use a patched font, and enable the previous </span><br><span class="line">" setting)</span><br><span class="line">let g:syntastic_error_symbol = '✗'</span><br><span class="line">let g:syntastic_warning_symbol = '⚠'</span><br><span class="line">let g:syntastic_style_error_symbol = '✗'</span><br><span class="line">let g:syntastic_style_warning_symbol = '⚠'</span><br></pre></td></tr></table></figure>
+<h4 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h4><p>保存时自动进行语法静态检查，方便的错误提示及灵活的可扩展性.</p>
+<h4 id="支持操作-2"><a href="#支持操作-2" class="headerlink" title="支持操作"></a>支持操作</h4><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\e</code></td>
+<td style="text-align:center">打开错误列表</td>
+</tr>
+<tr>
+<td><code>\n</code></td>
+<td style="text-align:center">移动到下一个错误位置</td>
+</tr>
+<tr>
+<td><code>\p</code></td>
+<td style="text-align:center">移动到上一个错误位置</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Git支持"><a href="#Git支持" class="headerlink" title="Git支持"></a>Git支持</h3><p>在这份配置中, 使用<a href="https://github.com/tpope/vim-fugitive" target="_blank" rel="external"><strong>vim-fugitive</strong></a>和<a href="https://github.com/mhinz/vim-signify" target="_blank" rel="external"><strong>vim-signify</strong></a>做Git方面的支持. 可以进行常用的git操作及优雅的状态提示等(目前支持<code>git</code>和<code>hg</code>).</p>
+<h4 id="配置-2"><a href="#配置-2" class="headerlink" title="配置"></a>配置</h4><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">" Signify ------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="comment">" this first setting decides in which order try to guess your current vcs</span></span><br><span class="line"><span class="comment">" UPDATE it to reflect your preferences, it will speed up opening files</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">g:signify_vcs_list</span> = [ <span class="string">'git'</span>, <span class="string">'hg'</span> ]</span><br><span class="line"><span class="comment">" mappings to jump to changed blocks</span></span><br><span class="line"><span class="keyword">nmap</span> <span class="symbol">&lt;leader&gt;</span><span class="keyword">sn</span> <span class="symbol">&lt;plug&gt;</span>(signify-<span class="keyword">next</span>-hunk)</span><br><span class="line"><span class="keyword">nmap</span> <span class="symbol">&lt;leader&gt;</span><span class="keyword">sp</span> <span class="symbol">&lt;plug&gt;</span>(signify-<span class="keyword">prev</span>-hunk)</span><br><span class="line"><span class="comment">" nicer colors</span></span><br><span class="line"><span class="keyword">highlight</span> DiffAdd           cterm=bold ctermbg=none ctermfg=<span class="number">119</span></span><br><span class="line"><span class="keyword">highlight</span> DiffDelete        cterm=bold ctermbg=none ctermfg=<span class="number">167</span></span><br><span class="line"><span class="keyword">highlight</span> DiffChange        cterm=bold ctermbg=none ctermfg=<span class="number">227</span></span><br><span class="line"><span class="keyword">highlight</span> SignifySignAdd    cterm=bold ctermbg=<span class="number">237</span>  ctermfg=<span class="number">119</span></span><br><span class="line"><span class="keyword">highlight</span> SignifySignDelete cterm=bold ctermbg=<span class="number">237</span>  ctermfg=<span class="number">167</span></span><br><span class="line"><span class="keyword">highlight</span> SignifySignChange cterm=bold ctermbg=<span class="number">237</span>  ctermfg=<span class="number">227</span></span><br></pre></td></tr></table></figure>
+<h4 id="支持操作-3"><a href="#支持操作-3" class="headerlink" title="支持操作"></a>支持操作</h4><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:Git [args]</td>
+<td style="text-align:center">类似执行<code>git</code>命令一样</td>
+</tr>
+<tr>
+<td>:Gstatus</td>
+<td style="text-align:center">类似<code>git status</code>.在列表中使用<code>-</code>添加/移除文件</td>
+</tr>
+<tr>
+<td>:Gcommit [args]</td>
+<td style="text-align:center">类似 <code>git commit</code></td>
+</tr>
+<tr>
+<td>:Gmerge [args]</td>
+<td style="text-align:center">类似 <code>git merge</code></td>
+</tr>
+<tr>
+<td>:Gpull [args]</td>
+<td style="text-align:center">类似 <code>git pull</code></td>
+</tr>
+<tr>
+<td>:Gpush [args]</td>
+<td style="text-align:center">类似 <code>git push</code></td>
+</tr>
+<tr>
+<td>:Gvdiff [revision]</td>
+<td style="text-align:center">类似 <code>git push</code> 但是会切分窗口</td>
+</tr>
+</tbody>
+</table>
+<p>更多详细的操作可以使用 <code>:help fugitive</code></p>
+<h3 id="Tag支持"><a href="#Tag支持" class="headerlink" title="Tag支持"></a>Tag支持</h3><p>在这份配置中，使用了<a href="http://github.com/godlygeek/tagbar" target="_blank" rel="external"><strong>Tagbar</strong></a>做Tag支持，可以显示当前文件中定义的类/变量等.</p>
+<h4 id="配置-3"><a href="#配置-3" class="headerlink" title="配置"></a>配置</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">" Tagbar -----------------------------</span><br><span class="line"></span><br><span class="line">" toggle tagbar display</span><br><span class="line">map &lt;F4&gt; :TagbarToggle&lt;CR&gt;</span><br><span class="line">" autofocus on tagbar open</span><br><span class="line">let g:tagbar_autofocus = 1</span><br></pre></td></tr></table></figure>
+<h4 id="支持操作-4"><a href="#支持操作-4" class="headerlink" title="支持操作"></a>支持操作</h4><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F4</td>
+<td style="text-align:center">打开Tag列表</td>
+</tr>
+</tbody>
+</table>
+<h3 id="超全自动补全"><a href="#超全自动补全" class="headerlink" title="超全自动补全"></a>超全自动补全</h3><p>在这份配置中, 使用了<a href="https://github.com/Shougo/neocomplcache.vim" target="_blank" rel="external"><strong>Neocomplcache</strong></a>作为主要的自动补全插件.</p>
+<h4 id="配置-4"><a href="#配置-4" class="headerlink" title="配置"></a>配置</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">" NeoComplCache ------------------------------</span><br><span class="line"></span><br><span class="line">" most of them not documented because I'm not sure how they work</span><br><span class="line">" (docs aren't good, had to do a lot of trial and error to make </span><br><span class="line">" it play nice)</span><br><span class="line"></span><br><span class="line">" Disable AutoComplPop.</span><br><span class="line">let g:acp_enableAtStartup = 0</span><br><span class="line">" Use neocomplcache.</span><br><span class="line">let g:neocomplcache_enable_at_startup = 1</span><br><span class="line">let g:neocomplcache_enable_ignore_case = 1</span><br><span class="line">" Use smartcase.</span><br><span class="line">let g:neocomplcache_enable_smart_case = 1</span><br><span class="line">let g:neocomplcache_enable_auto_select = 1</span><br><span class="line"></span><br><span class="line">let g:neocomplcache_enable_fuzzy_completion = 1</span><br><span class="line">let g:neocomplcache_enable_camel_case_completion = 1</span><br><span class="line">let g:neocomplcache_enable_underbar_completion = 1</span><br><span class="line">let g:neocomplcache_fuzzy_completion_start_length = 1</span><br><span class="line">let g:neocomplcache_auto_completion_start_length = 1</span><br><span class="line">let g:neocomplcache_manual_completion_start_length = 1</span><br><span class="line">" Set minimum syntax keyword length.</span><br><span class="line">let g:neocomplcache_min_keyword_length = 1</span><br><span class="line">let g:neocomplcache_min_syntax_length = 1</span><br><span class="line">let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'</span><br><span class="line">" complete with workds from any opened file</span><br><span class="line">let g:neocomplcache_same_filetype_lists = &#123;&#125;</span><br><span class="line">let g:neocomplcache_same_filetype_lists._ = '_'</span><br><span class="line">" &lt;TAB&gt;: completion.</span><br><span class="line">inoremap &lt;expr&gt;&lt;TAB&gt;  pumvisible() ? "\&lt;C-n&gt;" : "\&lt;TAB&gt;"</span><br><span class="line">" Define keyword.</span><br><span class="line">if !exists('g:neocomplcache_keyword_patterns')</span><br><span class="line">    let g:neocomplcache_keyword_patterns = &#123;&#125;</span><br><span class="line">endif</span><br><span class="line">let g:neocomplcache_keyword_patterns['default'] = '\h\w*'</span><br><span class="line">" Plugin key-mappings.</span><br><span class="line">inoremap &lt;expr&gt;&lt;C-g&gt;     neocomplcache#undo_completion()</span><br><span class="line">inoremap &lt;expr&gt;&lt;C-l&gt;     neocomplcache#complete_common_string()</span><br><span class="line">" &lt;C-h&gt;, &lt;BS&gt;: close popup and delete backword char.</span><br><span class="line">inoremap &lt;expr&gt;&lt;C-h&gt; neocomplcache#smart_close_popup()."\&lt;C-h&gt;"</span><br><span class="line">inoremap &lt;expr&gt;&lt;BS&gt; neocomplcache#smart_close_popup()."\&lt;C-h&gt;"</span><br><span class="line">inoremap &lt;expr&gt;&lt;C-y&gt;  neocomplcache#close_popup()</span><br><span class="line">inoremap &lt;expr&gt;&lt;C-e&gt;  neocomplcache#cancel_popup()</span><br></pre></td></tr></table></figure>
+<h4 id="支持操作-5"><a href="#支持操作-5" class="headerlink" title="支持操作"></a>支持操作</h4><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt;Tab&gt;</td>
+<td style="text-align:center">使用Tab键进行待提示项目选择</td>
+</tr>
+<tr>
+<td>&lt;C-g&gt;</td>
+<td style="text-align:center">取消补全</td>
+</tr>
+<tr>
+<td>&lt;C-l&gt;</td>
+<td style="text-align:center">完成待补全项中共同的字符串</td>
+</tr>
+<tr>
+<td>&lt;C-h&gt;</td>
+<td style="text-align:center">关闭待选项</td>
+</tr>
+<tr>
+<td>&lt;C-y&gt;</td>
+<td style="text-align:center">关闭待选项</td>
+</tr>
+<tr>
+<td>&lt;C-e&gt;</td>
+<td style="text-align:center">退出待选项</td>
+</tr>
+<tr>
+<td>&lt;BS&gt;</td>
+<td style="text-align:center">关闭待选项</td>
+</tr>
+</tbody>
+</table>
+<h3 id="类Tmux的窗口选择"><a href="#类Tmux的窗口选择" class="headerlink" title="类Tmux的窗口选择"></a>类Tmux的窗口选择</h3><p>在这份配置中，使用了<a href="https://github.com/t9md/vim-choosewin" target="_blank" rel="external"><strong>vim-choosewin</strong></a>进行窗口管理器. 支持类Tmux的操作.</p>
+<h4 id="配置-5"><a href="#配置-5" class="headerlink" title="配置"></a>配置</h4><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">" Window Chooser ------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="comment">" mapping</span></span><br><span class="line"><span class="keyword">nmap</span>  -  <span class="symbol">&lt;Plug&gt;</span>(choosewin)</span><br><span class="line"><span class="comment">" show big letters</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">g:choosewin_overlay_enable</span> = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h4 id="支持操作-6"><a href="#支持操作-6" class="headerlink" title="支持操作"></a>支持操作</h4><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td style="text-align:center">开启窗口选择</td>
+</tr>
+<tr>
+<td>-  [</td>
+<td style="text-align:center">选择上一个tab的窗口</td>
+</tr>
+<tr>
+<td>-  ]</td>
+<td style="text-align:center">选择下一个tab的窗口</td>
+</tr>
+</tbody>
+</table>
+<p>更多操作可以使用 <code>:help choosewin</code></p>
+<h3 id="灵活的Tab管理"><a href="#灵活的Tab管理" class="headerlink" title="灵活的Tab管理"></a>灵活的Tab管理</h3><p>在这份配置中使用了<a href="https://github.com/kien/tabman.vim" target="_blank" rel="external">TabMan</a>进行Tab管理,可以进行灵活切换与管理</p>
+<h4 id="配置-6"><a href="#配置-6" class="headerlink" title="配置"></a>配置</h4><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">" TabMan ------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="comment">" mappings to toggle display, and to focus on it</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">g:tabman_toggle</span> = <span class="string">'tl'</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">g:tabman_focus</span>  = <span class="string">'tf'</span></span><br></pre></td></tr></table></figure>
+<h4 id="支持操作-7"><a href="#支持操作-7" class="headerlink" title="支持操作"></a>支持操作</h4><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tl</td>
+<td style="text-align:center">开启/关闭tab管理</td>
+</tr>
+<tr>
+<td>tf</td>
+<td style="text-align:center">将光标移动到tab管理窗口</td>
+</tr>
+</tbody>
+</table>
+<h3 id="优雅的状态栏"><a href="#优雅的状态栏" class="headerlink" title="优雅的状态栏"></a>优雅的状态栏</h3><p>在这份配置中，使用了<a href="https://github.com/vim-airline/vim-airline" target="_blank" rel="external"><strong>Airline</strong></a>提供更多状态栏支持.</p>
+<h4 id="配置-7"><a href="#配置-7" class="headerlink" title="配置"></a>配置</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">" Airline ------------------------------</span><br><span class="line"></span><br><span class="line">let g:airline_powerline_fonts = 1</span><br><span class="line">let g:airline_theme = 'bubblegum'</span><br><span class="line">"let g:airline#extensions#tabline#enabled = 1</span><br><span class="line">"let g:airline#extensions#tabline#left_sep = ' '</span><br><span class="line">"let g:airline#extensions#tabline#left_alt_sep = '|'</span><br><span class="line">let g:airline#extensions#whitespace#enabled = 1</span><br><span class="line"></span><br><span class="line">" to use fancy symbols for airline, uncomment the following lines and use a</span><br><span class="line">" patched font (more info on the README.rst)</span><br><span class="line">if !exists('g:airline_symbols')</span><br><span class="line">   let g:airline_symbols = &#123;&#125;</span><br><span class="line">endif</span><br><span class="line"></span><br><span class="line">let g:airline_left_sep = ''</span><br><span class="line">let g:airline_left_alt_sep = ''</span><br><span class="line">let g:airline_right_sep = ''</span><br><span class="line">let g:airline_right_alt_sep = ''</span><br><span class="line">let g:airline_symbols.branch = ''</span><br><span class="line">let g:airline_symbols.readonly = ''</span><br><span class="line">let g:airline_symbols.linenr = ''</span><br></pre></td></tr></table></figure>
+<h4 id="支持特性-1"><a href="#支持特性-1" class="headerlink" title="支持特性"></a>支持特性</h4><p>可以显示分支，语法静态检查结果等.</p>
+<h3 id="自动插入头部"><a href="#自动插入头部" class="headerlink" title="自动插入头部"></a>自动插入头部</h3><p>在这份配置中写了个小函数根据新建的不同类型的文件，自动插入头部，支持<code>python</code>, <code>ruby</code>, <code>bash</code>等.</p>
+<h3 id="Markdown实时预览"><a href="#Markdown实时预览" class="headerlink" title="Markdown实时预览"></a>Markdown实时预览</h3><p>在这份配置中, 使用了<a href="https://github.com/suan/vim-instant-markdown" target="_blank" rel="external"><strong>vim-instant-markdown</strong></a>和<a href="https://github.com/plasticboy/vim-markdown" target="_blank" rel="external">vim-markdown</a>做Markdown格式的支持，可以支持实时预览等特性.</p>
+<p>此功能需要有node环境支持，可以执行 <code>npm -g install instant-markdown-d</code> 进行安装.</p>
+<h4 id="配置-8"><a href="#配置-8" class="headerlink" title="配置"></a>配置</h4><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">" Vim-markdown ------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="comment">" Disabled automatically folding</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">g:vim_markdown_folding_disabled</span>=<span class="number">1</span></span><br><span class="line"><span class="comment">" LeTeX math</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">g:vim_markdown_math</span>=<span class="number">1</span></span><br><span class="line"><span class="comment">" Highlight YAML frontmatter</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">g:vim_markdown_frontmatter</span>=<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">" Vim-instant-markdown -----------------</span></span><br><span class="line"></span><br><span class="line"><span class="comment">" If it takes your system too much, you can specify</span></span><br><span class="line"><span class="comment">" let g:instant_markdown_slow = 1</span></span><br><span class="line"><span class="comment">" if you don't want to manually control it</span></span><br><span class="line"><span class="comment">" you can open this setting</span></span><br><span class="line"><span class="comment">" and when you open this, you can manually trigger preview</span></span><br><span class="line"><span class="comment">" via the command :InstantMarkdownPreview</span></span><br><span class="line"><span class="keyword">let</span> <span class="variable">g:instant_markdown_autostart</span> = <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<h4 id="支持操作-8"><a href="#支持操作-8" class="headerlink" title="支持操作"></a>支持操作</h4><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th style="text-align:center">解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:InstantMarkdownPreview</td>
+<td style="text-align:center">手动触发markdown文件的预览</td>
+</tr>
+</tbody>
+</table>
+<h3 id="多游标选择、编辑等"><a href="#多游标选择、编辑等" class="headerlink" title="多游标选择、编辑等"></a>多游标选择、编辑等</h3><p>在这份配置中, 可以在高亮某单词时, 通过使用 <code>Ctrl-n</code> 或者 <code>Ctrl-p</code> 进行多游标选择, 然后进行编辑或修改等操作.</p>
+<h3 id="快速文件查找"><a href="#快速文件查找" class="headerlink" title="快速文件查找"></a>快速文件查找</h3><p>在这份配置中, 可以通过使用<code>,R</code>进行全文查找或者<code>,r</code>进行快速查找, 或者在当前字符串上使用<code>,wR</code>以及<code>,wr</code>来进行全文查找或者快速查找.</p>
+<h3 id="快速注释"><a href="#快速注释" class="headerlink" title="快速注释"></a>快速注释</h3><p>使用<a href="https://github.com/scrooloose/nerdcommenter" target="_blank" rel="external"><strong>NERDCommenter</strong></a>插件完成快速注释, 可以通过<code>\ci</code>进行快速注释.</p>
+<h4 id="Python-支持"><a href="#Python-支持" class="headerlink" title="Python 支持"></a>Python 支持</h4><p>完备的Python支持, 可以自动识别当前是系统环境或虚拟环境, 使用<code>:Isort</code>可智能对导入包进行排序, 使用<code>:PymodeLintAuto</code>可自动格式化.</p>
+<p><strong>除了上述列出的功能以外, 还有很多方便的特性，可以大大提升效率，在使用中慢慢体会吧！有问题可以在<a href="https://github.com/tao12345666333/vim" target="_blank" rel="external">tao12345666333/vim</a> on github 提issue</strong></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tool/">Tool</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vim/">Vim</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Linux/">Linux</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-Python性能优化之工具篇" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1111,66 +1446,6 @@
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/Node/">Node</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-3-17" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/03/17/3-17/" class="article-date">
-  	<time datetime="2015-03-16T16:34:34.000Z" itemprop="datePublished">2015-03-17</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/17/3-17/">3.17</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="8小时内求生存"><a href="#8小时内求生存" class="headerlink" title="8小时内求生存"></a>8小时内求生存</h2><h2 id="8小时外求发展"><a href="#8小时外求发展" class="headerlink" title="8小时外求发展"></a>8小时外求发展</h2>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Life/">Life</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Life/">Life</a>
 	</div>
 
 

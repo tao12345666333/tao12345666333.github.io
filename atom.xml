@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://moelove.info/"/>
-  <updated>2016-08-19T17:06:00.331Z</updated>
+  <updated>2016-09-16T09:09:33.492Z</updated>
   <id>http://moelove.info/</id>
   
   <author>
@@ -14,6 +14,308 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>利器系列-更高效的Vim</title>
+    <link href="http://moelove.info/2016/09/16/%E5%88%A9%E5%99%A8%E7%B3%BB%E5%88%97-%E6%9B%B4%E9%AB%98%E6%95%88%E7%9A%84Vim/"/>
+    <id>http://moelove.info/2016/09/16/利器系列-更高效的Vim/</id>
+    <published>2016-09-16T08:55:44.000Z</published>
+    <updated>2016-09-16T09:09:33.492Z</updated>
+    
+    <content type="html">&lt;blockquote&gt;
+&lt;p&gt;这是利器系列第0篇, 当然要以每天我使用率最高的Vim来开始啦!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;截图&quot;&gt;&lt;a href=&quot;#截图&quot; class=&quot;headerlink&quot; title=&quot;截图&quot;&gt;&lt;/a&gt;截图&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;http://moelove.qiniudn.com/vim.png&quot; alt=&quot;screenshot.png&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h2&gt;&lt;p&gt;(你需要一个有Python支持的Vim版本. 请使用 &lt;code&gt;vim --version | grep +python&lt;/code&gt; 来检查)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;依赖&lt;/strong&gt;(Debian/Ubuntu 平台)&lt;/p&gt;
+&lt;p&gt;  &lt;code&gt;sudo apt-get install python vim exuberant-ctags git&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;  &lt;code&gt;sudo pip install dbgp vim-debug pep8 flake8 pyflakes isort&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;依赖&lt;/strong&gt;(RedHat/CentOS 平台)&lt;/p&gt;
+&lt;p&gt;  CentOS 6.7的yum源自带的Python版本较旧，推荐自行安装Python2.7.&lt;/p&gt;
+&lt;p&gt;  &lt;code&gt;sudo yum install python vim ctags git&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;  &lt;code&gt;sudo pip install dbgp vim-debug pep8 flake8 pyflakes isort&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;依赖&lt;/strong&gt;(Mac OS 平台)&lt;/p&gt;
+&lt;p&gt;  &lt;code&gt;brew install python vim git&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;  &lt;code&gt;wget http://tenet.dl.sourceforge.net/project/ctags/ctags/5.8/ctags-5.8.tar.gz &amp;amp;&amp;amp; tar -zxvf ctags-5.8.tar.gz &amp;amp;&amp;amp; cd ctags-5.8 &amp;amp;&amp;amp; ./configure &amp;amp;&amp;amp; make &amp;amp;&amp;amp; sudo make install&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;  &lt;code&gt;sudo pip install dbgp vim-debug pep8 flake8 pyflakes isort&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;下载vimrc 文件到用户主目录&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;  &lt;code&gt;wget https://raw.githubusercontent.com/tao12345666333/vim/master/vimrc -O $HOME/.vimrc&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;打开 Vim&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;  打开Vim, 它将会自动安装插件. 请耐心等待它完成. 或者你可以使用下面的命令来自行安装.&lt;/p&gt;
+&lt;p&gt;  &lt;code&gt;vim -E -u $HOME/.vimrc +qall&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;享受你的Vim并个性化它吧!&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;支持特性&quot;&gt;&lt;a href=&quot;#支持特性&quot; class=&quot;headerlink&quot; title=&quot;支持特性&quot;&gt;&lt;/a&gt;支持特性&lt;/h2&gt;&lt;h3 id=&quot;插件管理（Vundle）&quot;&gt;&lt;a href=&quot;#插件管理（Vundle）&quot; class=&quot;headerlink&quot; title=&quot;插件管理（Vundle）&quot;&gt;&lt;/a&gt;插件管理（Vundle）&lt;/h3&gt;&lt;p&gt;在这份配置中，使用了&lt;a href=&quot;https://github.com/VundleVim/Vundle.vim&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;strong&gt;Vundle&lt;/strong&gt;&lt;/a&gt;作为插件管理器. Vundle会自动接管 &lt;code&gt;.vim&lt;/code&gt; 文件夹，所有配置好的插件将默认下载至&lt;code&gt;~/.vim/bundle/&lt;/code&gt;， 在使用之前请确保&lt;code&gt;.vim&lt;/code&gt;文件夹干净. Vundle的插件安装需要触发 &lt;code&gt;git clone&lt;/code&gt; 操作，搜索需要 &lt;code&gt;curl&lt;/code&gt; 支持.&lt;/p&gt;
+&lt;h4 id=&quot;配置-截取了部分&quot;&gt;&lt;a href=&quot;#配置-截取了部分&quot; class=&quot;headerlink&quot; title=&quot;配置(截取了部分)&quot;&gt;&lt;/a&gt;配置(截取了部分)&lt;/h4&gt;&lt;figure class=&quot;highlight vim&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; let Vundle manage Vundle&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Bundle &lt;span class=&quot;string&quot;&gt;&#39;gmarik/vundle&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; ============================================================================&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; Active plugins&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; You can disable or add new ones here:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; Plugins from github repos:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; Python and PHP Debugger&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Bundle &lt;span class=&quot;string&quot;&gt;&#39;fisadev/vim-debug.vim&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; Better file browser&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Bundle &lt;span class=&quot;string&quot;&gt;&#39;scrooloose/nerdtree&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; Code commenter&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Bundle &lt;span class=&quot;string&quot;&gt;&#39;scrooloose/nerdcommenter&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; Class/module browser&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Bundle &lt;span class=&quot;string&quot;&gt;&#39;majutsushi/tagbar&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; Code and files fuzzy finder&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Bundle &lt;span class=&quot;string&quot;&gt;&#39;kien/ctrlp.vim&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; Extension to ctrlp, for fuzzy command finder&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Bundle &lt;span class=&quot;string&quot;&gt;&#39;fisadev/vim-ctrlp-cmdpalette&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; Zen coding&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Bundle &lt;span class=&quot;string&quot;&gt;&#39;mattn/emmet-vim&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; Git integration&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Bundle &lt;span class=&quot;string&quot;&gt;&#39;motemen/git-vim&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; Tab list panel&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Bundle &lt;span class=&quot;string&quot;&gt;&#39;kien/tabman.vim&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;支持操作&quot;&gt;&lt;a href=&quot;#支持操作&quot; class=&quot;headerlink&quot; title=&quot;支持操作&quot;&gt;&lt;/a&gt;支持操作&lt;/h4&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;命令&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;解释&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;:PluginList&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;列出所有Plugin&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:PluginInstall(!)&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;安装/更新Plugin&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:PluginSearch(!) foo&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;搜索foo相关的Plugin&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:PluginClean(!)&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;清理未使用的Plugin&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:PluginUpdate&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;更新插件&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&quot;工程文件浏览（NERDTree）&quot;&gt;&lt;a href=&quot;#工程文件浏览（NERDTree）&quot; class=&quot;headerlink&quot; title=&quot;工程文件浏览（NERDTree）&quot;&gt;&lt;/a&gt;工程文件浏览（NERDTree）&lt;/h3&gt;&lt;p&gt;在这份配置中, 使用了&lt;a href=&quot;https://github.com/scrooloose/nerdtree&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;strong&gt;NERDTree&lt;/strong&gt;&lt;/a&gt;查看文件列表. 你可以在NERDTree中浏览和打开你文件系统中的目录或文件. 还可以进行文件隐藏和过滤, 设置添加书签等. 在NERDTree窗口输入&lt;code&gt;?&lt;/code&gt;可获得操作指南. 这份配置中默认过滤掉了&lt;code&gt;.pyc&lt;/code&gt;, &lt;code&gt;.git&lt;/code&gt;, &lt;code&gt;.hg&lt;/code&gt;, &lt;code&gt;.svn&lt;/code&gt;等文件或文件夹的显示.&lt;/p&gt;
+&lt;h4 id=&quot;配置&quot;&gt;&lt;a href=&quot;#配置&quot; class=&quot;headerlink&quot; title=&quot;配置&quot;&gt;&lt;/a&gt;配置&lt;/h4&gt;&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&quot; auto open or close NERDTree&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;autocmd vimenter * if !argc() | NERDTree | endif&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;autocmd bufenter * if (winnr(&quot;$&quot;) == 1 &amp;amp;&amp;amp; exists(&quot;b:NERDTreeType&quot;) &amp;amp;&amp;amp; b:NERDTreeType == &quot;primary&quot;) | q | endif&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; NERDTree -----------------------------&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; toggle nerdtree display&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;map &amp;lt;F3&amp;gt; :NERDTreeToggle&amp;lt;CR&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; open nerdtree with the current file selected&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;nmap ,t :NERDTreeFind&amp;lt;CR&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; don;t show these file types&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let NERDTreeIgnore = [&#39;\.pyc$&#39;, &#39;\.pyo$&#39;]&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;支持操作-1&quot;&gt;&lt;a href=&quot;#支持操作-1&quot; class=&quot;headerlink&quot; title=&quot;支持操作&quot;&gt;&lt;/a&gt;支持操作&lt;/h4&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;快捷键&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;解释&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;F3&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;打开/关闭NERDTree&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;,t&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;打开NERDTree并选中当前文件&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&quot;语法检查&quot;&gt;&lt;a href=&quot;#语法检查&quot; class=&quot;headerlink&quot; title=&quot;语法检查&quot;&gt;&lt;/a&gt;语法检查&lt;/h3&gt;&lt;p&gt;在这份配置中， 使用&lt;a href=&quot;https://github.com/scrooloose/syntastic&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;strong&gt;Syntastic&lt;/strong&gt;&lt;/a&gt;插件进行语法静态检查. 包括但不限于&lt;code&gt;C/C++/Go/Python/Haskell/Ruby/JavaScript&lt;/code&gt;等. 在本配置中对JavaScript的静态检查使用&lt;code&gt;eslint&lt;/code&gt;,可以支持ES6及JSX等, 细节可以参考&lt;a href=&quot;http://moelove.info/2015/11/28/JSLint-JSHint-ESLint%E5%AF%B9%E6%AF%94%E5%92%8CVim%E9%85%8D%E7%BD%AE/&quot;&gt;JSLint, JSHint和ESLint的对比及Vim配置&lt;/a&gt;, 想要切换检查工具只要修改对应位置即可.&lt;/p&gt;
+&lt;h4 id=&quot;配置-1&quot;&gt;&lt;a href=&quot;#配置-1&quot; class=&quot;headerlink&quot; title=&quot;配置&quot;&gt;&lt;/a&gt;配置&lt;/h4&gt;&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&quot; Syntastic ------------------------------&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; show list of errors and warnings on the current file&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;nmap &amp;lt;leader&amp;gt;e :Errors&amp;lt;CR&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; turn to next or previous errors, after open errors list&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;nmap &amp;lt;leader&amp;gt;n :lnext&amp;lt;CR&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;nmap &amp;lt;leader&amp;gt;p :lprevious&amp;lt;CR&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; check also when just opened the file&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:syntastic_check_on_open = 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; syntastic checker for javascript.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; eslint is the only tool support JSX.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; If you don&#39;t need write JSX, you can use jshint.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; And eslint is slow, but not a hindrance&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; let g:syntastic_javascript_checkers = [&#39;jshint&#39;]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:syntastic_javascript_checkers = [&#39;eslint&#39;]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; don&#39;t put icons on the sign column (it hides the vcs status icons of signify)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:syntastic_enable_signs = 0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; custom icons (enable them if you use a patched font, and enable the previous &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; setting)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:syntastic_error_symbol = &#39;✗&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:syntastic_warning_symbol = &#39;⚠&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:syntastic_style_error_symbol = &#39;✗&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:syntastic_style_warning_symbol = &#39;⚠&#39;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;特性&quot;&gt;&lt;a href=&quot;#特性&quot; class=&quot;headerlink&quot; title=&quot;特性&quot;&gt;&lt;/a&gt;特性&lt;/h4&gt;&lt;p&gt;保存时自动进行语法静态检查，方便的错误提示及灵活的可扩展性.&lt;/p&gt;
+&lt;h4 id=&quot;支持操作-2&quot;&gt;&lt;a href=&quot;#支持操作-2&quot; class=&quot;headerlink&quot; title=&quot;支持操作&quot;&gt;&lt;/a&gt;支持操作&lt;/h4&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;快捷键&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;解释&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;\e&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;打开错误列表&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;\n&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;移动到下一个错误位置&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;\p&lt;/code&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;移动到上一个错误位置&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&quot;Git支持&quot;&gt;&lt;a href=&quot;#Git支持&quot; class=&quot;headerlink&quot; title=&quot;Git支持&quot;&gt;&lt;/a&gt;Git支持&lt;/h3&gt;&lt;p&gt;在这份配置中, 使用&lt;a href=&quot;https://github.com/tpope/vim-fugitive&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;strong&gt;vim-fugitive&lt;/strong&gt;&lt;/a&gt;和&lt;a href=&quot;https://github.com/mhinz/vim-signify&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;strong&gt;vim-signify&lt;/strong&gt;&lt;/a&gt;做Git方面的支持. 可以进行常用的git操作及优雅的状态提示等(目前支持&lt;code&gt;git&lt;/code&gt;和&lt;code&gt;hg&lt;/code&gt;).&lt;/p&gt;
+&lt;h4 id=&quot;配置-2&quot;&gt;&lt;a href=&quot;#配置-2&quot; class=&quot;headerlink&quot; title=&quot;配置&quot;&gt;&lt;/a&gt;配置&lt;/h4&gt;&lt;figure class=&quot;highlight vim&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; Signify ------------------------------&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; this first setting decides in which order try to guess your current vcs&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; UPDATE it to reflect your preferences, it will speed up opening files&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;g:signify_vcs_list&lt;/span&gt; = [ &lt;span class=&quot;string&quot;&gt;&#39;git&#39;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&#39;hg&#39;&lt;/span&gt; ]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; mappings to jump to changed blocks&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;nmap&lt;/span&gt; &lt;span class=&quot;symbol&quot;&gt;&amp;lt;leader&amp;gt;&lt;/span&gt;&lt;span class=&quot;keyword&quot;&gt;sn&lt;/span&gt; &lt;span class=&quot;symbol&quot;&gt;&amp;lt;plug&amp;gt;&lt;/span&gt;(signify-&lt;span class=&quot;keyword&quot;&gt;next&lt;/span&gt;-hunk)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;nmap&lt;/span&gt; &lt;span class=&quot;symbol&quot;&gt;&amp;lt;leader&amp;gt;&lt;/span&gt;&lt;span class=&quot;keyword&quot;&gt;sp&lt;/span&gt; &lt;span class=&quot;symbol&quot;&gt;&amp;lt;plug&amp;gt;&lt;/span&gt;(signify-&lt;span class=&quot;keyword&quot;&gt;prev&lt;/span&gt;-hunk)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; nicer colors&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;highlight&lt;/span&gt; DiffAdd           cterm=bold ctermbg=none ctermfg=&lt;span class=&quot;number&quot;&gt;119&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;highlight&lt;/span&gt; DiffDelete        cterm=bold ctermbg=none ctermfg=&lt;span class=&quot;number&quot;&gt;167&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;highlight&lt;/span&gt; DiffChange        cterm=bold ctermbg=none ctermfg=&lt;span class=&quot;number&quot;&gt;227&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;highlight&lt;/span&gt; SignifySignAdd    cterm=bold ctermbg=&lt;span class=&quot;number&quot;&gt;237&lt;/span&gt;  ctermfg=&lt;span class=&quot;number&quot;&gt;119&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;highlight&lt;/span&gt; SignifySignDelete cterm=bold ctermbg=&lt;span class=&quot;number&quot;&gt;237&lt;/span&gt;  ctermfg=&lt;span class=&quot;number&quot;&gt;167&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;highlight&lt;/span&gt; SignifySignChange cterm=bold ctermbg=&lt;span class=&quot;number&quot;&gt;237&lt;/span&gt;  ctermfg=&lt;span class=&quot;number&quot;&gt;227&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;支持操作-3&quot;&gt;&lt;a href=&quot;#支持操作-3&quot; class=&quot;headerlink&quot; title=&quot;支持操作&quot;&gt;&lt;/a&gt;支持操作&lt;/h4&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;快捷键&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;解释&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;:Git [args]&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;类似执行&lt;code&gt;git&lt;/code&gt;命令一样&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:Gstatus&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;类似&lt;code&gt;git status&lt;/code&gt;.在列表中使用&lt;code&gt;-&lt;/code&gt;添加/移除文件&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:Gcommit [args]&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;类似 &lt;code&gt;git commit&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:Gmerge [args]&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;类似 &lt;code&gt;git merge&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:Gpull [args]&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;类似 &lt;code&gt;git pull&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:Gpush [args]&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;类似 &lt;code&gt;git push&lt;/code&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;:Gvdiff [revision]&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;类似 &lt;code&gt;git push&lt;/code&gt; 但是会切分窗口&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;更多详细的操作可以使用 &lt;code&gt;:help fugitive&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Tag支持&quot;&gt;&lt;a href=&quot;#Tag支持&quot; class=&quot;headerlink&quot; title=&quot;Tag支持&quot;&gt;&lt;/a&gt;Tag支持&lt;/h3&gt;&lt;p&gt;在这份配置中，使用了&lt;a href=&quot;http://github.com/godlygeek/tagbar&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;strong&gt;Tagbar&lt;/strong&gt;&lt;/a&gt;做Tag支持，可以显示当前文件中定义的类/变量等.&lt;/p&gt;
+&lt;h4 id=&quot;配置-3&quot;&gt;&lt;a href=&quot;#配置-3&quot; class=&quot;headerlink&quot; title=&quot;配置&quot;&gt;&lt;/a&gt;配置&lt;/h4&gt;&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&quot; Tagbar -----------------------------&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; toggle tagbar display&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;map &amp;lt;F4&amp;gt; :TagbarToggle&amp;lt;CR&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; autofocus on tagbar open&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:tagbar_autofocus = 1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;支持操作-4&quot;&gt;&lt;a href=&quot;#支持操作-4&quot; class=&quot;headerlink&quot; title=&quot;支持操作&quot;&gt;&lt;/a&gt;支持操作&lt;/h4&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;快捷键&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;解释&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;F4&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;打开Tag列表&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&quot;超全自动补全&quot;&gt;&lt;a href=&quot;#超全自动补全&quot; class=&quot;headerlink&quot; title=&quot;超全自动补全&quot;&gt;&lt;/a&gt;超全自动补全&lt;/h3&gt;&lt;p&gt;在这份配置中, 使用了&lt;a href=&quot;https://github.com/Shougo/neocomplcache.vim&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;strong&gt;Neocomplcache&lt;/strong&gt;&lt;/a&gt;作为主要的自动补全插件.&lt;/p&gt;
+&lt;h4 id=&quot;配置-4&quot;&gt;&lt;a href=&quot;#配置-4&quot; class=&quot;headerlink&quot; title=&quot;配置&quot;&gt;&lt;/a&gt;配置&lt;/h4&gt;&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&quot; NeoComplCache ------------------------------&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; most of them not documented because I&#39;m not sure how they work&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; (docs aren&#39;t good, had to do a lot of trial and error to make &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; it play nice)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; Disable AutoComplPop.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:acp_enableAtStartup = 0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; Use neocomplcache.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:neocomplcache_enable_at_startup = 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:neocomplcache_enable_ignore_case = 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; Use smartcase.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:neocomplcache_enable_smart_case = 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:neocomplcache_enable_auto_select = 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:neocomplcache_enable_fuzzy_completion = 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:neocomplcache_enable_camel_case_completion = 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:neocomplcache_enable_underbar_completion = 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:neocomplcache_fuzzy_completion_start_length = 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:neocomplcache_auto_completion_start_length = 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:neocomplcache_manual_completion_start_length = 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; Set minimum syntax keyword length.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:neocomplcache_min_keyword_length = 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:neocomplcache_min_syntax_length = 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:neocomplcache_lock_buffer_name_pattern = &#39;\*ku\*&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; complete with workds from any opened file&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:neocomplcache_same_filetype_lists = &amp;#123;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:neocomplcache_same_filetype_lists._ = &#39;_&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; &amp;lt;TAB&amp;gt;: completion.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;inoremap &amp;lt;expr&amp;gt;&amp;lt;TAB&amp;gt;  pumvisible() ? &quot;\&amp;lt;C-n&amp;gt;&quot; : &quot;\&amp;lt;TAB&amp;gt;&quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; Define keyword.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;if !exists(&#39;g:neocomplcache_keyword_patterns&#39;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    let g:neocomplcache_keyword_patterns = &amp;#123;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;endif&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:neocomplcache_keyword_patterns[&#39;default&#39;] = &#39;\h\w*&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; Plugin key-mappings.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;inoremap &amp;lt;expr&amp;gt;&amp;lt;C-g&amp;gt;     neocomplcache#undo_completion()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;inoremap &amp;lt;expr&amp;gt;&amp;lt;C-l&amp;gt;     neocomplcache#complete_common_string()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; &amp;lt;C-h&amp;gt;, &amp;lt;BS&amp;gt;: close popup and delete backword char.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;inoremap &amp;lt;expr&amp;gt;&amp;lt;C-h&amp;gt; neocomplcache#smart_close_popup().&quot;\&amp;lt;C-h&amp;gt;&quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;inoremap &amp;lt;expr&amp;gt;&amp;lt;BS&amp;gt; neocomplcache#smart_close_popup().&quot;\&amp;lt;C-h&amp;gt;&quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;inoremap &amp;lt;expr&amp;gt;&amp;lt;C-y&amp;gt;  neocomplcache#close_popup()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;inoremap &amp;lt;expr&amp;gt;&amp;lt;C-e&amp;gt;  neocomplcache#cancel_popup()&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;支持操作-5&quot;&gt;&lt;a href=&quot;#支持操作-5&quot; class=&quot;headerlink&quot; title=&quot;支持操作&quot;&gt;&lt;/a&gt;支持操作&lt;/h4&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;快捷键&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;解释&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&amp;lt;Tab&amp;gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;使用Tab键进行待提示项目选择&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&amp;lt;C-g&amp;gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;取消补全&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&amp;lt;C-l&amp;gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;完成待补全项中共同的字符串&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&amp;lt;C-h&amp;gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;关闭待选项&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&amp;lt;C-y&amp;gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;关闭待选项&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&amp;lt;C-e&amp;gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;退出待选项&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&amp;lt;BS&amp;gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;关闭待选项&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&quot;类Tmux的窗口选择&quot;&gt;&lt;a href=&quot;#类Tmux的窗口选择&quot; class=&quot;headerlink&quot; title=&quot;类Tmux的窗口选择&quot;&gt;&lt;/a&gt;类Tmux的窗口选择&lt;/h3&gt;&lt;p&gt;在这份配置中，使用了&lt;a href=&quot;https://github.com/t9md/vim-choosewin&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;strong&gt;vim-choosewin&lt;/strong&gt;&lt;/a&gt;进行窗口管理器. 支持类Tmux的操作.&lt;/p&gt;
+&lt;h4 id=&quot;配置-5&quot;&gt;&lt;a href=&quot;#配置-5&quot; class=&quot;headerlink&quot; title=&quot;配置&quot;&gt;&lt;/a&gt;配置&lt;/h4&gt;&lt;figure class=&quot;highlight vim&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; Window Chooser ------------------------------&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; mapping&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;nmap&lt;/span&gt;  -  &lt;span class=&quot;symbol&quot;&gt;&amp;lt;Plug&amp;gt;&lt;/span&gt;(choosewin)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; show big letters&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;g:choosewin_overlay_enable&lt;/span&gt; = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;支持操作-6&quot;&gt;&lt;a href=&quot;#支持操作-6&quot; class=&quot;headerlink&quot; title=&quot;支持操作&quot;&gt;&lt;/a&gt;支持操作&lt;/h4&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;快捷键&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;解释&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;开启窗口选择&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-  [&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;选择上一个tab的窗口&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-  ]&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;选择下一个tab的窗口&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;更多操作可以使用 &lt;code&gt;:help choosewin&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&quot;灵活的Tab管理&quot;&gt;&lt;a href=&quot;#灵活的Tab管理&quot; class=&quot;headerlink&quot; title=&quot;灵活的Tab管理&quot;&gt;&lt;/a&gt;灵活的Tab管理&lt;/h3&gt;&lt;p&gt;在这份配置中使用了&lt;a href=&quot;https://github.com/kien/tabman.vim&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;TabMan&lt;/a&gt;进行Tab管理,可以进行灵活切换与管理&lt;/p&gt;
+&lt;h4 id=&quot;配置-6&quot;&gt;&lt;a href=&quot;#配置-6&quot; class=&quot;headerlink&quot; title=&quot;配置&quot;&gt;&lt;/a&gt;配置&lt;/h4&gt;&lt;figure class=&quot;highlight vim&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; TabMan ------------------------------&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; mappings to toggle display, and to focus on it&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;g:tabman_toggle&lt;/span&gt; = &lt;span class=&quot;string&quot;&gt;&#39;tl&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;g:tabman_focus&lt;/span&gt;  = &lt;span class=&quot;string&quot;&gt;&#39;tf&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;支持操作-7&quot;&gt;&lt;a href=&quot;#支持操作-7&quot; class=&quot;headerlink&quot; title=&quot;支持操作&quot;&gt;&lt;/a&gt;支持操作&lt;/h4&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;快捷键&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;解释&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;tl&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;开启/关闭tab管理&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;tf&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;将光标移动到tab管理窗口&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&quot;优雅的状态栏&quot;&gt;&lt;a href=&quot;#优雅的状态栏&quot; class=&quot;headerlink&quot; title=&quot;优雅的状态栏&quot;&gt;&lt;/a&gt;优雅的状态栏&lt;/h3&gt;&lt;p&gt;在这份配置中，使用了&lt;a href=&quot;https://github.com/vim-airline/vim-airline&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;strong&gt;Airline&lt;/strong&gt;&lt;/a&gt;提供更多状态栏支持.&lt;/p&gt;
+&lt;h4 id=&quot;配置-7&quot;&gt;&lt;a href=&quot;#配置-7&quot; class=&quot;headerlink&quot; title=&quot;配置&quot;&gt;&lt;/a&gt;配置&lt;/h4&gt;&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&quot; Airline ------------------------------&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:airline_powerline_fonts = 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:airline_theme = &#39;bubblegum&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot;let g:airline#extensions#tabline#enabled = 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot;let g:airline#extensions#tabline#left_sep = &#39; &#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot;let g:airline#extensions#tabline#left_alt_sep = &#39;|&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:airline#extensions#whitespace#enabled = 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; to use fancy symbols for airline, uncomment the following lines and use a&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot; patched font (more info on the README.rst)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;if !exists(&#39;g:airline_symbols&#39;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   let g:airline_symbols = &amp;#123;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;endif&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:airline_left_sep = &#39;&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:airline_left_alt_sep = &#39;&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:airline_right_sep = &#39;&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:airline_right_alt_sep = &#39;&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:airline_symbols.branch = &#39;&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:airline_symbols.readonly = &#39;&#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let g:airline_symbols.linenr = &#39;&#39;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;支持特性-1&quot;&gt;&lt;a href=&quot;#支持特性-1&quot; class=&quot;headerlink&quot; title=&quot;支持特性&quot;&gt;&lt;/a&gt;支持特性&lt;/h4&gt;&lt;p&gt;可以显示分支，语法静态检查结果等.&lt;/p&gt;
+&lt;h3 id=&quot;自动插入头部&quot;&gt;&lt;a href=&quot;#自动插入头部&quot; class=&quot;headerlink&quot; title=&quot;自动插入头部&quot;&gt;&lt;/a&gt;自动插入头部&lt;/h3&gt;&lt;p&gt;在这份配置中写了个小函数根据新建的不同类型的文件，自动插入头部，支持&lt;code&gt;python&lt;/code&gt;, &lt;code&gt;ruby&lt;/code&gt;, &lt;code&gt;bash&lt;/code&gt;等.&lt;/p&gt;
+&lt;h3 id=&quot;Markdown实时预览&quot;&gt;&lt;a href=&quot;#Markdown实时预览&quot; class=&quot;headerlink&quot; title=&quot;Markdown实时预览&quot;&gt;&lt;/a&gt;Markdown实时预览&lt;/h3&gt;&lt;p&gt;在这份配置中, 使用了&lt;a href=&quot;https://github.com/suan/vim-instant-markdown&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;strong&gt;vim-instant-markdown&lt;/strong&gt;&lt;/a&gt;和&lt;a href=&quot;https://github.com/plasticboy/vim-markdown&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;vim-markdown&lt;/a&gt;做Markdown格式的支持，可以支持实时预览等特性.&lt;/p&gt;
+&lt;p&gt;此功能需要有node环境支持，可以执行 &lt;code&gt;npm -g install instant-markdown-d&lt;/code&gt; 进行安装.&lt;/p&gt;
+&lt;h4 id=&quot;配置-8&quot;&gt;&lt;a href=&quot;#配置-8&quot; class=&quot;headerlink&quot; title=&quot;配置&quot;&gt;&lt;/a&gt;配置&lt;/h4&gt;&lt;figure class=&quot;highlight vim&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; Vim-markdown ------------------------------&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; Disabled automatically folding&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;g:vim_markdown_folding_disabled&lt;/span&gt;=&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; LeTeX math&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;g:vim_markdown_math&lt;/span&gt;=&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; Highlight YAML frontmatter&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;g:vim_markdown_frontmatter&lt;/span&gt;=&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; Vim-instant-markdown -----------------&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; If it takes your system too much, you can specify&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; let g:instant_markdown_slow = 1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; if you don&#39;t want to manually control it&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; you can open this setting&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; and when you open this, you can manually trigger preview&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&quot; via the command :InstantMarkdownPreview&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;g:instant_markdown_autostart&lt;/span&gt; = &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;支持操作-8&quot;&gt;&lt;a href=&quot;#支持操作-8&quot; class=&quot;headerlink&quot; title=&quot;支持操作&quot;&gt;&lt;/a&gt;支持操作&lt;/h4&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;快捷键&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;解释&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;:InstantMarkdownPreview&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;手动触发markdown文件的预览&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&quot;多游标选择、编辑等&quot;&gt;&lt;a href=&quot;#多游标选择、编辑等&quot; class=&quot;headerlink&quot; title=&quot;多游标选择、编辑等&quot;&gt;&lt;/a&gt;多游标选择、编辑等&lt;/h3&gt;&lt;p&gt;在这份配置中, 可以在高亮某单词时, 通过使用 &lt;code&gt;Ctrl-n&lt;/code&gt; 或者 &lt;code&gt;Ctrl-p&lt;/code&gt; 进行多游标选择, 然后进行编辑或修改等操作.&lt;/p&gt;
+&lt;h3 id=&quot;快速文件查找&quot;&gt;&lt;a href=&quot;#快速文件查找&quot; class=&quot;headerlink&quot; title=&quot;快速文件查找&quot;&gt;&lt;/a&gt;快速文件查找&lt;/h3&gt;&lt;p&gt;在这份配置中, 可以通过使用&lt;code&gt;,R&lt;/code&gt;进行全文查找或者&lt;code&gt;,r&lt;/code&gt;进行快速查找, 或者在当前字符串上使用&lt;code&gt;,wR&lt;/code&gt;以及&lt;code&gt;,wr&lt;/code&gt;来进行全文查找或者快速查找.&lt;/p&gt;
+&lt;h3 id=&quot;快速注释&quot;&gt;&lt;a href=&quot;#快速注释&quot; class=&quot;headerlink&quot; title=&quot;快速注释&quot;&gt;&lt;/a&gt;快速注释&lt;/h3&gt;&lt;p&gt;使用&lt;a href=&quot;https://github.com/scrooloose/nerdcommenter&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;&lt;strong&gt;NERDCommenter&lt;/strong&gt;&lt;/a&gt;插件完成快速注释, 可以通过&lt;code&gt;\ci&lt;/code&gt;进行快速注释.&lt;/p&gt;
+&lt;h4 id=&quot;Python-支持&quot;&gt;&lt;a href=&quot;#Python-支持&quot; class=&quot;headerlink&quot; title=&quot;Python 支持&quot;&gt;&lt;/a&gt;Python 支持&lt;/h4&gt;&lt;p&gt;完备的Python支持, 可以自动识别当前是系统环境或虚拟环境, 使用&lt;code&gt;:Isort&lt;/code&gt;可智能对导入包进行排序, 使用&lt;code&gt;:PymodeLintAuto&lt;/code&gt;可自动格式化.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;除了上述列出的功能以外, 还有很多方便的特性，可以大大提升效率，在使用中慢慢体会吧！有问题可以在&lt;a href=&quot;https://github.com/tao12345666333/vim&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;tao12345666333/vim&lt;/a&gt; on github 提issue&lt;/strong&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;这是利器系列第0篇, 当然要以每天我使用率最高的Vim来开始啦!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;截图&quot;&gt;&lt;a href=&quot;#截图&quot; class=&quot;headerlink&quot; title=&quot;截图&quot;&gt;&lt;/a&gt;截图&lt;/h2&gt;&lt;p&gt;&lt;im
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://moelove.info/categories/Linux/"/>
+    
+    
+      <category term="Vim" scheme="http://moelove.info/tags/Vim/"/>
+    
+      <category term="Tool" scheme="http://moelove.info/tags/Tool/"/>
+    
+  </entry>
   
   <entry>
     <title>Python性能优化之工具篇</title>
@@ -1082,59 +1384,6 @@
       <category term="Linux" scheme="http://moelove.info/tags/Linux/"/>
     
       <category term="Android" scheme="http://moelove.info/tags/Android/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>fedora 18 Kernel driver not installed (rc=-1908)处理办法</title>
-    <link href="http://moelove.info/2013/12/21/fedora-18-Kernel-driver-not-installed-rc-1908-%E5%A4%84%E7%90%86%E5%8A%9E%E6%B3%95/"/>
-    <id>http://moelove.info/2013/12/21/fedora-18-Kernel-driver-not-installed-rc-1908-处理办法/</id>
-    <published>2013-12-21T13:42:18.000Z</published>
-    <updated>2016-04-03T15:02:52.661Z</updated>
-    
-    <content type="html">&lt;h4 id=&quot;fedora-18-升级内核之后-使用VirtualBox-可以正常打开软件-但是不能启动虚拟机系统-提示信息如下&quot;&gt;&lt;a href=&quot;#fedora-18-升级内核之后-使用VirtualBox-可以正常打开软件-但是不能启动虚拟机系统-提示信息如下&quot; class=&quot;headerlink&quot; title=&quot;fedora 18 升级内核之后 使用VirtualBox 可以正常打开软件,但是不能启动虚拟机系统.提示信息如下:&quot;&gt;&lt;/a&gt;fedora 18 升级内核之后 使用&lt;em&gt;VirtualBox&lt;/em&gt; 可以正常打开软件,但是不能启动虚拟机系统.提示信息如下:&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;Kernel driver not installed (rc=-1908)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;经过一系列的看文档还有google 之后,很多地方写着这个问题的处理方法是&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;第一种&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo /etc/init.d/vboxdrv setup&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;经过实验,对feora 18 不可行&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;第二种&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo apt-get install dkms&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo /etc/init.d/vboxdrv setup&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;但是情况继续&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;第三种&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo aptitude update&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo aptitude install dkms&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo /etc/init.d/vboxdrv setup&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&quot;最后正确的解决方法应该是酱紫的&quot;&gt;&lt;a href=&quot;#最后正确的解决方法应该是酱紫的&quot; class=&quot;headerlink&quot; title=&quot;最后正确的解决方法应该是酱紫的&quot;&gt;&lt;/a&gt;最后正确的解决方法应该是酱紫的&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;先看看系统的内核&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;uname -r&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;找对应的包&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo yum search kmod-VirtualBox&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;然后安装和你系统内核对应的包&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo yum install kmod-VirtualBox-XXXX&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;运行&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/etc/sysconfig/modules/VirtualBox.modules&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;一切OK了&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;fedora-18-升级内核之后-使用VirtualBox-可以正常打开软件-但是不能启动虚拟机系统-提示信息如下&quot;&gt;&lt;a href=&quot;#fedora-18-升级内核之后-使用VirtualBox-可以正常打开软件-但是不能启动虚拟机系统-提示信息如下&quot; clas
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://moelove.info/categories/Linux/"/>
-    
-    
-      <category term="Linux" scheme="http://moelove.info/tags/Linux/"/>
     
   </entry>
   
