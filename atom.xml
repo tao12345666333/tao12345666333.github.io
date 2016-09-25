@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://moelove.info/"/>
-  <updated>2016-09-16T09:09:33.492Z</updated>
+  <updated>2016-09-25T16:02:54.054Z</updated>
   <id>http://moelove.info/</id>
   
   <author>
@@ -16,11 +16,54 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>源码编译Vim 8</title>
+    <link href="http://moelove.info/2016/09/24/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91Vim-8/"/>
+    <id>http://moelove.info/2016/09/24/源码编译Vim-8/</id>
+    <published>2016-09-24T11:46:47.000Z</published>
+    <updated>2016-09-25T16:02:54.054Z</updated>
+    
+    <content type="html">&lt;blockquote&gt;
+&lt;p&gt;Vim 8.0 在2016.09.12发布了, 在各 Linux 发行版还没更新包的时候就源码编译来使用吧! 以 Debian 编译 Vim 为例.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;http://moelove.qiniudn.com/Vim-8-simple-version.png&quot; alt=&quot;简单编译截图&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;下载Vim-源码&quot;&gt;&lt;a href=&quot;#下载Vim-源码&quot; class=&quot;headerlink&quot; title=&quot;下载Vim 源码&quot;&gt;&lt;/a&gt;下载Vim 源码&lt;/h1&gt;&lt;p&gt;可以在&lt;a href=&quot;http://www.vim.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Vim 官网&lt;/a&gt;下载&lt;a href=&quot;ftp://ftp.vim.org/pub/vim/unix/vim-8.0.tar.bz2&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;打包好的源代码&lt;/a&gt;.&lt;br&gt;或者使用 Git:&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git &lt;span class=&quot;built_in&quot;&gt;clone&lt;/span&gt; https://github.com/vim/vim.git&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;编译&quot;&gt;&lt;a href=&quot;#编译&quot; class=&quot;headerlink&quot; title=&quot;编译&quot;&gt;&lt;/a&gt;编译&lt;/h1&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; vim/src&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;./configure  --with-compiledby=&lt;span class=&quot;string&quot;&gt;&quot;TaoBeier&quot;&lt;/span&gt; --with-features=huge --enable-pythoninterp=yes --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu  --enable-cscope --enable-perlinterp=yes --enable-rubyinterp=yes --with-luajit --enable-luainterp=yes --with-lua-prefix=/usr/include/lua5.1 --enable-multibyte --with-x --enable-fail-if-missing&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;上面的参数使用 &lt;code&gt;./configure --help&lt;/code&gt; 都可以看到对应用途. 上面使用的参数是增加了对 Python, Ruby, Perl, 以及X window的支持.&lt;/p&gt;
+&lt;p&gt;建议加上 &lt;code&gt;--enable-fail-if-missing&lt;/code&gt; 参数, 以方便定位到哪里依赖缺失. &lt;/p&gt;
+&lt;h1 id=&quot;依赖&quot;&gt;&lt;a href=&quot;#依赖&quot; class=&quot;headerlink&quot; title=&quot;依赖&quot;&gt;&lt;/a&gt;依赖&lt;/h1&gt;&lt;p&gt;这里检查可能通不过, 首先是 &lt;code&gt;lua&lt;/code&gt; 和 &lt;code&gt;luajit&lt;/code&gt;. 需要执行&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;sudo apt-get install lua5.1 liblua5.1-0 luajit libluajit-5.1-dev&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;其次注意 &lt;code&gt;Python&lt;/code&gt; 的 config 位置.&lt;/p&gt;
+&lt;p&gt;最后就是 &lt;code&gt;Perl&lt;/code&gt; 需要 &lt;code&gt;sudo apt-get install libperl-dev&lt;/code&gt;.&lt;/p&gt;
+&lt;h1 id=&quot;最终&quot;&gt;&lt;a href=&quot;#最终&quot; class=&quot;headerlink&quot; title=&quot;最终&quot;&gt;&lt;/a&gt;最终&lt;/h1&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;make &amp;amp;&amp;amp; sudo make install&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;最终结果&quot;&gt;&lt;a href=&quot;#最终结果&quot; class=&quot;headerlink&quot; title=&quot;最终结果&quot;&gt;&lt;/a&gt;最终结果&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;http://moelove.qiniudn.com/Vim-8-full-version.png&quot; alt=&quot;完整编译截图&quot;&gt;&lt;/p&gt;
+&lt;p&gt;PS: 其实我一开始是想介绍 Vim 8 的, 然后碰巧在 GitHub 上有人问如何编译之类的, 就先写了这篇.&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;Vim 8.0 在2016.09.12发布了, 在各 Linux 发行版还没更新包的时候就源码编译来使用吧! 以 Debian 编译 Vim 为例.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;http://moelove.qin
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://moelove.info/categories/Linux/"/>
+    
+    
+      <category term="Vim" scheme="http://moelove.info/tags/Vim/"/>
+    
+      <category term="Tool" scheme="http://moelove.info/tags/Tool/"/>
+    
+  </entry>
+  
+  <entry>
     <title>利器系列-更高效的Vim</title>
     <link href="http://moelove.info/2016/09/16/%E5%88%A9%E5%99%A8%E7%B3%BB%E5%88%97-%E6%9B%B4%E9%AB%98%E6%95%88%E7%9A%84Vim/"/>
     <id>http://moelove.info/2016/09/16/利器系列-更高效的Vim/</id>
     <published>2016-09-16T08:55:44.000Z</published>
-    <updated>2016-09-16T09:09:33.492Z</updated>
+    <updated>2016-09-24T11:54:34.451Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;这是利器系列第0篇, 当然要以每天我使用率最高的Vim来开始啦!&lt;/p&gt;
@@ -1342,48 +1385,6 @@
       <category term="Pelican" scheme="http://moelove.info/tags/Pelican/"/>
     
       <category term="Blog" scheme="http://moelove.info/tags/Blog/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux 安装Android 驱动</title>
-    <link href="http://moelove.info/2014/03/10/Linux-%E5%AE%89%E8%A3%85Android-%E9%A9%B1%E5%8A%A8/"/>
-    <id>http://moelove.info/2014/03/10/Linux-安装Android-驱动/</id>
-    <published>2014-03-10T13:44:06.000Z</published>
-    <updated>2016-04-03T14:28:09.037Z</updated>
-    
-    <content type="html">&lt;p&gt;在Linux下非常适合做一些对Rom 的定制以及其他的一些操作，甚至是自己制作Rom 或者从源码编译Rom 也是OK的。&lt;/p&gt;
-&lt;p&gt;不过最开始的应该就是搭建开发环境了，我先从装驱动开始说（只是做个笔记而已）&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;使用数据线连接手机，打开&lt;strong&gt;adb调试模式&lt;/strong&gt;。(在Linux上搭建开发环境， 以及adb 命令之类的， 就自行搜索吧，如果哪天更新了 我会附上链接的)&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;输入&lt;code&gt;adb devices&lt;/code&gt; 查看设备&lt;br&gt;如果有机型的话就说明是已经有驱动了&lt;br&gt;如果没有显示的话， 就是说明需要进行驱动安装了。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;这个时候， &lt;code&gt;lsusb&lt;/code&gt; 查看， 会看到下面这样的信息&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[tao@localhost ~]$ lsusb&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Bus 001 Device 002: ID 8087:0020 Intel Corp. Integrated Rate Matching Hub&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Bus 002 Device 002: ID 8087:0020 Intel Corp. Integrated Rate Matching Hub&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Bus 002 Device 006: ID 12d1:2229 Huawei Technologies Co., Ltd.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Bus 002 Device 004: ID 04f2:b1c1 Chicony Electronics Co., Ltd&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Bus 002 Device 005: ID 062a:4101 Creative Labs&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;可以在&lt;a href=&quot;https://developer.android.com/tools/device.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android Developer&lt;/a&gt; ， 看到对其他的产品的支持，窝的手机是Huawei的所以就是要输入对应的ID ：&lt;strong&gt;12d1&lt;/strong&gt; 然后，再新建一个文件，&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;vim /etc/udev/rules.d/50-android.rules&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;写入内容：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;SUBSYSTEM==&amp;quot;usb&amp;quot;, ATTR&amp;#123;idVendor&amp;#125;==&amp;quot;12d1&amp;quot;, ATTR&amp;#123;idProduct&amp;#125;==&amp;quot;2229&amp;quot;, MODE=&amp;quot;0600&amp;quot;, OWNER=&amp;quot;tao&amp;quot;,GROUP =&amp;quot;plugdev&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;50是说是手机， 其他的命名也有各自的解释&lt;/p&gt;
-&lt;p&gt;然后我们就可以新建这个文件， 修改权限&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;chmod a+x /etc/udev/rules.d/50-android.rules&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;这个时候 就成功了，我们使用&lt;code&gt;adb devices&lt;/code&gt; 命令就可以看到我们的设备了， 使用&lt;code&gt;adb shell&lt;/code&gt;  就可以对手机进行操作了&lt;/p&gt;
-&lt;p&gt;当然我在这里进行了一次重启，就可以使用了&lt;br&gt;(话说这篇文章虽然一直在云端编辑，但是一直木有结束，现在才发出来。。一定要提高效率！)&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在Linux下非常适合做一些对Rom 的定制以及其他的一些操作，甚至是自己制作Rom 或者从源码编译Rom 也是OK的。&lt;/p&gt;
-&lt;p&gt;不过最开始的应该就是搭建开发环境了，我先从装驱动开始说（只是做个笔记而已）&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;使用数据线连接手机，打开&lt;st
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://moelove.info/categories/Linux/"/>
-    
-    
-      <category term="Linux" scheme="http://moelove.info/tags/Linux/"/>
-    
-      <category term="Android" scheme="http://moelove.info/tags/Android/"/>
     
   </entry>
   

@@ -111,7 +111,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 15px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 12.5px;">DevOps</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 17.5px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/Pelican/" style="font-size: 15px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 10px;">Tool</a> <a href="/tags/VIM/" style="font-size: 10px;">VIM</a> <a href="/tags/Vim/" style="font-size: 12.5px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/git/" style="font-size: 12.5px;">git</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a>
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 15px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 12.5px;">DevOps</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 17.5px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/Pelican/" style="font-size: 15px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 12.5px;">Tool</a> <a href="/tags/VIM/" style="font-size: 10px;">VIM</a> <a href="/tags/Vim/" style="font-size: 15px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/git/" style="font-size: 12.5px;">git</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a>
 					</div>
 				</section>
 				
@@ -188,6 +188,82 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-源码编译Vim-8" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/24/源码编译Vim-8/" class="article-date">
+  	<time datetime="2016-09-24T11:46:47.000Z" itemprop="datePublished">2016-09-24</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/24/源码编译Vim-8/">源码编译Vim 8</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>Vim 8.0 在2016.09.12发布了, 在各 Linux 发行版还没更新包的时候就源码编译来使用吧! 以 Debian 编译 Vim 为例.</p>
+</blockquote>
+<p><img src="http://moelove.qiniudn.com/Vim-8-simple-version.png" alt="简单编译截图"></p>
+<h1 id="下载Vim-源码"><a href="#下载Vim-源码" class="headerlink" title="下载Vim 源码"></a>下载Vim 源码</h1><p>可以在<a href="http://www.vim.org/" target="_blank" rel="external">Vim 官网</a>下载<a href="ftp://ftp.vim.org/pub/vim/unix/vim-8.0.tar.bz2" target="_blank" rel="external">打包好的源代码</a>.<br>或者使用 Git:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/vim/vim.git</span><br></pre></td></tr></table></figure>
+<h1 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> vim/src</span><br><span class="line"></span><br><span class="line">./configure  --with-compiledby=<span class="string">"TaoBeier"</span> --with-features=huge --enable-pythoninterp=yes --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu  --enable-cscope --enable-perlinterp=yes --enable-rubyinterp=yes --with-luajit --enable-luainterp=yes --with-lua-prefix=/usr/include/lua5.1 --enable-multibyte --with-x --enable-fail-if-missing</span><br></pre></td></tr></table></figure>
+<p>上面的参数使用 <code>./configure --help</code> 都可以看到对应用途. 上面使用的参数是增加了对 Python, Ruby, Perl, 以及X window的支持.</p>
+<p>建议加上 <code>--enable-fail-if-missing</code> 参数, 以方便定位到哪里依赖缺失. </p>
+<h1 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h1><p>这里检查可能通不过, 首先是 <code>lua</code> 和 <code>luajit</code>. 需要执行</p>
+<p><code>sudo apt-get install lua5.1 liblua5.1-0 luajit libluajit-5.1-dev</code></p>
+<p>其次注意 <code>Python</code> 的 config 位置.</p>
+<p>最后就是 <code>Perl</code> 需要 <code>sudo apt-get install libperl-dev</code>.</p>
+<h1 id="最终"><a href="#最终" class="headerlink" title="最终"></a>最终</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make &amp;&amp; sudo make install</span><br></pre></td></tr></table></figure>
+<h2 id="最终结果"><a href="#最终结果" class="headerlink" title="最终结果"></a>最终结果</h2><p><img src="http://moelove.qiniudn.com/Vim-8-full-version.png" alt="完整编译截图"></p>
+<p>PS: 其实我一开始是想介绍 Vim 8 的, 然后碰巧在 GitHub 上有人问如何编译之类的, 就先写了这篇.</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tool/">Tool</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vim/">Vim</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Linux/">Linux</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-利器系列-更高效的Vim" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1371,81 +1447,6 @@
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/Linux/">Linux</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-重置Ghost博客的密码" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/07/21/重置Ghost博客的密码/" class="article-date">
-  	<time datetime="2015-07-21T15:11:04.000Z" itemprop="datePublished">2015-07-21</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/21/重置Ghost博客的密码/">重置Ghost博客的密码</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>在搭建Ghost博客的时候，尚未配置mail服务器时，重置密码的方法做个记录</p>
-</blockquote>
-<h3 id="打开数据库查看用户信息"><a href="#打开数据库查看用户信息" class="headerlink" title="打开数据库查看用户信息"></a>打开数据库查看用户信息</h3><p>如果全部默认设置，使用生产环境的话，应该是<br><code>sqlite3 content/data/ghost.db</code></p>
-<p>如果是开发环境应该是<br><code>sqlite3 content/date/ghost-dev.db</code></p>
-<p>查看用户信息<br><code>sqlite&gt;SELECT * FROM users;</code></p>
-<h3 id="更新用户密码"><a href="#更新用户密码" class="headerlink" title="更新用户密码"></a>更新用户密码</h3><ul>
-<li><p>Ghost对用户密码用的是BCrypt加密，可以使用<a href="http://bcrypthashgenerator.apphb.com/" target="_blank" rel="external">BCrypt Hash Generator</a>之类的工具生成一个想要修改的密码，例如”mypasswd”生成的密码是<br>  <code>$2a$10$QecJeBdw2lONRTnHJ0RoVO6DczdJWf4h4QgaUcgKsYFZlzTe1yeEK</code></p>
-</li>
-<li><p>假设之前查看到的用户信息，邮箱是<strong>admin@domain.com</strong> 那么，使用这样更新密码</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE users SET password=&quot;$2a$10$QecJeBdw2lONRTnHJ0RoVO6DczdJWf4h4QgaUcgKsYFZlzTe1yeEK&quot; WHERE email=&quot;admin@domain.com&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>退出sqlite3<br><code>.exit</code></p>
-</li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Blog/">Blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sqlite/">sqlite</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Node/">Node</a>
 	</div>
 
 
