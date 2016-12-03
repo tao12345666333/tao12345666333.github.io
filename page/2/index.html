@@ -111,7 +111,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 15px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 12.5px;">DevOps</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 17.5px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/Pelican/" style="font-size: 15px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 12.5px;">Tool</a> <a href="/tags/VIM/" style="font-size: 10px;">VIM</a> <a href="/tags/Vim/" style="font-size: 15px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/git/" style="font-size: 12.5px;">git</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a>
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 15px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 12.5px;">DevOps</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 17.5px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/Pelican/" style="font-size: 15px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 12.5px;">Tool</a> <a href="/tags/VIM/" style="font-size: 10px;">VIM</a> <a href="/tags/Vim/" style="font-size: 15px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/git/" style="font-size: 12.5px;">git</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a>
 					</div>
 				</section>
 				
@@ -188,6 +188,101 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-源码编译MongoDB" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/09/13/源码编译MongoDB/" class="article-date">
+  	<time datetime="2015-09-13T13:28:43.000Z" itemprop="datePublished">2015-09-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/09/13/源码编译MongoDB/">源码编译MongoDB</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>上周放假正好有时间，编译安装了MongoDB，虽然MongoDB用了挺长时间的，但还是第一次用源码编译。在此做个备忘。因为已经完整编译安装过了，所以写起来的时候，就按照先知视角来写了～ 2333</p>
+</blockquote>
+<h2 id="下载MongoDB源码"><a href="#下载MongoDB源码" class="headerlink" title="下载MongoDB源码"></a>下载MongoDB源码</h2><p>MongoDB的<a href="https://www.mongodb.org/" target="_blank" rel="external">官网</a>上是有已经编译好的二进制包的，这里选择clone <a href="https://github.com/mongodb/mongo" target="_blank" rel="external">MongoDB在github上的仓库</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/mongodb/mongo &amp;&amp; cd mongo</span><br></pre></td></tr></table></figure></p>
+<p>在<code>docs/building.md</code>中是编译所需的依赖。</p>
+<ul>
+<li>A modern C++ compiler. One of the following is required.<ul>
+<li>GCC 4.8.2 or newer</li>
+<li>Clang 3.4 (or Apple XCode 5.1.1 Clang) or newer</li>
+<li>Visual Studio 2013 Update 2 or newer</li>
+</ul>
+</li>
+<li>Python 2.7</li>
+<li>SCons 2.3</li>
+</ul>
+<p>我这台服务器是CentOS 6.5, 上面的gcc版本比较低，这里就先更新gcc咯.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gcc --version</span><br><span class="line">gcc (GCC) 4.4.7 20120313 (Red Hat 4.4.7-16)                                </span><br><span class="line">Copyright © 2010 Free Software Foundation, Inc.                            </span><br><span class="line">本程序是自由软件；请参看源代码的版权声明。</span><br><span class="line">本软件没有任何担保；             </span><br><span class="line">包括没有适销性和某一专用目的下的适用性担保。</span><br></pre></td></tr></table></figure>
+<h2 id="编译升级gcc"><a href="#编译升级gcc" class="headerlink" title="编译升级gcc"></a>编译升级gcc</h2><p>在gcc的<a href="https://gcc.gnu.org/" target="_blank" rel="external">官网</a>找到<a href="https://gcc.gnu.org/install/download.html" target="_blank" rel="external">下载页面</a>。使用<a href="https://gcc.gnu.org/svn.html" target="_blank" rel="external">svn</a>或者通过<a href="https://gcc.gnu.org/mirrors.html" target="_blank" rel="external">ftp镜像站</a>下载源码.<br>我使用了<a href="http://ftp.tsukuba.wide.ad.jp/software/gcc/" target="_blank" rel="external">一个ftp镜像站</a>下载的<a href="http://ftp.tsukuba.wide.ad.jp/software/gcc/releases/gcc-5.2.0/gcc-5.2.0.tar.bz2" target="_blank" rel="external">源码压缩包</a>。 然后进行解压和安装依赖。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tar -xjf gcc-5.2.0.tar.bz2 &amp;&amp; cd gcc-5.2.0</span><br><span class="line"></span><br><span class="line">./contrib/download_prerequisites(等待依赖完成)</span><br></pre></td></tr></table></figure></p>
+<p>之后编译<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd .. &amp;&amp; mkdir gcc-build-5.2.0 &amp;&amp; cd gcc-build-5.2.0</span><br><span class="line"></span><br><span class="line"># 编译</span><br><span class="line"></span><br><span class="line">../gcc-5.2.0/configure --enable-checking=release --enable-languages=c,c++ --disable-multilib</span><br></pre></td></tr></table></figure></p>
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">checking build system type... x86_64-unknown-linux-gnu</span><br><span class="line">checking host system type... x86_64-unknown-linux-gnu</span><br><span class="line">checking target system type... x86_64-unknown-linux-gnu</span><br><span class="line">checking for a BSD-compatible install... /usr/bin/install -c</span><br><span class="line">checking whether ln works... yes</span><br><span class="line">checking whether ln -s works... yes</span><br><span class="line">checking for a sed that does not truncate output... /bin/sed</span><br><span class="line">checking for gawk... gawk</span><br><span class="line">checking for libatomic support... yes</span><br><span class="line">checking for libcilkrts support... yes</span><br><span class="line">checking for libitm support... yes</span><br><span class="line">checking for libsanitizer support... yes</span><br><span class="line">checking for libvtv support... yes</span><br><span class="line">checking for gcc... gcc</span><br><span class="line">checking for C compiler default output file name... a.out</span><br><span class="line">checking whether the C compiler works... yes</span><br><span class="line">checking whether we are cross compiling... no</span><br><span class="line">checking for suffix of executables... </span><br><span class="line">checking for suffix of object files... o</span><br><span class="line">checking whether we are using the GNU C compiler... yes</span><br><span class="line">checking whether gcc accepts -g... yes</span><br><span class="line">checking for gcc option to accept ISO C89... none needed</span><br><span class="line">checking for g++... g++</span><br><span class="line">checking whether we are using the GNU C++ compiler... yes</span><br><span class="line">checking whether g++ accepts -g... yes</span><br><span class="line">checking whether g++ accepts -static-libstdc++ -static-libgcc... no</span><br><span class="line">checking for gnatbind... no</span><br><span class="line">checking for gnatmake... no</span><br><span class="line">checking whether compiler driver understands Ada... no</span><br><span class="line">checking how to compare bootstrapped objects... cmp --ignore-initial=16 $$f1 $$f2</span><br><span class="line">checking for objdir... .libs</span><br><span class="line">configure: WARNING: using in-tree ISL, disabling version check</span><br></pre></td></tr></table></figure>
+<p>一般情况下， 就这样gcc就可以编译完成了。 但是因为我这台机器是单核1G没有swap区， 所以我遇到了下面的问题：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># 排版有点错乱惹...</span><br><span class="line"></span><br><span class="line">build/vec.o</span><br><span class="line">build/min-insn-modes.o</span><br><span class="line">build/gensupport.o</span><br><span class="line">build/print-rtl.o</span><br><span class="line">build/read-md.o</span><br><span class="line">build/errors.o ../build-x86_64-unknown-linux-gnu/libiberty/libiberty.a</span><br><span class="line">build/genattrtab ../../gcc-5.2.0/gcc/common.md ../../gcc-5.2.0/gcc/config/i</span><br><span class="line">386/i386.md insn-conditions.md \</span><br><span class="line">                -Atmp-attrtab.c -Dtmp-dfatab.c -Ltmp-latencytab.c</span><br><span class="line">make[3]: *** [s-attrtab] 已杀死</span><br><span class="line">make[3]: Leaving directory `/home/tao/gcc-build-5.0.2/gcc&apos;</span><br><span class="line">make[2]: *** [all-stage1-gcc] 错误 2</span><br><span class="line">make[2]: Leaving directory `/home/tao/gcc-build-5.0.2&apos;</span><br><span class="line">make[1]: *** [stage1-bubble] 错误 2</span><br><span class="line">make[1]: Leaving directory `/home/tao/gcc-build-5.0.2&apos;</span><br><span class="line">make: *** [all] 错误 2</span><br></pre></td></tr></table></figure>
+<p>大致查了下，是因为没有swap区的原因，根据<a href="http://stackoverflow.com/questions/18389612/make-exits-with-error-2-when-trying-to-install-gcc-4-8-1#" target="_blank" rel="external">这篇</a> 得到的解决办法是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SWAP=/tmp/swap</span><br><span class="line">dd if=/dev/zero of=$SWAP bs=1M count=500</span><br><span class="line">mkswap $SWAP</span><br><span class="line">sudo swapon $SWAP</span><br></pre></td></tr></table></figure>
+<p>之后就是gcc 的编译时间了， 这个时间可以去写写代码补个番啥的。这台机器只是平时拿来玩的，配置炒鸡低。编译gcc从17：20开始，一直到20：09停止。(期间我去补番啦 2333)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 只会执行下面的命令</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line"># 切换gcc到新版本</span><br><span class="line">update-alternatives --install /usr/bin/gcc gcc /usr/local/bin/gcc-5.0.2 66</span><br><span class="line"># 我重新ssh登录后才看到更新生效的</span><br><span class="line">gcc --version</span><br><span class="line">gcc (GCC) 5.2.0</span><br><span class="line">Copyright © 2015 Free Software Foundation, Inc.</span><br><span class="line">本程序是自由软件；请参看源代码的版权声明。本软件没有任何担保；</span><br><span class="line">包括没有适销性和某一专用目的下的适用性担保。</span><br></pre></td></tr></table></figure>
+<h2 id="升级Python"><a href="#升级Python" class="headerlink" title="升级Python"></a>升级Python</h2><p>CentOS上默认的Python对于之后要安装的scons来说，还是版本太低。再次上<a href="https://www.python.org" target="_blank" rel="external">Python 官网</a> (官网真是个好地方2333)下载Python2.7的<a href="https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tar.xz" target="_blank" rel="external">源码</a><br>编译过很多次了， 就只写主要的东西了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">xz -d python-2.7.10.tar.xz</span><br><span class="line">tar -xvf python-2.7.10.tar &amp;&amp; cd python-2.7.10</span><br><span class="line"># 对于这次编译MongoDB来说，一定需要安装的是bzip2依赖</span><br><span class="line">yum install -y bzip2-devel</span><br><span class="line"># 编译</span><br><span class="line">./configure --prefix=/usr/local/python2.7</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line"># 更新</span><br><span class="line">update-alternatives --install /usr/bin/python python /usr/local/bin/python 69</span><br></pre></td></tr></table></figure></p>
+<h2 id="安装scons"><a href="#安装scons" class="headerlink" title="安装scons"></a>安装scons</h2><p>在<a href="http://www.scons.org/" target="_blank" rel="external">官网</a>上找到<a href="http://iweb.dl.sourceforge.net/project/scons/scons/2.3.6/scons-2.3.6.tar.gz" target="_blank" rel="external">源码包</a>直接安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 依赖解决</span><br><span class="line">yum install pcre-devel python-devel</span><br><span class="line"># 解压安装</span><br><span class="line">tar -zxvf scons-2.3.6.tar.gz &amp;&amp; cd scons-2.3.6</span><br><span class="line">python setup.py install</span><br></pre></td></tr></table></figure>
+<h2 id="编译安装MongoDB"><a href="#编译安装MongoDB" class="headerlink" title="编译安装MongoDB"></a>编译安装MongoDB</h2><p>最后的安装过程就不是这篇里面的重点了， 遇到的一个坑是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Initializer* _theGlobalInitializer = &amp;getGlobalInitializer();</span><br></pre></td></tr></table></figure>
+<p>有这样的报错信息。 查了一下，根据<a href="https://jira.mongodb.org/browse/SERVER-19353" target="_blank" rel="external">这篇</a>只要在构建的时候，加上<code>--disable-warnings-as-errors</code>就可以解决了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scons all --disable-warnings-as-errors</span><br><span class="line"># 其他的设置可以查看scons的相关文档</span><br></pre></td></tr></table></figure>
+<p>本篇的重点是编译的过程，后续MongoDB配置部分抽空再写。全文完。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MongoDB/">MongoDB</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Linux/">Linux</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-重置Ghost博客的密码" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -856,89 +951,6 @@
       
 	<div class="article-tag tagcloud">
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Blog/">Blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pelican/">Pelican</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Web/">Web</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Hello-World" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/04/18/Hello-World/" class="article-date">
-  	<time datetime="2014-04-18T13:46:06.000Z" itemprop="datePublished">2014-04-18</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/04/18/Hello-World/">Hello World !</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>几乎所有的程序猿的第一个演示程序都是Hello World .那我也就一样咯， 也写一个同样的吧。<br>其实我的博客从很早前就已经开始在写了， 换了很多的平台：</p>
-</blockquote>
-<pre><code>从腾讯空间--&gt; 百度空间--&gt; 新浪博客--&gt; 自己搭建的Wordpress博客--&gt; 点点（点点我其实是用来碎碎念的）
---&gt; 博客园（个人感觉体验不是很好的说）--&gt; 静态博客
-</code></pre><p>选择了这么多，我最后决定还是使用 <strong>静态博客</strong> 来做个人博客。</p>
-<blockquote>
-<p>原因有以下几个：</p>
-</blockquote>
-<ol>
-<li>使用其他平台提供的博客不是很爽， 可个性化的方面不是很多， 点点相对来说做的还是很不错的<br>不仅提供个性化定制而且还支持绑定个人域名之类的。但是其他网站就不是那么人性化了。</li>
-<li>写博客总是需要贴代码的，但是除了WP外，其他的我不是很满意。</li>
-<li>用静态博客方便备份，而且是本地编辑就可以了，在线编辑的，感觉会被束缚很多。</li>
-<li>本人属于折腾党，喜欢可以个人定制的， 直到符合个人满意的程度为止。</li>
-</ol>
-<blockquote>
-<p>接下来说说这次博客的安装：</p>
-</blockquote>
-<ol>
-<li>选择<strong>Pelica</strong>是因为我对Python 比较熟悉，之前尝试过用Jekyll 和 Octopress 搭建，都比较方便<br>尤其是Jekyll 用户很多，文档什么的都很多了。只不过我更喜欢Python 多一些（虽然我有用ROR开发过WEB应用程序）<br>因为如果有什么需要的话，我也可以自己来开发插件或者自己再尝试做一个系统。</li>
-<li>Pelican 相对来说配置也很方便， 很简单， 虽然用户不是很多，但是基本上的问题也都可以解决的</li>
-<li><a href="https://github.com/getpelican/pelican" target="_blank" rel="external">Pelican</a> 支持restructuredText和Markdown写文章，配置灵活，扩展性强。我用的是3.3.0。</li>
-</ol>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Blog/">Blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pelican/">Pelican</a></li></ul>
 	</div>
 
       

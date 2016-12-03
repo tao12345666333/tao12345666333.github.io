@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://moelove.info/"/>
-  <updated>2016-09-25T16:02:54.054Z</updated>
+  <updated>2016-12-03T17:45:38.172Z</updated>
   <id>http://moelove.info/</id>
   
   <author>
@@ -14,6 +14,63 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Git 本地仓库和裸仓库</title>
+    <link href="http://moelove.info/2016/12/04/Git-%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%92%8C%E8%A3%B8%E4%BB%93%E5%BA%93/"/>
+    <id>http://moelove.info/2016/12/04/Git-本地仓库和裸仓库/</id>
+    <published>2016-12-03T17:37:39.000Z</published>
+    <updated>2016-12-03T17:45:38.172Z</updated>
+    
+    <content type="html">&lt;p&gt;通常我们会用 &lt;code&gt;git init&lt;/code&gt; 命令来将我们所在的目录转换为一个 Git 本地仓库或者初始化一个新的空仓库。&lt;/p&gt;
+&lt;h2 id=&quot;用法&quot;&gt;&lt;a href=&quot;#用法&quot; class=&quot;headerlink&quot; title=&quot;用法&quot;&gt;&lt;/a&gt;用法&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;将当前目录转换为一个本地仓库&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git init&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这个命令执行后会在本地生成一个 &lt;code&gt;.git&lt;/code&gt; 的文件夹，用来追踪仓库的所有变更。效果如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://moelove.qiniudn.com/gitinit.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;git init&quot;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;指定某个目录成为本地仓库&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git init &amp;lt;repo&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这个命令执行后， 将创建一个名为repo且只包含 &lt;code&gt;.git&lt;/code&gt; 子文件夹的空目录。效果如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://moelove.qiniudn.com/git-init-repo.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;git init repo&quot;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;指定某个目录成为中心仓库（裸仓库）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;git init --bare &amp;lt;repo&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这个命令执行后，将在本地创建一个名为 repo 的文件夹， 里面包含着 Git 的基本目录， 我们一般会将这个文件夹命名为后面加 &lt;code&gt;.git&lt;/code&gt; 的形式，如 &lt;code&gt;repo.git&lt;/code&gt;  （这也是为什么我们从 GitHub clone 仓库的时候，地址都是 xxx.git 这样的形式的原因）。效果如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://moelove.qiniudn.com/git-init-bare-repo.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240&quot; alt=&quot;git init --bare repo.git&quot;&gt;&lt;/p&gt;
+&lt;p&gt;详细说一下使用 &lt;code&gt;--bare&lt;/code&gt; 参数的含义，使用 &lt;code&gt;--bare&lt;/code&gt; 参数初始化的仓库，我们一般称之为裸仓库， 因为这样创建的仓库并不包含 &lt;code&gt;工作区&lt;/code&gt; ，  也就是说，我们并不能在这个目录下执行我们一般使用的 Git 命令。&lt;/p&gt;
+&lt;h2 id=&quot;对比&quot;&gt;&lt;a href=&quot;#对比&quot; class=&quot;headerlink&quot; title=&quot;对比&quot;&gt;&lt;/a&gt;对比&lt;/h2&gt;&lt;p&gt;我们来对比一下直接使用 &lt;code&gt;git init&lt;/code&gt; 创建的仓库和加了 &lt;code&gt;--bare&lt;/code&gt; 参数的两个仓库。 我们直接看两个仓库的的 &lt;code&gt;config&lt;/code&gt; 文件中的内容：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;直接 &lt;code&gt;git init&lt;/code&gt; 创建的仓库:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[core]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	repositoryformatversion = 0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	filemode = &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	bare = &lt;span class=&quot;literal&quot;&gt;false&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	logallrefupdates = &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	ignorecase = &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	precomposeunicode = &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ul&gt;
+&lt;li&gt;加了 &lt;code&gt;--bare&lt;/code&gt; 创建的裸仓库:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;[core]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	repositoryformatversion = 0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	filemode = &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	bare = &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	ignorecase = &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;	precomposeunicode = &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;可以看到最直观的差异在于 &lt;code&gt;bare&lt;/code&gt;  配置项是否为 &lt;code&gt;true&lt;/code&gt; ， 此外不加 &lt;code&gt;--bare&lt;/code&gt; 创建的本地仓库配置中有一项 &lt;code&gt;logallrefupdates = true&lt;/code&gt; , 作用根据名字就可以看出来， 记录所有的 &lt;code&gt;ref&lt;/code&gt; (引用) 更新，  关于 ref 的部分之后有时间可以再写，这个配置可以理解为是 Git 的一道防线。&lt;/p&gt;
+&lt;h2 id=&quot;功能差异&quot;&gt;&lt;a href=&quot;#功能差异&quot; class=&quot;headerlink&quot; title=&quot;功能差异&quot;&gt;&lt;/a&gt;功能差异&lt;/h2&gt;&lt;p&gt;我们可以使用最简单的例子演示一下。&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;49&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;50&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;51&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;52&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;53&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;54&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;55&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;56&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;57&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;58&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;59&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;60&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;61&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;62&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;63&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 直接创建本地仓库&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;(Tao) ➜  git init repo&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 创建裸仓库&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;(Tao) ➜  git init --bare repo.git&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 分别 clone 两个仓库&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;(Tao) ➜  git &lt;span class=&quot;built_in&quot;&gt;clone&lt;/span&gt; repo c1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Cloning into &lt;span class=&quot;string&quot;&gt;&#39;c1&#39;&lt;/span&gt;...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;warning: You appear to have cloned an empty repository.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;done.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;(Tao) ➜  git &lt;span class=&quot;built_in&quot;&gt;clone&lt;/span&gt; repo.git c2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Cloning into &lt;span class=&quot;string&quot;&gt;&#39;c2&#39;&lt;/span&gt;...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;warning: You appear to have cloned an empty repository.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;done.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 进入 c1 仓库&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;(Tao) ➜  &lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; c1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;(Tao) ➜  c1 git:(master) touch &lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;(Tao) ➜  c1 git:(master) ✗ g add -A&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;(Tao) ➜  c1 git:(master) ✗ g commit -m &lt;span class=&quot;string&quot;&gt;&quot;test commit&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[master (root-commit) b1e32ad] &lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt; commit&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; 1 file changed, 0 insertions(+), 0 deletions(-)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; create mode 100644 &lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;(Tao) ➜  c1 git:(master) git push origin master&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Counting objects: 3, done.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Writing objects: 100% (3/3), 200 bytes | 0 bytes/s, done.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Total 3 (delta 0), reused 0 (delta 0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;remote: error: refusing to update checked out branch: refs/heads/master&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;remote: error: By default, updating the current branch &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; a non-bare repository&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;remote: error: is denied, because it will make the index and work tree inconsistent&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;remote: error: with what you pushed, and will require &lt;span class=&quot;string&quot;&gt;&#39;git reset --hard&#39;&lt;/span&gt; to match&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;remote: error: the work tree to HEAD.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;remote: error:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;remote: error: You can &lt;span class=&quot;built_in&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&#39;receive.denyCurrentBranch&#39;&lt;/span&gt; configuration variable to&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;remote: error: &lt;span class=&quot;string&quot;&gt;&#39;ignore&#39;&lt;/span&gt; or &lt;span class=&quot;string&quot;&gt;&#39;warn&#39;&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; the remote repository to allow pushing into&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;remote: error: its current branch; however, this is not recommended unless you&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;remote: error: arranged to update its work tree to match what you pushed &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; some&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;remote: error: other way.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;remote: error:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;remote: error: To squelch this message and still keep the default behaviour, &lt;span class=&quot;built_in&quot;&gt;set&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;remote: error: &lt;span class=&quot;string&quot;&gt;&#39;receive.denyCurrentBranch&#39;&lt;/span&gt; configuration variable to &lt;span class=&quot;string&quot;&gt;&#39;refuse&#39;&lt;/span&gt;.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;To /Users/tao/repo&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; ! [remote rejected] master -&amp;gt; master (branch is currently checked out)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;error: failed to push some refs to &lt;span class=&quot;string&quot;&gt;&#39;/Users/tao/repo&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 进入 c2 仓库重复执行&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;(Tao) ➜  c1 git:(master) &lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; ../c2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;(Tao) ➜  c2 git:(master) touch &lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;(Tao) ➜  c2 git:(master) ✗ git add -A&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;(Tao) ➜  c2 git:(master) ✗ git commit -m &lt;span class=&quot;string&quot;&gt;&quot;test commit&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[master (root-commit) 7aacc58] &lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt; commit&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; 1 file changed, 0 insertions(+), 0 deletions(-)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; create mode 100644 &lt;span class=&quot;built_in&quot;&gt;test&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;(Tao) ➜  c2 git:(master) git push origin master&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Counting objects: 3, done.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Writing objects: 100% (3/3), 201 bytes | 0 bytes/s, done.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Total 3 (delta 0), reused 0 (delta 0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;To /Users/tao/repo.git&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt; * [new branch]      master -&amp;gt; master&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;从裸仓库 clone 下来的本地仓库可以进行正常的 &lt;code&gt;push&lt;/code&gt; 操作， 但是从一般仓库 clone 下来的本地仓库却不行。 这也正是裸仓库存在的意义。 裸仓库一般情况下是作为远端的中心仓库而存在的。&lt;/p&gt;
+&lt;h2 id=&quot;总结&quot;&gt;&lt;a href=&quot;#总结&quot; class=&quot;headerlink&quot; title=&quot;总结&quot;&gt;&lt;/a&gt;总结&lt;/h2&gt;&lt;p&gt;使用 &lt;code&gt;git init --bare &amp;lt;repo&amp;gt;&lt;/code&gt; 可以创建一个裸仓库，并且这个仓库是可以被正常 &lt;code&gt;clone&lt;/code&gt; 和 &lt;code&gt;push&lt;/code&gt; 更新的， 裸仓库不包含工作区，所以并不会存在在裸仓库上直接提交变更的情况。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;通常我们会用 &lt;code&gt;git init&lt;/code&gt; 命令来将我们所在的目录转换为一个 Git 本地仓库或者初始化一个新的空仓库。&lt;/p&gt;
+&lt;h2 id=&quot;用法&quot;&gt;&lt;a href=&quot;#用法&quot; class=&quot;headerlink&quot; title=&quot;用法&quot;&gt;&lt;/a&gt;用法&lt;/h
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://moelove.info/categories/Linux/"/>
+    
+    
+      <category term="Git" scheme="http://moelove.info/tags/Git/"/>
+    
+  </entry>
   
   <entry>
     <title>源码编译Vim 8</title>
@@ -1335,56 +1392,6 @@
       <category term="Blog" scheme="http://moelove.info/tags/Blog/"/>
     
       <category term="Web" scheme="http://moelove.info/tags/Web/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World !</title>
-    <link href="http://moelove.info/2014/04/18/Hello-World/"/>
-    <id>http://moelove.info/2014/04/18/Hello-World/</id>
-    <published>2014-04-18T13:46:06.000Z</published>
-    <updated>2016-04-03T14:28:09.037Z</updated>
-    
-    <content type="html">&lt;blockquote&gt;
-&lt;p&gt;几乎所有的程序猿的第一个演示程序都是Hello World .那我也就一样咯， 也写一个同样的吧。&lt;br&gt;其实我的博客从很早前就已经开始在写了， 换了很多的平台：&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;pre&gt;&lt;code&gt;从腾讯空间--&amp;gt; 百度空间--&amp;gt; 新浪博客--&amp;gt; 自己搭建的Wordpress博客--&amp;gt; 点点（点点我其实是用来碎碎念的）
---&amp;gt; 博客园（个人感觉体验不是很好的说）--&amp;gt; 静态博客
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;选择了这么多，我最后决定还是使用 &lt;strong&gt;静态博客&lt;/strong&gt; 来做个人博客。&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;原因有以下几个：&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;ol&gt;
-&lt;li&gt;使用其他平台提供的博客不是很爽， 可个性化的方面不是很多， 点点相对来说做的还是很不错的&lt;br&gt;不仅提供个性化定制而且还支持绑定个人域名之类的。但是其他网站就不是那么人性化了。&lt;/li&gt;
-&lt;li&gt;写博客总是需要贴代码的，但是除了WP外，其他的我不是很满意。&lt;/li&gt;
-&lt;li&gt;用静态博客方便备份，而且是本地编辑就可以了，在线编辑的，感觉会被束缚很多。&lt;/li&gt;
-&lt;li&gt;本人属于折腾党，喜欢可以个人定制的， 直到符合个人满意的程度为止。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;blockquote&gt;
-&lt;p&gt;接下来说说这次博客的安装：&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;ol&gt;
-&lt;li&gt;选择&lt;strong&gt;Pelica&lt;/strong&gt;是因为我对Python 比较熟悉，之前尝试过用Jekyll 和 Octopress 搭建，都比较方便&lt;br&gt;尤其是Jekyll 用户很多，文档什么的都很多了。只不过我更喜欢Python 多一些（虽然我有用ROR开发过WEB应用程序）&lt;br&gt;因为如果有什么需要的话，我也可以自己来开发插件或者自己再尝试做一个系统。&lt;/li&gt;
-&lt;li&gt;Pelican 相对来说配置也很方便， 很简单， 虽然用户不是很多，但是基本上的问题也都可以解决的&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/getpelican/pelican&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Pelican&lt;/a&gt; 支持restructuredText和Markdown写文章，配置灵活，扩展性强。我用的是3.3.0。&lt;/li&gt;
-&lt;/ol&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;几乎所有的程序猿的第一个演示程序都是Hello World .那我也就一样咯， 也写一个同样的吧。&lt;br&gt;其实我的博客从很早前就已经开始在写了， 换了很多的平台：&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;pre&gt;&lt;code&gt;从腾讯空间--&amp;gt; 百
-    
-    </summary>
-    
-      <category term="Web" scheme="http://moelove.info/categories/Web/"/>
-    
-    
-      <category term="Pelican" scheme="http://moelove.info/tags/Pelican/"/>
-    
-      <category term="Blog" scheme="http://moelove.info/tags/Blog/"/>
     
   </entry>
   
