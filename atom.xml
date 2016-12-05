@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://moelove.info/"/>
-  <updated>2016-12-05T14:41:49.009Z</updated>
+  <updated>2016-12-05T14:46:15.157Z</updated>
   <id>http://moelove.info/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://moelove.info/2016/12/05/Git-workflow-%E8%AF%A6%E8%B0%88/"/>
     <id>http://moelove.info/2016/12/05/Git-workflow-详谈/</id>
     <published>2016-12-05T14:40:41.000Z</published>
-    <updated>2016-12-05T14:41:49.009Z</updated>
+    <updated>2016-12-05T14:46:15.157Z</updated>
     
     <content type="html">&lt;p&gt;作为一名工程师， &lt;code&gt;Git&lt;/code&gt; 在日常开发中是不可或缺的工具。&lt;br&gt;这里详细介绍几种比较常用的基于 Git 的工作流模型, 以便于团队协作的规范化和效率提升。&lt;/p&gt;
 &lt;h1 id=&quot;中心化工作流&quot;&gt;&lt;a href=&quot;#中心化工作流&quot; class=&quot;headerlink&quot; title=&quot;中心化工作流&quot;&gt;&lt;/a&gt;中心化工作流&lt;/h1&gt;&lt;p&gt;使用过SVN的应该都知道， SVN使用的是集中式管理流程， 如果你刚从SVN 切换到 Git ， 你可以尝试使用中心化工作流的方式。这样，你几乎不需要变更之前的工作方式， 就可以完成平滑的过渡了。  而且在使用过程中还可以看到 Git 优于 SVN 的地方：&lt;br&gt;第一，每个成员都可以在本地拥有一份完整的项目代码仓库，而不只是一个工作区的副本，任何人都可以在本地执行 &lt;code&gt;add&lt;/code&gt; 和 &lt;code&gt;commit&lt;/code&gt; ，而不需要考虑远端仓库是否有变更，直到需要的时候再去提交即可。&lt;br&gt;第二，Git 的工作区、暂存区、引用更新等设计，可以给开发者更多自由来切换当前工作，且不会造成代码丢失。&lt;/p&gt;
@@ -82,6 +82,8 @@
     
       <category term="Git" scheme="http://moelove.info/tags/Git/"/>
     
+      <category term="Tool" scheme="http://moelove.info/tags/Tool/"/>
+    
   </entry>
   
   <entry>
@@ -89,7 +91,7 @@
     <link href="http://moelove.info/2016/12/04/Git-%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%92%8C%E8%A3%B8%E4%BB%93%E5%BA%93/"/>
     <id>http://moelove.info/2016/12/04/Git-本地仓库和裸仓库/</id>
     <published>2016-12-03T17:37:39.000Z</published>
-    <updated>2016-12-03T17:45:38.172Z</updated>
+    <updated>2016-12-05T14:46:18.493Z</updated>
     
     <content type="html">&lt;p&gt;通常我们会用 &lt;code&gt;git init&lt;/code&gt; 命令来将我们所在的目录转换为一个 Git 本地仓库或者初始化一个新的空仓库。&lt;/p&gt;
 &lt;h2 id=&quot;用法&quot;&gt;&lt;a href=&quot;#用法&quot; class=&quot;headerlink&quot; title=&quot;用法&quot;&gt;&lt;/a&gt;用法&lt;/h2&gt;&lt;ul&gt;
@@ -138,6 +140,8 @@
     
     
       <category term="Git" scheme="http://moelove.info/tags/Git/"/>
+    
+      <category term="Tool" scheme="http://moelove.info/tags/Tool/"/>
     
   </entry>
   
@@ -646,7 +650,7 @@
     <link href="http://moelove.info/2015/11/28/JSLint-JSHint-ESLint%E5%AF%B9%E6%AF%94%E5%92%8CVim%E9%85%8D%E7%BD%AE/"/>
     <id>http://moelove.info/2015/11/28/JSLint-JSHint-ESLint对比和Vim配置/</id>
     <published>2015-11-28T15:43:49.000Z</published>
-    <updated>2016-04-03T14:28:09.049Z</updated>
+    <updated>2016-12-05T14:45:38.325Z</updated>
     
     <content type="html">&lt;p&gt;最近在用&lt;code&gt;React&lt;/code&gt;写项目，但是&lt;a href=&quot;https://github.com/tao12345666333/vim&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;我的Vim配置&lt;/a&gt;之前并没有配置对&lt;code&gt;JSX&lt;/code&gt;和&lt;code&gt;ES6&lt;/code&gt;的支持，然后看着那堆报错各种不爽了，于是还是要继续折腾，顺便也增加了点知识，记录一下。&lt;/p&gt;
 &lt;h1 id=&quot;主流的JS-Lint工具及介绍&quot;&gt;&lt;a href=&quot;#主流的JS-Lint工具及介绍&quot; class=&quot;headerlink&quot; title=&quot;主流的JS Lint工具及介绍&quot;&gt;&lt;/a&gt;主流的JS Lint工具及介绍&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/JavaScript&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;JavaScript&lt;/a&gt;已经发展蛮长时间了，对应的Lint工具也是层出不穷，下面介绍一下比较主流的几个Lint工具(其实是我用过的几个XD)&lt;/p&gt;
@@ -723,7 +727,7 @@
       <category term="Web" scheme="http://moelove.info/categories/Web/"/>
     
     
-      <category term="VIM" scheme="http://moelove.info/tags/VIM/"/>
+      <category term="Vim" scheme="http://moelove.info/tags/Vim/"/>
     
       <category term="React" scheme="http://moelove.info/tags/React/"/>
     
@@ -734,7 +738,7 @@
     <link href="http://moelove.info/2015/10/26/%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%A7%BF%E5%8A%BF%E5%BC%80%E6%BA%90Python%E9%A1%B9%E7%9B%AE/"/>
     <id>http://moelove.info/2015/10/26/用正确的姿势开源Python项目/</id>
     <published>2015-10-26T14:17:36.000Z</published>
-    <updated>2016-04-03T14:28:09.049Z</updated>
+    <updated>2016-12-05T14:45:22.153Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;做个备忘，也希望可以帮到别人。&lt;/p&gt;
@@ -835,7 +839,7 @@
       <category term="Python" scheme="http://moelove.info/categories/Python/"/>
     
     
-      <category term="git" scheme="http://moelove.info/tags/git/"/>
+      <category term="Git" scheme="http://moelove.info/tags/Git/"/>
     
       <category term="pip" scheme="http://moelove.info/tags/pip/"/>
     
@@ -1225,16 +1229,18 @@
   </entry>
   
   <entry>
-    <title>Bash 显示git分支</title>
+    <title>Bash 显示 Git 分支</title>
     <link href="http://moelove.info/2014/07/17/Bash-%E6%98%BE%E7%A4%BAgit%E5%88%86%E6%94%AF/"/>
     <id>http://moelove.info/2014/07/17/Bash-显示git分支/</id>
     <published>2014-07-17T13:54:33.000Z</published>
-    <updated>2016-04-03T14:50:06.365Z</updated>
+    <updated>2016-12-05T14:49:26.393Z</updated>
     
     <content type="html">&lt;h3 id=&quot;虽然一直都在用git，但是并没有注意到还有这个方便的用法&quot;&gt;&lt;a href=&quot;#虽然一直都在用git，但是并没有注意到还有这个方便的用法&quot; class=&quot;headerlink&quot; title=&quot;虽然一直都在用git，但是并没有注意到还有这个方便的用法&quot;&gt;&lt;/a&gt;虽然一直都在用git，但是并没有注意到还有这个方便的用法&lt;/h3&gt;&lt;p&gt;于是乎赶快学习一下 ：-）&lt;/p&gt;
 &lt;p&gt;上网查了一下资料，都说Ubuntu下如何如何方便，其他的发行版需要先下载一个文件，然后添加source，再如何如何。。&lt;/p&gt;
 &lt;p&gt;其实查再多都不如实践。以下是窝经过查资料加上对个人bash的配色后写出的配置文件，加入到 &lt;code&gt;~/.bashrc&lt;/code&gt; 中即可（对各个发行版通用的）&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;function git_branch &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ref=$(git symbolic-ref HEAD 2&amp;gt; /dev/null) || return;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    echo &amp;quot;(&amp;quot;$&amp;#123;ref#refs/heads/&amp;#125;&amp;quot;) &amp;quot;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;PS1=&amp;quot;[\[\e[1;35m\]\u\[\e[1;32m\]\w\[\e[0m\]] \[\e[0m\]\[\e[1;36m\]\$(git_branch)\[\e[0;33m\]\$&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; git_branch &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ref=$(git symbolic-ref HEAD 2&amp;gt; /dev/null) || &lt;span class=&quot;built_in&quot;&gt;return&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;(&quot;&lt;/span&gt;&lt;span class=&quot;variable&quot;&gt;$&amp;#123;ref#refs/heads/&amp;#125;&lt;/span&gt;&lt;span class=&quot;string&quot;&gt;&quot;) &quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;PS1=&lt;span class=&quot;string&quot;&gt;&quot;[\[\e[1;35m\]\u\[\e[1;32m\]\w\[\e[0m\]] \[\e[0m\]\[\e[1;36m\]\$(git_branch)\[\e[0;33m\]\$&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;或者&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; git-branch-name &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  git symbolic-ref HEAD 2&amp;gt;/dev/null | cut &lt;span class=&quot;_&quot;&gt;-d&lt;/span&gt;&lt;span class=&quot;string&quot;&gt;&quot;/&quot;&lt;/span&gt; &lt;span class=&quot;_&quot;&gt;-f&lt;/span&gt; 3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;comment&quot;&gt;#git rev-parse --abbrev-ref HEAD&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; git-branch-prompt &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;local&lt;/span&gt; branch=`git-branch-name`&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; [ &lt;span class=&quot;variable&quot;&gt;$branch&lt;/span&gt; ]; &lt;span class=&quot;keyword&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot; [%s]&quot;&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;$branch&lt;/span&gt;; &lt;span class=&quot;keyword&quot;&gt;fi&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;PS1=&lt;span class=&quot;string&quot;&gt;&quot;\u@\h \[\033[0;36m\]\W\[\033[0m\]\[\033[0;32m\]\$(git-branch-prompt)\[\033[0m\] \$ &quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;!--&lt;script src=&quot;https://gist.github.com/tao12345666333/4a81478aa5db7c30e94e.js&quot;&gt;&lt;/script&gt;--&gt;
 &lt;p&gt;按照惯例，上一张图&lt;br&gt;&lt;img src=&quot;http://moelove.qiniudn.com/bashrc2014-07%2022:57:55.png&quot; alt=&quot;屏幕截图&quot;&gt;&lt;/p&gt;
 </content>
@@ -1250,7 +1256,7 @@
     
       <category term="Linux" scheme="http://moelove.info/tags/Linux/"/>
     
-      <category term="git" scheme="http://moelove.info/tags/git/"/>
+      <category term="Git" scheme="http://moelove.info/tags/Git/"/>
     
   </entry>
   
