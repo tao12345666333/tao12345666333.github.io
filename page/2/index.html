@@ -111,7 +111,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 15px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 12.5px;">DevOps</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 17.5px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/Pelican/" style="font-size: 15px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 12.5px;">Tool</a> <a href="/tags/VIM/" style="font-size: 10px;">VIM</a> <a href="/tags/Vim/" style="font-size: 15px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/git/" style="font-size: 12.5px;">git</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a>
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 15px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 12.5px;">DevOps</a> <a href="/tags/Git/" style="font-size: 12.5px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 17.5px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/Pelican/" style="font-size: 15px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 12.5px;">Tool</a> <a href="/tags/VIM/" style="font-size: 10px;">VIM</a> <a href="/tags/Vim/" style="font-size: 15px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/git/" style="font-size: 12.5px;">git</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a>
 					</div>
 				</section>
 				
@@ -188,6 +188,129 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-Open-Falcon监控系统部署" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/13/Open-Falcon监控系统部署/" class="article-date">
+  	<time datetime="2015-10-13T13:01:00.000Z" itemprop="datePublished">2015-10-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/13/Open-Falcon监控系统部署/">Open-Falcon监控系统部署</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>本文并不分析Open-Falcon的架构或者选用它的原因，官方的文档在<a href="http://book.open-falcon.com/zh/intro/README.html" target="_blank" rel="external">这里</a>，虽然还不够完善。不过这也是我写这篇的原因，官方文档并没能把整个部署过程连在一起，而且个别地方有点问题。我在这篇文章中就不介绍各个组件的作用和功能了，只是单纯的介绍如何从零部署。</p>
+</blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/XiaoMi/open-falcon/releases/download/0.0.5/open-falcon-0.0.5.tar.gz -O open-falcon.tar.gz</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h3><blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir tmp</span><br><span class="line">tar -zxvf open-falcon.tar.gz -C ./tmp</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h3><blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install redis-server</span><br><span class="line">sudo apt-get install mysql-server</span><br><span class="line">pip install virtualenv</span><br><span class="line"></span><br><span class="line"># 数据库初始化的代码来源于官方文档</span><br><span class="line">git clone https://github.com/open-falcon/scripts.git</span><br><span class="line">cd scripts</span><br><span class="line">mysql -h localhost -u root -p &lt; db_schema/graph-db-schema.sql</span><br><span class="line">mysql -h localhost -u root -p &lt; db_schema/dashboard-db-schema.sql</span><br><span class="line"></span><br><span class="line">mysql -h localhost -u root -p &lt; db_schema/portal-db-schema.sql</span><br><span class="line">mysql -h localhost -u root -p &lt; db_schema/links-db-schema.sql</span><br><span class="line">mysql -h localhost -u root -p &lt; db_schema/uic-db-schema.sql</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p><strong>数据库连接的配置格式是:</strong> <code>username:password@tcp(path:port)/xxxx</code></p>
+<h3 id="agent"><a href="#agent" class="headerlink" title="agent"></a>agent</h3><blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>开始监听1988端口,查看log.<br>默认端口是1988, 可以打开 <a href="http://127.0.0.1:1988" target="_blank" rel="external">http://127.0.0.1:1988</a> 查看一个比较简单的web dashboard. 没什么特殊需要的话, 可以使用默认配置.</p>
+</blockquote>
+<h3 id="hbs"><a href="#hbs" class="headerlink" title="hbs"></a>hbs</h3><blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>心跳服务默认http端口是6030, rpc 端口 6031</p>
+</blockquote>
+<h3 id="transfer"><a href="#transfer" class="headerlink" title="transfer"></a>transfer</h3><blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>默认http端口是6060, rpc端口8433</p>
+</blockquote>
+<h3 id="judge"><a href="#judge" class="headerlink" title="judge"></a>judge</h3><blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>http端口6081, rpc端口 6080<br>配置项中注意alarm的 redis链接 和hbs的server地址,如果修改过请记得对应.</p>
+</blockquote>
+<h3 id="graph"><a href="#graph" class="headerlink" title="graph"></a>graph</h3><blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>rpc端口 6070,  http端口 6071<br>数据库文件存储在<code>/home/work/data/6070</code> 启动报错的话, 换sudo 或者 root 用户启动.<br>注意修改数据库连接.</p>
+</blockquote>
+<p>上面的服务配置完成数据就开始采集了. </p>
+<h3 id="dashboard"><a href="#dashboard" class="headerlink" title="dashboard"></a>dashboard</h3><blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">virtualenv env</span><br><span class="line">source env/bin/activate</span><br><span class="line">./env/bin/pip install -r pip_requirements.txt</span><br><span class="line"># 使用</span><br><span class="line">./env/bin/python wsgi.py</span><br><span class="line"># 或者用</span><br><span class="line">deactivate &amp;&amp; ./control start &amp;&amp; ./control tail</span><br></pre></td></tr></table></figure>
+<p>可以更改为自定义端口.这里可以查看Endpoints 的相关数据并绘图.</p>
+</blockquote>
+<h3 id="query"><a href="#query" class="headerlink" title="query"></a>query</h3><blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>只要修改cfg.json 文件即可, 注意还有 <code>graph_backends.txt</code> 文件</p>
+</blockquote>
+<h3 id="fe"><a href="#fe" class="headerlink" title="fe"></a>fe</h3><blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>注意配置项目中的数据库连接, 以及下面的<code>shortcut</code> 中需要配置外网可以访问的地址,如果不是在服务器部署的话,这里默认也没有关系.</p>
+</blockquote>
+<h3 id="portal"><a href="#portal" class="headerlink" title="portal"></a>portal</h3><blockquote>
+<p>这里要注意一个坑. 如果使用<code>./control start</code> 启动服务, 并且更改了默认端口的, 请配置 <strong>gunicorn.conf</strong> 中的<strong>bind</strong>项. 如果是使用<code>python wsgi.py</code>启动的话, 修改<strong>wsgi.py</strong>中的端口即可.<br>同时在配置 <code>frame/config.py</code> 的时候, 要注意所谓<strong>UIC_ADDRESS</strong> 选项的配置, 其实就是填写上面<strong>fe</strong> 模块的地址.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">UIC_ADDRESS = &#123;</span><br><span class="line">    &apos;internal&apos;: &apos;http://127.0.0.1:port&apos;, #你的内网地址</span><br><span class="line">    &apos;external&apos;: &apos;http://your_fe_name&apos;, #外网访问的地址, 如果是本地部署,这里可以和内网地址一样 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="alarm"><a href="#alarm" class="headerlink" title="alarm"></a>alarm</h3><blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>需要配置的就是自定义的端口监控地址, 和下面的api, 其他部分保持默认即可.<br>在<a href="http://book.open-falcon.com/zh/install_from_src/alarm.html" target="_blank" rel="external">它的文档</a>中写着下面这样的说明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;...</span><br><span class="line">  &quot;api&quot;: &#123;</span><br><span class="line">      &quot;portal&quot;: &quot;http://falcon.example.com&quot;, # 内网可访问的portal的地址</span><br><span class="line">      &quot;uic&quot;: &quot;http://uic.example.com&quot;, # 内网可访问的uic(或fe)的地址</span><br><span class="line">      &quot;links&quot;: &quot;http://link.example.com&quot; # 外网可访问的links的地址</span><br><span class="line">  &#125;     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但是如果按照这样配的话,所有东西就只能在内网访问了.这明显是不符合我们的期望的. 所以这里要全部配置成外网可以访问的地址,<strong>防止踩坑</strong>.</p>
+</blockquote>
+<h3 id="sender"><a href="#sender" class="headerlink" title="sender"></a>sender</h3><blockquote>
+<p>这个组件用于调用自己提供的短信和邮件接口, 编辑 cfg.json 添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;...</span><br><span class="line">  &apos;api&apos;: &#123;</span><br><span class="line">      &apos;sms&apos;: &apos;http://your_send_sms_api&apos;,</span><br><span class="line">      &apos;mail&apos;: &apos;http://your_send_mail_api&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在调用的时候, 会把消息先写入redis队列中, 之后再调用接口,进行消息发送.<br>worker 参数是对队列的配置.</p>
+</blockquote>
+<h3 id="links"><a href="#links" class="headerlink" title="links"></a>links</h3><blockquote>
+<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>告警合并组件, python应用, 记得修改默认端口即可.</p>
+</blockquote>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="task"><a href="#task" class="headerlink" title="task"></a>task</h3><blockquote>
+<p>监控自检程序</p>
+</blockquote>
+<h3 id="gateway"><a href="#gateway" class="headerlink" title="gateway"></a>gateway</h3><blockquote>
+<p>没有跨机房问题可以忽略.(hhah</p>
+</blockquote>
+<h3 id="redis-monitor-py"><a href="#redis-monitor-py" class="headerlink" title="redis-monitor.py"></a>redis-monitor.py</h3><blockquote>
+<p>scripts 文件夹中一个很简单的脚本, 把redis info 中的数据读出,写入数据库, 供监控使用.</p>
+</blockquote>
+<p>最后附图一张，前几天我启动这个服务时候的终端。<br><img src="http://moelove.qiniudn.com/1911x1160_scrot.png" alt="screen_shot"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go/">Go</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Open-Falcon/">Open-Falcon</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Linux/">Linux</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-源码编译MongoDB" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -877,108 +1000,9 @@
 
 
   
-    <article id="post-使用Pelican搭建Blog" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/05/07/使用Pelican搭建Blog/" class="article-date">
-  	<time datetime="2014-05-07T13:48:59.000Z" itemprop="datePublished">2014-05-7</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/05/07/使用Pelican搭建Blog/">使用Pelican搭建Blog</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="安装配置Pelican"><a href="#安装配置Pelican" class="headerlink" title="安装配置Pelican"></a>安装配置Pelican</h2><hr>
-<h5 id="使用环境："><a href="#使用环境：" class="headerlink" title="使用环境："></a>使用环境：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">系统  :  Linux X86_64</span><br><span class="line">Pelican : 3.3.0</span><br></pre></td></tr></table></figure>
-<p>首先说一下安装： 网上有不少建议说使用虚拟环境  <a href="https://virtualenv.pypa.io/en/latest/virtualenv.html" target="_blank" rel="external">virtualenv</a>，以免污染本地的环境。不过，如果不是去更改<code>Python</code>的全局设置的话，也不至于影响本地环境的。我是直接安装的。根据 Pelican 官方的文档，我是使用 <code>pip</code> 安装的，不过<code>pip</code>又是依赖于<code>distribute</code> 安装的。所以，我使用的命令如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl -O http://python-distribute.org/distribute_setup.py</span><br><span class="line">sudo python distribute_setup.py</span><br><span class="line"></span><br><span class="line">curl -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py</span><br><span class="line">sudo python get-pip.py</span><br><span class="line"></span><br><span class="line">sudo pip install pelican</span><br></pre></td></tr></table></figure>
-<p>还有，如果要用 <a href="http://zh.wikipedia.org/zh-cn/Markdown" target="_blank" rel="external"><code>Markdown</code></a>来写文章，也需要执行如下命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install markdown</span><br></pre></td></tr></table></figure>
-<p>新建一个目录，用来存放你的博客文件（我直接建立了”blog”文件夹）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir blog</span><br><span class="line">cd blog</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="新建博客："><a href="#新建博客：" class="headerlink" title="新建博客："></a>新建博客：</h2><p>使用如下命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pelican-quickstart</span><br></pre></td></tr></table></figure>
-<p>按照提示一步步即可完成新建， 这些配置之后可以在<code>pelicanconf.py</code>这个文件中修改<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Where do you want to create your new web site?[.]  (你想在哪里创建你的网站，默认为当前目录)</span><br><span class="line">What will be the title of this web site?(网站的标题是什么)</span><br><span class="line">Who will be the author of this web site?(网站的作者是谁)</span><br><span class="line">What will be the default language of this web site? [en]   (网站的默认语言是),这里我们写&apos;zh&apos;中文</span><br><span class="line">Do you want to specify a URL prefix? e.g., http://example.com(Y/n) (是否指定域名),Y</span><br><span class="line">What is your URL prefix?(see above example; no trailing slash)(输入域名，不能包含反斜杠&apos;/&apos;),http://moelove.info</span><br><span class="line">Do you want to enable article pagination?(是否启用文章分页)</span><br><span class="line">Do you want to generate a Makefile to easily manage your website?(是否生成一个Makefile来管理网站(这里我建议生成，因为会比较方便的))</span><br><span class="line">Do you want an auto-reload &amp; simpleHTTP script to assist with theme and site development?(是否想有一个自动加载的小型http脚本用来修改主题和站点开发)</span><br><span class="line">Do you want to upload your website using FTP?</span><br><span class="line">Do you want to upload your website using SSH?</span><br><span class="line">Do you want to upload your website using Dropbox?</span><br><span class="line">Do you want to upload your website using S3?</span><br></pre></td></tr></table></figure></p>
-<hr>
-<h2 id="新建博文："><a href="#新建博文：" class="headerlink" title="新建博文："></a>新建博文：</h2><p>这个时候就可以写博客了。具体的写作方式可以参考 <a href="http://docs.getpelican.com/en/latest/internals.html" target="_blank" rel="external">Pelican的官方文档</a><br>  我以<a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> 为例说明一下。</p>
-<p>在content 目录，新建一个 <code>hello.md</code>文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vim content/htllo.md</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Date: 2014-04-18 #日期</span><br><span class="line">Title: HelloWorld #标题</span><br><span class="line">Tags: hello #标签</span><br><span class="line">Category: test #分类</span><br><span class="line">Hello World !</span><br></pre></td></tr></table></figure></p>
-<p>之后，执行<code>make html</code> 或者 <code>pelican content</code>即可将 md文件转换成html文件。执行 <code>make serve</code>   即可打开本地浏览器，<a href="http://127.0.0.1:8000/" target="_blank" rel="external">预览</a>。</p>
-<blockquote>
-<p><strong>现在一个使用默认主题的博客就建立好了。</strong></p>
-</blockquote>
-<hr>
-<h2 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h2><h4 id="接下来说一下修改主题和使用插件的方法"><a href="#接下来说一下修改主题和使用插件的方法" class="headerlink" title="接下来说一下修改主题和使用插件的方法"></a>接下来说一下修改主题和使用插件的方法</h4><p>Pelican 默认提供了很多主题可以 github 上下载，当然也可以自己制作。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git://github.com/getpelican/pelican-themes.git</span><br></pre></td></tr></table></figure></p>
-<p>在里面找到你喜欢的主题，使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pelican-theme -i /path/to/your/themes</span><br></pre></td></tr></table></figure></p>
-<p>命令进行主题的安装。</p>
-<p>随后可以使用<code>pelican-themes -l -v</code> 查看已经安装好的主题。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/usr/lib/python2.7/site-packages/pelican/themes/simple</span><br><span class="line">/usr/lib/python2.7/site-packages/pelican/themes/notmyidea</span><br><span class="line">/usr/lib/python2.7/site-packages/pelican/themes/bootstrap2</span><br></pre></td></tr></table></figure>
-<p>想要开始使用主题的话， 只需要在<code>pelicanconf.py</code>文件中添加 <code>THEME</code>项为主题名,例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">THEME = &quot;bootstrap2&quot;</span><br></pre></td></tr></table></figure>
-<p>重新 <em>make html</em>  即可, 这时候声成的页面就是所要使用的主题了。</p>
-<h4 id="为博客使用插件"><a href="#为博客使用插件" class="headerlink" title="为博客使用插件"></a>为博客使用插件</h4><p>Pelican 也提供了不少的插件来方便使用， 可以从github 上面下载到博客所在目录：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git://github.com/getpelican/pelican-plugins.git</span><br></pre></td></tr></table></figure></p>
-<p>现在博客目录就新添了一个 pelican-plugins 目录，接下来在 pelicanconf.py 里面添加配置即可(里面是我最开始使用的三个插件):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PLUGIN_PATH = u&quot;pelican-plugins&quot;</span><br><span class="line">PLUGINS = [&quot;sitemap&quot;, &quot;summary&quot;, &quot;neighbors&quot;]</span><br></pre></td></tr></table></figure></p>
-<p>再添加 sitemap 的配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">SITEMAP = &#123;</span><br><span class="line">&apos;format&apos;: &apos;xml&apos;,</span><br><span class="line">&apos;priorities&apos;: &#123;</span><br><span class="line">    &apos;articles&apos;: 0.5,</span><br><span class="line">    &apos;indexes&apos;: 0.5,</span><br><span class="line">    &apos;pages&apos;: 0.5</span><br><span class="line">    &#125;,</span><br><span class="line">&apos;changefreqs&apos;: &#123;</span><br><span class="line">    &apos;articles&apos;: &apos;weekly&apos;,</span><br><span class="line">    &apos;indexes&apos;: &apos;daily&apos;,</span><br><span class="line">    &apos;pages&apos;: &apos;monthly&apos;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然后执行 <code>*make html*</code> 即可</p>
-<h4 id="添加多说评论"><a href="#添加多说评论" class="headerlink" title="添加多说评论"></a>添加多说评论</h4><p>一开始搭建静态博客的时候，使用的<a href="http://disqus.com/" target="_blank" rel="external">disqus</a> 并且Pelican 的主题中默认提供了支持，只要在 pelicanconf.py 的里面加入 disqus 的short_name 即可开始使用了。不过，身在天朝，还是尽量本地化一些吧，使用<a href="http://duoshuo.com/" target="_blank" rel="external">多说</a>评论插件。<br>在<a href="http://duoshuo.com/" target="_blank" rel="external">多说</a>注册一个帐号，<a href="http://duoshuo.com/create-site/" target="_blank" rel="external">添加一个站点</a>，获取自己的 <em>short_name</em> ，点击工具一栏–&gt;获取代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 多说评论框 start --&gt;</span><br><span class="line">    &lt;div class=&quot;ds-thread&quot; data-thread-key=&quot;请将此处替换成文章在你的站点中的ID&quot; data-title=&quot;请替换成文章的标题&quot; data-url=&quot;请替换成文章的网址&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;!-- 多说评论框 end --&gt;</span><br><span class="line">&lt;!-- 多说公共JS代码 start (一个网页只需插入一次) --&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">var duoshuoQuery = &#123;short_name:&quot;替换成你自己的&quot;&#125;;</span><br><span class="line">    (function() &#123;</span><br><span class="line">        var ds = document.createElement(&apos;script&apos;);</span><br><span class="line">        ds.type = &apos;text/javascript&apos;;ds.async = true;</span><br><span class="line">        ds.src = (document.location.protocol == &apos;https:&apos; ? &apos;https:&apos; : &apos;http:&apos;) + &apos;//static.duoshuo.com/embed.js&apos;;</span><br><span class="line">        ds.charset = &apos;UTF-8&apos;;</span><br><span class="line">        (document.getElementsByTagName(&apos;head&apos;)[0]</span><br><span class="line">         || document.getElementsByTagName(&apos;body&apos;)[0]).appendChild(ds);</span><br><span class="line">    &#125;)();</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;!-- 多说公共JS代码 end --&gt;</span><br></pre></td></tr></table></figure>
-<p>把这段代码放在你想要显示评论的地方就可以了。建议直接修改放在article.html模板里面。</p>
-<h4 id="添加其他功能"><a href="#添加其他功能" class="headerlink" title="添加其他功能"></a>添加其他功能</h4><p>这里我还加入了<a href="http://share.baidu.com/code" target="_blank" rel="external">百度分享</a>的功能。直接定制个人想要的代码， 放在你需要出现分享按钮的地方即可，我放在了文章的下面。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;bdsharebuttonbox&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;bds_more&quot; data-cmd=&quot;more&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#&quot; class=&quot;bds_qzone&quot; data-cmd=&quot;qzone&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#&quot; class=&quot;bds_tsina&quot; data-cmd=&quot;tsina&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#&quot; class=&quot;bds_tqq&quot; data-cmd=&quot;tqq&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#&quot; class=&quot;bds_renren&quot; data-cmd=&quot;renren&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#&quot; class=&quot;bds_weixin&quot; data-cmd=&quot;weixin&quot;&gt;&lt;/a&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;window._bd_share_config=&#123;&quot;common&quot;:&#123;&quot;bdSnsKey&quot;:&#123;&#125;,&quot;bdText&quot;:&quot;&quot;,&quot;bdMini&quot;:&quot;2&quot;,&quot;bdPic&quot;:&quot;&quot;,&quot;bdStyle&quot;:&quot;0&quot;,&quot;bdSize&quot;:&quot;16&quot;&#125;,&quot;share&quot;:&#123;&#125;,&quot;image&quot;:&#123;&quot;viewList&quot;:[&quot;qzone&quot;,&quot;tsina&quot;,&quot;tqq&quot;,&quot;renren&quot;,&quot;weixin&quot;],&quot;viewText&quot;:&quot;分享到：&quot;,&quot;viewSize&quot;:&quot;16&quot;&#125;,&quot;selectShare&quot;:&#123;&quot;bdContainerClass&quot;:null,&quot;bdSelectMiniList&quot;:[&quot;qzone&quot;,&quot;tsina&quot;,&quot;tqq&quot;,&quot;renren&quot;,&quot;weixin&quot;]&#125;&#125;;with(document)0[(getElementsByTagName(&apos;head&apos;)[0]||body).appendChild(createElement(&apos;script&apos;)).src=&apos;http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=&apos;+~(-new Date()/36e5)];&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<p>还有加入了 <a href="http://www.google.com/analytics/" target="_blank" rel="external">Google Analytics</a> 谷歌站内搜索 以及七牛提供的云存储 等。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Blog/">Blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pelican/">Pelican</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/">Web</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Web/">Web</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 </div>

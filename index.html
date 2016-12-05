@@ -111,7 +111,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 15px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 12.5px;">DevOps</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 17.5px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/Pelican/" style="font-size: 15px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 12.5px;">Tool</a> <a href="/tags/VIM/" style="font-size: 10px;">VIM</a> <a href="/tags/Vim/" style="font-size: 15px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/git/" style="font-size: 12.5px;">git</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a>
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 15px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 12.5px;">DevOps</a> <a href="/tags/Git/" style="font-size: 12.5px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 17.5px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/Pelican/" style="font-size: 15px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 12.5px;">Tool</a> <a href="/tags/VIM/" style="font-size: 10px;">VIM</a> <a href="/tags/Vim/" style="font-size: 15px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/git/" style="font-size: 12.5px;">git</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a>
 					</div>
 				</section>
 				
@@ -188,6 +188,112 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-Git-workflow-详谈" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/12/05/Git-workflow-详谈/" class="article-date">
+  	<time datetime="2016-12-05T14:40:41.000Z" itemprop="datePublished">2016-12-5</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/05/Git-workflow-详谈/">Git workflow 详谈</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>作为一名工程师， <code>Git</code> 在日常开发中是不可或缺的工具。<br>这里详细介绍几种比较常用的基于 Git 的工作流模型, 以便于团队协作的规范化和效率提升。</p>
+<h1 id="中心化工作流"><a href="#中心化工作流" class="headerlink" title="中心化工作流"></a>中心化工作流</h1><p>使用过SVN的应该都知道， SVN使用的是集中式管理流程， 如果你刚从SVN 切换到 Git ， 你可以尝试使用中心化工作流的方式。这样，你几乎不需要变更之前的工作方式， 就可以完成平滑的过渡了。  而且在使用过程中还可以看到 Git 优于 SVN 的地方：<br>第一，每个成员都可以在本地拥有一份完整的项目代码仓库，而不只是一个工作区的副本，任何人都可以在本地执行 <code>add</code> 和 <code>commit</code> ，而不需要考虑远端仓库是否有变更，直到需要的时候再去提交即可。<br>第二，Git 的工作区、暂存区、引用更新等设计，可以给开发者更多自由来切换当前工作，且不会造成代码丢失。</p>
+<h2 id="工作细节"><a href="#工作细节" class="headerlink" title="工作细节"></a>工作细节</h2><p>中心化工作流的方式是：在远端（远端可以是服务器端，也可以是本地的任意目录）新建一个仓库，默认是 master 分支，作为唯一的中心仓库。 所有人都 <code>clone</code> 这个仓库作为本地仓库，并在本地仓库进行开发。本地的提交是和远端仓库无关的，等需要的时候再 <code>push</code> 进主仓库的 master 分支即可。</p>
+<p>在这种方式下， 远端是唯一确定的中心仓库， 所有人都要以这个仓库为准。  所以，在提交之前要先 <code>fetch</code> 最新提交，在这些提交之上作出自己的更改(一般我们使用 <code>rebase</code>来完成)。</p>
+<p>如果本地的修改和远端仓库中的变更发生了冲突，那么 Git 会暂停 <code>rebase</code> ，并让你来解决这些冲突。我们可以很简单的使用 <code>git status</code> 和 <code>git add</code> 等命令完成冲突的合并。 另外, 如果我们解决不了冲突, 我们也可以使用 <code>git rebase --abort</code> 很容易的退出 <code>rebase</code> 的过程。</p>
+<p>这样每天的工作方式就变成了，从中心仓库拉取最新代码， 然后开始一天的工作， 开发完成后，拉取中心仓库的更新， 合并代码后， 再提交至中心仓库， 结束一天的工作。 这样的好处就是不需要变更原先（使用SVN）的工作方式。当然弊端也很明显，你并不知道中心仓库的代码是否是稳定的，或者说并不能确定当你的代码和中心仓库代码合并后，是否是稳定的，带来的问题就是开发进度和回滚不那么方便控制。</p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>我们有两位程序员, A 和 B, 两人同时在对一个项目做开发, 并且使用 Git 的中心化工作流方式。</p>
+<p><strong>1.创建远端中心仓库</strong></p>
+<p>这里我们有两种方式： </p>
+<ul>
+<li><p>借助于已经搭建好的平台 GitHub/GitLab 之类的，点击 <code>create repo</code> 即可。</p>
+</li>
+<li><p>在远端(这里只是为了区别本地仓库，事实上，使用任何一个其他人可以连通的机器都可以,包括自己本地其他目录) 创建一个 <strong>裸仓库</strong> ，创建裸仓库和我们平时创建本地仓库的区别，可以参考我另一篇文章 <a href="http://www.jianshu.com/p/9a4e8750aea6" target="_blank" rel="external">Git 本地仓库和裸仓库</a> 。</p>
+</li>
+</ul>
+<p>这里以第二种方式为例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># --bare 参数必须有</span></span><br><span class="line">git init --bare /the/repo/path.git</span><br></pre></td></tr></table></figure>
+<p><strong>2.所有人都 clone 中心仓库到本地作为本地仓库</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> /the/repo/path.git</span><br></pre></td></tr></table></figure>
+<p>注意仓库地址必须是正确的， 且有权限访问才能 <code>clone</code> 成功。</p>
+<p><strong>3.程序员 A 在他的本地仓库进行功能开发并进行发布</strong></p>
+<p>一般情况下，我们通过 <code>git status</code> 看看当前状态，并通过 <code>git add</code> 和 <code>git commit</code> 等命令完成本地仓库的提交。 当然这个提交影响的也只是本地仓库而已，并没有对中心仓库产生任何影响，所以我们既不需要关心别人有什么提交，也不用担心我们当前的提交是否对别人造成了影响。当 A 认为自己所开发的功能已经完成， 那他将执行 <code>git push origin master</code> 这样的操作，将自己本地仓库所有不存在于中心仓库的提交都 <code>push</code> 到远端的中心仓库上。</p>
+<p><strong>4.程序员 B 在他本地仓库进行功能开发</strong></p>
+<p>B 在 <code>clone</code> 中心仓库后所做的操作和 A 一样，在本地仓库进行项目开发，并在本地仓库进行提交，他不需要知道中心仓库发生了什么样的变化。</p>
+<p><strong>5.程序员 B 将自己开发的功能并进行发布</strong></p>
+<p>B 在确认自己开发的功能已经完成后，想要将自己的代码通过 <code>git push origin master</code> 这样的操作发布至中心仓库，但是却被中心仓库提示他的修改已经和中心仓库有了分叉， 需要他先执行 <code>git pull</code> 之类的操作， 将中心仓库上 A 的提交与 B 本地的提交进行合并才允许他并入中心仓库。所以，他执行了 <code>git pull --rebase origin master</code> 来将中心仓库的修改并入他的本地仓库。使用 <code>--rebase</code> 参数的意义在于 <code>fetch</code> 执行完成后，将把 B 的所有提交移至 <code>master</code> 顶端。</p>
+<p>当然这里不使用 <code>--rebase</code> 参数也会成功，只不过是会生成一个合并提交，有些情况下使用 <code>--ff</code> 参数也可以避免产生合并提交。在这里使用 <code>--rebase</code> 只是一个建议操作。</p>
+<p>如果 A 和 B 修改的文件没有关联，一般情况下会直接完成合并，如果发生冲突，Git 将会暂停 <code>rebase</code> 的过程，并列出当前冲突的文件，你可以简单的使用 <code>git status</code> 和 <code>git add</code> 等命令进行合并，合并后使用 <code>git rebase --continue</code> 继续 rebase 的过程。或者使用 <code>git rebase --abort</code> 退出 rebase 过程。</p>
+<p>在 B 合并完成后，可以执行 <code>git push origin master</code> 将自己开发的功能发布至中心仓库。 </p>
+<p>至此，基础的中心化工作流方式就介绍完了，但是这里也很容易看出来其中的问题，除了前面说到过的以外，还有就是效率低下，如果很多人都在持续进行提交，那很影响新功能的提交（多人持续性进行提交）。 一个比较容易提升效率的方式就是切换到<strong>特性分支工作流</strong>的方式。</p>
+<h1 id="特性分支工作流"><a href="#特性分支工作流" class="headerlink" title="特性分支工作流"></a>特性分支工作流</h1><p>基于特性的分支工作流，可以为每个特性做隔离，避免对中心仓库主干代码造成影响。 </p>
+<h2 id="工作细节-1"><a href="#工作细节-1" class="headerlink" title="工作细节"></a>工作细节</h2><p>顾名思义， 就是根据每个特性都会开一个新的分支，每个分支都应该包含着描述性的名称，无论是一个人开发，还是多人协同，该特性的全部开发工作都在这个分支上进行。待该特性开发完成后， 并入主分支，然后删除分支，代码上线。 </p>
+<p>这种情况下， 最大的优势在于， 所有的特性开发都可以并行处理。 不必要像中心化工作流方式， 每个人的变动都可能引起其他的人的代码合并， 并且所有功能都杂糅在一起， 从测试和回滚都会变得很繁琐。 另外的一个好处就是特性分支可以推送到中心仓库，这样也便于单独测试。</p>
+<p>这里需要注意的是，特性分支往主分支合并的时机，应该是该特性开发完成，并测试通过，避免对主干代码造成污染。</p>
+<p>在进行分支隔离后，我们发现，我们当前只处理了开发模式，但并没有涵盖一个很完备的产品生命周期， 开发、发布、维护等过程，所以，我们有了 Gitflow 工作流。</p>
+<h1 id="Gitflow-工作流"><a href="#Gitflow-工作流" class="headerlink" title="Gitflow 工作流"></a>Gitflow 工作流</h1><p>基于Gitflow 的工作流方式， 这种工作流方式， 主要是管理着新功能开发，发布及维护等模式，根据不同类型的工作对分支进行定义， 分为 <strong>特性分支</strong> ，<strong>修复分支</strong>，<strong>release 分支</strong>，<strong>开发分支</strong> 和 <strong>主分支</strong> 。 </p>
+<p>主分支：中心仓库建立后的默认 master 分支（当然使用其他分支也可以，但要保证该分支是受保护的）。主分支随时保持代码是稳定的，并且有明确的版本标签，后续代码回滚等操作都将从主分支进行。</p>
+<p>开发分支：中心仓库建立后，从 master 分支切出来，此时与 master 分支保持一致。后续演进中，开发分支随时保持代码最新，但却不一定是线上实际运行的代码。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b develop</span><br></pre></td></tr></table></figure>
+<p>特性分支：应该从开发分支切出，开发完成后， 再合并进入开发分支， 如果达到了发布标准， 则从开发分支切出 release 分支， 切出来的这个分支，只做该版本内的代码修复， 不再加入新功能， 这时此分支处于锁定的状态。 </p>
+<p>修复分支， 用于对线上主分支代码的及时修复， 待修复完成后， 合并进入主分支， 再并入开发分支。  修复分支只能从主分支切出。</p>
+<p>发版分支， 一般命名为 <code>release-xxx</code> 这个分支只能从开发分支切出， 最后并入主分支，打上版本号的标签，它也应该并入开发分支，如果中间有其他修复的话。</p>
+<h1 id="fork-工作流"><a href="#fork-工作流" class="headerlink" title="fork 工作流"></a>fork 工作流</h1><p>fork 分支流和上面介绍的所有工作流都不太一样。它的上游有一个唯一仓库， 所有人都是 fork 这个仓库， 在自己的远端和自己的本地各维护一个仓库，待开发完成后推入自己的远端仓库，并结合 GitHub/GitLab等提交 Pull Request，进入了 review 阶段，待通过后，将会被合并入上游唯一的仓库。这种方式比较适合 GitHub 中的大型开源项目， 对于小团队的内部项目， 这种方式可能未必合适。<br>而且 fork 工作流， 会占用更多的资源（毕竟每个人都维护一份远端仓库）。 而且每个人都看不到其他人的动态，只有当提交 Pull Request 的时候， 才知道每个人发生了什么。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>我个人比较推荐的是 Gitflow 的开发工作流， 这种方式下，一切都是可控的， 每个分支都有各自独立的功能，目的性很明确， 同时，在做代码回滚之类的操作也是可以直接剔除。 另外， 在这种工作流方式下， 团队中的每个人都能很轻易的知道其他人在做什么， 做出了什么样的改变， 对于团队协作， 或许更加合适。 </p>
+<p>当然所有的工作流并不一定能完全套用， 可以吸取一些规范， 合并入自己的日常工作， 将代码仓库的合作流程标准化和规范化， 这也是一切自动化的基础。 </p>
+<p>&lt;全文完&gt;</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Linux/">Linux</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-Git-本地仓库和裸仓库" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1343,132 +1449,9 @@
 
 
   
-    <article id="post-Open-Falcon监控系统部署" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/10/13/Open-Falcon监控系统部署/" class="article-date">
-  	<time datetime="2015-10-13T13:01:00.000Z" itemprop="datePublished">2015-10-13</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/13/Open-Falcon监控系统部署/">Open-Falcon监控系统部署</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>本文并不分析Open-Falcon的架构或者选用它的原因，官方的文档在<a href="http://book.open-falcon.com/zh/intro/README.html" target="_blank" rel="external">这里</a>，虽然还不够完善。不过这也是我写这篇的原因，官方文档并没能把整个部署过程连在一起，而且个别地方有点问题。我在这篇文章中就不介绍各个组件的作用和功能了，只是单纯的介绍如何从零部署。</p>
-</blockquote>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/XiaoMi/open-falcon/releases/download/0.0.5/open-falcon-0.0.5.tar.gz -O open-falcon.tar.gz</span><br></pre></td></tr></table></figure>
-</blockquote>
-<h3 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h3><blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir tmp</span><br><span class="line">tar -zxvf open-falcon.tar.gz -C ./tmp</span><br></pre></td></tr></table></figure>
-</blockquote>
-<h3 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h3><blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install redis-server</span><br><span class="line">sudo apt-get install mysql-server</span><br><span class="line">pip install virtualenv</span><br><span class="line"></span><br><span class="line"># 数据库初始化的代码来源于官方文档</span><br><span class="line">git clone https://github.com/open-falcon/scripts.git</span><br><span class="line">cd scripts</span><br><span class="line">mysql -h localhost -u root -p &lt; db_schema/graph-db-schema.sql</span><br><span class="line">mysql -h localhost -u root -p &lt; db_schema/dashboard-db-schema.sql</span><br><span class="line"></span><br><span class="line">mysql -h localhost -u root -p &lt; db_schema/portal-db-schema.sql</span><br><span class="line">mysql -h localhost -u root -p &lt; db_schema/links-db-schema.sql</span><br><span class="line">mysql -h localhost -u root -p &lt; db_schema/uic-db-schema.sql</span><br></pre></td></tr></table></figure>
-</blockquote>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p><strong>数据库连接的配置格式是:</strong> <code>username:password@tcp(path:port)/xxxx</code></p>
-<h3 id="agent"><a href="#agent" class="headerlink" title="agent"></a>agent</h3><blockquote>
-<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>开始监听1988端口,查看log.<br>默认端口是1988, 可以打开 <a href="http://127.0.0.1:1988" target="_blank" rel="external">http://127.0.0.1:1988</a> 查看一个比较简单的web dashboard. 没什么特殊需要的话, 可以使用默认配置.</p>
-</blockquote>
-<h3 id="hbs"><a href="#hbs" class="headerlink" title="hbs"></a>hbs</h3><blockquote>
-<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>心跳服务默认http端口是6030, rpc 端口 6031</p>
-</blockquote>
-<h3 id="transfer"><a href="#transfer" class="headerlink" title="transfer"></a>transfer</h3><blockquote>
-<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>默认http端口是6060, rpc端口8433</p>
-</blockquote>
-<h3 id="judge"><a href="#judge" class="headerlink" title="judge"></a>judge</h3><blockquote>
-<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>http端口6081, rpc端口 6080<br>配置项中注意alarm的 redis链接 和hbs的server地址,如果修改过请记得对应.</p>
-</blockquote>
-<h3 id="graph"><a href="#graph" class="headerlink" title="graph"></a>graph</h3><blockquote>
-<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>rpc端口 6070,  http端口 6071<br>数据库文件存储在<code>/home/work/data/6070</code> 启动报错的话, 换sudo 或者 root 用户启动.<br>注意修改数据库连接.</p>
-</blockquote>
-<p>上面的服务配置完成数据就开始采集了. </p>
-<h3 id="dashboard"><a href="#dashboard" class="headerlink" title="dashboard"></a>dashboard</h3><blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">virtualenv env</span><br><span class="line">source env/bin/activate</span><br><span class="line">./env/bin/pip install -r pip_requirements.txt</span><br><span class="line"># 使用</span><br><span class="line">./env/bin/python wsgi.py</span><br><span class="line"># 或者用</span><br><span class="line">deactivate &amp;&amp; ./control start &amp;&amp; ./control tail</span><br></pre></td></tr></table></figure>
-<p>可以更改为自定义端口.这里可以查看Endpoints 的相关数据并绘图.</p>
-</blockquote>
-<h3 id="query"><a href="#query" class="headerlink" title="query"></a>query</h3><blockquote>
-<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>只要修改cfg.json 文件即可, 注意还有 <code>graph_backends.txt</code> 文件</p>
-</blockquote>
-<h3 id="fe"><a href="#fe" class="headerlink" title="fe"></a>fe</h3><blockquote>
-<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>注意配置项目中的数据库连接, 以及下面的<code>shortcut</code> 中需要配置外网可以访问的地址,如果不是在服务器部署的话,这里默认也没有关系.</p>
-</blockquote>
-<h3 id="portal"><a href="#portal" class="headerlink" title="portal"></a>portal</h3><blockquote>
-<p>这里要注意一个坑. 如果使用<code>./control start</code> 启动服务, 并且更改了默认端口的, 请配置 <strong>gunicorn.conf</strong> 中的<strong>bind</strong>项. 如果是使用<code>python wsgi.py</code>启动的话, 修改<strong>wsgi.py</strong>中的端口即可.<br>同时在配置 <code>frame/config.py</code> 的时候, 要注意所谓<strong>UIC_ADDRESS</strong> 选项的配置, 其实就是填写上面<strong>fe</strong> 模块的地址.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">UIC_ADDRESS = &#123;</span><br><span class="line">    &apos;internal&apos;: &apos;http://127.0.0.1:port&apos;, #你的内网地址</span><br><span class="line">    &apos;external&apos;: &apos;http://your_fe_name&apos;, #外网访问的地址, 如果是本地部署,这里可以和内网地址一样 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<h3 id="alarm"><a href="#alarm" class="headerlink" title="alarm"></a>alarm</h3><blockquote>
-<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>需要配置的就是自定义的端口监控地址, 和下面的api, 其他部分保持默认即可.<br>在<a href="http://book.open-falcon.com/zh/install_from_src/alarm.html" target="_blank" rel="external">它的文档</a>中写着下面这样的说明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;...</span><br><span class="line">  &quot;api&quot;: &#123;</span><br><span class="line">      &quot;portal&quot;: &quot;http://falcon.example.com&quot;, # 内网可访问的portal的地址</span><br><span class="line">      &quot;uic&quot;: &quot;http://uic.example.com&quot;, # 内网可访问的uic(或fe)的地址</span><br><span class="line">      &quot;links&quot;: &quot;http://link.example.com&quot; # 外网可访问的links的地址</span><br><span class="line">  &#125;     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>但是如果按照这样配的话,所有东西就只能在内网访问了.这明显是不符合我们的期望的. 所以这里要全部配置成外网可以访问的地址,<strong>防止踩坑</strong>.</p>
-</blockquote>
-<h3 id="sender"><a href="#sender" class="headerlink" title="sender"></a>sender</h3><blockquote>
-<p>这个组件用于调用自己提供的短信和邮件接口, 编辑 cfg.json 添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;...</span><br><span class="line">  &apos;api&apos;: &#123;</span><br><span class="line">      &apos;sms&apos;: &apos;http://your_send_sms_api&apos;,</span><br><span class="line">      &apos;mail&apos;: &apos;http://your_send_mail_api&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在调用的时候, 会把消息先写入redis队列中, 之后再调用接口,进行消息发送.<br>worker 参数是对队列的配置.</p>
-</blockquote>
-<h3 id="links"><a href="#links" class="headerlink" title="links"></a>links</h3><blockquote>
-<p><code>mv cfg.example.json cfg.json &amp;&amp; ./control start &amp;&amp; ./control tail</code><br>告警合并组件, python应用, 记得修改默认端口即可.</p>
-</blockquote>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="task"><a href="#task" class="headerlink" title="task"></a>task</h3><blockquote>
-<p>监控自检程序</p>
-</blockquote>
-<h3 id="gateway"><a href="#gateway" class="headerlink" title="gateway"></a>gateway</h3><blockquote>
-<p>没有跨机房问题可以忽略.(hhah</p>
-</blockquote>
-<h3 id="redis-monitor-py"><a href="#redis-monitor-py" class="headerlink" title="redis-monitor.py"></a>redis-monitor.py</h3><blockquote>
-<p>scripts 文件夹中一个很简单的脚本, 把redis info 中的数据读出,写入数据库, 供监控使用.</p>
-</blockquote>
-<p>最后附图一张，前几天我启动这个服务时候的终端。<br><img src="http://moelove.qiniudn.com/1911x1160_scrot.png" alt="screen_shot"></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Go/">Go</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Open-Falcon/">Open-Falcon</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Linux/">Linux</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 </div>

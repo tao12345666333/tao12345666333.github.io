@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Tag: sqlite | MoeLove</title>
+  <title>MoeLove</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="TaoBeier&apos;s Blog MoeLove">
 <meta property="og:type" content="website">
 <meta property="og:title" content="MoeLove">
-<meta property="og:url" content="http://moelove.info/tags/sqlite/index.html">
+<meta property="og:url" content="http://moelove.info/page/4/index.html">
 <meta property="og:site_name" content="MoeLove">
 <meta property="og:description" content="TaoBeier&apos;s Blog MoeLove">
 <meta name="twitter:card" content="summary">
@@ -189,56 +189,92 @@
 
       <div class="body-wrap">
   
+    <article id="post-fedora安装后最初的事情" class="article article-type-post" itemscope itemprop="blogPost">
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/07/21/重置Ghost博客的密码/" class="archive-article-date">
-  	<time datetime="2015-07-21T15:11:04.000Z" itemprop="datePublished">7月 21</time>
+    <div class="article-meta">
+      <a href="/2013/03/09/fedora安装后最初的事情/" class="article-date">
+  	<time datetime="2013-03-09T13:21:14.000Z" itemprop="datePublished">2013-03-9</time>
 </a>
-        </div>
-    	 
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/07/21/重置Ghost博客的密码/">重置Ghost博客的密码</a>
+      <a class="article-title" href="/2013/03/09/fedora安装后最初的事情/">fedora安装后最初的事情</a>
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Blog/">Blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sqlite/">sqlite</a></li></ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Node/">Node</a>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
+      </header>
+      
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="更新源"><a href="#更新源" class="headerlink" title="更新源"></a>更新源</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo yum localinstall --nogpgcheck http://mirrors.163.com/rpmfusion/free/fedora/rpmfusion-free-release-stable.noarch.rpm http://mirrors.163.com/rpmfusion/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm      (这个是添加国内的软件源)</span><br><span class="line"></span><br><span class="line">sudo yum update</span><br></pre></td></tr></table></figure>
+<h3 id="网络相关"><a href="#网络相关" class="headerlink" title="网络相关"></a>网络相关</h3><h4 id="firefox"><a href="#firefox" class="headerlink" title="firefox"></a>firefox</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install firefox</span><br></pre></td></tr></table></figure>
+<h4 id="chrome-chromium"><a href="#chrome-chromium" class="headerlink" title="chrome / chromium"></a>chrome / chromium</h4><p>我本人比较习惯用chrome的 <s>不过最近网络不是很稳定 </s>先补充chromium 的安装方法吧</p>
+<ul>
+<li><p>chromium的安装<br>首先添加<a href="http://pan.baidu.com/s/1kTIBvUZ" target="_blank" rel="external">chromium的fedora源</a>,将下载好的 <strong>.repo</strong> 文件移动到<code>/etc/yum.repos.d/</code>下， 执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install chromium</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>chrome的安装<br>从<a href="http://www.google.com/intl/zh-CN/chrome/" target="_blank" rel="external">官网</a>上下载chrome 的rpm包，或者从我的网盘下载对应的<a href="http://pan.baidu.com/s/1ntmdqtz" target="_blank" rel="external">32位</a> 或 <a href="http://pan.baidu.com/s/1jGuqRdG" target="_blank" rel="external">64位</a> 的rpm 包<br>执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rpm -ivh google-chrome.rpm</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="安装证书"><a href="#安装证书" class="headerlink" title="安装证书"></a>安装证书</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum localinstall --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-branched.noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-branched.noarch.rpm</span><br></pre></td></tr></table></figure>
+<h3 id="压缩-解压软件"><a href="#压缩-解压软件" class="headerlink" title="压缩/解压软件"></a>压缩/解压软件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install unrar</span><br><span class="line">sudo yum install p7zip</span><br></pre></td></tr></table></figure>
+<h3 id="影音播放"><a href="#影音播放" class="headerlink" title="影音播放"></a>影音播放</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install gstreamer-plugins-good gstreamer-plugins-bad gstreamer-plugins-ugly libtunepimp-extras-freeworld xine-lib-extras-freeworld(安装音频解码器)</span><br><span class="line"></span><br><span class="line">sudo yum install ffmpeg ffmpeg-libs gstreamer-ffmpeg libmatroska xvidcore(安装视频解码器)</span><br></pre></td></tr></table></figure>
+<h3 id="编辑器"><a href="#编辑器" class="headerlink" title="编辑器"></a>编辑器</h3><ul>
+<li><p>vim</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install vim</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Sublime Text<br>我也很喜欢因为运行速度快，而且免费。安装方法可以参考我的<a href="http://moelove.info/articles/2013/08/30/fedoraxia-an-zhuang-sublime-text-2de-fang-fa/">fedora下安装sublime text 2</a>这篇文章。</p>
+</li>
+</ul>
 
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Linux/">Linux</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+    </nav>
+  
 </div>
       <footer id="footer">
   <div class="outer">
@@ -262,10 +298,10 @@
 		fancybox: true,
 		mathjax: true,
 		animate: true,
-		isHome: false,
+		isHome: true,
 		isPost: false,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false
 	}
