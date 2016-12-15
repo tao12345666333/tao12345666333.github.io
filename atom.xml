@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://moelove.info/"/>
-  <updated>2016-12-15T17:21:49.202Z</updated>
+  <updated>2016-12-15T17:25:39.626Z</updated>
   <id>http://moelove.info/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>composer 使用技巧简述</title>
+    <title>Composer 使用技巧简述</title>
     <link href="http://moelove.info/2016/12/16/composer-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%AE%80%E8%BF%B0/"/>
     <id>http://moelove.info/2016/12/16/composer-使用技巧简述/</id>
     <published>2016-12-15T16:49:11.000Z</published>
-    <updated>2016-12-15T17:21:49.202Z</updated>
+    <updated>2016-12-15T17:25:39.626Z</updated>
     
     <content type="html">&lt;blockquote&gt;
 &lt;p&gt;最近使用了世界最好的语言 PHP 用来管理依赖关系的工具 &lt;code&gt;Composer&lt;/code&gt;. 稍微做点记录, 以做备忘. 如有错误还望指出.&lt;/p&gt;
