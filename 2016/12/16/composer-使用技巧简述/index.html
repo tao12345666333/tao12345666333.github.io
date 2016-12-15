@@ -4,18 +4,24 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>MoeLove</title>
+  <title>composer 使用技巧简述 | MoeLove</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="google-site-verification: googlefe3fc086c62f7210.html">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MoeLove">
-<meta property="og:url" content="http://moelove.info/googlefe3fc086c62f7210.html">
+  <meta name="description" content="最近使用了世界最好的语言 PHP 用来管理依赖关系的工具 Composer. 稍微做点记录, 以做备忘. 如有错误还望指出.
+
+安装1234php -r &quot;copy(&apos;https://getcomposer.org/installer&apos;, &apos;composer-setup.php&apos;);&quot;php -r &quot;if (hash_file(&apos;SHA384&apos;, &apos;composer-setup.php&apos;) ==">
+<meta property="og:type" content="article">
+<meta property="og:title" content="composer 使用技巧简述">
+<meta property="og:url" content="http://moelove.info/2016/12/16/composer-使用技巧简述/index.html">
 <meta property="og:site_name" content="MoeLove">
-<meta property="og:description" content="google-site-verification: googlefe3fc086c62f7210.html">
-<meta property="og:updated_time" content="2016-04-03T14:28:09.037Z">
+<meta property="og:description" content="最近使用了世界最好的语言 PHP 用来管理依赖关系的工具 Composer. 稍微做点记录, 以做备忘. 如有错误还望指出.
+
+安装1234php -r &quot;copy(&apos;https://getcomposer.org/installer&apos;, &apos;composer-setup.php&apos;);&quot;php -r &quot;if (hash_file(&apos;SHA384&apos;, &apos;composer-setup.php&apos;) ==">
+<meta property="og:updated_time" content="2016-12-15T17:21:49.202Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MoeLove">
-<meta name="twitter:description" content="google-site-verification: googlefe3fc086c62f7210.html">
+<meta name="twitter:title" content="composer 使用技巧简述">
+<meta name="twitter:description" content="最近使用了世界最好的语言 PHP 用来管理依赖关系的工具 Composer. 稍微做点记录, 以做备忘. 如有错误还望指出.
+
+安装1234php -r &quot;copy(&apos;https://getcomposer.org/installer&apos;, &apos;composer-setup.php&apos;);&quot;php -r &quot;if (hash_file(&apos;SHA384&apos;, &apos;composer-setup.php&apos;) ==">
   
     <link rel="alternate" href="/atom.xml" title="MoeLove" type="application/atom+xml">
   
@@ -188,11 +194,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-composer-使用技巧简述" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/googlefe3fc086c62f7210.html" class="article-date">
-  	<time datetime="2016-04-03T14:28:09.037Z" itemprop="datePublished">2016-04-3</time>
+      <a href="/2016/12/16/composer-使用技巧简述/" class="article-date">
+  	<time datetime="2016-12-15T16:49:11.000Z" itemprop="datePublished">2016-12-16</time>
 </a>
     </div>
   
@@ -201,15 +207,71 @@
       <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      composer 使用技巧简述
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tool/">Tool</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Linux/">Linux</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
     <div class="article-entry" itemprop="articleBody">
       
-        google-site-verification: googlefe3fc086c62f7210.html
+        <blockquote>
+<p>最近使用了世界最好的语言 PHP 用来管理依赖关系的工具 <code>Composer</code>. 稍微做点记录, 以做备忘. 如有错误还望指出.</p>
+</blockquote>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">php -r <span class="string">"copy('https://getcomposer.org/installer', 'composer-setup.php');"</span></span><br><span class="line">php -r <span class="string">"if (hash_file('SHA384', 'composer-setup.php') === 'aa96f26c2b67226a324c27919f1eb05f21c248b987e6195cad9690d5c1ff713d53020a02ac8c217dbf90a7eacc9d141d') &#123; echo 'Installer verified'; &#125; else &#123; echo 'Installer corrupt'; unlink('composer-setup.php'); &#125; echo PHP_EOL;"</span></span><br><span class="line">php composer-setup.php</span><br><span class="line">php -r <span class="string">"unlink('composer-setup.php');"</span></span><br></pre></td></tr></table></figure>
+<p>上述代码来自<a href="https://getcomposer.org/download/" target="_blank" rel="external">官网</a>.</p>
+<h2 id="局部安装"><a href="#局部安装" class="headerlink" title="局部安装"></a>局部安装</h2><p>上述代码执行完成后, 只是下载到了 <code>composer.phar</code> 文件, 可以通过 <code>php composer.phar</code> 在任意位置执行.</p>
+<h2 id="全局安装"><a href="#全局安装" class="headerlink" title="全局安装"></a>全局安装</h2><p>全局安装只是把 <code>composer.phar</code> 安装到 PATH 下即可. 可以像下面这样:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mv composer.phar /usr/<span class="built_in">local</span>/bin/composer</span><br></pre></td></tr></table></figure>
+<h1 id="国内镜像加速"><a href="#国内镜像加速" class="headerlink" title="国内镜像加速"></a>国内镜像加速</h1><p>使用<a href="http://pkg.phpcomposer.com/" target="_blank" rel="external">Composer中文网</a>提供的中国全量镜像进行加速.</p>
+<h2 id="单项目加速"><a href="#单项目加速" class="headerlink" title="单项目加速"></a>单项目加速</h2><p>进入项目目录(即 <code>composer.json</code> 文件所在目录) 执行:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer config repo.packagist composer https://packagist.phpcomposer.com</span><br></pre></td></tr></table></figure>
+<p>这条命令将在 <code>composer.json</code> 文件的末尾添加镜像加速配置:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">"repositories": &#123;</span><br><span class="line">    "packagist": &#123;</span><br><span class="line">        "type": "composer",</span><br><span class="line">        "url": "https://packagist.phpcomposer.com"</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="全局加速"><a href="#全局加速" class="headerlink" title="全局加速"></a>全局加速</h2><p>可以直接执行:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer config --global repo.packagist composer https://packagist.phpcomposer.com</span><br></pre></td></tr></table></figure>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><p>参考 <a href="https://getcomposer.org/doc/06-config.md" target="_blank" rel="external">官方配置文档</a>.</p>
+<p>因为 <code>composer</code> 默认情况下, 会在使用的用户的家目录下生成 <code>.composer</code> 文件夹, 存放配置相关, 所以我们可以对这些部分进行配置.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">composer config --global data-dir /www/.composer</span><br><span class="line">composer config --global cache-dir /www/.composer</span><br><span class="line"><span class="comment"># cache-files-maxsize 也可以稍微大一点, 还有缓存时间</span></span><br></pre></td></tr></table></figure>
+<h1 id="Auth-相关"><a href="#Auth-相关" class="headerlink" title="Auth 相关"></a>Auth 相关</h1><p>Gitlab token 可以查看 <a href="https://docs.gitlab.com/ee/api/README.html#oauth-2-tokens" target="_blank" rel="external">https://docs.gitlab.com/ee/api/README.html#oauth-2-tokens</a></p>
+<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>当 <code>type</code> 配置为 <code>gitlab</code>, <code>github</code> 等时, 会优先通过 <code>.composer/auth.json</code> 文件中的配置来选择认证信息进行验证. 如果没有解决 Auth 认证相关问题, 可以使用普通的 <code>vcs</code> 例如 <code>git</code> 来使用.</p>
+
       
     </div>
     
   </div>
   
     
+<nav id="article-nav">
+  
+  
+    <a href="/2016/12/05/Git-workflow-详谈/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Git workflow 详谈</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
   
 </article>
 
@@ -279,7 +341,7 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

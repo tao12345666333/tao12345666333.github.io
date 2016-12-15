@@ -111,7 +111,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 15px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 12.5px;">DevOps</a> <a href="/tags/Git/" style="font-size: 17.5px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 17.5px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/Pelican/" style="font-size: 15px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 17.5px;">Tool</a> <a href="/tags/Vim/" style="font-size: 17.5px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a>
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 14px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 12px;">DevOps</a> <a href="/tags/Git/" style="font-size: 16px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 16px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/Pelican/" style="font-size: 14px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 18px;">Tool</a> <a href="/tags/Vim/" style="font-size: 16px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a>
 					</div>
 				</section>
 				
@@ -188,6 +188,86 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-composer-使用技巧简述" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/12/16/composer-使用技巧简述/" class="article-date">
+  	<time datetime="2016-12-15T16:49:11.000Z" itemprop="datePublished">2016-12-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/16/composer-使用技巧简述/">composer 使用技巧简述</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>最近使用了世界最好的语言 PHP 用来管理依赖关系的工具 <code>Composer</code>. 稍微做点记录, 以做备忘. 如有错误还望指出.</p>
+</blockquote>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">php -r <span class="string">"copy('https://getcomposer.org/installer', 'composer-setup.php');"</span></span><br><span class="line">php -r <span class="string">"if (hash_file('SHA384', 'composer-setup.php') === 'aa96f26c2b67226a324c27919f1eb05f21c248b987e6195cad9690d5c1ff713d53020a02ac8c217dbf90a7eacc9d141d') &#123; echo 'Installer verified'; &#125; else &#123; echo 'Installer corrupt'; unlink('composer-setup.php'); &#125; echo PHP_EOL;"</span></span><br><span class="line">php composer-setup.php</span><br><span class="line">php -r <span class="string">"unlink('composer-setup.php');"</span></span><br></pre></td></tr></table></figure>
+<p>上述代码来自<a href="https://getcomposer.org/download/" target="_blank" rel="external">官网</a>.</p>
+<h2 id="局部安装"><a href="#局部安装" class="headerlink" title="局部安装"></a>局部安装</h2><p>上述代码执行完成后, 只是下载到了 <code>composer.phar</code> 文件, 可以通过 <code>php composer.phar</code> 在任意位置执行.</p>
+<h2 id="全局安装"><a href="#全局安装" class="headerlink" title="全局安装"></a>全局安装</h2><p>全局安装只是把 <code>composer.phar</code> 安装到 PATH 下即可. 可以像下面这样:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mv composer.phar /usr/<span class="built_in">local</span>/bin/composer</span><br></pre></td></tr></table></figure>
+<h1 id="国内镜像加速"><a href="#国内镜像加速" class="headerlink" title="国内镜像加速"></a>国内镜像加速</h1><p>使用<a href="http://pkg.phpcomposer.com/" target="_blank" rel="external">Composer中文网</a>提供的中国全量镜像进行加速.</p>
+<h2 id="单项目加速"><a href="#单项目加速" class="headerlink" title="单项目加速"></a>单项目加速</h2><p>进入项目目录(即 <code>composer.json</code> 文件所在目录) 执行:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer config repo.packagist composer https://packagist.phpcomposer.com</span><br></pre></td></tr></table></figure>
+<p>这条命令将在 <code>composer.json</code> 文件的末尾添加镜像加速配置:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">"repositories": &#123;</span><br><span class="line">    "packagist": &#123;</span><br><span class="line">        "type": "composer",</span><br><span class="line">        "url": "https://packagist.phpcomposer.com"</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="全局加速"><a href="#全局加速" class="headerlink" title="全局加速"></a>全局加速</h2><p>可以直接执行:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer config --global repo.packagist composer https://packagist.phpcomposer.com</span><br></pre></td></tr></table></figure>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><p>参考 <a href="https://getcomposer.org/doc/06-config.md" target="_blank" rel="external">官方配置文档</a>.</p>
+<p>因为 <code>composer</code> 默认情况下, 会在使用的用户的家目录下生成 <code>.composer</code> 文件夹, 存放配置相关, 所以我们可以对这些部分进行配置.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">composer config --global data-dir /www/.composer</span><br><span class="line">composer config --global cache-dir /www/.composer</span><br><span class="line"><span class="comment"># cache-files-maxsize 也可以稍微大一点, 还有缓存时间</span></span><br></pre></td></tr></table></figure>
+<h1 id="Auth-相关"><a href="#Auth-相关" class="headerlink" title="Auth 相关"></a>Auth 相关</h1><p>Gitlab token 可以查看 <a href="https://docs.gitlab.com/ee/api/README.html#oauth-2-tokens" target="_blank" rel="external">https://docs.gitlab.com/ee/api/README.html#oauth-2-tokens</a></p>
+<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><p>当 <code>type</code> 配置为 <code>gitlab</code>, <code>github</code> 等时, 会优先通过 <code>.composer/auth.json</code> 文件中的配置来选择认证信息进行验证. 如果没有解决 Auth 认证相关问题, 可以使用普通的 <code>vcs</code> 例如 <code>git</code> 来使用.</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tool/">Tool</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Linux/">Linux</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-Git-workflow-详谈" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1304,131 +1384,6 @@
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/Python/">Python</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-对监控系统的思考" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/10/16/对监控系统的思考/" class="article-date">
-  	<time datetime="2015-10-15T16:59:01.000Z" itemprop="datePublished">2015-10-16</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/16/对监控系统的思考/">对监控系统的思考</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>近期在做运维监控方面的事情，也研究了一下其他人是如何做的。把自己的想法做个总结记录一下吧。</p>
-</blockquote>
-<h3 id="监控期望的目标"><a href="#监控期望的目标" class="headerlink" title="监控期望的目标"></a>监控期望的目标</h3><ul>
-<li>及时发现</li>
-</ul>
-<blockquote>
-<p>需要的是即时监控并报警</p>
-</blockquote>
-<ul>
-<li>及时定位</li>
-</ul>
-<blockquote>
-<p>定位问题要分开讲</p>
-<ul>
-<li><p>运维层面</p>
-<blockquote>
-<p>是机器硬件问题还是上面运行的基础服务的问题，或者是新上线代码的问题，需要回滚。</p>
-</blockquote>
-</li>
-<li><p>代码层面</p>
-<blockquote>
-<p>在发生问题的时候，优先解决问题。定位代码问题提交hotfix 可以在解决问题之后做。</p>
-</blockquote>
-</li>
-</ul>
-</blockquote>
-<ul>
-<li>及时处理</li>
-<li>提前预测（尽量减少问题的发生）</li>
-</ul>
-<blockquote>
-<p>提前预测可以做的事情有很多，数据挖掘/分析之类的。当然有个更简单的方法，就是先小范围上线，进行监控。如果发现出问题了，就停止上线，进行回滚。（我们现在就是这样做的，虽然原因并不是这个 2333</p>
-</blockquote>
-<h3 id="监控遇到的主要问题"><a href="#监控遇到的主要问题" class="headerlink" title="监控遇到的主要问题"></a>监控遇到的主要问题</h3><ul>
-<li>监控指标多</li>
-</ul>
-<blockquote>
-<p>服务器CPU,内存，网络等的指标，基础服务Redis, MongoDB等的运行指标，对外服务的API是否正常工作，还有数据是否正确等。 </p>
-</blockquote>
-<ul>
-<li>监控报警多</li>
-</ul>
-<blockquote>
-<p>监控指标多的时候，自然报警也会相应增加，但是报警的分组与轻重缓急也是一个很麻烦的问题。还有就是部署着不同服务的机器，触发报警时候的指标也不好确定。</p>
-</blockquote>
-<ul>
-<li>报警多而且有关联，如何查找原因</li>
-</ul>
-<blockquote>
-<p>可能同时会有多个指标触发了报警，但是要定位问题的时候，如何可以快速的定位问题。</p>
-</blockquote>
-<h3 id="多维度数据监控"><a href="#多维度数据监控" class="headerlink" title="多维度数据监控"></a>多维度数据监控</h3><blockquote>
-<p>这个话题太大(要感谢Baidu的颜大大的指点）</p>
-<ul>
-<li><p>数据监控符合<a href="https://zh.wikipedia.org/wiki/%E5%B8%95%E9%9B%B7%E6%89%98%E6%B3%95%E5%88%99" target="_blank" rel="external">二八原则</a>,重要数据需要多角度进行观察，需要有meta管理，需要动态简单配置。选择 好的，合理的数据模型可以有效的进行处理。</p>
-</li>
-<li><p>数据采集部分，在单机器做聚合;命名上使用正则格式化;完善的配置功能，支持数据流自定义维度。</p>
-</li>
-</ul>
-</blockquote>
-<ul>
-<li>对开源系统的使用，需要按照自己的实际情况进行适配。保证高可用性</li>
-</ul>
-<p><em>先写这些吧，之后有时间再写，还有QCon上对运维监控上的一些分享也非常值得思考</em></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Linux/">Linux</a>
 	</div>
 
 

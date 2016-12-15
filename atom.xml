@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://moelove.info/"/>
-  <updated>2016-12-05T14:46:15.157Z</updated>
+  <updated>2016-12-15T17:21:49.202Z</updated>
   <id>http://moelove.info/</id>
   
   <author>
@@ -14,6 +14,53 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>composer 使用技巧简述</title>
+    <link href="http://moelove.info/2016/12/16/composer-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%AE%80%E8%BF%B0/"/>
+    <id>http://moelove.info/2016/12/16/composer-使用技巧简述/</id>
+    <published>2016-12-15T16:49:11.000Z</published>
+    <updated>2016-12-15T17:21:49.202Z</updated>
+    
+    <content type="html">&lt;blockquote&gt;
+&lt;p&gt;最近使用了世界最好的语言 PHP 用来管理依赖关系的工具 &lt;code&gt;Composer&lt;/code&gt;. 稍微做点记录, 以做备忘. 如有错误还望指出.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;php -r &lt;span class=&quot;string&quot;&gt;&quot;copy(&#39;https://getcomposer.org/installer&#39;, &#39;composer-setup.php&#39;);&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php -r &lt;span class=&quot;string&quot;&gt;&quot;if (hash_file(&#39;SHA384&#39;, &#39;composer-setup.php&#39;) === &#39;aa96f26c2b67226a324c27919f1eb05f21c248b987e6195cad9690d5c1ff713d53020a02ac8c217dbf90a7eacc9d141d&#39;) &amp;#123; echo &#39;Installer verified&#39;; &amp;#125; else &amp;#123; echo &#39;Installer corrupt&#39;; unlink(&#39;composer-setup.php&#39;); &amp;#125; echo PHP_EOL;&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php composer-setup.php&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;php -r &lt;span class=&quot;string&quot;&gt;&quot;unlink(&#39;composer-setup.php&#39;);&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;上述代码来自&lt;a href=&quot;https://getcomposer.org/download/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;官网&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;局部安装&quot;&gt;&lt;a href=&quot;#局部安装&quot; class=&quot;headerlink&quot; title=&quot;局部安装&quot;&gt;&lt;/a&gt;局部安装&lt;/h2&gt;&lt;p&gt;上述代码执行完成后, 只是下载到了 &lt;code&gt;composer.phar&lt;/code&gt; 文件, 可以通过 &lt;code&gt;php composer.phar&lt;/code&gt; 在任意位置执行.&lt;/p&gt;
+&lt;h2 id=&quot;全局安装&quot;&gt;&lt;a href=&quot;#全局安装&quot; class=&quot;headerlink&quot; title=&quot;全局安装&quot;&gt;&lt;/a&gt;全局安装&lt;/h2&gt;&lt;p&gt;全局安装只是把 &lt;code&gt;composer.phar&lt;/code&gt; 安装到 PATH 下即可. 可以像下面这样:&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo mv composer.phar /usr/&lt;span class=&quot;built_in&quot;&gt;local&lt;/span&gt;/bin/composer&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;国内镜像加速&quot;&gt;&lt;a href=&quot;#国内镜像加速&quot; class=&quot;headerlink&quot; title=&quot;国内镜像加速&quot;&gt;&lt;/a&gt;国内镜像加速&lt;/h1&gt;&lt;p&gt;使用&lt;a href=&quot;http://pkg.phpcomposer.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Composer中文网&lt;/a&gt;提供的中国全量镜像进行加速.&lt;/p&gt;
+&lt;h2 id=&quot;单项目加速&quot;&gt;&lt;a href=&quot;#单项目加速&quot; class=&quot;headerlink&quot; title=&quot;单项目加速&quot;&gt;&lt;/a&gt;单项目加速&lt;/h2&gt;&lt;p&gt;进入项目目录(即 &lt;code&gt;composer.json&lt;/code&gt; 文件所在目录) 执行:&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;composer config repo.packagist composer https://packagist.phpcomposer.com&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;这条命令将在 &lt;code&gt;composer.json&lt;/code&gt; 文件的末尾添加镜像加速配置:&lt;/p&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&quot;repositories&quot;: &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &quot;packagist&quot;: &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &quot;type&quot;: &quot;composer&quot;,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &quot;url&quot;: &quot;https://packagist.phpcomposer.com&quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;全局加速&quot;&gt;&lt;a href=&quot;#全局加速&quot; class=&quot;headerlink&quot; title=&quot;全局加速&quot;&gt;&lt;/a&gt;全局加速&lt;/h2&gt;&lt;p&gt;可以直接执行:&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;composer config --global repo.packagist composer https://packagist.phpcomposer.com&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;配置&quot;&gt;&lt;a href=&quot;#配置&quot; class=&quot;headerlink&quot; title=&quot;配置&quot;&gt;&lt;/a&gt;配置&lt;/h1&gt;&lt;p&gt;参考 &lt;a href=&quot;https://getcomposer.org/doc/06-config.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;官方配置文档&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;因为 &lt;code&gt;composer&lt;/code&gt; 默认情况下, 会在使用的用户的家目录下生成 &lt;code&gt;.composer&lt;/code&gt; 文件夹, 存放配置相关, 所以我们可以对这些部分进行配置.&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;composer config --global data-dir /www/.composer&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;composer config --global cache-dir /www/.composer&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# cache-files-maxsize 也可以稍微大一点, 还有缓存时间&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;Auth-相关&quot;&gt;&lt;a href=&quot;#Auth-相关&quot; class=&quot;headerlink&quot; title=&quot;Auth 相关&quot;&gt;&lt;/a&gt;Auth 相关&lt;/h1&gt;&lt;p&gt;Gitlab token 可以查看 &lt;a href=&quot;https://docs.gitlab.com/ee/api/README.html#oauth-2-tokens&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://docs.gitlab.com/ee/api/README.html#oauth-2-tokens&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;注意事项&quot;&gt;&lt;a href=&quot;#注意事项&quot; class=&quot;headerlink&quot; title=&quot;注意事项&quot;&gt;&lt;/a&gt;注意事项&lt;/h1&gt;&lt;p&gt;当 &lt;code&gt;type&lt;/code&gt; 配置为 &lt;code&gt;gitlab&lt;/code&gt;, &lt;code&gt;github&lt;/code&gt; 等时, 会优先通过 &lt;code&gt;.composer/auth.json&lt;/code&gt; 文件中的配置来选择认证信息进行验证. 如果没有解决 Auth 认证相关问题, 可以使用普通的 &lt;code&gt;vcs&lt;/code&gt; 例如 &lt;code&gt;git&lt;/code&gt; 来使用.&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;最近使用了世界最好的语言 PHP 用来管理依赖关系的工具 &lt;code&gt;Composer&lt;/code&gt;. 稍微做点记录, 以做备忘. 如有错误还望指出.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; clas
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://moelove.info/categories/Linux/"/>
+    
+    
+      <category term="Tool" scheme="http://moelove.info/tags/Tool/"/>
+    
+      <category term="PHP" scheme="http://moelove.info/tags/PHP/"/>
+    
+  </entry>
   
   <entry>
     <title>Git workflow 详谈</title>
@@ -1343,64 +1390,6 @@
       <category term="Linux" scheme="http://moelove.info/tags/Linux/"/>
     
       <category term="Sublime Text" scheme="http://moelove.info/tags/Sublime-Text/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>upyun-for-pelican</title>
-    <link href="http://moelove.info/2014/05/16/upyun-for-pelican/"/>
-    <id>http://moelove.info/2014/05/16/upyun-for-pelican/</id>
-    <published>2014-05-16T13:51:41.000Z</published>
-    <updated>2016-04-03T14:59:55.169Z</updated>
-    
-    <content type="html">&lt;p&gt;这几天写了一个插件，方便把pelican生成静态博客部署到又拍云上。&lt;br&gt;整体思路就是：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;先格式化路径，以/为根目录&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;def formatPath(path):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;path = path.replace(os.sep, &amp;apos;/&amp;apos;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;return path&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;定义两个列表来存储文件和目录&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;之后就是验证用户，以及bucketname 之类的了。&lt;/p&gt;
-&lt;h3 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/getpelican/pelican&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;pelican&lt;/a&gt; 是一款基于python的静态博客生成工具，本程序可以方便的把生成的静态博客部署到&lt;a href=&quot;https://www.upyun.com/index.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;又拍云&lt;/a&gt;上。演示地址：&lt;a href=&quot;http://pelican-for-upyun.b0.upaiyun.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;upyun-for-pelican &lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;生成网站&quot;&gt;&lt;a href=&quot;#生成网站&quot; class=&quot;headerlink&quot; title=&quot;生成网站&quot;&gt;&lt;/a&gt;生成网站&lt;/h3&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;make html&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;make serve   (进行本地预览)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h3 id=&quot;说明&quot;&gt;&lt;a href=&quot;#说明&quot; class=&quot;headerlink&quot; title=&quot;说明&quot;&gt;&lt;/a&gt;说明&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;程序使用了又拍云的&lt;a href=&quot;https://github.com/upyun/python-sdk&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;官方SDK&lt;/a&gt; 需要先安装 upyun&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;pip install upyun&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;可以自定义要上传的文件目录。在最下方的&lt;code&gt;local_dir&lt;/code&gt; 中指定即可。Pelican默认的上传目录是 output 目录&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&quot;使用&quot;&gt;&lt;a href=&quot;#使用&quot; class=&quot;headerlink&quot; title=&quot;使用&quot;&gt;&lt;/a&gt;使用&lt;/h3&gt;&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;可以在 &lt;strong&gt;pelicanconf.py&lt;/strong&gt; 文件中直接设置 &lt;code&gt;BUCKETNAME, USERNAME, PASSWORD&lt;/code&gt; 参数（这些参数的使用大写命名格式也是为了符合&lt;em&gt;pelicanconf.py&lt;/em&gt;中的习惯），也可以直接在 &lt;code&gt;upyun-for-pelican.py&lt;/code&gt;文件的最下方直接设置。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;执行&lt;/p&gt;
- &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;python upyun-for-pelican.py&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;程序在 &lt;code&gt;Python 2.7&lt;/code&gt; 环境下测试通过。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h4 id=&quot;其他说明&quot;&gt;&lt;a href=&quot;#其他说明&quot; class=&quot;headerlink&quot; title=&quot;其他说明&quot;&gt;&lt;/a&gt;其他说明&lt;/h4&gt;&lt;ul&gt;
-&lt;li&gt;程序执行开始会有上传确认提示，输入&lt;code&gt;Y / y&lt;/code&gt; 都可以继续上传。&lt;/li&gt;
-&lt;li&gt;可以使用项目中的&lt;code&gt;pelicanconf.py&lt;/code&gt;作为个人站点的配置文件。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&quot;未完待续…&quot;&gt;&lt;a href=&quot;#未完待续…&quot; class=&quot;headerlink&quot; title=&quot;未完待续…&quot;&gt;&lt;/a&gt;未完待续…&lt;/h4&gt;</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;这几天写了一个插件，方便把pelican生成静态博客部署到又拍云上。&lt;br&gt;整体思路就是：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;先格式化路径，以/为根目录&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gut
-    
-    </summary>
-    
-      <category term="Python" scheme="http://moelove.info/categories/Python/"/>
-    
-    
-      <category term="Pelican" scheme="http://moelove.info/tags/Pelican/"/>
-    
-      <category term="upyun" scheme="http://moelove.info/tags/upyun/"/>
     
   </entry>
   
