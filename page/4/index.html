@@ -111,7 +111,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 14px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 12px;">DevOps</a> <a href="/tags/Git/" style="font-size: 16px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 16px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/Pelican/" style="font-size: 14px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 18px;">Tool</a> <a href="/tags/Vim/" style="font-size: 16px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a>
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 14px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 12px;">DevOps</a> <a href="/tags/Git/" style="font-size: 16px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 16px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/Pelican/" style="font-size: 14px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 18px;">Tool</a> <a href="/tags/Vim/" style="font-size: 16px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/Webpack/" style="font-size: 10px;">Webpack</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
 					</div>
 				</section>
 				
@@ -188,6 +188,113 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-LAMP环境的快速搭建" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2013/08/07/LAMP环境的快速搭建/" class="article-date">
+  	<time datetime="2013-08-07T13:30:59.000Z" itemprop="datePublished">2013-08-7</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/07/LAMP环境的快速搭建/">LAMP环境的快速搭建</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>这是我在我的<a href="http://tieba.baidu.com/f?kw=centos" target="_blank" rel="external">centos 吧</a>专门写的教程帖，目的也就是为了让新手可以更快的搭建起来环境，而不是一直在门外徘徊。所以就搬过来了，时间神马的就按照<a href="http://tieba.baidu.com/p/2514694347" target="_blank" rel="external">原帖</a>来吧。</p>
+</blockquote>
+<h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>本篇文章是面向linux新手，文中采用环境是<em>Win7+V-BOX</em>，配置过程用putty进行操作（个人习惯而已），linux系统使用CentOS6.3版本。CentOS的安装方法及虚拟机中网络配置请参阅centos吧精品帖<a href="http://tieba.baidu.com/p/2068921476" target="_blank" rel="external">【教程】最全centos 安装方法及内容详解</a>。为了尽量一次性可以让读者完成LAMP环境的搭建，本次安装过程都采用<code>yum</code>包管理机制进行安装。当然生产环境下一般都是采用源码编译的。在近期我也会再出连载文，使用源码包进行LAMP环境的搭建，欢迎关注。如果有任何意见或者建议都可以到centos吧发帖询问。<br>Ps:本文LAMP = Linux + Apache + Mysql + PHP</p>
+<h3 id="安装过程（先确保你的系统网络正常或者搭建好了本地源）"><a href="#安装过程（先确保你的系统网络正常或者搭建好了本地源）" class="headerlink" title="安装过程（先确保你的系统网络正常或者搭建好了本地源）"></a>安装过程（先确保你的系统网络正常或者搭建好了本地源）</h3><h4 id="1-首先安装Apache，使用命令："><a href="#1-首先安装Apache，使用命令：" class="headerlink" title="1. 首先安装Apache，使用命令："></a>1. 首先安装Apache，使用命令：</h4><p><code>sudo yum install httpd –y</code></p>
+<h4 id="2-然后安装Mysql，使用命令"><a href="#2-然后安装Mysql，使用命令" class="headerlink" title="2. 然后安装Mysql，使用命令"></a>2. 然后安装Mysql，使用命令</h4><p><code>sudo yum install mysql mysql-server –y</code></p>
+<h4 id="3-再安装php-，使用命令"><a href="#3-再安装php-，使用命令" class="headerlink" title="3. 再安装php ，使用命令"></a>3. 再安装php ，使用命令</h4><p><code>sudo yum install php –y</code></p>
+<h4 id="4-安装完毕之后启动apache-使用"><a href="#4-安装完毕之后启动apache-使用" class="headerlink" title="4. 安装完毕之后启动apache. 使用"></a>4. 安装完毕之后启动apache. 使用</h4><p><code>sudo service httpd start</code></p>
+<p><img src="http://moelove.qiniudn.com/serverstart.jpg" width="70%"></p>
+<p>启动成功了，我们访问一下，在浏览器的地址栏输入虚拟机IP。</p>
+<p><img src="http://moelove.qiniudn.com/view.jpg" width="70%"></p>
+<p>好，这里遇到了我们的第一个问题， <strong>无法访问</strong></p>
+<blockquote>
+<ul>
+<li>apache服务已经打开，但是却无法访问<br>这里很可能是<strong>iptables</strong>的防御规则导致的。</li>
+</ul>
+</blockquote>
+<p>执行<code>iptables –L</code>查看所有的iptables的规则。</p>
+<p><img src="http://moelove.qiniudn.com/lampiptables.jpg" width="70%"></p>
+<p>关于iptables的知识可以自行了解或者关注后续讲解<br>我们执行 <code>sudo iptables –F</code> 清除所有规则</p>
+<p><img src="http://moelove.qiniudn.com/lampcleariptables.jpg" width="70%"></p>
+<p>接下来在浏览器输入虚拟机地址 ，我们看到如下：</p>
+<p><img src="http://moelove.qiniudn.com/lampsuccess.jpg" width="70%"></p>
+<p>我们已经访问成功了！</p>
+<blockquote>
+<ul>
+<li><s>当然在这里的时候也许还有人是访问不了的，</s>可能是因为CentOS自带的<strong>SElinux</strong>机制影响的</li>
+</ul>
+</blockquote>
+<p>我们执行<code>getenforce</code>命令来查看SElinux的状态，使用<code>sudo setenforce 0</code>来改变SElinux为<em>permission</em>状态。</p>
+<p><img src="http://moelove.qiniudn.com/lampSELinuxstatus.jpg" width="70%"></p>
+<p>都执行完成后，<s>应该</s>就可以访问了。</p>
+<h4 id="5-测试是否可以执行php代码"><a href="#5-测试是否可以执行php代码" class="headerlink" title="5.测试是否可以执行php代码"></a>5.测试是否可以执行php代码</h4><p>执行 <code>vim /var/www/html/test.php</code> 写入测试代码</p>
+<p><img src="http://moelove.qiniudn.com/lampphpinfo.jpg" width="70%"></p>
+<p>保存退出，用浏览器进行访问</p>
+<p><img src="http://moelove.qiniudn.com/lampviewstatus.jpg" width="70%"></p>
+<p>成功！</p>
+<p>但是向后看，发现组成模块里面没有<strong>mysql</strong>。说明现在还不支持mysql模块，因为我们少安装了一个东西 现在执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install php-mysql</span><br></pre></td></tr></table></figure></p>
+<p>添加php和mysql的中间模块，重启apache服务:<code>sudo service httpd restart</code> 再次访问，发现组成模块中有了mysql的信息，说明可以访问mysql的数据库了。</p>
+<p>接下来执行<code>sudo service mysqld start</code> 启动mysql服务。<br>执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure></p>
+<p>访问mysql数据库</p>
+<p><img src="http://moelove.qiniudn.com/lampmysqlstatus.jpg" width="70%"></p>
+<p>表示mysql数据库也正常，到此，<strong>LAMP环境初步建成</strong>。</p>
+<h4 id="6-设置服务的开机自动启动（可以不做）"><a href="#6-设置服务的开机自动启动（可以不做）" class="headerlink" title="6.设置服务的开机自动启动（可以不做）"></a>6.设置服务的开机自动启动<s>（可以不做）</s></h4><p>使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo chkconfig httpd on</span><br><span class="line">sudo chkconfig mysqld on</span><br></pre></td></tr></table></figure></p>
+<h4 id="7-LAMP环境的配置文件"><a href="#7-LAMP环境的配置文件" class="headerlink" title="7.LAMP环境的配置文件"></a>7.LAMP环境的配置文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Apache: /etc/httpd/conf/httpd.conf</span><br><span class="line">Php: /etc/php.ini</span><br><span class="line">Mysql: /etc/my.cnf</span><br></pre></td></tr></table></figure>
+<h3 id="LAMP环境搭建小结"><a href="#LAMP环境搭建小结" class="headerlink" title="LAMP环境搭建小结"></a>LAMP环境搭建小结</h3><p>通过以上过程，你就已经成功的搭建好了LAMP环境，剩下的配置就是修改你的配置文件，进而达到效果。类似启动类型，模块，超时，地址，状态之类的，都会在下篇文章中写出。<br>使用<em>yum</em>安装LAMP环境是最简单的，也是最方便的。不过生产环境都是用的源码包，因为源码包可以更加个性化的定义你需要的模块。</p>
+<p><a href="http://wenku.baidu.com/view/fd825c8551e79b8969022614.html" target="_blank" rel="external">CentOS安装方法</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LAMP/">LAMP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Linux/">Linux</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-cat-命令研究" class="article article-type-post" itemscope itemprop="blogPost">
   

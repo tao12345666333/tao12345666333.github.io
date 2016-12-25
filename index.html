@@ -111,7 +111,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 14px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 12px;">DevOps</a> <a href="/tags/Git/" style="font-size: 16px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 16px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/Pelican/" style="font-size: 14px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 18px;">Tool</a> <a href="/tags/Vim/" style="font-size: 16px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a>
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 14px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 12px;">DevOps</a> <a href="/tags/Git/" style="font-size: 16px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 16px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/Pelican/" style="font-size: 14px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 18px;">Tool</a> <a href="/tags/Vim/" style="font-size: 16px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/Webpack/" style="font-size: 10px;">Webpack</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
 					</div>
 				</section>
 				
@@ -188,6 +188,108 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-关于-webpack-你可能忽略的细节（附源码分析）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/12/26/关于-webpack-你可能忽略的细节（附源码分析）/" class="article-date">
+  	<time datetime="2016-12-25T16:43:02.000Z" itemprop="datePublished">2016-12-26</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/26/关于-webpack-你可能忽略的细节（附源码分析）/">关于 webpack 你可能忽略的细节（附源码分析）</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>注：本篇不是入门教程，入门请直接查看<a href="http://webpack.github.io/docs/" target="_blank" rel="external">官方文档</a>。本篇的主要目标是通过实际问题来介绍 webpack 中容易被人忽略的细节, 以及源码分析(<strong>以最新发布的 release 版本1.14.0的源码为例</strong>), 并且提供几种解决方案。</p>
+</blockquote>
+<p><img src="http://moelove.qiniudn.com/webpack.png" alt="webpack from the official website"></p>
+<p>随着前端技术的火热发展，工程化，模块化和组件化的思想已逐步成为主流，与之相应的，就需要有一整套工具流可以支撑起它。</p>
+<p>现在比较热门的前端资源模块化管理和打包工具应该非 <a href="https://github.com/webpack/webpack" target="_blank" rel="external">Webpack</a> 莫属了。</p>
+<h1 id="Webpack-是什么"><a href="#Webpack-是什么" class="headerlink" title="Webpack 是什么"></a>Webpack 是什么</h1><blockquote>
+<p>它可以将许多松散的模块按照依赖和规则打包成符合生产环境部署的前端资源。还可以将按需加载的模块进行代码分隔，等到实际需要的时候再异步加载。通过 loader 的转换，任何形式的资源都可以视作模块，比如 CommonJs 模块、 AMD 模块、 ES6 模块、CSS、图片、 JSON、Coffeescript、 LESS 等。<br>–引自 Webpack 中文指南</p>
+</blockquote>
+<h1 id="使用举例"><a href="#使用举例" class="headerlink" title="使用举例"></a>使用举例</h1><p>我们来看一下官方文档中的最小用例，新建并写入以下内容到这两个文件：</p>
+<p><strong>cats.js</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cats = [<span class="string">'dave'</span>, <span class="string">'henry'</span>, <span class="string">'martha'</span>];</span><br><span class="line"><span class="built_in">module</span>.exports = cats;</span><br></pre></td></tr></table></figure>
+<p><strong>app.js (Entry Point)</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cats = <span class="built_in">require</span>(<span class="string">'./cats.js'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(cats);</span><br></pre></td></tr></table></figure>
+<p>这个时候，就可以使用 <code>webpack</code> 进行打包了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack ./app.js app.bundle.js</span><br></pre></td></tr></table></figure>
+<p>我们来看一下发生了什么， 目录下生成了一个打包后的文件 <code>app.bundle.js</code> ，这就是最基础的打包过程。</p>
+<h1 id="提出问题"><a href="#提出问题" class="headerlink" title="提出问题"></a>提出问题</h1><p><strong>如何判断打包是否成功？</strong></p>
+<h2 id="通用方案"><a href="#通用方案" class="headerlink" title="通用方案"></a>通用方案</h2><p>下面是我们常用的两种判断任务是否执行成功的方案</p>
+<h4 id="通过-return-code"><a href="#通过-return-code" class="headerlink" title="通过 return code"></a>通过 return code</h4><p>通过命令执行后的 <code>return code</code> 来判断（在 <code>shell</code> 中使用 <code>$?</code> 获得）。 并且通常情况下 <code>0</code> 是执行成功， 非 0 是未成功。 我们以上面的例子来测试一下：</p>
+<p><img src="http://moelove.qiniudn.com/webpack-c.png" alt="webpack-demo.png"></p>
+<p>可以看到 <code>$?</code> 的值为 <code>0</code> , 且打包后的文件运行正常。</p>
+<p>那么我们来修改一下 <code>app.js</code> 文件的内容， 将 <code>require</code> 引入的模块路径故意写错，来测试一下：</p>
+<p><img src="http://moelove.qiniudn.com/webpack-error.png" alt="webpack-error.png"></p>
+<p><strong>注意：箭头处 <code>$?</code> 的值仍然为 <code>0</code>, 且生成的打包后的文件运行出错。</strong></p>
+<p>这就说明，根据 <code>return code</code> 的值判断任务是否执行成功， 不可行！</p>
+<h4 id="通过标准错误输出"><a href="#通过标准错误输出" class="headerlink" title="通过标准错误输出"></a>通过标准错误输出</h4><p>我们也会通过<strong>标准错误输出</strong>（<code>stderr</code>）来判断一个任务执行过程中是否有错误输出。还是使用上面的例子做示范：</p>
+<p><img src="http://moelove.qiniudn.com/webpack-stderr.png" alt="webpack-stderr.png"></p>
+<p>根据这个例子，可以看到 webpack 并没有标准错误输出！所以这个方法也不可行。</p>
+<h1 id="探究原因及源码分析"><a href="#探究原因及源码分析" class="headerlink" title="探究原因及源码分析"></a>探究原因及源码分析</h1><p>这里以最新发布的 release 版本 1.14.0 的源码作为分析。 在 <a href="https://github.com/webpack/webpack/blob/v1.14.0/lib/Compilation.js#L194-L204" target="_blank" rel="external">lib/Compilation.js</a> 中我们可以看到这样一段代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> errorAndCallback = <span class="function"><span class="keyword">function</span> <span class="title">errorAndCallback</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">  err.dependencies = dependencies;</span><br><span class="line">  err.origin = <span class="built_in">module</span>;</span><br><span class="line">  <span class="built_in">module</span>.dependenciesErrors.push(err);</span><br><span class="line">  _this.errors.push(err);</span><br><span class="line">  <span class="keyword">if</span>(bail) &#123;</span><br><span class="line">    callback(err);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    callback();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在源码中可以看到这个函数其实被调用的还比较多， 例如：在模块为可选的时候， 会判断只是抛出警告还是处理错误， 而上面这段代码自然也不必多数， 关键点在于 <code>bail</code> 的值， 而我们继续找， 可以看到在 <code>bin/config-optimist.js</code> 中有对 <code>bail</code> 参数的解析， 这是一个布尔值。而因为没有太多描述， 所以这个参数就经常容易被忽略。</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><h3 id="1-加-bail-参数"><a href="#1-加-bail-参数" class="headerlink" title="1. 加 bail 参数"></a>1. 加 <strong>bail</strong> 参数</h3><p>基于上面简要的分析， 我们来尝试下 <code>bail</code> 参数的作用。 仍然使用上面的例子：</p>
+<p>我们使用  <code>webpack --bail true app.js app.bundle.js</code> 进行测试</p>
+<p><img src="http://moelove.qiniudn.com/webpack-bail.png" alt="webpack-bail.png"></p>
+<p>可以看到， 使用 <code>bail</code> 参数并传递 <code>true</code> 进去， 在遇到错误的时候，打包过程将会退出， <code>return code</code> 为 <code>1</code> 且把错误信息打印到 <code>stderr</code> . </p>
+<h3 id="2-使用-webpack-fail-plugin"><a href="#2-使用-webpack-fail-plugin" class="headerlink" title="2. 使用 webpack-fail-plugin"></a>2. 使用 webpack-fail-plugin</h3><p> <a href="https://www.npmjs.com/package/webpack-fail-plugin" target="_blank" rel="external">webpack-fail-plugin</a> 是专为解决这个问题而生的，它会在错误发生的时候 <code>return 1</code>. 使用方法也很简单：</p>
+<p>安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install webpack-fail-plugin</span><br></pre></td></tr></table></figure>
+<p>使用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> failPlugin = <span class="built_in">require</span>(<span class="string">'webpack-fail-plugin'</span>);</span><br><span class="line"> </span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="comment">//config </span></span><br><span class="line">    plugins: [</span><br><span class="line">        failPlugin</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"><span class="string">``</span><span class="string">` </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 3.使用 done plugin</span><br><span class="line"></span><br><span class="line">具体用法如下：</span><br><span class="line"></span><br><span class="line">`</span><span class="string">``</span>javascript</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">plugins: [ </span><br><span class="line">  <span class="comment">// ... </span></span><br><span class="line">  <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="keyword">this</span>.plugin(<span class="string">"done"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">stats</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (stats.compilation.errors &amp;&amp; stats.compilation.errors.length) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(stats.compilation.errors); </span><br><span class="line">        process.exit(<span class="number">1</span>); </span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// ... </span></span><br><span class="line">    &#125;); </span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">],</span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-使用-webpack-2"><a href="#4-使用-webpack-2" class="headerlink" title="4. 使用 webpack 2"></a>4. 使用 webpack 2</h3><p>不过 webpack 2 现在还在 beta 阶段，可以期待下。 （webpack 2 也仍然是使用 bail 参数）</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tool/">Tool</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Web/">Web</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-composer-使用技巧简述" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1239,151 +1341,6 @@
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/Web/">Web</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-用正确的姿势开源Python项目" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/10/26/用正确的姿势开源Python项目/" class="article-date">
-  	<time datetime="2015-10-26T14:17:36.000Z" itemprop="datePublished">2015-10-26</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/26/用正确的姿势开源Python项目/">用正确的姿势开源Python项目</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>做个备忘，也希望可以帮到别人。</p>
-</blockquote>
-<h2 id="目录结构（初始化）"><a href="#目录结构（初始化）" class="headerlink" title="目录结构（初始化）"></a>目录结构（初始化）</h2><p>一般我们都会选择在项目的顶层包含较基础的文件，比如<code>setup.py</code>，<code>requirements</code>，<code>README</code>等文件。<br>一般情况下，一个预发布的Python项目中应该包含以下几类文件：</p>
-<ul>
-<li>projects (项目的主体文件)</li>
-<li>setup.py</li>
-<li>requirements</li>
-<li>Readme (项目说明)</li>
-<li>docs (项目文档)</li>
-<li>test</li>
-</ul>
-<p>其中，<code>projects</code>文件夹要以项目命名，存放实际的Python Package.<br>这里放一个<a href="https://github.com/tao12345666333/httpmultipart" target="_blank" rel="external">我的项目的目录</a>作为例子。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">➜  httpmultipart git:(master) tree -L 2</span><br><span class="line">.</span><br><span class="line">├── build</span><br><span class="line">│   ├── bdist.linux-x86_64</span><br><span class="line">│   └── lib.linux-x86_64-2.7</span><br><span class="line">├── dist</span><br><span class="line">│   ├── httpmultipart-0.1.0-py2.py3-none-any.whl</span><br><span class="line">│   └── httpmultipart-0.1.0.tar.gz</span><br><span class="line">├── docs</span><br><span class="line">│   ├── _build</span><br><span class="line">│   ├── conf.py</span><br><span class="line">│   ├── index.rst</span><br><span class="line">│   ├── Makefile</span><br><span class="line">│   ├── userguide</span><br><span class="line">│   └── userguide.rst</span><br><span class="line">├── env</span><br><span class="line">│   ├── bin</span><br><span class="line">│   ├── include</span><br><span class="line">│   ├── lib</span><br><span class="line">│   └── local</span><br><span class="line">├── httpmultipart</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   ├── __init__.pyc</span><br><span class="line">│   ├── main.py</span><br><span class="line">│   └── main.pyc</span><br><span class="line">├── httpmultipart.egg-info</span><br><span class="line">│   ├── dependency_links.txt</span><br><span class="line">│   ├── not-zip-safe</span><br><span class="line">│   ├── PKG-INFO</span><br><span class="line">│   ├── SOURCES.txt</span><br><span class="line">│   └── top_level.txt</span><br><span class="line">├── LICENSE</span><br><span class="line">├── MANIFEST.in</span><br><span class="line">├── README.rst</span><br><span class="line">├── setup.cfg</span><br><span class="line">├── setup.py</span><br><span class="line">└── test_httpmultipart.py</span><br><span class="line"></span><br><span class="line">14 directories, 21 files</span><br></pre></td></tr></table></figure>
-<p>这个目录中包含了我的<code>virtual enviroment</code> 和打包构建时候生成的文件夹。<br>这些东西在下面会提到。</p>
-<h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><p>文档的话，并没有严格要求必须使用什么样的工具进行构建，也没有很严格的格式要求。不过我推荐使用<a href="http://sphinx-doc.org/" target="_blank" rel="external"><code>SPHINX</code></a>,它是用Python写的工具，使用了一种叫做<code>reStructuredText</code>的语法编辑，可以对多个文本文件重编，可以输出成HTML或者PDF等格式。</p>
-<p>这里稍微介绍下使用：</p>
-<ul>
-<li><p>安装</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip install sphinx</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>初始化</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> docs</span><br><span class="line">$ sphinx-quickstart</span><br><span class="line">...<span class="comment">#(这里有一系列的提问，进行初始化)</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>编译</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ make html <span class="comment">#(如果按照默认配置生成的Makefile的话，这样就可以编译出html了)</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>Sphinx的使用还有很多值得说的地方，推荐两个资料：</p>
-<ul>
-<li>英文的<a href="http://sphinx-doc.org/contents.html" target="_blank" rel="external">Sphinx 的官方文档</a></li>
-<li>中文的<a href="http://www.amazon.cn/%E5%9B%BE%E7%81%B5%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E4%B8%9B%E4%B9%A6-Python%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98-%E6%97%A5%E6%9C%ACBePROUD%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8/dp/B00KGQ4NRO/ref=sr_1_1?s=books&amp;ie=UTF8&amp;qid=1448116359&amp;sr=1-1&amp;keywords=python+%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98" target="_blank" rel="external">Python 开发实战</a></li>
-</ul>
-<p>官方文档写的非常详细，那本书偏向于实战，是很不错的书。<br>还有很关键的一点是Sphinx有<code>autodoc</code>和<code>automodule</code>的扩展，<br>可以从代码中提取出文档，与代码直接进行关联。提供一个<a href="https://tornado-zh.readthedocs.org/zh/latest/ioloop.html#running-an-ioloop" target="_blank" rel="external">例子</a>可以方便的在文档和源码中进行跳转。</p>
-<h2 id="Read-the-Docs-持续文档集成"><a href="#Read-the-Docs-持续文档集成" class="headerlink" title="Read the Docs 持续文档集成"></a>Read the Docs 持续文档集成</h2><p>说完写文档就不得不提到<a href="https://readthedocs.org/" target="_blank" rel="external"><code>Read the Dosc</code></a>了,这是一个第三方的文档托管平台,使用<code>Django</code>开发，它可以很轻松的和Github上的项目进行集成，在每次代码提交的时候会自动进行文档构建，我们可以看看<a href="https://tornado-zh.readthedocs.org/" target="_blank" rel="external">生成文档的效果</a>。现在有很多开源项目的文档都是托管在这里的，具体的配置可以参考<a href="https://read-the-docs.readthedocs.org/en/latest/getting_started.html" target="_blank" rel="external">官方文档</a>。</p>
-<h2 id="TravisCI-持续集成"><a href="#TravisCI-持续集成" class="headerlink" title="TravisCI 持续集成"></a>TravisCI 持续集成</h2><p><a href="https://travis-ci.org/" target="_blank" rel="external"><code>Travisci</code></a>可以与Github非常好的结合，可以手动导入<code>repo</code>，并设置<code>Webhooks &amp; services</code>,在每次提交的时候都会测试运行来发现是否存在异常。在使用之前，我们需要先做一些初始化的操作：</p>
-<ul>
-<li><p>创建<code>.travis.yml</code>文件</p>
-<p>  我们需要告诉它一些基本的信息：</p>
-<ul>
-<li>我们项目使用的语言</li>
-<li>项目使用的语言版本</li>
-<li>环境的依赖</li>
-<li>是否需要<code>sudo</code>权限运行</li>
-<li>使用什么命令来安装</li>
-<li><p>使用什么命令运行测试</p>
-<p>下面提供一个例子：</p>
-  <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">language:</span> python</span><br><span class="line"><span class="attr">python:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="number">2.7</span></span><br><span class="line"></span><br><span class="line"><span class="attr">env:</span></span><br><span class="line"><span class="bullet">    -</span> DEPS=<span class="literal">true</span></span><br><span class="line"><span class="bullet">    -</span> DEPS=<span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="attr">sudo:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="attr">install:</span></span><br><span class="line"><span class="bullet">    -</span> travis_retry python setup.py install</span><br><span class="line"><span class="bullet">    -</span> travis_retry pip install coveralls</span><br><span class="line"><span class="bullet">    -</span> coverage run test_httpmultipart.py</span><br><span class="line"><span class="bullet">    -</span> coverage report</span><br><span class="line"></span><br><span class="line"><span class="attr">script:</span></span><br><span class="line"><span class="bullet">    -</span> python test_httpmultipart.py</span><br><span class="line"></span><br><span class="line"><span class="attr">after_success:</span></span><br><span class="line">    coveralls</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<p>PS： 在<code>install</code>这一项配置中要注意，如果项目存在依赖，一定要进行安装，还有<code>Travisci</code>提供了多项配置，包括出错重试等，具体配置可以参考<a href="http://docs.travis-ci.com/" target="_blank" rel="external">官方文档</a>，要特别注意<code>travis_retry</code>等命令的使用，非常容易出现坑。</p>
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>Python有内置的<code>unittest</code>测试库，支持断言;当然还有其他的一些测试框架，看个人喜好和项目需求。在项目中应该包含测试文件或者测试目录，测试文件一般以<code>test_projects_name.py</code>命名。我选择使用<code>coverage</code>作为测试覆盖率的检查，下面是一个运行示例：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">➜  httpmultipart git:(master) coverage run <span class="built_in">test</span>_httpmultipart.py </span><br><span class="line">....</span><br><span class="line">----------------------------------------------------------------------</span><br><span class="line">Ran 4 tests <span class="keyword">in</span> 36.125s</span><br><span class="line"></span><br><span class="line">OK</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">➜  httpmultipart git:(master) coverage report</span><br><span class="line">Name                        Stmts   Miss Branch BrPart  Cover</span><br><span class="line">-------------------------------------------------------------</span><br><span class="line">httpmultipart/__init__.py      10      0      0      0   100%</span><br><span class="line">httpmultipart/main.py          37      0      4      0   100%</span><br><span class="line">-------------------------------------------------------------</span><br><span class="line">TOTAL                          47      0      4      0   100%</span><br></pre></td></tr></table></figure>
-<h2 id="Coveralls-测试覆盖率检查"><a href="#Coveralls-测试覆盖率检查" class="headerlink" title="Coveralls 测试覆盖率检查"></a>Coveralls 测试覆盖率检查</h2><p><a href="https://coveralls.io" target="_blank" rel="external">Coveralls</a>可以很友好的支持Github和Bitbucket仓库的导入，同时也可以很好的和<code>Travisci</code>集成，在上面我们的<code>.travis.yml</code>文件中，在最后一项<code>after_success</code>中，我们就配置了对<code>Coveralls</code>的支持。</p>
-<h2 id="发布包到PyPI"><a href="#发布包到PyPI" class="headerlink" title="发布包到PyPI"></a>发布包到PyPI</h2><p><a href="https://pypi.python.org/pypi" target="_blank" rel="external">PyPI - the Python Package Index</a><br>是Python的包仓库，它允许我们将自己写的包上传上去，这样就可以使用<code>pip</code>和<code>easy_install</code>进行安装了。这里说一个很重要的事情：<br><strong>请在发布自己项目之前做好测试，确认自己上传的是一个可用，无害的包</strong><br>当你已经完成上面的步骤之后，那么你只需要以下几步就可以完成了。以我的项目为例子:</p>
-<ul>
-<li>配置<code>setup.py</code>:</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> codecs <span class="keyword">import</span> open</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">from</span> setuptools <span class="keyword">import</span> setup</span><br><span class="line"><span class="keyword">except</span> ImportError:</span><br><span class="line">    <span class="keyword">from</span> distutils.core <span class="keyword">import</span> setup</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> sys.argv[<span class="number">-1</span>] == <span class="string">'publish'</span>:</span><br><span class="line">    os.system(<span class="string">'python setup.py sdist upload'</span>)</span><br><span class="line">    sys.exit()</span><br><span class="line"></span><br><span class="line">packages = [</span><br><span class="line">    <span class="string">'httpmultipart'</span>,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">requires = []</span><br><span class="line"></span><br><span class="line">version = <span class="string">''</span></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'httpmultipart/__init__.py'</span>, <span class="string">'r'</span>) <span class="keyword">as</span> fd:</span><br><span class="line">    version = re.search(<span class="string">r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]'</span>,</span><br><span class="line">                        fd.read(), re.MULTILINE).group(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> version:</span><br><span class="line">    <span class="keyword">raise</span> RuntimeError(<span class="string">'Cannot find version information'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'README.rst'</span>, <span class="string">'r'</span>, <span class="string">'utf-8'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    readme = f.read()</span><br><span class="line"></span><br><span class="line">setup(</span><br><span class="line">    name=<span class="string">'httpmultipart'</span>,</span><br><span class="line">    version=version,</span><br><span class="line">    description=<span class="string">'A httpmultipart post handler'</span>,</span><br><span class="line">    long_description=readme + <span class="string">'\n\n'</span>,</span><br><span class="line">    author=<span class="string">'TaoBeier'</span>,</span><br><span class="line">    author_email=<span class="string">'zhangjintao9020@gmail.com'</span>,</span><br><span class="line">    url=<span class="string">'https://github.com/tao12345666333/httpmultipart'</span>,</span><br><span class="line">    packages=packages,</span><br><span class="line">    package_data=&#123;<span class="string">''</span>: [<span class="string">'LICENSE'</span>]&#125;,</span><br><span class="line">    package_dir=&#123;<span class="string">'httpmultipart'</span>: <span class="string">'httpmultipart'</span>&#125;,</span><br><span class="line">    include_package_data=<span class="keyword">True</span>,</span><br><span class="line">    install_requires=requires,</span><br><span class="line">    license=<span class="string">'MIT'</span>,</span><br><span class="line">    zip_safe=<span class="keyword">False</span>,</span><br><span class="line">    platforms=<span class="string">'any'</span>,</span><br><span class="line">    classifiers=(</span><br><span class="line">        <span class="string">'Development Status :: 5 - Production/Stable'</span>,</span><br><span class="line">        <span class="string">'Intended Audience :: Developers'</span>,</span><br><span class="line">        <span class="string">'Natural Language :: English'</span>,</span><br><span class="line">        <span class="string">'License :: OSI Approved :: MIT License'</span>,</span><br><span class="line">        <span class="string">'Programming Language :: Python'</span>,</span><br><span class="line">        <span class="string">'Programming Language :: Python :: 2.7'</span>,</span><br><span class="line">        <span class="string">'Topic :: Software Development :: Libraries'</span>,</span><br><span class="line">        <span class="string">'Topic :: Software Development :: Libraries :: Python Modules'</span>,</span><br><span class="line">    ),</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>当然大部分时候也不需要这么麻烦，简化的配置可以参考官方的文档。注意最下面那部分<code>classifiers</code>是按照<a href="https://pypi.python.org/pypi?:action=list_classifiers" target="_blank" rel="external">PyPI官方的列表填写</a>的。还有，如果有些文件想要额外打包进去，那么需要在根目录添加<code>MANIFEST.in</code>文件。</p>
-<ul>
-<li>打包代码</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ python setup.py sdist <span class="comment"># 生成pip支持的安装包</span></span><br><span class="line">$ python setup.py bdist_wheel <span class="comment"># 生成支持easy_install的安装包</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>发布到PyPI上</p>
-<p>  首先在<a href="https://pypi.python.org/pypi" target="_blank" rel="external">PyPI</a>上<a href="https://pypi.python.org/pypi?%3Aaction=register_form" target="_blank" rel="external">注册</a>一个帐号，然后进行下面两步：</p>
-<ul>
-<li>注册package  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ python setup.py register</span><br><span class="line">$ <span class="comment"># 在这一步会有一些提示，按照提示选择，输入自己帐号密码相关的信息即可</span></span><br><span class="line">$ <span class="comment"># 在提示你要不要保存帐号信息的时候，</span></span><br><span class="line">$ <span class="comment"># 你选择了‘y’，</span></span><br><span class="line">$ <span class="comment"># 则会在你的用户目录下生成一个 .pypirc 的文件，</span></span><br><span class="line">$ <span class="comment"># 其中明文保存着你的帐号和密码。</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<p>这里稍微再提一点，如果在提示是否保存账户信息的时候，选择了‘n’，想反悔了也没关系，我们可以手动创建一个<code>~/.pypirc</code>文件。格式如下：<br>        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[distutils]</span><br><span class="line">index-servers=pypi</span><br><span class="line"></span><br><span class="line">[pypi]</span><br><span class="line">repository = https://pypi.python.org/pypi</span><br><span class="line">username = your username</span><br><span class="line">password = your password</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>上传package<pre><code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python setup.py sdist bdist_wheel upload</span><br></pre></td></tr></table></figure>
-</code></pre></li>
-</ul>
-<p>在上传完成提示<code>200</code>响应的时候，你就上传成功了，去PyPI上看看有没有上传成功的包，并且试着用<code>pip</code>进行安装吧！</p>
-<p>这里我省略了一步，就是发布前的测试，你可以使用<a href="https://testpypi.python.org/pypi" target="_blank" rel="external">PyPI的测试服务器</a>进行测试发布，发布到这里的包并不会对你正式发布有任何影响。</p>
-<h2 id="项目托管在Github上"><a href="#项目托管在Github上" class="headerlink" title="项目托管在Github上"></a>项目托管在Github上</h2><p>开源到Github上后，就是继续维护和开发，这点就不多说了。</p>
-<h2 id="开发相关"><a href="#开发相关" class="headerlink" title="开发相关"></a>开发相关</h2><p>建议使用<code>virtualenv</code>之类的工具构建纯净的环境，重复的动作交给<code>Make</code>之类的工具。</p>
-<p>这篇算是一个小小的总结加备忘吧，经验尚缺，还望指正。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pip/">pip</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Python/">Python</a>
 	</div>
 
 

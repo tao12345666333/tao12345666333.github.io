@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>关于 webpack 你可能忽略的细节（附源码分析） | MoeLove</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="注：本篇不是入门教程，入门请直接查看官方文档。本篇的主要目标是通过实际问题来介绍 webpack 中容易被人忽略的细节, 以及源码分析(以最新发布的 release 版本1.14.0的源码为例), 并且提供几种解决方案。
+
+
+随着前端技术的火热发展，工程化，模块化和组件化的思想已逐步成为主流，与之相应的，就需要有一整套工具流可以支撑起它。
+现在比较热门的前端资源模块化管理和打包工具应该非 Web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于 webpack 你可能忽略的细节（附源码分析）">
+<meta property="og:url" content="http://moelove.info/2016/12/26/关于-webpack-你可能忽略的细节（附源码分析）/index.html">
+<meta property="og:site_name" content="MoeLove">
+<meta property="og:description" content="注：本篇不是入门教程，入门请直接查看官方文档。本篇的主要目标是通过实际问题来介绍 webpack 中容易被人忽略的细节, 以及源码分析(以最新发布的 release 版本1.14.0的源码为例), 并且提供几种解决方案。
+
+
+随着前端技术的火热发展，工程化，模块化和组件化的思想已逐步成为主流，与之相应的，就需要有一整套工具流可以支撑起它。
+现在比较热门的前端资源模块化管理和打包工具应该非 Web">
+<meta property="og:image" content="http://moelove.qiniudn.com/webpack.png">
+<meta property="og:image" content="http://moelove.qiniudn.com/webpack-c.png">
+<meta property="og:image" content="http://moelove.qiniudn.com/webpack-error.png">
+<meta property="og:image" content="http://moelove.qiniudn.com/webpack-stderr.png">
+<meta property="og:image" content="http://moelove.qiniudn.com/webpack-bail.png">
+<meta property="og:updated_time" content="2016-12-25T16:45:45.872Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于 webpack 你可能忽略的细节（附源码分析）">
+<meta name="twitter:description" content="注：本篇不是入门教程，入门请直接查看官方文档。本篇的主要目标是通过实际问题来介绍 webpack 中容易被人忽略的细节, 以及源码分析(以最新发布的 release 版本1.14.0的源码为例), 并且提供几种解决方案。
+
+
+随着前端技术的火热发展，工程化，模块化和组件化的思想已逐步成为主流，与之相应的，就需要有一整套工具流可以支撑起它。
+现在比较热门的前端资源模块化管理和打包工具应该非 Web">
+<meta name="twitter:image" content="http://moelove.qiniudn.com/webpack.png">
+  
+    <link rel="alternate" href="/atom.xml" title="MoeLove" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/author.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">TaoBeier</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">不忘初心</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						<li>Links</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">Home</a></li>
+				        
+							<li><a href="/archives">Archives</a></li>
+				        
+							<li><a href="/projects">Projects</a></li>
+				        
+							<li><a href="/about">About</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/tao12345666333" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/9020taobeier" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 14px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 12px;">DevOps</a> <a href="/tags/Git/" style="font-size: 16px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 16px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/Pelican/" style="font-size: 14px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 18px;">Tool</a> <a href="/tags/Vim/" style="font-size: 16px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/Webpack/" style="font-size: 10px;">Webpack</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://hexo.io/">Hexo</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.flygon.net/">龙哥盟</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://blog.andyxu.me/">神岸あかり</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.cee.moe/">Cee总</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">TaoBeier</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/img/author.png" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">TaoBeier</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">不忘初心</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">Home</a></li>
+		        
+					<li><a href="/archives">Archives</a></li>
+		        
+					<li><a href="/projects">Projects</a></li>
+		        
+					<li><a href="/about">About</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/tao12345666333" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/9020taobeier" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-关于-webpack-你可能忽略的细节（附源码分析）" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/12/26/关于-webpack-你可能忽略的细节（附源码分析）/" class="article-date">
+  	<time datetime="2016-12-25T16:43:02.000Z" itemprop="datePublished">2016-12-26</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      关于 webpack 你可能忽略的细节（附源码分析）
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tool/">Tool</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Webpack/">Webpack</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Web/">Web</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>注：本篇不是入门教程，入门请直接查看<a href="http://webpack.github.io/docs/" target="_blank" rel="external">官方文档</a>。本篇的主要目标是通过实际问题来介绍 webpack 中容易被人忽略的细节, 以及源码分析(<strong>以最新发布的 release 版本1.14.0的源码为例</strong>), 并且提供几种解决方案。</p>
+</blockquote>
+<p><img src="http://moelove.qiniudn.com/webpack.png" alt="webpack from the official website"></p>
+<p>随着前端技术的火热发展，工程化，模块化和组件化的思想已逐步成为主流，与之相应的，就需要有一整套工具流可以支撑起它。</p>
+<p>现在比较热门的前端资源模块化管理和打包工具应该非 <a href="https://github.com/webpack/webpack" target="_blank" rel="external">Webpack</a> 莫属了。</p>
+<h1 id="Webpack-是什么"><a href="#Webpack-是什么" class="headerlink" title="Webpack 是什么"></a>Webpack 是什么</h1><blockquote>
+<p>它可以将许多松散的模块按照依赖和规则打包成符合生产环境部署的前端资源。还可以将按需加载的模块进行代码分隔，等到实际需要的时候再异步加载。通过 loader 的转换，任何形式的资源都可以视作模块，比如 CommonJs 模块、 AMD 模块、 ES6 模块、CSS、图片、 JSON、Coffeescript、 LESS 等。<br>–引自 Webpack 中文指南</p>
+</blockquote>
+<h1 id="使用举例"><a href="#使用举例" class="headerlink" title="使用举例"></a>使用举例</h1><p>我们来看一下官方文档中的最小用例，新建并写入以下内容到这两个文件：</p>
+<p><strong>cats.js</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cats = [<span class="string">'dave'</span>, <span class="string">'henry'</span>, <span class="string">'martha'</span>];</span><br><span class="line"><span class="built_in">module</span>.exports = cats;</span><br></pre></td></tr></table></figure>
+<p><strong>app.js (Entry Point)</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cats = <span class="built_in">require</span>(<span class="string">'./cats.js'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(cats);</span><br></pre></td></tr></table></figure>
+<p>这个时候，就可以使用 <code>webpack</code> 进行打包了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack ./app.js app.bundle.js</span><br></pre></td></tr></table></figure>
+<p>我们来看一下发生了什么， 目录下生成了一个打包后的文件 <code>app.bundle.js</code> ，这就是最基础的打包过程。</p>
+<h1 id="提出问题"><a href="#提出问题" class="headerlink" title="提出问题"></a>提出问题</h1><p><strong>如何判断打包是否成功？</strong></p>
+<h2 id="通用方案"><a href="#通用方案" class="headerlink" title="通用方案"></a>通用方案</h2><p>下面是我们常用的两种判断任务是否执行成功的方案</p>
+<h4 id="通过-return-code"><a href="#通过-return-code" class="headerlink" title="通过 return code"></a>通过 return code</h4><p>通过命令执行后的 <code>return code</code> 来判断（在 <code>shell</code> 中使用 <code>$?</code> 获得）。 并且通常情况下 <code>0</code> 是执行成功， 非 0 是未成功。 我们以上面的例子来测试一下：</p>
+<p><img src="http://moelove.qiniudn.com/webpack-c.png" alt="webpack-demo.png"></p>
+<p>可以看到 <code>$?</code> 的值为 <code>0</code> , 且打包后的文件运行正常。</p>
+<p>那么我们来修改一下 <code>app.js</code> 文件的内容， 将 <code>require</code> 引入的模块路径故意写错，来测试一下：</p>
+<p><img src="http://moelove.qiniudn.com/webpack-error.png" alt="webpack-error.png"></p>
+<p><strong>注意：箭头处 <code>$?</code> 的值仍然为 <code>0</code>, 且生成的打包后的文件运行出错。</strong></p>
+<p>这就说明，根据 <code>return code</code> 的值判断任务是否执行成功， 不可行！</p>
+<h4 id="通过标准错误输出"><a href="#通过标准错误输出" class="headerlink" title="通过标准错误输出"></a>通过标准错误输出</h4><p>我们也会通过<strong>标准错误输出</strong>（<code>stderr</code>）来判断一个任务执行过程中是否有错误输出。还是使用上面的例子做示范：</p>
+<p><img src="http://moelove.qiniudn.com/webpack-stderr.png" alt="webpack-stderr.png"></p>
+<p>根据这个例子，可以看到 webpack 并没有标准错误输出！所以这个方法也不可行。</p>
+<h1 id="探究原因及源码分析"><a href="#探究原因及源码分析" class="headerlink" title="探究原因及源码分析"></a>探究原因及源码分析</h1><p>这里以最新发布的 release 版本 1.14.0 的源码作为分析。 在 <a href="https://github.com/webpack/webpack/blob/v1.14.0/lib/Compilation.js#L194-L204" target="_blank" rel="external">lib/Compilation.js</a> 中我们可以看到这样一段代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> errorAndCallback = <span class="function"><span class="keyword">function</span> <span class="title">errorAndCallback</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">  err.dependencies = dependencies;</span><br><span class="line">  err.origin = <span class="built_in">module</span>;</span><br><span class="line">  <span class="built_in">module</span>.dependenciesErrors.push(err);</span><br><span class="line">  _this.errors.push(err);</span><br><span class="line">  <span class="keyword">if</span>(bail) &#123;</span><br><span class="line">    callback(err);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    callback();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在源码中可以看到这个函数其实被调用的还比较多， 例如：在模块为可选的时候， 会判断只是抛出警告还是处理错误， 而上面这段代码自然也不必多数， 关键点在于 <code>bail</code> 的值， 而我们继续找， 可以看到在 <code>bin/config-optimist.js</code> 中有对 <code>bail</code> 参数的解析， 这是一个布尔值。而因为没有太多描述， 所以这个参数就经常容易被忽略。</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><h3 id="1-加-bail-参数"><a href="#1-加-bail-参数" class="headerlink" title="1. 加 bail 参数"></a>1. 加 <strong>bail</strong> 参数</h3><p>基于上面简要的分析， 我们来尝试下 <code>bail</code> 参数的作用。 仍然使用上面的例子：</p>
+<p>我们使用  <code>webpack --bail true app.js app.bundle.js</code> 进行测试</p>
+<p><img src="http://moelove.qiniudn.com/webpack-bail.png" alt="webpack-bail.png"></p>
+<p>可以看到， 使用 <code>bail</code> 参数并传递 <code>true</code> 进去， 在遇到错误的时候，打包过程将会退出， <code>return code</code> 为 <code>1</code> 且把错误信息打印到 <code>stderr</code> . </p>
+<h3 id="2-使用-webpack-fail-plugin"><a href="#2-使用-webpack-fail-plugin" class="headerlink" title="2. 使用 webpack-fail-plugin"></a>2. 使用 webpack-fail-plugin</h3><p> <a href="https://www.npmjs.com/package/webpack-fail-plugin" target="_blank" rel="external">webpack-fail-plugin</a> 是专为解决这个问题而生的，它会在错误发生的时候 <code>return 1</code>. 使用方法也很简单：</p>
+<p>安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install webpack-fail-plugin</span><br></pre></td></tr></table></figure>
+<p>使用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> failPlugin = <span class="built_in">require</span>(<span class="string">'webpack-fail-plugin'</span>);</span><br><span class="line"> </span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="comment">//config </span></span><br><span class="line">    plugins: [</span><br><span class="line">        failPlugin</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"><span class="string">``</span><span class="string">` </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 3.使用 done plugin</span><br><span class="line"></span><br><span class="line">具体用法如下：</span><br><span class="line"></span><br><span class="line">`</span><span class="string">``</span>javascript</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">plugins: [ </span><br><span class="line">  <span class="comment">// ... </span></span><br><span class="line">  <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="keyword">this</span>.plugin(<span class="string">"done"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">stats</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (stats.compilation.errors &amp;&amp; stats.compilation.errors.length) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(stats.compilation.errors); </span><br><span class="line">        process.exit(<span class="number">1</span>); </span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// ... </span></span><br><span class="line">    &#125;); </span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">],</span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-使用-webpack-2"><a href="#4-使用-webpack-2" class="headerlink" title="4. 使用 webpack 2"></a>4. 使用 webpack 2</h3><p>不过 webpack 2 现在还在 beta 阶段，可以期待下。 （webpack 2 也仍然是使用 bail 参数）</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/12/16/composer-使用技巧简述/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Composer 使用技巧简述</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_googleplus"></a>
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1409897761537978" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'taobeier'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 TaoBeier
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-50163692-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
