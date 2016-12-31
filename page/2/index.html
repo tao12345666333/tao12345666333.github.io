@@ -111,7 +111,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 14px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 12px;">DevOps</a> <a href="/tags/Git/" style="font-size: 16px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 16px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/Pelican/" style="font-size: 14px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 18px;">Tool</a> <a href="/tags/Vim/" style="font-size: 16px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/Webpack/" style="font-size: 10px;">Webpack</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 13.33px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 11.67px;">DevOps</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 16.67px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/Pelican/" style="font-size: 13.33px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 18.33px;">Tool</a> <a href="/tags/Vim/" style="font-size: 15px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/Webpack/" style="font-size: 10px;">Webpack</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
 					</div>
 				</section>
 				
@@ -188,6 +188,130 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-JSLint-JSHint-ESLint对比和Vim配置" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/11/28/JSLint-JSHint-ESLint对比和Vim配置/" class="article-date">
+  	<time datetime="2015-11-28T15:43:49.000Z" itemprop="datePublished">2015-11-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/28/JSLint-JSHint-ESLint对比和Vim配置/">JSLint,JSHint,ESLint对比和Vim配置</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近在用<code>React</code>写项目，但是<a href="https://github.com/tao12345666333/vim" target="_blank" rel="external">我的Vim配置</a>之前并没有配置对<code>JSX</code>和<code>ES6</code>的支持，然后看着那堆报错各种不爽了，于是还是要继续折腾，顺便也增加了点知识，记录一下。</p>
+<h1 id="主流的JS-Lint工具及介绍"><a href="#主流的JS-Lint工具及介绍" class="headerlink" title="主流的JS Lint工具及介绍"></a>主流的JS Lint工具及介绍</h1><p><a href="https://en.wikipedia.org/wiki/JavaScript" target="_blank" rel="external">JavaScript</a>已经发展蛮长时间了，对应的Lint工具也是层出不穷，下面介绍一下比较主流的几个Lint工具(其实是我用过的几个XD)</p>
+<h2 id="JSLint"><a href="#JSLint" class="headerlink" title="JSLint"></a>JSLint</h2><p><a href="https://en.wikipedia.org/wiki/JSLint" target="_blank" rel="external">JSLint</a>是由<a href="https://en.wikipedia.org/wiki/Douglas_Crockford" target="_blank" rel="external">Douglas Crockford</a>开发的，可能是最早的JavaScript Lint工具了吧，它的名字来源于著名的<code>C</code>语言工具<code>Lint</code>。老道把他认为的非<code>Good Parts</code>的部分都报了warning，而且在它的<a href="http://www.jslint.com/help.html" target="_blank" rel="external">文档</a>中也提到了你应该欣然接受所有的<code>JSLint</code>的建议。最近看了下，老道还在持续更新着<a href="https://github.com/douglascrockford/JSLint" target="_blank" rel="external">这个项目</a>，而且<a href="http://www.jslint.com/" target="_blank" rel="external">官网</a>上也有着一个在线的体验工具，可以尝试一下。对了，如果想要使用这个工具，建议看看老道在<a href="https://www.youtube.com/watch?v=taaEzHI9xyY" target="_blank" rel="external">YouTube</a>上关于JavaScript编程风格的视频，讲的还是很幽默的。</p>
+<h2 id="JSHint"><a href="#JSHint" class="headerlink" title="JSHint"></a>JSHint</h2><p><a href="https://en.wikipedia.org/wiki/JSHint" target="_blank" rel="external">JSHint</a>是由<a href="http://anton.kovalyov.net/" target="_blank" rel="external">Anton Kovalyov</a><strong>基于</strong><code>JSLint</code>的代码实现的开源项目，由于JSLint时期大多数人都在受JSLint压迫，JSHint相比较之下，更友好，也更容易配置，所以很快就发展了起来，也得到了众多IDE和编辑器的<a href="http://jshint.com/install/" target="_blank" rel="external">支持</a>。但是，由于它是基于JSLint开发的，自然原有的一些问题它也继承下来了，比如不易扩展，不容易直接根据报错定位到具体的规则配置等，虽然之前好像是有过相关的讨论，但是现在仍然没有什么好的解决办法。好在它发展的不错，很多时候遇到的问题都可以在网上找到相关的解决方案，而且文档也是非常不错的。</p>
+<h2 id="ESLint"><a href="#ESLint" class="headerlink" title="ESLint"></a>ESLint</h2><p><a href="http://eslint.org/" target="_blank" rel="external">ESLint</a>是由<a href="https://www.nczonline.net/" target="_blank" rel="external">Nicholas C. Zakas</a>在2013年开始开发的，它的初衷就是为了能让开发者能自定义自己的<code>linting rules</code>，而且它提供了一套相当完善的插件机制，可以自由的扩展，动态加载配置规则，同时可以方便的根据报错定位到具体的规则配置。而且我比较喜欢它的一点是<a href="http://eslint.org/docs/user-guide/configuring" target="_blank" rel="external">文档</a>非常详细，可能这也是灵活所必须的吧。在这里还要提一点，<code>ESLint</code>最初并不是为了造一个重复的轮子，而是作者在实际使用中的需求<a href="https://github.com/eslint/eslint#why-dont-you-like-jshint" target="_blank" rel="external">没有能得到JSHint团队的回应</a>，所以他就结合当时的<code>JSHint</code>和另一个代码风格的检查工具<code>JSCS</code>写出来了现在具备<strong>代码风格检查</strong>，<strong>自定义插件扩展</strong>功能的<code>ESLint</code>了。</p>
+<h1 id="JSLint，JSHint和ESLint的对比"><a href="#JSLint，JSHint和ESLint的对比" class="headerlink" title="JSLint，JSHint和ESLint的对比"></a>JSLint，JSHint和ESLint的对比</h1><p>这三个工具各有特色，我只是做一下对比，选择的话，看个人需求就好了。</p>
+<h2 id="JSLint-1"><a href="#JSLint-1" class="headerlink" title="JSLint"></a>JSLint</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>配置是老道已经定好的，开箱即用。</li>
+</ul>
+<h3 id="不足"><a href="#不足" class="headerlink" title="不足"></a>不足</h3><ul>
+<li>有限的配置选项，很多规则不能禁用</li>
+<li>规范严格，凡是不符合老道所认为的好的风格的，都会有警告(这一项就看你是否完全认同老道了)</li>
+<li>扩展性差</li>
+<li>无法根据错误定位到对应的规则 </li>
+</ul>
+<h2 id="JSHint-1"><a href="#JSHint-1" class="headerlink" title="JSHint"></a>JSHint</h2><h3 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>有了很多参数可以配置</li>
+<li>支持配置文件，方便使用</li>
+<li>支持了一些常用类库</li>
+<li>支持了基本的<code>ES6</code></li>
+</ul>
+<h3 id="不足-1"><a href="#不足-1" class="headerlink" title="不足"></a>不足</h3><ul>
+<li>不支持自定义规则</li>
+<li>无法根据错误定位到对应的规则 </li>
+</ul>
+<h2 id="ESLint-1"><a href="#ESLint-1" class="headerlink" title="ESLint"></a>ESLint</h2><h3 id="优点-2"><a href="#优点-2" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>默认规则里面包含了<code>JSLint</code>和<code>JSHint</code>的规则，易于迁移(这肯定是故意的XD)</li>
+<li>可配置为<code>警告</code>和<code>错误</code>两个等级，或者直接禁用掉</li>
+<li>支持插件扩展</li>
+<li>可以自定义规则</li>
+<li>可以根据错误定位到对应的规则</li>
+<li>支持<code>ES6</code></li>
+<li>唯一一个支持<code>JSX</code>的工具</li>
+</ul>
+<h3 id="不足-2"><a href="#不足-2" class="headerlink" title="不足"></a>不足</h3><ul>
+<li>需要进行一些自定义配置(因为太灵活了嘛，不过文档是很详细的)</li>
+<li><strong>慢</strong> (它比其他两个都要慢)</li>
+</ul>
+<h1 id="Vim支持"><a href="#Vim支持" class="headerlink" title="Vim支持"></a>Vim支持</h1><p>我们都使用<a href="https://github.com/scrooloose/syntastic" target="_blank" rel="external"><code>Syntastic</code></a>来配置</p>
+<h2 id="JSLint的Vim配置"><a href="#JSLint的Vim配置" class="headerlink" title="JSLint的Vim配置"></a>JSLint的Vim配置</h2><p>有一个<a href="https://github.com/hallettj/jslint.vim" target="_blank" rel="external">jslint.vim</a>当然版本太老了。。我们不用这种方式做。</p>
+<ul>
+<li>安装<code>jslint</code> </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install jslint -g</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在<code>vimrc</code>中添加如下配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let g:syntastic_javascript_checkers = [&apos;jslint&apos;]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="JSHint的Vim配置"><a href="#JSHint的Vim配置" class="headerlink" title="JSHint的Vim配置"></a>JSHint的Vim配置</h2><ul>
+<li><p>安装<code>jshint</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install jshint -g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在<code>vimrc</code>中添加如下配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let g:syntastic_javascript_checkers = [&apos;jshint&apos;]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>也可以使用独立插件<a href="https://github.com/wookiehangover/jshint.vim" target="_blank" rel="external">jshint.vim</a></p>
+</li>
+</ul>
+<h2 id="ESLint的Vim配置"><a href="#ESLint的Vim配置" class="headerlink" title="ESLint的Vim配置"></a>ESLint的Vim配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install eslint -g</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在<code>vimrc</code>中添加如下配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let g:syntastic_javascript_checkers = [&apos;eslint&apos;]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>这里有个很重要的问题，记得要在添加一份配置文件，在官网或者在我vim配置的仓库可以找到</strong></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/">React</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vim/">Vim</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Web/">Web</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-用正确的姿势开源Python项目" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -1028,92 +1152,6 @@
 
 
   
-    <article id="post-Grub2-rescue-修复" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/07/02/Grub2-rescue-修复/" class="article-date">
-  	<time datetime="2014-07-02T13:53:03.000Z" itemprop="datePublished">2014-07-2</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/07/02/Grub2-rescue-修复/">Grub2 rescue 修复</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>昨天下午的时候想要把分区处理一下，突然发现硬盘里面有一个未使用的102M的分区,很果断的把这些乱七八糟的分区都给干掉了。结果呢，再次开机的时候就坑了（虽然酱紫的事情干过很多次了，这次做个记录吧）开机时提示如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GRUB loading..</span><br><span class="line">error: unknown filesystem.</span><br><span class="line">Entering rescue mode....</span><br><span class="line">grub rescue&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="grub-rescue-支持的命令"><a href="#grub-rescue-支持的命令" class="headerlink" title="grub rescue 支持的命令"></a>grub rescue 支持的命令</h3><ul>
-<li><strong>ls</strong> 查看硬盘的分区情况，如果你已知自己的grub的安装位置（比如我的在<code>(hd0,msdos9)/boot/grub2</code>），那么就直接进行下一步。<br>如果不知道，那就ls每个分区，比如: <code>ls (hd0,msdos2)/</code>,如果正确就会显示里面到内容，直到找到grub</li>
-</ul>
-<p><strong>这里一个很关键的地方就是在硬盘位置后应该加入<code>/</code></strong></p>
-<ul>
-<li><strong>set</strong> 直接输入的话， 可以看到root 和 prefix 的设置。这里需要把这两个选项改成我们已经找到的位置。</li>
-</ul>
-<p>窝的设置如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">grub rescue&gt; set</span><br><span class="line">grub rescue&gt; prefix=(hd0,msdos9)/boot/grub2</span><br><span class="line">grub rescue&gt; root=hd0,msdos9</span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>insmod</strong> 载入模块。这里区别是窝这次记录的关键。<br>grub2和grub的一个很重要的区别就是模块的位置。grub2的模块位置在<code>/boot/grub2/i386-pc/normal.mod</code><br>执行命令：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grub rescue&gt;insmod (hd0,msdos9)/boot/grub2/i386-pc/normal.mod</span><br></pre></td></tr></table></figure>
-<p>执行成功之后，提示符会变成<code>normal</code></p>
-<ul>
-<li><strong>normal</strong> 进入正常模式，直接输入命令即可</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grub rescue&gt;normal</span><br></pre></td></tr></table></figure>
-<p>这个时候，就可以看到熟悉的引导界面了。</p>
-<ul>
-<li><strong>grub2-install</strong><br>进入系统后执行命令</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo update-grub</span><br><span class="line">$ sudo grub2-install /dev/sda</span><br></pre></td></tr></table></figure>
-<p>如果不执行这样的命令的话，重启之后还会回到之前的界面orz</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/grub2/">grub2</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Linux/">Linux</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1124,7 +1162,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2016 TaoBeier
+    		&copy; 2017 TaoBeier
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten

@@ -111,7 +111,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 14px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 12px;">DevOps</a> <a href="/tags/Git/" style="font-size: 16px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 16px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/Pelican/" style="font-size: 14px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 18px;">Tool</a> <a href="/tags/Vim/" style="font-size: 16px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/Webpack/" style="font-size: 10px;">Webpack</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
+						<a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 13.33px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 11.67px;">DevOps</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 16.67px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/Pelican/" style="font-size: 13.33px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 18.33px;">Tool</a> <a href="/tags/Vim/" style="font-size: 15px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/Webpack/" style="font-size: 10px;">Webpack</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
 					</div>
 				</section>
 				
@@ -188,6 +188,92 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-Vim7-3-for-Windows-配置" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2013/08/10/Vim7-3-for-Windows-配置/" class="article-date">
+  	<time datetime="2013-08-10T13:34:17.000Z" itemprop="datePublished">2013-08-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/10/Vim7-3-for-Windows-配置/">Vim7.3 for Windows 配置</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>一直是在Linux下用Vim，但是有些时候在别人电脑或者机房又不得不用windows来写代码，所以也就下载了vim for windows。但是今天打开一个朋友写的网页的时候，出现了乱码的问题，所以把解决方法记录一下，也就是和在linux下面一样，修改配置文件就可以了。接下来进入正题。</p>
+</blockquote>
+<h3 id="选项意义概述"><a href="#选项意义概述" class="headerlink" title="选项意义概述"></a>选项意义概述</h3><p>Vim有四个跟字符编码方式有关的选项，分别是:<code>encoding</code>、<code>fileencoding</code>、<code>fileencodings</code>、<code>termencoding</code> (这些选项可能的取值可以参考 Vim 的帮助 :<em>help encoding-names</em>)，它们各自的意义:</p>
+<ul>
+<li><p><strong>encoding</strong>: Vim 内部使用的字符编码方式，包括Vim的buffer(缓冲区)、菜单文本、消息文本等。用户手册上建议只在<em>.vimrc</em>中改变它的值，事实上似乎也只有在<em>.vimrc</em> 中改变它的值才有意义。</p>
+</li>
+<li><p><strong>fileencoding</strong>: Vim 中当前编辑的文件的字符编码方式，Vim 保存文件时也会将文件保存为这种字符编码方式 (不管是否新文件都如此)。</p>
+</li>
+<li><p><strong>fileencodings</strong>: Vim 启动时会按照它所列出的字符编码方式逐一探测即将打开的文件的字符编码方式，并且将 fileencoding 设置为最终探测到的字符编码方式。因此最好将 Unicode 编码方式放到这个列表的最前面，将拉丁语系编码方式 latin1 放到最后面。</p>
+</li>
+<li><strong>termencoding</strong>: Vim 所工作的终端 (或者 Windows 的 Console 窗口) 的字符编码方式。这个选项在 Windows 下对我们常用的 GUI 模式的 gVim 无效，而对 Console 模式的 Vim 而言就是Windows控制台的代码页，并且通常我们不需要改变它。（我尝试改变了它为UTF-8，但对于console模式的编码方式却没有改变）</li>
+</ul>
+<h3 id="配置说明"><a href="#配置说明" class="headerlink" title="配置说明"></a>配置说明</h3><p>由于 Unicode 能包含几乎所有的语言的字符，Unicode的UTF-8编码方式又是非常具有性价比和通用的编码方式，所以把<em>encoding</em>的值设置为<strong>utf-8</strong>。同时将encoding设置为utf-8时，Vim自动探测文件的编码方式会更准确。在中文Windows里编辑的文件，为了兼顾与其他软件的兼容性，文件编码还是设置为GB2312/GBK比较合适，因此<em>fileencoding</em>建议设置为<strong>chinese</strong> (<em>chinese是个别名，在Unix里表示<code>gb2312</code>，在Windows里表示<code>cp936</code>，也就是GBK的代码页</em>)。</p>
+<h3 id="具体配置"><a href="#具体配置" class="headerlink" title="具体配置"></a>具体配置</h3><p>最后对于文件中显示乱码、菜单乱码、右键菜单乱码以及Conlse输出乱码问题的解决方案，修改Vim编辑器所对应的配置文件<strong>_vimrc</strong>（这个文件在你安装vim 的那个目录下），添加如下配置：</p>
+<ul>
+<li><p>关于常规设置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&quot;总是显示标签。0：不显示；1：多于1个时显示&quot;</span><br><span class="line">set showtabline=2</span><br><span class="line">&quot;开启行号&quot;</span><br><span class="line">set number</span><br><span class="line">&quot;开启自动缩进, 7.3以上版本已自动开启&quot;</span><br><span class="line">set autoindent</span><br><span class="line">&quot;缩进宽度为4个字符&quot;</span><br><span class="line">set shiftwidth=4</span><br><span class="line">&quot;tab宽度为4个字符&quot;</span><br><span class="line">set tabstop=4</span><br><span class="line">&quot;编辑时将所有tab替换为空格&quot;</span><br><span class="line">set et</span><br><span class="line">&quot;按一次Backspace就删除4个空格&quot;</span><br><span class="line">set smarttab</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关于色彩和字体之类的设置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&quot;配色方案（这里可以自选，我比较喜欢这个配色方案）&quot;</span><br><span class="line">colo desert</span><br><span class="line">&quot;开启语法高亮, 7.3版本已自动开启&quot;</span><br><span class="line">syntax on</span><br><span class="line">&quot;字体设置&quot;</span><br><span class="line">set guifont=courier_new:h10</span><br><span class="line">&quot;关闭兼容模式&quot;</span><br><span class="line">set nocompatible</span><br><span class="line">&quot;以下三行模拟Windows操作，如Ctrl-C复制&quot;</span><br><span class="line">source $VIMRUNTIME/vimrc_example.vim</span><br><span class="line">source $VIMRUNTIME/mswin.vim</span><br><span class="line">behave mswin</span><br><span class="line">&quot;不生成备份文件，下面这句要写在behave mswin下面，否则还是会生成备份，情况不明&quot;</span><br><span class="line">set nobackup</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关于编码部分的设置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&quot;GVIM内部编码&quot;</span><br><span class="line">set encoding=utf-8</span><br><span class="line">&quot;当前编辑的文件编码&quot;</span><br><span class="line">set fileencoding=utf-8</span><br><span class="line">&quot;GVIM支持打开的文件编码（这里也是参考帮助手册来的）&quot;</span><br><span class="line">set fileencodings=utf-8,gbk,gb2312,big5,latin1</span><br><span class="line">&quot;解决菜单及右键菜单乱码&quot;</span><br><span class="line">source $VIMRUNTIME/delmenu.vim</span><br><span class="line">source $VIMRUNTIME/menu.vim</span><br><span class="line">&quot;解决consle输出乱码&quot;</span><br><span class="line">language messages zh_CN.utf-8</span><br><span class="line">&quot;防止特殊符号无法正常显示，如五角星等1&quot;</span><br><span class="line">set ambiwidth=double</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>主体设置部分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">set diffexpr=MyDiff()</span><br><span class="line">function MyDiff()</span><br><span class="line">  let opt = &apos;-a --binary &apos;</span><br><span class="line">  if &amp;diffopt =~ &apos;icase&apos; | let opt = opt . &apos;-i &apos; | endif</span><br><span class="line">  if &amp;diffopt =~ &apos;iwhite&apos; | let opt = opt . &apos;-b &apos; | endif</span><br><span class="line">  let arg1 = v:fname_in</span><br><span class="line">  if arg1 =~ &apos; &apos; | let arg1 = &apos;&quot;&apos; . arg1 . &apos;&quot;&apos; | endif</span><br><span class="line">  let arg2 = v:fname_new</span><br><span class="line">  if arg2 =~ &apos; &apos; | let arg2 = &apos;&quot;&apos; . arg2 . &apos;&quot;&apos; | endif</span><br><span class="line">  let arg3 = v:fname_out</span><br><span class="line">  if arg3 =~ &apos; &apos; | let arg3 = &apos;&quot;&apos; . arg3 . &apos;&quot;&apos; | endif</span><br><span class="line">  let eq = &apos;&apos;</span><br><span class="line">  if $VIMRUNTIME =~ &apos; &apos;</span><br><span class="line">    if &amp;sh =~ &apos;\&lt;cmd&apos;</span><br><span class="line">      let cmd = &apos;&quot;&quot;&apos; . $VIMRUNTIME . &apos;\diff&quot;&apos;</span><br><span class="line">      let eq = &apos;&quot;&apos;</span><br><span class="line">    else</span><br><span class="line">      let cmd = substitute($VIMRUNTIME, &apos; &apos;, &apos;&quot; &apos;, &apos;&apos;) . &apos;\diff&quot;&apos;</span><br><span class="line">    endif</span><br><span class="line">  else</span><br><span class="line">    let cmd = $VIMRUNTIME . &apos;\diff&apos;</span><br><span class="line">  endif</span><br><span class="line">  silent execute &apos;!&apos; . cmd . &apos; &apos; . opt . arg1 . &apos; &apos; . arg2 . &apos; &gt; &apos; . arg3 . eq</span><br><span class="line">endfunction</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>以上就是我关于windows下VIM的配置修改了。我使用的配置文件可以在<a href="https://github.com/tao12345666333/VimforWindowssetting" target="_blank" rel="external">Vim for Windows setting</a>下载得到。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vim/">Vim</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-LAMP环境的快速搭建" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -465,7 +551,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2016 TaoBeier
+    		&copy; 2017 TaoBeier
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
