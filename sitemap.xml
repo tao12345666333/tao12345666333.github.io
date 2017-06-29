@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://moelove.info/2017/06/30/Install-Python3-6-on-CentOS7/</loc>
+    
+    <lastmod>2017-06-29T16:26:17.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://moelove.info/2017/03/05/%E7%90%86%E8%A7%A3-Redis-%E7%9A%84-RESP-%E5%8D%8F%E8%AE%AE/</loc>
     
     <lastmod>2017-03-05T13:46:50.000Z</lastmod>
@@ -226,13 +233,6 @@
   </url>
   
   <url>
-    <loc>http://moelove.info/2014/04/18/Hello-World/</loc>
-    
-    <lastmod>2016-04-03T14:28:09.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://moelove.info/2015/09/13/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91MongoDB/</loc>
     
     <lastmod>2016-04-03T14:28:09.000Z</lastmod>
@@ -241,6 +241,13 @@
   
   <url>
     <loc>http://moelove.info/2015/12/31/2015%E5%B0%8F%E5%9B%9E%E9%A1%BE/</loc>
+    
+    <lastmod>2016-04-03T14:28:09.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://moelove.info/tags/index.html</loc>
     
     <lastmod>2016-04-03T14:28:09.000Z</lastmod>
     
@@ -261,7 +268,7 @@
   </url>
   
   <url>
-    <loc>http://moelove.info/tags/index.html</loc>
+    <loc>http://moelove.info/2014/03/10/Linux-%E5%AE%89%E8%A3%85Android-%E9%A9%B1%E5%8A%A8/</loc>
     
     <lastmod>2016-04-03T14:28:09.000Z</lastmod>
     
@@ -275,14 +282,14 @@
   </url>
   
   <url>
-    <loc>http://moelove.info/2014/03/10/Linux-%E5%AE%89%E8%A3%85Android-%E9%A9%B1%E5%8A%A8/</loc>
+    <loc>http://moelove.info/search/index.html</loc>
     
     <lastmod>2016-04-03T14:28:09.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://moelove.info/search/index.html</loc>
+    <loc>http://moelove.info/2014/04/18/Hello-World/</loc>
     
     <lastmod>2016-04-03T14:28:09.000Z</lastmod>
     

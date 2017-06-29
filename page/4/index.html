@@ -68,6 +68,56 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-利用百度BAE搭建discuz论坛" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/09/06/利用百度BAE搭建discuz论坛/" class="article-date">
+  <time datetime="2013-09-06T13:38:39.000Z" itemprop="datePublished">2013-09-6</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/09/06/利用百度BAE搭建discuz论坛/">利用百度BAE搭建discuz论坛</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近尝试了利用百度云应用管理<em>BAE</em>搭建discuz论坛， 这里做简要记录</p>
+<h3 id="创建应用"><a href="#创建应用" class="headerlink" title="创建应用"></a>创建应用</h3><p>在 <a href="http://developer.baidu.com/" target="_blank" rel="external">百度开发者中心</a> 创建一个应用，选择WEB应用下的PC <strong>Iframe应用</strong></p>
+<h3 id="托管设置"><a href="#托管设置" class="headerlink" title="托管设置"></a>托管设置</h3><p>之后进行托管设置， 确定域名XXX.duapp.com</p>
+<p>创建一个版本，并上传PHP代码包</p>
+<p>(BAE有些函数规则发生改变，所以需要使用为BAE环境做过调整的<a href="http://pan.baidu.com/s/1hqsYVre" target="_blank" rel="external">discuz for BAE</a> 版本)</p>
+<p>需要注意的是在上传的代码包里面的 <em>bcs/config.php</em> 中的内容应该修改为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;?php</div><div class="line"></div><div class="line">define(&apos;BAIDU_BCS_BUCKET&apos;, &apos;创建的bucket名称&apos;);</div><div class="line">define(&apos;BAIDU_BCS_AK&apos;, getenv(&apos;HTTP_BAE_ENV_AK&apos;));</div><div class="line">define(&apos;BAIDU_BCS_SK&apos;, getenv(&apos;HTTP_BAE_ENV_SK&apos;));</div><div class="line"></div><div class="line">?&gt;</div></pre></td></tr></table></figure></p>
+<p>同时在数据库中设置为UTF-8,</p>
+<p>注意开启缓存 cache 最少30M(亲测50M完全是OK的)</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>之后上线应用，访问<a href="http://你的域名.duapp.com/install/index.php" target="_blank" rel="external">http://你的域名.duapp.com/install/index.php</a></p>
+<p>即可完成安装(需要用到创建的数据库名称)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://moelove.info/2013/09/06/利用百度BAE搭建discuz论坛/" data-id="cj4in6qa70018umcbi7gbwg5p" class="article-share-link">Share</a>
+      
+        <a href="http://moelove.info/2013/09/06/利用百度BAE搭建discuz论坛/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BAE/">BAE</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-fedora下安装sublime-text-2的方法" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2013/08/30/fedora下安装sublime-text-2的方法/" class="article-date">
@@ -109,7 +159,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://moelove.info/2013/08/30/fedora下安装sublime-text-2的方法/" data-id="cj4im1a92000r6bcbsyoe0t55" class="article-share-link">Share</a>
+      <a data-url="http://moelove.info/2013/08/30/fedora下安装sublime-text-2的方法/" data-id="cj4in6q9u000tumcb31xjbo6u" class="article-share-link">Share</a>
       
         <a href="http://moelove.info/2013/08/30/fedora下安装sublime-text-2的方法/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -179,7 +229,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://moelove.info/2013/08/10/Vim7-3-for-Windows-配置/" data-id="cj4im1a8u000l6bcbe0qdblv6" class="article-share-link">Share</a>
+      <a data-url="http://moelove.info/2013/08/10/Vim7-3-for-Windows-配置/" data-id="cj4in6q9o000numcb5i8vvou5" class="article-share-link">Share</a>
       
         <a href="http://moelove.info/2013/08/10/Vim7-3-for-Windows-配置/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -270,7 +320,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://moelove.info/2013/08/07/LAMP环境的快速搭建/" data-id="cj4im1a8l000b6bcbrt2tt9k1" class="article-share-link">Share</a>
+      <a data-url="http://moelove.info/2013/08/07/LAMP环境的快速搭建/" data-id="cj4in6q9e000cumcbr88s974n" class="article-share-link">Share</a>
       
         <a href="http://moelove.info/2013/08/07/LAMP环境的快速搭建/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -332,7 +382,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://moelove.info/2013/03/20/cat-命令研究/" data-id="cj4im1a8200026bcbj7lxiazc" class="article-share-link">Share</a>
+      <a data-url="http://moelove.info/2013/03/20/cat-命令研究/" data-id="cj4in6q8v0002umcbmwlvb376" class="article-share-link">Share</a>
       
         <a href="http://moelove.info/2013/03/20/cat-命令研究/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -397,7 +447,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://moelove.info/2013/03/09/fedora安装后最初的事情/" data-id="cj4im1a94000u6bcbq9rw4di8" class="article-share-link">Share</a>
+      <a data-url="http://moelove.info/2013/03/09/fedora安装后最初的事情/" data-id="cj4in6q9x000wumcbewc8vknh" class="article-share-link">Share</a>
       
         <a href="http://moelove.info/2013/03/09/fedora安装后最初的事情/#disqus_thread" class="article-comment-link">留言</a>
       
@@ -444,7 +494,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 13.33px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 11.67px;">DevOps</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 16.67px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/Pelican/" style="font-size: 13.33px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 18.33px;">Tool</a> <a href="/tags/Vim/" style="font-size: 15px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/Webpack/" style="font-size: 10px;">Webpack</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
+      <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 13.33px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 11.67px;">DevOps</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 16.67px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/Pelican/" style="font-size: 13.33px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 11.67px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 18.33px;">Tool</a> <a href="/tags/Vim/" style="font-size: 15px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/Webpack/" style="font-size: 10px;">Webpack</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
     </div>
   </div>
 
@@ -453,7 +503,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">四月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">三月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">十二月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">九月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">八月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">三月 2013</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">四月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">三月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">十二月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">九月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">八月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">三月 2013</a></li></ul>
     </div>
   </div>
 
@@ -464,6 +514,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/06/30/Install-Python3-6-on-CentOS7/">Install-Python3.6-on-CentOS7</a>
+          </li>
         
           <li>
             <a href="/2017/03/05/理解-Redis-的-RESP-协议/">理解 Redis 的 RESP 协议</a>
@@ -479,10 +533,6 @@
         
           <li>
             <a href="/2016/12/16/composer-使用技巧简述/">Composer 使用技巧简述</a>
-          </li>
-        
-          <li>
-            <a href="/2016/12/05/Git-workflow-详谈/">Git workflow 详谈</a>
           </li>
         
       </ul>

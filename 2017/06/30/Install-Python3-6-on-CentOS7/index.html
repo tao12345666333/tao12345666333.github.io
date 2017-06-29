@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Install-Python3.6-on-CentOS7 | MoeLove</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="拖了很久没有更新，抱歉啦~ 今天受邀写篇如何在 CentOS 7 上配置 Python 3 环境的文章。往常我都选择直接把我早年写的一篇文章源码编译MongoDB丢过去，让他们看其中的源码编译 Python 那一节，不过那节写的其实不太详细，而且最近被很多人催，所以还是单独写一篇好了。  当前最新的 CentOS 7.3 默认安装的是 Python 2 ，并且默认的官方 yum 源中不提供 Py">
+<meta name="keywords" content="Linux,Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Install-Python3.6-on-CentOS7">
+<meta property="og:url" content="http://moelove.info/2017/06/30/Install-Python3-6-on-CentOS7/index.html">
+<meta property="og:site_name" content="MoeLove">
+<meta property="og:description" content="拖了很久没有更新，抱歉啦~ 今天受邀写篇如何在 CentOS 7 上配置 Python 3 环境的文章。往常我都选择直接把我早年写的一篇文章源码编译MongoDB丢过去，让他们看其中的源码编译 Python 那一节，不过那节写的其实不太详细，而且最近被很多人催，所以还是单独写一篇好了。  当前最新的 CentOS 7.3 默认安装的是 Python 2 ，并且默认的官方 yum 源中不提供 Py">
+<meta property="og:image" content="http://moelove.qiniudn.com/systemInfo.png">
+<meta property="og:image" content="http://moelove.qiniudn.com/install_gcc_wget.png">
+<meta property="og:image" content="http://moelove.qiniudn.com/decompress_archives.png">
+<meta property="og:image" content="http://moelove.qiniudn.com/make_error.png">
+<meta property="og:image" content="http://moelove.qiniudn.com/install_success.png">
+<meta property="og:image" content="http://moelove.qiniudn.com/arrow_keys_problem.png">
+<meta property="og:image" content="http://moelove.qiniudn.com/some_optional_modules_were_not_found.png">
+<meta property="og:image" content="http://moelove.qiniudn.com/all_modules_were_found.png">
+<meta property="og:image" content="http://moelove.qiniudn.com/import_successful.png">
+<meta property="og:image" content="http://moelove.qiniudn.com/yum_install_ius.png">
+<meta property="og:image" content="http://moelove.qiniudn.com/yum_install_python36u.png">
+<meta property="og:image" content="http://moelove.qiniudn.com/ln.png">
+<meta property="og:image" content="http://moelove.qiniudn.com/my_qrcode.jpg">
+<meta property="og:updated_time" content="2017-06-29T16:26:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Install-Python3.6-on-CentOS7">
+<meta name="twitter:description" content="拖了很久没有更新，抱歉啦~ 今天受邀写篇如何在 CentOS 7 上配置 Python 3 环境的文章。往常我都选择直接把我早年写的一篇文章源码编译MongoDB丢过去，让他们看其中的源码编译 Python 那一节，不过那节写的其实不太详细，而且最近被很多人催，所以还是单独写一篇好了。  当前最新的 CentOS 7.3 默认安装的是 Python 2 ，并且默认的官方 yum 源中不提供 Py">
+<meta name="twitter:image" content="http://moelove.qiniudn.com/systemInfo.png">
+  
+    <link rel="alternate" href="/atom.xml" title="MoeLove" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">MoeLove</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">不忘初心</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://moelove.info"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Install-Python3-6-on-CentOS7" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/06/30/Install-Python3-6-on-CentOS7/" class="article-date">
+  <time datetime="2017-06-29T16:13:16.000Z" itemprop="datePublished">2017-06-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Install-Python3.6-on-CentOS7
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>拖了很久没有更新，抱歉啦~ 今天受邀写篇如何在 CentOS 7 上配置 Python 3 环境的文章。往常我都选择直接把我早年写的一篇文章<a href="http://moelove.info/2015/09/13/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91MongoDB/">源码编译MongoDB</a>丢过去，让他们看其中的源码编译 Python 那一节，不过那节写的其实不太详细，而且最近被很多人催，所以还是单独写一篇好了。</p>
+</blockquote>
+<p>当前最新的 CentOS 7.3 默认安装的是 Python 2 ，并且默认的官方 <code>yum</code> 源中不提供 Python 3 的安装包。有些用户想要升级使用 Python 3 但实际可能有各种各样的问题，导致出错，反观一下激进的 Fedora 社区，在23的时候，就将默认的版本修改成了 Python3 （如果我没记错的话）。</p>
+<p>先说下我所使用的系统环境， 一个新创建的 Docker 容器。 使用 <code>cat /etc/redhat-release</code>  可以看到运行的是 CentOS 7.3 版本。 </p>
+<p><img src="http://moelove.qiniudn.com/systemInfo.png" alt="systeminfo"></p>
+<p>在纯净的 CentOS 系统上安装 Python 环境主要有两种办法。 一种是通过源码编译安装，另外一种就是安装已经打好的 RPM 包。依照个人习惯，我们先来看一下如何通过源码编译的方式安装 Python 3.6 并且配置虚拟环境。</p>
+<h1 id="使用源码进行编译安装"><a href="#使用源码进行编译安装" class="headerlink" title="使用源码进行编译安装"></a>使用源码进行编译安装</h1><h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><ul>
+<li>先安装安装几个必须的包，以方便后续的操作</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">➜  yum install wget gcc make</div><div class="line">➜  # wget 用于下载源码包</div><div class="line">➜  # gcc 和 make 用于编译</div></pre></td></tr></table></figure>
+<p><img src="http://moelove.qiniudn.com/install_gcc_wget.png" alt="install_gcc_wget"></p>
+<ul>
+<li>上 <a href="https://www.python.org/" target="_blank" rel="external">Python的官网</a> 下载源码包</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  wget https://www.python.org/ftp/python/3.6.1/Python-3.6.1.tar.xz</div></pre></td></tr></table></figure>
+<ul>
+<li>解包，解压缩</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  xz -d Python-3.6.1.tar.xz</div><div class="line">➜  tar -xvf Python-3.6.1.tar</div></pre></td></tr></table></figure>
+<p><img src="http://moelove.qiniudn.com/decompress_archives.png" alt="decompress_archives"></p>
+<ul>
+<li>编译</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">➜  cd Python-3.6.1</div><div class="line">➜  ./configure --prefix=/usr/local/python3.6 --enable-optimizations</div><div class="line">➜</div></pre></td></tr></table></figure>
+<p>先解释下上面的参数，<code>--prefix</code> 是预期安装目录，<code>--enable-optimizations</code> 是优化选项（LTO，PGO 等）加上这个 flag 编译后，性能有 10% 左右的优化（如果没记错的话），但是这会明显的增加编译时间。不过关于 LTO 和 PGO 其实不在今天文章的讨论范围内，建议感兴趣的可以看看 <a href="https://gcc.gnu.org/onlinedocs/gccint/LTO-Overview.html" target="_blank" rel="external">GCC 中 LTO 的具体实现</a>。我应该不太可能去写相关的文章 哈哈哈 毕竟写起来就会停不下来。</p>
+<p>接下来</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  make</div><div class="line">➜  make install</div></pre></td></tr></table></figure>
+<p><img src="http://moelove.qiniudn.com/make_error.png" alt="make_error"></p>
+<p>如图，会看到出错了，提示 <code>zlib not available</code> 所以，我们需要装一下依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  yum install zlib-devel</div></pre></td></tr></table></figure>
+<p>那为什么需要这个依赖包呢， 其实是因为 Python 有个很重要的内建模块 <code>zipimport</code> 用于从 Zip 压缩包中导入模块。 而如果没有 zlib 的包，那么就无法进行解压缩了，也自然该模块就不能使用了。</p>
+<p>当我们的依赖安装好之后，重新执行上面的编译安装的步骤，发现执行成功。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  /usr/local/python3.6/bin/python3 --version</div><div class="line">Python 3.6.1</div></pre></td></tr></table></figure>
+<p><img src="http://moelove.qiniudn.com/install_success.png" alt="install_success"></p>
+<p>此刻，我们的 Python 3 也就安装成功了。</p>
+<ul>
+<li>检查</li>
+</ul>
+<p>编译安装完还远远不够，我们来做些检查。</p>
+<p>当我们运行 Python 终端，输入 <code>import bz2</code> 的时候，会发现没有这个模块。如果你对这个模块不熟悉，那也没关系。我们输入 <code>import sqlite3</code>熟悉 Python 的同学应该对 sqlite3 不会太陌生，但如果你还是不熟悉的话，那你按方向键试试看。有没有发现，输出变成了<code>^[[D^[[A</code> 类似这样的内容？</p>
+<p><img src="http://moelove.qiniudn.com/arrow_keys_problem.png" alt="arrow_keys_problem"></p>
+<p>熟悉 Python 源码的同学，肯定知道我要说什么了。但是假如你不熟悉，没关系，我来告诉你。正常来讲，在终端下我们预期当输入上方向键，会显示上一条命令，输入左方向键，可以将光标移动到左侧。但现实和我们的预期不同，什么原因？</p>
+<p>这里涉及到了一点点关于输入设备的历史原因，简单来说就是需要有个模块来对用户的输入进行转义。回到本文的重点，就是我们编译安装的时候缺少了 <code>readline</code> 这个模块。既然已经发现了问题，那解决的办法其实很简单</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  yum install readline-devel</div></pre></td></tr></table></figure>
+<p>安装完成后，重复上面的步骤，编译&amp;&amp;安装即可。</p>
+<ul>
+<li>再检查</li>
+</ul>
+<p>前面只是解决了方向键输入的问题，但是我提到的那两个模块还是 import 不进来，那我们仔细的看看我们的编译过程的输出。其中有这样的一段（依据系统环境的不同，输出可能也是不一致的）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Python build finished successfully!</div><div class="line">The necessary bits to build these optional modules were not found:</div><div class="line"></div><div class="line">_curses               bz2                   _dbm</div><div class="line">_gdbm                 _lzma                 _sqlite3</div><div class="line">_tkinter              readline</div><div class="line"></div><div class="line">To find the necessary bits, look in setup.py in detect_modules() for the module&apos;s name.</div></pre></td></tr></table></figure>
+<p><img src="http://moelove.qiniudn.com/some_optional_modules_were_not_found.png" alt="some_optional_modules_were_not_found"></p>
+<p>按照上面的提示，很明显，我们缺少了一些（可选的）模块，这些模块假如你觉得自己不会用到，那也可以不理会它。这些模块，我用到的会多一些，甚至是那个一般人都不会碰的 TK 模块 哈哈哈。解决方式就只是装一下对应的模块即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">➜  # 解决 import bz2 报错</div><div class="line">➜  yum install  bzip2-devel</div><div class="line"></div><div class="line">➜  # 解决 import curses 报错</div><div class="line">➜  yum install  ncurses-devel</div><div class="line"></div><div class="line">➜  # 解决 import sqlite3 报错</div><div class="line">➜  yum install sqlite-devel</div><div class="line"></div><div class="line">➜  # 解决 _dbm _gdbm 缺失提醒</div><div class="line">➜  yum install gdbm-devel</div><div class="line"></div><div class="line">➜  # 解决 _lzma 缺失提醒</div><div class="line">➜  yum install xz-devel</div><div class="line"></div><div class="line">➜  # 解决 _tkinter 缺失提醒</div><div class="line">➜  yum install tk-devel</div><div class="line"></div><div class="line">➜  # 解决 readline 缺失提醒及方向键行为非预期的问题</div><div class="line">➜  yum install readline-devel</div></pre></td></tr></table></figure>
+<p>当这些模块都装完，重新编译会发现提醒已经消失，安装即可。</p>
+<p><img src="http://moelove.qiniudn.com/all_modules_were_found.png" alt="all_modules_were_found"></p>
+<p><img src="http://moelove.qiniudn.com/import_successful.png" alt="import_successful"></p>
+<h1 id="使用-rpm-包进行安装"><a href="#使用-rpm-包进行安装" class="headerlink" title="使用 rpm 包进行安装"></a>使用 rpm 包进行安装</h1><p>先来介绍一下 <a href="https://ius.io/" target="_blank" rel="external">IUS</a> 这个社区，名字的全写是【Inline with Upstream Stable】取首字母，它主要是一个提供新版本RPM包的社区。具体使用可以查看<a href="https://ius.io/GettingStarted/#install-via-automation" target="_blank" rel="external">官方文档</a> 简单说来就只要按下面的命令操作即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  yum -y install https://centos7.iuscommunity.org/ius-release.rpm</div></pre></td></tr></table></figure>
+<p><img src="http://moelove.qiniudn.com/yum_install_ius.png" alt="yum_install_ius"></p>
+<p>添加 IUS 之后，先创建缓存元数据，再进行安装即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">➜  yum makecache</div><div class="line">➜  yum install python36u</div><div class="line">➜  yum -y install python36u-pip</div><div class="line">➜  yum -y install python36u-devel</div></pre></td></tr></table></figure>
+<p><img src="http://moelove.qiniudn.com/yum_install_python36u.png" alt="yum_install_python36u"></p>
+<p>完成后直接终端输入 <code>python3</code> 即可。</p>
+<h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><p>上面只是写了 Python 的安装，如果是使用 RPM 的方式安装的话，那直接是可用的。但如果是源码编译的，总不至于每次都输入一大串路径吧。所以解决方法很简单，加个链接即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ln -s /usr/local/python3.6/bin/python3 /usr/bin/python3</div></pre></td></tr></table></figure>
+<p><img src="http://moelove.qiniudn.com/ln.png" alt="ln"></p>
+<p>另外，当系统中存在多个 Python 版本的时候，尽量去避免环境污染。我个人比较推荐使用 <code>virtualenv</code> 创建独立的虚拟环境，我日常中也是这样用的。不过，当我们安装完 Python 3.6 后，可以直接执行下面的命令进行虚拟环境的创建。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">➜  python3 -m venv py3</div><div class="line">➜  source py3/bin/activate</div><div class="line">(py3) ➜  python -V</div><div class="line">Python 3.6.1</div></pre></td></tr></table></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>CentOS 7 上安装Python 3.6 主要有两种方式，源码编译和安装 RPM 包。</p>
+<p>对于想快速使用源码配置环境但并不想关心具体原因的读者，可以直接使用我GitHub上提供的这个脚本进行安装 <a href="https://raw.githubusercontent.com/tao12345666333/dotfiles/master/env/install_Python36_on_CentOS7.sh" target="_blank" rel="external">https://raw.githubusercontent.com/tao12345666333/dotfiles/master/env/install_Python36_on_CentOS7.sh</a></p>
+<p>另外Python 3.6 可直接使用 <code>python3 -m venv venv_name</code> 创建虚拟环境。</p>
+<hr>
+<p>可以通过下面二维码订阅我的文章公众号【MoeLove】</p>
+<p><img src="http://moelove.qiniudn.com/my_qrcode.jpg" alt="TheMoeLove"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://moelove.info/2017/06/30/Install-Python3-6-on-CentOS7/" data-id="cj4in6qbi0035umcb4cw5878x" class="article-share-link">Share</a>
+      
+        <a href="http://moelove.info/2017/06/30/Install-Python3-6-on-CentOS7/#disqus_thread" class="article-comment-link">留言</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/03/05/理解-Redis-的-RESP-协议/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">理解 Redis 的 RESP 协议</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Life/">Life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BAE/">BAE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blog/">Blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/">Go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LAMP/">LAMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Open-Falcon/">Open-Falcon</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pelican/">Pelican</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Performance/">Performance</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rails/">Rails</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/">Regex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/">Ruby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sbulime-Text/">Sbulime Text</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sublime-Text/">Sublime Text</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tool/">Tool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vim/">Vim</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Webpack/">Webpack</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/grub2/">grub2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pip/">pip</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sqlite/">sqlite</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/upyun/">upyun</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 13.33px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 11.67px;">DevOps</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 16.67px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/Pelican/" style="font-size: 13.33px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 11.67px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sbulime-Text/" style="font-size: 10px;">Sbulime Text</a> <a href="/tags/Sublime-Text/" style="font-size: 10px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 18.33px;">Tool</a> <a href="/tags/Vim/" style="font-size: 15px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/Webpack/" style="font-size: 10px;">Webpack</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">四月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">三月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">十二月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">九月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">八月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">三月 2013</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/06/30/Install-Python3-6-on-CentOS7/">Install-Python3.6-on-CentOS7</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/05/理解-Redis-的-RESP-协议/">理解 Redis 的 RESP 协议</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/01/2016-小回顾/">2016 小回顾</a>
+          </li>
+        
+          <li>
+            <a href="/2016/12/26/关于-webpack-你可能忽略的细节（附源码分析）/">关于 webpack 你可能忽略的细节（附源码分析）</a>
+          </li>
+        
+          <li>
+            <a href="/2016/12/16/composer-使用技巧简述/">Composer 使用技巧简述</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 TaoBeier<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'taobeier';
+  
+  var disqus_url = 'http://moelove.info/2017/06/30/Install-Python3-6-on-CentOS7/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

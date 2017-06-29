@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://moelove.info/"/>
-  <updated>2017-03-05T13:46:50.000Z</updated>
+  <updated>2017-06-29T16:26:17.000Z</updated>
   <id>http://moelove.info/</id>
   
   <author>
@@ -14,6 +14,106 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Install-Python3.6-on-CentOS7</title>
+    <link href="http://moelove.info/2017/06/30/Install-Python3-6-on-CentOS7/"/>
+    <id>http://moelove.info/2017/06/30/Install-Python3-6-on-CentOS7/</id>
+    <published>2017-06-29T16:13:16.000Z</published>
+    <updated>2017-06-29T16:26:17.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>拖了很久没有更新，抱歉啦~ 今天受邀写篇如何在 CentOS 7 上配置 Python 3 环境的文章。往常我都选择直接把我早年写的一篇文章<a href="http://moelove.info/2015/09/13/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91MongoDB/">源码编译MongoDB</a>丢过去，让他们看其中的源码编译 Python 那一节，不过那节写的其实不太详细，而且最近被很多人催，所以还是单独写一篇好了。</p>
+</blockquote>
+<p>当前最新的 CentOS 7.3 默认安装的是 Python 2 ，并且默认的官方 <code>yum</code> 源中不提供 Python 3 的安装包。有些用户想要升级使用 Python 3 但实际可能有各种各样的问题，导致出错，反观一下激进的 Fedora 社区，在23的时候，就将默认的版本修改成了 Python3 （如果我没记错的话）。</p>
+<p>先说下我所使用的系统环境， 一个新创建的 Docker 容器。 使用 <code>cat /etc/redhat-release</code>  可以看到运行的是 CentOS 7.3 版本。 </p>
+<p><img src="http://moelove.qiniudn.com/systemInfo.png" alt="systeminfo"></p>
+<p>在纯净的 CentOS 系统上安装 Python 环境主要有两种办法。 一种是通过源码编译安装，另外一种就是安装已经打好的 RPM 包。依照个人习惯，我们先来看一下如何通过源码编译的方式安装 Python 3.6 并且配置虚拟环境。</p>
+<h1 id="使用源码进行编译安装"><a href="#使用源码进行编译安装" class="headerlink" title="使用源码进行编译安装"></a>使用源码进行编译安装</h1><h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><ul>
+<li>先安装安装几个必须的包，以方便后续的操作</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">➜  yum install wget gcc make</div><div class="line">➜  # wget 用于下载源码包</div><div class="line">➜  # gcc 和 make 用于编译</div></pre></td></tr></table></figure>
+<p><img src="http://moelove.qiniudn.com/install_gcc_wget.png" alt="install_gcc_wget"></p>
+<ul>
+<li>上 <a href="https://www.python.org/" target="_blank" rel="external">Python的官网</a> 下载源码包</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  wget https://www.python.org/ftp/python/3.6.1/Python-3.6.1.tar.xz</div></pre></td></tr></table></figure>
+<ul>
+<li>解包，解压缩</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  xz -d Python-3.6.1.tar.xz</div><div class="line">➜  tar -xvf Python-3.6.1.tar</div></pre></td></tr></table></figure>
+<p><img src="http://moelove.qiniudn.com/decompress_archives.png" alt="decompress_archives"></p>
+<ul>
+<li>编译</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">➜  cd Python-3.6.1</div><div class="line">➜  ./configure --prefix=/usr/local/python3.6 --enable-optimizations</div><div class="line">➜</div></pre></td></tr></table></figure>
+<p>先解释下上面的参数，<code>--prefix</code> 是预期安装目录，<code>--enable-optimizations</code> 是优化选项（LTO，PGO 等）加上这个 flag 编译后，性能有 10% 左右的优化（如果没记错的话），但是这会明显的增加编译时间。不过关于 LTO 和 PGO 其实不在今天文章的讨论范围内，建议感兴趣的可以看看 <a href="https://gcc.gnu.org/onlinedocs/gccint/LTO-Overview.html" target="_blank" rel="external">GCC 中 LTO 的具体实现</a>。我应该不太可能去写相关的文章 哈哈哈 毕竟写起来就会停不下来。</p>
+<p>接下来</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  make</div><div class="line">➜  make install</div></pre></td></tr></table></figure>
+<p><img src="http://moelove.qiniudn.com/make_error.png" alt="make_error"></p>
+<p>如图，会看到出错了，提示 <code>zlib not available</code> 所以，我们需要装一下依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  yum install zlib-devel</div></pre></td></tr></table></figure>
+<p>那为什么需要这个依赖包呢， 其实是因为 Python 有个很重要的内建模块 <code>zipimport</code> 用于从 Zip 压缩包中导入模块。 而如果没有 zlib 的包，那么就无法进行解压缩了，也自然该模块就不能使用了。</p>
+<p>当我们的依赖安装好之后，重新执行上面的编译安装的步骤，发现执行成功。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">➜  /usr/local/python3.6/bin/python3 --version</div><div class="line">Python 3.6.1</div></pre></td></tr></table></figure>
+<p><img src="http://moelove.qiniudn.com/install_success.png" alt="install_success"></p>
+<p>此刻，我们的 Python 3 也就安装成功了。</p>
+<ul>
+<li>检查</li>
+</ul>
+<p>编译安装完还远远不够，我们来做些检查。</p>
+<p>当我们运行 Python 终端，输入 <code>import bz2</code> 的时候，会发现没有这个模块。如果你对这个模块不熟悉，那也没关系。我们输入 <code>import sqlite3</code>熟悉 Python 的同学应该对 sqlite3 不会太陌生，但如果你还是不熟悉的话，那你按方向键试试看。有没有发现，输出变成了<code>^[[D^[[A</code> 类似这样的内容？</p>
+<p><img src="http://moelove.qiniudn.com/arrow_keys_problem.png" alt="arrow_keys_problem"></p>
+<p>熟悉 Python 源码的同学，肯定知道我要说什么了。但是假如你不熟悉，没关系，我来告诉你。正常来讲，在终端下我们预期当输入上方向键，会显示上一条命令，输入左方向键，可以将光标移动到左侧。但现实和我们的预期不同，什么原因？</p>
+<p>这里涉及到了一点点关于输入设备的历史原因，简单来说就是需要有个模块来对用户的输入进行转义。回到本文的重点，就是我们编译安装的时候缺少了 <code>readline</code> 这个模块。既然已经发现了问题，那解决的办法其实很简单</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  yum install readline-devel</div></pre></td></tr></table></figure>
+<p>安装完成后，重复上面的步骤，编译&amp;&amp;安装即可。</p>
+<ul>
+<li>再检查</li>
+</ul>
+<p>前面只是解决了方向键输入的问题，但是我提到的那两个模块还是 import 不进来，那我们仔细的看看我们的编译过程的输出。其中有这样的一段（依据系统环境的不同，输出可能也是不一致的）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Python build finished successfully!</div><div class="line">The necessary bits to build these optional modules were not found:</div><div class="line"></div><div class="line">_curses               bz2                   _dbm</div><div class="line">_gdbm                 _lzma                 _sqlite3</div><div class="line">_tkinter              readline</div><div class="line"></div><div class="line">To find the necessary bits, look in setup.py in detect_modules() for the module&apos;s name.</div></pre></td></tr></table></figure>
+<p><img src="http://moelove.qiniudn.com/some_optional_modules_were_not_found.png" alt="some_optional_modules_were_not_found"></p>
+<p>按照上面的提示，很明显，我们缺少了一些（可选的）模块，这些模块假如你觉得自己不会用到，那也可以不理会它。这些模块，我用到的会多一些，甚至是那个一般人都不会碰的 TK 模块 哈哈哈。解决方式就只是装一下对应的模块即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">➜  # 解决 import bz2 报错</div><div class="line">➜  yum install  bzip2-devel</div><div class="line"></div><div class="line">➜  # 解决 import curses 报错</div><div class="line">➜  yum install  ncurses-devel</div><div class="line"></div><div class="line">➜  # 解决 import sqlite3 报错</div><div class="line">➜  yum install sqlite-devel</div><div class="line"></div><div class="line">➜  # 解决 _dbm _gdbm 缺失提醒</div><div class="line">➜  yum install gdbm-devel</div><div class="line"></div><div class="line">➜  # 解决 _lzma 缺失提醒</div><div class="line">➜  yum install xz-devel</div><div class="line"></div><div class="line">➜  # 解决 _tkinter 缺失提醒</div><div class="line">➜  yum install tk-devel</div><div class="line"></div><div class="line">➜  # 解决 readline 缺失提醒及方向键行为非预期的问题</div><div class="line">➜  yum install readline-devel</div></pre></td></tr></table></figure>
+<p>当这些模块都装完，重新编译会发现提醒已经消失，安装即可。</p>
+<p><img src="http://moelove.qiniudn.com/all_modules_were_found.png" alt="all_modules_were_found"></p>
+<p><img src="http://moelove.qiniudn.com/import_successful.png" alt="import_successful"></p>
+<h1 id="使用-rpm-包进行安装"><a href="#使用-rpm-包进行安装" class="headerlink" title="使用 rpm 包进行安装"></a>使用 rpm 包进行安装</h1><p>先来介绍一下 <a href="https://ius.io/" target="_blank" rel="external">IUS</a> 这个社区，名字的全写是【Inline with Upstream Stable】取首字母，它主要是一个提供新版本RPM包的社区。具体使用可以查看<a href="https://ius.io/GettingStarted/#install-via-automation" target="_blank" rel="external">官方文档</a> 简单说来就只要按下面的命令操作即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  yum -y install https://centos7.iuscommunity.org/ius-release.rpm</div></pre></td></tr></table></figure>
+<p><img src="http://moelove.qiniudn.com/yum_install_ius.png" alt="yum_install_ius"></p>
+<p>添加 IUS 之后，先创建缓存元数据，再进行安装即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">➜  yum makecache</div><div class="line">➜  yum install python36u</div><div class="line">➜  yum -y install python36u-pip</div><div class="line">➜  yum -y install python36u-devel</div></pre></td></tr></table></figure>
+<p><img src="http://moelove.qiniudn.com/yum_install_python36u.png" alt="yum_install_python36u"></p>
+<p>完成后直接终端输入 <code>python3</code> 即可。</p>
+<h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><p>上面只是写了 Python 的安装，如果是使用 RPM 的方式安装的话，那直接是可用的。但如果是源码编译的，总不至于每次都输入一大串路径吧。所以解决方法很简单，加个链接即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">➜  ln -s /usr/local/python3.6/bin/python3 /usr/bin/python3</div></pre></td></tr></table></figure>
+<p><img src="http://moelove.qiniudn.com/ln.png" alt="ln"></p>
+<p>另外，当系统中存在多个 Python 版本的时候，尽量去避免环境污染。我个人比较推荐使用 <code>virtualenv</code> 创建独立的虚拟环境，我日常中也是这样用的。不过，当我们安装完 Python 3.6 后，可以直接执行下面的命令进行虚拟环境的创建。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">➜  python3 -m venv py3</div><div class="line">➜  source py3/bin/activate</div><div class="line">(py3) ➜  python -V</div><div class="line">Python 3.6.1</div></pre></td></tr></table></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>CentOS 7 上安装Python 3.6 主要有两种方式，源码编译和安装 RPM 包。</p>
+<p>对于想快速使用源码配置环境但并不想关心具体原因的读者，可以直接使用我GitHub上提供的这个脚本进行安装 <a href="https://raw.githubusercontent.com/tao12345666333/dotfiles/master/env/install_Python36_on_CentOS7.sh" target="_blank" rel="external">https://raw.githubusercontent.com/tao12345666333/dotfiles/master/env/install_Python36_on_CentOS7.sh</a></p>
+<p>另外Python 3.6 可直接使用 <code>python3 -m venv venv_name</code> 创建虚拟环境。</p>
+<hr>
+<p>可以通过下面二维码订阅我的文章公众号【MoeLove】</p>
+<p><img src="http://moelove.qiniudn.com/my_qrcode.jpg" alt="TheMoeLove"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;拖了很久没有更新，抱歉啦~ 今天受邀写篇如何在 CentOS 7 上配置 Python 3 环境的文章。往常我都选择直接把我早年写的一篇文章&lt;a href=&quot;http://moelove.info/2015/09/13/%E6%BA%90%E7%A
+    
+    </summary>
+    
+      <category term="Python" scheme="http://moelove.info/categories/Python/"/>
+    
+    
+      <category term="Linux" scheme="http://moelove.info/tags/Linux/"/>
+    
+      <category term="Python" scheme="http://moelove.info/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title>理解 Redis 的 RESP 协议</title>
@@ -1412,42 +1512,6 @@
     
     
       <category term="Life" scheme="http://moelove.info/tags/Life/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>正则匹配中文及字符编码问题</title>
-    <link href="http://moelove.info/2014/07/22/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%AD%E6%96%87%E5%8F%8A%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/"/>
-    <id>http://moelove.info/2014/07/22/正则匹配中文及字符编码问题/</id>
-    <published>2014-07-22T13:16:34.000Z</published>
-    <updated>2016-04-03T16:04:59.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="匹配中文的正则表达式"><a href="#匹配中文的正则表达式" class="headerlink" title="匹配中文的正则表达式"></a>匹配中文的正则表达式</h2><p>窝写了一小段<a href="http://moelove.qiniudn.com/regex-match-Chinese.py" target="_blank" rel="external">代码</a>（虽然写的不太好，但是基本可以表达意思）</p>
-<!--<script src="https://gist.github.com/tao12345666333/13edb463b04da758dade.js"></script>-->
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">import re</div><div class="line"></div><div class="line">nickname = raw_input(&apos;Please input your nickname &gt; &apos;)</div><div class="line"></div><div class="line">if not re.search(u&apos;^[\u4e00-\u9fa5a-zA-Z0-9]+$&apos;, unicode(nickname,&apos;utf8&apos;)):</div><div class="line">    print &apos;Your nickname format is error, please try again !&apos;</div><div class="line">else:</div><div class="line">    print &apos;Hello %s&apos;% nickname</div></pre></td></tr></table></figure>
-<p>如你所见，上面第5行的代码，就是匹配中文和字母，数字的正则表达式了。里面的<code>\u4e00-\u9fa5</code> 就是中文汉字的<code>unicode</code>编码所在位置。</p>
-<p><img src="http://moelove.qiniudn.com/2014-07-23%2023:21.png" alt="运行截图"></p>
-<hr>
-<h2 id="Python字符串的编码问题"><a href="#Python字符串的编码问题" class="headerlink" title="Python字符串的编码问题"></a>Python字符串的编码问题</h2><p>还是以上面那段代码来说。注意看第5行的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">if not re.search(u&apos;^[\u4e00-\u9fa5a-zA-Z0-9]+$&apos;, unicode(nickname,&apos;utf8&apos;)):</div></pre></td></tr></table></figure></p>
-<p>其实这样的代码并不严谨。因为在Python 中默认是用<code>unicode</code>编码来处理字符串的，因此做编码转换的时候，一般要以<code>unicode</code>作为中间编码，也就是说：<br>其他编码格式的字符串—&gt;解码(decode)—&gt;<code>unicode</code>—&gt;编码(encode)—&gt;所需要的编码格式。</p>
-<p>因此，处理字符串编码的问题的时候，先要明白需要转换的字符串的编码格式是什么。</p>
-<h3 id="代码中字符串的默认编码格式与代码文件本身的编码格式是一样的"><a href="#代码中字符串的默认编码格式与代码文件本身的编码格式是一样的" class="headerlink" title="代码中字符串的默认编码格式与代码文件本身的编码格式是一样的"></a>代码中字符串的默认编码格式与代码文件本身的编码格式是一样的</h3><p>比如： s = ‘涛’ 在utf8的文件中，那么s就是utf8编码的，但是如果文件是gb2312编码，那么s就是gb2312编码的。此时，如果想要处理s这个字符串就要先decode成unicode编码了。</p>
-<p>不过如果是酱紫 s = u’涛’，那么s就是unicode编码了，这个时候s的编码方式不会被文件的编码所影响。</p>
-<h3 id="如果一个字符串已经是unicode编码了，再解码就会出错"><a href="#如果一个字符串已经是unicode编码了，再解码就会出错" class="headerlink" title="如果一个字符串已经是unicode编码了，再解码就会出错"></a>如果一个字符串已经是unicode编码了，再解码就会出错</h3><p>因此严谨的方式就是先对字符串进行编码格式的判别，最简单的办法就是使用Python 默认提供的<code>isinstance()</code> 方法.</p>
-<p>代码可以这样写<br><code>isinstance(s, unicode)</code> 如果不是unicode编码就会报错。</p>
-<p>窝今天在处理用户昵称的地方，忘记字符串会直接使用文件的编码了，所以对它进行了重新编码orz果断就报错了。。。以后还是要好好注意细节的说。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;匹配中文的正则表达式&quot;&gt;&lt;a href=&quot;#匹配中文的正则表达式&quot; class=&quot;headerlink&quot; title=&quot;匹配中文的正则表达式&quot;&gt;&lt;/a&gt;匹配中文的正则表达式&lt;/h2&gt;&lt;p&gt;窝写了一小段&lt;a href=&quot;http://moelove.qiniudn.
-    
-    </summary>
-    
-      <category term="Python" scheme="http://moelove.info/categories/Python/"/>
-    
-    
-      <category term="Regex" scheme="http://moelove.info/tags/Regex/"/>
     
   </entry>
   
