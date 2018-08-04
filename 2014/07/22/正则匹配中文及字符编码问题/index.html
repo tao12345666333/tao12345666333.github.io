@@ -1,294 +1,392 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-cn">
 <head>
   <meta charset="utf-8">
-  
-  <title>正则匹配中文及字符编码问题 | MoeLove</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="匹配中文的正则表达式窝写了一小段代码（虽然写的不太好，但是基本可以表达意思）  12345678import renickname = raw_input(&amp;apos;Please input your nickname &amp;gt; &amp;apos;)if not re.search(u&amp;apos;^[\u4e00-\u9fa5a-zA-Z0-9]+$&amp;apos;, unicode(nickname,&amp;">
-<meta name="keywords" content="Regex">
-<meta property="og:type" content="article">
-<meta property="og:title" content="正则匹配中文及字符编码问题">
-<meta property="og:url" content="http://moelove.info/2014/07/22/正则匹配中文及字符编码问题/index.html">
-<meta property="og:site_name" content="MoeLove">
-<meta property="og:description" content="匹配中文的正则表达式窝写了一小段代码（虽然写的不太好，但是基本可以表达意思）  12345678import renickname = raw_input(&amp;apos;Please input your nickname &amp;gt; &amp;apos;)if not re.search(u&amp;apos;^[\u4e00-\u9fa5a-zA-Z0-9]+$&amp;apos;, unicode(nickname,&amp;">
-<meta property="og:image" content="http://moelove.qiniudn.com/2014-07-23%2023:21.png">
-<meta property="og:updated_time" content="2016-04-03T16:04:59.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="正则匹配中文及字符编码问题">
-<meta name="twitter:description" content="匹配中文的正则表达式窝写了一小段代码（虽然写的不太好，但是基本可以表达意思）  12345678import renickname = raw_input(&amp;apos;Please input your nickname &amp;gt; &amp;apos;)if not re.search(u&amp;apos;^[\u4e00-\u9fa5a-zA-Z0-9]+$&amp;apos;, unicode(nickname,&amp;">
-<meta name="twitter:image" content="http://moelove.qiniudn.com/2014-07-23%2023:21.png">
-<meta name="twitter:creator" content="@BeierTao">
-<link rel="publisher" href="111099802544541897352">
-  
-    <link rel="alternate" href="/atom.xml" title="MoeLove" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  
-<!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>正则匹配中文及字符编码问题 - MoeLove</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-ga('create', 'UA-50163692-1', 'auto');
-ga('send', 'pageview');
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
-</script>
-<!-- End Google Analytics -->
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
+
+<meta name="author" content="TaoBeier" />
+  <meta name="description" content="匹配中文的正则表达式 窝写了一小段代码（虽然写的不太好，但是基本可以表达意思）
+-- import re nickname = raw_input(&#39;Please input your nickname &amp;gt; &#39;) if not re.search(u&#39;^[\u4e00-\u9fa5a-zA-Z0-9]&#43;$&#39;, unicode(nickname,&#39;utf8&#39;)): print &#39;Your nickname format is error, please try again !&#39; else: print &#39;Hello %s&#39;% nickname  如你所见，上面第5行的代码，就是匹配中文和字母，数字的正则表达式了。里面的\u4e00-\u9fa5 就是中文汉字的unicode编码所在位置。
+Python字符串的编码问题 还是以上面那段代码来说。注意看第5行的代码
+if not re.search(u&#39;^[\u4e00-\u9fa5a-zA-Z0-9]&#43;$&#39;, unicode(nickname,&#39;utf8&#39;)):  其实这样的代码并不严谨。因为在Python 中默认是用unicode编码来处理字符串的，因此做编码转换的时候，一般要以unicode作为中间编码，也就是说： 其他编码格式的字符串&amp;mdash;&amp;gt;解码(decode)&amp;mdash;&amp;gt;unicode&amp;mdash;&amp;gt;编码(encode)&amp;mdash;&amp;gt;所需要的编码格式。
+因此，处理字符串编码的问题的时候，先要明白需要转换的字符串的编码格式是什么。
+代码中字符串的默认编码格式与代码文件本身的编码格式是一样的 比如： s = &amp;lsquo;涛&amp;rsquo; 在utf8的文件中，那么s就是utf8编码的，但是如果文件是gb2312编码，那么s就是gb2312编码的。此时，如果想要处理s这个字符串就要先decode成unicode编码了。
+不过如果是酱紫 s = u&amp;rsquo;涛&amp;rsquo;，那么s就是unicode编码了，这个时候s的编码方式不会被文件的编码所影响。
+如果一个字符串已经是unicode编码了，再解码就会出错 因此严谨的方式就是先对字符串进行编码格式的判别，最简单的办法就是使用Python 默认提供的isinstance() 方法.
+代码可以这样写 isinstance(s, unicode) 如果不是unicode编码就会报错。
+窝今天在处理用户昵称的地方，忘记字符串会直接使用文件的编码了，所以对它进行了重新编码orz果断就报错了。。。以后还是要好好注意细节的说。" />
+
+  <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes" />
+
+
+<meta name="baidu-site-verification" content="jO2rMlnjJi" />
+<meta name="google-site-verification" content="googlefe3fc086c62f7210.html" />
+
+
+<meta name="generator" content="Hugo 0.46" />
+
+
+<link rel="canonical" href="http://moelove.info/2014/07/22/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%AD%E6%96%87%E5%8F%8A%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="正则匹配中文及字符编码问题" />
+<meta property="og:description" content="匹配中文的正则表达式 窝写了一小段代码（虽然写的不太好，但是基本可以表达意思）
+-- import re nickname = raw_input(&#39;Please input your nickname &gt; &#39;) if not re.search(u&#39;^[\u4e00-\u9fa5a-zA-Z0-9]&#43;$&#39;, unicode(nickname,&#39;utf8&#39;)): print &#39;Your nickname format is error, please try again !&#39; else: print &#39;Hello %s&#39;% nickname  如你所见，上面第5行的代码，就是匹配中文和字母，数字的正则表达式了。里面的\u4e00-\u9fa5 就是中文汉字的unicode编码所在位置。
+Python字符串的编码问题 还是以上面那段代码来说。注意看第5行的代码
+if not re.search(u&#39;^[\u4e00-\u9fa5a-zA-Z0-9]&#43;$&#39;, unicode(nickname,&#39;utf8&#39;)):  其实这样的代码并不严谨。因为在Python 中默认是用unicode编码来处理字符串的，因此做编码转换的时候，一般要以unicode作为中间编码，也就是说： 其他编码格式的字符串&mdash;&gt;解码(decode)&mdash;&gt;unicode&mdash;&gt;编码(encode)&mdash;&gt;所需要的编码格式。
+因此，处理字符串编码的问题的时候，先要明白需要转换的字符串的编码格式是什么。
+代码中字符串的默认编码格式与代码文件本身的编码格式是一样的 比如： s = &lsquo;涛&rsquo; 在utf8的文件中，那么s就是utf8编码的，但是如果文件是gb2312编码，那么s就是gb2312编码的。此时，如果想要处理s这个字符串就要先decode成unicode编码了。
+不过如果是酱紫 s = u&rsquo;涛&rsquo;，那么s就是unicode编码了，这个时候s的编码方式不会被文件的编码所影响。
+如果一个字符串已经是unicode编码了，再解码就会出错 因此严谨的方式就是先对字符串进行编码格式的判别，最简单的办法就是使用Python 默认提供的isinstance() 方法.
+代码可以这样写 isinstance(s, unicode) 如果不是unicode编码就会报错。
+窝今天在处理用户昵称的地方，忘记字符串会直接使用文件的编码了，所以对它进行了重新编码orz果断就报错了。。。以后还是要好好注意细节的说。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://moelove.info/2014/07/22/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%AD%E6%96%87%E5%8F%8A%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/" />
+
+
+
+<meta property="article:published_time" content="2014-07-22T21:16:34&#43;00:00"/>
+
+<meta property="article:modified_time" content="2014-07-22T21:16:34&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="正则匹配中文及字符编码问题">
+<meta itemprop="description" content="匹配中文的正则表达式 窝写了一小段代码（虽然写的不太好，但是基本可以表达意思）
+-- import re nickname = raw_input(&#39;Please input your nickname &gt; &#39;) if not re.search(u&#39;^[\u4e00-\u9fa5a-zA-Z0-9]&#43;$&#39;, unicode(nickname,&#39;utf8&#39;)): print &#39;Your nickname format is error, please try again !&#39; else: print &#39;Hello %s&#39;% nickname  如你所见，上面第5行的代码，就是匹配中文和字母，数字的正则表达式了。里面的\u4e00-\u9fa5 就是中文汉字的unicode编码所在位置。
+Python字符串的编码问题 还是以上面那段代码来说。注意看第5行的代码
+if not re.search(u&#39;^[\u4e00-\u9fa5a-zA-Z0-9]&#43;$&#39;, unicode(nickname,&#39;utf8&#39;)):  其实这样的代码并不严谨。因为在Python 中默认是用unicode编码来处理字符串的，因此做编码转换的时候，一般要以unicode作为中间编码，也就是说： 其他编码格式的字符串&mdash;&gt;解码(decode)&mdash;&gt;unicode&mdash;&gt;编码(encode)&mdash;&gt;所需要的编码格式。
+因此，处理字符串编码的问题的时候，先要明白需要转换的字符串的编码格式是什么。
+代码中字符串的默认编码格式与代码文件本身的编码格式是一样的 比如： s = &lsquo;涛&rsquo; 在utf8的文件中，那么s就是utf8编码的，但是如果文件是gb2312编码，那么s就是gb2312编码的。此时，如果想要处理s这个字符串就要先decode成unicode编码了。
+不过如果是酱紫 s = u&rsquo;涛&rsquo;，那么s就是unicode编码了，这个时候s的编码方式不会被文件的编码所影响。
+如果一个字符串已经是unicode编码了，再解码就会出错 因此严谨的方式就是先对字符串进行编码格式的判别，最简单的办法就是使用Python 默认提供的isinstance() 方法.
+代码可以这样写 isinstance(s, unicode) 如果不是unicode编码就会报错。
+窝今天在处理用户昵称的地方，忘记字符串会直接使用文件的编码了，所以对它进行了重新编码orz果断就报错了。。。以后还是要好好注意细节的说。">
+
+
+<meta itemprop="datePublished" content="2014-07-22T21:16:34&#43;00:00" />
+<meta itemprop="dateModified" content="2014-07-22T21:16:34&#43;00:00" />
+<meta itemprop="wordCount" content="63">
+
+
+
+<meta itemprop="keywords" content="Regex," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="正则匹配中文及字符编码问题"/>
+<meta name="twitter:description" content="匹配中文的正则表达式 窝写了一小段代码（虽然写的不太好，但是基本可以表达意思）
+-- import re nickname = raw_input(&#39;Please input your nickname &gt; &#39;) if not re.search(u&#39;^[\u4e00-\u9fa5a-zA-Z0-9]&#43;$&#39;, unicode(nickname,&#39;utf8&#39;)): print &#39;Your nickname format is error, please try again !&#39; else: print &#39;Hello %s&#39;% nickname  如你所见，上面第5行的代码，就是匹配中文和字母，数字的正则表达式了。里面的\u4e00-\u9fa5 就是中文汉字的unicode编码所在位置。
+Python字符串的编码问题 还是以上面那段代码来说。注意看第5行的代码
+if not re.search(u&#39;^[\u4e00-\u9fa5a-zA-Z0-9]&#43;$&#39;, unicode(nickname,&#39;utf8&#39;)):  其实这样的代码并不严谨。因为在Python 中默认是用unicode编码来处理字符串的，因此做编码转换的时候，一般要以unicode作为中间编码，也就是说： 其他编码格式的字符串&mdash;&gt;解码(decode)&mdash;&gt;unicode&mdash;&gt;编码(encode)&mdash;&gt;所需要的编码格式。
+因此，处理字符串编码的问题的时候，先要明白需要转换的字符串的编码格式是什么。
+代码中字符串的默认编码格式与代码文件本身的编码格式是一样的 比如： s = &lsquo;涛&rsquo; 在utf8的文件中，那么s就是utf8编码的，但是如果文件是gb2312编码，那么s就是gb2312编码的。此时，如果想要处理s这个字符串就要先decode成unicode编码了。
+不过如果是酱紫 s = u&rsquo;涛&rsquo;，那么s就是unicode编码了，这个时候s的编码方式不会被文件的编码所影响。
+如果一个字符串已经是unicode编码了，再解码就会出错 因此严谨的方式就是先对字符串进行编码格式的判别，最简单的办法就是使用Python 默认提供的isinstance() 方法.
+代码可以这样写 isinstance(s, unicode) 如果不是unicode编码就会报错。
+窝今天在处理用户昵称的地方，忘记字符串会直接使用文件的编码了，所以对它进行了重新编码orz果断就报错了。。。以后还是要好好注意细节的说。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
 
 </head>
-
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">MoeLove</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">不忘初心</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">MoeLove</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/friends/">
+        <li class="mobile-menu-item">Friends</li>
+      </a><a href="/projects/">
+        <li class="mobile-menu-item">Projects</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">MoeLove</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/friends/">Friends</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/projects/">Projects</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">正则匹配中文及字符编码问题</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2014-07-22 </span>
+        <div class="post-category">
+            
+              <a href="/categories/Python/"> Python </a>
+            
+          </div>
         
-          <a class="main-nav-link" href="/">Home</a>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-          <a class="main-nav-link" href="/projects">Projects</a>
-        
-          <a class="main-nav-link" href="/about">About</a>
-        
-          <a class="main-nav-link" href="/friends">Friends</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://moelove.info"></form>
       </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-正则匹配中文及字符编码问题" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/07/22/正则匹配中文及字符编码问题/" class="article-date">
-  <time datetime="2014-07-22T13:16:34.000Z" itemprop="datePublished">2014-07-22</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Python/">Python</a>
-  </div>
+    </header>
 
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#匹配中文的正则表达式">匹配中文的正则表达式</a></li>
+<li><a href="#python字符串的编码问题">Python字符串的编码问题</a>
+<ul>
+<li><a href="#代码中字符串的默认编码格式与代码文件本身的编码格式是一样的">代码中字符串的默认编码格式与代码文件本身的编码格式是一样的</a></li>
+<li><a href="#如果一个字符串已经是unicode编码了-再解码就会出错">如果一个字符串已经是unicode编码了，再解码就会出错</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
   </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      正则匹配中文及字符编码问题
-    </h1>
-  
+</div>
 
-      </header>
     
-    <div class="article-entry" itemprop="articleBody">
+    
+
+    
+    <div class="post-content">
       
-        <h2 id="匹配中文的正则表达式"><a href="#匹配中文的正则表达式" class="headerlink" title="匹配中文的正则表达式"></a>匹配中文的正则表达式</h2><p>窝写了一小段<a href="http://moelove.qiniudn.com/regex-match-Chinese.py" target="_blank" rel="external">代码</a>（虽然写的不太好，但是基本可以表达意思）</p>
+
+<h2 id="匹配中文的正则表达式">匹配中文的正则表达式</h2>
+
+<p>窝写了一小段<a href="http://moelove.qiniudn.com/regex-match-Chinese.py">代码</a>（虽然写的不太好，但是基本可以表达意思）</p>
+
 <!--<script src="https://gist.github.com/tao12345666333/13edb463b04da758dade.js"></script>-->
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">import re</div><div class="line"></div><div class="line">nickname = raw_input(&apos;Please input your nickname &gt; &apos;)</div><div class="line"></div><div class="line">if not re.search(u&apos;^[\u4e00-\u9fa5a-zA-Z0-9]+$&apos;, unicode(nickname,&apos;utf8&apos;)):</div><div class="line">    print &apos;Your nickname format is error, please try again !&apos;</div><div class="line">else:</div><div class="line">    print &apos;Hello %s&apos;% nickname</div></pre></td></tr></table></figure>
+
+<pre><code>import re
+
+nickname = raw_input('Please input your nickname &gt; ')
+
+if not re.search(u'^[\u4e00-\u9fa5a-zA-Z0-9]+$', unicode(nickname,'utf8')):
+    print 'Your nickname format is error, please try again !'
+else:
+    print 'Hello %s'% nickname
+
+</code></pre>
+
 <p>如你所见，上面第5行的代码，就是匹配中文和字母，数字的正则表达式了。里面的<code>\u4e00-\u9fa5</code> 就是中文汉字的<code>unicode</code>编码所在位置。</p>
-<p><img src="http://moelove.qiniudn.com/2014-07-23%2023:21.png" alt="运行截图"></p>
-<hr>
-<h2 id="Python字符串的编码问题"><a href="#Python字符串的编码问题" class="headerlink" title="Python字符串的编码问题"></a>Python字符串的编码问题</h2><p>还是以上面那段代码来说。注意看第5行的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">if not re.search(u&apos;^[\u4e00-\u9fa5a-zA-Z0-9]+$&apos;, unicode(nickname,&apos;utf8&apos;)):</div></pre></td></tr></table></figure></p>
-<p>其实这样的代码并不严谨。因为在Python 中默认是用<code>unicode</code>编码来处理字符串的，因此做编码转换的时候，一般要以<code>unicode</code>作为中间编码，也就是说：<br>其他编码格式的字符串—&gt;解码(decode)—&gt;<code>unicode</code>—&gt;编码(encode)—&gt;所需要的编码格式。</p>
+
+<p><img src="http://moelove.qiniudn.com/2014-07-23%2023:21.png" alt="运行截图" /></p>
+
+<hr />
+
+<h2 id="python字符串的编码问题">Python字符串的编码问题</h2>
+
+<p>还是以上面那段代码来说。注意看第5行的代码</p>
+
+<pre><code>if not re.search(u'^[\u4e00-\u9fa5a-zA-Z0-9]+$', unicode(nickname,'utf8')):
+</code></pre>
+
+<p>其实这样的代码并不严谨。因为在Python 中默认是用<code>unicode</code>编码来处理字符串的，因此做编码转换的时候，一般要以<code>unicode</code>作为中间编码，也就是说：
+其他编码格式的字符串&mdash;&gt;解码(decode)&mdash;&gt;<code>unicode</code>&mdash;&gt;编码(encode)&mdash;&gt;所需要的编码格式。</p>
+
 <p>因此，处理字符串编码的问题的时候，先要明白需要转换的字符串的编码格式是什么。</p>
-<h3 id="代码中字符串的默认编码格式与代码文件本身的编码格式是一样的"><a href="#代码中字符串的默认编码格式与代码文件本身的编码格式是一样的" class="headerlink" title="代码中字符串的默认编码格式与代码文件本身的编码格式是一样的"></a>代码中字符串的默认编码格式与代码文件本身的编码格式是一样的</h3><p>比如： s = ‘涛’ 在utf8的文件中，那么s就是utf8编码的，但是如果文件是gb2312编码，那么s就是gb2312编码的。此时，如果想要处理s这个字符串就要先decode成unicode编码了。</p>
-<p>不过如果是酱紫 s = u’涛’，那么s就是unicode编码了，这个时候s的编码方式不会被文件的编码所影响。</p>
-<h3 id="如果一个字符串已经是unicode编码了，再解码就会出错"><a href="#如果一个字符串已经是unicode编码了，再解码就会出错" class="headerlink" title="如果一个字符串已经是unicode编码了，再解码就会出错"></a>如果一个字符串已经是unicode编码了，再解码就会出错</h3><p>因此严谨的方式就是先对字符串进行编码格式的判别，最简单的办法就是使用Python 默认提供的<code>isinstance()</code> 方法.</p>
-<p>代码可以这样写<br><code>isinstance(s, unicode)</code> 如果不是unicode编码就会报错。</p>
+
+<h3 id="代码中字符串的默认编码格式与代码文件本身的编码格式是一样的">代码中字符串的默认编码格式与代码文件本身的编码格式是一样的</h3>
+
+<p>比如： s = &lsquo;涛&rsquo; 在utf8的文件中，那么s就是utf8编码的，但是如果文件是gb2312编码，那么s就是gb2312编码的。此时，如果想要处理s这个字符串就要先decode成unicode编码了。</p>
+
+<p>不过如果是酱紫 s = u&rsquo;涛&rsquo;，那么s就是unicode编码了，这个时候s的编码方式不会被文件的编码所影响。</p>
+
+<h3 id="如果一个字符串已经是unicode编码了-再解码就会出错">如果一个字符串已经是unicode编码了，再解码就会出错</h3>
+
+<p>因此严谨的方式就是先对字符串进行编码格式的判别，最简单的办法就是使用Python 默认提供的<code>isinstance()</code> 方法.</p>
+
+<p>代码可以这样写
+<code>isinstance(s, unicode)</code> 如果不是unicode编码就会报错。</p>
+
 <p>窝今天在处理用户昵称的地方，忘记字符串会直接使用文件的编码了，所以对它进行了重新编码orz果断就报错了。。。以后还是要好好注意细节的说。</p>
 
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://moelove.info/2014/07/22/正则匹配中文及字符编码问题/" data-id="cj4kv43d2001da4cb7fqc8kmu" class="article-share-link">Share</a>
-      
-        <a href="http://moelove.info/2014/07/22/正则匹配中文及字符编码问题/#disqus_thread" class="article-comment-link">留言</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Regex/">Regex</a></li></ul>
 
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">TaoBeier</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2014-07-22</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/Regex/">Regex</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/2014/10/16/%E8%BF%91%E5%86%B5/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">近况</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="/2014/07/17/Bash-%E6%98%BE%E7%A4%BA-Git-%E5%88%86%E6%94%AF/">
+            <span class="next-text nav-default">Bash 显示 Git 分支</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
     </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2014/10/16/近况/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
+  </article>
+        </div>
         
-          近况
-        
+  
+
+  
+
       </div>
-    </a>
-  
-  
-    <a href="/2014/07/17/Bash-显示git分支/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Bash 显示 Git 分支</div>
-    </a>
-  
-</nav>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhangjintao9020@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://plus.google.com/111099802544541897352" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/tao12345666333" class="iconfont icon-github" title="github"></a>
+      <a href="http://weibo.com/9020taobeier" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/TaoBeier" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="http://moelove.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
 
   
-</article>
 
-
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-</section>
-        
-          <aside id="sidebar">
-  
+  <span class="copyright-year">
+    &copy; 
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2017/06/30/Install-Python3-6-on-CentOS7/">Install-Python3.6-on-CentOS7</a>
-          </li>
-        
-          <li>
-            <a href="/2017/03/05/理解-Redis-的-RESP-协议/">理解 Redis 的 RESP 协议</a>
-          </li>
-        
-          <li>
-            <a href="/2017/01/01/2016-小回顾/">2016 小回顾</a>
-          </li>
-        
-          <li>
-            <a href="/2016/12/26/关于-webpack-你可能忽略的细节（附源码分析）/">关于 webpack 你可能忽略的细节（附源码分析）</a>
-          </li>
-        
-          <li>
-            <a href="/2016/12/16/composer-使用技巧简述/">Composer 使用技巧简述</a>
-          </li>
-        
-      </ul>
+      2013 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">TaoBeier</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
     </div>
   </div>
-
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 13.33px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 11.67px;">DevOps</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 16.67px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/Pelican/" style="font-size: 13.33px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 11.67px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 18.33px;">Tool</a> <a href="/tags/Vim/" style="font-size: 15px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/Webpack/" style="font-size: 10px;">Webpack</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">四月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">三月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">十二月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">九月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">八月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">三月 2013</a></li></ul>
-    </div>
-  </div>
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">分类</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Life/">Life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a></li></ul>
-    </div>
-  </div>
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
 
 
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2017 TaoBeier<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-    <a href="/projects" class="mobile-nav-link">Projects</a>
-  
-    <a href="/about" class="mobile-nav-link">About</a>
-  
-    <a href="/friends" class="mobile-nav-link">Friends</a>
-  
-</nav>
-    
-<script>
-  var disqus_shortname = 'taobeier';
-  
-  var disqus_url = 'http://moelove.info/2014/07/22/正则匹配中文及字符编码问题/';
-  
-  (function(){
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  })();
-</script>
 
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
-<script src="/js/script.js"></script>
-
-  </div>
 </body>
 </html>

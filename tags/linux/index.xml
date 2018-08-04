@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on MoeLove</title>
+    <link>http://moelove.info/tags/linux/</link>
+    <description>Recent content in Linux on MoeLove</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Fri, 30 Jun 2017 00:13:16 +0000</lastBuildDate>
+    
+	<atom:link href="http://moelove.info/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Install-Python3.6-on-CentOS7</title>
+      <link>http://moelove.info/2017/06/30/Install-Python3.6-on-CentOS7/</link>
+      <pubDate>Fri, 30 Jun 2017 00:13:16 +0000</pubDate>
+      
+      <guid>http://moelove.info/2017/06/30/Install-Python3.6-on-CentOS7/</guid>
+      <description>拖了很久没有更新，抱歉啦~ 今天受邀写篇如何在 CentOS 7 上配置 Python 3 环境的文章。往常我都选择直接把我早年写的一篇文章源码编译MongoDB丢过去，让他们看其中的源码编译 Python 那一节，不过那节写的其实不太详细，而且最近被很多人催，所以还是单独写一篇好了。
+ 当前最新的 CentOS 7.3 默认安装的是 Python 2 ，并且默认的官方 yum 源中不提供 Python 3 的安装包。有些用户想要升级使用 Python 3 但实际可能有各种各样的问题，导致出错，反观一下激进的 Fedora 社区，在23的时候，就将默认的版本修改成了 Python3 （如果我没记错的话）。
+先说下我所使用的系统环境， 一个新创建的 Docker 容器。 使用 cat /etc/redhat-release 可以看到运行的是 CentOS 7.3 版本。
+在纯净的 CentOS 系统上安装 Python 环境主要有两种办法。 一种是通过源码编译安装，另外一种就是安装已经打好的 RPM 包。依照个人习惯，我们先来看一下如何通过源码编译的方式安装 Python 3.6 并且配置虚拟环境。
+使用源码进行编译安装 基础环境  先安装安装几个必须的包，以方便后续的操作  ➜ yum install wget gcc make ➜ # wget 用于下载源码包 ➜ # gcc 和 make 用于编译   上 Python的官网 下载源码包  ➜ wget https://www.</description>
+    </item>
+    
+    <item>
+      <title>对监控系统的思考</title>
+      <link>http://moelove.info/2015/10/16/%E5%AF%B9%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%80%83/</link>
+      <pubDate>Fri, 16 Oct 2015 00:59:01 +0000</pubDate>
+      
+      <guid>http://moelove.info/2015/10/16/%E5%AF%B9%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%80%83/</guid>
+      <description>近期在做运维监控方面的事情，也研究了一下其他人是如何做的。把自己的想法做个总结记录一下吧。
+ 监控期望的目标  及时发现   需要的是即时监控并报警
+  及时定位   定位问题要分开讲
+ 运维层面 &amp;gt; 是机器硬件问题还是上面运行的基础服务的问题，或者是新上线代码的问题，需要回滚。
+ 代码层面 &amp;gt; 在发生问题的时候，优先解决问题。定位代码问题提交hotfix 可以在解决问题之后做。
+    及时处理 提前预测（尽量减少问题的发生）   提前预测可以做的事情有很多，数据挖掘/分析之类的。当然有个更简单的方法，就是先小范围上线，进行监控。如果发现出问题了，就停止上线，进行回滚。（我们现在就是这样做的，虽然原因并不是这个 2333
+ 监控遇到的主要问题  监控指标多   服务器CPU,内存，网络等的指标，基础服务Redis, MongoDB等的运行指标，对外服务的API是否正常工作，还有数据是否正确等。
+  监控报警多   监控指标多的时候，自然报警也会相应增加，但是报警的分组与轻重缓急也是一个很麻烦的问题。还有就是部署着不同服务的机器，触发报警时候的指标也不好确定。
+  报警多而且有关联，如何查找原因   可能同时会有多个指标触发了报警，但是要定位问题的时候，如何可以快速的定位问题。
+ 多维度数据监控  这个话题太大(要感谢Baidu的颜大大的指点）
+ 数据监控符合二八原则,重要数据需要多角度进行观察，需要有meta管理，需要动态简单配置。选择 好的，合理的数据模型可以有效的进行处理。
+ 数据采集部分，在单机器做聚合;命名上使用正则格式化;完善的配置功能，支持数据流自定义维度。
+    对开源系统的使用，需要按照自己的实际情况进行适配。保证高可用性  先写这些吧，之后有时间再写，还有QCon上对运维监控上的一些分享也非常值得思考</description>
+    </item>
+    
+    <item>
+      <title>源码编译MongoDB</title>
+      <link>http://moelove.info/2015/09/13/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91MongoDB/</link>
+      <pubDate>Sun, 13 Sep 2015 21:28:43 +0000</pubDate>
+      
+      <guid>http://moelove.info/2015/09/13/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91MongoDB/</guid>
+      <description>上周放假正好有时间，编译安装了MongoDB，虽然MongoDB用了挺长时间的，但还是第一次用源码编译。在此做个备忘。因为已经完整编译安装过了，所以写起来的时候，就按照先知视角来写了～ 2333
+ 下载MongoDB源码 MongoDB的官网上是有已经编译好的二进制包的，这里选择clone MongoDB在github上的仓库
+git clone https://github.com/mongodb/mongo &amp;amp;&amp;amp; cd mongo  在docs/building.md中是编译所需的依赖。 * A modern C++ compiler. One of the following is required. * GCC 4.8.2 or newer * Clang 3.4 (or Apple XCode 5.1.1 Clang) or newer * Visual Studio 2013 Update 2 or newer * Python 2.7 * SCons 2.3
+我这台服务器是CentOS 6.5, 上面的gcc版本比较低，这里就先更新gcc咯.
+gcc --version gcc (GCC) 4.4.7 20120313 (Red Hat 4.4.7-16) Copyright © 2010 Free Software Foundation, Inc.</description>
+    </item>
+    
+    <item>
+      <title>Bash 显示 Git 分支</title>
+      <link>http://moelove.info/2014/07/17/Bash-%E6%98%BE%E7%A4%BA-Git-%E5%88%86%E6%94%AF/</link>
+      <pubDate>Thu, 17 Jul 2014 21:54:33 +0000</pubDate>
+      
+      <guid>http://moelove.info/2014/07/17/Bash-%E6%98%BE%E7%A4%BA-Git-%E5%88%86%E6%94%AF/</guid>
+      <description> 虽然一直都在用git，但是并没有注意到还有这个方便的用法 于是乎赶快学习一下 ：-）
+上网查了一下资料，都说Ubuntu下如何如何方便，其他的发行版需要先下载一个文件，然后添加source，再如何如何。。
+其实查再多都不如实践。以下是窝经过查资料加上对个人bash的配色后写出的配置文件，加入到 ~/.bashrc 中即可（对各个发行版通用的）
+function git_branch { ref=$(git symbolic-ref HEAD 2&amp;gt; /dev/null) || return; echo &amp;quot;(&amp;quot;${ref#refs/heads/}&amp;quot;) &amp;quot;; } PS1=&amp;quot;[\[\e[1;35m\]\u\[\e[1;32m\]\w\[\e[0m\]] \[\e[0m\]\[\e[1;36m\]\$(git_branch)\[\e[0;33m\]\$&amp;quot;  或者
+function git-branch-name { git symbolic-ref HEAD 2&amp;gt;/dev/null | cut -d&amp;quot;/&amp;quot; -f 3 #git rev-parse --abbrev-ref HEAD } function git-branch-prompt { local branch=`git-branch-name` if [ $branch ]; then printf &amp;quot; [%s]&amp;quot; $branch; fi } PS1=&amp;quot;\u@\h \[\033[0;36m\]\W\[\033[0m\]\[\033[0;32m\]\$(git-branch-prompt)\[\033[0m\] \$ &amp;quot;  -- 按照惯例，上一张图 </description>
+    </item>
+    
+    <item>
+      <title>Grub2 rescue 修复</title>
+      <link>http://moelove.info/2014/07/02/Grub2-rescue-%E4%BF%AE%E5%A4%8D/</link>
+      <pubDate>Wed, 02 Jul 2014 21:53:03 +0000</pubDate>
+      
+      <guid>http://moelove.info/2014/07/02/Grub2-rescue-%E4%BF%AE%E5%A4%8D/</guid>
+      <description>昨天下午的时候想要把分区处理一下，突然发现硬盘里面有一个未使用的102M的分区,很果断的把这些乱七八糟的分区都给干掉了。结果呢，再次开机的时候就坑了（虽然酱紫的事情干过很多次了，这次做个记录吧）开机时提示如下：
+GRUB loading.. error: unknown filesystem. Entering rescue mode.... grub rescue&amp;gt;  grub rescue 支持的命令  ls 查看硬盘的分区情况，如果你已知自己的grub的安装位置（比如我的在(hd0,msdos9)/boot/grub2），那么就直接进行下一步。 如果不知道，那就ls每个分区，比如: ls (hd0,msdos2)/,如果正确就会显示里面到内容，直到找到grub  这里一个很关键的地方就是在硬盘位置后应该加入/
+ set 直接输入的话， 可以看到root 和 prefix 的设置。这里需要把这两个选项改成我们已经找到的位置。  窝的设置如下
+grub rescue&amp;gt; set grub rescue&amp;gt; prefix=(hd0,msdos9)/boot/grub2 grub rescue&amp;gt; root=hd0,msdos9   insmod 载入模块。这里区别是窝这次记录的关键。 grub2和grub的一个很重要的区别就是模块的位置。grub2的模块位置在/boot/grub2/i386-pc/normal.mod 执行命令：  grub rescue&amp;gt;insmod (hd0,msdos9)/boot/grub2/i386-pc/normal.mod  执行成功之后，提示符会变成normal
+ normal 进入正常模式，直接输入命令即可  grub rescue&amp;gt;normal  这个时候，就可以看到熟悉的引导界面了。
+ grub2-install 进入系统后执行命令  $ sudo update-grub $ sudo grub2-install /dev/sda  如果不执行这样的命令的话，重启之后还会回到之前的界面orz</description>
+    </item>
+    
+    <item>
+      <title>Linux中Sublime中文输入</title>
+      <link>http://moelove.info/2014/06/19/Linux%E4%B8%ADSublime%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/</link>
+      <pubDate>Thu, 19 Jun 2014 23:17:31 +0000</pubDate>
+      
+      <guid>http://moelove.info/2014/06/19/Linux%E4%B8%ADSublime%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/</guid>
+      <description>这篇只是为了备忘所以把以前写的东西搬这边了 -.-
+ 代码源于网络，感谢分享 这里的关键就是以下的代码和编译 /* sublime-imfix.c Use LD_PRELOAD to interpose some function to fix sublime input method support for linux. By Cjacker Huang &amp;lt;jianzhong.huang at i-soft.com.cn&amp;gt; gcc -shared -o libsublime-imfix.so sublime_imfix.c `pkg-config --libs --cflags gtk+-2.0` -fPIC LD_PRELOAD=./libsublime-imfix.so sublime_text */ #include &amp;lt;gtk/gtk.h&amp;gt; #include &amp;lt;gdk/gdkx.h&amp;gt; typedef GdkSegment GdkRegionBox; struct _GdkRegion { long size; long numRects; GdkRegionBox *rects; GdkRegionBox extents; }; GtkIMContext *local_context; void gdk_region_get_clipbox (const GdkRegion *region, GdkRectangle *rectangle) { g_return_if_fail (region !</description>
+    </item>
+    
+    <item>
+      <title>Linux 安装Android 驱动</title>
+      <link>http://moelove.info/2014/03/10/Linux-%E5%AE%89%E8%A3%85Android-%E9%A9%B1%E5%8A%A8/</link>
+      <pubDate>Mon, 10 Mar 2014 21:44:06 +0000</pubDate>
+      
+      <guid>http://moelove.info/2014/03/10/Linux-%E5%AE%89%E8%A3%85Android-%E9%A9%B1%E5%8A%A8/</guid>
+      <description>在Linux下非常适合做一些对Rom 的定制以及其他的一些操作，甚至是自己制作Rom 或者从源码编译Rom 也是OK的。
+不过最开始的应该就是搭建开发环境了，我先从装驱动开始说（只是做个笔记而已）
+ 使用数据线连接手机，打开adb调试模式。(在Linux上搭建开发环境， 以及adb 命令之类的， 就自行搜索吧，如果哪天更新了 我会附上链接的)
+ 输入adb devices 查看设备 如果有机型的话就说明是已经有驱动了 如果没有显示的话， 就是说明需要进行驱动安装了。
+  这个时候， lsusb 查看， 会看到下面这样的信息
+[tao@localhost ~]$ lsusb Bus 001 Device 002: ID 8087:0020 Intel Corp. Integrated Rate Matching Hub Bus 002 Device 002: ID 8087:0020 Intel Corp. Integrated Rate Matching Hub Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.</description>
+    </item>
+    
+    <item>
+      <title>fedora 18 Kernel driver not installed (rc=-1908)处理办法</title>
+      <link>http://moelove.info/2013/12/21/fedora-18-Kernel-driver-not-installed-rc-1908%E5%A4%84%E7%90%86%E5%8A%9E%E6%B3%95/</link>
+      <pubDate>Sat, 21 Dec 2013 21:42:18 +0000</pubDate>
+      
+      <guid>http://moelove.info/2013/12/21/fedora-18-Kernel-driver-not-installed-rc-1908%E5%A4%84%E7%90%86%E5%8A%9E%E6%B3%95/</guid>
+      <description>fedora 18 升级内核之后 使用VirtualBox 可以正常打开软件,但是不能启动虚拟机系统.提示信息如下: Kernel driver not installed (rc=-1908)  经过一系列的看文档还有google 之后,很多地方写着这个问题的处理方法是
+ 第一种  sudo /etc/init.d/vboxdrv setup   经过实验,对feora 18 不可行
+ 第二种
+sudo apt-get install dkms sudo /etc/init.d/vboxdrv setup  但是情况继续
+ 第三种
+sudo aptitude update sudo aptitude install dkms sudo /etc/init.d/vboxdrv setup   最后正确的解决方法应该是酱紫的  先看看系统的内核  uname -r  找对应的包
+sudo yum search kmod-VirtualBox  然后安装和你系统内核对应的包
+sudo yum install kmod-VirtualBox-XXXX  运行</description>
+    </item>
+    
+    <item>
+      <title>fedora下安装sublime text 2的方法</title>
+      <link>http://moelove.info/2013/08/30/fedora%E4%B8%8B%E5%AE%89%E8%A3%85sublime-text-2%E7%9A%84%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Fri, 30 Aug 2013 21:36:09 +0000</pubDate>
+      
+      <guid>http://moelove.info/2013/08/30/fedora%E4%B8%8B%E5%AE%89%E8%A3%85sublime-text-2%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
+      <description>首先去官网下载最新的压缩包  把文件解压到$HOME/.sublime_text_2文件夹中：
+tar -xf (sublime压缩包的文件名).tar.bz2 sudo mv (解压后的文件夹) tools/Sublime_Text_2  在/usr/bin目录下面创建一个链接
+vim sublime  在文件中写入这些代码： ``` #!/bin/bash export SUBLIME_HOME=&amp;rdquo;~/tools/Sublime_Text_2&amp;rdquo;
+  $SUBLIME_HOME/sublime_text $*
+修改文件权限并且移动  chmod 555 sublime &amp;amp;&amp;amp; mv sublime /usr/bin/sublime ```
+这样就可以在终端中直接执行sublime了</description>
+    </item>
+    
+    <item>
+      <title>LAMP环境的快速搭建</title>
+      <link>http://moelove.info/2013/08/07/LAMP%E7%8E%AF%E5%A2%83%E7%9A%84%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Wed, 07 Aug 2013 21:30:59 +0000</pubDate>
+      
+      <guid>http://moelove.info/2013/08/07/LAMP%E7%8E%AF%E5%A2%83%E7%9A%84%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA/</guid>
+      <description>这是我在我的centos 吧专门写的教程帖，目的也就是为了让新手可以更快的搭建起来环境，而不是一直在门外徘徊。所以就搬过来了，时间神马的就按照原帖来吧。
+ 写在前面 本篇文章是面向linux新手，文中采用环境是*Win7+V-BOX*，配置过程用putty进行操作（个人习惯而已），linux系统使用CentOS6.3版本。CentOS的安装方法及虚拟机中网络配置请参阅centos吧精品帖【教程】最全centos 安装方法及内容详解。为了尽量一次性可以让读者完成LAMP环境的搭建，本次安装过程都采用yum包管理机制进行安装。当然生产环境下一般都是采用源码编译的。在近期我也会再出连载文，使用源码包进行LAMP环境的搭建，欢迎关注。如果有任何意见或者建议都可以到centos吧发帖询问。 Ps:本文LAMP = Linux + Apache + Mysql + PHP
+安装过程（先确保你的系统网络正常或者搭建好了本地源） 1. 首先安装Apache，使用命令： sudo yum install httpd –y
+2. 然后安装Mysql，使用命令 sudo yum install mysql mysql-server –y
+3. 再安装php ，使用命令 sudo yum install php –y
+4. 安装完毕之后启动apache. 使用 sudo service httpd start
+启动成功了，我们访问一下，在浏览器的地址栏输入虚拟机IP。
+好，这里遇到了我们的第一个问题， 无法访问 &amp;gt;* apache服务已经打开，但是却无法访问 这里很可能是iptables的防御规则导致的。
+执行iptables –L查看所有的iptables的规则。
+关于iptables的知识可以自行了解或者关注后续讲解 我们执行 sudo iptables –F 清除所有规则
+接下来在浏览器输入虚拟机地址 ，我们看到如下：
+我们已经访问成功了！
+  当然在这里的时候也许还有人是访问不了的，可能是因为CentOS自带的SElinux机制影响的   我们执行getenforce命令来查看SElinux的状态，使用sudo setenforce 0来改变SElinux为*permission*状态。</description>
+    </item>
+    
+    <item>
+      <title>cat 命令研究</title>
+      <link>http://moelove.info/2013/03/20/cat-%E5%91%BD%E4%BB%A4%E7%A0%94%E7%A9%B6/</link>
+      <pubDate>Wed, 20 Mar 2013 21:24:20 +0000</pubDate>
+      
+      <guid>http://moelove.info/2013/03/20/cat-%E5%91%BD%E4%BB%A4%E7%A0%94%E7%A9%B6/</guid>
+      <description>有人问我关于centos里面使用cat命令的问题，我在这里简单记录一下。 在linux下，cat应该是使用最频繁的命令之一了吧。
+ cat命令在Linux作以下用途：  在屏幕上显示文本文件。 复制文本文件。 合并文本文件。 创建新的文本文件。  cat命令支持的语法如下： cat filename cat options filename cat file1 file2 cat file1 file2 &amp;gt; newcombinedfile  显示文件的内容： cat /tmp/test  上面的命令就是查看文件/tmp/test的内容，把内容输出到屏幕。 但是也可以使用
+cat /tmp/test &amp;gt; /tmp/test2  使用上面的命令，可以把文件内容重定向到/tmp/test2文件中
+串联文件： 串联文件是把文件内容一起输出，但是不会改变源文件的内容
+cat /tmp/test1 /tmp/test2 /tmp/test3  以上命令会将/tmp 目录下的 test1 ,test2 ,test3 三个文件的内容一起输出，当然也可以使用重定向命令查看输出内容
+cat /tmp/test1 /tmp/test2 /tmp/test3 &amp;gt;/tmp/testoutputs  重定向至/tmp 下的testoutputs 文件中
+当然查看的时候可以配合管道命令使用
+cat /tmp/test1 /tmp/test2 /tmp/test3 | less</description>
+    </item>
+    
+    <item>
+      <title>fedora安装后最初的事情</title>
+      <link>http://moelove.info/2013/03/09/fedora%E5%AE%89%E8%A3%85%E5%90%8E%E6%9C%80%E5%88%9D%E7%9A%84%E4%BA%8B%E6%83%85/</link>
+      <pubDate>Sat, 09 Mar 2013 21:21:14 +0000</pubDate>
+      
+      <guid>http://moelove.info/2013/03/09/fedora%E5%AE%89%E8%A3%85%E5%90%8E%E6%9C%80%E5%88%9D%E7%9A%84%E4%BA%8B%E6%83%85/</guid>
+      <description> 更新源 sudo yum localinstall --nogpgcheck http://mirrors.163.com/rpmfusion/free/fedora/rpmfusion-free-release-stable.noarch.rpm http://mirrors.163.com/rpmfusion/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm (这个是添加国内的软件源) sudo yum update  网络相关 firefox sudo yum install firefox  chrome / chromium 我本人比较习惯用chrome的 不过最近网络不是很稳定 先补充chromium 的安装方法吧
+ chromium的安装 首先添加chromium的fedora源,将下载好的 .repo 文件移动到/etc/yum.repos.d/下， 执行
+sudo yum install chromium  chrome的安装 从官网上下载chrome 的rpm包，或者从我的网盘下载对应的32位 或 64位 的rpm 包 执行
+sudo rpm -ivh google-chrome.rpm   安装证书 sudo yum localinstall --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-branched.noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-branched.noarch.rpm  压缩/解压软件 sudo yum install unrar sudo yum install p7zip  影音播放 sudo yum install gstreamer-plugins-good gstreamer-plugins-bad gstreamer-plugins-ugly libtunepimp-extras-freeworld xine-lib-extras-freeworld(安装音频解码器) sudo yum install ffmpeg ffmpeg-libs gstreamer-ffmpeg libmatroska xvidcore(安装视频解码器)  编辑器  vim  sudo yum install vim  Sublime Text 我也很喜欢因为运行速度快，而且免费。安装方法可以参考我的fedora下安装sublime text 2这篇文章。  </description>
+    </item>
+    
+  </channel>
+</rss>

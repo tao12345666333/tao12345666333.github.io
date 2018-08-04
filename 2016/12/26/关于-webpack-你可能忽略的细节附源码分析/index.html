@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>关于 webpack 你可能忽略的细节（附源码分析） - MoeLove</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="TaoBeier" />
+  <meta name="description" content="注：本篇不是入门教程，入门请直接查看官方文档。本篇的主要目标是通过实际问题来介绍 webpack 中容易被人忽略的细节, 以及源码分析(以最新发布的 release 版本1.14.0的源码为例), 并且提供几种解决方案。
+ 随着前端技术的火热发展，工程化，模块化和组件化的思想已逐步成为主流，与之相应的，就需要有一整套工具流可以支撑起它。
+现在比较热门的前端资源模块化管理和打包工具应该非 Webpack 莫属了。
+Webpack 是什么  它可以将许多松散的模块按照依赖和规则打包成符合生产环境部署的前端资源。还可以将按需加载的模块进行代码分隔，等到实际需要的时候再异步加载。通过 loader 的转换，任何形式的资源都可以视作模块，比如 CommonJs 模块、 AMD 模块、 ES6 模块、CSS、图片、 JSON、Coffeescript、 LESS 等。 &amp;ndash;引自 Webpack 中文指南
+ 使用举例 我们来看一下官方文档中的最小用例，新建并写入以下内容到这两个文件：
+cats.js
+var cats = [&#39;dave&#39;, &#39;henry&#39;, &#39;martha&#39;]; module.exports = cats;  app.js (Entry Point)
+cats = require(&#39;./cats.js&#39;); console.log(cats);  这个时候，就可以使用 webpack 进行打包了：
+webpack ./app.js app.bundle.js  我们来看一下发生了什么， 目录下生成了一个打包后的文件 app.bundle.js ，这就是最基础的打包过程。
+提出问题 如何判断打包是否成功？
+通用方案 下面是我们常用的两种判断任务是否执行成功的方案
+通过 return code 通过命令执行后的 return code 来判断（在 shell 中使用 $?" />
+
+  <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes" />
+
+
+<meta name="baidu-site-verification" content="jO2rMlnjJi" />
+<meta name="google-site-verification" content="googlefe3fc086c62f7210.html" />
+
+
+<meta name="generator" content="Hugo 0.46" />
+
+
+<link rel="canonical" href="http://moelove.info/2016/12/26/%E5%85%B3%E4%BA%8E-webpack-%E4%BD%A0%E5%8F%AF%E8%83%BD%E5%BF%BD%E7%95%A5%E7%9A%84%E7%BB%86%E8%8A%82%E9%99%84%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="关于 webpack 你可能忽略的细节（附源码分析）" />
+<meta property="og:description" content="注：本篇不是入门教程，入门请直接查看官方文档。本篇的主要目标是通过实际问题来介绍 webpack 中容易被人忽略的细节, 以及源码分析(以最新发布的 release 版本1.14.0的源码为例), 并且提供几种解决方案。
+ 随着前端技术的火热发展，工程化，模块化和组件化的思想已逐步成为主流，与之相应的，就需要有一整套工具流可以支撑起它。
+现在比较热门的前端资源模块化管理和打包工具应该非 Webpack 莫属了。
+Webpack 是什么  它可以将许多松散的模块按照依赖和规则打包成符合生产环境部署的前端资源。还可以将按需加载的模块进行代码分隔，等到实际需要的时候再异步加载。通过 loader 的转换，任何形式的资源都可以视作模块，比如 CommonJs 模块、 AMD 模块、 ES6 模块、CSS、图片、 JSON、Coffeescript、 LESS 等。 &ndash;引自 Webpack 中文指南
+ 使用举例 我们来看一下官方文档中的最小用例，新建并写入以下内容到这两个文件：
+cats.js
+var cats = [&#39;dave&#39;, &#39;henry&#39;, &#39;martha&#39;]; module.exports = cats;  app.js (Entry Point)
+cats = require(&#39;./cats.js&#39;); console.log(cats);  这个时候，就可以使用 webpack 进行打包了：
+webpack ./app.js app.bundle.js  我们来看一下发生了什么， 目录下生成了一个打包后的文件 app.bundle.js ，这就是最基础的打包过程。
+提出问题 如何判断打包是否成功？
+通用方案 下面是我们常用的两种判断任务是否执行成功的方案
+通过 return code 通过命令执行后的 return code 来判断（在 shell 中使用 $?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://moelove.info/2016/12/26/%E5%85%B3%E4%BA%8E-webpack-%E4%BD%A0%E5%8F%AF%E8%83%BD%E5%BF%BD%E7%95%A5%E7%9A%84%E7%BB%86%E8%8A%82%E9%99%84%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" />
+
+
+
+<meta property="article:published_time" content="2016-12-26T00:43:02&#43;00:00"/>
+
+<meta property="article:modified_time" content="2016-12-26T00:43:02&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="关于 webpack 你可能忽略的细节（附源码分析）">
+<meta itemprop="description" content="注：本篇不是入门教程，入门请直接查看官方文档。本篇的主要目标是通过实际问题来介绍 webpack 中容易被人忽略的细节, 以及源码分析(以最新发布的 release 版本1.14.0的源码为例), 并且提供几种解决方案。
+ 随着前端技术的火热发展，工程化，模块化和组件化的思想已逐步成为主流，与之相应的，就需要有一整套工具流可以支撑起它。
+现在比较热门的前端资源模块化管理和打包工具应该非 Webpack 莫属了。
+Webpack 是什么  它可以将许多松散的模块按照依赖和规则打包成符合生产环境部署的前端资源。还可以将按需加载的模块进行代码分隔，等到实际需要的时候再异步加载。通过 loader 的转换，任何形式的资源都可以视作模块，比如 CommonJs 模块、 AMD 模块、 ES6 模块、CSS、图片、 JSON、Coffeescript、 LESS 等。 &ndash;引自 Webpack 中文指南
+ 使用举例 我们来看一下官方文档中的最小用例，新建并写入以下内容到这两个文件：
+cats.js
+var cats = [&#39;dave&#39;, &#39;henry&#39;, &#39;martha&#39;]; module.exports = cats;  app.js (Entry Point)
+cats = require(&#39;./cats.js&#39;); console.log(cats);  这个时候，就可以使用 webpack 进行打包了：
+webpack ./app.js app.bundle.js  我们来看一下发生了什么， 目录下生成了一个打包后的文件 app.bundle.js ，这就是最基础的打包过程。
+提出问题 如何判断打包是否成功？
+通用方案 下面是我们常用的两种判断任务是否执行成功的方案
+通过 return code 通过命令执行后的 return code 来判断（在 shell 中使用 $?">
+
+
+<meta itemprop="datePublished" content="2016-12-26T00:43:02&#43;00:00" />
+<meta itemprop="dateModified" content="2016-12-26T00:43:02&#43;00:00" />
+<meta itemprop="wordCount" content="257">
+
+
+
+<meta itemprop="keywords" content="Webpack,Tool,前端," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="关于 webpack 你可能忽略的细节（附源码分析）"/>
+<meta name="twitter:description" content="注：本篇不是入门教程，入门请直接查看官方文档。本篇的主要目标是通过实际问题来介绍 webpack 中容易被人忽略的细节, 以及源码分析(以最新发布的 release 版本1.14.0的源码为例), 并且提供几种解决方案。
+ 随着前端技术的火热发展，工程化，模块化和组件化的思想已逐步成为主流，与之相应的，就需要有一整套工具流可以支撑起它。
+现在比较热门的前端资源模块化管理和打包工具应该非 Webpack 莫属了。
+Webpack 是什么  它可以将许多松散的模块按照依赖和规则打包成符合生产环境部署的前端资源。还可以将按需加载的模块进行代码分隔，等到实际需要的时候再异步加载。通过 loader 的转换，任何形式的资源都可以视作模块，比如 CommonJs 模块、 AMD 模块、 ES6 模块、CSS、图片、 JSON、Coffeescript、 LESS 等。 &ndash;引自 Webpack 中文指南
+ 使用举例 我们来看一下官方文档中的最小用例，新建并写入以下内容到这两个文件：
+cats.js
+var cats = [&#39;dave&#39;, &#39;henry&#39;, &#39;martha&#39;]; module.exports = cats;  app.js (Entry Point)
+cats = require(&#39;./cats.js&#39;); console.log(cats);  这个时候，就可以使用 webpack 进行打包了：
+webpack ./app.js app.bundle.js  我们来看一下发生了什么， 目录下生成了一个打包后的文件 app.bundle.js ，这就是最基础的打包过程。
+提出问题 如何判断打包是否成功？
+通用方案 下面是我们常用的两种判断任务是否执行成功的方案
+通过 return code 通过命令执行后的 return code 来判断（在 shell 中使用 $?"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">MoeLove</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/friends/">
+        <li class="mobile-menu-item">Friends</li>
+      </a><a href="/projects/">
+        <li class="mobile-menu-item">Projects</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">MoeLove</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/friends/">Friends</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/projects/">Projects</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">关于 webpack 你可能忽略的细节（附源码分析）</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2016-12-26 </span>
+        <div class="post-category">
+            
+              <a href="/categories/Web/"> Web </a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#webpack-是什么">Webpack 是什么</a></li>
+<li><a href="#使用举例">使用举例</a></li>
+<li><a href="#提出问题">提出问题</a>
+<ul>
+<li><a href="#通用方案">通用方案</a>
+<ul>
+<li>
+<ul>
+<li><a href="#通过-return-code">通过 return code</a></li>
+<li><a href="#通过标准错误输出">通过标准错误输出</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><a href="#探究原因及源码分析">探究原因及源码分析</a></li>
+<li><a href="#解决方案">解决方案</a>
+<ul>
+<li>
+<ul>
+<li><a href="#1-加-bail-参数">1. 加 <strong>bail</strong> 参数</a></li>
+<li><a href="#2-使用-webpack-fail-plugin">2. 使用 webpack-fail-plugin</a></li>
+<li><a href="#3-使用-done-plugin">3.使用 done plugin</a></li>
+<li><a href="#4-使用-webpack-2">4. 使用 webpack 2</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<blockquote>
+<p>注：本篇不是入门教程，入门请直接查看<a href="http://webpack.github.io/docs/">官方文档</a>。本篇的主要目标是通过实际问题来介绍 webpack 中容易被人忽略的细节, 以及源码分析(<strong>以最新发布的 release 版本1.14.0的源码为例</strong>), 并且提供几种解决方案。</p>
+</blockquote>
+
+<p><img src="http://moelove.qiniudn.com/webpack.png" alt="webpack from the official website" /></p>
+
+<p>随着前端技术的火热发展，工程化，模块化和组件化的思想已逐步成为主流，与之相应的，就需要有一整套工具流可以支撑起它。</p>
+
+<p>现在比较热门的前端资源模块化管理和打包工具应该非 <a href="https://github.com/webpack/webpack">Webpack</a> 莫属了。</p>
+
+<h1 id="webpack-是什么">Webpack 是什么</h1>
+
+<blockquote>
+<p>它可以将许多松散的模块按照依赖和规则打包成符合生产环境部署的前端资源。还可以将按需加载的模块进行代码分隔，等到实际需要的时候再异步加载。通过 loader 的转换，任何形式的资源都可以视作模块，比如 CommonJs 模块、 AMD 模块、 ES6 模块、CSS、图片、 JSON、Coffeescript、 LESS 等。
+&ndash;引自 Webpack 中文指南</p>
+</blockquote>
+
+<h1 id="使用举例">使用举例</h1>
+
+<p>我们来看一下官方文档中的最小用例，新建并写入以下内容到这两个文件：</p>
+
+<p><strong>cats.js</strong></p>
+
+<pre><code class="language-javascript">var cats = ['dave', 'henry', 'martha'];
+module.exports = cats;
+</code></pre>
+
+<p><strong>app.js (Entry Point)</strong></p>
+
+<pre><code class="language-javascript">cats = require('./cats.js');
+console.log(cats);
+</code></pre>
+
+<p>这个时候，就可以使用 <code>webpack</code> 进行打包了：</p>
+
+<pre><code class="language-bash">webpack ./app.js app.bundle.js
+</code></pre>
+
+<p>我们来看一下发生了什么， 目录下生成了一个打包后的文件 <code>app.bundle.js</code> ，这就是最基础的打包过程。</p>
+
+<h1 id="提出问题">提出问题</h1>
+
+<p><strong>如何判断打包是否成功？</strong></p>
+
+<h2 id="通用方案">通用方案</h2>
+
+<p>下面是我们常用的两种判断任务是否执行成功的方案</p>
+
+<h4 id="通过-return-code">通过 return code</h4>
+
+<p>通过命令执行后的 <code>return code</code> 来判断（在 <code>shell</code> 中使用 <code>$?</code> 获得）。 并且通常情况下 <code>0</code> 是执行成功， 非 0 是未成功。 我们以上面的例子来测试一下：</p>
+
+<p><img src="http://moelove.qiniudn.com/webpack-c.png" alt="webpack-demo.png" /></p>
+
+<p>可以看到 <code>$?</code> 的值为 <code>0</code> , 且打包后的文件运行正常。</p>
+
+<p>那么我们来修改一下 <code>app.js</code> 文件的内容， 将 <code>require</code> 引入的模块路径故意写错，来测试一下：</p>
+
+<p><img src="http://moelove.qiniudn.com/webpack-error.png" alt="webpack-error.png" /></p>
+
+<p><strong>注意：箭头处 <code>$?</code> 的值仍然为 <code>0</code>, 且生成的打包后的文件运行出错。</strong></p>
+
+<p>这就说明，根据 <code>return code</code> 的值判断任务是否执行成功， 不可行！</p>
+
+<h4 id="通过标准错误输出">通过标准错误输出</h4>
+
+<p>我们也会通过<strong>标准错误输出</strong>（<code>stderr</code>）来判断一个任务执行过程中是否有错误输出。还是使用上面的例子做示范：</p>
+
+<p><img src="http://moelove.qiniudn.com/webpack-stderr.png" alt="webpack-stderr.png" /></p>
+
+<p>根据这个例子，可以看到 webpack 并没有标准错误输出！所以这个方法也不可行。</p>
+
+<h1 id="探究原因及源码分析">探究原因及源码分析</h1>
+
+<p>这里以最新发布的 release 版本 1.14.0 的源码作为分析。 在 <a href="https://github.com/webpack/webpack/blob/v1.14.0/lib/Compilation.js#L194-L204">lib/Compilation.js</a> 中我们可以看到这样一段代码：</p>
+
+<pre><code class="language-javascript">var errorAndCallback = function errorAndCallback(err) {
+  err.dependencies = dependencies;
+  err.origin = module;
+  module.dependenciesErrors.push(err);
+  _this.errors.push(err);
+  if(bail) {
+    callback(err);
+  } else {
+    callback();
+  }
+};
+</code></pre>
+
+<p>在源码中可以看到这个函数其实被调用的还比较多， 例如：在模块为可选的时候， 会判断只是抛出警告还是处理错误， 而上面这段代码自然也不必多数， 关键点在于 <code>bail</code> 的值， 而我们继续找， 可以看到在 <code>bin/config-optimist.js</code> 中有对 <code>bail</code> 参数的解析， 这是一个布尔值。而因为没有太多描述， 所以这个参数就经常容易被忽略。</p>
+
+<h1 id="解决方案">解决方案</h1>
+
+<h3 id="1-加-bail-参数">1. 加 <strong>bail</strong> 参数</h3>
+
+<p>基于上面简要的分析， 我们来尝试下 <code>bail</code> 参数的作用。 仍然使用上面的例子：</p>
+
+<p>我们使用  <code>webpack --bail true app.js app.bundle.js</code> 进行测试</p>
+
+<p><img src="http://moelove.qiniudn.com/webpack-bail.png" alt="webpack-bail.png" /></p>
+
+<p>可以看到， 使用 <code>bail</code> 参数并传递 <code>true</code> 进去， 在遇到错误的时候，打包过程将会退出， <code>return code</code> 为 <code>1</code> 且把错误信息打印到 <code>stderr</code> .</p>
+
+<h3 id="2-使用-webpack-fail-plugin">2. 使用 webpack-fail-plugin</h3>
+
+<p><a href="https://www.npmjs.com/package/webpack-fail-plugin">webpack-fail-plugin</a> 是专为解决这个问题而生的，它会在错误发生的时候 <code>return 1</code>. 使用方法也很简单：</p>
+
+<p>安装：</p>
+
+<pre><code class="language-bash">npm install webpack-fail-plugin
+</code></pre>
+
+<p>使用：</p>
+
+<pre><code class="language-javascript">var failPlugin = require('webpack-fail-plugin');
+ 
+module.exports = {
+    //config 
+    plugins: [
+        failPlugin
+    ]
+}
+</code></pre>
+
+<h3 id="3-使用-done-plugin">3.使用 done plugin</h3>
+
+<p>具体用法如下：</p>
+
+<pre><code class="language-javascript">// ...
+plugins: [ 
+  // ... 
+  function() { 
+    this.plugin(&quot;done&quot;, function(stats) {
+      if (stats.compilation.errors &amp;&amp; stats.compilation.errors.length) {
+        console.log(stats.compilation.errors); 
+        process.exit(1); 
+      }
+      // ... 
+    }); 
+  }
+// ...
+],
+// ...
+</code></pre>
+
+<h3 id="4-使用-webpack-2">4. 使用 webpack 2</h3>
+
+<p>不过 webpack 2 现在还在 beta 阶段，可以期待下。 （webpack 2 也仍然是使用 bail 参数）</p>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">TaoBeier</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2016-12-26</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/Webpack/">Webpack</a>
+          
+          <a href="/tags/Tool/">Tool</a>
+          
+          <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/2017/01/01/2016-%E5%B0%8F%E5%9B%9E%E9%A1%BE/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">2016 小回顾</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="/2016/12/16/Composer-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%AE%80%E8%BF%B0/">
+            <span class="next-text nav-default">Composer 使用技巧简述</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhangjintao9020@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://plus.google.com/111099802544541897352" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/tao12345666333" class="iconfont icon-github" title="github"></a>
+      <a href="http://weibo.com/9020taobeier" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/TaoBeier" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="http://moelove.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2013 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">TaoBeier</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

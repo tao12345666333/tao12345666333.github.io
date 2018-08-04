@@ -1,304 +1,385 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-cn">
 <head>
   <meta charset="utf-8">
-  
-  <title>Grub2 rescue 修复 | MoeLove</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="昨天下午的时候想要把分区处理一下，突然发现硬盘里面有一个未使用的102M的分区,很果断的把这些乱七八糟的分区都给干掉了。结果呢，再次开机的时候就坑了（虽然酱紫的事情干过很多次了，这次做个记录吧）开机时提示如下： 1234GRUB loading..error: unknown filesystem.Entering rescue mode....grub rescue&amp;gt; grub rescu">
-<meta name="keywords" content="Linux,grub2">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Grub2 rescue 修复">
-<meta property="og:url" content="http://moelove.info/2014/07/02/Grub2-rescue-修复/index.html">
-<meta property="og:site_name" content="MoeLove">
-<meta property="og:description" content="昨天下午的时候想要把分区处理一下，突然发现硬盘里面有一个未使用的102M的分区,很果断的把这些乱七八糟的分区都给干掉了。结果呢，再次开机的时候就坑了（虽然酱紫的事情干过很多次了，这次做个记录吧）开机时提示如下： 1234GRUB loading..error: unknown filesystem.Entering rescue mode....grub rescue&amp;gt; grub rescu">
-<meta property="og:updated_time" content="2016-04-03T14:57:29.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Grub2 rescue 修复">
-<meta name="twitter:description" content="昨天下午的时候想要把分区处理一下，突然发现硬盘里面有一个未使用的102M的分区,很果断的把这些乱七八糟的分区都给干掉了。结果呢，再次开机的时候就坑了（虽然酱紫的事情干过很多次了，这次做个记录吧）开机时提示如下： 1234GRUB loading..error: unknown filesystem.Entering rescue mode....grub rescue&amp;gt; grub rescu">
-<meta name="twitter:creator" content="@BeierTao">
-<link rel="publisher" href="111099802544541897352">
-  
-    <link rel="alternate" href="/atom.xml" title="MoeLove" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  
-<!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Grub2 rescue 修复 - MoeLove</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-ga('create', 'UA-50163692-1', 'auto');
-ga('send', 'pageview');
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
-</script>
-<!-- End Google Analytics -->
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
+
+<meta name="author" content="TaoBeier" />
+  <meta name="description" content="昨天下午的时候想要把分区处理一下，突然发现硬盘里面有一个未使用的102M的分区,很果断的把这些乱七八糟的分区都给干掉了。结果呢，再次开机的时候就坑了（虽然酱紫的事情干过很多次了，这次做个记录吧）开机时提示如下：
+GRUB loading.. error: unknown filesystem. Entering rescue mode.... grub rescue&amp;gt;  grub rescue 支持的命令  ls 查看硬盘的分区情况，如果你已知自己的grub的安装位置（比如我的在(hd0,msdos9)/boot/grub2），那么就直接进行下一步。 如果不知道，那就ls每个分区，比如: ls (hd0,msdos2)/,如果正确就会显示里面到内容，直到找到grub  这里一个很关键的地方就是在硬盘位置后应该加入/
+ set 直接输入的话， 可以看到root 和 prefix 的设置。这里需要把这两个选项改成我们已经找到的位置。  窝的设置如下
+grub rescue&amp;gt; set grub rescue&amp;gt; prefix=(hd0,msdos9)/boot/grub2 grub rescue&amp;gt; root=hd0,msdos9   insmod 载入模块。这里区别是窝这次记录的关键。 grub2和grub的一个很重要的区别就是模块的位置。grub2的模块位置在/boot/grub2/i386-pc/normal.mod 执行命令：  grub rescue&amp;gt;insmod (hd0,msdos9)/boot/grub2/i386-pc/normal.mod  执行成功之后，提示符会变成normal
+ normal 进入正常模式，直接输入命令即可  grub rescue&amp;gt;normal  这个时候，就可以看到熟悉的引导界面了。
+ grub2-install 进入系统后执行命令  $ sudo update-grub $ sudo grub2-install /dev/sda  如果不执行这样的命令的话，重启之后还会回到之前的界面orz" />
+
+  <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes" />
+
+
+<meta name="baidu-site-verification" content="jO2rMlnjJi" />
+<meta name="google-site-verification" content="googlefe3fc086c62f7210.html" />
+
+
+<meta name="generator" content="Hugo 0.46" />
+
+
+<link rel="canonical" href="http://moelove.info/2014/07/02/Grub2-rescue-%E4%BF%AE%E5%A4%8D/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Grub2 rescue 修复" />
+<meta property="og:description" content="昨天下午的时候想要把分区处理一下，突然发现硬盘里面有一个未使用的102M的分区,很果断的把这些乱七八糟的分区都给干掉了。结果呢，再次开机的时候就坑了（虽然酱紫的事情干过很多次了，这次做个记录吧）开机时提示如下：
+GRUB loading.. error: unknown filesystem. Entering rescue mode.... grub rescue&gt;  grub rescue 支持的命令  ls 查看硬盘的分区情况，如果你已知自己的grub的安装位置（比如我的在(hd0,msdos9)/boot/grub2），那么就直接进行下一步。 如果不知道，那就ls每个分区，比如: ls (hd0,msdos2)/,如果正确就会显示里面到内容，直到找到grub  这里一个很关键的地方就是在硬盘位置后应该加入/
+ set 直接输入的话， 可以看到root 和 prefix 的设置。这里需要把这两个选项改成我们已经找到的位置。  窝的设置如下
+grub rescue&gt; set grub rescue&gt; prefix=(hd0,msdos9)/boot/grub2 grub rescue&gt; root=hd0,msdos9   insmod 载入模块。这里区别是窝这次记录的关键。 grub2和grub的一个很重要的区别就是模块的位置。grub2的模块位置在/boot/grub2/i386-pc/normal.mod 执行命令：  grub rescue&gt;insmod (hd0,msdos9)/boot/grub2/i386-pc/normal.mod  执行成功之后，提示符会变成normal
+ normal 进入正常模式，直接输入命令即可  grub rescue&gt;normal  这个时候，就可以看到熟悉的引导界面了。
+ grub2-install 进入系统后执行命令  $ sudo update-grub $ sudo grub2-install /dev/sda  如果不执行这样的命令的话，重启之后还会回到之前的界面orz" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://moelove.info/2014/07/02/Grub2-rescue-%E4%BF%AE%E5%A4%8D/" />
+
+
+
+<meta property="article:published_time" content="2014-07-02T21:53:03&#43;00:00"/>
+
+<meta property="article:modified_time" content="2014-07-02T21:53:03&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Grub2 rescue 修复">
+<meta itemprop="description" content="昨天下午的时候想要把分区处理一下，突然发现硬盘里面有一个未使用的102M的分区,很果断的把这些乱七八糟的分区都给干掉了。结果呢，再次开机的时候就坑了（虽然酱紫的事情干过很多次了，这次做个记录吧）开机时提示如下：
+GRUB loading.. error: unknown filesystem. Entering rescue mode.... grub rescue&gt;  grub rescue 支持的命令  ls 查看硬盘的分区情况，如果你已知自己的grub的安装位置（比如我的在(hd0,msdos9)/boot/grub2），那么就直接进行下一步。 如果不知道，那就ls每个分区，比如: ls (hd0,msdos2)/,如果正确就会显示里面到内容，直到找到grub  这里一个很关键的地方就是在硬盘位置后应该加入/
+ set 直接输入的话， 可以看到root 和 prefix 的设置。这里需要把这两个选项改成我们已经找到的位置。  窝的设置如下
+grub rescue&gt; set grub rescue&gt; prefix=(hd0,msdos9)/boot/grub2 grub rescue&gt; root=hd0,msdos9   insmod 载入模块。这里区别是窝这次记录的关键。 grub2和grub的一个很重要的区别就是模块的位置。grub2的模块位置在/boot/grub2/i386-pc/normal.mod 执行命令：  grub rescue&gt;insmod (hd0,msdos9)/boot/grub2/i386-pc/normal.mod  执行成功之后，提示符会变成normal
+ normal 进入正常模式，直接输入命令即可  grub rescue&gt;normal  这个时候，就可以看到熟悉的引导界面了。
+ grub2-install 进入系统后执行命令  $ sudo update-grub $ sudo grub2-install /dev/sda  如果不执行这样的命令的话，重启之后还会回到之前的界面orz">
+
+
+<meta itemprop="datePublished" content="2014-07-02T21:53:03&#43;00:00" />
+<meta itemprop="dateModified" content="2014-07-02T21:53:03&#43;00:00" />
+<meta itemprop="wordCount" content="59">
+
+
+
+<meta itemprop="keywords" content="Linux,grub2," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Grub2 rescue 修复"/>
+<meta name="twitter:description" content="昨天下午的时候想要把分区处理一下，突然发现硬盘里面有一个未使用的102M的分区,很果断的把这些乱七八糟的分区都给干掉了。结果呢，再次开机的时候就坑了（虽然酱紫的事情干过很多次了，这次做个记录吧）开机时提示如下：
+GRUB loading.. error: unknown filesystem. Entering rescue mode.... grub rescue&gt;  grub rescue 支持的命令  ls 查看硬盘的分区情况，如果你已知自己的grub的安装位置（比如我的在(hd0,msdos9)/boot/grub2），那么就直接进行下一步。 如果不知道，那就ls每个分区，比如: ls (hd0,msdos2)/,如果正确就会显示里面到内容，直到找到grub  这里一个很关键的地方就是在硬盘位置后应该加入/
+ set 直接输入的话， 可以看到root 和 prefix 的设置。这里需要把这两个选项改成我们已经找到的位置。  窝的设置如下
+grub rescue&gt; set grub rescue&gt; prefix=(hd0,msdos9)/boot/grub2 grub rescue&gt; root=hd0,msdos9   insmod 载入模块。这里区别是窝这次记录的关键。 grub2和grub的一个很重要的区别就是模块的位置。grub2的模块位置在/boot/grub2/i386-pc/normal.mod 执行命令：  grub rescue&gt;insmod (hd0,msdos9)/boot/grub2/i386-pc/normal.mod  执行成功之后，提示符会变成normal
+ normal 进入正常模式，直接输入命令即可  grub rescue&gt;normal  这个时候，就可以看到熟悉的引导界面了。
+ grub2-install 进入系统后执行命令  $ sudo update-grub $ sudo grub2-install /dev/sda  如果不执行这样的命令的话，重启之后还会回到之前的界面orz"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
 
 </head>
-
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">MoeLove</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">不忘初心</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">MoeLove</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/friends/">
+        <li class="mobile-menu-item">Friends</li>
+      </a><a href="/projects/">
+        <li class="mobile-menu-item">Projects</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">MoeLove</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/friends/">Friends</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/projects/">Projects</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Grub2 rescue 修复</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2014-07-02 </span>
+        <div class="post-category">
+            
+              <a href="/categories/Linux/"> Linux </a>
+            
+          </div>
         
-          <a class="main-nav-link" href="/">Home</a>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-          <a class="main-nav-link" href="/projects">Projects</a>
-        
-          <a class="main-nav-link" href="/about">About</a>
-        
-          <a class="main-nav-link" href="/friends">Friends</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://moelove.info"></form>
       </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-Grub2-rescue-修复" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/07/02/Grub2-rescue-修复/" class="article-date">
-  <time datetime="2014-07-02T13:53:03.000Z" itemprop="datePublished">2014-07-2</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
+    </header>
 
-  </div>
-  <div class="article-inner">
     
     
-      <header class="article-header">
-        
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
   
-    <h1 class="article-title" itemprop="name">
-      Grub2 rescue 修复
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>昨天下午的时候想要把分区处理一下，突然发现硬盘里面有一个未使用的102M的分区,很果断的把这些乱七八糟的分区都给干掉了。结果呢，再次开机的时候就坑了（虽然酱紫的事情干过很多次了，这次做个记录吧）开机时提示如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">GRUB loading..</div><div class="line">error: unknown filesystem.</div><div class="line">Entering rescue mode....</div><div class="line">grub rescue&gt;</div></pre></td></tr></table></figure>
-<h3 id="grub-rescue-支持的命令"><a href="#grub-rescue-支持的命令" class="headerlink" title="grub rescue 支持的命令"></a>grub rescue 支持的命令</h3><ul>
-<li><strong>ls</strong> 查看硬盘的分区情况，如果你已知自己的grub的安装位置（比如我的在<code>(hd0,msdos9)/boot/grub2</code>），那么就直接进行下一步。<br>如果不知道，那就ls每个分区，比如: <code>ls (hd0,msdos2)/</code>,如果正确就会显示里面到内容，直到找到grub</li>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#grub-rescue-支持的命令">grub rescue 支持的命令</a></li>
+</ul></li>
+</ul></li>
 </ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<p>昨天下午的时候想要把分区处理一下，突然发现硬盘里面有一个未使用的102M的分区,很果断的把这些乱七八糟的分区都给干掉了。结果呢，再次开机的时候就坑了（虽然酱紫的事情干过很多次了，这次做个记录吧）开机时提示如下：</p>
+
+<pre><code>GRUB loading..
+error: unknown filesystem.
+Entering rescue mode....
+grub rescue&gt;
+</code></pre>
+
+<h3 id="grub-rescue-支持的命令">grub rescue 支持的命令</h3>
+
+<ul>
+<li><strong>ls</strong> 查看硬盘的分区情况，如果你已知自己的grub的安装位置（比如我的在<code>(hd0,msdos9)/boot/grub2</code>），那么就直接进行下一步。
+如果不知道，那就ls每个分区，比如: <code>ls (hd0,msdos2)/</code>,如果正确就会显示里面到内容，直到找到grub</li>
+</ul>
+
 <p><strong>这里一个很关键的地方就是在硬盘位置后应该加入<code>/</code></strong></p>
+
 <ul>
 <li><strong>set</strong> 直接输入的话， 可以看到root 和 prefix 的设置。这里需要把这两个选项改成我们已经找到的位置。</li>
 </ul>
+
 <p>窝的设置如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">grub rescue&gt; set</div><div class="line">grub rescue&gt; prefix=(hd0,msdos9)/boot/grub2</div><div class="line">grub rescue&gt; root=hd0,msdos9</div></pre></td></tr></table></figure>
+
+<pre><code>grub rescue&gt; set
+grub rescue&gt; prefix=(hd0,msdos9)/boot/grub2
+grub rescue&gt; root=hd0,msdos9
+</code></pre>
+
 <ul>
-<li><strong>insmod</strong> 载入模块。这里区别是窝这次记录的关键。<br>grub2和grub的一个很重要的区别就是模块的位置。grub2的模块位置在<code>/boot/grub2/i386-pc/normal.mod</code><br>执行命令：</li>
+<li><strong>insmod</strong> 载入模块。这里区别是窝这次记录的关键。
+grub2和grub的一个很重要的区别就是模块的位置。grub2的模块位置在<code>/boot/grub2/i386-pc/normal.mod</code>
+执行命令：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grub rescue&gt;insmod (hd0,msdos9)/boot/grub2/i386-pc/normal.mod</div></pre></td></tr></table></figure>
+
+<pre><code>grub rescue&gt;insmod (hd0,msdos9)/boot/grub2/i386-pc/normal.mod
+</code></pre>
+
 <p>执行成功之后，提示符会变成<code>normal</code></p>
+
 <ul>
 <li><strong>normal</strong> 进入正常模式，直接输入命令即可</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grub rescue&gt;normal</div></pre></td></tr></table></figure>
+
+<pre><code>grub rescue&gt;normal
+</code></pre>
+
 <p>这个时候，就可以看到熟悉的引导界面了。</p>
+
 <ul>
-<li><strong>grub2-install</strong><br>进入系统后执行命令</li>
+<li><strong>grub2-install</strong>
+进入系统后执行命令</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo update-grub</div><div class="line">$ sudo grub2-install /dev/sda</div></pre></td></tr></table></figure>
+
+<pre><code>$ sudo update-grub
+$ sudo grub2-install /dev/sda
+</code></pre>
+
 <p>如果不执行这样的命令的话，重启之后还会回到之前的界面orz</p>
 
-      
     </div>
-    <footer class="article-footer">
-      <a data-url="http://moelove.info/2014/07/02/Grub2-rescue-修复/" data-id="cj4kv43c5000ba4cba5ddrys4" class="article-share-link">Share</a>
-      
-        <a href="http://moelove.info/2014/07/02/Grub2-rescue-修复/#disqus_thread" class="article-comment-link">留言</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/grub2/">grub2</a></li></ul>
 
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">TaoBeier</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2014-07-02</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/Linux/">Linux</a>
+          
+          <a href="/tags/grub2/">grub2</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/2014/07/17/Bash-%E6%98%BE%E7%A4%BA-Git-%E5%88%86%E6%94%AF/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Bash 显示 Git 分支</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="/2014/06/19/Linux%E4%B8%ADSublime%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/">
+            <span class="next-text nav-default">Linux中Sublime中文输入</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
     </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2014/07/17/Bash-显示git分支/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
+  </article>
+        </div>
         
-          Bash 显示 Git 分支
-        
+  
+
+  
+
       </div>
-    </a>
-  
-  
-    <a href="/2014/06/19/Linux中Sublime中文输入/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Linux中Sublime中文输入</div>
-    </a>
-  
-</nav>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhangjintao9020@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://plus.google.com/111099802544541897352" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/tao12345666333" class="iconfont icon-github" title="github"></a>
+      <a href="http://weibo.com/9020taobeier" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/TaoBeier" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="http://moelove.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
 
   
-</article>
 
-
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-</section>
-        
-          <aside id="sidebar">
-  
+  <span class="copyright-year">
+    &copy; 
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2017/06/30/Install-Python3-6-on-CentOS7/">Install-Python3.6-on-CentOS7</a>
-          </li>
-        
-          <li>
-            <a href="/2017/03/05/理解-Redis-的-RESP-协议/">理解 Redis 的 RESP 协议</a>
-          </li>
-        
-          <li>
-            <a href="/2017/01/01/2016-小回顾/">2016 小回顾</a>
-          </li>
-        
-          <li>
-            <a href="/2016/12/26/关于-webpack-你可能忽略的细节（附源码分析）/">关于 webpack 你可能忽略的细节（附源码分析）</a>
-          </li>
-        
-          <li>
-            <a href="/2016/12/16/composer-使用技巧简述/">Composer 使用技巧简述</a>
-          </li>
-        
-      </ul>
+      2013 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">TaoBeier</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
     </div>
   </div>
-
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 13.33px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 11.67px;">DevOps</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 16.67px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/Pelican/" style="font-size: 13.33px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 11.67px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 18.33px;">Tool</a> <a href="/tags/Vim/" style="font-size: 15px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/Webpack/" style="font-size: 10px;">Webpack</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">四月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">三月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">十二月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">九月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">八月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">三月 2013</a></li></ul>
-    </div>
-  </div>
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">分类</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Life/">Life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a></li></ul>
-    </div>
-  </div>
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
 
 
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2017 TaoBeier<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-    <a href="/projects" class="mobile-nav-link">Projects</a>
-  
-    <a href="/about" class="mobile-nav-link">About</a>
-  
-    <a href="/friends" class="mobile-nav-link">Friends</a>
-  
-</nav>
-    
-<script>
-  var disqus_shortname = 'taobeier';
-  
-  var disqus_url = 'http://moelove.info/2014/07/02/Grub2-rescue-修复/';
-  
-  (function(){
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  })();
-</script>
 
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
-<script src="/js/script.js"></script>
-
-  </div>
 </body>
 </html>

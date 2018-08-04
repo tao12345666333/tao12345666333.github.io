@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: http://moelove.info/sitemap.xml

@@ -1,0 +1,604 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MoeLove</title>
+    <link>http://moelove.info/</link>
+    <description>Recent content on MoeLove</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Fri, 30 Jun 2017 00:13:16 +0000</lastBuildDate>
+    
+	<atom:link href="http://moelove.info/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Install-Python3.6-on-CentOS7</title>
+      <link>http://moelove.info/2017/06/30/Install-Python3.6-on-CentOS7/</link>
+      <pubDate>Fri, 30 Jun 2017 00:13:16 +0000</pubDate>
+      
+      <guid>http://moelove.info/2017/06/30/Install-Python3.6-on-CentOS7/</guid>
+      <description>拖了很久没有更新，抱歉啦~ 今天受邀写篇如何在 CentOS 7 上配置 Python 3 环境的文章。往常我都选择直接把我早年写的一篇文章源码编译MongoDB丢过去，让他们看其中的源码编译 Python 那一节，不过那节写的其实不太详细，而且最近被很多人催，所以还是单独写一篇好了。
+ 当前最新的 CentOS 7.3 默认安装的是 Python 2 ，并且默认的官方 yum 源中不提供 Python 3 的安装包。有些用户想要升级使用 Python 3 但实际可能有各种各样的问题，导致出错，反观一下激进的 Fedora 社区，在23的时候，就将默认的版本修改成了 Python3 （如果我没记错的话）。
+先说下我所使用的系统环境， 一个新创建的 Docker 容器。 使用 cat /etc/redhat-release 可以看到运行的是 CentOS 7.3 版本。
+在纯净的 CentOS 系统上安装 Python 环境主要有两种办法。 一种是通过源码编译安装，另外一种就是安装已经打好的 RPM 包。依照个人习惯，我们先来看一下如何通过源码编译的方式安装 Python 3.6 并且配置虚拟环境。
+使用源码进行编译安装 基础环境  先安装安装几个必须的包，以方便后续的操作  ➜ yum install wget gcc make ➜ # wget 用于下载源码包 ➜ # gcc 和 make 用于编译   上 Python的官网 下载源码包  ➜ wget https://www.</description>
+    </item>
+    
+    <item>
+      <title>Projects</title>
+      <link>http://moelove.info/projects/</link>
+      <pubDate>Wed, 21 Jun 2017 21:42:18 +0000</pubDate>
+      
+      <guid>http://moelove.info/projects/</guid>
+      <description>My Vim Configuration  My vim configuration, more Python and Javascript. Will add Haskell, Ruby, Lua, Go and C/C++.
+ qyweixin  An API wrapper for Enterprise Weixin written in Python.
+ HTTPMultipart  A http multipart library for send multipart request, written in Python.
+ More..</description>
+    </item>
+    
+    <item>
+      <title>about</title>
+      <link>http://moelove.info/about/</link>
+      <pubDate>Wed, 21 Jun 2017 21:42:18 +0000</pubDate>
+      
+      <guid>http://moelove.info/about/</guid>
+      <description>About Me  年少时一度沉迷到了后期（视频、音频）制作中,锻炼了一手好的PS技能 现已弃坑 写过C &amp;amp;&amp;amp; Android &amp;amp;&amp;amp; ROR &amp;amp;&amp;amp; &amp;hellip; 后沉迷于Web 至今挚爱 主力Python，了解并学习过多种语言 擅用平台Linux Windows已经有多年不用了 目前在做 web 开发(^ ^)  moelove.info = { &amp;quot;name&amp;quot; : [&amp;quot;TaoBeier&amp;quot;, &amp;quot;涛涛&amp;quot;], &amp;quot;description&amp;quot; : &amp;quot;在程序猿道路上不断学习的骚年&amp;quot; };  Contact Me  E-mail : emhhbmdqaW50YW85MDIwQGdtYWlsLmNvbQ== Weibo : 涛_fighting V2EX : TaoBeier SegmentFault : TaoBeier  About The Blog  记录一下自己以前，现在以及未来的生活
+分享一些自己的感悟和经验
+感谢Hexo , 七牛云存储 以及其他开源软件提供的支持
+可以关注公众号「TheMoeLove」订阅更新或者和我交流你的想法，期待ing～  在没有特别注明的情况下：
+
+本站文字作品由TaoBeier创作，采用知识共享署名-相同方式共享 4.0 国际许可协议进行许可。</description>
+    </item>
+    
+    <item>
+      <title>理解 Redis 的 RESP 协议</title>
+      <link>http://moelove.info/2017/03/05/%E7%90%86%E8%A7%A3-Redis-%E7%9A%84-RESP-%E5%8D%8F%E8%AE%AE/</link>
+      <pubDate>Sun, 05 Mar 2017 21:45:07 +0000</pubDate>
+      
+      <guid>http://moelove.info/2017/03/05/%E7%90%86%E8%A7%A3-Redis-%E7%9A%84-RESP-%E5%8D%8F%E8%AE%AE/</guid>
+      <description>简介 Redis 的客户端和服务端之间采取了一种独立名为 RESP(REdis Serialization Protocol) 的协议，作者主要考虑了以下几个点：
+ 容易实现 解析快 人类可读  注意：RESP 虽然是为 Redis 设计的，但是同样也可以用于其他 C/S 的软件。
+数据类型及示例 RESP 主要可以序列化以下几种类型：整数，单行回复(简单字符串)，数组，错误信息，多行字符串。Redis 客户端向服务端发送的是一组由执行的命令组成的字符串数组，服务端根据不同的命令回复不同类型的数据，但协议的每部分都是以 &amp;ldquo;\r\n&amp;rdquo; (CRLF) 结尾的。另外 RESP 是二进制安全的，不需要处理从一个进程到另一个进程的传输，因为它使用了前缀长度进行传输。
+在 RESP 中, 一些数据的类型通过它的第一个字节进行判断：
+ 单行回复：回复的第一个字节是 &amp;ldquo;+&amp;rdquo; 错误信息：回复的第一个字节是 &amp;ldquo;-&amp;rdquo; 整形数字：回复的第一个字节是 &amp;ldquo;:&amp;rdquo; 多行字符串：回复的第一个字节是 &amp;ldquo;\$&amp;rdquo; 数组：回复的第一个字节是 &amp;ldquo;*&amp;rdquo;  单行回复 以 &amp;ldquo;+&amp;rdquo; 开头，以 &amp;ldquo;\r\n&amp;rdquo; 结尾的字符串形式。e.g.
++OK\r\n  响应的客户端库，应该返回除 &amp;ldquo;+&amp;rdquo; 和 CRLF 以外的内容，例如上面的内容，则返回 &amp;ldquo;OK&amp;rdquo;. e.g.
+127.0.0.1:6379&amp;gt; set name TaoBeier +OK\r\n # 服务端实际返回 --- OK # redis-cli 客户端显示  错误信息 错误信息和单行回复很像，不过是把 &amp;ldquo;+&amp;rdquo; 替换成了 &amp;ldquo;-&amp;ldquo;。而这两者之间真正的区别是，错误信息会被客户端视为异常，并且组成错误类型的是错误消息本身。e.</description>
+    </item>
+    
+    <item>
+      <title>2016 小回顾</title>
+      <link>http://moelove.info/2017/01/01/2016-%E5%B0%8F%E5%9B%9E%E9%A1%BE/</link>
+      <pubDate>Sun, 01 Jan 2017 01:00:51 +0000</pubDate>
+      
+      <guid>http://moelove.info/2017/01/01/2016-%E5%B0%8F%E5%9B%9E%E9%A1%BE/</guid>
+      <description>时间很快， 已经走到了 2016 的末尾， 惯例的做个小回顾。（注：这篇起笔的时间是圣诞节TAT）
+年初定的目标除了没有能合理安排追番时间， 其他的都基本完成了！（话说今年追番的时间简直少的可怜QAQ）
+2016 年发生了太多的事情，要回顾的事情很多，索性就不写那么多了, 只按时间序稍微列几件有趣的事情。
+ 单表亿级数据量的 MongoDB 做在线实时的数据拆分 在之前做的一些应用性能分析的方案上做了一些额外的设计和开发（明年修改下开源出来） PyCon China 2016 一些预期的计划顺利推进、落地，产出了一些系统 看了很多源码，折腾了很多东西，如果以后有空就写点东西出来（我又在给自己挖坑了） 认识了很多有趣的小伙伴~  全年的状态基本和上面的截图是一致的， 全年都在 coding （截图仅限 GitHub上的记录）倒也比较开心， 另外就是现在看到自己项目的 star/fork 数，文章的阅读/收藏/转发数之类的，也已经不像以前看到 star 数刚上百时候会有那种喜悦了，大概这也是另一种成熟？ 哈哈哈
+另外写一下今年对我比较重要的几个数字：
+ 1354 376 105  对这些数字的解释, 放在以后吧 :-)
+2017 年，希望想做的事情都能基本完成，挖的坑慢慢填。 感谢一路上陪我走过的各位！
+可以通过下面二维码订阅我的文章公众号【MoeLove】</description>
+    </item>
+    
+    <item>
+      <title>关于 webpack 你可能忽略的细节（附源码分析）</title>
+      <link>http://moelove.info/2016/12/26/%E5%85%B3%E4%BA%8E-webpack-%E4%BD%A0%E5%8F%AF%E8%83%BD%E5%BF%BD%E7%95%A5%E7%9A%84%E7%BB%86%E8%8A%82%E9%99%84%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link>
+      <pubDate>Mon, 26 Dec 2016 00:43:02 +0000</pubDate>
+      
+      <guid>http://moelove.info/2016/12/26/%E5%85%B3%E4%BA%8E-webpack-%E4%BD%A0%E5%8F%AF%E8%83%BD%E5%BF%BD%E7%95%A5%E7%9A%84%E7%BB%86%E8%8A%82%E9%99%84%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</guid>
+      <description>注：本篇不是入门教程，入门请直接查看官方文档。本篇的主要目标是通过实际问题来介绍 webpack 中容易被人忽略的细节, 以及源码分析(以最新发布的 release 版本1.14.0的源码为例), 并且提供几种解决方案。
+ 随着前端技术的火热发展，工程化，模块化和组件化的思想已逐步成为主流，与之相应的，就需要有一整套工具流可以支撑起它。
+现在比较热门的前端资源模块化管理和打包工具应该非 Webpack 莫属了。
+Webpack 是什么  它可以将许多松散的模块按照依赖和规则打包成符合生产环境部署的前端资源。还可以将按需加载的模块进行代码分隔，等到实际需要的时候再异步加载。通过 loader 的转换，任何形式的资源都可以视作模块，比如 CommonJs 模块、 AMD 模块、 ES6 模块、CSS、图片、 JSON、Coffeescript、 LESS 等。 &amp;ndash;引自 Webpack 中文指南
+ 使用举例 我们来看一下官方文档中的最小用例，新建并写入以下内容到这两个文件：
+cats.js
+var cats = [&#39;dave&#39;, &#39;henry&#39;, &#39;martha&#39;]; module.exports = cats;  app.js (Entry Point)
+cats = require(&#39;./cats.js&#39;); console.log(cats);  这个时候，就可以使用 webpack 进行打包了：
+webpack ./app.js app.bundle.js  我们来看一下发生了什么， 目录下生成了一个打包后的文件 app.bundle.js ，这就是最基础的打包过程。
+提出问题 如何判断打包是否成功？
+通用方案 下面是我们常用的两种判断任务是否执行成功的方案
+通过 return code 通过命令执行后的 return code 来判断（在 shell 中使用 $?</description>
+    </item>
+    
+    <item>
+      <title>Composer 使用技巧简述</title>
+      <link>http://moelove.info/2016/12/16/Composer-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%AE%80%E8%BF%B0/</link>
+      <pubDate>Fri, 16 Dec 2016 00:49:11 +0000</pubDate>
+      
+      <guid>http://moelove.info/2016/12/16/Composer-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%AE%80%E8%BF%B0/</guid>
+      <description>最近使用了世界最好的语言 PHP 用来管理依赖关系的工具 Composer. 稍微做点记录, 以做备忘. 如有错误还望指出.
+ 安装 php -r &amp;quot;copy(&#39;https://getcomposer.org/installer&#39;, &#39;composer-setup.php&#39;);&amp;quot; php -r &amp;quot;if (hash_file(&#39;SHA384&#39;, &#39;composer-setup.php&#39;) === &#39;aa96f26c2b67226a324c27919f1eb05f21c248b987e6195cad9690d5c1ff713d53020a02ac8c217dbf90a7eacc9d141d&#39;) { echo &#39;Installer verified&#39;; } else { echo &#39;Installer corrupt&#39;; unlink(&#39;composer-setup.php&#39;); } echo PHP_EOL;&amp;quot; php composer-setup.php php -r &amp;quot;unlink(&#39;composer-setup.php&#39;);&amp;quot;  上述代码来自官网.
+局部安装 上述代码执行完成后, 只是下载到了 composer.phar 文件, 可以通过 php composer.phar 在任意位置执行.
+全局安装 全局安装只是把 composer.phar 安装到 PATH 下即可. 可以像下面这样:
+sudo mv composer.phar /usr/local/bin/composer  国内镜像加速 使用Composer中文网提供的中国全量镜像进行加速.
+单项目加速 进入项目目录(即 composer.json 文件所在目录) 执行:</description>
+    </item>
+    
+    <item>
+      <title>Git workflow 详谈</title>
+      <link>http://moelove.info/2016/12/05/Git-workflow-%E8%AF%A6%E8%B0%88/</link>
+      <pubDate>Mon, 05 Dec 2016 22:40:41 +0000</pubDate>
+      
+      <guid>http://moelove.info/2016/12/05/Git-workflow-%E8%AF%A6%E8%B0%88/</guid>
+      <description>作为一名工程师， Git 在日常开发中是不可或缺的工具。 这里详细介绍几种比较常用的基于 Git 的工作流模型, 以便于团队协作的规范化和效率提升。
+中心化工作流 使用过SVN的应该都知道， SVN使用的是集中式管理流程， 如果你刚从SVN 切换到 Git ， 你可以尝试使用中心化工作流的方式。这样，你几乎不需要变更之前的工作方式， 就可以完成平滑的过渡了。 而且在使用过程中还可以看到 Git 优于 SVN 的地方： 第一，每个成员都可以在本地拥有一份完整的项目代码仓库，而不只是一个工作区的副本，任何人都可以在本地执行 add 和 commit ，而不需要考虑远端仓库是否有变更，直到需要的时候再去提交即可。 第二，Git 的工作区、暂存区、引用更新等设计，可以给开发者更多自由来切换当前工作，且不会造成代码丢失。
+工作细节 中心化工作流的方式是：在远端（远端可以是服务器端，也可以是本地的任意目录）新建一个仓库，默认是 master 分支，作为唯一的中心仓库。 所有人都 clone 这个仓库作为本地仓库，并在本地仓库进行开发。本地的提交是和远端仓库无关的，等需要的时候再 push 进主仓库的 master 分支即可。
+在这种方式下， 远端是唯一确定的中心仓库， 所有人都要以这个仓库为准。 所以，在提交之前要先 fetch 最新提交，在这些提交之上作出自己的更改(一般我们使用 rebase来完成)。
+如果本地的修改和远端仓库中的变更发生了冲突，那么 Git 会暂停 rebase ，并让你来解决这些冲突。我们可以很简单的使用 git status 和 git add 等命令完成冲突的合并。 另外, 如果我们解决不了冲突, 我们也可以使用 git rebase --abort 很容易的退出 rebase 的过程。
+这样每天的工作方式就变成了，从中心仓库拉取最新代码， 然后开始一天的工作， 开发完成后，拉取中心仓库的更新， 合并代码后， 再提交至中心仓库， 结束一天的工作。 这样的好处就是不需要变更原先（使用SVN）的工作方式。当然弊端也很明显，你并不知道中心仓库的代码是否是稳定的，或者说并不能确定当你的代码和中心仓库代码合并后，是否是稳定的，带来的问题就是开发进度和回滚不那么方便控制。</description>
+    </item>
+    
+    <item>
+      <title>Git 本地仓库和裸仓库</title>
+      <link>http://moelove.info/2016/12/04/Git-%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%92%8C%E8%A3%B8%E4%BB%93%E5%BA%93/</link>
+      <pubDate>Sun, 04 Dec 2016 01:37:39 +0000</pubDate>
+      
+      <guid>http://moelove.info/2016/12/04/Git-%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%92%8C%E8%A3%B8%E4%BB%93%E5%BA%93/</guid>
+      <description>通常我们会用 git init 命令来将我们所在的目录转换为一个 Git 本地仓库或者初始化一个新的空仓库。
+用法  将当前目录转换为一个本地仓库  git init  这个命令执行后会在本地生成一个 .git 的文件夹，用来追踪仓库的所有变更。效果如下：
+ 指定某个目录成为本地仓库  git init &amp;lt;repo&amp;gt;  这个命令执行后， 将创建一个名为repo且只包含 .git 子文件夹的空目录。效果如下：
+ 指定某个目录成为中心仓库（裸仓库）  git init --bare &amp;lt;repo&amp;gt;  这个命令执行后，将在本地创建一个名为 repo 的文件夹， 里面包含着 Git 的基本目录， 我们一般会将这个文件夹命名为后面加 .git 的形式，如 repo.git （这也是为什么我们从 GitHub clone 仓库的时候，地址都是 xxx.git 这样的形式的原因）。效果如下：
+详细说一下使用 --bare 参数的含义，使用 --bare 参数初始化的仓库，我们一般称之为裸仓库， 因为这样创建的仓库并不包含 工作区 ， 也就是说，我们并不能在这个目录下执行我们一般使用的 Git 命令。
+对比 我们来对比一下直接使用 git init 创建的仓库和加了 --bare 参数的两个仓库。 我们直接看两个仓库的的 config 文件中的内容：</description>
+    </item>
+    
+    <item>
+      <title>源码编译Vim 8</title>
+      <link>http://moelove.info/2016/09/24/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91Vim-8/</link>
+      <pubDate>Sat, 24 Sep 2016 19:46:47 +0000</pubDate>
+      
+      <guid>http://moelove.info/2016/09/24/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91Vim-8/</guid>
+      <description>Vim 8.0 在2016.09.12发布了, 在各 Linux 发行版还没更新包的时候就源码编译来使用吧! 以 Debian 编译 Vim 为例.
+ 下载Vim 源码 可以在Vim 官网下载打包好的源代码. 或者使用 Git:
+git clone https://github.com/vim/vim.git  编译 cd vim/src ./configure --with-compiledby=&amp;quot;TaoBeier&amp;quot; --with-features=huge --enable-pythoninterp=yes --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu --enable-cscope --enable-perlinterp=yes --enable-rubyinterp=yes --with-luajit --enable-luainterp=yes --with-lua-prefix=/usr/include/lua5.1 --enable-multibyte --with-x --enable-fail-if-missing  上面的参数使用 ./configure --help 都可以看到对应用途. 上面使用的参数是增加了对 Python, Ruby, Perl, 以及X window的支持.
+建议加上 --enable-fail-if-missing 参数, 以方便定位到哪里依赖缺失.
+依赖 这里检查可能通不过, 首先是 lua 和 luajit. 需要执行
+sudo apt-get install lua5.1 liblua5.1-0 luajit libluajit-5.1-dev</description>
+    </item>
+    
+    <item>
+      <title>利器系列-更高效的Vim</title>
+      <link>http://moelove.info/2016/09/16/%E5%88%A9%E5%99%A8%E7%B3%BB%E5%88%97-%E6%9B%B4%E9%AB%98%E6%95%88%E7%9A%84Vim/</link>
+      <pubDate>Fri, 16 Sep 2016 16:55:44 +0000</pubDate>
+      
+      <guid>http://moelove.info/2016/09/16/%E5%88%A9%E5%99%A8%E7%B3%BB%E5%88%97-%E6%9B%B4%E9%AB%98%E6%95%88%E7%9A%84Vim/</guid>
+      <description>这是利器系列第0篇, 当然要以每天我使用率最高的Vim来开始啦!
+ 截图 安装 (你需要一个有Python支持的Vim版本. 请使用 vim --version | grep +python 来检查)
+ 依赖(Debian/Ubuntu 平台)
+sudo apt-get install python vim exuberant-ctags git
+sudo pip install dbgp vim-debug pep8 flake8 pyflakes isort
+ 依赖(RedHat/CentOS 平台)
+CentOS 6.7的yum源自带的Python版本较旧，推荐自行安装Python2.7.
+sudo yum install python vim ctags git
+sudo pip install dbgp vim-debug pep8 flake8 pyflakes isort
+ 依赖(Mac OS 平台)
+brew install python vim git
+wget http://tenet.dl.sourceforge.net/project/ctags/ctags/5.8/ctags-5.8.tar.gz &amp;amp;&amp;amp; tar -zxvf ctags-5.8.tar.gz &amp;amp;&amp;amp; cd ctags-5.</description>
+    </item>
+    
+    <item>
+      <title>Python性能优化之工具篇</title>
+      <link>http://moelove.info/2016/05/14/Python%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E5%B7%A5%E5%85%B7%E7%AF%87/</link>
+      <pubDate>Sat, 14 May 2016 00:14:54 +0000</pubDate>
+      
+      <guid>http://moelove.info/2016/05/14/Python%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E5%B7%A5%E5%85%B7%E7%AF%87/</guid>
+      <description>之前对公司的一个后端项目做了些性能优化, 学到一些值得记录的东西, 这篇主要是介绍在做性能分析时所用到的工具, 至于如何优化基本就是智者见智吧, 如果有时间可能会写的.
+ Python web应用程序的常见性能指标 此处忽略外部DNS解析等方面的性能   响应时间 错误率 吞吐率 执行时间 内存占用  Python 性能分析工具 ##TODO</description>
+    </item>
+    
+    <item>
+      <title>想从二次元群体手里赚钱？你真的懂二次元吗!</title>
+      <link>http://moelove.info/2016/04/16/%E6%83%B3%E4%BB%8E%E4%BA%8C%E6%AC%A1%E5%85%83%E7%BE%A4%E4%BD%93%E6%89%8B%E9%87%8C%E8%B5%9A%E9%92%B1%E4%BD%A0%E7%9C%9F%E7%9A%84%E6%87%82%E4%BA%8C%E6%AC%A1%E5%85%83%E5%90%97/</link>
+      <pubDate>Sat, 16 Apr 2016 10:36:04 +0000</pubDate>
+      
+      <guid>http://moelove.info/2016/04/16/%E6%83%B3%E4%BB%8E%E4%BA%8C%E6%AC%A1%E5%85%83%E7%BE%A4%E4%BD%93%E6%89%8B%E9%87%8C%E8%B5%9A%E9%92%B1%E4%BD%A0%E7%9C%9F%E7%9A%84%E6%87%82%E4%BA%8C%E6%AC%A1%E5%85%83%E5%90%97/</guid>
+      <description>“节操”，“鬼畜”，“萌”, &amp;ldquo;二次元&amp;rdquo;这些词是不是逐渐的融入了你的日常？ 这些词其实都是二次元产物。越来越多的人将关注点放到了“二次元群体”上，但是这里的价值和它真正的含义你懂了吗？
+ 什么是原本的二次元 很多人认为二次元就是指“二维平面”，“平面世界”，也有人认为是ACGN，但这个观点其实是带有误区的。
+为什么这样说呢？我们一起来追溯一下“二次元”这个词是什么时候出现的，有部和我年龄相仿的动画片《机动战舰》(暴露年龄系列,我下一篇就写这个)，其中的反派们超级崇拜一部叫《激钢人3》的动画片，甚至这部动画片已经成为反派军中的圣典（除了很热血很好看外，其实是因为他们逃亡的时候就只带了这一部动画片吧，充分说明做资源党是有好处的！），当然剧中的主角也是很喜欢这部动画片的。动画（机动战舰）中的反派非常喜欢激钢人3中的女主菜菜子，但是毕竟现实和动画是不可逾越的（明明都是在动画里面！），处于伤感中的反派们相互安慰：“菜菜子再好，但她毕竟只是二次元的女子啊！”，这句话引起了很多ACG爱好者的共鸣，所以逐步的借用了其中的“二次元”来描述自己所喜爱的由ACG创造出来的世界了。
+什么是现在的二次元 很多人说现在的二次元是“泛二次元”，可这个”泛“到底是泛到了什么程度呢？这就好像从15年开始，”IP“在圈子里吵得火热，但到底什么是IP？很多人只是知道一个名词或者一个模糊的概念罢了。 有多少真正爆款的IP产生呢？
+现在一般指的二次元确实是”泛二次元“，不仅包含着ACGN，还包含着其相关的衍生产物（这不是废话吗？）。也就是这种模棱两可的概念让绝大多数人身处次元壁外，不得其门而入。
+为了避免概念混淆，本篇不具体解释“核心二次元文化”和“泛二次元文化”（放到下篇来写），谈谈现在的二次元群体即“泛二次元”群体。
+&amp;ldquo;宅&amp;rdquo; 大多数情况下，ACG爱好者被冠上了“宅”的标签，外界一般这样看我们“不爱出门”，“就知道看动漫”，“沉迷于虚拟世界”等等。实际上“宅”也分了很多种，“御宅族”应该是相对较早的称呼了，现在大多使用“宅男/宅女”来形容这部分人和长期待在家里不出去的人。并且基于当前环境和舆论等，“宅”一度被加上了变异的色彩。
+但是当二次元群体以“宅”自称或称呼别人的时候，一般是指对于某种兴趣爱好的痴迷，有时候也指大触（某方面很厉害的人）。这种倾注了情感的痴迷，不仅支撑着我们可以长时间宅在家，还可以不断的利用现有资源，发展自己的圈子和技能，结识同好，分享兴趣，一起做很多好玩的事情。一般会被称为“动漫宅”，“偶像宅”，“技术宅”等，也会称为“游戏狗”，“单身汪”之类的。（但是我们都有着做现充的觉悟的！）
+“腐” 这个群体中女性相比男性更多一些（目前表现出来的是这样），这个群体多表现为对“BL”（boy’s love），“GL”（girl’s love）等的喜爱。“腐”和“宅”并不能完全隔离开，会有重合，不过“宅”群体一般更多的关注点在于虚拟世界中，而很可能一个并不宅的妹子有天你突然发现她其实是腐的，并且长期YY你和其他男同事（orz）。
+“Coser”，“lo娘”，“舞见” 作为一枚野生后期，对这部分群体和我接下来要谈的“唱见”等了解也相对多了一些。Coser（玩Cosplay 的人），lo娘（喜欢Lolita穿衣风格的人），舞见（一般指宅舞的舞者）都逐渐变多，这也和大众对这个群体的接受度逐渐变高了有关。这个群体相对的要辛苦一些，喜欢某些东西，喜欢到了不满足于看，而想自己亲自去尝试。
+Coser需要经过服装，道具，化妆等工序打磨，而一般在网上直接买的衣服可能不合适还需要自行修改。这三类人都很容易被外界的人投以另类的目光，但是也比较容易通过活动或者交流找到同好。毕竟这些都是既看脸又走心的形式，既传达自己对原作的感情又能将自己美好的一面示人。
+&amp;ldquo;唱见&amp;rdquo; “唱见”（投稿翻唱歌曲的业余歌手）也越来越多，而且很多也唱的非常棒！以动漫的OP，ED投稿较多，目前有很多的应用或网站都提供了方便的音频发布，电台之类的功能，比较容易获得粉丝。
+&amp;ldquo;网配&amp;rdquo; “网配”（网络配音）大多是基于网配文或某些小说进行PIA戏，也有一部分人会选择制作广播剧之类的。
+其他 其他就是一部分我不常接触或者人数相对较少的群体了。
+为什么是二次元群体 在大致了解了当前二次元群体之后，我们来谈谈为什么从二次元群体入手
+ 群体基数大，覆盖面广。在上面我已经大致说过了，看看自己的周围，随便上微博、贴吧之类的看看，大抵就知道了; 增长迅速。看看当前A、B站，腾讯动漫等的用户增长量也可窥一斑; 付费能力强。只要戳中了二次元群体的G点，付费能力非常强，以Coser和lo娘为例，一般都会花上万块在服装上; 自我传播能力较强。二次元群体大多活跃在手Q，微博，贴吧等平台上，且有自己的圈子，自我传播能力相对更强; 用户相对忠实。由于二次元文化作为一个独特的亚文化发展起来，当前占据主体的还是90后，00后，碎片化时间相对较多，且更容易在应用/网站中形成关系链; 二次元作品相对可扩展的面更广，更容易找到增长点。  可能发展的方向 资源平台 二次元群体本就对资源有非常高的渴望和期待，当然也很挑剔，有着很完整的选择要求，用资源吸引到用户，才是解决了用户的需求。
+周边产业 二次元群体对于正版周边产物是有着强烈需求的，但是目前无论是市场还是价格上都不是很好。
+同人 同人资源对二次元文化的发展是有着相当大影响的，若能吸引到用户，将可能迎来爆发式的增长。
+以上都是我一本正经的胡说八道，小心误入歧途 2333</description>
+    </item>
+    
+    <item>
+      <title>2015小回顾</title>
+      <link>http://moelove.info/2015/12/31/2015%E5%B0%8F%E5%9B%9E%E9%A1%BE/</link>
+      <pubDate>Thu, 31 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://moelove.info/2015/12/31/2015%E5%B0%8F%E5%9B%9E%E9%A1%BE/</guid>
+      <description> 时间过得很快2015年最后一天。 还是继续给自己做个总结吧。 去年也有做总结，不过没有发布到Blog罢了。
+2015年初在公司定了两个主要目标:
+ 对工具的打磨 计算机图形学  第一个目标算是基本完成，现在在用的工具都很顺手，效率能提升很多，而且用起来也很爽！现在也还会再尝试一些其他的工具，或者提升现在使用的工具的便利性。有时间的话可以写篇文章介绍一下。第二个目标目前没有什么进展，可以考虑是不是要留到今年了XD，当然还有一些其他自己定的目标基本完成，大致写写自己的收获好了。
+收获 (大致按照时间来写吧)
+ 读了一部分 Nginx 的源码，算是对Nginx有了比以前更深入的认识，但是现在回过头来再重新审视的话，发现对它的理解还远远不够，还需要继续深入。 学习了 Haskell, Haskell我觉得是一门非常棒的语言，非常值得学习，通过对这门语言的学习，改变了我的一些思维方式。除了用它写过一些小程序以外，还没能在工程中大量使用，今后继续加油，尽量引入到工程中～ 学习了 Node.js, 同样的还缺乏工程中的实践 学习了 Backbone.js,AngularJS 和 ReactJS. Backbone记忆中应该是5月份左右学习的，ReactJS要晚很多。写Backbone的时候想起来了之前用过的Riot, 轻量，随意，但是要写完整的应用相比AngularJS之类的要写很多代码。 开源了qyweixin和一个HTTPmultipart的库，下载量各自也都已经几千了，上次在评论中也看到确实有人在使用～ 还是蛮开心的啦！ 学会了使用 Docker，也准备学习一些内部机制之类的东西。 还在翻译中的Tornado 4.3文档也会尽快抽时间翻译完成的. 此外还有学习了Lua和正在深入学习的Shell，还有一系列的框架和库, 正在用来写一些自己的小东西。 1383 Contributions. 运营了公众号 TheMoeLove  还有一些目前还无法放入*收获*这一项中的东西，在2016年尽量都再多积累一些。
+另外，下面这部分也非常的重要！
+ 认识了很多好玩的小伙伴，从他们那里也学到了很多东西 工作中同事们都很好，感谢给予的帮助～  总结  学会拒绝。一些事情是可以容忍的，但是要遵守原则，也要考虑时间成本和效率问题。 学习和思考。这一年之间其实学到的东西也蛮多的，只不过有些东西没能在工程实践中应用，效果不是很明显。多思考，做个靠谱的人，尽量不在相同的地方摔倒两次。 多读书 尝试新东西 多深入一些。浅尝辄止不是应该有的状态。 合理安排追番时间 2333  </description>
+    </item>
+    
+    <item>
+      <title>JSLint,JSHint,ESLint对比和Vim配置</title>
+      <link>http://moelove.info/2015/11/28/JSLintJSHintESLint%E5%AF%B9%E6%AF%94%E5%92%8CVim%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Sat, 28 Nov 2015 23:43:49 +0000</pubDate>
+      
+      <guid>http://moelove.info/2015/11/28/JSLintJSHintESLint%E5%AF%B9%E6%AF%94%E5%92%8CVim%E9%85%8D%E7%BD%AE/</guid>
+      <description>最近在用React写项目，但是我的Vim配置之前并没有配置对JSX和ES6的支持，然后看着那堆报错各种不爽了，于是还是要继续折腾，顺便也增加了点知识，记录一下。
+主流的JS Lint工具及介绍 JavaScript已经发展蛮长时间了，对应的Lint工具也是层出不穷，下面介绍一下比较主流的几个Lint工具(其实是我用过的几个XD)
+JSLint JSLint是由Douglas Crockford开发的，可能是最早的JavaScript Lint工具了吧，它的名字来源于著名的C语言工具Lint。老道把他认为的非Good Parts的部分都报了warning，而且在它的文档中也提到了你应该欣然接受所有的JSLint的建议。最近看了下，老道还在持续更新着这个项目，而且官网上也有着一个在线的体验工具，可以尝试一下。对了，如果想要使用这个工具，建议看看老道在YouTube上关于JavaScript编程风格的视频，讲的还是很幽默的。
+JSHint JSHint是由Anton Kovalyov基于JSLint的代码实现的开源项目，由于JSLint时期大多数人都在受JSLint压迫，JSHint相比较之下，更友好，也更容易配置，所以很快就发展了起来，也得到了众多IDE和编辑器的支持。但是，由于它是基于JSLint开发的，自然原有的一些问题它也继承下来了，比如不易扩展，不容易直接根据报错定位到具体的规则配置等，虽然之前好像是有过相关的讨论，但是现在仍然没有什么好的解决办法。好在它发展的不错，很多时候遇到的问题都可以在网上找到相关的解决方案，而且文档也是非常不错的。
+ESLint ESLint是由Nicholas C. Zakas在2013年开始开发的，它的初衷就是为了能让开发者能自定义自己的linting rules，而且它提供了一套相当完善的插件机制，可以自由的扩展，动态加载配置规则，同时可以方便的根据报错定位到具体的规则配置。而且我比较喜欢它的一点是文档非常详细，可能这也是灵活所必须的吧。在这里还要提一点，ESLint最初并不是为了造一个重复的轮子，而是作者在实际使用中的需求没有能得到JSHint团队的回应，所以他就结合当时的JSHint和另一个代码风格的检查工具JSCS写出来了现在具备代码风格检查，自定义插件扩展功能的ESLint了。
+JSLint，JSHint和ESLint的对比 这三个工具各有特色，我只是做一下对比，选择的话，看个人需求就好了。
+JSLint 优点  配置是老道已经定好的，开箱即用。  不足  有限的配置选项，很多规则不能禁用 规范严格，凡是不符合老道所认为的好的风格的，都会有警告(这一项就看你是否完全认同老道了) 扩展性差 无法根据错误定位到对应的规则  JSHint 优点  有了很多参数可以配置 支持配置文件，方便使用 支持了一些常用类库 支持了基本的ES6  不足  不支持自定义规则 无法根据错误定位到对应的规则  ESLint 优点  默认规则里面包含了JSLint和JSHint的规则，易于迁移(这肯定是故意的XD) 可配置为警告和错误两个等级，或者直接禁用掉 支持插件扩展 可以自定义规则 可以根据错误定位到对应的规则 支持ES6 唯一一个支持JSX的工具  不足  需要进行一些自定义配置(因为太灵活了嘛，不过文档是很详细的) 慢 (它比其他两个都要慢)  Vim支持 我们都使用Syntastic来配置
+JSLint的Vim配置 有一个jslint.vim当然版本太老了。。我们不用这种方式做。
+ 安装jslint  sudo npm install jslint -g   在vimrc中添加如下配置  let g:syntastic_javascript_checkers = [&#39;jslint&#39;]   JSHint的Vim配置  安装jshint</description>
+    </item>
+    
+    <item>
+      <title>用正确的姿势开源Python项目</title>
+      <link>http://moelove.info/2015/10/26/%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%A7%BF%E5%8A%BF%E5%BC%80%E6%BA%90Python%E9%A1%B9%E7%9B%AE/</link>
+      <pubDate>Mon, 26 Oct 2015 22:17:36 +0000</pubDate>
+      
+      <guid>http://moelove.info/2015/10/26/%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%A7%BF%E5%8A%BF%E5%BC%80%E6%BA%90Python%E9%A1%B9%E7%9B%AE/</guid>
+      <description>做个备忘，也希望可以帮到别人。
+ 目录结构（初始化） 一般我们都会选择在项目的顶层包含较基础的文件，比如setup.py，requirements，README等文件。 一般情况下，一个预发布的Python项目中应该包含以下几类文件：
+ projects (项目的主体文件) setup.py requirements Readme (项目说明) docs (项目文档) test  其中，projects文件夹要以项目命名，存放实际的Python Package. 这里放一个我的项目的目录作为例子。
+➜ httpmultipart git:(master) tree -L 2 . ├── build │ ├── bdist.linux-x86_64 │ └── lib.linux-x86_64-2.7 ├── dist │ ├── httpmultipart-0.1.0-py2.py3-none-any.whl │ └── httpmultipart-0.1.0.tar.gz ├── docs │ ├── _build │ ├── conf.py │ ├── index.rst │ ├── Makefile │ ├── userguide │ └── userguide.rst ├── env │ ├── bin │ ├── include │ ├── lib │ └── local ├── httpmultipart │ ├── __init__.</description>
+    </item>
+    
+    <item>
+      <title>对监控系统的思考</title>
+      <link>http://moelove.info/2015/10/16/%E5%AF%B9%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%80%83/</link>
+      <pubDate>Fri, 16 Oct 2015 00:59:01 +0000</pubDate>
+      
+      <guid>http://moelove.info/2015/10/16/%E5%AF%B9%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%80%83/</guid>
+      <description>近期在做运维监控方面的事情，也研究了一下其他人是如何做的。把自己的想法做个总结记录一下吧。
+ 监控期望的目标  及时发现   需要的是即时监控并报警
+  及时定位   定位问题要分开讲
+ 运维层面 &amp;gt; 是机器硬件问题还是上面运行的基础服务的问题，或者是新上线代码的问题，需要回滚。
+ 代码层面 &amp;gt; 在发生问题的时候，优先解决问题。定位代码问题提交hotfix 可以在解决问题之后做。
+    及时处理 提前预测（尽量减少问题的发生）   提前预测可以做的事情有很多，数据挖掘/分析之类的。当然有个更简单的方法，就是先小范围上线，进行监控。如果发现出问题了，就停止上线，进行回滚。（我们现在就是这样做的，虽然原因并不是这个 2333
+ 监控遇到的主要问题  监控指标多   服务器CPU,内存，网络等的指标，基础服务Redis, MongoDB等的运行指标，对外服务的API是否正常工作，还有数据是否正确等。
+  监控报警多   监控指标多的时候，自然报警也会相应增加，但是报警的分组与轻重缓急也是一个很麻烦的问题。还有就是部署着不同服务的机器，触发报警时候的指标也不好确定。
+  报警多而且有关联，如何查找原因   可能同时会有多个指标触发了报警，但是要定位问题的时候，如何可以快速的定位问题。
+ 多维度数据监控  这个话题太大(要感谢Baidu的颜大大的指点）
+ 数据监控符合二八原则,重要数据需要多角度进行观察，需要有meta管理，需要动态简单配置。选择 好的，合理的数据模型可以有效的进行处理。
+ 数据采集部分，在单机器做聚合;命名上使用正则格式化;完善的配置功能，支持数据流自定义维度。
+    对开源系统的使用，需要按照自己的实际情况进行适配。保证高可用性  先写这些吧，之后有时间再写，还有QCon上对运维监控上的一些分享也非常值得思考</description>
+    </item>
+    
+    <item>
+      <title>Open-Falcon监控系统部署</title>
+      <link>http://moelove.info/2015/10/13/Open-Falcon%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E9%83%A8%E7%BD%B2/</link>
+      <pubDate>Tue, 13 Oct 2015 21:01:00 +0000</pubDate>
+      
+      <guid>http://moelove.info/2015/10/13/Open-Falcon%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E9%83%A8%E7%BD%B2/</guid>
+      <description>本文并不分析Open-Falcon的架构或者选用它的原因，官方的文档在这里，虽然还不够完善。不过这也是我写这篇的原因，官方文档并没能把整个部署过程连在一起，而且个别地方有点问题。我在这篇文章中就不介绍各个组件的作用和功能了，只是单纯的介绍如何从零部署。
+ 安装 下载   wget https://github.com/XiaoMi/open-falcon/releases/download/0.0.5/open-falcon-0.0.5.tar.gz -O open-falcon.tar.gz   解压   mkdir tmp tar -zxvf open-falcon.tar.gz -C ./tmp   基础环境   sudo apt-get install redis-server sudo apt-get install mysql-server pip install virtualenv # 数据库初始化的代码来源于官方文档 git clone https://github.com/open-falcon/scripts.git cd scripts mysql -h localhost -u root -p &amp;lt; db_schema/graph-db-schema.sql mysql -h localhost -u root -p &amp;lt; db_schema/dashboard-db-schema.sql mysql -h localhost -u root -p &amp;lt; db_schema/portal-db-schema.</description>
+    </item>
+    
+    <item>
+      <title>源码编译MongoDB</title>
+      <link>http://moelove.info/2015/09/13/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91MongoDB/</link>
+      <pubDate>Sun, 13 Sep 2015 21:28:43 +0000</pubDate>
+      
+      <guid>http://moelove.info/2015/09/13/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91MongoDB/</guid>
+      <description>上周放假正好有时间，编译安装了MongoDB，虽然MongoDB用了挺长时间的，但还是第一次用源码编译。在此做个备忘。因为已经完整编译安装过了，所以写起来的时候，就按照先知视角来写了～ 2333
+ 下载MongoDB源码 MongoDB的官网上是有已经编译好的二进制包的，这里选择clone MongoDB在github上的仓库
+git clone https://github.com/mongodb/mongo &amp;amp;&amp;amp; cd mongo  在docs/building.md中是编译所需的依赖。 * A modern C++ compiler. One of the following is required. * GCC 4.8.2 or newer * Clang 3.4 (or Apple XCode 5.1.1 Clang) or newer * Visual Studio 2013 Update 2 or newer * Python 2.7 * SCons 2.3
+我这台服务器是CentOS 6.5, 上面的gcc版本比较低，这里就先更新gcc咯.
+gcc --version gcc (GCC) 4.4.7 20120313 (Red Hat 4.4.7-16) Copyright © 2010 Free Software Foundation, Inc.</description>
+    </item>
+    
+    <item>
+      <title>重置Ghost博客的密码</title>
+      <link>http://moelove.info/2015/07/21/%E9%87%8D%E7%BD%AEGhost%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%AF%86%E7%A0%81/</link>
+      <pubDate>Tue, 21 Jul 2015 23:11:04 +0000</pubDate>
+      
+      <guid>http://moelove.info/2015/07/21/%E9%87%8D%E7%BD%AEGhost%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%AF%86%E7%A0%81/</guid>
+      <description>  在搭建Ghost博客的时候，尚未配置mail服务器时，重置密码的方法做个记录
+ 打开数据库查看用户信息 如果全部默认设置，使用生产环境的话，应该是 sqlite3 content/data/ghost.db
+如果是开发环境应该是 sqlite3 content/date/ghost-dev.db
+查看用户信息 sqlite&amp;gt;SELECT * FROM users;
+更新用户密码  Ghost对用户密码用的是BCrypt加密，可以使用BCrypt Hash Generator之类的工具生成一个想要修改的密码，例如&amp;rdquo;mypasswd&amp;rdquo;生成的密码是 $2a$10$QecJeBdw2lONRTnHJ0RoVO6DczdJWf4h4QgaUcgKsYFZlzTe1yeEK
+ 假设之前查看到的用户信息，邮箱是admin@domain.com 那么，使用这样更新密码
+ UPDATE users SET password=&amp;quot;$2a$10$QecJeBdw2lONRTnHJ0RoVO6DczdJWf4h4QgaUcgKsYFZlzTe1yeEK&amp;quot; WHERE email=&amp;quot;admin@domain.com&amp;quot;  退出sqlite3 .exit
+  </description>
+    </item>
+    
+    <item>
+      <title>3.17</title>
+      <link>http://moelove.info/2015/03/17/3.17/</link>
+      <pubDate>Tue, 17 Mar 2015 00:34:34 +0000</pubDate>
+      
+      <guid>http://moelove.info/2015/03/17/3.17/</guid>
+      <description> 8小时内求生存 8小时外求发展 </description>
+    </item>
+    
+    <item>
+      <title>近况</title>
+      <link>http://moelove.info/2014/10/16/%E8%BF%91%E5%86%B5/</link>
+      <pubDate>Thu, 16 Oct 2014 23:34:39 +0000</pubDate>
+      
+      <guid>http://moelove.info/2014/10/16/%E8%BF%91%E5%86%B5/</guid>
+      <description>  博客好长时间没有更新了，今天抽空大致来说一下近况吧
+ 工作 用这个标题的话，其实感觉想写的确实好多，但是还是挑一些比较重要的来说吧。现在的公司说实话还确实没有让我失望，工位上配的是一个 22寸的 AOC 显示器和一个24寸的 Dell 显示器， 主机内存 12G （我每天跑个Linux是有点浪费）办公区每天有物业定时打扫神马的，下午的时候有茶歇（茶水间还有一堆零食）。同事们相处感觉都很不错,每天中午一起出去吃饭，各种聊天调侃神马的，只是一开始不太了解项目中的配置神马的，让老大费心了&amp;hellip;
+这段时间还有很多有趣的事情 比如： 去金海湾度假村团建之类的。 再说一下最近的感受吧。
+因为国庆前需要上线，所以放假前就每天都是在忙着开发神马的。不过那两周也是近期感觉最爽的时候 写代码高潮不断 而且也确实感觉工作是蛮有挑战性的，确实是我想要的工作 :-) 。 不过我还记得那周一，一打开邮箱看到中有7份未读的需求邮件， 确实是略惊吓。 在开发的项目，因为改变了设计思路，所以这些天主要都是在写前端。只不过一开始的时候感觉略虐心啊， 写Python时间长了已经是不习惯其他语言那种书写规范了 一堆括号写的好烦躁 但是从这两天的感觉来看，得感谢老大的这种设计思路，这段时间学到的确实很多。 从框架到一些库，一些插件， 还有程序上一些比较巧妙的用法 正在努力消化中
+生活 有点后悔加上标题了 其实主要要说的应该都放在这里吧。 从搬家后基本上每天生活都很规律，目前差不多适应了。(找工作和面试神马的我写到碎碎念里面了，具体的等半年或者一年后当回忆录来写 233)值得吐槽的就是电信的客服，用的是电信的网，前几天换了路由器忘记了密码，打客服重置密码，但是一直连接不成功（691错误，明显就是帐号密码的问题嘛）结果本来想到了周末放假的时候再好好处理，结果到了周末打电话却一直没有客服啊用联通号打电信的客服我也是醉了 最后到了周一才让客服又重置才成功。
+其实那也是导致我这么久没有更新博客的原因orz 。 * 一个原因是因为电脑重装了系统，环境啥的一直没有配置 * 另一个就是因为网络坑爹，实在有心无力
+再者就是帝都的天气让人确实有点无奈，有天早上刚下楼，我还以为我要迈步进入寂静岭了 TAT ，感觉能幸存下来确实是很不容易啊。
+最后说一下最近在网络弄好之后，挖了一个坑。打算独立开发一个网站的说， 重复造轮子的原因和大多数人是一样的 ，现有的东西没有我想要的 正好把最近学到的东西都拿来练练手
+ Try My Best !  </description>
+    </item>
+    
+    <item>
+      <title>正则匹配中文及字符编码问题</title>
+      <link>http://moelove.info/2014/07/22/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%AD%E6%96%87%E5%8F%8A%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Tue, 22 Jul 2014 21:16:34 +0000</pubDate>
+      
+      <guid>http://moelove.info/2014/07/22/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%AD%E6%96%87%E5%8F%8A%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</guid>
+      <description>匹配中文的正则表达式 窝写了一小段代码（虽然写的不太好，但是基本可以表达意思）
+-- import re nickname = raw_input(&#39;Please input your nickname &amp;gt; &#39;) if not re.search(u&#39;^[\u4e00-\u9fa5a-zA-Z0-9]+$&#39;, unicode(nickname,&#39;utf8&#39;)): print &#39;Your nickname format is error, please try again !&#39; else: print &#39;Hello %s&#39;% nickname  如你所见，上面第5行的代码，就是匹配中文和字母，数字的正则表达式了。里面的\u4e00-\u9fa5 就是中文汉字的unicode编码所在位置。
+Python字符串的编码问题 还是以上面那段代码来说。注意看第5行的代码
+if not re.search(u&#39;^[\u4e00-\u9fa5a-zA-Z0-9]+$&#39;, unicode(nickname,&#39;utf8&#39;)):  其实这样的代码并不严谨。因为在Python 中默认是用unicode编码来处理字符串的，因此做编码转换的时候，一般要以unicode作为中间编码，也就是说： 其他编码格式的字符串&amp;mdash;&amp;gt;解码(decode)&amp;mdash;&amp;gt;unicode&amp;mdash;&amp;gt;编码(encode)&amp;mdash;&amp;gt;所需要的编码格式。
+因此，处理字符串编码的问题的时候，先要明白需要转换的字符串的编码格式是什么。
+代码中字符串的默认编码格式与代码文件本身的编码格式是一样的 比如： s = &amp;lsquo;涛&amp;rsquo; 在utf8的文件中，那么s就是utf8编码的，但是如果文件是gb2312编码，那么s就是gb2312编码的。此时，如果想要处理s这个字符串就要先decode成unicode编码了。
+不过如果是酱紫 s = u&amp;rsquo;涛&amp;rsquo;，那么s就是unicode编码了，这个时候s的编码方式不会被文件的编码所影响。
+如果一个字符串已经是unicode编码了，再解码就会出错 因此严谨的方式就是先对字符串进行编码格式的判别，最简单的办法就是使用Python 默认提供的isinstance() 方法.
+代码可以这样写 isinstance(s, unicode) 如果不是unicode编码就会报错。
+窝今天在处理用户昵称的地方，忘记字符串会直接使用文件的编码了，所以对它进行了重新编码orz果断就报错了。。。以后还是要好好注意细节的说。</description>
+    </item>
+    
+    <item>
+      <title>Bash 显示 Git 分支</title>
+      <link>http://moelove.info/2014/07/17/Bash-%E6%98%BE%E7%A4%BA-Git-%E5%88%86%E6%94%AF/</link>
+      <pubDate>Thu, 17 Jul 2014 21:54:33 +0000</pubDate>
+      
+      <guid>http://moelove.info/2014/07/17/Bash-%E6%98%BE%E7%A4%BA-Git-%E5%88%86%E6%94%AF/</guid>
+      <description> 虽然一直都在用git，但是并没有注意到还有这个方便的用法 于是乎赶快学习一下 ：-）
+上网查了一下资料，都说Ubuntu下如何如何方便，其他的发行版需要先下载一个文件，然后添加source，再如何如何。。
+其实查再多都不如实践。以下是窝经过查资料加上对个人bash的配色后写出的配置文件，加入到 ~/.bashrc 中即可（对各个发行版通用的）
+function git_branch { ref=$(git symbolic-ref HEAD 2&amp;gt; /dev/null) || return; echo &amp;quot;(&amp;quot;${ref#refs/heads/}&amp;quot;) &amp;quot;; } PS1=&amp;quot;[\[\e[1;35m\]\u\[\e[1;32m\]\w\[\e[0m\]] \[\e[0m\]\[\e[1;36m\]\$(git_branch)\[\e[0;33m\]\$&amp;quot;  或者
+function git-branch-name { git symbolic-ref HEAD 2&amp;gt;/dev/null | cut -d&amp;quot;/&amp;quot; -f 3 #git rev-parse --abbrev-ref HEAD } function git-branch-prompt { local branch=`git-branch-name` if [ $branch ]; then printf &amp;quot; [%s]&amp;quot; $branch; fi } PS1=&amp;quot;\u@\h \[\033[0;36m\]\W\[\033[0m\]\[\033[0;32m\]\$(git-branch-prompt)\[\033[0m\] \$ &amp;quot;  -- 按照惯例，上一张图 </description>
+    </item>
+    
+    <item>
+      <title>Grub2 rescue 修复</title>
+      <link>http://moelove.info/2014/07/02/Grub2-rescue-%E4%BF%AE%E5%A4%8D/</link>
+      <pubDate>Wed, 02 Jul 2014 21:53:03 +0000</pubDate>
+      
+      <guid>http://moelove.info/2014/07/02/Grub2-rescue-%E4%BF%AE%E5%A4%8D/</guid>
+      <description>昨天下午的时候想要把分区处理一下，突然发现硬盘里面有一个未使用的102M的分区,很果断的把这些乱七八糟的分区都给干掉了。结果呢，再次开机的时候就坑了（虽然酱紫的事情干过很多次了，这次做个记录吧）开机时提示如下：
+GRUB loading.. error: unknown filesystem. Entering rescue mode.... grub rescue&amp;gt;  grub rescue 支持的命令  ls 查看硬盘的分区情况，如果你已知自己的grub的安装位置（比如我的在(hd0,msdos9)/boot/grub2），那么就直接进行下一步。 如果不知道，那就ls每个分区，比如: ls (hd0,msdos2)/,如果正确就会显示里面到内容，直到找到grub  这里一个很关键的地方就是在硬盘位置后应该加入/
+ set 直接输入的话， 可以看到root 和 prefix 的设置。这里需要把这两个选项改成我们已经找到的位置。  窝的设置如下
+grub rescue&amp;gt; set grub rescue&amp;gt; prefix=(hd0,msdos9)/boot/grub2 grub rescue&amp;gt; root=hd0,msdos9   insmod 载入模块。这里区别是窝这次记录的关键。 grub2和grub的一个很重要的区别就是模块的位置。grub2的模块位置在/boot/grub2/i386-pc/normal.mod 执行命令：  grub rescue&amp;gt;insmod (hd0,msdos9)/boot/grub2/i386-pc/normal.mod  执行成功之后，提示符会变成normal
+ normal 进入正常模式，直接输入命令即可  grub rescue&amp;gt;normal  这个时候，就可以看到熟悉的引导界面了。
+ grub2-install 进入系统后执行命令  $ sudo update-grub $ sudo grub2-install /dev/sda  如果不执行这样的命令的话，重启之后还会回到之前的界面orz</description>
+    </item>
+    
+    <item>
+      <title>Linux中Sublime中文输入</title>
+      <link>http://moelove.info/2014/06/19/Linux%E4%B8%ADSublime%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/</link>
+      <pubDate>Thu, 19 Jun 2014 23:17:31 +0000</pubDate>
+      
+      <guid>http://moelove.info/2014/06/19/Linux%E4%B8%ADSublime%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/</guid>
+      <description>这篇只是为了备忘所以把以前写的东西搬这边了 -.-
+ 代码源于网络，感谢分享 这里的关键就是以下的代码和编译 /* sublime-imfix.c Use LD_PRELOAD to interpose some function to fix sublime input method support for linux. By Cjacker Huang &amp;lt;jianzhong.huang at i-soft.com.cn&amp;gt; gcc -shared -o libsublime-imfix.so sublime_imfix.c `pkg-config --libs --cflags gtk+-2.0` -fPIC LD_PRELOAD=./libsublime-imfix.so sublime_text */ #include &amp;lt;gtk/gtk.h&amp;gt; #include &amp;lt;gdk/gdkx.h&amp;gt; typedef GdkSegment GdkRegionBox; struct _GdkRegion { long size; long numRects; GdkRegionBox *rects; GdkRegionBox extents; }; GtkIMContext *local_context; void gdk_region_get_clipbox (const GdkRegion *region, GdkRectangle *rectangle) { g_return_if_fail (region !</description>
+    </item>
+    
+    <item>
+      <title>upyun-for-pelican</title>
+      <link>http://moelove.info/2014/05/16/upyun-for-pelican/</link>
+      <pubDate>Fri, 16 May 2014 21:51:41 +0000</pubDate>
+      
+      <guid>http://moelove.info/2014/05/16/upyun-for-pelican/</guid>
+      <description>这几天写了一个插件，方便把pelican生成静态博客部署到又拍云上。 整体思路就是：
+ 先格式化路径，以/为根目录
+def formatPath(path): path = path.replace(os.sep, &#39;/&#39;) return path  定义两个列表来存储文件和目录
+  之后就是验证用户，以及bucketname 之类的了。
+简介 pelican 是一款基于python的静态博客生成工具，本程序可以方便的把生成的静态博客部署到又拍云上。演示地址：upyun-for-pelican 
+生成网站  make html make serve (进行本地预览)  说明  程序使用了又拍云的官方SDK 需要先安装 upyun
+pip install upyun  可以自定义要上传的文件目录。在最下方的local_dir 中指定即可。Pelican默认的上传目录是 output 目录
+  使用  可以在 pelicanconf.py 文件中直接设置 BUCKETNAME, USERNAME, PASSWORD 参数（这些参数的使用大写命名格式也是为了符合*pelicanconf.py*中的习惯），也可以直接在 upyun-for-pelican.py文件的最下方直接设置。
+ 执行
+python upyun-for-pelican.py  程序在 Python 2.7 环境下测试通过。
+  其他说明  程序执行开始会有上传确认提示，输入Y / y 都可以继续上传。 可以使用项目中的pelicanconf.</description>
+    </item>
+    
+    <item>
+      <title>使用Pelican搭建Blog</title>
+      <link>http://moelove.info/2014/05/07/%E4%BD%BF%E7%94%A8Pelican%E6%90%AD%E5%BB%BABlog/</link>
+      <pubDate>Wed, 07 May 2014 21:48:59 +0000</pubDate>
+      
+      <guid>http://moelove.info/2014/05/07/%E4%BD%BF%E7%94%A8Pelican%E6%90%AD%E5%BB%BABlog/</guid>
+      <description>安装配置Pelican 使用环境：  系统 : Linux X86_64 Pelican : 3.3.0  首先说一下安装： 网上有不少建议说使用虚拟环境 virtualenv，以免污染本地的环境。不过，如果不是去更改Python的全局设置的话，也不至于影响本地环境的。我是直接安装的。根据 Pelican 官方的文档，我是使用 pip 安装的，不过pip又是依赖于distribute 安装的。所以，我使用的命令如下：
+ curl -O http://python-distribute.org/distribute_setup.py sudo python distribute_setup.py curl -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py sudo python get-pip.py sudo pip install pelican  还有，如果要用 Markdown来写文章，也需要执行如下命令：
+ pip install markdown  新建一个目录，用来存放你的博客文件（我直接建立了&amp;rdquo;blog&amp;rdquo;文件夹）
+ mkdir blog cd blog  新建博客： 使用如下命令：
+ pelican-quickstart  按照提示一步步即可完成新建， 这些配置之后可以在pelicanconf.py这个文件中修改
+ Where do you want to create your new web site?[.] (你想在哪里创建你的网站，默认为当前目录) What will be the title of this web site?</description>
+    </item>
+    
+    <item>
+      <title>Hello World !</title>
+      <link>http://moelove.info/2014/04/18/Hello-World-/</link>
+      <pubDate>Fri, 18 Apr 2014 21:46:06 +0000</pubDate>
+      
+      <guid>http://moelove.info/2014/04/18/Hello-World-/</guid>
+      <description> 几乎所有的程序猿的第一个演示程序都是Hello World .那我也就一样咯， 也写一个同样的吧。 其实我的博客从很早前就已经开始在写了， 换了很多的平台：
+ 从腾讯空间--&amp;gt; 百度空间--&amp;gt; 新浪博客--&amp;gt; 自己搭建的Wordpress博客--&amp;gt; 点点（点点我其实是用来碎碎念的） --&amp;gt; 博客园（个人感觉体验不是很好的说）--&amp;gt; 静态博客  选择了这么多，我最后决定还是使用 静态博客 来做个人博客。
+ 原因有以下几个：
+  使用其他平台提供的博客不是很爽， 可个性化的方面不是很多， 点点相对来说做的还是很不错的 不仅提供个性化定制而且还支持绑定个人域名之类的。但是其他网站就不是那么人性化了。 写博客总是需要贴代码的，但是除了WP外，其他的我不是很满意。 用静态博客方便备份，而且是本地编辑就可以了，在线编辑的，感觉会被束缚很多。 本人属于折腾党，喜欢可以个人定制的， 直到符合个人满意的程度为止。   接下来说说这次博客的安装：
+  选择Pelica是因为我对Python 比较熟悉，之前尝试过用Jekyll 和 Octopress 搭建，都比较方便 尤其是Jekyll 用户很多，文档什么的都很多了。只不过我更喜欢Python 多一些（虽然我有用ROR开发过WEB应用程序） 因为如果有什么需要的话，我也可以自己来开发插件或者自己再尝试做一个系统。 Pelican 相对来说配置也很方便， 很简单， 虽然用户不是很多，但是基本上的问题也都可以解决的 Pelican 支持restructuredText和Markdown写文章，配置灵活，扩展性强。我用的是3.3.0。  </description>
+    </item>
+    
+    <item>
+      <title>Linux 安装Android 驱动</title>
+      <link>http://moelove.info/2014/03/10/Linux-%E5%AE%89%E8%A3%85Android-%E9%A9%B1%E5%8A%A8/</link>
+      <pubDate>Mon, 10 Mar 2014 21:44:06 +0000</pubDate>
+      
+      <guid>http://moelove.info/2014/03/10/Linux-%E5%AE%89%E8%A3%85Android-%E9%A9%B1%E5%8A%A8/</guid>
+      <description>在Linux下非常适合做一些对Rom 的定制以及其他的一些操作，甚至是自己制作Rom 或者从源码编译Rom 也是OK的。
+不过最开始的应该就是搭建开发环境了，我先从装驱动开始说（只是做个笔记而已）
+ 使用数据线连接手机，打开adb调试模式。(在Linux上搭建开发环境， 以及adb 命令之类的， 就自行搜索吧，如果哪天更新了 我会附上链接的)
+ 输入adb devices 查看设备 如果有机型的话就说明是已经有驱动了 如果没有显示的话， 就是说明需要进行驱动安装了。
+  这个时候， lsusb 查看， 会看到下面这样的信息
+[tao@localhost ~]$ lsusb Bus 001 Device 002: ID 8087:0020 Intel Corp. Integrated Rate Matching Hub Bus 002 Device 002: ID 8087:0020 Intel Corp. Integrated Rate Matching Hub Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.</description>
+    </item>
+    
+    <item>
+      <title>fedora 18 Kernel driver not installed (rc=-1908)处理办法</title>
+      <link>http://moelove.info/2013/12/21/fedora-18-Kernel-driver-not-installed-rc-1908%E5%A4%84%E7%90%86%E5%8A%9E%E6%B3%95/</link>
+      <pubDate>Sat, 21 Dec 2013 21:42:18 +0000</pubDate>
+      
+      <guid>http://moelove.info/2013/12/21/fedora-18-Kernel-driver-not-installed-rc-1908%E5%A4%84%E7%90%86%E5%8A%9E%E6%B3%95/</guid>
+      <description>fedora 18 升级内核之后 使用VirtualBox 可以正常打开软件,但是不能启动虚拟机系统.提示信息如下: Kernel driver not installed (rc=-1908)  经过一系列的看文档还有google 之后,很多地方写着这个问题的处理方法是
+ 第一种  sudo /etc/init.d/vboxdrv setup   经过实验,对feora 18 不可行
+ 第二种
+sudo apt-get install dkms sudo /etc/init.d/vboxdrv setup  但是情况继续
+ 第三种
+sudo aptitude update sudo aptitude install dkms sudo /etc/init.d/vboxdrv setup   最后正确的解决方法应该是酱紫的  先看看系统的内核  uname -r  找对应的包
+sudo yum search kmod-VirtualBox  然后安装和你系统内核对应的包
+sudo yum install kmod-VirtualBox-XXXX  运行</description>
+    </item>
+    
+    <item>
+      <title>Ruby on Rails 环境</title>
+      <link>http://moelove.info/2013/09/21/Ruby-on-Rails-%E7%8E%AF%E5%A2%83/</link>
+      <pubDate>Sat, 21 Sep 2013 21:39:55 +0000</pubDate>
+      
+      <guid>http://moelove.info/2013/09/21/Ruby-on-Rails-%E7%8E%AF%E5%A2%83/</guid>
+      <description>就这次的尝试写一下自己的记录 安装ruby 和 ruby-devel(安装ruby-devel是因为后续的工作如果没有ruby-devel的话，会报错)
+sudo yum install ruby ruby-devel rubygems sqlite -y  需要的环境有了，那么就可以开始正式的工作了
+sudo gem install rails  找到一个合适的目录来放自己的代码.然后执行
+$ rails new mysite // 这个是建立一个叫mysite 的rails程式 ，在当前目录下面 $ cd mysite //进入这个目录 $ bundle install //因为在做测试 所以 也没有必要安装其他的gem  接下来看看它的数据库 配置文件是 config/database.yml 默认的支持是是SQLite3(当然也支持其他的比如mysql之类的)它有三种模式:
+ development environment开发模式，用在你的开发的时候 test environment测试模式，用在自动测试时 production environment正式上线模式，用在实际的上线运作环境  SQLite配置大致是这样的:
+development: adapter: sqlite3 database: db/development.sqlite3 pool: 5 timeout: 5000  接下来建立自己的数据库
+rake db:create  在这里我遇到一个错误
+rake aborted! Could not find a JavaScript runtime.</description>
+    </item>
+    
+    <item>
+      <title>利用百度BAE搭建discuz论坛</title>
+      <link>http://moelove.info/2013/09/06/%E5%88%A9%E7%94%A8%E7%99%BE%E5%BA%A6BAE%E6%90%AD%E5%BB%BAdiscuz%E8%AE%BA%E5%9D%9B/</link>
+      <pubDate>Fri, 06 Sep 2013 21:38:39 +0000</pubDate>
+      
+      <guid>http://moelove.info/2013/09/06/%E5%88%A9%E7%94%A8%E7%99%BE%E5%BA%A6BAE%E6%90%AD%E5%BB%BAdiscuz%E8%AE%BA%E5%9D%9B/</guid>
+      <description>最近尝试了利用百度云应用管理*BAE*搭建discuz论坛， 这里做简要记录
+创建应用 在 百度开发者中心 创建一个应用，选择WEB应用下的PC Iframe应用
+托管设置 之后进行托管设置， 确定域名XXX.duapp.com
+创建一个版本，并上传PHP代码包
+(BAE有些函数规则发生改变，所以需要使用为BAE环境做过调整的discuz for BAE 版本)
+需要注意的是在上传的代码包里面的 bcs/config.php 中的内容应该修改为
+&amp;lt;?php define(&#39;BAIDU_BCS_BUCKET&#39;, &#39;创建的bucket名称&#39;); define(&#39;BAIDU_BCS_AK&#39;, getenv(&#39;HTTP_BAE_ENV_AK&#39;)); define(&#39;BAIDU_BCS_SK&#39;, getenv(&#39;HTTP_BAE_ENV_SK&#39;)); ?&amp;gt;  同时在数据库中设置为UTF-8,
+注意开启缓存 cache 最少30M(亲测50M完全是OK的)
+安装 之后上线应用，访问http://你的域名.duapp.com/install/index.php
+即可完成安装(需要用到创建的数据库名称)</description>
+    </item>
+    
+    <item>
+      <title>fedora下安装sublime text 2的方法</title>
+      <link>http://moelove.info/2013/08/30/fedora%E4%B8%8B%E5%AE%89%E8%A3%85sublime-text-2%E7%9A%84%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Fri, 30 Aug 2013 21:36:09 +0000</pubDate>
+      
+      <guid>http://moelove.info/2013/08/30/fedora%E4%B8%8B%E5%AE%89%E8%A3%85sublime-text-2%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
+      <description>首先去官网下载最新的压缩包  把文件解压到$HOME/.sublime_text_2文件夹中：
+tar -xf (sublime压缩包的文件名).tar.bz2 sudo mv (解压后的文件夹) tools/Sublime_Text_2  在/usr/bin目录下面创建一个链接
+vim sublime  在文件中写入这些代码： ``` #!/bin/bash export SUBLIME_HOME=&amp;rdquo;~/tools/Sublime_Text_2&amp;rdquo;
+  $SUBLIME_HOME/sublime_text $*
+修改文件权限并且移动  chmod 555 sublime &amp;amp;&amp;amp; mv sublime /usr/bin/sublime ```
+这样就可以在终端中直接执行sublime了</description>
+    </item>
+    
+    <item>
+      <title>Vim7.3 for Windows 配置</title>
+      <link>http://moelove.info/2013/08/10/Vim7.3-for-Windows-%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Sat, 10 Aug 2013 21:34:17 +0000</pubDate>
+      
+      <guid>http://moelove.info/2013/08/10/Vim7.3-for-Windows-%E9%85%8D%E7%BD%AE/</guid>
+      <description>一直是在Linux下用Vim，但是有些时候在别人电脑或者机房又不得不用windows来写代码，所以也就下载了vim for windows。但是今天打开一个朋友写的网页的时候，出现了乱码的问题，所以把解决方法记录一下，也就是和在linux下面一样，修改配置文件就可以了。接下来进入正题。
+ 选项意义概述 Vim有四个跟字符编码方式有关的选项，分别是:encoding、fileencoding、fileencodings、termencoding (这些选项可能的取值可以参考 Vim 的帮助 :help encoding-names)，它们各自的意义:
+ encoding: Vim 内部使用的字符编码方式，包括Vim的buffer(缓冲区)、菜单文本、消息文本等。用户手册上建议只在*.vimrc中改变它的值，事实上似乎也只有在.vimrc* 中改变它的值才有意义。
+ fileencoding: Vim 中当前编辑的文件的字符编码方式，Vim 保存文件时也会将文件保存为这种字符编码方式 (不管是否新文件都如此)。
+ fileencodings: Vim 启动时会按照它所列出的字符编码方式逐一探测即将打开的文件的字符编码方式，并且将 fileencoding 设置为最终探测到的字符编码方式。因此最好将 Unicode 编码方式放到这个列表的最前面，将拉丁语系编码方式 latin1 放到最后面。
+ termencoding: Vim 所工作的终端 (或者 Windows 的 Console 窗口) 的字符编码方式。这个选项在 Windows 下对我们常用的 GUI 模式的 gVim 无效，而对 Console 模式的 Vim 而言就是Windows控制台的代码页，并且通常我们不需要改变它。（我尝试改变了它为UTF-8，但对于console模式的编码方式却没有改变）
+  配置说明 由于 Unicode 能包含几乎所有的语言的字符，Unicode的UTF-8编码方式又是非常具有性价比和通用的编码方式，所以把*encoding*的值设置为utf-8。同时将encoding设置为utf-8时，Vim自动探测文件的编码方式会更准确。在中文Windows里编辑的文件，为了兼顾与其他软件的兼容性，文件编码还是设置为GB2312/GBK比较合适，因此*fileencoding*建议设置为chinese (chinese是个别名，在Unix里表示gb2312，在Windows里表示cp936，也就是GBK的代码页)。
+具体配置 最后对于文件中显示乱码、菜单乱码、右键菜单乱码以及Conlse输出乱码问题的解决方案，修改Vim编辑器所对应的配置文件_vimrc（这个文件在你安装vim 的那个目录下），添加如下配置：
+ 关于常规设置：
+&amp;quot;总是显示标签。0：不显示；1：多于1个时显示&amp;quot; set showtabline=2 &amp;quot;开启行号&amp;quot; set number &amp;quot;开启自动缩进, 7.</description>
+    </item>
+    
+    <item>
+      <title>Friends</title>
+      <link>http://moelove.info/friends/</link>
+      <pubDate>Thu, 08 Aug 2013 21:42:18 +0000</pubDate>
+      
+      <guid>http://moelove.info/friends/</guid>
+      <description> 一定要单独拿一个大页写 木有先后顺序哦
+  龙哥盟: http://www.flygon.net/ 神岸あかり: https://blog.andyxu.me/ Cee总: http://blog.cee.moe/  </description>
+    </item>
+    
+    <item>
+      <title>LAMP环境的快速搭建</title>
+      <link>http://moelove.info/2013/08/07/LAMP%E7%8E%AF%E5%A2%83%E7%9A%84%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA/</link>
+      <pubDate>Wed, 07 Aug 2013 21:30:59 +0000</pubDate>
+      
+      <guid>http://moelove.info/2013/08/07/LAMP%E7%8E%AF%E5%A2%83%E7%9A%84%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA/</guid>
+      <description>这是我在我的centos 吧专门写的教程帖，目的也就是为了让新手可以更快的搭建起来环境，而不是一直在门外徘徊。所以就搬过来了，时间神马的就按照原帖来吧。
+ 写在前面 本篇文章是面向linux新手，文中采用环境是*Win7+V-BOX*，配置过程用putty进行操作（个人习惯而已），linux系统使用CentOS6.3版本。CentOS的安装方法及虚拟机中网络配置请参阅centos吧精品帖【教程】最全centos 安装方法及内容详解。为了尽量一次性可以让读者完成LAMP环境的搭建，本次安装过程都采用yum包管理机制进行安装。当然生产环境下一般都是采用源码编译的。在近期我也会再出连载文，使用源码包进行LAMP环境的搭建，欢迎关注。如果有任何意见或者建议都可以到centos吧发帖询问。 Ps:本文LAMP = Linux + Apache + Mysql + PHP
+安装过程（先确保你的系统网络正常或者搭建好了本地源） 1. 首先安装Apache，使用命令： sudo yum install httpd –y
+2. 然后安装Mysql，使用命令 sudo yum install mysql mysql-server –y
+3. 再安装php ，使用命令 sudo yum install php –y
+4. 安装完毕之后启动apache. 使用 sudo service httpd start
+启动成功了，我们访问一下，在浏览器的地址栏输入虚拟机IP。
+好，这里遇到了我们的第一个问题， 无法访问 &amp;gt;* apache服务已经打开，但是却无法访问 这里很可能是iptables的防御规则导致的。
+执行iptables –L查看所有的iptables的规则。
+关于iptables的知识可以自行了解或者关注后续讲解 我们执行 sudo iptables –F 清除所有规则
+接下来在浏览器输入虚拟机地址 ，我们看到如下：
+我们已经访问成功了！
+  当然在这里的时候也许还有人是访问不了的，可能是因为CentOS自带的SElinux机制影响的   我们执行getenforce命令来查看SElinux的状态，使用sudo setenforce 0来改变SElinux为*permission*状态。</description>
+    </item>
+    
+    <item>
+      <title>cat 命令研究</title>
+      <link>http://moelove.info/2013/03/20/cat-%E5%91%BD%E4%BB%A4%E7%A0%94%E7%A9%B6/</link>
+      <pubDate>Wed, 20 Mar 2013 21:24:20 +0000</pubDate>
+      
+      <guid>http://moelove.info/2013/03/20/cat-%E5%91%BD%E4%BB%A4%E7%A0%94%E7%A9%B6/</guid>
+      <description>有人问我关于centos里面使用cat命令的问题，我在这里简单记录一下。 在linux下，cat应该是使用最频繁的命令之一了吧。
+ cat命令在Linux作以下用途：  在屏幕上显示文本文件。 复制文本文件。 合并文本文件。 创建新的文本文件。  cat命令支持的语法如下： cat filename cat options filename cat file1 file2 cat file1 file2 &amp;gt; newcombinedfile  显示文件的内容： cat /tmp/test  上面的命令就是查看文件/tmp/test的内容，把内容输出到屏幕。 但是也可以使用
+cat /tmp/test &amp;gt; /tmp/test2  使用上面的命令，可以把文件内容重定向到/tmp/test2文件中
+串联文件： 串联文件是把文件内容一起输出，但是不会改变源文件的内容
+cat /tmp/test1 /tmp/test2 /tmp/test3  以上命令会将/tmp 目录下的 test1 ,test2 ,test3 三个文件的内容一起输出，当然也可以使用重定向命令查看输出内容
+cat /tmp/test1 /tmp/test2 /tmp/test3 &amp;gt;/tmp/testoutputs  重定向至/tmp 下的testoutputs 文件中
+当然查看的时候可以配合管道命令使用
+cat /tmp/test1 /tmp/test2 /tmp/test3 | less</description>
+    </item>
+    
+    <item>
+      <title>fedora安装后最初的事情</title>
+      <link>http://moelove.info/2013/03/09/fedora%E5%AE%89%E8%A3%85%E5%90%8E%E6%9C%80%E5%88%9D%E7%9A%84%E4%BA%8B%E6%83%85/</link>
+      <pubDate>Sat, 09 Mar 2013 21:21:14 +0000</pubDate>
+      
+      <guid>http://moelove.info/2013/03/09/fedora%E5%AE%89%E8%A3%85%E5%90%8E%E6%9C%80%E5%88%9D%E7%9A%84%E4%BA%8B%E6%83%85/</guid>
+      <description> 更新源 sudo yum localinstall --nogpgcheck http://mirrors.163.com/rpmfusion/free/fedora/rpmfusion-free-release-stable.noarch.rpm http://mirrors.163.com/rpmfusion/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm (这个是添加国内的软件源) sudo yum update  网络相关 firefox sudo yum install firefox  chrome / chromium 我本人比较习惯用chrome的 不过最近网络不是很稳定 先补充chromium 的安装方法吧
+ chromium的安装 首先添加chromium的fedora源,将下载好的 .repo 文件移动到/etc/yum.repos.d/下， 执行
+sudo yum install chromium  chrome的安装 从官网上下载chrome 的rpm包，或者从我的网盘下载对应的32位 或 64位 的rpm 包 执行
+sudo rpm -ivh google-chrome.rpm   安装证书 sudo yum localinstall --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-branched.noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-branched.noarch.rpm  压缩/解压软件 sudo yum install unrar sudo yum install p7zip  影音播放 sudo yum install gstreamer-plugins-good gstreamer-plugins-bad gstreamer-plugins-ugly libtunepimp-extras-freeworld xine-lib-extras-freeworld(安装音频解码器) sudo yum install ffmpeg ffmpeg-libs gstreamer-ffmpeg libmatroska xvidcore(安装视频解码器)  编辑器  vim  sudo yum install vim  Sublime Text 我也很喜欢因为运行速度快，而且免费。安装方法可以参考我的fedora下安装sublime text 2这篇文章。  </description>
+    </item>
+    
+  </channel>
+</rss>

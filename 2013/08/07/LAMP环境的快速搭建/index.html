@@ -1,335 +1,482 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-cn">
 <head>
   <meta charset="utf-8">
-  
-  <title>LAMP环境的快速搭建 | MoeLove</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="这是我在我的centos 吧专门写的教程帖，目的也就是为了让新手可以更快的搭建起来环境，而不是一直在门外徘徊。所以就搬过来了，时间神马的就按照原帖来吧。  写在前面本篇文章是面向linux新手，文中采用环境是Win7+V-BOX，配置过程用putty进行操作（个人习惯而已），linux系统使用CentOS6.3版本。CentOS的安装方法及虚拟机中网络配置请参阅centos吧精品帖【教程】最全c">
-<meta name="keywords" content="Linux,LAMP">
-<meta property="og:type" content="article">
-<meta property="og:title" content="LAMP环境的快速搭建">
-<meta property="og:url" content="http://moelove.info/2013/08/07/LAMP环境的快速搭建/index.html">
-<meta property="og:site_name" content="MoeLove">
-<meta property="og:description" content="这是我在我的centos 吧专门写的教程帖，目的也就是为了让新手可以更快的搭建起来环境，而不是一直在门外徘徊。所以就搬过来了，时间神马的就按照原帖来吧。  写在前面本篇文章是面向linux新手，文中采用环境是Win7+V-BOX，配置过程用putty进行操作（个人习惯而已），linux系统使用CentOS6.3版本。CentOS的安装方法及虚拟机中网络配置请参阅centos吧精品帖【教程】最全c">
-<meta property="og:image" content="http://moelove.qiniudn.com/serverstart.jpg">
-<meta property="og:image" content="http://moelove.qiniudn.com/view.jpg">
-<meta property="og:image" content="http://moelove.qiniudn.com/lampiptables.jpg">
-<meta property="og:image" content="http://moelove.qiniudn.com/lampcleariptables.jpg">
-<meta property="og:image" content="http://moelove.qiniudn.com/lampsuccess.jpg">
-<meta property="og:image" content="http://moelove.qiniudn.com/lampSELinuxstatus.jpg">
-<meta property="og:image" content="http://moelove.qiniudn.com/lampphpinfo.jpg">
-<meta property="og:image" content="http://moelove.qiniudn.com/lampviewstatus.jpg">
-<meta property="og:image" content="http://moelove.qiniudn.com/lampmysqlstatus.jpg">
-<meta property="og:updated_time" content="2016-04-03T15:05:34.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LAMP环境的快速搭建">
-<meta name="twitter:description" content="这是我在我的centos 吧专门写的教程帖，目的也就是为了让新手可以更快的搭建起来环境，而不是一直在门外徘徊。所以就搬过来了，时间神马的就按照原帖来吧。  写在前面本篇文章是面向linux新手，文中采用环境是Win7+V-BOX，配置过程用putty进行操作（个人习惯而已），linux系统使用CentOS6.3版本。CentOS的安装方法及虚拟机中网络配置请参阅centos吧精品帖【教程】最全c">
-<meta name="twitter:image" content="http://moelove.qiniudn.com/serverstart.jpg">
-<meta name="twitter:creator" content="@BeierTao">
-<link rel="publisher" href="111099802544541897352">
-  
-    <link rel="alternate" href="/atom.xml" title="MoeLove" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  
-<!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>LAMP环境的快速搭建 - MoeLove</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-ga('create', 'UA-50163692-1', 'auto');
-ga('send', 'pageview');
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
-</script>
-<!-- End Google Analytics -->
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
+
+<meta name="author" content="TaoBeier" />
+  <meta name="description" content="这是我在我的centos 吧专门写的教程帖，目的也就是为了让新手可以更快的搭建起来环境，而不是一直在门外徘徊。所以就搬过来了，时间神马的就按照原帖来吧。
+ 写在前面 本篇文章是面向linux新手，文中采用环境是*Win7&#43;V-BOX*，配置过程用putty进行操作（个人习惯而已），linux系统使用CentOS6.3版本。CentOS的安装方法及虚拟机中网络配置请参阅centos吧精品帖【教程】最全centos 安装方法及内容详解。为了尽量一次性可以让读者完成LAMP环境的搭建，本次安装过程都采用yum包管理机制进行安装。当然生产环境下一般都是采用源码编译的。在近期我也会再出连载文，使用源码包进行LAMP环境的搭建，欢迎关注。如果有任何意见或者建议都可以到centos吧发帖询问。 Ps:本文LAMP = Linux &#43; Apache &#43; Mysql &#43; PHP
+安装过程（先确保你的系统网络正常或者搭建好了本地源） 1. 首先安装Apache，使用命令： sudo yum install httpd –y
+2. 然后安装Mysql，使用命令 sudo yum install mysql mysql-server –y
+3. 再安装php ，使用命令 sudo yum install php –y
+4. 安装完毕之后启动apache. 使用 sudo service httpd start
+启动成功了，我们访问一下，在浏览器的地址栏输入虚拟机IP。
+好，这里遇到了我们的第一个问题， 无法访问 &amp;gt;* apache服务已经打开，但是却无法访问 这里很可能是iptables的防御规则导致的。
+执行iptables –L查看所有的iptables的规则。
+关于iptables的知识可以自行了解或者关注后续讲解 我们执行 sudo iptables –F 清除所有规则
+接下来在浏览器输入虚拟机地址 ，我们看到如下：
+我们已经访问成功了！
+  当然在这里的时候也许还有人是访问不了的，可能是因为CentOS自带的SElinux机制影响的   我们执行getenforce命令来查看SElinux的状态，使用sudo setenforce 0来改变SElinux为*permission*状态。" />
+
+  <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes" />
+
+
+<meta name="baidu-site-verification" content="jO2rMlnjJi" />
+<meta name="google-site-verification" content="googlefe3fc086c62f7210.html" />
+
+
+<meta name="generator" content="Hugo 0.46" />
+
+
+<link rel="canonical" href="http://moelove.info/2013/08/07/LAMP%E7%8E%AF%E5%A2%83%E7%9A%84%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="LAMP环境的快速搭建" />
+<meta property="og:description" content="这是我在我的centos 吧专门写的教程帖，目的也就是为了让新手可以更快的搭建起来环境，而不是一直在门外徘徊。所以就搬过来了，时间神马的就按照原帖来吧。
+ 写在前面 本篇文章是面向linux新手，文中采用环境是*Win7&#43;V-BOX*，配置过程用putty进行操作（个人习惯而已），linux系统使用CentOS6.3版本。CentOS的安装方法及虚拟机中网络配置请参阅centos吧精品帖【教程】最全centos 安装方法及内容详解。为了尽量一次性可以让读者完成LAMP环境的搭建，本次安装过程都采用yum包管理机制进行安装。当然生产环境下一般都是采用源码编译的。在近期我也会再出连载文，使用源码包进行LAMP环境的搭建，欢迎关注。如果有任何意见或者建议都可以到centos吧发帖询问。 Ps:本文LAMP = Linux &#43; Apache &#43; Mysql &#43; PHP
+安装过程（先确保你的系统网络正常或者搭建好了本地源） 1. 首先安装Apache，使用命令： sudo yum install httpd –y
+2. 然后安装Mysql，使用命令 sudo yum install mysql mysql-server –y
+3. 再安装php ，使用命令 sudo yum install php –y
+4. 安装完毕之后启动apache. 使用 sudo service httpd start
+启动成功了，我们访问一下，在浏览器的地址栏输入虚拟机IP。
+好，这里遇到了我们的第一个问题， 无法访问 &gt;* apache服务已经打开，但是却无法访问 这里很可能是iptables的防御规则导致的。
+执行iptables –L查看所有的iptables的规则。
+关于iptables的知识可以自行了解或者关注后续讲解 我们执行 sudo iptables –F 清除所有规则
+接下来在浏览器输入虚拟机地址 ，我们看到如下：
+我们已经访问成功了！
+  当然在这里的时候也许还有人是访问不了的，可能是因为CentOS自带的SElinux机制影响的   我们执行getenforce命令来查看SElinux的状态，使用sudo setenforce 0来改变SElinux为*permission*状态。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://moelove.info/2013/08/07/LAMP%E7%8E%AF%E5%A2%83%E7%9A%84%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA/" />
+
+
+
+<meta property="article:published_time" content="2013-08-07T21:30:59&#43;00:00"/>
+
+<meta property="article:modified_time" content="2013-08-07T21:30:59&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="LAMP环境的快速搭建">
+<meta itemprop="description" content="这是我在我的centos 吧专门写的教程帖，目的也就是为了让新手可以更快的搭建起来环境，而不是一直在门外徘徊。所以就搬过来了，时间神马的就按照原帖来吧。
+ 写在前面 本篇文章是面向linux新手，文中采用环境是*Win7&#43;V-BOX*，配置过程用putty进行操作（个人习惯而已），linux系统使用CentOS6.3版本。CentOS的安装方法及虚拟机中网络配置请参阅centos吧精品帖【教程】最全centos 安装方法及内容详解。为了尽量一次性可以让读者完成LAMP环境的搭建，本次安装过程都采用yum包管理机制进行安装。当然生产环境下一般都是采用源码编译的。在近期我也会再出连载文，使用源码包进行LAMP环境的搭建，欢迎关注。如果有任何意见或者建议都可以到centos吧发帖询问。 Ps:本文LAMP = Linux &#43; Apache &#43; Mysql &#43; PHP
+安装过程（先确保你的系统网络正常或者搭建好了本地源） 1. 首先安装Apache，使用命令： sudo yum install httpd –y
+2. 然后安装Mysql，使用命令 sudo yum install mysql mysql-server –y
+3. 再安装php ，使用命令 sudo yum install php –y
+4. 安装完毕之后启动apache. 使用 sudo service httpd start
+启动成功了，我们访问一下，在浏览器的地址栏输入虚拟机IP。
+好，这里遇到了我们的第一个问题， 无法访问 &gt;* apache服务已经打开，但是却无法访问 这里很可能是iptables的防御规则导致的。
+执行iptables –L查看所有的iptables的规则。
+关于iptables的知识可以自行了解或者关注后续讲解 我们执行 sudo iptables –F 清除所有规则
+接下来在浏览器输入虚拟机地址 ，我们看到如下：
+我们已经访问成功了！
+  当然在这里的时候也许还有人是访问不了的，可能是因为CentOS自带的SElinux机制影响的   我们执行getenforce命令来查看SElinux的状态，使用sudo setenforce 0来改变SElinux为*permission*状态。">
+
+
+<meta itemprop="datePublished" content="2013-08-07T21:30:59&#43;00:00" />
+<meta itemprop="dateModified" content="2013-08-07T21:30:59&#43;00:00" />
+<meta itemprop="wordCount" content="118">
+
+
+
+<meta itemprop="keywords" content="Linux,LAMP," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="LAMP环境的快速搭建"/>
+<meta name="twitter:description" content="这是我在我的centos 吧专门写的教程帖，目的也就是为了让新手可以更快的搭建起来环境，而不是一直在门外徘徊。所以就搬过来了，时间神马的就按照原帖来吧。
+ 写在前面 本篇文章是面向linux新手，文中采用环境是*Win7&#43;V-BOX*，配置过程用putty进行操作（个人习惯而已），linux系统使用CentOS6.3版本。CentOS的安装方法及虚拟机中网络配置请参阅centos吧精品帖【教程】最全centos 安装方法及内容详解。为了尽量一次性可以让读者完成LAMP环境的搭建，本次安装过程都采用yum包管理机制进行安装。当然生产环境下一般都是采用源码编译的。在近期我也会再出连载文，使用源码包进行LAMP环境的搭建，欢迎关注。如果有任何意见或者建议都可以到centos吧发帖询问。 Ps:本文LAMP = Linux &#43; Apache &#43; Mysql &#43; PHP
+安装过程（先确保你的系统网络正常或者搭建好了本地源） 1. 首先安装Apache，使用命令： sudo yum install httpd –y
+2. 然后安装Mysql，使用命令 sudo yum install mysql mysql-server –y
+3. 再安装php ，使用命令 sudo yum install php –y
+4. 安装完毕之后启动apache. 使用 sudo service httpd start
+启动成功了，我们访问一下，在浏览器的地址栏输入虚拟机IP。
+好，这里遇到了我们的第一个问题， 无法访问 &gt;* apache服务已经打开，但是却无法访问 这里很可能是iptables的防御规则导致的。
+执行iptables –L查看所有的iptables的规则。
+关于iptables的知识可以自行了解或者关注后续讲解 我们执行 sudo iptables –F 清除所有规则
+接下来在浏览器输入虚拟机地址 ，我们看到如下：
+我们已经访问成功了！
+  当然在这里的时候也许还有人是访问不了的，可能是因为CentOS自带的SElinux机制影响的   我们执行getenforce命令来查看SElinux的状态，使用sudo setenforce 0来改变SElinux为*permission*状态。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
 
 </head>
-
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">MoeLove</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">不忘初心</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">MoeLove</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/friends/">
+        <li class="mobile-menu-item">Friends</li>
+      </a><a href="/projects/">
+        <li class="mobile-menu-item">Projects</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">MoeLove</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/friends/">Friends</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/projects/">Projects</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">LAMP环境的快速搭建</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2013-08-07 </span>
+        <div class="post-category">
+            
+              <a href="/categories/Linux/"> Linux </a>
+            
+          </div>
         
-          <a class="main-nav-link" href="/">Home</a>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-          <a class="main-nav-link" href="/projects">Projects</a>
-        
-          <a class="main-nav-link" href="/about">About</a>
-        
-          <a class="main-nav-link" href="/friends">Friends</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://moelove.info"></form>
       </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-LAMP环境的快速搭建" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2013/08/07/LAMP环境的快速搭建/" class="article-date">
-  <time datetime="2013-08-07T13:30:59.000Z" itemprop="datePublished">2013-08-7</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
+    </header>
 
-  </div>
-  <div class="article-inner">
     
     
-      <header class="article-header">
-        
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
   
-    <h1 class="article-title" itemprop="name">
-      LAMP环境的快速搭建
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>这是我在我的<a href="http://tieba.baidu.com/f?kw=centos" target="_blank" rel="external">centos 吧</a>专门写的教程帖，目的也就是为了让新手可以更快的搭建起来环境，而不是一直在门外徘徊。所以就搬过来了，时间神马的就按照<a href="http://tieba.baidu.com/p/2514694347" target="_blank" rel="external">原帖</a>来吧。</p>
-</blockquote>
-<h3 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h3><p>本篇文章是面向linux新手，文中采用环境是<em>Win7+V-BOX</em>，配置过程用putty进行操作（个人习惯而已），linux系统使用CentOS6.3版本。CentOS的安装方法及虚拟机中网络配置请参阅centos吧精品帖<a href="http://tieba.baidu.com/p/2068921476" target="_blank" rel="external">【教程】最全centos 安装方法及内容详解</a>。为了尽量一次性可以让读者完成LAMP环境的搭建，本次安装过程都采用<code>yum</code>包管理机制进行安装。当然生产环境下一般都是采用源码编译的。在近期我也会再出连载文，使用源码包进行LAMP环境的搭建，欢迎关注。如果有任何意见或者建议都可以到centos吧发帖询问。<br>Ps:本文LAMP = Linux + Apache + Mysql + PHP</p>
-<h3 id="安装过程（先确保你的系统网络正常或者搭建好了本地源）"><a href="#安装过程（先确保你的系统网络正常或者搭建好了本地源）" class="headerlink" title="安装过程（先确保你的系统网络正常或者搭建好了本地源）"></a>安装过程（先确保你的系统网络正常或者搭建好了本地源）</h3><h4 id="1-首先安装Apache，使用命令："><a href="#1-首先安装Apache，使用命令：" class="headerlink" title="1. 首先安装Apache，使用命令："></a>1. 首先安装Apache，使用命令：</h4><p><code>sudo yum install httpd –y</code></p>
-<h4 id="2-然后安装Mysql，使用命令"><a href="#2-然后安装Mysql，使用命令" class="headerlink" title="2. 然后安装Mysql，使用命令"></a>2. 然后安装Mysql，使用命令</h4><p><code>sudo yum install mysql mysql-server –y</code></p>
-<h4 id="3-再安装php-，使用命令"><a href="#3-再安装php-，使用命令" class="headerlink" title="3. 再安装php ，使用命令"></a>3. 再安装php ，使用命令</h4><p><code>sudo yum install php –y</code></p>
-<h4 id="4-安装完毕之后启动apache-使用"><a href="#4-安装完毕之后启动apache-使用" class="headerlink" title="4. 安装完毕之后启动apache. 使用"></a>4. 安装完毕之后启动apache. 使用</h4><p><code>sudo service httpd start</code></p>
-<p><img src="http://moelove.qiniudn.com/serverstart.jpg" width="70%"></p>
-<p>启动成功了，我们访问一下，在浏览器的地址栏输入虚拟机IP。</p>
-<p><img src="http://moelove.qiniudn.com/view.jpg" width="70%"></p>
-<p>好，这里遇到了我们的第一个问题， <strong>无法访问</strong></p>
-<blockquote>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
 <ul>
-<li>apache服务已经打开，但是却无法访问<br>这里很可能是<strong>iptables</strong>的防御规则导致的。</li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#写在前面">写在前面</a></li>
+<li><a href="#安装过程-先确保你的系统网络正常或者搭建好了本地源">安装过程（先确保你的系统网络正常或者搭建好了本地源）</a>
+<ul>
+<li><a href="#1-首先安装apache-使用命令">1. 首先安装Apache，使用命令：</a></li>
+<li><a href="#2-然后安装mysql-使用命令">2. 然后安装Mysql，使用命令</a></li>
+<li><a href="#3-再安装php-使用命令">3. 再安装php ，使用命令</a></li>
+<li><a href="#4-安装完毕之后启动apache-使用">4. 安装完毕之后启动apache. 使用</a></li>
+<li><a href="#5-测试是否可以执行php代码">5.测试是否可以执行php代码</a></li>
+<li><a href="#6-设置服务的开机自动启动-s-可以不做-s">6.设置服务的开机自动启动<s>（可以不做）</s></a></li>
+<li><a href="#7-lamp环境的配置文件">7.LAMP环境的配置文件</a></li>
+</ul></li>
+<li><a href="#lamp环境搭建小结">LAMP环境搭建小结</a></li>
+</ul></li>
+</ul></li>
 </ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<blockquote>
+<p>这是我在我的<a href="http://tieba.baidu.com/f?kw=centos">centos 吧</a>专门写的教程帖，目的也就是为了让新手可以更快的搭建起来环境，而不是一直在门外徘徊。所以就搬过来了，时间神马的就按照<a href="http://tieba.baidu.com/p/2514694347">原帖</a>来吧。</p>
 </blockquote>
+
+<h3 id="写在前面">写在前面</h3>
+
+<p>本篇文章是面向linux新手，文中采用环境是*Win7+V-BOX*，配置过程用putty进行操作（个人习惯而已），linux系统使用CentOS6.3版本。CentOS的安装方法及虚拟机中网络配置请参阅centos吧精品帖<a href="http://tieba.baidu.com/p/2068921476">【教程】最全centos 安装方法及内容详解</a>。为了尽量一次性可以让读者完成LAMP环境的搭建，本次安装过程都采用<code>yum</code>包管理机制进行安装。当然生产环境下一般都是采用源码编译的。在近期我也会再出连载文，使用源码包进行LAMP环境的搭建，欢迎关注。如果有任何意见或者建议都可以到centos吧发帖询问。
+Ps:本文LAMP = Linux + Apache + Mysql + PHP</p>
+
+<h3 id="安装过程-先确保你的系统网络正常或者搭建好了本地源">安装过程（先确保你的系统网络正常或者搭建好了本地源）</h3>
+
+<h4 id="1-首先安装apache-使用命令">1. 首先安装Apache，使用命令：</h4>
+
+<p><code>sudo yum install httpd –y</code></p>
+
+<h4 id="2-然后安装mysql-使用命令">2. 然后安装Mysql，使用命令</h4>
+
+<p><code>sudo yum install mysql mysql-server –y</code></p>
+
+<h4 id="3-再安装php-使用命令">3. 再安装php ，使用命令</h4>
+
+<p><code>sudo yum install php –y</code></p>
+
+<h4 id="4-安装完毕之后启动apache-使用">4. 安装完毕之后启动apache. 使用</h4>
+
+<p><code>sudo service httpd start</code></p>
+
+<p><img src="http://moelove.qiniudn.com/serverstart.jpg" width="70%" /></p>
+
+<p>启动成功了，我们访问一下，在浏览器的地址栏输入虚拟机IP。</p>
+
+<p><img src="http://moelove.qiniudn.com/view.jpg" width="70%" /></p>
+
+<p>好，这里遇到了我们的第一个问题， <strong>无法访问</strong>
+&gt;*  apache服务已经打开，但是却无法访问
+这里很可能是<strong>iptables</strong>的防御规则导致的。</p>
+
 <p>执行<code>iptables –L</code>查看所有的iptables的规则。</p>
-<p><img src="http://moelove.qiniudn.com/lampiptables.jpg" width="70%"></p>
-<p>关于iptables的知识可以自行了解或者关注后续讲解<br>我们执行 <code>sudo iptables –F</code> 清除所有规则</p>
-<p><img src="http://moelove.qiniudn.com/lampcleariptables.jpg" width="70%"></p>
+
+<p><img src="http://moelove.qiniudn.com/lampiptables.jpg" width="70%" /></p>
+
+<p>关于iptables的知识可以自行了解或者关注后续讲解
+我们执行 <code>sudo iptables –F</code> 清除所有规则</p>
+
+<p><img src="http://moelove.qiniudn.com/lampcleariptables.jpg" width="70%" /></p>
+
 <p>接下来在浏览器输入虚拟机地址 ，我们看到如下：</p>
-<p><img src="http://moelove.qiniudn.com/lampsuccess.jpg" width="70%"></p>
+
+<p><img src="http://moelove.qiniudn.com/lampsuccess.jpg" width="70%" /></p>
+
 <p>我们已经访问成功了！</p>
+
 <blockquote>
 <ul>
 <li><s>当然在这里的时候也许还有人是访问不了的，</s>可能是因为CentOS自带的<strong>SElinux</strong>机制影响的</li>
 </ul>
 </blockquote>
-<p>我们执行<code>getenforce</code>命令来查看SElinux的状态，使用<code>sudo setenforce 0</code>来改变SElinux为<em>permission</em>状态。</p>
-<p><img src="http://moelove.qiniudn.com/lampSELinuxstatus.jpg" width="70%"></p>
+
+<p>我们执行<code>getenforce</code>命令来查看SElinux的状态，使用<code>sudo setenforce 0</code>来改变SElinux为*permission*状态。</p>
+
+<p><img src="http://moelove.qiniudn.com/lampSELinuxstatus.jpg" width="70%" /></p>
+
 <p>都执行完成后，<s>应该</s>就可以访问了。</p>
-<h4 id="5-测试是否可以执行php代码"><a href="#5-测试是否可以执行php代码" class="headerlink" title="5.测试是否可以执行php代码"></a>5.测试是否可以执行php代码</h4><p>执行 <code>vim /var/www/html/test.php</code> 写入测试代码</p>
-<p><img src="http://moelove.qiniudn.com/lampphpinfo.jpg" width="70%"></p>
+
+<h4 id="5-测试是否可以执行php代码">5.测试是否可以执行php代码</h4>
+
+<p>执行 <code>vim /var/www/html/test.php</code> 写入测试代码</p>
+
+<p><img src="http://moelove.qiniudn.com/lampphpinfo.jpg" width="70%" /></p>
+
 <p>保存退出，用浏览器进行访问</p>
-<p><img src="http://moelove.qiniudn.com/lampviewstatus.jpg" width="70%"></p>
+
+<p><img src="http://moelove.qiniudn.com/lampviewstatus.jpg" width="70%" /></p>
+
 <p>成功！</p>
-<p>但是向后看，发现组成模块里面没有<strong>mysql</strong>。说明现在还不支持mysql模块，因为我们少安装了一个东西 现在执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum install php-mysql</div></pre></td></tr></table></figure></p>
+
+<p>但是向后看，发现组成模块里面没有<strong>mysql</strong>。说明现在还不支持mysql模块，因为我们少安装了一个东西 现在执行</p>
+
+<pre><code>sudo yum install php-mysql
+</code></pre>
+
 <p>添加php和mysql的中间模块，重启apache服务:<code>sudo service httpd restart</code> 再次访问，发现组成模块中有了mysql的信息，说明可以访问mysql的数据库了。</p>
-<p>接下来执行<code>sudo service mysqld start</code> 启动mysql服务。<br>执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql -u root -p</div></pre></td></tr></table></figure></p>
+
+<p>接下来执行<code>sudo service mysqld start</code> 启动mysql服务。
+执行</p>
+
+<pre><code>mysql -u root -p
+</code></pre>
+
 <p>访问mysql数据库</p>
-<p><img src="http://moelove.qiniudn.com/lampmysqlstatus.jpg" width="70%"></p>
+
+<p><img src="http://moelove.qiniudn.com/lampmysqlstatus.jpg" width="70%" /></p>
+
 <p>表示mysql数据库也正常，到此，<strong>LAMP环境初步建成</strong>。</p>
-<h4 id="6-设置服务的开机自动启动（可以不做）"><a href="#6-设置服务的开机自动启动（可以不做）" class="headerlink" title="6.设置服务的开机自动启动（可以不做）"></a>6.设置服务的开机自动启动<s>（可以不做）</s></h4><p>使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo chkconfig httpd on</div><div class="line">sudo chkconfig mysqld on</div></pre></td></tr></table></figure></p>
-<h4 id="7-LAMP环境的配置文件"><a href="#7-LAMP环境的配置文件" class="headerlink" title="7.LAMP环境的配置文件"></a>7.LAMP环境的配置文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Apache: /etc/httpd/conf/httpd.conf</div><div class="line">Php: /etc/php.ini</div><div class="line">Mysql: /etc/my.cnf</div></pre></td></tr></table></figure>
-<h3 id="LAMP环境搭建小结"><a href="#LAMP环境搭建小结" class="headerlink" title="LAMP环境搭建小结"></a>LAMP环境搭建小结</h3><p>通过以上过程，你就已经成功的搭建好了LAMP环境，剩下的配置就是修改你的配置文件，进而达到效果。类似启动类型，模块，超时，地址，状态之类的，都会在下篇文章中写出。<br>使用<em>yum</em>安装LAMP环境是最简单的，也是最方便的。不过生产环境都是用的源码包，因为源码包可以更加个性化的定义你需要的模块。</p>
-<p><a href="http://wenku.baidu.com/view/fd825c8551e79b8969022614.html" target="_blank" rel="external">CentOS安装方法</a></p>
 
-      
+<h4 id="6-设置服务的开机自动启动-s-可以不做-s">6.设置服务的开机自动启动<s>（可以不做）</s></h4>
+
+<p>使用</p>
+
+<pre><code>sudo chkconfig httpd on
+sudo chkconfig mysqld on
+</code></pre>
+
+<h4 id="7-lamp环境的配置文件">7.LAMP环境的配置文件</h4>
+
+<pre><code>Apache: /etc/httpd/conf/httpd.conf
+Php: /etc/php.ini
+Mysql: /etc/my.cnf
+</code></pre>
+
+<h3 id="lamp环境搭建小结">LAMP环境搭建小结</h3>
+
+<p>通过以上过程，你就已经成功的搭建好了LAMP环境，剩下的配置就是修改你的配置文件，进而达到效果。类似启动类型，模块，超时，地址，状态之类的，都会在下篇文章中写出。
+使用*yum*安装LAMP环境是最简单的，也是最方便的。不过生产环境都是用的源码包，因为源码包可以更加个性化的定义你需要的模块。</p>
+
+<p><a href="http://wenku.baidu.com/view/fd825c8551e79b8969022614.html">CentOS安装方法</a></p>
+
     </div>
-    <footer class="article-footer">
-      <a data-url="http://moelove.info/2013/08/07/LAMP环境的快速搭建/" data-id="cj4kv43c8000da4cbger09d1g" class="article-share-link">Share</a>
-      
-        <a href="http://moelove.info/2013/08/07/LAMP环境的快速搭建/#disqus_thread" class="article-comment-link">留言</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LAMP/">LAMP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
 
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">TaoBeier</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2013-08-07</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/Linux/">Linux</a>
+          
+          <a href="/tags/LAMP/">LAMP</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/2013/08/10/Vim7.3-for-Windows-%E9%85%8D%E7%BD%AE/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Vim7.3 for Windows 配置</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="/2013/03/20/cat-%E5%91%BD%E4%BB%A4%E7%A0%94%E7%A9%B6/">
+            <span class="next-text nav-default">cat 命令研究</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
     </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2013/08/10/Vim7-3-for-Windows-配置/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
+  </article>
+        </div>
         
-          Vim7.3 for Windows 配置
-        
+  
+
+  
+
       </div>
-    </a>
-  
-  
-    <a href="/2013/03/20/cat-命令研究/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">cat 命令研究</div>
-    </a>
-  
-</nav>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhangjintao9020@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://plus.google.com/111099802544541897352" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/tao12345666333" class="iconfont icon-github" title="github"></a>
+      <a href="http://weibo.com/9020taobeier" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/TaoBeier" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="http://moelove.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
 
   
-</article>
 
-
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
-</section>
-        
-          <aside id="sidebar">
-  
+  <span class="copyright-year">
+    &copy; 
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2017/06/30/Install-Python3-6-on-CentOS7/">Install-Python3.6-on-CentOS7</a>
-          </li>
-        
-          <li>
-            <a href="/2017/03/05/理解-Redis-的-RESP-协议/">理解 Redis 的 RESP 协议</a>
-          </li>
-        
-          <li>
-            <a href="/2017/01/01/2016-小回顾/">2016 小回顾</a>
-          </li>
-        
-          <li>
-            <a href="/2016/12/26/关于-webpack-你可能忽略的细节（附源码分析）/">关于 webpack 你可能忽略的细节（附源码分析）</a>
-          </li>
-        
-          <li>
-            <a href="/2016/12/16/composer-使用技巧简述/">Composer 使用技巧简述</a>
-          </li>
-        
-      </ul>
+      2013 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">TaoBeier</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
     </div>
   </div>
-
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/BAE/" style="font-size: 10px;">BAE</a> <a href="/tags/Blog/" style="font-size: 13.33px;">Blog</a> <a href="/tags/DevOps/" style="font-size: 11.67px;">DevOps</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Go/" style="font-size: 10px;">Go</a> <a href="/tags/LAMP/" style="font-size: 10px;">LAMP</a> <a href="/tags/Life/" style="font-size: 16.67px;">Life</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 10px;">MongoDB</a> <a href="/tags/Open-Falcon/" style="font-size: 10px;">Open-Falcon</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/Pelican/" style="font-size: 13.33px;">Pelican</a> <a href="/tags/Performance/" style="font-size: 10px;">Performance</a> <a href="/tags/Python/" style="font-size: 11.67px;">Python</a> <a href="/tags/Rails/" style="font-size: 10px;">Rails</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/Redis/" style="font-size: 10px;">Redis</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tool/" style="font-size: 18.33px;">Tool</a> <a href="/tags/Vim/" style="font-size: 15px;">Vim</a> <a href="/tags/Web/" style="font-size: 10px;">Web</a> <a href="/tags/Webpack/" style="font-size: 10px;">Webpack</a> <a href="/tags/grub2/" style="font-size: 10px;">grub2</a> <a href="/tags/pip/" style="font-size: 10px;">pip</a> <a href="/tags/sqlite/" style="font-size: 10px;">sqlite</a> <a href="/tags/upyun/" style="font-size: 10px;">upyun</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">十一月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">十月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07/">七月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">六月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">四月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">三月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">十二月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/09/">九月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/08/">八月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/03/">三月 2013</a></li></ul>
-    </div>
-  </div>
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">分类</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Life/">Life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web/">Web</a></li></ul>
-    </div>
-  </div>
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
 
 
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2017 TaoBeier<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-    <a href="/projects" class="mobile-nav-link">Projects</a>
-  
-    <a href="/about" class="mobile-nav-link">About</a>
-  
-    <a href="/friends" class="mobile-nav-link">Friends</a>
-  
-</nav>
-    
-<script>
-  var disqus_shortname = 'taobeier';
-  
-  var disqus_url = 'http://moelove.info/2013/08/07/LAMP环境的快速搭建/';
-  
-  (function(){
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  })();
-</script>
 
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
-<script src="/js/script.js"></script>
-
-  </div>
 </body>
 </html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Php on MoeLove</title>
+    <link>http://moelove.info/tags/php/</link>
+    <description>Recent content in Php on MoeLove</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Fri, 16 Dec 2016 00:49:11 +0000</lastBuildDate>
+    
+	<atom:link href="http://moelove.info/tags/php/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Composer 使用技巧简述</title>
+      <link>http://moelove.info/2016/12/16/Composer-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%AE%80%E8%BF%B0/</link>
+      <pubDate>Fri, 16 Dec 2016 00:49:11 +0000</pubDate>
+      
+      <guid>http://moelove.info/2016/12/16/Composer-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%AE%80%E8%BF%B0/</guid>
+      <description>最近使用了世界最好的语言 PHP 用来管理依赖关系的工具 Composer. 稍微做点记录, 以做备忘. 如有错误还望指出.
+ 安装 php -r &amp;quot;copy(&#39;https://getcomposer.org/installer&#39;, &#39;composer-setup.php&#39;);&amp;quot; php -r &amp;quot;if (hash_file(&#39;SHA384&#39;, &#39;composer-setup.php&#39;) === &#39;aa96f26c2b67226a324c27919f1eb05f21c248b987e6195cad9690d5c1ff713d53020a02ac8c217dbf90a7eacc9d141d&#39;) { echo &#39;Installer verified&#39;; } else { echo &#39;Installer corrupt&#39;; unlink(&#39;composer-setup.php&#39;); } echo PHP_EOL;&amp;quot; php composer-setup.php php -r &amp;quot;unlink(&#39;composer-setup.php&#39;);&amp;quot;  上述代码来自官网.
+局部安装 上述代码执行完成后, 只是下载到了 composer.phar 文件, 可以通过 php composer.phar 在任意位置执行.
+全局安装 全局安装只是把 composer.phar 安装到 PATH 下即可. 可以像下面这样:
+sudo mv composer.phar /usr/local/bin/composer  国内镜像加速 使用Composer中文网提供的中国全量镜像进行加速.
+单项目加速 进入项目目录(即 composer.json 文件所在目录) 执行:</description>
+    </item>
+    
+  </channel>
+</rss>

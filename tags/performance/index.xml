@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Performance on MoeLove</title>
+    <link>http://moelove.info/tags/performance/</link>
+    <description>Recent content in Performance on MoeLove</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Sat, 14 May 2016 00:14:54 +0000</lastBuildDate>
+    
+	<atom:link href="http://moelove.info/tags/performance/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Python性能优化之工具篇</title>
+      <link>http://moelove.info/2016/05/14/Python%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E5%B7%A5%E5%85%B7%E7%AF%87/</link>
+      <pubDate>Sat, 14 May 2016 00:14:54 +0000</pubDate>
+      
+      <guid>http://moelove.info/2016/05/14/Python%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E5%B7%A5%E5%85%B7%E7%AF%87/</guid>
+      <description>之前对公司的一个后端项目做了些性能优化, 学到一些值得记录的东西, 这篇主要是介绍在做性能分析时所用到的工具, 至于如何优化基本就是智者见智吧, 如果有时间可能会写的.
+ Python web应用程序的常见性能指标 此处忽略外部DNS解析等方面的性能   响应时间 错误率 吞吐率 执行时间 内存占用  Python 性能分析工具 ##TODO</description>
+    </item>
+    
+  </channel>
+</rss>
