@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://moelove.info/2018/08/05/%E5%9F%BA%E4%BA%8E-GitLab-%E7%9A%84-CI-%E5%AE%9E%E8%B7%B5/</loc>
+    <lastmod>2018-08-05T14:54:59+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://moelove.info/2017/06/30/Install-Python3.6-on-CentOS7/</loc>
     <lastmod>2017-06-30T00:13:16+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -310,8 +317,15 @@
   </url>
   
   <url>
+    <loc>http://moelove.info/tags/ci/</loc>
+    <lastmod>2018-08-05T14:54:59+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://moelove.info/tags/devops/</loc>
-    <lastmod>2015-10-16T00:59:01+00:00</lastmod>
+    <lastmod>2018-08-05T14:54:59+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -319,6 +333,13 @@
   <url>
     <loc>http://moelove.info/tags/git/</loc>
     <lastmod>2016-12-05T22:40:41+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://moelove.info/tags/gitlab/</loc>
+    <lastmod>2018-08-05T14:54:59+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -367,14 +388,14 @@
   
   <url>
     <loc>http://moelove.info/categories/linux/</loc>
-    <lastmod>2017-03-05T21:45:07+00:00</lastmod>
+    <lastmod>2018-08-05T14:54:59+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://moelove.info/</loc>
-    <lastmod>2017-06-30T00:13:16+00:00</lastmod>
+    <lastmod>2018-08-05T14:54:59+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -430,7 +451,7 @@
   
   <url>
     <loc>http://moelove.info/post/</loc>
-    <lastmod>2017-06-30T00:13:16+00:00</lastmod>
+    <lastmod>2018-08-05T14:54:59+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
