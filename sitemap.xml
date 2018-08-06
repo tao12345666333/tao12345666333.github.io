@@ -373,13 +373,6 @@
   </url>
   
   <url>
-    <loc>http://moelove.info/tags/life/</loc>
-    <lastmod>2017-01-01T01:00:51+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>http://moelove.info/categories/life/</loc>
     <lastmod>2017-01-01T01:00:51+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -387,8 +380,8 @@
   </url>
   
   <url>
-    <loc>http://moelove.info/tags/linux/</loc>
-    <lastmod>2017-06-30T00:13:16+00:00</lastmod>
+    <loc>http://moelove.info/tags/life/</loc>
+    <lastmod>2017-01-01T01:00:51+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -396,6 +389,13 @@
   <url>
     <loc>http://moelove.info/categories/linux/</loc>
     <lastmod>2018-08-06T08:12:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://moelove.info/tags/linux/</loc>
+    <lastmod>2017-06-30T00:13:16+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -464,14 +464,14 @@
   </url>
   
   <url>
-    <loc>http://moelove.info/tags/python/</loc>
+    <loc>http://moelove.info/categories/python/</loc>
     <lastmod>2017-06-30T00:13:16+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://moelove.info/categories/python/</loc>
+    <loc>http://moelove.info/tags/python/</loc>
     <lastmod>2017-06-30T00:13:16+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
@@ -555,15 +555,15 @@
   </url>
   
   <url>
-    <loc>http://moelove.info/tags/web/</loc>
-    <lastmod>2014-05-07T21:48:59+00:00</lastmod>
+    <loc>http://moelove.info/categories/web/</loc>
+    <lastmod>2016-12-26T00:43:02+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://moelove.info/categories/web/</loc>
-    <lastmod>2016-12-26T00:43:02+00:00</lastmod>
+    <loc>http://moelove.info/tags/web/</loc>
+    <lastmod>2014-05-07T21:48:59+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
