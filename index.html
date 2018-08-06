@@ -57,7 +57,7 @@
 
 
 
-<meta property="og:updated_time" content="2018-08-05T14:54:59&#43;08:00"/>
+<meta property="og:updated_time" content="2018-08-06T08:12:03&#43;08:00"/>
 
 
 
@@ -141,6 +141,37 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2018/08/06/GitLab-CI-%E4%BD%BF%E7%94%A8-InsecureRegistry/">GitLab CI 使用 InsecureRegistry</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-08-06 </span>
+      <div class="post-category">
+          
+            <a href="/categories/linux/"> Linux </a>
+          
+        </div>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      继上次分享后，有读者留言问 dind 使用 insecure-registry 相关的问题。
+ 请教个问题，基于gitlab CI做java项目持续集成，用到了docker in docker， docker build使用的Dockerfile中使用了一个insecure registry，在dind的容器中如何配置insecure registry
+ 我的回复是：
+首先, 不推荐使用 insecure registry 毕竟有其固有限制， 如果一定要用的话， 其实在 services 层配置一个 command 就可以，这也是最简单的， 例如：
+services: - name: docker:dind command: [&quot;--insecure-registry=myregistry:5000&quot;]  由于留言字数的限制，就单独写个小文来回复下。
+这个做法实际效果如下：
+(Tao) ➜ kubernetes git:(master) ✗ sudo docker run -d --privileged --name dind docker:dind --insecure-registry=&quot;myregistry:5000&quot; 8fb68865638ebc65255bb568fbe1fd6b4ed4fca771075d8e55ebbbbdf0aef6d2 (Tao) ➜ kubernetes git:(master) ✗ sudo docker top dind UID PID PPID C STIME TTY TIME CMD root 18270 18252 1 11:27 ?
+    </div>
+    <div class="read-more">
+      <a href="/2018/08/06/GitLab-CI-%E4%BD%BF%E7%94%A8-InsecureRegistry/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -412,42 +443,6 @@ sudo apt-get install lua5.1 liblua5.1-0 luajit libluajit-5.1-dev
     </div>
     <div class="read-more">
       <a href="/2016/09/24/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91Vim-8/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2016/09/16/%E5%88%A9%E5%99%A8%E7%B3%BB%E5%88%97-%E6%9B%B4%E9%AB%98%E6%95%88%E7%9A%84Vim/">利器系列-更高效的Vim</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2016-09-16 </span>
-      <div class="post-category">
-          
-            <a href="/categories/linux/"> Linux </a>
-          
-        </div>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      这是利器系列第0篇, 当然要以每天我使用率最高的Vim来开始啦!
- 截图 安装 (你需要一个有Python支持的Vim版本. 请使用 vim --version | grep +python 来检查)
- 依赖(Debian/Ubuntu 平台)
-sudo apt-get install python vim exuberant-ctags git
-sudo pip install dbgp vim-debug pep8 flake8 pyflakes isort
- 依赖(RedHat/CentOS 平台)
-CentOS 6.7的yum源自带的Python版本较旧，推荐自行安装Python2.7.
-sudo yum install python vim ctags git
-sudo pip install dbgp vim-debug pep8 flake8 pyflakes isort
- 依赖(Mac OS 平台)
-brew install python vim git
-wget http://tenet.dl.sourceforge.net/project/ctags/ctags/5.8/ctags-5.8.tar.gz &amp;&amp; tar -zxvf ctags-5.8.tar.gz &amp;&amp; cd ctags-5.
-    </div>
-    <div class="read-more">
-      <a href="/2016/09/16/%E5%88%A9%E5%99%A8%E7%B3%BB%E5%88%97-%E6%9B%B4%E9%AB%98%E6%95%88%E7%9A%84Vim/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
