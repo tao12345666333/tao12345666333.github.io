@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Docker 深入篇之 Build 原理 - MoeLove</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="TaoBeier" />
+  <meta name="description" content="使用 Docker 时，最常用的命令无非是 docker container 和 docker image 相关的子命令，当然最初没有管理类命令（或者说分组）的时候，最常使用的命令也无非是 docker run docker commit docker build 和 docker images 这些。
+今天来聊一下和 Docker 中核心概念 image 相关的重要命令， docker build 或者说 docker image build 为了简便起见，下文的命令全部使用 docker build 。
+Docker Image 先简单介绍下 Docker Image， 通常情况下我们将其称之为镜像，镜像是由多个层组成的文件，这些层用于在容器内执行代码（命令）等。每个镜像基本上都是根据应用程序完整的可执行版本进行构建的，并且需要注意的是，它会依赖于主机的系统内核。当用户在运行镜像时，这将会创建一个或者多个容器实例。
+Dockerd Dockerd 是 Docker 的服务端，默认情况下提供 Unix Domain Socket 连接，当然也可以监听某个端口，用于对外提供服务。 所以有时候，我们也可以使用服务器上的 Docker daemon 来提供服务，以加快构建速度及解决一些网络问题之类的。
+好的，基础概念了解了， 那我们开始进入正题。
+使用 Dockerfile 我们知道构建镜像的方法有多种，本文中我们只介绍使用 Dockerfile 通过 docker build 的方式构建镜像。
+为了简便，我们以一个简单的 Dockerfile 开始。构建一个容器内使用的 kubectl 工具 (当然选择它的原因在于 kubectl 足够大，并不考虑可用性，这个稍后解释)" />
+
+  <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes" />
+
+
+<meta name="baidu-site-verification" content="jO2rMlnjJi" />
+<meta name="google-site-verification" content="googlefe3fc086c62f7210.html" />
+
+
+<meta name="generator" content="Hugo 0.46" />
+
+
+<link rel="canonical" href="http://moelove.info/2018/09/04/Docker-%E6%B7%B1%E5%85%A5%E7%AF%87%E4%B9%8B-Build-%E5%8E%9F%E7%90%86/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Docker 深入篇之 Build 原理" />
+<meta property="og:description" content="使用 Docker 时，最常用的命令无非是 docker container 和 docker image 相关的子命令，当然最初没有管理类命令（或者说分组）的时候，最常使用的命令也无非是 docker run docker commit docker build 和 docker images 这些。
+今天来聊一下和 Docker 中核心概念 image 相关的重要命令， docker build 或者说 docker image build 为了简便起见，下文的命令全部使用 docker build 。
+Docker Image 先简单介绍下 Docker Image， 通常情况下我们将其称之为镜像，镜像是由多个层组成的文件，这些层用于在容器内执行代码（命令）等。每个镜像基本上都是根据应用程序完整的可执行版本进行构建的，并且需要注意的是，它会依赖于主机的系统内核。当用户在运行镜像时，这将会创建一个或者多个容器实例。
+Dockerd Dockerd 是 Docker 的服务端，默认情况下提供 Unix Domain Socket 连接，当然也可以监听某个端口，用于对外提供服务。 所以有时候，我们也可以使用服务器上的 Docker daemon 来提供服务，以加快构建速度及解决一些网络问题之类的。
+好的，基础概念了解了， 那我们开始进入正题。
+使用 Dockerfile 我们知道构建镜像的方法有多种，本文中我们只介绍使用 Dockerfile 通过 docker build 的方式构建镜像。
+为了简便，我们以一个简单的 Dockerfile 开始。构建一个容器内使用的 kubectl 工具 (当然选择它的原因在于 kubectl 足够大，并不考虑可用性，这个稍后解释)" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://moelove.info/2018/09/04/Docker-%E6%B7%B1%E5%85%A5%E7%AF%87%E4%B9%8B-Build-%E5%8E%9F%E7%90%86/" />
+
+
+
+<meta property="article:published_time" content="2018-09-04T22:21:46&#43;08:00"/>
+
+<meta property="article:modified_time" content="2018-09-04T22:21:46&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Docker 深入篇之 Build 原理">
+<meta itemprop="description" content="使用 Docker 时，最常用的命令无非是 docker container 和 docker image 相关的子命令，当然最初没有管理类命令（或者说分组）的时候，最常使用的命令也无非是 docker run docker commit docker build 和 docker images 这些。
+今天来聊一下和 Docker 中核心概念 image 相关的重要命令， docker build 或者说 docker image build 为了简便起见，下文的命令全部使用 docker build 。
+Docker Image 先简单介绍下 Docker Image， 通常情况下我们将其称之为镜像，镜像是由多个层组成的文件，这些层用于在容器内执行代码（命令）等。每个镜像基本上都是根据应用程序完整的可执行版本进行构建的，并且需要注意的是，它会依赖于主机的系统内核。当用户在运行镜像时，这将会创建一个或者多个容器实例。
+Dockerd Dockerd 是 Docker 的服务端，默认情况下提供 Unix Domain Socket 连接，当然也可以监听某个端口，用于对外提供服务。 所以有时候，我们也可以使用服务器上的 Docker daemon 来提供服务，以加快构建速度及解决一些网络问题之类的。
+好的，基础概念了解了， 那我们开始进入正题。
+使用 Dockerfile 我们知道构建镜像的方法有多种，本文中我们只介绍使用 Dockerfile 通过 docker build 的方式构建镜像。
+为了简便，我们以一个简单的 Dockerfile 开始。构建一个容器内使用的 kubectl 工具 (当然选择它的原因在于 kubectl 足够大，并不考虑可用性，这个稍后解释)">
+
+
+<meta itemprop="datePublished" content="2018-09-04T22:21:46&#43;08:00" />
+<meta itemprop="dateModified" content="2018-09-04T22:21:46&#43;08:00" />
+<meta itemprop="wordCount" content="778">
+
+
+
+<meta itemprop="keywords" content="Linux,Docker," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Docker 深入篇之 Build 原理"/>
+<meta name="twitter:description" content="使用 Docker 时，最常用的命令无非是 docker container 和 docker image 相关的子命令，当然最初没有管理类命令（或者说分组）的时候，最常使用的命令也无非是 docker run docker commit docker build 和 docker images 这些。
+今天来聊一下和 Docker 中核心概念 image 相关的重要命令， docker build 或者说 docker image build 为了简便起见，下文的命令全部使用 docker build 。
+Docker Image 先简单介绍下 Docker Image， 通常情况下我们将其称之为镜像，镜像是由多个层组成的文件，这些层用于在容器内执行代码（命令）等。每个镜像基本上都是根据应用程序完整的可执行版本进行构建的，并且需要注意的是，它会依赖于主机的系统内核。当用户在运行镜像时，这将会创建一个或者多个容器实例。
+Dockerd Dockerd 是 Docker 的服务端，默认情况下提供 Unix Domain Socket 连接，当然也可以监听某个端口，用于对外提供服务。 所以有时候，我们也可以使用服务器上的 Docker daemon 来提供服务，以加快构建速度及解决一些网络问题之类的。
+好的，基础概念了解了， 那我们开始进入正题。
+使用 Dockerfile 我们知道构建镜像的方法有多种，本文中我们只介绍使用 Dockerfile 通过 docker build 的方式构建镜像。
+为了简便，我们以一个简单的 Dockerfile 开始。构建一个容器内使用的 kubectl 工具 (当然选择它的原因在于 kubectl 足够大，并不考虑可用性，这个稍后解释)"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">MoeLove</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/friends/">
+        <li class="mobile-menu-item">Friends</li>
+      </a><a href="/projects/">
+        <li class="mobile-menu-item">Projects</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">MoeLove</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/friends/">Friends</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/projects/">Projects</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Docker 深入篇之 Build 原理</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-09-04 </span>
+        <div class="post-category">
+            
+              <a href="/categories/linux/"> Linux </a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#docker-image">Docker Image</a></li>
+<li><a href="#dockerd">Dockerd</a></li>
+<li><a href="#使用-dockerfile">使用 Dockerfile</a></li>
+<li><a href="#dockerd-in-docker">Dockerd in Docker</a></li>
+<li><a href="#构建">构建</a></li>
+<li><a href="#深入原理">深入原理</a>
+<ul>
+<li><a href="#dockerd-服务">Dockerd 服务</a></li>
+<li><a href="#build-context">build context</a></li>
+<li><a href="#build-请求">/build 请求</a>
+<ul>
+<li><a href="#header">Header</a></li>
+<li><a href="#parameters">Parameters</a></li>
+</ul></li>
+<li><a href="#实现">实现</a></li>
+</ul></li>
+<li><a href="#总结">总结</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<p>使用 Docker 时，最常用的命令无非是 <code>docker container</code> 和 <code>docker image</code> 相关的子命令，当然最初没有管理类命令（或者说分组）的时候，最常使用的命令也无非是 <code>docker run</code> <code>docker commit</code> <code>docker build</code> 和 <code>docker images</code> 这些。</p>
+
+<p>今天来聊一下和 Docker 中核心概念 <code>image</code> 相关的重要命令， <code>docker build</code> 或者说 <code>docker image build</code> 为了简便起见，下文的命令全部使用 <code>docker build</code> 。</p>
+
+<h1 id="docker-image">Docker Image</h1>
+
+<p>先简单介绍下 Docker Image， 通常情况下我们将其称之为镜像，镜像是由多个层组成的文件，这些层用于在容器内执行代码（命令）等。每个镜像基本上都是根据应用程序完整的可执行版本进行构建的，并且需要注意的是，它会依赖于主机的系统内核。当用户在运行镜像时，这将会创建一个或者多个容器实例。</p>
+
+<h1 id="dockerd">Dockerd</h1>
+
+<p>Dockerd 是 Docker 的服务端，默认情况下提供 Unix Domain Socket 连接，当然也可以监听某个端口，用于对外提供服务。 所以有时候，我们也可以使用服务器上的 Docker daemon 来提供服务，以加快构建速度及解决一些网络问题之类的。</p>
+
+<p>好的，基础概念了解了， 那我们开始进入正题。</p>
+
+<h1 id="使用-dockerfile">使用 Dockerfile</h1>
+
+<p>我们知道构建镜像的方法有多种，本文中我们只介绍使用 Dockerfile 通过 <code>docker build</code> 的方式构建镜像。</p>
+
+<p>为了简便，我们以一个简单的 Dockerfile 开始。构建一个容器内使用的 kubectl 工具 (当然选择它的原因在于 kubectl 足够大，并<strong>不考虑可用性</strong>，这个稍后解释)</p>
+
+<pre><code>FROM scratch
+
+LABEL maintainer='Jintao Zhang &lt;moelove.info&gt;'
+
+ADD kubectl /kubectl
+ENTRYPOINT [ &quot;/kubectl&quot; ]
+</code></pre>
+
+<p>Dockerfile 足够简单，只是将 kubectl 的二进制文件拷贝进去，并将 Entrypoint 设置为 kubectl 。</p>
+
+<h1 id="dockerd-in-docker">Dockerd in Docker</h1>
+
+<p>我个人一般为了避免环境的污染，大多数的事情都在容器内完成。包括 dockerd 我也启在容器内。其中的原理不再介绍，可以参考我之前的文章或分享。使用起来很简单：</p>
+
+<pre><code>docker run --privileged -d -P docker:stable-dind
+</code></pre>
+
+<p>注意这里使用了 <code>-P</code> 所以本地会随机映射一个端口，当然你也可以直接指定映射到容器内的 2375 端口。</p>
+
+<pre><code>(Tao) ➜  build git:(master) docker ps                                                       
+CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                     NAMES
+b56f6483614d        docker:stable-dind          &quot;dockerd-entrypoint.…&quot;   9 hours ago         Up 9 hours          0.0.0.0:32769-&gt;2375/tcp   trusting_babbage
+</code></pre>
+
+<h1 id="构建">构建</h1>
+
+<p>我们直接使用启动在容器内的 dockerd 进行构建，通过上面的 <code>docker ps</code> 命令可以看到是映射到了本地的 32769 端口。所以我们使用以下命令进行构建：</p>
+
+<pre><code>(Tao) ➜  kubectl git:(master) docker -H 0.0.0.0:32769 images                                                              
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE                                      
+(Tao) ➜  kubectl git:(master) docker -H 0.0.0.0:32769 build -t local/kubectl .                                            
+Sending build context to Docker daemon  55.09MB
+Step 1/4 : FROM scratch
+ ---&gt;
+Step 2/4 : LABEL maintainer='Jintao Zhang &lt;moelove.info&gt;'
+ ---&gt; Running in ebcf44071bf0
+Removing intermediate container ebcf44071bf0
+ ---&gt; eb4ea1725ff2
+Step 3/4 : ADD kubectl /kubectl
+ ---&gt; 1aad06c4dbb4
+Step 4/4 : ENTRYPOINT [ &quot;/kubectl&quot; ]
+ ---&gt; Running in 2fc78fe974e3
+Removing intermediate container 2fc78fe974e3
+ ---&gt; 457802d4bf3e
+Successfully built 457802d4bf3e
+Successfully tagged local/kubectl:latest
+(Tao) ➜  kubectl git:(master) docker -H 0.0.0.0:32769 images                  
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+local/kubectl       latest              457802d4bf3e        3 seconds ago       55.1MB
+</code></pre>
+
+<p>看日志及结果，可以看到我们已经成功的构建了我们所需的镜像。说了这么多，其实我们今天的内容才刚刚开始。</p>
+
+<h1 id="深入原理">深入原理</h1>
+
+<h2 id="dockerd-服务">Dockerd 服务</h2>
+
+<p>在本文一开始，我已经提过 Dockerd 是 Docker 的后端服务，通过上面的</p>
+
+<pre><code>docker -H 0.0.0.0:32769 images                                                              
+</code></pre>
+
+<p>这条命令可以看到我们通过 <code>-H</code> 指定了本地 32679 端口的 dockerd 服务，这其实是个 HTTP 服务，我们来验证下。</p>
+
+<pre><code>(Tao) ➜  kubectl git:(master) curl -i   0.0.0.0:32769/_ping
+HTTP/1.1 200 OK
+Api-Version: 1.37
+Docker-Experimental: false
+Ostype: linux
+Server: Docker/18.03.1-ce (linux)
+Date: Tue, 04 Sep 2018 17:20:51 GMT
+Content-Length: 2
+Content-Type: text/plain; charset=utf-8
+
+OK%                  
+</code></pre>
+
+<p>可以看到几条关键的信息 Api-Version: 1.37 这个表明了当前使用的 API 版本，本文的内容也是以 1.37 为例进行介绍，这是当前的稳定版本。我们也可以通过 <code>docker version</code> 进行查看。</p>
+
+<pre><code>(Tao) ➜  kubectl git:(master) docker -H 0.0.0.0:32769 version                                                             
+Client:
+ Version:           18.06.0-ce
+ API version:       1.37 (downgraded from 1.38)
+ Go version:        go1.10.3
+ Git commit:        0ffa825
+ Built:             Wed Jul 18 19:11:45 2018
+ OS/Arch:           linux/amd64
+ Experimental:      false
+
+Server:
+ Engine:
+  Version:          18.03.1-ce
+  API version:      1.37 (minimum version 1.12)
+  Go version:       go1.9.5
+  Git commit:       9ee9f40
+  Built:            Thu Apr 26 07:23:03 2018
+  OS/Arch:          linux/amd64
+  Experimental:     false
+</code></pre>
+
+<p>可以看到我本地在用的 docker cli 版本较高，当连接到低版本的 dockerd 时，API 版本降级至与 dockerd 版本保持一致。</p>
+
+<p>当然，你可能会问，如果是 dockerd 版本高会如何呢？其实我日常中的开发环境就是这样，大多数 API 都没什么影响, 不过这并不是今天的重点。</p>
+
+<pre><code>root@bdcdac73ee20:/# docker version
+Client:
+ Version:      17.06.0-ce
+ API version:  1.30
+ Go version:   go1.8.3
+ Git commit:   02c1d87
+ Built:        Fri Jun 23 21:15:15 2017
+ OS/Arch:      linux/amd64
+
+Server:
+ Version:      dev
+ API version:  1.39 (minimum version 1.12)
+ Go version:   go1.10.3
+ Git commit:   e8cc5a0b3
+ Built:        Tue Sep  4 10:00:36 2018
+ OS/Arch:      linux/amd64
+ Experimental: false
+</code></pre>
+
+<h2 id="build-context">build context</h2>
+
+<p>回到我们上面的构建过程中。我们可以看到日志内容的第一行：</p>
+
+<pre><code>...
+Sending build context to Docker daemon  55.09MB
+</code></pre>
+
+<p>从这条日志，我们可以得到两个信息：</p>
+
+<ul>
+<li>构建的过程是将 build context 发送给 dockerd , 实际的构建压力在 dockerd 上</li>
+<li>发送了 55.09 MB</li>
+</ul>
+
+<p>第一条结论，我们在上一小节已经讨论过了，我们来重点看下第二条结论。</p>
+
+<pre><code>(Tao) ➜  kubectl git:(master) ls -al 
+总用量 53808
+drwxrwxr-x. 2 tao tao     4096 9月   5 01:00 .
+drwxrwxr-x. 3 tao tao     4096 9月   5 00:57 ..
+-rw-rw-r--. 1 tao tao      109 9月   5 01:00 Dockerfile
+-rwxrwxr-x. 1 tao tao 55084063 9月   5 00:53 kubectl
+(Tao) ➜  kubectl git:(master) du -sh .
+53M     .
+(Tao) ➜  kubectl git:(master) du -sh kubectl Dockerfile 
+53M     kubectl
+4.0K    Dockerfile
+</code></pre>
+
+<p>按照我们 Dockerfile 的内容，我们需要将 kubectl 的二进制包放入镜像内，所以 build context 虽然比二进制文件多出来 2M 左右的大小你也不会很意外。</p>
+
+<p>但我这里做了另一个例子，不多赘述，代码可以在我的 [GitHub]() 中找到。这里贴出来结果：</p>
+
+<pre><code>(Tao) ➜  text git:(master) ls -al                                                                                          
+总用量 16                                                                                                                  
+drwxrwxr-x. 2 tao tao 4096 9月   5 01:45 .                                                                                
+drwxrwxr-x. 4 tao tao 4096 9月   5 01:44 ..                             
+-rw-rw-r--. 1 tao tao   77 9月   5 01:45 Dockerfile                       
+-rw-rw-r--. 1 tao tao   61 9月   5 01:45 file  
+(Tao) ➜  text git:(master) du -b Dockerfile file
+77      Dockerfile
+61      file                                                                                                              
+(Tao) ➜  text git:(master) docker -H 0.0.0.0:32769 build --no-cache=true -t local/file .                                  
+Sending build context to Docker daemon  3.072kB
+...
+</code></pre>
+
+<p>相信你看到这个结果已经明白我想表达的意思，我们继续探索下这个过程。</p>
+
+<h2 id="build-请求">/build 请求</h2>
+
+<p>前面我们已经说过，这就是个普通的 HTTP 请求，所以我们当然可以直接抓包来看看到底发生了什么？</p>
+
+<p>很简单，通过 dockerd 的地址，使用 <code>POST</code> 方法，访问 <code>/build</code> 接口, 当然实际情况是会增加前缀，即我在上面提到的版本号，在目前的环境中使用的是 <code>/v1.37/build</code> 这个接口。</p>
+
+<p>而这个请求携带了一些很有用的参数，和头信息。这里我来简单说下：</p>
+
+<h3 id="header">Header</h3>
+
+<p>build 请求的头部，主要有以下两个</p>
+
+<ul>
+<li><code>Content-Type</code> 默认值为 <code>application/x-tar</code>，表明自己是一个归档。</li>
+<li><code>X-Registry-Config</code> 这个头部信息中包含着 registry 的地址及认证信息，并且以 base64 进行编码。对 docker 熟悉的朋友或者看过我之前文章的朋友应该知道， Docker cli 在 login 成功后，会将认证信息保存至本地，密码做 base64 保存。而 build 的时候则会将此信息再次 base64 进行编码。通过这里也可以看出来，在使用远端 Dockerd 的时候， 应该尽量配置 TLS 以防止中间人攻击，造成密码泄漏等情况。</li>
+</ul>
+
+<h3 id="parameters">Parameters</h3>
+
+<p>请求参数中，列几个比较有意义的：</p>
+
+<ul>
+<li><code>t</code> 这其实就是我们 <code>docker build -t</code> 时候指定的参数，并且，我们可以同时指定多个 <code>-t</code> 同时构建多个不同名称的镜像。</li>
+<li><code>memory</code>  <code>cpusetcpus</code> 这些主要用于资源限制</li>
+<li><code>buildargs</code> 如果想要了解这个参数，可以回忆下 Dockerfile 中的 <code>ARG</code> 指令的用法</li>
+</ul>
+
+<p>当然，我们想要探索的过程其实重点就在于请求头部了， 整个请求的输入流，必须是一个 <code>tar</code> 压缩包，并且支持 <code>identity</code> (不压缩), <code>gzip</code>, <code>bzip2</code>, <code>xz</code> 等压缩算法。</p>
+
+<h2 id="实现">实现</h2>
+
+<p>我们来看下基本的实现：</p>
+
+<pre><code>func (cli *Client) ImageBuild(ctx context.Context, buildContext io.Reader, options types.ImageBuildOptions) (types.ImageBuildResponse, error) {
+	query, err := cli.imageBuildOptionsToQuery(options)
+	if err != nil {
+		return types.ImageBuildResponse{}, err
+	}
+
+	headers := http.Header(make(map[string][]string))
+	buf, err := json.Marshal(options.AuthConfigs)
+	if err != nil {
+		return types.ImageBuildResponse{}, err
+	}
+	headers.Add(&quot;X-Registry-Config&quot;, base64.URLEncoding.EncodeToString(buf))
+
+	headers.Set(&quot;Content-Type&quot;, &quot;application/x-tar&quot;)
+
+	serverResp, err := cli.postRaw(ctx, &quot;/build&quot;, query, buildContext, headers)
+	if err != nil {
+		return types.ImageBuildResponse{}, err
+	}
+
+	osType := getDockerOS(serverResp.header.Get(&quot;Server&quot;))
+
+	return types.ImageBuildResponse{
+		Body:   serverResp.body,
+		OSType: osType,
+	}, nil
+}
+</code></pre>
+
+<h1 id="总结">总结</h1>
+
+<p>这篇主要内容集中在 docker build 的过程及其原理上，为什么首先要写这篇，主要是因为镜像和我们息息相关， 并且也是我们使用的第一步。而很多情况下，推进业务容器化也都要面临着性能优化及其他规范之类的。</p>
+
+<p>其实关于 build 的细节还有很多，如果有空，我就再更新下一篇。</p>
+
+<hr />
+
+<p>可以通过下面二维码订阅我的文章公众号【MoeLove】</p>
+
+<p><img src="http://moelove.qiniudn.com/my_qrcode.jpg" alt="TheMoeLove" /></p>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">TaoBeier</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2018-09-04</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="http://moelove.qiniudn.com/wx_pay.jpg">
+        <span>微信打赏</span>
+      </label>
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="http://moelove.qiniudn.com/alipay.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/linux/">Linux</a>
+          
+          <a href="/tags/docker/">Docker</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/2018/08/06/GitLab-CI-%E4%BD%BF%E7%94%A8-InsecureRegistry/">
+            <span class="next-text nav-default">GitLab CI 使用 InsecureRegistry</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhangjintao9020@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://plus.google.com/111099802544541897352" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/tao12345666333" class="iconfont icon-github" title="github"></a>
+      <a href="http://weibo.com/9020taobeier" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/TaoBeier" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="http://moelove.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2013 - 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">TaoBeier</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

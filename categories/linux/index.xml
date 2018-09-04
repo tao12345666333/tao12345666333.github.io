@@ -6,10 +6,25 @@
     <description>Recent content in Linux on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Mon, 06 Aug 2018 08:12:03 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 04 Sep 2018 22:21:46 +0800</lastBuildDate>
     
 	<atom:link href="http://moelove.info/categories/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Docker 深入篇之 Build 原理</title>
+      <link>http://moelove.info/2018/09/04/Docker-%E6%B7%B1%E5%85%A5%E7%AF%87%E4%B9%8B-Build-%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Tue, 04 Sep 2018 22:21:46 +0800</pubDate>
+      
+      <guid>http://moelove.info/2018/09/04/Docker-%E6%B7%B1%E5%85%A5%E7%AF%87%E4%B9%8B-Build-%E5%8E%9F%E7%90%86/</guid>
+      <description>使用 Docker 时，最常用的命令无非是 docker container 和 docker image 相关的子命令，当然最初没有管理类命令（或者说分组）的时候，最常使用的命令也无非是 docker run docker commit docker build 和 docker images 这些。
+今天来聊一下和 Docker 中核心概念 image 相关的重要命令， docker build 或者说 docker image build 为了简便起见，下文的命令全部使用 docker build 。
+Docker Image 先简单介绍下 Docker Image， 通常情况下我们将其称之为镜像，镜像是由多个层组成的文件，这些层用于在容器内执行代码（命令）等。每个镜像基本上都是根据应用程序完整的可执行版本进行构建的，并且需要注意的是，它会依赖于主机的系统内核。当用户在运行镜像时，这将会创建一个或者多个容器实例。
+Dockerd Dockerd 是 Docker 的服务端，默认情况下提供 Unix Domain Socket 连接，当然也可以监听某个端口，用于对外提供服务。 所以有时候，我们也可以使用服务器上的 Docker daemon 来提供服务，以加快构建速度及解决一些网络问题之类的。
+好的，基础概念了解了， 那我们开始进入正题。
+使用 Dockerfile 我们知道构建镜像的方法有多种，本文中我们只介绍使用 Dockerfile 通过 docker build 的方式构建镜像。
+为了简便，我们以一个简单的 Dockerfile 开始。构建一个容器内使用的 kubectl 工具 (当然选择它的原因在于 kubectl 足够大，并不考虑可用性，这个稍后解释)</description>
+    </item>
     
     <item>
       <title>GitLab CI 使用 InsecureRegistry</title>
