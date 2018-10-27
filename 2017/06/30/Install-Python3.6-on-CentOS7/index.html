@@ -215,7 +215,7 @@
 
 <p>先说下我所使用的系统环境， 一个新创建的 Docker 容器。 使用 <code>cat /etc/redhat-release</code>  可以看到运行的是 CentOS 7.3 版本。</p>
 
-<p><img src="http://moelove.qiniudn.com/systemInfo.png" alt="systeminfo" /></p>
+<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/systemInfo.png" alt="systeminfo" /></p>
 
 <p>在纯净的 CentOS 系统上安装 Python 环境主要有两种办法。 一种是通过源码编译安装，另外一种就是安装已经打好的 RPM 包。依照个人习惯，我们先来看一下如何通过源码编译的方式安装 Python 3.6 并且配置虚拟环境。</p>
 
@@ -232,7 +232,7 @@
 ➜  # gcc 和 make 用于编译
 </code></pre>
 
-<p><img src="http://moelove.qiniudn.com/install_gcc_wget.png" alt="install_gcc_wget" /></p>
+<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/install_gcc_wget.png" alt="install_gcc_wget" /></p>
 
 <ul>
 <li>上 <a href="https://www.python.org/">Python的官网</a> 下载源码包</li>
@@ -249,7 +249,7 @@
 ➜  tar -xvf Python-3.6.1.tar
 </code></pre>
 
-<p><img src="http://moelove.qiniudn.com/decompress_archives.png" alt="decompress_archives" /></p>
+<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/decompress_archives.png" alt="decompress_archives" /></p>
 
 <ul>
 <li>编译</li>
@@ -268,7 +268,7 @@
 ➜  make install
 </code></pre>
 
-<p><img src="http://moelove.qiniudn.com/make_error.png" alt="make_error" /></p>
+<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/make_error.png" alt="make_error" /></p>
 
 <p>如图，会看到出错了，提示 <code>zlib not available</code> 所以，我们需要装一下依赖</p>
 
@@ -283,7 +283,7 @@
 Python 3.6.1
 </code></pre>
 
-<p><img src="http://moelove.qiniudn.com/install_success.png" alt="install_success" /></p>
+<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/install_success.png" alt="install_success" /></p>
 
 <p>此刻，我们的 Python 3 也就安装成功了。</p>
 
@@ -295,7 +295,7 @@ Python 3.6.1
 
 <p>当我们运行 Python 终端，输入 <code>import bz2</code> 的时候，会发现没有这个模块。如果你对这个模块不熟悉，那也没关系。我们输入 <code>import sqlite3</code>熟悉 Python 的同学应该对 sqlite3 不会太陌生，但如果你还是不熟悉的话，那你按方向键试试看。有没有发现，输出变成了<code>^[[D^[[A</code> 类似这样的内容？</p>
 
-<p><img src="http://moelove.qiniudn.com/arrow_keys_problem.png" alt="arrow_keys_problem" /></p>
+<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/arrow_keys_problem.png" alt="arrow_keys_problem" /></p>
 
 <p>熟悉 Python 源码的同学，肯定知道我要说什么了。但是假如你不熟悉，没关系，我来告诉你。正常来讲，在终端下我们预期当输入上方向键，会显示上一条命令，输入左方向键，可以将光标移动到左侧。但现实和我们的预期不同，什么原因？</p>
 
@@ -322,7 +322,7 @@ _tkinter              readline
 To find the necessary bits, look in setup.py in detect_modules() for the module's name.
 </code></pre>
 
-<p><img src="http://moelove.qiniudn.com/some_optional_modules_were_not_found.png" alt="some_optional_modules_were_not_found" /></p>
+<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/some_optional_modules_were_not_found.png" alt="some_optional_modules_were_not_found" /></p>
 
 <p>按照上面的提示，很明显，我们缺少了一些（可选的）模块，这些模块假如你觉得自己不会用到，那也可以不理会它。这些模块，我用到的会多一些，甚至是那个一般人都不会碰的 TK 模块 哈哈哈。解决方式就只是装一下对应的模块即可。</p>
 
@@ -350,9 +350,9 @@ To find the necessary bits, look in setup.py in detect_modules() for the module'
 
 <p>当这些模块都装完，重新编译会发现提醒已经消失，安装即可。</p>
 
-<p><img src="http://moelove.qiniudn.com/all_modules_were_found.png" alt="all_modules_were_found" /></p>
+<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/all_modules_were_found.png" alt="all_modules_were_found" /></p>
 
-<p><img src="http://moelove.qiniudn.com/import_successful.png" alt="import_successful" /></p>
+<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/import_successful.png" alt="import_successful" /></p>
 
 <h1 id="使用-rpm-包进行安装">使用 rpm 包进行安装</h1>
 
@@ -361,7 +361,7 @@ To find the necessary bits, look in setup.py in detect_modules() for the module'
 <pre><code>➜  yum -y install https://centos7.iuscommunity.org/ius-release.rpm
 </code></pre>
 
-<p><img src="http://moelove.qiniudn.com/yum_install_ius.png" alt="yum_install_ius" /></p>
+<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/yum_install_ius.png" alt="yum_install_ius" /></p>
 
 <p>添加 IUS 之后，先创建缓存元数据，再进行安装即可</p>
 
@@ -371,7 +371,7 @@ To find the necessary bits, look in setup.py in detect_modules() for the module'
 ➜  yum -y install python36u-devel
 </code></pre>
 
-<p><img src="http://moelove.qiniudn.com/yum_install_python36u.png" alt="yum_install_python36u" /></p>
+<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/yum_install_python36u.png" alt="yum_install_python36u" /></p>
 
 <p>完成后直接终端输入 <code>python3</code> 即可。</p>
 
@@ -382,7 +382,7 @@ To find the necessary bits, look in setup.py in detect_modules() for the module'
 <pre><code>➜  ln -s /usr/local/python3.6/bin/python3 /usr/bin/python3
 </code></pre>
 
-<p><img src="http://moelove.qiniudn.com/ln.png" alt="ln" /></p>
+<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/ln.png" alt="ln" /></p>
 
 <p>另外，当系统中存在多个 Python 版本的时候，尽量去避免环境污染。我个人比较推荐使用 <code>virtualenv</code> 创建独立的虚拟环境，我日常中也是这样用的。不过，当我们安装完 Python 3.6 后，可以直接执行下面的命令进行虚拟环境的创建。</p>
 
@@ -404,7 +404,7 @@ Python 3.6.1
 
 <p>可以通过下面二维码订阅我的文章公众号【MoeLove】</p>
 
-<p><img src="http://moelove.qiniudn.com/my_qrcode.jpg" alt="TheMoeLove" /></p>
+<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/my_qrcode.jpg" alt="TheMoeLove" /></p>
 
     </div>
 
@@ -434,12 +434,12 @@ Python 3.6.1
     
     
       <label class="qr-code-image" for="reward">
-        <img class="image" src="http://moelove.qiniudn.com/wx_pay.jpg">
+        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/wx_pay.jpg">
         <span>微信打赏</span>
       </label>
     
       <label class="qr-code-image" for="reward">
-        <img class="image" src="http://moelove.qiniudn.com/alipay.jpg">
+        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/alipay.jpg">
         <span>支付宝打赏</span>
       </label>
   </div>
