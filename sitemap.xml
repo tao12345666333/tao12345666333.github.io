@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://moelove.info/2018/11/23/runc-1.0-rc6-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/</loc>
+    <lastmod>2018-11-23T04:28:20+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://moelove.info/2018/09/04/Docker-%E6%B7%B1%E5%85%A5%E7%AF%87%E4%B9%8B-Build-%E5%8E%9F%E7%90%86/</loc>
     <lastmod>2018-09-04T22:21:46+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -338,6 +345,13 @@
   </url>
   
   <url>
+    <loc>http://moelove.info/tags/container/</loc>
+    <lastmod>2018-11-23T04:28:20+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://moelove.info/tags/devops/</loc>
     <lastmod>2018-08-06T08:12:03+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -346,7 +360,7 @@
   
   <url>
     <loc>http://moelove.info/tags/docker/</loc>
-    <lastmod>2018-09-04T22:21:46+08:00</lastmod>
+    <lastmod>2018-11-23T04:28:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -402,21 +416,21 @@
   
   <url>
     <loc>http://moelove.info/tags/linux/</loc>
-    <lastmod>2018-09-04T22:21:46+08:00</lastmod>
+    <lastmod>2018-11-23T04:28:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://moelove.info/categories/linux/</loc>
-    <lastmod>2018-09-04T22:21:46+08:00</lastmod>
+    <lastmod>2018-11-23T04:28:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://moelove.info/</loc>
-    <lastmod>2018-09-04T22:21:46+08:00</lastmod>
+    <lastmod>2018-11-23T04:28:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -472,7 +486,7 @@
   
   <url>
     <loc>http://moelove.info/post/</loc>
-    <lastmod>2018-09-04T22:21:46+08:00</lastmod>
+    <lastmod>2018-11-23T04:28:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -522,6 +536,13 @@
   <url>
     <loc>http://moelove.info/tags/ruby/</loc>
     <lastmod>2013-09-21T21:39:55+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://moelove.info/tags/runc/</loc>
+    <lastmod>2018-11-23T04:28:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

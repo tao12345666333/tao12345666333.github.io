@@ -6,10 +6,21 @@
     <description>Recent content in Posts on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Tue, 04 Sep 2018 22:21:46 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 23 Nov 2018 04:28:20 +0800</lastBuildDate>
     
 	<atom:link href="http://moelove.info/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>runc 1.0-rc6 发布之际</title>
+      <link>http://moelove.info/2018/11/23/runc-1.0-rc6-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/</link>
+      <pubDate>Fri, 23 Nov 2018 04:28:20 +0800</pubDate>
+      
+      <guid>http://moelove.info/2018/11/23/runc-1.0-rc6-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/</guid>
+      <description>如果你在用 Docker 或者 Kubernetes 想必你对 容器运行时 这个概念应该不会太陌生。
+在 Docker 中，当你使用 docker info 即可查看当前所使用的 runtime。
+➜ ~ docker info ... Server Version: 18.06.1-ce Storage Driver: overlay2 Backing Filesystem: extfs Supports d_type: true Native Overlay Diff: true Logging Driver: json-file Cgroup Driver: cgroupfs ... Swarm: inactive Runtimes: nvidia runc Default Runtime: runc Init Binary: docker-init containerd version: 468a545b9edcd5932818eb9de8e72413e616e86e runc version: 69663f0bd4b60df09991c08812a60108003fa340 init version: fec3683 Security Options: seccomp Profile: default ...  同时，你还可以自己在 /etc/docker/daemon.</description>
+    </item>
     
     <item>
       <title>Docker 深入篇之 Build 原理</title>
