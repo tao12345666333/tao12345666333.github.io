@@ -82,7 +82,7 @@
 
 <meta itemprop="datePublished" content="2018-11-23T04:28:20&#43;08:00" />
 <meta itemprop="dateModified" content="2018-11-23T04:28:20&#43;08:00" />
-<meta itemprop="wordCount" content="512">
+<meta itemprop="wordCount" content="513">
 
 
 
@@ -291,7 +291,7 @@ config.json  debian.tar  rootfs
 
 <p>接下来稍微对 <code>config.json</code> 文件进行查看，便可以看到未通过 <code>user</code> Namespace 进行隔离，所以我们需要以 <code>root</code> 权限运行我们的容器。</p>
 
-<pre><code class="language-sh">➜  us sudo runc run debian
+<pre><code class="language-sh">➜  ~ sudo runc run debian
 # ls                                      
 bin  boot  dev  etc  home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
 # hostname    
@@ -424,6 +424,12 @@ BUG_REPORT_URL=&quot;https://bugs.debian.org/&quot;
 <h2 id="总结">总结</h2>
 
 <p>以上就是本次关于 <code>runc 1.0-rc6</code> 发布时的一些碎碎念，对这种情况颇有感慨，“符合规范” 并没有那么好做，尤其是做基础支撑的时候。</p>
+
+<hr />
+
+<p>可以通过下面二维码订阅我的文章公众号【MoeLove】</p>
+
+<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/my_qrcode.jpg" alt="TheMoeLove" /></p>
 
     </div>
 
