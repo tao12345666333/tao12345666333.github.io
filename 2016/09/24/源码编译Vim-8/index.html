@@ -334,7 +334,23 @@ sudo apt-get install lua5.1 liblua5.1-0 luajit libluajit-5.1-dev"/>
         
   
 
-  
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
+    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    id: '2016-09-24 19:46:47 \x2b0000 UTC',
+    title: '源码编译Vim 8',
+    clientID: '28ec994671d937a5706c',
+    clientSecret: '865a6e85566c503fff42a8762f65cbdd548f71fd',
+    repo: 'https:\/\/github.com\/tao12345666333\/tao12345666333.github.io',
+    owner: 'tao12345666333',
+    admin: ['tao12345666333'],
+    body: decodeURI(location.href)
+  });
+  gitalk.render('gitalk-container');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
 
       </div>
     </main>
