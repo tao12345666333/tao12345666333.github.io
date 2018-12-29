@@ -6,10 +6,29 @@
     <description>Recent content in Kubernetes on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Thu, 27 Dec 2018 11:16:21 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 29 Dec 2018 20:43:00 +0800</lastBuildDate>
     
 	<atom:link href="http://moelove.info/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>2018 小回顾</title>
+      <link>http://moelove.info/2018/12/29/2018-%E5%B0%8F%E5%9B%9E%E9%A1%BE/</link>
+      <pubDate>Sat, 29 Dec 2018 20:43:00 +0800</pubDate>
+      
+      <guid>http://moelove.info/2018/12/29/2018-%E5%B0%8F%E5%9B%9E%E9%A1%BE/</guid>
+      <description>年底了，惯例做个小回顾，对这一年做个总结，也对下一年大致做个规划。
+不过今儿与往年不同的是昨晚突然发高烧，今儿都没能去上班，感谢我的小可爱在照顾我。这篇文章也是躺在床上用手机编辑的。
+还是按照惯例从工作，生活两方面来说。先聊聊工作。
+工作 现在在网易有道负责 DevOPS 实践落地及 k8s 容器化平台和自动化平台的规划建设等。
+总体来说，现在的工作很开心，更能发挥我的所长，也遇到了不错的团队。
+说到现在负责的工作，如果大致有些了解的就会知道这个过程比较漫长，推进起来也会有各种阻力。毕竟要改变很多人的思想和习惯，我也在尽量让这一过程变的更加平滑。
+同时也在 push 一些理念到行业内，到社区中，不断的进行交流碰撞总结。
+社区贡献 今年下半年的贡献和分享相比去年更多一些。主要的分享有:
+ GITC - 《云原生时代下的 CI/CD 实践》 PyCon China - 《基于 Docker 的 CI/CD 实践》 DockerOne 社区 - 《基于 GitLab 的 CI 实践》 Tech Talk Time - 《Docker 实战和基础架构》  分享的主题基本都围绕在容器化和 CI/CD 方面，但每次分享内容却都不一样。 感谢我的小可爱，也感谢所有支持的朋友们。
+社区中主要活跃在 Docker 和 Kubernetes 生态方向。维护一些官方镜像，做测试，解决问题，提交代码之类的，明年希望做的更多。
+ 开了一个知乎专栏 『k8s生态』 明年会花更多时间进行建设。 写了一本掘金小册《Kubernetes 从上手到实践》。 其实这个名字并不能很好的概括小册里面的内容，其中也有源码分析之类的。要再次感谢小可爱，感谢编辑 Linmi ，感谢马达老板和何世友老板写的推荐语。也感谢所有人的支持，希望这本小册能对大家有所帮助。  写小册的过程其实也蛮辛苦的，一般要么晚上写，写到凌晨 2~3 点，要么早上 5~6 点钟左右起床，写到去上班。尤其要感谢小可爱，给了我很多支持。</description>
+    </item>
     
     <item>
       <title>《Kubernetes从上手到实践》正式上线</title>

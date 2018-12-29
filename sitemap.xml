@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://moelove.info/2018/12/29/2018-%E5%B0%8F%E5%9B%9E%E9%A1%BE/</loc>
+    <lastmod>2018-12-29T20:43:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://moelove.info/2018/12/27/Kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5%E6%AD%A3%E5%BC%8F%E4%B8%8A%E7%BA%BF/</loc>
     <lastmod>2018-12-27T11:16:21+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -402,7 +409,7 @@
   
   <url>
     <loc>http://moelove.info/tags/kubernetes/</loc>
-    <lastmod>2018-12-27T11:16:21+08:00</lastmod>
+    <lastmod>2018-12-29T20:43:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -416,7 +423,7 @@
   
   <url>
     <loc>http://moelove.info/tags/life/</loc>
-    <lastmod>2017-01-01T01:00:51+00:00</lastmod>
+    <lastmod>2018-12-29T20:43:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -444,7 +451,7 @@
   
   <url>
     <loc>http://moelove.info/</loc>
-    <lastmod>2018-12-27T11:16:21+08:00</lastmod>
+    <lastmod>2018-12-29T20:43:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -500,7 +507,7 @@
   
   <url>
     <loc>http://moelove.info/post/</loc>
-    <lastmod>2018-12-27T11:16:21+08:00</lastmod>
+    <lastmod>2018-12-29T20:43:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

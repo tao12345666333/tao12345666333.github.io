@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2014-05-07T21:48:59&#43;00:00"/>
+<meta property="og:updated_time" content="2014-05-16T21:51:41&#43;00:00"/>
 
 
 
@@ -149,6 +149,41 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2014/05/16/upyun-for-pelican/">upyun-for-pelican</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2014-05-16 </span>
+      <div class="post-category">
+          
+            <a href="/categories/python/"> Python </a>
+          
+        </div>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      这几天写了一个插件，方便把pelican生成静态博客部署到又拍云上。 整体思路就是：
+ 先格式化路径，以/为根目录
+def formatPath(path): path = path.replace(os.sep, '/') return path  定义两个列表来存储文件和目录
+  之后就是验证用户，以及bucketname 之类的了。
+简介 pelican 是一款基于python的静态博客生成工具，本程序可以方便的把生成的静态博客部署到又拍云上。演示地址：upyun-for-pelican 
+生成网站  make html make serve (进行本地预览)  说明  程序使用了又拍云的官方SDK 需要先安装 upyun
+pip install upyun  可以自定义要上传的文件目录。在最下方的local_dir 中指定即可。Pelican默认的上传目录是 output 目录
+  使用  可以在 pelicanconf.py 文件中直接设置 BUCKETNAME, USERNAME, PASSWORD 参数（这些参数的使用大写命名格式也是为了符合*pelicanconf.py*中的习惯），也可以直接在 upyun-for-pelican.py文件的最下方直接设置。
+ 执行
+python upyun-for-pelican.py  程序在 Python 2.7 环境下测试通过。
+  其他说明  程序执行开始会有上传确认提示，输入Y / y 都可以继续上传。 可以使用项目中的pelicanconf.
+    </div>
+    <div class="read-more">
+      <a href="/2014/05/16/upyun-for-pelican/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -433,38 +468,6 @@ vim sublime  在文件中写入这些代码： ``` #!/bin/bash export SUBLIME_HO
     </div>
     <div class="read-more">
       <a href="/2013/08/07/LAMP%E7%8E%AF%E5%A2%83%E7%9A%84%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2013/03/20/cat-%E5%91%BD%E4%BB%A4%E7%A0%94%E7%A9%B6/">cat 命令研究</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2013-03-20 </span>
-      <div class="post-category">
-          
-            <a href="/categories/linux/"> Linux </a>
-          
-        </div>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      有人问我关于centos里面使用cat命令的问题，我在这里简单记录一下。 在linux下，cat应该是使用最频繁的命令之一了吧。
- cat命令在Linux作以下用途：  在屏幕上显示文本文件。 复制文本文件。 合并文本文件。 创建新的文本文件。  cat命令支持的语法如下： cat filename cat options filename cat file1 file2 cat file1 file2 &gt; newcombinedfile  显示文件的内容： cat /tmp/test  上面的命令就是查看文件/tmp/test的内容，把内容输出到屏幕。 但是也可以使用
-cat /tmp/test &gt; /tmp/test2  使用上面的命令，可以把文件内容重定向到/tmp/test2文件中
-串联文件： 串联文件是把文件内容一起输出，但是不会改变源文件的内容
-cat /tmp/test1 /tmp/test2 /tmp/test3  以上命令会将/tmp 目录下的 test1 ,test2 ,test3 三个文件的内容一起输出，当然也可以使用重定向命令查看输出内容
-cat /tmp/test1 /tmp/test2 /tmp/test3 &gt;/tmp/testoutputs  重定向至/tmp 下的testoutputs 文件中
-当然查看的时候可以配合管道命令使用
-cat /tmp/test1 /tmp/test2 /tmp/test3 | less
-    </div>
-    <div class="read-more">
-      <a href="/2013/03/20/cat-%E5%91%BD%E4%BB%A4%E7%A0%94%E7%A9%B6/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2013-03-09T21:21:14&#43;00:00"/>
+<meta property="og:updated_time" content="2013-03-20T21:24:20&#43;00:00"/>
 
 
 
@@ -149,6 +149,38 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2013/03/20/cat-%E5%91%BD%E4%BB%A4%E7%A0%94%E7%A9%B6/">cat 命令研究</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2013-03-20 </span>
+      <div class="post-category">
+          
+            <a href="/categories/linux/"> Linux </a>
+          
+        </div>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      有人问我关于centos里面使用cat命令的问题，我在这里简单记录一下。 在linux下，cat应该是使用最频繁的命令之一了吧。
+ cat命令在Linux作以下用途：  在屏幕上显示文本文件。 复制文本文件。 合并文本文件。 创建新的文本文件。  cat命令支持的语法如下： cat filename cat options filename cat file1 file2 cat file1 file2 &gt; newcombinedfile  显示文件的内容： cat /tmp/test  上面的命令就是查看文件/tmp/test的内容，把内容输出到屏幕。 但是也可以使用
+cat /tmp/test &gt; /tmp/test2  使用上面的命令，可以把文件内容重定向到/tmp/test2文件中
+串联文件： 串联文件是把文件内容一起输出，但是不会改变源文件的内容
+cat /tmp/test1 /tmp/test2 /tmp/test3  以上命令会将/tmp 目录下的 test1 ,test2 ,test3 三个文件的内容一起输出，当然也可以使用重定向命令查看输出内容
+cat /tmp/test1 /tmp/test2 /tmp/test3 &gt;/tmp/testoutputs  重定向至/tmp 下的testoutputs 文件中
+当然查看的时候可以配合管道命令使用
+cat /tmp/test1 /tmp/test2 /tmp/test3 | less
+    </div>
+    <div class="read-more">
+      <a href="/2013/03/20/cat-%E5%91%BD%E4%BB%A4%E7%A0%94%E7%A9%B6/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
