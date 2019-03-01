@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://moelove.info/2019/03/01/%E6%81%AD%E5%96%9C-containerd-%E6%AF%95%E4%B8%9A/</loc>
+    <lastmod>2019-03-01T10:18:20+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://moelove.info/2018/12/29/2018-%E5%B0%8F%E5%9B%9E%E9%A1%BE/</loc>
     <lastmod>2018-12-29T20:43:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -360,7 +367,7 @@
   
   <url>
     <loc>http://moelove.info/tags/container/</loc>
-    <lastmod>2018-12-27T11:16:21+08:00</lastmod>
+    <lastmod>2019-03-01T10:18:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -374,7 +381,7 @@
   
   <url>
     <loc>http://moelove.info/tags/docker/</loc>
-    <lastmod>2018-12-27T11:16:21+08:00</lastmod>
+    <lastmod>2019-03-01T10:18:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -409,7 +416,7 @@
   
   <url>
     <loc>http://moelove.info/tags/kubernetes/</loc>
-    <lastmod>2018-12-29T20:43:00+08:00</lastmod>
+    <lastmod>2019-03-01T10:18:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -422,6 +429,13 @@
   </url>
   
   <url>
+    <loc>http://moelove.info/tags/life/</loc>
+    <lastmod>2018-12-29T20:43:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://moelove.info/categories/life/</loc>
     <lastmod>2017-01-01T01:00:51+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -429,8 +443,8 @@
   </url>
   
   <url>
-    <loc>http://moelove.info/tags/life/</loc>
-    <lastmod>2018-12-29T20:43:00+08:00</lastmod>
+    <loc>http://moelove.info/tags/linux/</loc>
+    <lastmod>2019-03-01T10:18:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -443,15 +457,8 @@
   </url>
   
   <url>
-    <loc>http://moelove.info/tags/linux/</loc>
-    <lastmod>2018-12-27T11:16:21+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>http://moelove.info/</loc>
-    <lastmod>2018-12-29T20:43:00+08:00</lastmod>
+    <lastmod>2019-03-01T10:18:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -507,20 +514,20 @@
   
   <url>
     <loc>http://moelove.info/post/</loc>
-    <lastmod>2018-12-29T20:43:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://moelove.info/categories/python/</loc>
-    <lastmod>2017-06-30T00:13:16+00:00</lastmod>
+    <lastmod>2019-03-01T10:18:20+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://moelove.info/tags/python/</loc>
+    <lastmod>2017-06-30T00:13:16+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://moelove.info/categories/python/</loc>
     <lastmod>2017-06-30T00:13:16+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
@@ -611,15 +618,15 @@
   </url>
   
   <url>
-    <loc>http://moelove.info/categories/web/</loc>
-    <lastmod>2016-12-26T00:43:02+00:00</lastmod>
+    <loc>http://moelove.info/tags/web/</loc>
+    <lastmod>2014-05-07T21:48:59+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://moelove.info/tags/web/</loc>
-    <lastmod>2014-05-07T21:48:59+00:00</lastmod>
+    <loc>http://moelove.info/categories/web/</loc>
+    <lastmod>2016-12-26T00:43:02+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

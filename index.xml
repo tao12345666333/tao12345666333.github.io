@@ -6,10 +6,23 @@
     <description>Recent content on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sat, 29 Dec 2018 20:43:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 01 Mar 2019 10:18:20 +0800</lastBuildDate>
     
 	<atom:link href="http://moelove.info/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>恭喜 containerd 毕业</title>
+      <link>http://moelove.info/2019/03/01/%E6%81%AD%E5%96%9C-containerd-%E6%AF%95%E4%B8%9A/</link>
+      <pubDate>Fri, 01 Mar 2019 10:18:20 +0800</pubDate>
+      
+      <guid>http://moelove.info/2019/03/01/%E6%81%AD%E5%96%9C-containerd-%E6%AF%95%E4%B8%9A/</guid>
+      <description>今年的第一篇文章更新，带来一个重大的消息。
+ CNCF（云原生计算基金会）在美国时间 2019 年 2 月 28 日宣布 containerd 今天正式毕业了。
+这是 CNCF 中毕业的第 5 个项目，之前已经毕业的项目为 Kubernetes、Prometheus、Envoy 和 CoreDNS 。
+containerd 2014 年从 Docker 孵化出来，最初是作为 Docker 引擎的底层管理器；在 2017 年 3 月被 CNCF 接受后，containerd 几乎成为了行业容器运行引擎的标准，它专注于简单，健壮和可移植性，任何人都可以使用它来构建自己的容器引擎/平台。
+ “When Docker contributed containerd to the community, our goal was to share a robust and extensible runtime that millions of users and tens of thousands of organizations have already standardized on as part of Docker Engine,” said Michael Crosby, containerd maintainer and Docker engineer.</description>
+    </item>
     
     <item>
       <title>2018 小回顾</title>
