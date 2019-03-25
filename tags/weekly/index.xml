@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Weekly on MoeLove</title>
+    <link>http://moelove.info/tags/weekly/</link>
+    <description>Recent content in Weekly on MoeLove</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Mon, 25 Mar 2019 20:49:06 +0800</lastBuildDate>
+    
+	<atom:link href="http://moelove.info/tags/weekly/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Weekly | 2019.03.18~2019.03.24</title>
+      <link>http://moelove.info/2019/03/25/Weekly--2019.03.18~2019.03.24/</link>
+      <pubDate>Mon, 25 Mar 2019 20:49:06 +0800</pubDate>
+      
+      <guid>http://moelove.info/2019/03/25/Weekly--2019.03.18~2019.03.24/</guid>
+      <description>我将从本篇开始维护「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。
+ Docker 6 岁啦 Docker 从 2013 年首次亮相，至今已 6 年之久，而 Docker 也已一度成为容器技术的代名词，很庆幸能投身 Docker 相关的领域。官方博客
+Kind (Kubernetes In Docker) 发布 0.2.0 版本 Kind 是一个利用容器技术快速部署本地 Kubernetes 的工具，主要是用于对 Kubernetes 1.11+ 版本的测试。现在发布的 0.2.0 版本支持最新 Kubernetes v1.13.4 及 Docker 18.06.3 且通过了 CNCF 的一致性认证。
+Rancher 发布 K8S 最佳安全实践文章 Rancher 在 CNCF 最近发布的 9 个 Kubernetes 最佳安全实践的基础上发布了一篇更安全的最佳实践，这两篇文章都值得一看。
+可以通过下面二维码订阅我的文章公众号【MoeLove】</description>
+    </item>
+    
+  </channel>
+</rss>
