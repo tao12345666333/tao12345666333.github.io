@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tool on MoeLove</title>
-    <link>http://moelove.info/tags/tool/</link>
+    <link>https://moelove.info/tags/tool/</link>
     <description>Recent content in Tool on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <lastBuildDate>Mon, 26 Dec 2016 00:43:02 +0000</lastBuildDate>
     
-	<atom:link href="http://moelove.info/tags/tool/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://moelove.info/tags/tool/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>关于 webpack 你可能忽略的细节（附源码分析）</title>
-      <link>http://moelove.info/2016/12/26/%E5%85%B3%E4%BA%8E-webpack-%E4%BD%A0%E5%8F%AF%E8%83%BD%E5%BF%BD%E7%95%A5%E7%9A%84%E7%BB%86%E8%8A%82%E9%99%84%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link>
+      <link>https://moelove.info/2016/12/26/%E5%85%B3%E4%BA%8E-webpack-%E4%BD%A0%E5%8F%AF%E8%83%BD%E5%BF%BD%E7%95%A5%E7%9A%84%E7%BB%86%E8%8A%82%E9%99%84%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link>
       <pubDate>Mon, 26 Dec 2016 00:43:02 +0000</pubDate>
       
-      <guid>http://moelove.info/2016/12/26/%E5%85%B3%E4%BA%8E-webpack-%E4%BD%A0%E5%8F%AF%E8%83%BD%E5%BF%BD%E7%95%A5%E7%9A%84%E7%BB%86%E8%8A%82%E9%99%84%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</guid>
+      <guid>https://moelove.info/2016/12/26/%E5%85%B3%E4%BA%8E-webpack-%E4%BD%A0%E5%8F%AF%E8%83%BD%E5%BF%BD%E7%95%A5%E7%9A%84%E7%BB%86%E8%8A%82%E9%99%84%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</guid>
       <description>注：本篇不是入门教程，入门请直接查看官方文档。本篇的主要目标是通过实际问题来介绍 webpack 中容易被人忽略的细节, 以及源码分析(以最新发布的 release 版本1.14.0的源码为例), 并且提供几种解决方案。
  随着前端技术的火热发展，工程化，模块化和组件化的思想已逐步成为主流，与之相应的，就需要有一整套工具流可以支撑起它。
 现在比较热门的前端资源模块化管理和打包工具应该非 Webpack 莫属了。
@@ -33,10 +33,10 @@ webpack ./app.js app.bundle.js  我们来看一下发生了什么， 目录下�
     
     <item>
       <title>Composer 使用技巧简述</title>
-      <link>http://moelove.info/2016/12/16/Composer-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%AE%80%E8%BF%B0/</link>
+      <link>https://moelove.info/2016/12/16/Composer-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%AE%80%E8%BF%B0/</link>
       <pubDate>Fri, 16 Dec 2016 00:49:11 +0000</pubDate>
       
-      <guid>http://moelove.info/2016/12/16/Composer-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%AE%80%E8%BF%B0/</guid>
+      <guid>https://moelove.info/2016/12/16/Composer-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%AE%80%E8%BF%B0/</guid>
       <description>最近使用了世界最好的语言 PHP 用来管理依赖关系的工具 Composer. 稍微做点记录, 以做备忘. 如有错误还望指出.
  安装 php -r &amp;quot;copy(&#39;https://getcomposer.org/installer&#39;, &#39;composer-setup.php&#39;);&amp;quot; php -r &amp;quot;if (hash_file(&#39;SHA384&#39;, &#39;composer-setup.php&#39;) === &#39;aa96f26c2b67226a324c27919f1eb05f21c248b987e6195cad9690d5c1ff713d53020a02ac8c217dbf90a7eacc9d141d&#39;) { echo &#39;Installer verified&#39;; } else { echo &#39;Installer corrupt&#39;; unlink(&#39;composer-setup.php&#39;); } echo PHP_EOL;&amp;quot; php composer-setup.php php -r &amp;quot;unlink(&#39;composer-setup.php&#39;);&amp;quot;  上述代码来自官网.
 局部安装 上述代码执行完成后, 只是下载到了 composer.phar 文件, 可以通过 php composer.phar 在任意位置执行.
@@ -47,10 +47,10 @@ sudo mv composer.phar /usr/local/bin/composer  国内镜像加速 使用Composer
     
     <item>
       <title>Git workflow 详谈</title>
-      <link>http://moelove.info/2016/12/05/Git-workflow-%E8%AF%A6%E8%B0%88/</link>
+      <link>https://moelove.info/2016/12/05/Git-workflow-%E8%AF%A6%E8%B0%88/</link>
       <pubDate>Mon, 05 Dec 2016 22:40:41 +0000</pubDate>
       
-      <guid>http://moelove.info/2016/12/05/Git-workflow-%E8%AF%A6%E8%B0%88/</guid>
+      <guid>https://moelove.info/2016/12/05/Git-workflow-%E8%AF%A6%E8%B0%88/</guid>
       <description>作为一名工程师， Git 在日常开发中是不可或缺的工具。 这里详细介绍几种比较常用的基于 Git 的工作流模型, 以便于团队协作的规范化和效率提升。
 中心化工作流 使用过SVN的应该都知道， SVN使用的是集中式管理流程， 如果你刚从SVN 切换到 Git ， 你可以尝试使用中心化工作流的方式。这样，你几乎不需要变更之前的工作方式， 就可以完成平滑的过渡了。 而且在使用过程中还可以看到 Git 优于 SVN 的地方： 第一，每个成员都可以在本地拥有一份完整的项目代码仓库，而不只是一个工作区的副本，任何人都可以在本地执行 add 和 commit ，而不需要考虑远端仓库是否有变更，直到需要的时候再去提交即可。 第二，Git 的工作区、暂存区、引用更新等设计，可以给开发者更多自由来切换当前工作，且不会造成代码丢失。
 工作细节 中心化工作流的方式是：在远端（远端可以是服务器端，也可以是本地的任意目录）新建一个仓库，默认是 master 分支，作为唯一的中心仓库。 所有人都 clone 这个仓库作为本地仓库，并在本地仓库进行开发。本地的提交是和远端仓库无关的，等需要的时候再 push 进主仓库的 master 分支即可。
@@ -61,10 +61,10 @@ sudo mv composer.phar /usr/local/bin/composer  国内镜像加速 使用Composer
     
     <item>
       <title>Git 本地仓库和裸仓库</title>
-      <link>http://moelove.info/2016/12/04/Git-%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%92%8C%E8%A3%B8%E4%BB%93%E5%BA%93/</link>
+      <link>https://moelove.info/2016/12/04/Git-%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%92%8C%E8%A3%B8%E4%BB%93%E5%BA%93/</link>
       <pubDate>Sun, 04 Dec 2016 01:37:39 +0000</pubDate>
       
-      <guid>http://moelove.info/2016/12/04/Git-%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%92%8C%E8%A3%B8%E4%BB%93%E5%BA%93/</guid>
+      <guid>https://moelove.info/2016/12/04/Git-%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%92%8C%E8%A3%B8%E4%BB%93%E5%BA%93/</guid>
       <description>通常我们会用 git init 命令来将我们所在的目录转换为一个 Git 本地仓库或者初始化一个新的空仓库。
 用法  将当前目录转换为一个本地仓库  git init  这个命令执行后会在本地生成一个 .git 的文件夹，用来追踪仓库的所有变更。效果如下：
  指定某个目录成为本地仓库  git init &amp;lt;repo&amp;gt;  这个命令执行后， 将创建一个名为repo且只包含 .git 子文件夹的空目录。效果如下：
@@ -75,10 +75,10 @@ sudo mv composer.phar /usr/local/bin/composer  国内镜像加速 使用Composer
     
     <item>
       <title>源码编译Vim 8</title>
-      <link>http://moelove.info/2016/09/24/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91Vim-8/</link>
+      <link>https://moelove.info/2016/09/24/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91Vim-8/</link>
       <pubDate>Sat, 24 Sep 2016 19:46:47 +0000</pubDate>
       
-      <guid>http://moelove.info/2016/09/24/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91Vim-8/</guid>
+      <guid>https://moelove.info/2016/09/24/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91Vim-8/</guid>
       <description>Vim 8.0 在2016.09.12发布了, 在各 Linux 发行版还没更新包的时候就源码编译来使用吧! 以 Debian 编译 Vim 为例.
  下载Vim 源码 可以在Vim 官网下载打包好的源代码. 或者使用 Git:
 git clone https://github.com/vim/vim.git  编译 cd vim/src ./configure --with-compiledby=&amp;quot;TaoBeier&amp;quot; --with-features=huge --enable-pythoninterp=yes --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu --enable-cscope --enable-perlinterp=yes --enable-rubyinterp=yes --with-luajit --enable-luainterp=yes --with-lua-prefix=/usr/include/lua5.1 --enable-multibyte --with-x --enable-fail-if-missing  上面的参数使用 ./configure --help 都可以看到对应用途. 上面使用的参数是增加了对 Python, Ruby, Perl, 以及X window的支持.
@@ -89,10 +89,10 @@ sudo apt-get install lua5.1 liblua5.1-0 luajit libluajit-5.1-dev</description>
     
     <item>
       <title>利器系列-更高效的Vim</title>
-      <link>http://moelove.info/2016/09/16/%E5%88%A9%E5%99%A8%E7%B3%BB%E5%88%97-%E6%9B%B4%E9%AB%98%E6%95%88%E7%9A%84Vim/</link>
+      <link>https://moelove.info/2016/09/16/%E5%88%A9%E5%99%A8%E7%B3%BB%E5%88%97-%E6%9B%B4%E9%AB%98%E6%95%88%E7%9A%84Vim/</link>
       <pubDate>Fri, 16 Sep 2016 16:55:44 +0000</pubDate>
       
-      <guid>http://moelove.info/2016/09/16/%E5%88%A9%E5%99%A8%E7%B3%BB%E5%88%97-%E6%9B%B4%E9%AB%98%E6%95%88%E7%9A%84Vim/</guid>
+      <guid>https://moelove.info/2016/09/16/%E5%88%A9%E5%99%A8%E7%B3%BB%E5%88%97-%E6%9B%B4%E9%AB%98%E6%95%88%E7%9A%84Vim/</guid>
       <description>这是利器系列第0篇, 当然要以每天我使用率最高的Vim来开始啦!
  截图 安装 (你需要一个有Python支持的Vim版本. 请使用 vim --version | grep +python 来检查)
  依赖(Debian/Ubuntu 平台)

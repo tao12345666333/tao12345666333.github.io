@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Regex on MoeLove</title>
-    <link>http://moelove.info/tags/regex/</link>
+    <link>https://moelove.info/tags/regex/</link>
     <description>Recent content in Regex on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <lastBuildDate>Tue, 22 Jul 2014 21:16:34 +0000</lastBuildDate>
     
-	<atom:link href="http://moelove.info/tags/regex/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://moelove.info/tags/regex/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>正则匹配中文及字符编码问题</title>
-      <link>http://moelove.info/2014/07/22/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%AD%E6%96%87%E5%8F%8A%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</link>
+      <link>https://moelove.info/2014/07/22/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%AD%E6%96%87%E5%8F%8A%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</link>
       <pubDate>Tue, 22 Jul 2014 21:16:34 +0000</pubDate>
       
-      <guid>http://moelove.info/2014/07/22/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%AD%E6%96%87%E5%8F%8A%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</guid>
+      <guid>https://moelove.info/2014/07/22/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%AD%E6%96%87%E5%8F%8A%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</guid>
       <description>匹配中文的正则表达式 窝写了一小段代码（虽然写的不太好，但是基本可以表达意思）
 -- import re nickname = raw_input(&#39;Please input your nickname &amp;gt; &#39;) if not re.search(u&#39;^[\u4e00-\u9fa5a-zA-Z0-9]+$&#39;, unicode(nickname,&#39;utf8&#39;)): print &#39;Your nickname format is error, please try again !&#39; else: print &#39;Hello %s&#39;% nickname  如你所见，上面第5行的代码，就是匹配中文和字母，数字的正则表达式了。里面的\u4e00-\u9fa5 就是中文汉字的unicode编码所在位置。
 Python字符串的编码问题 还是以上面那段代码来说。注意看第5行的代码

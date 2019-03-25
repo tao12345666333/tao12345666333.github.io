@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Grub2 on MoeLove</title>
-    <link>http://moelove.info/tags/grub2/</link>
+    <link>https://moelove.info/tags/grub2/</link>
     <description>Recent content in Grub2 on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <lastBuildDate>Wed, 02 Jul 2014 21:53:03 +0000</lastBuildDate>
     
-	<atom:link href="http://moelove.info/tags/grub2/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://moelove.info/tags/grub2/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Grub2 rescue 修复</title>
-      <link>http://moelove.info/2014/07/02/Grub2-rescue-%E4%BF%AE%E5%A4%8D/</link>
+      <link>https://moelove.info/2014/07/02/Grub2-rescue-%E4%BF%AE%E5%A4%8D/</link>
       <pubDate>Wed, 02 Jul 2014 21:53:03 +0000</pubDate>
       
-      <guid>http://moelove.info/2014/07/02/Grub2-rescue-%E4%BF%AE%E5%A4%8D/</guid>
+      <guid>https://moelove.info/2014/07/02/Grub2-rescue-%E4%BF%AE%E5%A4%8D/</guid>
       <description>昨天下午的时候想要把分区处理一下，突然发现硬盘里面有一个未使用的102M的分区,很果断的把这些乱七八糟的分区都给干掉了。结果呢，再次开机的时候就坑了（虽然酱紫的事情干过很多次了，这次做个记录吧）开机时提示如下：
 GRUB loading.. error: unknown filesystem. Entering rescue mode.... grub rescue&amp;gt;  grub rescue 支持的命令  ls 查看硬盘的分区情况，如果你已知自己的grub的安装位置（比如我的在(hd0,msdos9)/boot/grub2），那么就直接进行下一步。 如果不知道，那就ls每个分区，比如: ls (hd0,msdos2)/,如果正确就会显示里面到内容，直到找到grub  这里一个很关键的地方就是在硬盘位置后应该加入/
  set 直接输入的话， 可以看到root 和 prefix 的设置。这里需要把这两个选项改成我们已经找到的位置。  窝的设置如下

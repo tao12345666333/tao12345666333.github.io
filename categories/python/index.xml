@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on MoeLove</title>
-    <link>http://moelove.info/categories/python/</link>
+    <link>https://moelove.info/categories/python/</link>
     <description>Recent content in Python on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <lastBuildDate>Fri, 30 Jun 2017 00:13:16 +0000</lastBuildDate>
     
-	<atom:link href="http://moelove.info/categories/python/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://moelove.info/categories/python/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Install-Python3.6-on-CentOS7</title>
-      <link>http://moelove.info/2017/06/30/Install-Python3.6-on-CentOS7/</link>
+      <link>https://moelove.info/2017/06/30/Install-Python3.6-on-CentOS7/</link>
       <pubDate>Fri, 30 Jun 2017 00:13:16 +0000</pubDate>
       
-      <guid>http://moelove.info/2017/06/30/Install-Python3.6-on-CentOS7/</guid>
+      <guid>https://moelove.info/2017/06/30/Install-Python3.6-on-CentOS7/</guid>
       <description>拖了很久没有更新，抱歉啦~ 今天受邀写篇如何在 CentOS 7 上配置 Python 3 环境的文章。往常我都选择直接把我早年写的一篇文章源码编译MongoDB丢过去，让他们看其中的源码编译 Python 那一节，不过那节写的其实不太详细，而且最近被很多人催，所以还是单独写一篇好了。
  当前最新的 CentOS 7.3 默认安装的是 Python 2 ，并且默认的官方 yum 源中不提供 Python 3 的安装包。有些用户想要升级使用 Python 3 但实际可能有各种各样的问题，导致出错，反观一下激进的 Fedora 社区，在23的时候，就将默认的版本修改成了 Python3 （如果我没记错的话）。
 先说下我所使用的系统环境， 一个新创建的 Docker 容器。 使用 cat /etc/redhat-release 可以看到运行的是 CentOS 7.3 版本。
@@ -26,20 +26,20 @@
     
     <item>
       <title>Python性能优化之工具篇</title>
-      <link>http://moelove.info/2016/05/14/Python%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E5%B7%A5%E5%85%B7%E7%AF%87/</link>
+      <link>https://moelove.info/2016/05/14/Python%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E5%B7%A5%E5%85%B7%E7%AF%87/</link>
       <pubDate>Sat, 14 May 2016 00:14:54 +0000</pubDate>
       
-      <guid>http://moelove.info/2016/05/14/Python%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E5%B7%A5%E5%85%B7%E7%AF%87/</guid>
+      <guid>https://moelove.info/2016/05/14/Python%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E5%B7%A5%E5%85%B7%E7%AF%87/</guid>
       <description>之前对公司的一个后端项目做了些性能优化, 学到一些值得记录的东西, 这篇主要是介绍在做性能分析时所用到的工具, 至于如何优化基本就是智者见智吧, 如果有时间可能会写的.
  Python web应用程序的常见性能指标 此处忽略外部DNS解析等方面的性能   响应时间 错误率 吞吐率 执行时间 内存占用  Python 性能分析工具 ##TODO</description>
     </item>
     
     <item>
       <title>用正确的姿势开源Python项目</title>
-      <link>http://moelove.info/2015/10/26/%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%A7%BF%E5%8A%BF%E5%BC%80%E6%BA%90Python%E9%A1%B9%E7%9B%AE/</link>
+      <link>https://moelove.info/2015/10/26/%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%A7%BF%E5%8A%BF%E5%BC%80%E6%BA%90Python%E9%A1%B9%E7%9B%AE/</link>
       <pubDate>Mon, 26 Oct 2015 22:17:36 +0000</pubDate>
       
-      <guid>http://moelove.info/2015/10/26/%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%A7%BF%E5%8A%BF%E5%BC%80%E6%BA%90Python%E9%A1%B9%E7%9B%AE/</guid>
+      <guid>https://moelove.info/2015/10/26/%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%A7%BF%E5%8A%BF%E5%BC%80%E6%BA%90Python%E9%A1%B9%E7%9B%AE/</guid>
       <description>做个备忘，也希望可以帮到别人。
  目录结构（初始化） 一般我们都会选择在项目的顶层包含较基础的文件，比如setup.py，requirements，README等文件。 一般情况下，一个预发布的Python项目中应该包含以下几类文件：
  projects (项目的主体文件) setup.py requirements Readme (项目说明) docs (项目文档) test  其中，projects文件夹要以项目命名，存放实际的Python Package. 这里放一个我的项目的目录作为例子。
@@ -48,10 +48,10 @@
     
     <item>
       <title>正则匹配中文及字符编码问题</title>
-      <link>http://moelove.info/2014/07/22/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%AD%E6%96%87%E5%8F%8A%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</link>
+      <link>https://moelove.info/2014/07/22/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%AD%E6%96%87%E5%8F%8A%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</link>
       <pubDate>Tue, 22 Jul 2014 21:16:34 +0000</pubDate>
       
-      <guid>http://moelove.info/2014/07/22/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%AD%E6%96%87%E5%8F%8A%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</guid>
+      <guid>https://moelove.info/2014/07/22/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%AD%E6%96%87%E5%8F%8A%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</guid>
       <description>匹配中文的正则表达式 窝写了一小段代码（虽然写的不太好，但是基本可以表达意思）
 -- import re nickname = raw_input(&#39;Please input your nickname &amp;gt; &#39;) if not re.search(u&#39;^[\u4e00-\u9fa5a-zA-Z0-9]+$&#39;, unicode(nickname,&#39;utf8&#39;)): print &#39;Your nickname format is error, please try again !&#39; else: print &#39;Hello %s&#39;% nickname  如你所见，上面第5行的代码，就是匹配中文和字母，数字的正则表达式了。里面的\u4e00-\u9fa5 就是中文汉字的unicode编码所在位置。
 Python字符串的编码问题 还是以上面那段代码来说。注意看第5行的代码
@@ -66,10 +66,10 @@ if not re.search(u&#39;^[\u4e00-\u9fa5a-zA-Z0-9]+$&#39;, unicode(nickname,&#39;u
     
     <item>
       <title>upyun-for-pelican</title>
-      <link>http://moelove.info/2014/05/16/upyun-for-pelican/</link>
+      <link>https://moelove.info/2014/05/16/upyun-for-pelican/</link>
       <pubDate>Fri, 16 May 2014 21:51:41 +0000</pubDate>
       
-      <guid>http://moelove.info/2014/05/16/upyun-for-pelican/</guid>
+      <guid>https://moelove.info/2014/05/16/upyun-for-pelican/</guid>
       <description>这几天写了一个插件，方便把pelican生成静态博客部署到又拍云上。 整体思路就是：
  先格式化路径，以/为根目录
 def formatPath(path): path = path.replace(os.sep, &#39;/&#39;) return path  定义两个列表来存储文件和目录

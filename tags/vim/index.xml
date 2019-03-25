@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Vim on MoeLove</title>
-    <link>http://moelove.info/tags/vim/</link>
+    <link>https://moelove.info/tags/vim/</link>
     <description>Recent content in Vim on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <lastBuildDate>Sat, 24 Sep 2016 19:46:47 +0000</lastBuildDate>
     
-	<atom:link href="http://moelove.info/tags/vim/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://moelove.info/tags/vim/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>源码编译Vim 8</title>
-      <link>http://moelove.info/2016/09/24/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91Vim-8/</link>
+      <link>https://moelove.info/2016/09/24/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91Vim-8/</link>
       <pubDate>Sat, 24 Sep 2016 19:46:47 +0000</pubDate>
       
-      <guid>http://moelove.info/2016/09/24/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91Vim-8/</guid>
+      <guid>https://moelove.info/2016/09/24/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91Vim-8/</guid>
       <description>Vim 8.0 在2016.09.12发布了, 在各 Linux 发行版还没更新包的时候就源码编译来使用吧! 以 Debian 编译 Vim 为例.
  下载Vim 源码 可以在Vim 官网下载打包好的源代码. 或者使用 Git:
 git clone https://github.com/vim/vim.git  编译 cd vim/src ./configure --with-compiledby=&amp;quot;TaoBeier&amp;quot; --with-features=huge --enable-pythoninterp=yes --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu --enable-cscope --enable-perlinterp=yes --enable-rubyinterp=yes --with-luajit --enable-luainterp=yes --with-lua-prefix=/usr/include/lua5.1 --enable-multibyte --with-x --enable-fail-if-missing  上面的参数使用 ./configure --help 都可以看到对应用途. 上面使用的参数是增加了对 Python, Ruby, Perl, 以及X window的支持.
@@ -27,10 +27,10 @@ sudo apt-get install lua5.1 liblua5.1-0 luajit libluajit-5.1-dev</description>
     
     <item>
       <title>利器系列-更高效的Vim</title>
-      <link>http://moelove.info/2016/09/16/%E5%88%A9%E5%99%A8%E7%B3%BB%E5%88%97-%E6%9B%B4%E9%AB%98%E6%95%88%E7%9A%84Vim/</link>
+      <link>https://moelove.info/2016/09/16/%E5%88%A9%E5%99%A8%E7%B3%BB%E5%88%97-%E6%9B%B4%E9%AB%98%E6%95%88%E7%9A%84Vim/</link>
       <pubDate>Fri, 16 Sep 2016 16:55:44 +0000</pubDate>
       
-      <guid>http://moelove.info/2016/09/16/%E5%88%A9%E5%99%A8%E7%B3%BB%E5%88%97-%E6%9B%B4%E9%AB%98%E6%95%88%E7%9A%84Vim/</guid>
+      <guid>https://moelove.info/2016/09/16/%E5%88%A9%E5%99%A8%E7%B3%BB%E5%88%97-%E6%9B%B4%E9%AB%98%E6%95%88%E7%9A%84Vim/</guid>
       <description>这是利器系列第0篇, 当然要以每天我使用率最高的Vim来开始啦!
  截图 安装 (你需要一个有Python支持的Vim版本. 请使用 vim --version | grep +python 来检查)
  依赖(Debian/Ubuntu 平台)
@@ -47,10 +47,10 @@ wget http://tenet.dl.sourceforge.net/project/ctags/ctags/5.8/ctags-5.8.tar.gz &a
     
     <item>
       <title>JSLint,JSHint,ESLint对比和Vim配置</title>
-      <link>http://moelove.info/2015/11/28/JSLintJSHintESLint%E5%AF%B9%E6%AF%94%E5%92%8CVim%E9%85%8D%E7%BD%AE/</link>
+      <link>https://moelove.info/2015/11/28/JSLintJSHintESLint%E5%AF%B9%E6%AF%94%E5%92%8CVim%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Sat, 28 Nov 2015 23:43:49 +0000</pubDate>
       
-      <guid>http://moelove.info/2015/11/28/JSLintJSHintESLint%E5%AF%B9%E6%AF%94%E5%92%8CVim%E9%85%8D%E7%BD%AE/</guid>
+      <guid>https://moelove.info/2015/11/28/JSLintJSHintESLint%E5%AF%B9%E6%AF%94%E5%92%8CVim%E9%85%8D%E7%BD%AE/</guid>
       <description>最近在用React写项目，但是我的Vim配置之前并没有配置对JSX和ES6的支持，然后看着那堆报错各种不爽了，于是还是要继续折腾，顺便也增加了点知识，记录一下。
 主流的JS Lint工具及介绍 JavaScript已经发展蛮长时间了，对应的Lint工具也是层出不穷，下面介绍一下比较主流的几个Lint工具(其实是我用过的几个XD)
 JSLint JSLint是由Douglas Crockford开发的，可能是最早的JavaScript Lint工具了吧，它的名字来源于著名的C语言工具Lint。老道把他认为的非Good Parts的部分都报了warning，而且在它的文档中也提到了你应该欣然接受所有的JSLint的建议。最近看了下，老道还在持续更新着这个项目，而且官网上也有着一个在线的体验工具，可以尝试一下。对了，如果想要使用这个工具，建议看看老道在YouTube上关于JavaScript编程风格的视频，讲的还是很幽默的。
@@ -64,10 +64,10 @@ JSLint的Vim配置 有一个jslint.vim当然版本太老了。。我们不用这
     
     <item>
       <title>Vim7.3 for Windows 配置</title>
-      <link>http://moelove.info/2013/08/10/Vim7.3-for-Windows-%E9%85%8D%E7%BD%AE/</link>
+      <link>https://moelove.info/2013/08/10/Vim7.3-for-Windows-%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Sat, 10 Aug 2013 21:34:17 +0000</pubDate>
       
-      <guid>http://moelove.info/2013/08/10/Vim7.3-for-Windows-%E9%85%8D%E7%BD%AE/</guid>
+      <guid>https://moelove.info/2013/08/10/Vim7.3-for-Windows-%E9%85%8D%E7%BD%AE/</guid>
       <description>一直是在Linux下用Vim，但是有些时候在别人电脑或者机房又不得不用windows来写代码，所以也就下载了vim for windows。但是今天打开一个朋友写的网页的时候，出现了乱码的问题，所以把解决方法记录一下，也就是和在linux下面一样，修改配置文件就可以了。接下来进入正题。
  选项意义概述 Vim有四个跟字符编码方式有关的选项，分别是:encoding、fileencoding、fileencodings、termencoding (这些选项可能的取值可以参考 Vim 的帮助 :help encoding-names)，它们各自的意义:
  encoding: Vim 内部使用的字符编码方式，包括Vim的buffer(缓冲区)、菜单文本、消息文本等。用户手册上建议只在*.vimrc中改变它的值，事实上似乎也只有在.vimrc* 中改变它的值才有意义。

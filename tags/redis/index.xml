@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Redis on MoeLove</title>
-    <link>http://moelove.info/tags/redis/</link>
+    <link>https://moelove.info/tags/redis/</link>
     <description>Recent content in Redis on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <lastBuildDate>Sun, 05 Mar 2017 21:45:07 +0000</lastBuildDate>
     
-	<atom:link href="http://moelove.info/tags/redis/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://moelove.info/tags/redis/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>理解 Redis 的 RESP 协议</title>
-      <link>http://moelove.info/2017/03/05/%E7%90%86%E8%A7%A3-Redis-%E7%9A%84-RESP-%E5%8D%8F%E8%AE%AE/</link>
+      <link>https://moelove.info/2017/03/05/%E7%90%86%E8%A7%A3-Redis-%E7%9A%84-RESP-%E5%8D%8F%E8%AE%AE/</link>
       <pubDate>Sun, 05 Mar 2017 21:45:07 +0000</pubDate>
       
-      <guid>http://moelove.info/2017/03/05/%E7%90%86%E8%A7%A3-Redis-%E7%9A%84-RESP-%E5%8D%8F%E8%AE%AE/</guid>
+      <guid>https://moelove.info/2017/03/05/%E7%90%86%E8%A7%A3-Redis-%E7%9A%84-RESP-%E5%8D%8F%E8%AE%AE/</guid>
       <description>简介 Redis 的客户端和服务端之间采取了一种独立名为 RESP(REdis Serialization Protocol) 的协议，作者主要考虑了以下几个点：
  容易实现 解析快 人类可读  注意：RESP 虽然是为 Redis 设计的，但是同样也可以用于其他 C/S 的软件。
 数据类型及示例 RESP 主要可以序列化以下几种类型：整数，单行回复(简单字符串)，数组，错误信息，多行字符串。Redis 客户端向服务端发送的是一组由执行的命令组成的字符串数组，服务端根据不同的命令回复不同类型的数据，但协议的每部分都是以 &amp;ldquo;\r\n&amp;rdquo; (CRLF) 结尾的。另外 RESP 是二进制安全的，不需要处理从一个进程到另一个进程的传输，因为它使用了前缀长度进行传输。

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ruby on MoeLove</title>
-    <link>http://moelove.info/tags/ruby/</link>
+    <link>https://moelove.info/tags/ruby/</link>
     <description>Recent content in Ruby on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <lastBuildDate>Sat, 21 Sep 2013 21:39:55 +0000</lastBuildDate>
     
-	<atom:link href="http://moelove.info/tags/ruby/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://moelove.info/tags/ruby/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Ruby on Rails 环境</title>
-      <link>http://moelove.info/2013/09/21/Ruby-on-Rails-%E7%8E%AF%E5%A2%83/</link>
+      <link>https://moelove.info/2013/09/21/Ruby-on-Rails-%E7%8E%AF%E5%A2%83/</link>
       <pubDate>Sat, 21 Sep 2013 21:39:55 +0000</pubDate>
       
-      <guid>http://moelove.info/2013/09/21/Ruby-on-Rails-%E7%8E%AF%E5%A2%83/</guid>
+      <guid>https://moelove.info/2013/09/21/Ruby-on-Rails-%E7%8E%AF%E5%A2%83/</guid>
       <description>就这次的尝试写一下自己的记录 安装ruby 和 ruby-devel(安装ruby-devel是因为后续的工作如果没有ruby-devel的话，会报错)
 sudo yum install ruby ruby-devel rubygems sqlite -y  需要的环境有了，那么就可以开始正式的工作了
 sudo gem install rails  找到一个合适的目录来放自己的代码.然后执行

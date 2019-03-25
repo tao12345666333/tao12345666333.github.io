@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>React on MoeLove</title>
-    <link>http://moelove.info/tags/react/</link>
+    <link>https://moelove.info/tags/react/</link>
     <description>Recent content in React on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <lastBuildDate>Sat, 28 Nov 2015 23:43:49 +0000</lastBuildDate>
     
-	<atom:link href="http://moelove.info/tags/react/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://moelove.info/tags/react/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>JSLint,JSHint,ESLint对比和Vim配置</title>
-      <link>http://moelove.info/2015/11/28/JSLintJSHintESLint%E5%AF%B9%E6%AF%94%E5%92%8CVim%E9%85%8D%E7%BD%AE/</link>
+      <link>https://moelove.info/2015/11/28/JSLintJSHintESLint%E5%AF%B9%E6%AF%94%E5%92%8CVim%E9%85%8D%E7%BD%AE/</link>
       <pubDate>Sat, 28 Nov 2015 23:43:49 +0000</pubDate>
       
-      <guid>http://moelove.info/2015/11/28/JSLintJSHintESLint%E5%AF%B9%E6%AF%94%E5%92%8CVim%E9%85%8D%E7%BD%AE/</guid>
+      <guid>https://moelove.info/2015/11/28/JSLintJSHintESLint%E5%AF%B9%E6%AF%94%E5%92%8CVim%E9%85%8D%E7%BD%AE/</guid>
       <description>最近在用React写项目，但是我的Vim配置之前并没有配置对JSX和ES6的支持，然后看着那堆报错各种不爽了，于是还是要继续折腾，顺便也增加了点知识，记录一下。
 主流的JS Lint工具及介绍 JavaScript已经发展蛮长时间了，对应的Lint工具也是层出不穷，下面介绍一下比较主流的几个Lint工具(其实是我用过的几个XD)
 JSLint JSLint是由Douglas Crockford开发的，可能是最早的JavaScript Lint工具了吧，它的名字来源于著名的C语言工具Lint。老道把他认为的非Good Parts的部分都报了warning，而且在它的文档中也提到了你应该欣然接受所有的JSLint的建议。最近看了下，老道还在持续更新着这个项目，而且官网上也有着一个在线的体验工具，可以尝试一下。对了，如果想要使用这个工具，建议看看老道在YouTube上关于JavaScript编程风格的视频，讲的还是很幽默的。

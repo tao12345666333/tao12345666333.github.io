@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: http://moelove.info/sitemap.xml
+Sitemap: https://moelove.info/sitemap.xml

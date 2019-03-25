@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Kubernetes on MoeLove</title>
-    <link>http://moelove.info/tags/kubernetes/</link>
+    <link>https://moelove.info/tags/kubernetes/</link>
     <description>Recent content in Kubernetes on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <lastBuildDate>Mon, 25 Mar 2019 20:49:06 +0800</lastBuildDate>
     
-	<atom:link href="http://moelove.info/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://moelove.info/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Weekly | 2019.03.18~2019.03.24</title>
-      <link>http://moelove.info/2019/03/25/Weekly--2019.03.18~2019.03.24/</link>
+      <link>https://moelove.info/2019/03/25/Weekly--2019.03.18~2019.03.24/</link>
       <pubDate>Mon, 25 Mar 2019 20:49:06 +0800</pubDate>
       
-      <guid>http://moelove.info/2019/03/25/Weekly--2019.03.18~2019.03.24/</guid>
+      <guid>https://moelove.info/2019/03/25/Weekly--2019.03.18~2019.03.24/</guid>
       <description>我将从本篇开始维护「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。
  Docker 6 岁啦 Docker 从 2013 年首次亮相，至今已 6 年之久，而 Docker 也已一度成为容器技术的代名词，很庆幸能投身 Docker 相关的领域。官方博客
 Kind (Kubernetes In Docker) 发布 0.2.0 版本 Kind 是一个利用容器技术快速部署本地 Kubernetes 的工具，主要是用于对 Kubernetes 1.11+ 版本的测试。现在发布的 0.2.0 版本支持最新 Kubernetes v1.13.4 及 Docker 18.06.3 且通过了 CNCF 的一致性认证。
@@ -26,10 +26,10 @@ Rancher 发布 K8S 最佳安全实践文章 Rancher 在 CNCF 最近发布的 9 �
     
     <item>
       <title>恭喜 containerd 毕业</title>
-      <link>http://moelove.info/2019/03/01/%E6%81%AD%E5%96%9C-containerd-%E6%AF%95%E4%B8%9A/</link>
+      <link>https://moelove.info/2019/03/01/%E6%81%AD%E5%96%9C-containerd-%E6%AF%95%E4%B8%9A/</link>
       <pubDate>Fri, 01 Mar 2019 10:18:20 +0800</pubDate>
       
-      <guid>http://moelove.info/2019/03/01/%E6%81%AD%E5%96%9C-containerd-%E6%AF%95%E4%B8%9A/</guid>
+      <guid>https://moelove.info/2019/03/01/%E6%81%AD%E5%96%9C-containerd-%E6%AF%95%E4%B8%9A/</guid>
       <description>今年的第一篇文章更新，带来一个重大的消息。
  CNCF（云原生计算基金会）在美国时间 2019 年 2 月 28 日宣布 containerd 今天正式毕业了。
 这是 CNCF 中毕业的第 5 个项目，之前已经毕业的项目为 Kubernetes、Prometheus、Envoy 和 CoreDNS 。
@@ -39,10 +39,10 @@ containerd 2014 年从 Docker 孵化出来，最初是作为 Docker 引擎的底
     
     <item>
       <title>2018 小回顾</title>
-      <link>http://moelove.info/2018/12/29/2018-%E5%B0%8F%E5%9B%9E%E9%A1%BE/</link>
+      <link>https://moelove.info/2018/12/29/2018-%E5%B0%8F%E5%9B%9E%E9%A1%BE/</link>
       <pubDate>Sat, 29 Dec 2018 20:43:00 +0800</pubDate>
       
-      <guid>http://moelove.info/2018/12/29/2018-%E5%B0%8F%E5%9B%9E%E9%A1%BE/</guid>
+      <guid>https://moelove.info/2018/12/29/2018-%E5%B0%8F%E5%9B%9E%E9%A1%BE/</guid>
       <description>年底了，惯例做个小回顾，对这一年做个总结，也对下一年大致做个规划。
 不过今儿与往年不同的是昨晚突然发高烧，今儿都没能去上班，感谢我的小可爱在照顾我。这篇文章也是躺在床上用手机编辑的。
 还是按照惯例从工作，生活两方面来说。先聊聊工作。
@@ -58,10 +58,10 @@ containerd 2014 年从 Docker 孵化出来，最初是作为 Docker 引擎的底
     
     <item>
       <title>《Kubernetes从上手到实践》正式上线</title>
-      <link>http://moelove.info/2018/12/27/Kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5%E6%AD%A3%E5%BC%8F%E4%B8%8A%E7%BA%BF/</link>
+      <link>https://moelove.info/2018/12/27/Kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5%E6%AD%A3%E5%BC%8F%E4%B8%8A%E7%BA%BF/</link>
       <pubDate>Thu, 27 Dec 2018 11:16:21 +0800</pubDate>
       
-      <guid>http://moelove.info/2018/12/27/Kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5%E6%AD%A3%E5%BC%8F%E4%B8%8A%E7%BA%BF/</guid>
+      <guid>https://moelove.info/2018/12/27/Kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5%E6%AD%A3%E5%BC%8F%E4%B8%8A%E7%BA%BF/</guid>
       <description> 时间飞逝，转眼已经到了圣诞节，今年又要结束了。感谢还在关注的小伙伴，今年确实更新很少，能不取关的都是真爱&amp;hellip;
 今年发生了很多事情，留着过几天年终总结的时候再说。有很大一部分的休息时间都用来完成了我的第一本掘金小册 《Kubernetes 从上手到实践》
 小册已经正式上线，特意送上各位小伙伴一份礼物，小册 8 折优惠。直接扫码 或者点击此链接即可。

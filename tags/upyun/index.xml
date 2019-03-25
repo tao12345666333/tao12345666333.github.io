@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Upyun on MoeLove</title>
-    <link>http://moelove.info/tags/upyun/</link>
+    <link>https://moelove.info/tags/upyun/</link>
     <description>Recent content in Upyun on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <lastBuildDate>Fri, 16 May 2014 21:51:41 +0000</lastBuildDate>
     
-	<atom:link href="http://moelove.info/tags/upyun/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://moelove.info/tags/upyun/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>upyun-for-pelican</title>
-      <link>http://moelove.info/2014/05/16/upyun-for-pelican/</link>
+      <link>https://moelove.info/2014/05/16/upyun-for-pelican/</link>
       <pubDate>Fri, 16 May 2014 21:51:41 +0000</pubDate>
       
-      <guid>http://moelove.info/2014/05/16/upyun-for-pelican/</guid>
+      <guid>https://moelove.info/2014/05/16/upyun-for-pelican/</guid>
       <description>这几天写了一个插件，方便把pelican生成静态博客部署到又拍云上。 整体思路就是：
  先格式化路径，以/为根目录
 def formatPath(path): path = path.replace(os.sep, &#39;/&#39;) return path  定义两个列表来存储文件和目录
