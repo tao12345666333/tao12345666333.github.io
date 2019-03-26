@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用 Kind 搭建你的本地 Kubernetes 集群 - MoeLove</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1876963677156202",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+<meta name="author" content="TaoBeier" />
+  <meta name="description" content="Kind 是我很喜欢也一直在参与的项目，我计划将 Kind 相关的文章写成一个系列。（flag&#43;&#43;） 这是第一篇。
+ Kind 介绍 Kind 是 Kubernetes In Docker 的缩写，顾名思义是使用 Docker 容器作为 Node 并将 Kubernetes 部署至其中的一个工具。官方文档中也把 Kind 作为一种本地集群搭建的工具进行推荐。
+安装 二进制安装 Kind 使用 Golang 进行开发，在仓库的 Release 页面，已经上传了构建好的二进制，支持多种操作系统，可直接按需下载进行使用。
+e.g.
+# 下载最新的 0.2.0 版本 wget -O /usr/local/bin/kind https://github.com/kubernetes-sigs/kind/releases/download/0.2.0/kind-linux-amd64 &amp;amp;&amp;amp; chmod &#43;x /usr/local/bin/kind  通过源码安装 如果你本地已经配置好了 Golang 的开发环境，那你可以直接通过源码进行安装。
+e.g.
+go get -u sigs.k8s.io/kind  运行完上述命令后，会将 kind 的可执行文件放到 $(go env GOPATH)/bin 文件夹内，你可能需要将此目录加入到 $PATH 中。
+或者也可以先 clone 源代码再通过 go build 进行构建。" />
+
+  <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes" />
+
+
+<meta name="baidu-site-verification" content="jO2rMlnjJi" />
+<meta name="google-site-verification" content="googlefe3fc086c62f7210.html" />
+
+
+<meta name="generator" content="Hugo 0.46" />
+
+
+<link rel="canonical" href="https://moelove.info/2019/03/25/%E4%BD%BF%E7%94%A8-Kind-%E6%90%AD%E5%BB%BA%E4%BD%A0%E7%9A%84%E6%9C%AC%E5%9C%B0-Kubernetes-%E9%9B%86%E7%BE%A4/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="使用 Kind 搭建你的本地 Kubernetes 集群" />
+<meta property="og:description" content="Kind 是我很喜欢也一直在参与的项目，我计划将 Kind 相关的文章写成一个系列。（flag&#43;&#43;） 这是第一篇。
+ Kind 介绍 Kind 是 Kubernetes In Docker 的缩写，顾名思义是使用 Docker 容器作为 Node 并将 Kubernetes 部署至其中的一个工具。官方文档中也把 Kind 作为一种本地集群搭建的工具进行推荐。
+安装 二进制安装 Kind 使用 Golang 进行开发，在仓库的 Release 页面，已经上传了构建好的二进制，支持多种操作系统，可直接按需下载进行使用。
+e.g.
+# 下载最新的 0.2.0 版本 wget -O /usr/local/bin/kind https://github.com/kubernetes-sigs/kind/releases/download/0.2.0/kind-linux-amd64 &amp;&amp; chmod &#43;x /usr/local/bin/kind  通过源码安装 如果你本地已经配置好了 Golang 的开发环境，那你可以直接通过源码进行安装。
+e.g.
+go get -u sigs.k8s.io/kind  运行完上述命令后，会将 kind 的可执行文件放到 $(go env GOPATH)/bin 文件夹内，你可能需要将此目录加入到 $PATH 中。
+或者也可以先 clone 源代码再通过 go build 进行构建。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://moelove.info/2019/03/25/%E4%BD%BF%E7%94%A8-Kind-%E6%90%AD%E5%BB%BA%E4%BD%A0%E7%9A%84%E6%9C%AC%E5%9C%B0-Kubernetes-%E9%9B%86%E7%BE%A4/" />
+
+
+
+<meta property="article:published_time" content="2019-03-25T21:30:24&#43;08:00"/>
+
+<meta property="article:modified_time" content="2019-03-25T21:30:24&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="使用 Kind 搭建你的本地 Kubernetes 集群">
+<meta itemprop="description" content="Kind 是我很喜欢也一直在参与的项目，我计划将 Kind 相关的文章写成一个系列。（flag&#43;&#43;） 这是第一篇。
+ Kind 介绍 Kind 是 Kubernetes In Docker 的缩写，顾名思义是使用 Docker 容器作为 Node 并将 Kubernetes 部署至其中的一个工具。官方文档中也把 Kind 作为一种本地集群搭建的工具进行推荐。
+安装 二进制安装 Kind 使用 Golang 进行开发，在仓库的 Release 页面，已经上传了构建好的二进制，支持多种操作系统，可直接按需下载进行使用。
+e.g.
+# 下载最新的 0.2.0 版本 wget -O /usr/local/bin/kind https://github.com/kubernetes-sigs/kind/releases/download/0.2.0/kind-linux-amd64 &amp;&amp; chmod &#43;x /usr/local/bin/kind  通过源码安装 如果你本地已经配置好了 Golang 的开发环境，那你可以直接通过源码进行安装。
+e.g.
+go get -u sigs.k8s.io/kind  运行完上述命令后，会将 kind 的可执行文件放到 $(go env GOPATH)/bin 文件夹内，你可能需要将此目录加入到 $PATH 中。
+或者也可以先 clone 源代码再通过 go build 进行构建。">
+
+
+<meta itemprop="datePublished" content="2019-03-25T21:30:24&#43;08:00" />
+<meta itemprop="dateModified" content="2019-03-25T21:30:24&#43;08:00" />
+<meta itemprop="wordCount" content="568">
+
+
+
+<meta itemprop="keywords" content="Kubernetes,Kind," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用 Kind 搭建你的本地 Kubernetes 集群"/>
+<meta name="twitter:description" content="Kind 是我很喜欢也一直在参与的项目，我计划将 Kind 相关的文章写成一个系列。（flag&#43;&#43;） 这是第一篇。
+ Kind 介绍 Kind 是 Kubernetes In Docker 的缩写，顾名思义是使用 Docker 容器作为 Node 并将 Kubernetes 部署至其中的一个工具。官方文档中也把 Kind 作为一种本地集群搭建的工具进行推荐。
+安装 二进制安装 Kind 使用 Golang 进行开发，在仓库的 Release 页面，已经上传了构建好的二进制，支持多种操作系统，可直接按需下载进行使用。
+e.g.
+# 下载最新的 0.2.0 版本 wget -O /usr/local/bin/kind https://github.com/kubernetes-sigs/kind/releases/download/0.2.0/kind-linux-amd64 &amp;&amp; chmod &#43;x /usr/local/bin/kind  通过源码安装 如果你本地已经配置好了 Golang 的开发环境，那你可以直接通过源码进行安装。
+e.g.
+go get -u sigs.k8s.io/kind  运行完上述命令后，会将 kind 的可执行文件放到 $(go env GOPATH)/bin 文件夹内，你可能需要将此目录加入到 $PATH 中。
+或者也可以先 clone 源代码再通过 go build 进行构建。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">MoeLove</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/friends/">
+        <li class="mobile-menu-item">Friends</li>
+      </a><a href="/projects/">
+        <li class="mobile-menu-item">Projects</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">MoeLove</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/friends/">Friends</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/projects/">Projects</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">使用 Kind 搭建你的本地 Kubernetes 集群</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-03-25 </span>
+        
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#kind-介绍">Kind 介绍</a></li>
+<li><a href="#安装">安装</a>
+<ul>
+<li><a href="#二进制安装">二进制安装</a></li>
+<li><a href="#通过源码安装">通过源码安装</a></li>
+<li><a href="#依赖">依赖</a></li>
+</ul></li>
+<li><a href="#搭建单节点集群">搭建单节点集群</a>
+<ul>
+<li><a href="#基础用法">基础用法</a></li>
+<li><a href="#注意">注意</a></li>
+</ul></li>
+<li><a href="#搭建高可用集群">搭建高可用集群</a></li>
+<li><a href="#总结">总结</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<blockquote>
+<p><a href="https://github.com/kubernetes-sigs/kind">Kind</a> 是我很喜欢也一直在参与的项目，我计划将 Kind 相关的文章写成一个系列。（flag++） 这是第一篇。</p>
+</blockquote>
+
+<h2 id="kind-介绍">Kind 介绍</h2>
+
+<p>Kind 是 Kubernetes In Docker 的缩写，顾名思义是使用 Docker 容器作为 Node 并将 Kubernetes 部署至其中的一个工具。<a href="https://kubernetes.io/docs/setup/pick-right-solution/#community-supported-tools">官方文档</a>中也把 Kind 作为一种本地集群搭建的工具进行推荐。</p>
+
+<h2 id="安装">安装</h2>
+
+<h3 id="二进制安装">二进制安装</h3>
+
+<p>Kind 使用 Golang 进行开发，在<a href="https://github.com/kubernetes-sigs/kind/releases">仓库的 Release</a> 页面，已经上传了构建好的二进制，支持多种操作系统，可直接按需下载进行使用。</p>
+
+<p>e.g.</p>
+
+<pre><code class="language-sh"># 下载最新的 0.2.0 版本
+wget -O /usr/local/bin/kind https://github.com/kubernetes-sigs/kind/releases/download/0.2.0/kind-linux-amd64 &amp;&amp; chmod +x /usr/local/bin/kind
+</code></pre>
+
+<h3 id="通过源码安装">通过源码安装</h3>
+
+<p>如果你本地已经配置好了 <a href="https://golang.org/doc/install">Golang 的开发环境</a>，那你可以直接通过源码进行安装。</p>
+
+<p>e.g.</p>
+
+<pre><code class="language-sh">go get -u sigs.k8s.io/kind
+</code></pre>
+
+<p>运行完上述命令后，会将 <code>kind</code> 的可执行文件放到 <code>$(go env GOPATH)/bin</code> 文件夹内，你可能需要将此目录加入到 <code>$PATH</code> 中。</p>
+
+<p>或者也可以先 clone 源代码再通过 <code>go build</code> 进行构建。</p>
+
+<h3 id="依赖">依赖</h3>
+
+<ul>
+<li><p>Kind 的主要功能目前需要有 Docker 环境的支持，可参考 <a href="https://docs.docker.com/install/">Docker 官方文档</a>进行安装。</p></li>
+
+<li><p>如果需要操作集群，则需要安装 <code>kubectl</code> 命令行。安装方法可参考<a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl">官方文档</a></p></li>
+</ul>
+
+<h2 id="搭建单节点集群">搭建单节点集群</h2>
+
+<p>以下的演示均使用最新的代码(即通过源码安装)。</p>
+
+<h3 id="基础用法">基础用法</h3>
+
+<p>搭建单节点集群是 Kind 最基础的功能。</p>
+
+<p>e.g.</p>
+
+<pre><code class="language-sh">master $ kind create cluster --name moelove
+Creating cluster &quot;moelove&quot; ...
+ ✓ Ensuring node image (kindest/node:v1.13.4) 🖼
+ ✓ Preparing nodes 📦
+ ✓ Creating kubeadm config 📜
+ ✓ Starting control-plane 🕹️
+Cluster creation complete. You can now use the cluster with:
+
+export KUBECONFIG=&quot;$(kind get kubeconfig-path --name=&quot;moelove&quot;)&quot;
+kubectl cluster-info
+</code></pre>
+
+<p>以上命令中， <code>--name</code> 是可选参数，如不指定，默认创建出来的集群名字为 <code>kind</code>。</p>
+
+<p>我们根据命令执行完的输出进行操作：</p>
+
+<pre><code class="language-sh">master $ export KUBECONFIG=&quot;$(kind get kubeconfig-path --name=&quot;moelove&quot;)&quot;
+master $ kubectl cluster-info
+Kubernetes master is running at https://localhost:34458
+KubeDNS is running at https://localhost:34458/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+master $ kubectl get nodes
+NAME                    STATUS    ROLES     AGE       VERSION
+moelove-control-plane   Ready     master    2m        v1.13.4
+</code></pre>
+
+<p>以上命令中，<code>kind get kubeconfig-path --name=&quot;moelove&quot;</code> 会返回该指定集群配置文件所在的路径。</p>
+
+<p>可以看到单节点的 Kubernetes 已经搭建成功。</p>
+
+<h3 id="注意">注意</h3>
+
+<ul>
+<li>默认情况下，Kind 会先下载 <code>kindest/node:v1.13.4</code> 镜像，该镜像目前托管于 Docker Hub 上，下载时间取决于网络状况。</li>
+<li>Kind 实际使用 <code>kubeadm</code> 进行集群的创建，对 <code>kubeadm</code> 有所了解的人都知道它默认使用的镜像在国内下载不到，所以需要自己解决网络问题。或者参考下面的方式:</li>
+</ul>
+
+<p>Kind 在创建集群的时候，支持通过 <code>--config</code> 的参数传递配置文件给 Kind，在国内，我们可以通过使用国内镜像源的方式来加速集群的创建。（这个方法也适用于直接通过 kubeadm 搭建 Kubernetes 集群）</p>
+
+<p>我们先通过以下命令删除刚才搭建的集群：</p>
+
+<pre><code class="language-sh">master $ kind delete  cluster --name moelove
+Deleting cluster &quot;moelove&quot; ...
+$KUBECONFIG is still set to use /root/.kube/kind-config-moelove even though that file has been deleted, remember to unset it
+</code></pre>
+
+<p>接下来，将下面的配置内容保存至一个 YAML 文件中，比如名为 <code>kind-config.yaml</code></p>
+
+<pre><code class="language-yaml">kind: Cluster
+apiVersion: kind.sigs.k8s.io/v1alpha3
+kubeadmConfigPatches:
+- |
+  apiVersion: kubeadm.k8s.io/v1beta1
+  kind: ClusterConfiguration
+  metadata:
+    name: config
+  networking:
+    serviceSubnet: 10.0.0.0/16
+  imageRepository: registry.aliyuncs.com/google_containers
+  nodeRegistration:
+    kubeletExtraArgs:
+      pod-infra-container-image: registry.aliyuncs.com/google_containers/pause:3.1
+- |
+  apiVersion: kubeadm.k8s.io/v1beta1
+  kind: InitConfiguration
+  metadata:
+    name: config
+  networking:
+    serviceSubnet: 10.0.0.0/16
+  imageRepository: registry.aliyuncs.com/google_containers
+nodes:
+- role: control-plane
+</code></pre>
+
+<p>我们使用该配置文件搭建集群。</p>
+
+<pre><code class="language-sh">master $ kind create cluster --name moelove --config kind.yaml
+Creating cluster &quot;moelove&quot; ...
+ ✓ Ensuring node image (kindest/node:v1.13.4) 🖼
+ ✓ Preparing nodes 📦
+ ✓ Creating kubeadm config 📜
+ ✓ Starting control-plane 🕹️
+Cluster creation complete. You can now use the cluster with:
+
+export KUBECONFIG=&quot;$(kind get kubeconfig-path --name=&quot;moelove&quot;)&quot;
+kubectl cluster-info
+</code></pre>
+
+<p>上面通过 <code>--config</code> 将我们的配置文件传递给 Kind 用于搭建集群，<strong>推荐国内用户使用这种方式</strong>。</p>
+
+<h2 id="搭建高可用集群">搭建高可用集群</h2>
+
+<p>Kind 也支持搭建高可用的 K8S 集群，不过只能通过配置文件来实现。可以直接将下面的内容保存至文件中，再将配置文件传递给 Kind 即可。</p>
+
+<p>e.g.</p>
+
+<pre><code class="language-yaml">kind: Cluster
+apiVersion: kind.sigs.k8s.io/v1alpha3
+kubeadmConfigPatches:
+- |
+  apiVersion: kubeadm.k8s.io/v1beta1
+  kind: ClusterConfiguration
+  metadata:
+    name: config
+  networking:
+    serviceSubnet: 10.0.0.0/16
+  imageRepository: registry.aliyuncs.com/google_containers
+  nodeRegistration:
+    kubeletExtraArgs:
+      pod-infra-container-image: registry.aliyuncs.com/google_containers/pause:3.1
+- |
+  apiVersion: kubeadm.k8s.io/v1beta1
+  kind: InitConfiguration
+  metadata:
+    name: config
+  networking:
+    serviceSubnet: 10.0.0.0/16
+  imageRepository: registry.aliyuncs.com/google_containers
+nodes:
+- role: control-plane
+- role: control-plane
+- role: control-plane
+- role: worker
+- role: worker
+- role: worker
+</code></pre>
+
+<p>我们使用以下的命令来搭建高可用的 Kubernetes 集群：</p>
+
+<pre><code class="language-sh">master $ kind create cluster --name moelove-ha --config kind-ha-config.yaml
+Creating cluster &quot;moelove-ha&quot; ...
+ ✓ Ensuring node image (kindest/node:v1.13.4) 🖼
+ ✓ Preparing nodes 📦📦📦📦📦📦📦
+ ✓ Starting the external load balancer ⚖️
+ ✓ Creating kubeadm config 📜
+ ✓ Starting control-plane 🕹️
+ ✓ Joining more control-plane nodes 🎮
+ ✓ Joining worker nodes 🚜
+Cluster creation complete. You can now use the cluster with:
+
+export KUBECONFIG=&quot;$(kind get kubeconfig-path --name=&quot;moelove-ha&quot;)&quot;
+kubectl cluster-info
+master $ export KUBECONFIG=&quot;$(kind get kubeconfig-path --name=&quot;moelove-ha&quot;)&quot;
+master $ kubectl cluster-info
+Kubernetes master is running at https://localhost:44019
+KubeDNS is running at https://localhost:44019/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+</code></pre>
+
+<p>可以做下简单的验证：</p>
+
+<pre><code class="language-sh">master $ kubectl get nodes
+NAME                        STATUS   ROLES    AGE     VERSION
+moelove-ha-control-plane    Ready    master   3m42s   v1.13.4
+moelove-ha-control-plane2   Ready    master   3m24s   v1.13.4
+moelove-ha-control-plane3   Ready    master   2m13s   v1.13.4
+moelove-ha-worker           Ready    &lt;none&gt;   96s     v1.13.4
+moelove-ha-worker2          Ready    &lt;none&gt;   98s     v1.13.4
+moelove-ha-worker3          Ready    &lt;none&gt;   95s     v1.13.4
+</code></pre>
+
+<p>可以看到已经成功创建了多 master 的 Kubernetes 集群。</p>
+
+<h2 id="总结">总结</h2>
+
+<p>这是使用 Kind 搭建本地 Kubernetes 集群的第一篇，同时本篇的内容也是<a href="https://juejin.im/book/5b9b2dc86fb9a05d0f16c8ac">《Kubernetes 从上手到实践》</a>第 4 节内容的补充，搭配食用效果更佳 :)</p>
+
+<hr />
+
+<p>可以通过下面二维码订阅我的文章公众号【MoeLove】</p>
+
+<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/my_qrcode.jpg" alt="TheMoeLove" /></p>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">TaoBeier</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2019-03-25</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/wx_pay.jpg">
+        <span>微信打赏</span>
+      </label>
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/alipay.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/kubernetes/">Kubernetes</a>
+          
+          <a href="/tags/kind/">Kind</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/2019/03/25/Weekly--2019.03.18~2019.03.24/">
+            <span class="next-text nav-default">Weekly | 2019.03.18~2019.03.24</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
+    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    id: '2019-03-25 21:30:24 \x2b0800 CST',
+    title: '使用 Kind 搭建你的本地 Kubernetes 集群',
+    clientID: '68312db64e870efbd0a0',
+    clientSecret: 'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',
+    repo: 'tao12345666333.github.io',
+    owner: 'tao12345666333',
+    admin: ['tao12345666333'],
+    body: decodeURI(location.href)
+  });
+  gitalk.render('gitalk-container');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhangjintao9020@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://plus.google.com/111099802544541897352" class="iconfont icon-google" title="google"></a>
+      <a href="https://github.com/tao12345666333" class="iconfont icon-github" title="github"></a>
+      <a href="http://weibo.com/9020taobeier" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/TaoBeier" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="https://moelove.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2013 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">TaoBeier</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
