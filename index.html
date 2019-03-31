@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2019-03-29T10:42:25&#43;08:00"/>
+<meta property="og:updated_time" content="2019-03-31T21:52:01&#43;08:00"/>
 
 
 
@@ -152,6 +152,34 @@
     
       <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/03/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.03.25~2019.03.31/">K8S 生态周报| 2019.03.25~2019.03.31</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-03-31 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Kubernetes 1.14 正式发布 1.14 的主要更新：
+ 对 Windows Node 和 container 的支持达到生产级别，支持 Windows Server 2019； 本地持久化数据卷正式可用，这可以方便使用本地 SSD 之类的存储，但注意这个特性容错性较差； Pod 优先级和抢占机制正式可用，(建议慎重使用)； Pod Ready++ (Pod Readiness Gates) 达到稳定，可以更好的判断 Pod 及其需要的资源是否均已就绪；  当然还有很多的改进和很多被废弃的功能特性等，建议阅读 ReleaseNote。
+Minikube 1.0.0 正式发布 Minikube 是一个用于本地搭建 Kubernetes 环境的工具，使用方法可参考 使用 Minikube 搭建本地 Kubernetes 环境。
+1.0.0 的主要更新：
+ 默认 Kubernetes 版本更新至 1.14.0; 新增 --image-repository 参数，方便国内用户使用镜像解决网络问题；  其他特性请阅读 ReleaseNote
+runc 1.0-rc7 发布 注意，低版本内核(尤其是 3.x)的系统，请不要升级至此版本
+这个版本主要为解决之前的漏洞及修正一些规范等，版本说明请参考 runc 1.
+    </div>
+    <div class="read-more">
+      <a href="/2019/03/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.03.25~2019.03.31/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/2019/03/29/runc-1.0-rc7-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/">runc 1.0-rc7 发布之际</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2019-03-29 </span>
@@ -212,7 +240,7 @@ go get -u sigs.k8s.io/kind  运行完上述命令后，会将 kind 的可执行�
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2019/03/25/Weekly--2019.03.18~2019.03.24/">Weekly | 2019.03.18~2019.03.24</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/2019/03/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.03.18~2019.03.24/">K8S 生态周报| 2019.03.18~2019.03.24</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2019-03-25 </span>
       
@@ -229,7 +257,7 @@ Rancher 发布 K8S 最佳安全实践文章 Rancher 在 CNCF 最近发布的 9 �
 可以通过下面二维码订阅我的文章公众号【MoeLove】
     </div>
     <div class="read-more">
-      <a href="/2019/03/25/Weekly--2019.03.18~2019.03.24/" class="read-more-link">阅读更多</a>
+      <a href="/2019/03/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.03.18~2019.03.24/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
@@ -406,33 +434,6 @@ services: - name: docker:dind command: [&quot;--insecure-registry=myregistry:500
     </div>
     <div class="read-more">
       <a href="/2018/08/06/GitLab-CI-%E4%BD%BF%E7%94%A8-InsecureRegistry/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2018/08/05/%E5%9F%BA%E4%BA%8E-GitLab-%E7%9A%84-CI-%E5%AE%9E%E8%B7%B5/">基于 GitLab 的 CI 实践</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2018-08-05 </span>
-      <div class="post-category">
-          
-            <a href="/categories/linux/"> Linux </a>
-          
-        </div>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      上个月受 DockOne 社区邀请，做了一次 CI 实践方面的线上分享，在此记录下。 本文讲述 GitLab CI 的架构及其能力特性，分析它在 DevOps 实践中的作用。 通过分析 Docker In Docker 的技术细节，详细讲述 CI 实践以及在生产环境中的所做的优化，包括但不限于镜像仓库等，以达到数倍的性能提升。 本次分享内容以 GitLab Community Edition 11.0.4 edb037c 为例。
- 为何选择 GitLab CI 认识 GitLab CI 什么是 GitLab CI GitLab CI 是 GitLab 为了提升其在软件开发工程中作用，完善 DevOPS 理念所加入的 CI/CD 基础功能。可以便捷的融入软件开发环节中。通过 GitLab CI 可以定义完善的 CI/CD Pipeline。
-优势  GitLab CI 是默认包含在 GitLab 中的，我们的代码使用 GitLab 进行托管，这样可以很容易的进行集成 GitLab CI 的前端界面比较美观，容易被人接受 包含实时构建日志，容易追踪 采用 C/S 的架构，可方面的进行横向扩展，性能上不会有影响 使用 YAML 进行配置，任何人都可以很方便的使用。  重点概念 Pipeline Pipeline 相当于一个构建任务，里面可以包含多个流程，如依赖安装、编译、测试、部署等。 任何提交或者 Merge Request 的合并都可以触发 Pipeline
-    </div>
-    <div class="read-more">
-      <a href="/2018/08/05/%E5%9F%BA%E4%BA%8E-GitLab-%E7%9A%84-CI-%E5%AE%9E%E8%B7%B5/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

@@ -6,10 +6,26 @@
     <description>Recent content in Posts on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Fri, 29 Mar 2019 10:42:25 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 31 Mar 2019 21:52:01 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8S 生态周报| 2019.03.25~2019.03.31</title>
+      <link>https://moelove.info/2019/03/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.03.25~2019.03.31/</link>
+      <pubDate>Sun, 31 Mar 2019 21:52:01 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/03/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.03.25~2019.03.31/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Kubernetes 1.14 正式发布 1.14 的主要更新：
+ 对 Windows Node 和 container 的支持达到生产级别，支持 Windows Server 2019； 本地持久化数据卷正式可用，这可以方便使用本地 SSD 之类的存储，但注意这个特性容错性较差； Pod 优先级和抢占机制正式可用，(建议慎重使用)； Pod Ready++ (Pod Readiness Gates) 达到稳定，可以更好的判断 Pod 及其需要的资源是否均已就绪；  当然还有很多的改进和很多被废弃的功能特性等，建议阅读 ReleaseNote。
+Minikube 1.0.0 正式发布 Minikube 是一个用于本地搭建 Kubernetes 环境的工具，使用方法可参考 使用 Minikube 搭建本地 Kubernetes 环境。
+1.0.0 的主要更新：
+ 默认 Kubernetes 版本更新至 1.14.0; 新增 --image-repository 参数，方便国内用户使用镜像解决网络问题；  其他特性请阅读 ReleaseNote
+runc 1.0-rc7 发布 注意，低版本内核(尤其是 3.x)的系统，请不要升级至此版本
+这个版本主要为解决之前的漏洞及修正一些规范等，版本说明请参考 runc 1.</description>
+    </item>
     
     <item>
       <title>runc 1.0-rc7 发布之际</title>
@@ -44,11 +60,11 @@ go get -u sigs.k8s.io/kind  运行完上述命令后，会将 kind 的可执行�
     </item>
     
     <item>
-      <title>Weekly | 2019.03.18~2019.03.24</title>
-      <link>https://moelove.info/2019/03/25/Weekly--2019.03.18~2019.03.24/</link>
+      <title>K8S 生态周报| 2019.03.18~2019.03.24</title>
+      <link>https://moelove.info/2019/03/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.03.18~2019.03.24/</link>
       <pubDate>Mon, 25 Mar 2019 20:49:06 +0800</pubDate>
       
-      <guid>https://moelove.info/2019/03/25/Weekly--2019.03.18~2019.03.24/</guid>
+      <guid>https://moelove.info/2019/03/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.03.18~2019.03.24/</guid>
       <description>我将从本篇开始维护「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。
  Docker 6 岁啦 Docker 从 2013 年首次亮相，至今已 6 年之久，而 Docker 也已一度成为容器技术的代名词，很庆幸能投身 Docker 相关的领域。官方博客
 Kind (Kubernetes In Docker) 发布 0.2.0 版本 Kind 是一个利用容器技术快速部署本地 Kubernetes 的工具，主要是用于对 Kubernetes 1.11+ 版本的测试。现在发布的 0.2.0 版本支持最新 Kubernetes v1.13.4 及 Docker 18.06.3 且通过了 CNCF 的一致性认证。
