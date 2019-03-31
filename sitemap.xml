@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://moelove.info/2019/03/29/runc-1.0-rc7-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/</loc>
+    <lastmod>2019-03-29T10:42:25+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://moelove.info/2019/03/25/%E4%BD%BF%E7%94%A8-Kind-%E6%90%AD%E5%BB%BA%E4%BD%A0%E7%9A%84%E6%9C%AC%E5%9C%B0-Kubernetes-%E9%9B%86%E7%BE%A4/</loc>
     <lastmod>2019-03-25T21:30:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -381,7 +388,7 @@
   
   <url>
     <loc>https://moelove.info/tags/container/</loc>
-    <lastmod>2019-03-01T10:18:20+08:00</lastmod>
+    <lastmod>2019-03-29T10:42:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -395,7 +402,7 @@
   
   <url>
     <loc>https://moelove.info/tags/docker/</loc>
-    <lastmod>2019-03-01T10:18:20+08:00</lastmod>
+    <lastmod>2019-03-29T10:42:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -450,13 +457,6 @@
   </url>
   
   <url>
-    <loc>https://moelove.info/categories/life/</loc>
-    <lastmod>2017-01-01T01:00:51+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://moelove.info/tags/life/</loc>
     <lastmod>2018-12-29T20:43:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -464,22 +464,29 @@
   </url>
   
   <url>
-    <loc>https://moelove.info/categories/linux/</loc>
-    <lastmod>2018-11-23T04:28:20+08:00</lastmod>
+    <loc>https://moelove.info/categories/life/</loc>
+    <lastmod>2017-01-01T01:00:51+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://moelove.info/tags/linux/</loc>
-    <lastmod>2019-03-25T20:49:06+08:00</lastmod>
+    <lastmod>2019-03-29T10:42:25+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://moelove.info/categories/linux/</loc>
+    <lastmod>2019-03-29T10:42:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://moelove.info/</loc>
-    <lastmod>2019-03-25T21:30:24+08:00</lastmod>
+    <lastmod>2019-03-29T10:42:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -535,20 +542,20 @@
   
   <url>
     <loc>https://moelove.info/post/</loc>
-    <lastmod>2019-03-25T21:30:24+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://moelove.info/categories/python/</loc>
-    <lastmod>2017-06-30T00:13:16+00:00</lastmod>
+    <lastmod>2019-03-29T10:42:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://moelove.info/tags/python/</loc>
+    <lastmod>2017-06-30T00:13:16+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://moelove.info/categories/python/</loc>
     <lastmod>2017-06-30T00:13:16+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
@@ -591,7 +598,7 @@
   
   <url>
     <loc>https://moelove.info/tags/runc/</loc>
-    <lastmod>2018-11-23T04:28:20+08:00</lastmod>
+    <lastmod>2019-03-29T10:42:25+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -639,15 +646,15 @@
   </url>
   
   <url>
-    <loc>https://moelove.info/categories/web/</loc>
-    <lastmod>2016-12-26T00:43:02+00:00</lastmod>
+    <loc>https://moelove.info/tags/web/</loc>
+    <lastmod>2014-05-07T21:48:59+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://moelove.info/tags/web/</loc>
-    <lastmod>2014-05-07T21:48:59+00:00</lastmod>
+    <loc>https://moelove.info/categories/web/</loc>
+    <lastmod>2016-12-26T00:43:02+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
