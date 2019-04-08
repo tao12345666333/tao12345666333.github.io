@@ -6,10 +6,25 @@
     <description>Recent content on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 31 Mar 2019 21:52:01 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 07 Apr 2019 10:03:13 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8S 生态周报| 2019.04.01~2019.04.07</title>
+      <link>https://moelove.info/2019/04/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.04.01~2019.04.07/</link>
+      <pubDate>Sun, 07 Apr 2019 10:03:13 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/04/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.04.01~2019.04.07/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Kubernetes client-go v11.0.0 正式发布 这是最后一个使用 dep 作为依赖管理的版本，后续版本将转向使用 go modules.
+Kubernetes 生态中的相关项目大多都已转向或正在转向使用 go modules 了，这也是一个技术风向，理性选择。
+Release
+containerd 1.2.6 正式发布 这是 containerd 1.2 的第 6 个 patch 版本，主要更新：
+ 在默认的 seccomp profile 白名单增加了 io_pgetevents 和 statx 这两个系统调用; 修复了在 1.2.5 中自定义 cgroup path 无法工作的 bug； 更新 CNI 插件到 v0.7.5 以修复 CVE-2019-9946; 更新 runc 版本，修复在无 SELinux 系统下的失败情况；  当然还有一些其他的改进和修复，比如修复了 pod 的 UTS namespace 等，建议阅读 ReleaseNote。
+Docker CE 19.</description>
+    </item>
     
     <item>
       <title>K8S 生态周报| 2019.03.25~2019.03.31</title>

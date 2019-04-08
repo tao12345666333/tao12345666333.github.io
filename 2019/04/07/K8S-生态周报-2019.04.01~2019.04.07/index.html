@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>K8S 生态周报| 2019.03.25~2019.03.31 - MoeLove</title>
+  <title>K8S 生态周报| 2019.04.01~2019.04.07 - MoeLove</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -26,13 +26,12 @@
 
 <meta name="author" content="TaoBeier" />
   <meta name="description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Kubernetes 1.14 正式发布 1.14 的主要更新：
- 对 Windows Node 和 container 的支持达到生产级别，支持 Windows Server 2019； 本地持久化数据卷正式可用，这可以方便使用本地 SSD 之类的存储，但注意这个特性容错性较差； Pod 优先级和抢占机制正式可用，(建议慎重使用)； Pod Ready&#43;&#43; (Pod Readiness Gates) 达到稳定，可以更好的判断 Pod 及其需要的资源是否均已就绪；  当然还有很多的改进和很多被废弃的功能特性等，建议阅读 ReleaseNote。
-Minikube 1.0.0 正式发布 Minikube 是一个用于本地搭建 Kubernetes 环境的工具，使用方法可参考 使用 Minikube 搭建本地 Kubernetes 环境。
-1.0.0 的主要更新：
- 默认 Kubernetes 版本更新至 1.14.0; 新增 --image-repository 参数，方便国内用户使用镜像解决网络问题；  其他特性请阅读 ReleaseNote
-runc 1.0-rc7 发布 注意，低版本内核(尤其是 3.x)的系统，请不要升级至此版本
-这个版本主要为解决之前的漏洞及修正一些规范等，版本说明请参考 runc 1." />
+ Kubernetes client-go v11.0.0 正式发布 这是最后一个使用 dep 作为依赖管理的版本，后续版本将转向使用 go modules.
+Kubernetes 生态中的相关项目大多都已转向或正在转向使用 go modules 了，这也是一个技术风向，理性选择。
+Release
+containerd 1.2.6 正式发布 这是 containerd 1.2 的第 6 个 patch 版本，主要更新：
+ 在默认的 seccomp profile 白名单增加了 io_pgetevents 和 statx 这两个系统调用; 修复了在 1.2.5 中自定义 cgroup path 无法工作的 bug； 更新 CNI 插件到 v0.7.5 以修复 CVE-2019-9946; 更新 runc 版本，修复在无 SELinux 系统下的失败情况；  当然还有一些其他的改进和修复，比如修复了 pod 的 UTS namespace 等，建议阅读 ReleaseNote。
+Docker CE 19." />
 
   <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes" />
 
@@ -44,7 +43,7 @@ runc 1.0-rc7 发布 注意，低版本内核(尤其是 3.x)的系统，请不要
 <meta name="generator" content="Hugo 0.46" />
 
 
-<link rel="canonical" href="https://moelove.info/2019/03/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.03.25~2019.03.31/" />
+<link rel="canonical" href="https://moelove.info/2019/04/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.04.01~2019.04.07/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -64,27 +63,22 @@ runc 1.0-rc7 发布 注意，低版本内核(尤其是 3.x)的系统，请不要
 
 
 
-<meta property="og:title" content="K8S 生态周报| 2019.03.25~2019.03.31" />
+<meta property="og:title" content="K8S 生态周报| 2019.04.01~2019.04.07" />
 <meta property="og:description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Kubernetes 1.14 正式发布 1.14 的主要更新：
- 对 Windows Node 和 container 的支持达到生产级别，支持 Windows Server 2019； 本地持久化数据卷正式可用，这可以方便使用本地 SSD 之类的存储，但注意这个特性容错性较差； Pod 优先级和抢占机制正式可用，(建议慎重使用)； Pod Ready&#43;&#43; (Pod Readiness Gates) 达到稳定，可以更好的判断 Pod 及其需要的资源是否均已就绪；  当然还有很多的改进和很多被废弃的功能特性等，建议阅读 ReleaseNote。
-Minikube 1.0.0 正式发布 Minikube 是一个用于本地搭建 Kubernetes 环境的工具，使用方法可参考 使用 Minikube 搭建本地 Kubernetes 环境。
-1.0.0 的主要更新：
- 默认 Kubernetes 版本更新至 1.14.0; 新增 --image-repository 参数，方便国内用户使用镜像解决网络问题；  其他特性请阅读 ReleaseNote
-runc 1.0-rc7 发布 注意，低版本内核(尤其是 3.x)的系统，请不要升级至此版本
-这个版本主要为解决之前的漏洞及修正一些规范等，版本说明请参考 runc 1." />
+ Kubernetes client-go v11.0.0 正式发布 这是最后一个使用 dep 作为依赖管理的版本，后续版本将转向使用 go modules.
+Kubernetes 生态中的相关项目大多都已转向或正在转向使用 go modules 了，这也是一个技术风向，理性选择。
+Release
+containerd 1.2.6 正式发布 这是 containerd 1.2 的第 6 个 patch 版本，主要更新：
+ 在默认的 seccomp profile 白名单增加了 io_pgetevents 和 statx 这两个系统调用; 修复了在 1.2.5 中自定义 cgroup path 无法工作的 bug； 更新 CNI 插件到 v0.7.5 以修复 CVE-2019-9946; 更新 runc 版本，修复在无 SELinux 系统下的失败情况；  当然还有一些其他的改进和修复，比如修复了 pod 的 UTS namespace 等，建议阅读 ReleaseNote。
+Docker CE 19." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://moelove.info/2019/03/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.03.25~2019.03.31/" />
+<meta property="og:url" content="https://moelove.info/2019/04/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.04.01~2019.04.07/" />
 
 
 
-<meta property="article:published_time" content="2019-03-31T21:52:01&#43;08:00"/>
+<meta property="article:published_time" content="2019-04-07T10:03:13&#43;08:00"/>
 
-<meta property="article:modified_time" content="2019-03-31T21:52:01&#43;08:00"/>
-
-
-
-
+<meta property="article:modified_time" content="2019-04-07T10:03:13&#43;08:00"/>
 
 
 
@@ -92,34 +86,36 @@ runc 1.0-rc7 发布 注意，低版本内核(尤其是 3.x)的系统，请不要
 
 
 
-<meta itemprop="name" content="K8S 生态周报| 2019.03.25~2019.03.31">
+
+
+
+
+<meta itemprop="name" content="K8S 生态周报| 2019.04.01~2019.04.07">
 <meta itemprop="description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Kubernetes 1.14 正式发布 1.14 的主要更新：
- 对 Windows Node 和 container 的支持达到生产级别，支持 Windows Server 2019； 本地持久化数据卷正式可用，这可以方便使用本地 SSD 之类的存储，但注意这个特性容错性较差； Pod 优先级和抢占机制正式可用，(建议慎重使用)； Pod Ready&#43;&#43; (Pod Readiness Gates) 达到稳定，可以更好的判断 Pod 及其需要的资源是否均已就绪；  当然还有很多的改进和很多被废弃的功能特性等，建议阅读 ReleaseNote。
-Minikube 1.0.0 正式发布 Minikube 是一个用于本地搭建 Kubernetes 环境的工具，使用方法可参考 使用 Minikube 搭建本地 Kubernetes 环境。
-1.0.0 的主要更新：
- 默认 Kubernetes 版本更新至 1.14.0; 新增 --image-repository 参数，方便国内用户使用镜像解决网络问题；  其他特性请阅读 ReleaseNote
-runc 1.0-rc7 发布 注意，低版本内核(尤其是 3.x)的系统，请不要升级至此版本
-这个版本主要为解决之前的漏洞及修正一些规范等，版本说明请参考 runc 1.">
+ Kubernetes client-go v11.0.0 正式发布 这是最后一个使用 dep 作为依赖管理的版本，后续版本将转向使用 go modules.
+Kubernetes 生态中的相关项目大多都已转向或正在转向使用 go modules 了，这也是一个技术风向，理性选择。
+Release
+containerd 1.2.6 正式发布 这是 containerd 1.2 的第 6 个 patch 版本，主要更新：
+ 在默认的 seccomp profile 白名单增加了 io_pgetevents 和 statx 这两个系统调用; 修复了在 1.2.5 中自定义 cgroup path 无法工作的 bug； 更新 CNI 插件到 v0.7.5 以修复 CVE-2019-9946; 更新 runc 版本，修复在无 SELinux 系统下的失败情况；  当然还有一些其他的改进和修复，比如修复了 pod 的 UTS namespace 等，建议阅读 ReleaseNote。
+Docker CE 19.">
 
 
-<meta itemprop="datePublished" content="2019-03-31T21:52:01&#43;08:00" />
-<meta itemprop="dateModified" content="2019-03-31T21:52:01&#43;08:00" />
-<meta itemprop="wordCount" content="112">
+<meta itemprop="datePublished" content="2019-04-07T10:03:13&#43;08:00" />
+<meta itemprop="dateModified" content="2019-04-07T10:03:13&#43;08:00" />
+<meta itemprop="wordCount" content="159">
 
 
 
 <meta itemprop="keywords" content="Linux,Weekly,Kubernetes," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="K8S 生态周报| 2019.03.25~2019.03.31"/>
+<meta name="twitter:title" content="K8S 生态周报| 2019.04.01~2019.04.07"/>
 <meta name="twitter:description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Kubernetes 1.14 正式发布 1.14 的主要更新：
- 对 Windows Node 和 container 的支持达到生产级别，支持 Windows Server 2019； 本地持久化数据卷正式可用，这可以方便使用本地 SSD 之类的存储，但注意这个特性容错性较差； Pod 优先级和抢占机制正式可用，(建议慎重使用)； Pod Ready&#43;&#43; (Pod Readiness Gates) 达到稳定，可以更好的判断 Pod 及其需要的资源是否均已就绪；  当然还有很多的改进和很多被废弃的功能特性等，建议阅读 ReleaseNote。
-Minikube 1.0.0 正式发布 Minikube 是一个用于本地搭建 Kubernetes 环境的工具，使用方法可参考 使用 Minikube 搭建本地 Kubernetes 环境。
-1.0.0 的主要更新：
- 默认 Kubernetes 版本更新至 1.14.0; 新增 --image-repository 参数，方便国内用户使用镜像解决网络问题；  其他特性请阅读 ReleaseNote
-runc 1.0-rc7 发布 注意，低版本内核(尤其是 3.x)的系统，请不要升级至此版本
-这个版本主要为解决之前的漏洞及修正一些规范等，版本说明请参考 runc 1."/>
+ Kubernetes client-go v11.0.0 正式发布 这是最后一个使用 dep 作为依赖管理的版本，后续版本将转向使用 go modules.
+Kubernetes 生态中的相关项目大多都已转向或正在转向使用 go modules 了，这也是一个技术风向，理性选择。
+Release
+containerd 1.2.6 正式发布 这是 containerd 1.2 的第 6 个 patch 版本，主要更新：
+ 在默认的 seccomp profile 白名单增加了 io_pgetevents 和 statx 这两个系统调用; 修复了在 1.2.5 中自定义 cgroup path 无法工作的 bug； 更新 CNI 插件到 v0.7.5 以修复 CVE-2019-9946; 更新 runc 版本，修复在无 SELinux 系统下的失败情况；  当然还有一些其他的改进和修复，比如修复了 pod 的 UTS namespace 等，建议阅读 ReleaseNote。
+Docker CE 19."/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -186,10 +182,10 @@ runc 1.0-rc7 发布 注意，低版本内核(尤其是 3.x)的系统，请不要
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">K8S 生态周报| 2019.03.25~2019.03.31</h1>
+      <h1 class="post-title">K8S 生态周报| 2019.04.01~2019.04.07</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2019-03-31 </span>
+        <span class="post-time"> 2019-04-07 </span>
         
         
         
@@ -206,11 +202,10 @@ runc 1.0-rc7 发布 注意，低版本内核(尤其是 3.x)的系统，请不要
 <ul>
 <li>
 <ul>
-<li><a href="#kubernetes-1-14-正式发布">Kubernetes 1.14 正式发布</a></li>
-<li><a href="#minikube-1-0-0-正式发布">Minikube 1.0.0 正式发布</a></li>
-<li><a href="#runc-1-0-rc7-发布">runc 1.0-rc7 发布</a></li>
-<li><a href="#brigade-1-0-正式发布">Brigade 1.0 正式发布</a></li>
-<li><a href="#kind-0-2-1-发布">Kind 0.2.1 发布</a></li>
+<li><a href="#kubernetes-client-go-v11-0-0-正式发布">Kubernetes client-go v11.0.0 正式发布</a></li>
+<li><a href="#containerd-1-2-6-正式发布">containerd 1.2.6 正式发布</a></li>
+<li><a href="#docker-ce-19-03-0-beta1-版本发布">Docker CE 19.03.0-beta1 版本发布</a></li>
+<li><a href="#推荐阅读-linkerd-v2-从产品中吸取的教训">推荐阅读： Linkerd v2 从产品中吸取的教训</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -228,51 +223,49 @@ runc 1.0-rc7 发布 注意，低版本内核(尤其是 3.x)的系统，请不要
 <p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。</p>
 </blockquote>
 
-<h2 id="kubernetes-1-14-正式发布">Kubernetes 1.14 正式发布</h2>
+<h2 id="kubernetes-client-go-v11-0-0-正式发布">Kubernetes client-go v11.0.0 正式发布</h2>
 
-<p>1.14 的主要更新：</p>
+<p>这是最后一个使用 <code>dep</code> 作为依赖管理的版本，后续版本将转向使用 <code>go modules</code>.</p>
 
-<ul>
-<li>对 Windows Node 和 container 的支持达到生产级别，支持 Windows Server 2019；</li>
-<li>本地持久化数据卷正式可用，这可以方便使用本地 SSD 之类的存储，但注意这个特性容错性较差；</li>
-<li>Pod 优先级和抢占机制正式可用，(建议慎重使用)；</li>
-<li>Pod Ready++ (Pod Readiness Gates) 达到稳定，可以更好的判断 Pod 及其需要的资源是否均已就绪；</li>
-</ul>
+<p>Kubernetes 生态中的相关项目大多都已转向或正在转向使用 <code>go modules</code> 了，这也是一个技术风向，理性选择。</p>
 
-<p>当然还有很多的改进和很多被废弃的功能特性等，建议阅读 <a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.14.md">ReleaseNote</a>。</p>
+<p><a href="https://github.com/kubernetes/client-go/releases/tag/v11.0.0">Release</a></p>
 
-<h2 id="minikube-1-0-0-正式发布">Minikube 1.0.0 正式发布</h2>
+<h2 id="containerd-1-2-6-正式发布">containerd 1.2.6 正式发布</h2>
 
-<p>Minikube 是一个用于本地搭建 Kubernetes 环境的工具，使用方法可参考 <a href="https://juejin.im/book/5b9b2dc86fb9a05d0f16c8ac/section/5b9b81735188255c8b6edc28">使用 Minikube 搭建本地 Kubernetes 环境</a>。</p>
-
-<p>1.0.0 的主要更新：</p>
+<p>这是 containerd 1.2 的第 6 个 patch 版本，主要更新：</p>
 
 <ul>
-<li>默认 Kubernetes 版本更新至 1.14.0;</li>
-<li>新增 <code>--image-repository</code> 参数，方便国内用户使用镜像解决网络问题；</li>
+<li>在默认的 seccomp profile 白名单增加了 <code>io_pgetevents</code> 和 <code>statx</code> 这两个系统调用;</li>
+<li>修复了在 1.2.5 中自定义 cgroup path 无法工作的 bug；</li>
+<li>更新 CNI 插件到 v0.7.5 以修复 <a href="https://nvd.nist.gov/vuln/detail/CVE-2019-9946">CVE-2019-9946</a>;</li>
+<li>更新 runc 版本，修复在无 SELinux 系统下的失败情况；</li>
 </ul>
 
-<p>其他特性请阅读 <a href="https://github.com/kubernetes/minikube/blob/v1.0.0/CHANGELOG.md">ReleaseNote</a></p>
+<p>当然还有一些其他的改进和修复，比如修复了 pod 的 UTS namespace 等，建议阅读 <a href="https://github.com/containerd/containerd/releases/tag/v1.2.6">ReleaseNote</a>。</p>
 
-<h2 id="runc-1-0-rc7-发布">runc 1.0-rc7 发布</h2>
+<h2 id="docker-ce-19-03-0-beta1-版本发布">Docker CE 19.03.0-beta1 版本发布</h2>
 
-<p><strong>注意，低版本内核(尤其是 3.x)的系统，请不要升级至此版本</strong></p>
+<p>这是 Docker CE 修改发布周期后，第二个发布的版本，上个版本是 Docker CE 18.09 。从发布周期来看，由原先的季度发布改成半年发布，也意味着 Docker 的日渐成熟。</p>
 
-<p>这个版本主要为解决之前的漏洞及修正一些规范等，版本说明请参考 <a href="https://zhuanlan.zhihu.com/p/60981504">runc 1.0-rc7 发布之际</a>。</p>
+<p>正式版估计会在 5 月发布，从 beta 版中能看到一些主要更新：</p>
 
-<p>其他特性请阅读 <a href="https://github.com/opencontainers/runc/releases/tag/v1.0.0-rc7">ReleaseNote</a></p>
+<ul>
+<li>API 更新至 v1.40;</li>
+<li>允许以非 root 用户运行 dockerd （Rootless mode），这将更有利于容器安全（这也是我最期待的一个特性）；</li>
+<li>移除 v1 manifest 支持；</li>
+<li>移除 AuFS 存储驱动支持，会有提示信息（当前是废弃，还未完全移除，在上个版本中 <code>devicemapper</code> 也已被标记为废弃）;</li>
+<li>实验性的对 compose 和 Kubernetes 提供一些额外支持，比如 <code>x-pull-secret</code> 和 <code>x-pull-policy</code>;</li>
+<li>实验性的对 Windows 和 LCOW 提供一些支持：比如提供对 cpu 和 内存的限制；</li>
+</ul>
 
-<h2 id="brigade-1-0-正式发布">Brigade 1.0 正式发布</h2>
+<p>除此之外，在 builder 和 API 方面也都有一些修复和改进，建议阅读 <a href="https://github.com/docker/docker-ce/releases/tag/v19.03.0-beta1">ReleaseNote</a>。</p>
 
-<p>Brigade 是一个使用 JavaScript 来为 Kubernetes 构建 pipeline 的工具，现在是 CNCF 的 sandbox 项目。</p>
+<h2 id="推荐阅读-linkerd-v2-从产品中吸取的教训">推荐阅读： Linkerd v2 从产品中吸取的教训</h2>
 
-<p>详细内容请阅读 <a href="https://github.com/brigadecore/brigade/releases/tag/v1.0.0">ReleaseNote</a></p>
+<p>Linkerd v2 使用 Go 和 Rust 进行了重写，这篇文章是在 Linkerd v2 发布 6 个月之后写的，该团队认为使用 Go 和 Rust 重写是非常值得的，并且也已经在生产中得到了验证。</p>
 
-<h2 id="kind-0-2-1-发布">Kind 0.2.1 发布</h2>
-
-<p>Kind 是 Kubernetes In Docker 的缩写，是一款便于在本地和 CI 环境中进行 Kubernetes 环境搭建的工具，具体用法请参考 <a href="https://zhuanlan.zhihu.com/p/60464867">使用 Kind 搭建你的本地 Kubernetes 集群</a></p>
-
-<p>0.2.1 是 kind 的首个 patch 版本，主要为了修复一个偶发的 panic , 建议尽快升级。</p>
+<p>文章内容不错，推荐阅读。文章地址 <a href="https://www.infoq.com/articles/linkerd-v2-production-adoption">Linkerd v2: How Lessons from Production Adoption Resulted in a Rewrite of the Service Mesh</a>。</p>
 
 <hr />
 
@@ -290,7 +283,7 @@ runc 1.0-rc7 发布 注意，低版本内核(尤其是 3.x)的系统，请不要
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-03-31</span>
+    <span class="item-content">2019-04-07</span>
   </p>
   
   <p class="copyright-item">
@@ -333,14 +326,9 @@ runc 1.0-rc7 发布 注意，低版本内核(尤其是 3.x)的系统，请不要
       
       <nav class="post-nav">
         
-          <a class="prev" href="/2019/04/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.04.01~2019.04.07/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">K8S 生态周报| 2019.04.01~2019.04.07</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
         
-          <a class="next" href="/2019/03/29/runc-1.0-rc7-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/">
-            <span class="next-text nav-default">runc 1.0-rc7 发布之际</span>
+          <a class="next" href="/2019/03/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.03.25~2019.03.31/">
+            <span class="next-text nav-default">K8S 生态周报| 2019.03.25~2019.03.31</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -356,8 +344,8 @@ runc 1.0-rc7 发布 注意，低版本内核(尤其是 3.x)的系统，请不要
     <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
   <script type="text/javascript">
   var gitalk = new Gitalk({
-    id: '2019-03-31 21:52:01 \x2b0800 CST',
-    title: 'K8S 生态周报| 2019.03.25~2019.03.31',
+    id: '2019-04-07 10:03:13 \x2b0800 CST',
+    title: 'K8S 生态周报| 2019.04.01~2019.04.07',
     clientID: '68312db64e870efbd0a0',
     clientSecret: 'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',
     repo: 'tao12345666333.github.io',
