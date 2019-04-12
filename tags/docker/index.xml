@@ -6,10 +6,24 @@
     <description>Recent content in Docker on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Fri, 29 Mar 2019 10:42:25 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 12 Apr 2019 07:23:14 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>恭喜 Fluentd 从 CNCF 毕业</title>
+      <link>https://moelove.info/2019/04/12/%E6%81%AD%E5%96%9C-Fluentd-%E4%BB%8E-CNCF-%E6%AF%95%E4%B8%9A/</link>
+      <pubDate>Fri, 12 Apr 2019 07:23:14 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/04/12/%E6%81%AD%E5%96%9C-Fluentd-%E4%BB%8E-CNCF-%E6%AF%95%E4%B8%9A/</guid>
+      <description>今年新闻不断，多数早期进入 CNCF 的项目都相继宣布毕业。
+ CNCF（云原生计算基金会）在美国时间 2019 年 4 月 11 日宣布 fluentd 今天正式毕业了。
+这是 CNCF 中毕业的第 6 个项目，之前已经毕业的项目为 Kubernetes、Prometheus、Envoy 、CoreDNS 和 containerd 。
+fluentd 自 2011 年由 Treasure Data 公司的联合创始人 Sadayuki “Sada” Furuhashi 创建，作为构建统一记录层的开源数据收集器，统一记录层统一收集采集和消费，以便更好的使用和理解数据。在 2016 年 11 月，fluentd 也是第 6 个成为 CNCF 托管项目的。
+fluentd 可以从多种数据源采集事件，并将它写入文件, RDBMS, NoSQL, IaaS, SaaS, Hadoop等等各类的目标地址。截至目前，fluentd 在 GitHub 上有 7629 个 star ，895 个 fork，以及 166 位贡献者，超过 4k+ commit 。
+做日志相关的小伙伴基本都玩过 ELK ，我们都知道在大规模使用 Logstash 时的痛苦（还记得被 Logstash 配置文件支配的恐惧吗？ 2333） 而 fluentd 的事件路由是通过 tag 来做，相比 Logstash 使用管道将所有数据路由到单个流里再通过配置将它发送到对应的目标而言这将大大简化配置的复杂度。(是的，这里是吐槽)</description>
+    </item>
     
     <item>
       <title>runc 1.0-rc7 发布之际</title>

@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://moelove.info/2019/04/12/%E6%81%AD%E5%96%9C-Fluentd-%E4%BB%8E-CNCF-%E6%AF%95%E4%B8%9A/</loc>
+    <lastmod>2019-04-12T07:23:14+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://moelove.info/2019/04/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.04.01~2019.04.07/</loc>
     <lastmod>2019-04-07T10:03:13+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -402,7 +409,7 @@
   
   <url>
     <loc>https://moelove.info/tags/container/</loc>
-    <lastmod>2019-03-29T10:42:25+08:00</lastmod>
+    <lastmod>2019-04-12T07:23:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -416,7 +423,7 @@
   
   <url>
     <loc>https://moelove.info/tags/docker/</loc>
-    <lastmod>2019-03-29T10:42:25+08:00</lastmod>
+    <lastmod>2019-04-12T07:23:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -458,7 +465,7 @@
   
   <url>
     <loc>https://moelove.info/tags/kubernetes/</loc>
-    <lastmod>2019-04-07T10:03:13+08:00</lastmod>
+    <lastmod>2019-04-12T07:23:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -486,7 +493,7 @@
   
   <url>
     <loc>https://moelove.info/tags/linux/</loc>
-    <lastmod>2019-04-07T10:03:13+08:00</lastmod>
+    <lastmod>2019-04-12T07:23:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -500,7 +507,7 @@
   
   <url>
     <loc>https://moelove.info/</loc>
-    <lastmod>2019-04-07T10:03:13+08:00</lastmod>
+    <lastmod>2019-04-12T07:23:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -556,7 +563,7 @@
   
   <url>
     <loc>https://moelove.info/post/</loc>
-    <lastmod>2019-04-07T10:03:13+08:00</lastmod>
+    <lastmod>2019-04-12T07:23:14+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
