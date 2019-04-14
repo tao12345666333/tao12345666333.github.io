@@ -6,10 +6,27 @@
     <description>Recent content on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Fri, 12 Apr 2019 07:23:14 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 14 Apr 2019 22:53:09 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8S 生态周报| 2019.04.08~2019.04.14</title>
+      <link>https://moelove.info/2019/04/14/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.04.08~2019.04.14/</link>
+      <pubDate>Sun, 14 Apr 2019 22:53:09 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/04/14/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.04.08~2019.04.14/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ CRI-O 成为 CNCF 托管项目 CRI-O 是基于 OCI 的 Kubernetes CRI 实现，旨在提供符合 OCI 运行时和 kubelet 之间的集成。简单来说就是完全符合 OCI 标准的 CRI 实现。（比如之前介绍的 runc 便是 OCI 标准的参考实现）
+在 2016 年的时候 Kubernetes 就推出了容器运行时接口（CRI），这给了 kubelet 一种使用各种不同容器运行时的能力，现在最常用的当然还是 Docker，当然也有人使用 containerd、runc、CRI-O 等各类运行时。
+CRI-O 最初由 Red Hat 和 Google 开发，现在已达到稳定状态，且已有大量的贡献者，本次成为 CNCF 托管项目，也算是给容器运行时提供一个更大的可能。
+附一张官方图：
+详细信息请阅读 CNCF 官方新闻
+Helm 子项目 chart-testing 发布 v2.3.0 版本 chart-testing v2.3.0 版本正式发布，该项目的主要目标是用于 Helm Chart 的测试，使用该项目可更方便的检查 Chart 中是否有错误，以及定位错误位置等。
+本次发布主要在于覆盖更多异常情况，详细内容建议阅读 ReleaseNote
+CoreDNS v1.</description>
+    </item>
     
     <item>
       <title>恭喜 Fluentd 从 CNCF 毕业</title>
