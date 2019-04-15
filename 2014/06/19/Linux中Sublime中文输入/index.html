@@ -28,7 +28,7 @@
   <meta name="description" content="这篇只是为了备忘所以把以前写的东西搬这边了 -.-
  代码源于网络，感谢分享 这里的关键就是以下的代码和编译 /* sublime-imfix.c Use LD_PRELOAD to interpose some function to fix sublime input method support for linux. By Cjacker Huang &amp;lt;jianzhong.huang at i-soft.com.cn&amp;gt; gcc -shared -o libsublime-imfix.so sublime_imfix.c `pkg-config --libs --cflags gtk&#43;-2.0` -fPIC LD_PRELOAD=./libsublime-imfix.so sublime_text */ #include &amp;lt;gtk/gtk.h&amp;gt; #include &amp;lt;gdk/gdkx.h&amp;gt; typedef GdkSegment GdkRegionBox; struct _GdkRegion { long size; long numRects; GdkRegionBox *rects; GdkRegionBox extents; }; GtkIMContext *local_context; void gdk_region_get_clipbox (const GdkRegion *region, GdkRectangle *rectangle) { g_return_if_fail (region !" />
 
-  <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes" />
+  <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes, Golang, Python, Container, Vim, 容器, k8s" />
 
 
 <meta name="baidu-site-verification" content="jO2rMlnjJi" />
@@ -406,7 +406,7 @@ sudo gcc -shared -o libsublime-imfix.so sublime_imfix.c  `pkg-config --libs --cf
     <footer id="footer" class="footer">
       <div class="social-links">
       <a href="mailto:zhangjintao9020@gmail.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://plus.google.com/111099802544541897352" class="iconfont icon-google" title="google"></a>
+      <a href="https://twitter.com/BeierTao" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://github.com/tao12345666333" class="iconfont icon-github" title="github"></a>
       <a href="http://weibo.com/9020taobeier" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/TaoBeier" class="iconfont icon-zhihu" title="zhihu"></a>

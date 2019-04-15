@@ -31,7 +31,7 @@
 function git_branch { ref=$(git symbolic-ref HEAD 2&amp;gt; /dev/null) || return; echo &amp;quot;(&amp;quot;${ref#refs/heads/}&amp;quot;) &amp;quot;; } PS1=&amp;quot;[\[\e[1;35m\]\u\[\e[1;32m\]\w\[\e[0m\]] \[\e[0m\]\[\e[1;36m\]\$(git_branch)\[\e[0;33m\]\$&amp;quot;  或者
 function git-branch-name { git symbolic-ref HEAD 2&amp;gt;/dev/null | cut -d&amp;quot;/&amp;quot; -f 3 #git rev-parse --abbrev-ref HEAD } function git-branch-prompt { local branch=`git-branch-name` if [ $branch ]; then printf &amp;quot; [%s]&amp;quot; $branch; fi } PS1=&amp;quot;\u@\h \[\033[0;36m\]\W\[\033[0m\]\[\033[0;32m\]\$(git-branch-prompt)\[\033[0m\] \$ &amp;quot;  -- 按照惯例，上一张图 " />
 
-  <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes" />
+  <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes, Golang, Python, Container, Vim, 容器, k8s" />
 
 
 <meta name="baidu-site-verification" content="jO2rMlnjJi" />
@@ -347,7 +347,7 @@ PS1=&quot;\u@\h \[\033[0;36m\]\W\[\033[0m\]\[\033[0;32m\]\$(git-branch-prompt)\[
     <footer id="footer" class="footer">
       <div class="social-links">
       <a href="mailto:zhangjintao9020@gmail.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://plus.google.com/111099802544541897352" class="iconfont icon-google" title="google"></a>
+      <a href="https://twitter.com/BeierTao" class="iconfont icon-twitter" title="twitter"></a>
       <a href="https://github.com/tao12345666333" class="iconfont icon-github" title="github"></a>
       <a href="http://weibo.com/9020taobeier" class="iconfont icon-weibo" title="weibo"></a>
       <a href="https://www.zhihu.com/people/TaoBeier" class="iconfont icon-zhihu" title="zhihu"></a>
