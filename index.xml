@@ -6,10 +6,23 @@
     <description>Recent content on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 14 Apr 2019 22:53:09 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 21 Apr 2019 21:46:02 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8S 生态周报| 2019-04-15~2019-04-21</title>
+      <link>https://moelove.info/2019/04/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-15~2019-04-21/</link>
+      <pubDate>Sun, 21 Apr 2019 21:46:02 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/04/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-15~2019-04-21/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Prometheus v2.9.0 正式发布 Prometheus 是 CNCF 毕业项目，可用于监控系统及服务状态。它整体是使用 Pull 的模式，在周期时间内采集目标的 metrics ，并且提供了 PromQL 的查询语言，以供对监控数据进行查询过滤等操作。并且可以通过配置规则来触发报警等。我首次接触 Prometheus 大概是在 2015 年 0.15.0 版本左右，当时 Prometheus 还处于比较早期的阶段，不过在进入 CNCF 后，Prometheus 基本就成为了 K8S 监控的实施标准了，并且多数软件也都增加了对 Prometheus metrics 的支持。
+v2.9.0 的主要更新：
+ 从 2.8 开始引入了的从 WAL 读取进行 remote write 有时候会丢数据的问题已经得到修复； Kubernetes 和 OpenStack 在服务发现时候增加了更多元数据； Consul 现在支持多 tag； 添加了一个 honor_timestamps 的选项； TLS 证书会自动从磁盘加载； 日志也变的更易读；  其他更新请阅读 ReleaseNote
+Linkerd 2.3 正式发布 Linkerd 是一个 service mesh 旨在提供平台范围的可观察性，可靠性和安全性，而无需用户更改代码。在本月初的周报推送中，推荐了一篇关于 Linkerd v2 从产品中吸取的教育和经验的文章，Linkerd v2 使用 Go 和 Rust 进行了重写，并因此获得了巨大的收益。</description>
+    </item>
     
     <item>
       <title>K8S 生态周报| 2019.04.08~2019.04.14</title>
