@@ -6,10 +6,24 @@
     <description>Recent content in Weekly on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 21 Apr 2019 21:46:02 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 29 Apr 2019 00:36:25 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/tags/weekly/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8S 生态周报| 2019-04-22~2019-04-28</title>
+      <link>https://moelove.info/2019/04/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-22~2019-04-28/</link>
+      <pubDate>Mon, 29 Apr 2019 00:36:25 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/04/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-22~2019-04-28/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Docker Hub 用户隐私数据泄漏 2019 年 4 月 25 日，Docker Hub 团队发现了对存储非财务用户数据子集的单个 Hub 数据库的未授权访问。 在发现异常后官方团队迅速采取行动并保护网站免受攻击。
+经过官方团队的调查，目前大概有 190000 帐号的敏感信息（小于总用户数的 5% ）包括用户名和哈希后的用户密码，当然也包括 GitHub 及 Bitbucket 等的用于自动构建的 Token 。
+当前的主要措施是对可能被泄漏信息的用户发送了邮件通知，对于可能泄漏哈希密码的用户发送了重置密码的邮件，并且 主动 将密码失效，以及自动构建的 Token 也都被失效。( 所以如果你收到了 Docker Hub 团队关于此次事件的直接报告邮件，很大概率是因为你的信息已经被泄漏了 )
+附上官方声明中关于此次事件的处理声明：
+ During a brief period of unauthorized access to a Docker Hub database, sensitive data from approximately 190,000 accounts may have been exposed (less than 5% of Hub users).</description>
+    </item>
     
     <item>
       <title>K8S 生态周报| 2019-04-15~2019-04-21</title>
