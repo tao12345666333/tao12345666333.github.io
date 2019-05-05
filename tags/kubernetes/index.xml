@@ -6,10 +6,24 @@
     <description>Recent content in Kubernetes on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Mon, 29 Apr 2019 00:36:25 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 05 May 2019 21:59:07 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8S 生态周报| 2019-04-28~2019-05-05</title>
+      <link>https://moelove.info/2019/05/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-28~2019-05-05/</link>
+      <pubDate>Sun, 05 May 2019 21:59:07 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/05/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-28~2019-05-05/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Docker Hub 只读维护 在上周的推送中，有写到 Docker Hub 用户隐私数据泄漏。受此事件影响，5 月 4 日 Docker Hub 进行升级维护，在此期间 Docker Hub 有一段时间处于只读模式，包括自动构建等服务不可用；在最后有小于 15 分钟的完全宕机时间，服务完全不可用。
+如果只是看事情表面的话，可能这就是一个由于发现“安全问题”而进行的升级/维护；但如果仔细考虑下，作为云原生服务，升级为何会有宕机的情况，为何会有服务完全不可用的时候？
+摘录一段来自本次维护的公告内容：
+ Q: Is this maintenance related to recent Docker Hub data breach?
+A: While we discovered unauthorized access to a single Hub database storing a subset of non-financial user data last week, which has since been remediated, we are always looking at ways to improve and enhance our security practices to protect our customers and their data.</description>
+    </item>
     
     <item>
       <title>K8S 生态周报| 2019-04-22~2019-04-28</title>
