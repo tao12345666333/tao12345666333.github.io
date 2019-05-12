@@ -6,10 +6,24 @@
     <description>Recent content on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sat, 11 May 2019 21:07:10 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 12 May 2019 20:47:02 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8S 生态周报| 2019-05-06~2019-05-12</title>
+      <link>https://moelove.info/2019/05/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-06~2019-05-12/</link>
+      <pubDate>Sun, 12 May 2019 20:47:02 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/05/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-06~2019-05-12/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Alpine Linux Docker 镜像漏洞 CVE-2019-5021 本周比较吓人的是 CVE-2019-5021, 根据漏洞报告，自 Alpine Linux 3.3 版本开始的所有 Docker 镜像中，root 用户包含一个空密码，这可能会导致攻击者获得 root 权限，今儿造成攻击。
+报告中称：受影响范围是 Alpine Linux Docker 镜像 3.3、3.4、3.5、3.6、3.7、3.8、3.9、edge 等全部版本。
+要知道由于 Alpine Linux 镜像体积较小，所以在构建 Docker 镜像时，很多人都会推荐使用 Alpine Linux 作为基础镜像；包括很多 Docker 官方镜像也基本上都提供了基于 Alpine Linux 的镜像，甚至像 Docker 镜像等是只提供了使用 Alpine Linux 作为基础镜像的版本。
+当前漏洞已经修复，更多内容请阅读 关于 Alpine Docker 镜像漏洞 CVE-2019-5021 。
+istio-operator 发布 0.1.12 版本 banzaicloud/istio-operator 发布 0.1.12 版本，默认已支持 istio 1.1.5 。（虽然截至目前 istio 发布了 1.</description>
+    </item>
     
     <item>
       <title>关于 Alpine Docker 镜像漏洞 CVE-2019-5021</title>
