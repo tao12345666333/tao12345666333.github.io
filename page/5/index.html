@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2014-07-17T21:54:33&#43;00:00"/>
+<meta property="og:updated_time" content="2014-07-22T21:16:34&#43;00:00"/>
 
 
 
@@ -149,6 +149,40 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2014/07/22/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%AD%E6%96%87%E5%8F%8A%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/">正则匹配中文及字符编码问题</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2014-07-22 </span>
+      <div class="post-category">
+          
+            <a href="/categories/python/"> Python </a>
+          
+        </div>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      匹配中文的正则表达式 窝写了一小段代码（虽然写的不太好，但是基本可以表达意思）
+-- import re nickname = raw_input('Please input your nickname &gt; ') if not re.search(u'^[\u4e00-\u9fa5a-zA-Z0-9]+$', unicode(nickname,'utf8')): print 'Your nickname format is error, please try again !' else: print 'Hello %s'% nickname  如你所见，上面第5行的代码，就是匹配中文和字母，数字的正则表达式了。里面的\u4e00-\u9fa5 就是中文汉字的unicode编码所在位置。
+Python字符串的编码问题 还是以上面那段代码来说。注意看第5行的代码
+if not re.search(u'^[\u4e00-\u9fa5a-zA-Z0-9]+$', unicode(nickname,'utf8')):  其实这样的代码并不严谨。因为在Python 中默认是用unicode编码来处理字符串的，因此做编码转换的时候，一般要以unicode作为中间编码，也就是说： 其他编码格式的字符串&mdash;&gt;解码(decode)&mdash;&gt;unicode&mdash;&gt;编码(encode)&mdash;&gt;所需要的编码格式。
+因此，处理字符串编码的问题的时候，先要明白需要转换的字符串的编码格式是什么。
+代码中字符串的默认编码格式与代码文件本身的编码格式是一样的 比如： s = &lsquo;涛&rsquo; 在utf8的文件中，那么s就是utf8编码的，但是如果文件是gb2312编码，那么s就是gb2312编码的。此时，如果想要处理s这个字符串就要先decode成unicode编码了。
+不过如果是酱紫 s = u&rsquo;涛&rsquo;，那么s就是unicode编码了，这个时候s的编码方式不会被文件的编码所影响。
+如果一个字符串已经是unicode编码了，再解码就会出错 因此严谨的方式就是先对字符串进行编码格式的判别，最简单的办法就是使用Python 默认提供的isinstance() 方法.
+代码可以这样写 isinstance(s, unicode) 如果不是unicode编码就会报错。
+窝今天在处理用户昵称的地方，忘记字符串会直接使用文件的编码了，所以对它进行了重新编码orz果断就报错了。。。以后还是要好好注意细节的说。
+    </div>
+    <div class="read-more">
+      <a href="/2014/07/22/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%AD%E6%96%87%E5%8F%8A%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -418,40 +452,6 @@ rake aborted! Could not find a JavaScript runtime.
     </div>
     <div class="read-more">
       <a href="/2013/09/21/Ruby-on-Rails-%E7%8E%AF%E5%A2%83/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2013/09/06/%E5%88%A9%E7%94%A8%E7%99%BE%E5%BA%A6BAE%E6%90%AD%E5%BB%BAdiscuz%E8%AE%BA%E5%9D%9B/">利用百度BAE搭建discuz论坛</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2013-09-06 </span>
-      <div class="post-category">
-          
-            <a href="/categories/linux/"> Linux </a>
-          
-        </div>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      最近尝试了利用百度云应用管理*BAE*搭建discuz论坛， 这里做简要记录
-创建应用 在 百度开发者中心 创建一个应用，选择WEB应用下的PC Iframe应用
-托管设置 之后进行托管设置， 确定域名XXX.duapp.com
-创建一个版本，并上传PHP代码包
-(BAE有些函数规则发生改变，所以需要使用为BAE环境做过调整的discuz for BAE 版本)
-需要注意的是在上传的代码包里面的 bcs/config.php 中的内容应该修改为
-&lt;?php define('BAIDU_BCS_BUCKET', '创建的bucket名称'); define('BAIDU_BCS_AK', getenv('HTTP_BAE_ENV_AK')); define('BAIDU_BCS_SK', getenv('HTTP_BAE_ENV_SK')); ?&gt;  同时在数据库中设置为UTF-8,
-注意开启缓存 cache 最少30M(亲测50M完全是OK的)
-安装 之后上线应用，访问http://你的域名.duapp.com/install/index.php
-即可完成安装(需要用到创建的数据库名称)
-    </div>
-    <div class="read-more">
-      <a href="/2013/09/06/%E5%88%A9%E7%94%A8%E7%99%BE%E5%BA%A6BAE%E6%90%AD%E5%BB%BAdiscuz%E8%AE%BA%E5%9D%9B/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

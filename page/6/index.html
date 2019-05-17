@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2013-08-30T21:36:09&#43;00:00"/>
+<meta property="og:updated_time" content="2013-09-06T21:38:39&#43;00:00"/>
 
 
 
@@ -149,6 +149,40 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2013/09/06/%E5%88%A9%E7%94%A8%E7%99%BE%E5%BA%A6BAE%E6%90%AD%E5%BB%BAdiscuz%E8%AE%BA%E5%9D%9B/">利用百度BAE搭建discuz论坛</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2013-09-06 </span>
+      <div class="post-category">
+          
+            <a href="/categories/linux/"> Linux </a>
+          
+        </div>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      最近尝试了利用百度云应用管理*BAE*搭建discuz论坛， 这里做简要记录
+创建应用 在 百度开发者中心 创建一个应用，选择WEB应用下的PC Iframe应用
+托管设置 之后进行托管设置， 确定域名XXX.duapp.com
+创建一个版本，并上传PHP代码包
+(BAE有些函数规则发生改变，所以需要使用为BAE环境做过调整的discuz for BAE 版本)
+需要注意的是在上传的代码包里面的 bcs/config.php 中的内容应该修改为
+&lt;?php define('BAIDU_BCS_BUCKET', '创建的bucket名称'); define('BAIDU_BCS_AK', getenv('HTTP_BAE_ENV_AK')); define('BAIDU_BCS_SK', getenv('HTTP_BAE_ENV_SK')); ?&gt;  同时在数据库中设置为UTF-8,
+注意开启缓存 cache 最少30M(亲测50M完全是OK的)
+安装 之后上线应用，访问http://你的域名.duapp.com/install/index.php
+即可完成安装(需要用到创建的数据库名称)
+    </div>
+    <div class="read-more">
+      <a href="/2013/09/06/%E5%88%A9%E7%94%A8%E7%99%BE%E5%BA%A6BAE%E6%90%AD%E5%BB%BAdiscuz%E8%AE%BA%E5%9D%9B/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
