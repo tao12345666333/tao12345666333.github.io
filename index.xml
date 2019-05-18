@@ -327,7 +327,8 @@ services: - name: docker:dind command: [&amp;quot;--insecure-registry=myregistry
       <description>My Vim Configuration  My vim configuration, more Python and Javascript. Will add Haskell, Ruby, Lua, Go and C/C++.
  qyweixin  An API wrapper for Enterprise Weixin written in Python.
  HTTPMultipart  A http multipart library for send multipart request, written in Python.
- More..</description>
+ Docker Python Perf  A benchmark test for Python Docker images.
+ backslide  CLI tool for making HTML presentations with Remark.js using Markdown.</description>
     </item>
     
     <item>
