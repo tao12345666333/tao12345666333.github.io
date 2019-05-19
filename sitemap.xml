@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://moelove.info/2019/05/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-13~2019-05-19/</loc>
+    <lastmod>2019-05-19T23:13:42+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://moelove.info/2019/05/16/%E5%88%9D%E8%AF%95-Helm-3/</loc>
     <lastmod>2019-05-16T21:30:00+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -521,7 +528,7 @@
   
   <url>
     <loc>https://moelove.info/tags/kubernetes/</loc>
-    <lastmod>2019-05-16T21:30:00+08:00</lastmod>
+    <lastmod>2019-05-19T23:13:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -549,7 +556,7 @@
   
   <url>
     <loc>https://moelove.info/tags/linux/</loc>
-    <lastmod>2019-05-12T20:47:02+08:00</lastmod>
+    <lastmod>2019-05-19T23:13:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -563,7 +570,7 @@
   
   <url>
     <loc>https://moelove.info/</loc>
-    <lastmod>2019-05-16T21:30:00+08:00</lastmod>
+    <lastmod>2019-05-19T23:13:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -619,7 +626,7 @@
   
   <url>
     <loc>https://moelove.info/post/</loc>
-    <lastmod>2019-05-16T21:30:00+08:00</lastmod>
+    <lastmod>2019-05-19T23:13:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -745,7 +752,7 @@
   
   <url>
     <loc>https://moelove.info/tags/weekly/</loc>
-    <lastmod>2019-05-12T20:47:02+08:00</lastmod>
+    <lastmod>2019-05-19T23:13:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

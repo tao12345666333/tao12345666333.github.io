@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2013-09-06T21:38:39&#43;00:00"/>
+<meta property="og:updated_time" content="2013-09-21T21:39:55&#43;00:00"/>
 
 
 
@@ -149,6 +149,38 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2013/09/21/Ruby-on-Rails-%E7%8E%AF%E5%A2%83/">Ruby on Rails 环境</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2013-09-21 </span>
+      <div class="post-category">
+          
+            <a href="/categories/linux/"> Linux </a>
+          
+        </div>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      就这次的尝试写一下自己的记录 安装ruby 和 ruby-devel(安装ruby-devel是因为后续的工作如果没有ruby-devel的话，会报错)
+sudo yum install ruby ruby-devel rubygems sqlite -y  需要的环境有了，那么就可以开始正式的工作了
+sudo gem install rails  找到一个合适的目录来放自己的代码.然后执行
+$ rails new mysite // 这个是建立一个叫mysite 的rails程式 ，在当前目录下面 $ cd mysite //进入这个目录 $ bundle install //因为在做测试 所以 也没有必要安装其他的gem  接下来看看它的数据库 配置文件是 config/database.yml 默认的支持是是SQLite3(当然也支持其他的比如mysql之类的)它有三种模式:
+ development environment开发模式，用在你的开发的时候 test environment测试模式，用在自动测试时 production environment正式上线模式，用在实际的上线运作环境  SQLite配置大致是这样的:
+development: adapter: sqlite3 database: db/development.sqlite3 pool: 5 timeout: 5000  接下来建立自己的数据库
+rake db:create  在这里我遇到一个错误
+rake aborted! Could not find a JavaScript runtime.
+    </div>
+    <div class="read-more">
+      <a href="/2013/09/21/Ruby-on-Rails-%E7%8E%AF%E5%A2%83/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
