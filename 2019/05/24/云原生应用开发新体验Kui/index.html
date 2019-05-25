@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>云原生应用开发新体验：Kui - MoeLove</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1876963677156202",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+<meta name="author" content="TaoBeier" />
+  <meta name="description" content="云原生（Cloud Native）应用是伴随着 Kubernetes 应用范围的扩大，基于云模型而提出的一种概念。
+ 本文来介绍一个云原生应用开发的工具 Kui, 这是一款由 IBM 开源的工具，使用 Electron 提供 GUI 能力。
+ Kui Shell offers a new development experience for building cloud-native applications. By combining the power of familiar CLIs with visualizations in high-impact areas, Kui enables you to manipulate complex JSON and YAML data models, integrate disparate tooling, and provides quick access to aggregate views of operational data.
+ 正如以上介绍中提到的，Kui 提供了一种新的开发体验（原先大多数时候我们是通过 kubectl 与 Kubernetes 中的资源进行交互），Kui 结合了原有 CLI 的强大功能，并提供一种可视化的方式，方便我们对 Kubernetes 中 YAML 或者 JSON 格式数据的处理。" />
+
+  <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes, Golang, Python, Container, Vim, 容器, k8s" />
+
+
+<meta name="baidu-site-verification" content="jO2rMlnjJi" />
+<meta name="google-site-verification" content="googlefe3fc086c62f7210.html" />
+
+
+<meta name="generator" content="Hugo 0.46" />
+
+
+<link rel="canonical" href="https://moelove.info/2019/05/24/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E6%96%B0%E4%BD%93%E9%AA%8CKui/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="云原生应用开发新体验：Kui" />
+<meta property="og:description" content="云原生（Cloud Native）应用是伴随着 Kubernetes 应用范围的扩大，基于云模型而提出的一种概念。
+ 本文来介绍一个云原生应用开发的工具 Kui, 这是一款由 IBM 开源的工具，使用 Electron 提供 GUI 能力。
+ Kui Shell offers a new development experience for building cloud-native applications. By combining the power of familiar CLIs with visualizations in high-impact areas, Kui enables you to manipulate complex JSON and YAML data models, integrate disparate tooling, and provides quick access to aggregate views of operational data.
+ 正如以上介绍中提到的，Kui 提供了一种新的开发体验（原先大多数时候我们是通过 kubectl 与 Kubernetes 中的资源进行交互），Kui 结合了原有 CLI 的强大功能，并提供一种可视化的方式，方便我们对 Kubernetes 中 YAML 或者 JSON 格式数据的处理。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://moelove.info/2019/05/24/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E6%96%B0%E4%BD%93%E9%AA%8CKui/" />
+
+
+
+<meta property="article:published_time" content="2019-05-24T10:19:03&#43;08:00"/>
+
+<meta property="article:modified_time" content="2019-05-24T10:19:03&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="云原生应用开发新体验：Kui">
+<meta itemprop="description" content="云原生（Cloud Native）应用是伴随着 Kubernetes 应用范围的扩大，基于云模型而提出的一种概念。
+ 本文来介绍一个云原生应用开发的工具 Kui, 这是一款由 IBM 开源的工具，使用 Electron 提供 GUI 能力。
+ Kui Shell offers a new development experience for building cloud-native applications. By combining the power of familiar CLIs with visualizations in high-impact areas, Kui enables you to manipulate complex JSON and YAML data models, integrate disparate tooling, and provides quick access to aggregate views of operational data.
+ 正如以上介绍中提到的，Kui 提供了一种新的开发体验（原先大多数时候我们是通过 kubectl 与 Kubernetes 中的资源进行交互），Kui 结合了原有 CLI 的强大功能，并提供一种可视化的方式，方便我们对 Kubernetes 中 YAML 或者 JSON 格式数据的处理。">
+
+
+<meta itemprop="datePublished" content="2019-05-24T10:19:03&#43;08:00" />
+<meta itemprop="dateModified" content="2019-05-24T10:19:03&#43;08:00" />
+<meta itemprop="wordCount" content="338">
+
+
+
+<meta itemprop="keywords" content="Kubernetes,Electron," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="云原生应用开发新体验：Kui"/>
+<meta name="twitter:description" content="云原生（Cloud Native）应用是伴随着 Kubernetes 应用范围的扩大，基于云模型而提出的一种概念。
+ 本文来介绍一个云原生应用开发的工具 Kui, 这是一款由 IBM 开源的工具，使用 Electron 提供 GUI 能力。
+ Kui Shell offers a new development experience for building cloud-native applications. By combining the power of familiar CLIs with visualizations in high-impact areas, Kui enables you to manipulate complex JSON and YAML data models, integrate disparate tooling, and provides quick access to aggregate views of operational data.
+ 正如以上介绍中提到的，Kui 提供了一种新的开发体验（原先大多数时候我们是通过 kubectl 与 Kubernetes 中的资源进行交互），Kui 结合了原有 CLI 的强大功能，并提供一种可视化的方式，方便我们对 Kubernetes 中 YAML 或者 JSON 格式数据的处理。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">MoeLove</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/friends/">
+        <li class="mobile-menu-item">Friends</li>
+      </a><a href="/projects/">
+        <li class="mobile-menu-item">Projects</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">MoeLove</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/friends/">Friends</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/projects/">Projects</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">云原生应用开发新体验：Kui</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-05-24 </span>
+        
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#安装">安装</a></li>
+<li><a href="#使用">使用</a>
+<ul>
+<li><a href="#可视化展示">可视化展示</a></li>
+<li><a href="#截图">截图</a></li>
+<li><a href="#交互式-shell">交互式 Shell</a></li>
+<li><a href="#开发部署">开发部署</a></li>
+<li><a href="#易扩展">易扩展</a></li>
+<li><a href="#tutorials">tutorials</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<blockquote>
+<p>云原生（Cloud Native）应用是伴随着 Kubernetes 应用范围的扩大，基于云模型而提出的一种概念。</p>
+</blockquote>
+
+<p>本文来介绍一个云原生应用开发的工具 <a href="https://github.com/IBM/kui">Kui</a>, 这是一款由 IBM 开源的工具，使用 <a href="https://electronjs.org/">Electron</a> 提供 GUI 能力。</p>
+
+<blockquote>
+<p>Kui Shell offers a new development experience for building cloud-native applications. By combining the power of familiar CLIs with visualizations in high-impact areas, Kui enables you to manipulate complex JSON and YAML data models, integrate disparate tooling, and provides quick access to aggregate views of operational data.</p>
+</blockquote>
+
+<p>正如以上介绍中提到的，Kui 提供了一种新的开发体验（原先大多数时候我们是通过 <code>kubectl</code> 与 Kubernetes 中的资源进行交互），Kui 结合了原有 CLI 的强大功能，并提供一种可视化的方式，方便我们对 Kubernetes 中 YAML 或者 JSON 格式数据的处理。</p>
+
+<p>介绍就先到这里，我们来看下它的安装及主体功能，看看它能为我们带来什么。</p>
+
+<h2 id="安装">安装</h2>
+
+<p>安装方式其实很简单，项目的<a href="https://github.com/IBM/kui/blob/master/docs/installation.md">安装文档</a>已经非常详细了。我主要推荐两种在 Linux 下的安装方式（当然，Kui 是支持跨平台的 macOS 和 Windows 也都可以用）：</p>
+
+<ul>
+<li>下载预构建好的二进制包：</li>
+</ul>
+
+<pre><code>(MoeLove) ➜  wget -O kui.zip https://linux-zip.kui-shell.org/
+(MoeLove) ➜  unzip kui.zip
+(MoeLove) ➜  ./Kui-linux-x64/Kui shell
+</code></pre>
+
+<ul>
+<li>源码安装：</li>
+</ul>
+
+<p>这是我最为推荐的方式，以下内容也均是以此方式安装来介绍的。 <strong>注意，此方式需要你机器上已经装好了 NodeJS 相关的环境</strong></p>
+
+<pre><code>(MoeLove) ➜  git clone https://github.com/IBM/kui.git
+(MoeLove) ➜  cd kui
+(MoeLove) ➜  npm install
+(MoeLove) ➜  export PATH=$PWD/bin/:$PATH
+</code></pre>
+
+<p>在执行完上述命令后，便安装了相关的依赖，以及 <code>bin</code> 目录下的 <code>kubectl-kui</code> 命令会通过 <code>kubectl</code> 的插件机制，自动注册好。</p>
+
+<p>通过以下命令可进行验证：</p>
+
+<pre><code>(MoeLove) ➜  kui git:(master) kui version
+2.33.0
+(MoeLove) ➜  kui git:(master) kubectl kui version
+2.33.0
+</code></pre>
+
+<h2 id="使用">使用</h2>
+
+<p>你的机器上需要提前配置好 <code>KUBECONFIG</code> 的环境变量或者是将配置文件放到了正确的位置 i.e. <code>$HOME/.kube/config</code></p>
+
+<p>如果你还没有一个可访问的 Kubernetes 集群，强烈建议你阅读我之前的文章 <a href="https://zhuanlan.zhihu.com/p/60464867">使用 Kind 搭建你的本地 Kubernetes 集群</a>， Kind 是一个非常优秀也非常方便的工具。</p>
+
+<p>如果你对 Kubernetes 还不甚了解的话，也推荐阅读我写的 <a href="https://zhuanlan.zhihu.com/p/53244821">《Kubernetes 从上手到实践》</a> 进行学习。</p>
+
+<p>回到正题，我们来看下 Kui 的主体功能。</p>
+
+<h3 id="可视化展示">可视化展示</h3>
+
+<p><img src="/img/kui-intro-1.png" alt="Kui 可视化 - Moelove.info" /></p>
+
+<p>默认情况下，如果我们没有给 <code>kui</code> 传递 <code>--ui</code> 参数的话，它和正常使用 <code>kubectl</code> 的行为一致，仍然在终端下输出内容。</p>
+
+<p>类似这样：</p>
+
+<pre><code>(MoeLove) ➜  kui git:(master) kubectl kui get pods -n kube-system
+NAME                                            READY   STATUS    RESTARTS   AGE
+coredns-fb8b8dccf-292wk                         1/1     Running   0          153m
+coredns-fb8b8dccf-lbj2g                         1/1     Running   0          153m
+etcd-moelove-control-plane                      1/1     Running   0          152m
+kube-apiserver-moelove-control-plane            1/1     Running   0          152m
+kube-controller-manager-moelove-control-plane   1/1     Running   0          152m
+kube-proxy-jltdj                                1/1     Running   0          153m
+kube-proxy-thpq5                                1/1     Running   0          153m
+kube-scheduler-moelove-control-plane            1/1     Running   0          152m
+weave-net-dws2l                                 2/2     Running   0          153m
+weave-net-tt82h                                 2/2     Running   0          153m
+</code></pre>
+
+<p>但如果我们给它传递了 <code>--ui</code> 的参数，则它会打开一个新的窗口，并将内容展示出来。</p>
+
+<p>点击其中的任意资源，便可打开其详细内容：</p>
+
+<p><img src="/img/kui-intro-yaml.png" alt="Kui YAML - Moelove.info" /></p>
+
+<p>底部 tab 可进行内容切换，比如可查看它的状态或者它其中的 Container 等。</p>
+
+<p><img src="/img/kui-intro-conditions.png" alt="Kui Conditions - Moelove.info" /></p>
+
+<p>当然，右下角还有一个删除按钮，可用于删除此资源（没有二次确认的，请慎重）</p>
+
+<h3 id="截图">截图</h3>
+
+<p><img src="/img/kui-intro-screenshot.png" alt="Kui 截图 - Moelove.info" /></p>
+
+<p>在窗口的右下角有一个截图按钮，使用此按钮可以方便的对当前窗口的图像进行拷贝和保存。</p>
+
+<h3 id="交互式-shell">交互式 Shell</h3>
+
+<p>使用以下命令可以打开交互式 Shell 窗口：</p>
+
+<pre><code>kubectl kui shell
+</code></pre>
+
+<p><img src="/img/kui-intro-shell.png" alt="Kui Shell - Moelove.info" /></p>
+
+<p>在此交互式 Shell 窗口中，你可以正常的执行你日常使用的命令：</p>
+
+<p><img src="/img/kui-intro-git.png" alt="Kui Shell - Moelove.info" /></p>
+
+<p>当然除了像正常在终端中的命令输出外，如果输出内容是 JSON 或者 YAML 的话，则会自动打开 kui 的一个窗口进行展示。</p>
+
+<p><img src="/img/kui-intro-json.png" alt="Kui JSON - Moelove.info" /></p>
+
+<p>左侧的 + 号可以用于新增标签。</p>
+
+<h3 id="开发部署">开发部署</h3>
+
+<p>你可以使用 <strong>内置编辑器</strong> 或者任意你喜欢的编辑器编辑你的配置文件，比如我们想要部署一个 Redis 在 Kubernetes 集群中。</p>
+
+<p>你可以写一个配置文件如下：</p>
+
+<pre><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: redis
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: redis
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        run: redis
+    spec:
+      containers:
+      - image: redis:alpine
+        name: redis
+        resources: {}
+</code></pre>
+
+<p>保存为 <code>deploy.yaml</code> 使用 <code>open deploy.yaml</code> 即可在右侧窗口查看该内容, 并且在左侧进行部署后，也可在右侧进行管理等操作。</p>
+
+<p><img src="/img/kui-intro-deploy.png" alt="Kui deploy - Moelove.info" /></p>
+
+<h3 id="易扩展">易扩展</h3>
+
+<p>项目代码比较简单，<a href="https://github.com/IBM/kui/blob/master/docs/dev/custom-clients.md">文档</a>中也有开发文档，可以很方便的自信进行扩展。（不展开了）</p>
+
+<h3 id="tutorials">tutorials</h3>
+
+<p>当输入此命令后，会看到其内置的几个使用教程，更多功能可以通过此命令进行探索。</p>
+
+<p>例如这种 Preview 的功能之类的。</p>
+
+<p><img src="/img/kui-intro-preview.png" alt="Kui preview - Moelove.info" /></p>
+
+<p>Enjoy your Cloud Native!</p>
+
+<hr />
+
+<p>可以通过下面二维码订阅我的文章公众号【MoeLove】</p>
+
+<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/my_qrcode.jpg" alt="TheMoeLove" /></p>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">TaoBeier</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2019-05-24</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/wx_pay.jpg">
+        <span>微信打赏</span>
+      </label>
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/alipay.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/kubernetes/">Kubernetes</a>
+          
+          <a href="/tags/electron/">Electron</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/2019/05/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-13~2019-05-19/">
+            <span class="next-text nav-default">K8S 生态周报| 2019-05-13~2019-05-19</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
+    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    id: '2019-05-24 10:19:03 \x2b0800 CST',
+    title: '云原生应用开发新体验：Kui',
+    clientID: '68312db64e870efbd0a0',
+    clientSecret: 'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',
+    repo: 'tao12345666333.github.io',
+    owner: 'tao12345666333',
+    admin: ['tao12345666333'],
+    body: decodeURI(location.href)
+  });
+  gitalk.render('gitalk-container');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhangjintao9020@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/BeierTao" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/tao12345666333" class="iconfont icon-github" title="github"></a>
+      <a href="http://weibo.com/9020taobeier" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/TaoBeier" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="https://moelove.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2013 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">TaoBeier</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

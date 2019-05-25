@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://moelove.info/2019/05/24/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E6%96%B0%E4%BD%93%E9%AA%8CKui/</loc>
+    <lastmod>2019-05-24T10:19:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://moelove.info/2019/05/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-13~2019-05-19/</loc>
     <lastmod>2019-05-19T23:13:42+08:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -485,6 +492,13 @@
   </url>
   
   <url>
+    <loc>https://moelove.info/tags/electron/</loc>
+    <lastmod>2019-05-24T10:19:03+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://moelove.info/tags/git/</loc>
     <lastmod>2016-12-05T22:40:41+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -528,7 +542,7 @@
   
   <url>
     <loc>https://moelove.info/tags/kubernetes/</loc>
-    <lastmod>2019-05-19T23:13:42+08:00</lastmod>
+    <lastmod>2019-05-24T10:19:03+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -570,7 +584,7 @@
   
   <url>
     <loc>https://moelove.info/</loc>
-    <lastmod>2019-05-19T23:13:42+08:00</lastmod>
+    <lastmod>2019-05-24T10:19:03+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -626,7 +640,7 @@
   
   <url>
     <loc>https://moelove.info/post/</loc>
-    <lastmod>2019-05-19T23:13:42+08:00</lastmod>
+    <lastmod>2019-05-24T10:19:03+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

@@ -6,10 +6,22 @@
     <description>Recent content in Kubernetes on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 19 May 2019 23:13:42 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 24 May 2019 10:19:03 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>云原生应用开发新体验：Kui</title>
+      <link>https://moelove.info/2019/05/24/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E6%96%B0%E4%BD%93%E9%AA%8CKui/</link>
+      <pubDate>Fri, 24 May 2019 10:19:03 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/05/24/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E6%96%B0%E4%BD%93%E9%AA%8CKui/</guid>
+      <description>云原生（Cloud Native）应用是伴随着 Kubernetes 应用范围的扩大，基于云模型而提出的一种概念。
+ 本文来介绍一个云原生应用开发的工具 Kui, 这是一款由 IBM 开源的工具，使用 Electron 提供 GUI 能力。
+ Kui Shell offers a new development experience for building cloud-native applications. By combining the power of familiar CLIs with visualizations in high-impact areas, Kui enables you to manipulate complex JSON and YAML data models, integrate disparate tooling, and provides quick access to aggregate views of operational data.
+ 正如以上介绍中提到的，Kui 提供了一种新的开发体验（原先大多数时候我们是通过 kubectl 与 Kubernetes 中的资源进行交互），Kui 结合了原有 CLI 的强大功能，并提供一种可视化的方式，方便我们对 Kubernetes 中 YAML 或者 JSON 格式数据的处理。</description>
+    </item>
     
     <item>
       <title>K8S 生态周报| 2019-05-13~2019-05-19</title>
