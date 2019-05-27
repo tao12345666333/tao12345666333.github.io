@@ -25,7 +25,7 @@
 
 
 <meta name="author" content="TaoBeier" />
-  <meta name="description" content="TaoBeier&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim." />
+  <meta name="description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim." />
   <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes, Golang, Python, Container, Vim, 容器, k8s" />
 
 
@@ -59,13 +59,13 @@
 
 
 <meta property="og:title" content="MoeLove" />
-<meta property="og:description" content="TaoBeier&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim." />
+<meta property="og:description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://moelove.info/" />
 
 
 
-<meta property="og:updated_time" content="2019-04-07T10:03:13&#43;08:00"/>
+<meta property="og:updated_time" content="2019-04-12T07:23:14&#43;08:00"/>
 
 
 
@@ -77,11 +77,11 @@
 
 
 <meta itemprop="name" content="MoeLove">
-<meta itemprop="description" content="TaoBeier&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.">
+<meta itemprop="description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.">
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="MoeLove"/>
-<meta name="twitter:description" content="TaoBeier&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim."/>
+<meta name="twitter:description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim."/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -149,6 +149,32 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/04/12/%E6%81%AD%E5%96%9C-Fluentd-%E4%BB%8E-CNCF-%E6%AF%95%E4%B8%9A/">恭喜 Fluentd 从 CNCF 毕业</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-04-12 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      今年新闻不断，多数早期进入 CNCF 的项目都相继宣布毕业。
+ CNCF（云原生计算基金会）在美国时间 2019 年 4 月 11 日宣布 fluentd 今天正式毕业了。
+这是 CNCF 中毕业的第 6 个项目，之前已经毕业的项目为 Kubernetes、Prometheus、Envoy 、CoreDNS 和 containerd 。
+fluentd 自 2011 年由 Treasure Data 公司的联合创始人 Sadayuki “Sada” Furuhashi 创建，作为构建统一记录层的开源数据收集器，统一记录层统一收集采集和消费，以便更好的使用和理解数据。在 2016 年 11 月，fluentd 也是第 6 个成为 CNCF 托管项目的。
+fluentd 可以从多种数据源采集事件，并将它写入文件, RDBMS, NoSQL, IaaS, SaaS, Hadoop等等各类的目标地址。截至目前，fluentd 在 GitHub 上有 7629 个 star ，895 个 fork，以及 166 位贡献者，超过 4k+ commit 。
+做日志相关的小伙伴基本都玩过 ELK ，我们都知道在大规模使用 Logstash 时的痛苦（还记得被 Logstash 配置文件支配的恐惧吗？ 2333） 而 fluentd 的事件路由是通过 tag 来做，相比 Logstash 使用管道将所有数据路由到单个流里再通过配置将它发送到对应的目标而言这将大大简化配置的复杂度。(是的，这里是吐槽)
+    </div>
+    <div class="read-more">
+      <a href="/2019/04/12/%E6%81%AD%E5%96%9C-Fluentd-%E4%BB%8E-CNCF-%E6%AF%95%E4%B8%9A/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -399,37 +425,6 @@ Kubernetes 所涉及的知识点很多, 并且版本迭代也很快，本小册�
     </div>
     <div class="read-more">
       <a href="/2018/11/23/runc-1.0-rc6-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2018/09/04/Docker-%E6%B7%B1%E5%85%A5%E7%AF%87%E4%B9%8B-Build-%E5%8E%9F%E7%90%86/">Docker 深入篇之 Build 原理</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2018-09-04 </span>
-      <div class="post-category">
-          
-            <a href="/categories/linux/"> Linux </a>
-          
-        </div>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      使用 Docker 时，最常用的命令无非是 docker container 和 docker image 相关的子命令，当然最初没有管理类命令（或者说分组）的时候，最常使用的命令也无非是 docker run docker commit docker build 和 docker images 这些。
-今天来聊一下和 Docker 中核心概念 image 相关的重要命令， docker build 或者说 docker image build 为了简便起见，下文的命令全部使用 docker build 。
-Docker Image 先简单介绍下 Docker Image， 通常情况下我们将其称之为镜像，镜像是由多个层组成的文件，这些层用于在容器内执行代码（命令）等。每个镜像基本上都是根据应用程序完整的可执行版本进行构建的，并且需要注意的是，它会依赖于主机的系统内核。当用户在运行镜像时，这将会创建一个或者多个容器实例。
-Dockerd Dockerd 是 Docker 的服务端，默认情况下提供 Unix Domain Socket 连接，当然也可以监听某个端口，用于对外提供服务。 所以有时候，我们也可以使用服务器上的 Docker daemon 来提供服务，以加快构建速度及解决一些网络问题之类的。
-好的，基础概念了解了， 那我们开始进入正题。
-使用 Dockerfile 我们知道构建镜像的方法有多种，本文中我们只介绍使用 Dockerfile 通过 docker build 的方式构建镜像。
-为了简便，我们以一个简单的 Dockerfile 开始。构建一个容器内使用的 kubectl 工具 (当然选择它的原因在于 kubectl 足够大，并不考虑可用性，这个稍后解释)
-    </div>
-    <div class="read-more">
-      <a href="/2018/09/04/Docker-%E6%B7%B1%E5%85%A5%E7%AF%87%E4%B9%8B-Build-%E5%8E%9F%E7%90%86/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
