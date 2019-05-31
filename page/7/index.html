@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Kubernetes · MoeLove</title>
+  <title>MoeLove</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -36,9 +36,9 @@
 <meta name="generator" content="Hugo 0.46" />
 
 
-<link rel="canonical" href="https://moelove.info/tags/kubernetes/" />
-<link href="https://moelove.info/tags/kubernetes/index.xml" rel="alternate" type="application/rss+xml" title="MoeLove" />
-  <link href="https://moelove.info/tags/kubernetes/index.xml" rel="feed" type="application/rss+xml" title="MoeLove" />
+<link rel="canonical" href="https://moelove.info/" />
+<link href="https://moelove.info/index.xml" rel="alternate" type="application/rss+xml" title="MoeLove" />
+  <link href="https://moelove.info/index.xml" rel="feed" type="application/rss+xml" title="MoeLove" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -58,29 +58,29 @@
 
 
 
-<meta property="og:title" content="Kubernetes" />
+<meta property="og:title" content="MoeLove" />
 <meta property="og:description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim." />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://moelove.info/tags/kubernetes/" />
+<meta property="og:url" content="https://moelove.info/" />
 
 
 
-<meta property="og:updated_time" content="2019-04-14T22:53:09&#43;08:00"/>
-
-
-
-
+<meta property="og:updated_time" content="2013-03-09T21:21:14&#43;00:00"/>
 
 
 
 
 
 
-<meta itemprop="name" content="Kubernetes">
+
+
+
+
+<meta itemprop="name" content="MoeLove">
 <meta itemprop="description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.">
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Kubernetes"/>
+<meta name="twitter:title" content="MoeLove"/>
 <meta name="twitter:description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim."/>
 
 <!--[if lte IE 9]>
@@ -146,120 +146,48 @@
       <div class="content-wrapper">
         <div id="content" class="content">
           
+  <section id="posts" class="posts">
+    
+    
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2013/03/09/fedora%E5%AE%89%E8%A3%85%E5%90%8E%E6%9C%80%E5%88%9D%E7%9A%84%E4%BA%8B%E6%83%85/">fedora安装后最初的事情</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2013-03-09 </span>
+      <div class="post-category">
+          
+            <a href="/categories/linux/"> Linux </a>
+          
+        </div>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+       更新源 sudo yum localinstall --nogpgcheck http://mirrors.163.com/rpmfusion/free/fedora/rpmfusion-free-release-stable.noarch.rpm http://mirrors.163.com/rpmfusion/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm (这个是添加国内的软件源) sudo yum update  网络相关 firefox sudo yum install firefox  chrome / chromium 我本人比较习惯用chrome的 不过最近网络不是很稳定 先补充chromium 的安装方法吧
+ chromium的安装 首先添加chromium的fedora源,将下载好的 .repo 文件移动到/etc/yum.repos.d/下， 执行
+sudo yum install chromium  chrome的安装 从官网上下载chrome 的rpm包，或者从我的网盘下载对应的32位 或 64位 的rpm 包 执行
+sudo rpm -ivh google-chrome.rpm   安装证书 sudo yum localinstall --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-branched.noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-branched.noarch.rpm  压缩/解压软件 sudo yum install unrar sudo yum install p7zip  影音播放 sudo yum install gstreamer-plugins-good gstreamer-plugins-bad gstreamer-plugins-ugly libtunepimp-extras-freeworld xine-lib-extras-freeworld(安装音频解码器) sudo yum install ffmpeg ffmpeg-libs gstreamer-ffmpeg libmatroska xvidcore(安装视频解码器)  编辑器  vim  sudo yum install vim  Sublime Text 我也很喜欢因为运行速度快，而且免费。安装方法可以参考我的fedora下安装sublime text 2这篇文章。  
+    </div>
+    <div class="read-more">
+      <a href="/2013/03/09/fedora%E5%AE%89%E8%A3%85%E5%90%8E%E6%9C%80%E5%88%9D%E7%9A%84%E4%BA%8B%E6%83%85/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
 
-<section id="archive" class="archive">
+    
+  </section>
   
-
-  
-    <div class="archive-post">
-      <span class="archive-post-time">
-        2019-04-14
-      </span>
-      <span class="archive-post-title">
-        <a href="/2019/04/14/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.04.08~2019.04.14/" class="archive-post-link">
-          K8S 生态周报| 2019.04.08~2019.04.14
-        </a>
-      </span>
-    </div>
-  
-    <div class="archive-post">
-      <span class="archive-post-time">
-        2019-04-12
-      </span>
-      <span class="archive-post-title">
-        <a href="/2019/04/12/%E6%81%AD%E5%96%9C-Fluentd-%E4%BB%8E-CNCF-%E6%AF%95%E4%B8%9A/" class="archive-post-link">
-          恭喜 Fluentd 从 CNCF 毕业
-        </a>
-      </span>
-    </div>
-  
-    <div class="archive-post">
-      <span class="archive-post-time">
-        2019-04-07
-      </span>
-      <span class="archive-post-title">
-        <a href="/2019/04/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.04.01~2019.04.07/" class="archive-post-link">
-          K8S 生态周报| 2019.04.01~2019.04.07
-        </a>
-      </span>
-    </div>
-  
-    <div class="archive-post">
-      <span class="archive-post-time">
-        2019-03-31
-      </span>
-      <span class="archive-post-title">
-        <a href="/2019/03/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.03.25~2019.03.31/" class="archive-post-link">
-          K8S 生态周报| 2019.03.25~2019.03.31
-        </a>
-      </span>
-    </div>
-  
-    <div class="archive-post">
-      <span class="archive-post-time">
-        2019-03-25
-      </span>
-      <span class="archive-post-title">
-        <a href="/2019/03/25/%E4%BD%BF%E7%94%A8-Kind-%E6%90%AD%E5%BB%BA%E4%BD%A0%E7%9A%84%E6%9C%AC%E5%9C%B0-Kubernetes-%E9%9B%86%E7%BE%A4/" class="archive-post-link">
-          使用 Kind 搭建你的本地 Kubernetes 集群
-        </a>
-      </span>
-    </div>
-  
-    <div class="archive-post">
-      <span class="archive-post-time">
-        2019-03-25
-      </span>
-      <span class="archive-post-title">
-        <a href="/2019/03/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.03.18~2019.03.24/" class="archive-post-link">
-          K8S 生态周报| 2019.03.18~2019.03.24
-        </a>
-      </span>
-    </div>
-  
-    <div class="archive-post">
-      <span class="archive-post-time">
-        2019-03-01
-      </span>
-      <span class="archive-post-title">
-        <a href="/2019/03/01/%E6%81%AD%E5%96%9C-containerd-%E6%AF%95%E4%B8%9A/" class="archive-post-link">
-          恭喜 containerd 毕业
-        </a>
-      </span>
-    </div>
-  
-    <div class="archive-post">
-      <span class="archive-post-time">
-        2018-12-29
-      </span>
-      <span class="archive-post-title">
-        <a href="/2018/12/29/2018-%E5%B0%8F%E5%9B%9E%E9%A1%BE/" class="archive-post-link">
-          2018 小回顾
-        </a>
-      </span>
-    </div>
-  
-    <div class="archive-post">
-      <span class="archive-post-time">
-        2018-12-27
-      </span>
-      <span class="archive-post-title">
-        <a href="/2018/12/27/Kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5%E6%AD%A3%E5%BC%8F%E4%B8%8A%E7%BA%BF/" class="archive-post-link">
-          《Kubernetes从上手到实践》正式上线
-        </a>
-      </span>
-    </div>
-  
-</section>
-
-<nav class="pagination">
-  
-    <a class="prev" href="/tags/kubernetes/">
-      <i class="iconfont icon-left"></i>
-      <span class="prev-text">上一页</span>
-    </a>
-  
-</nav>
+  <nav class="pagination">
+    
+      <a class="prev" href="/page/6/">
+        <i class="iconfont icon-left"></i>
+        <span class="prev-text">上一页</span>
+      </a>
+    
+  </nav>
 
         </div>
         

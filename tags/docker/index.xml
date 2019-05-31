@@ -6,10 +6,28 @@
     <description>Recent content in Docker on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sat, 11 May 2019 21:07:10 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 01 Jun 2019 00:19:03 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Docker 镜像构建三部曲</title>
+      <link>https://moelove.info/2019/06/01/Docker-%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E4%B8%89%E9%83%A8%E6%9B%B2/</link>
+      <pubDate>Sat, 01 Jun 2019 00:19:03 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/06/01/Docker-%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E4%B8%89%E9%83%A8%E6%9B%B2/</guid>
+      <description>我最近在 GitChat 写了一些 Docker 构建镜像相关的文章，这个系列写了三篇，通过这三篇将 Docker 构建镜像相关的事情基本就讲明白了，感兴趣的朋友扫描二维码或者点击链接即可。
+ 高效构建 Docker 镜像的最佳实践 Docker 可谓是开启了容器化技术的新时代，现在无论大中小公司基本上都对容器化技术有不同程度的尝试，或是已经进行了大量容器化的改造。伴随着 Kubernetes 和 Cloud Native 等技术和理念的普及，也大大增加了业务容器化需求。
+而这一切的推进，不可避免的技术之一便是构建容器镜像。
+在本场 Chat 中，会讲到如下内容：
+ Docker 镜像是什么 Docker 镜像常规管理操作 如何构建 Docker 镜像 逐步分解构建 Docker 镜像的最佳实践 如何提升构建效率  适合人群： 对高效构建 Docker 镜像有兴趣的技术人员
+地址：https://gitbook.cn/gitchat/activity/5cd527e864de19331ba79278
+进阶：Dockerfile 高阶使用指南及镜像优化 在上次的 Chat 高效构建 Docker 镜像的最佳实践 中，我们重点深入内部介绍了 Docker 镜像是什么；以及构建 Docker 镜像的最佳实践等。
+即将发布的 Docker 19.03 版本中 Dockerfile 及构建系统有了很多变化。
+在本场 Chat 中，会讲到如下内容：
+ Dockerfile 高阶使用及新特性解读 Docker 19.03 构建系统解读 Docker 镜像安全实践 发现并优化镜像大小  地址：https://gitbook.</description>
+    </item>
     
     <item>
       <title>关于 Alpine Docker 镜像漏洞 CVE-2019-5021</title>
