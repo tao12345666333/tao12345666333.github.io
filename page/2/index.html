@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2019-04-21T21:46:02&#43;08:00"/>
+<meta property="og:updated_time" content="2019-04-29T00:36:25&#43;08:00"/>
 
 
 
@@ -149,6 +149,32 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/04/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-22~2019-04-28/">K8S 生态周报| 2019-04-22~2019-04-28</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-04-29 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Docker Hub 用户隐私数据泄漏 2019 年 4 月 25 日，Docker Hub 团队发现了对存储非财务用户数据子集的单个 Hub 数据库的未授权访问。 在发现异常后官方团队迅速采取行动并保护网站免受攻击。
+经过官方团队的调查，目前大概有 190000 帐号的敏感信息（小于总用户数的 5% ）包括用户名和哈希后的用户密码，当然也包括 GitHub 及 Bitbucket 等的用于自动构建的 Token 。
+当前的主要措施是对可能被泄漏信息的用户发送了邮件通知，对于可能泄漏哈希密码的用户发送了重置密码的邮件，并且 主动 将密码失效，以及自动构建的 Token 也都被失效。( 所以如果你收到了 Docker Hub 团队关于此次事件的直接报告邮件，很大概率是因为你的信息已经被泄漏了 )
+附上官方声明中关于此次事件的处理声明：
+ During a brief period of unauthorized access to a Docker Hub database, sensitive data from approximately 190,000 accounts may have been exposed (less than 5% of Hub users).
+    </div>
+    <div class="read-more">
+      <a href="/2019/04/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-22~2019-04-28/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -390,37 +416,6 @@ containerd 2014 年从 Docker 孵化出来，最初是作为 Docker 引擎的底
     </div>
     <div class="read-more">
       <a href="/2019/03/01/%E6%81%AD%E5%96%9C-containerd-%E6%AF%95%E4%B8%9A/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2018/12/29/2018-%E5%B0%8F%E5%9B%9E%E9%A1%BE/">2018 小回顾</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2018-12-29 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      年底了，惯例做个小回顾，对这一年做个总结，也对下一年大致做个规划。
-不过今儿与往年不同的是昨晚突然发高烧，今儿都没能去上班，感谢我的小可爱在照顾我。这篇文章也是躺在床上用手机编辑的。
-还是按照惯例从工作，生活两方面来说。先聊聊工作。
-工作 现在在网易有道负责 DevOPS 实践落地及 k8s 容器化平台和自动化平台的规划建设等。
-总体来说，现在的工作很开心，更能发挥我的所长，也遇到了不错的团队。
-说到现在负责的工作，如果大致有些了解的就会知道这个过程比较漫长，推进起来也会有各种阻力。毕竟要改变很多人的思想和习惯，我也在尽量让这一过程变的更加平滑。
-同时也在 push 一些理念到行业内，到社区中，不断的进行交流碰撞总结。
-社区贡献 今年下半年的贡献和分享相比去年更多一些。主要的分享有:
- GITC - 《云原生时代下的 CI/CD 实践》 PyCon China - 《基于 Docker 的 CI/CD 实践》 DockerOne 社区 - 《基于 GitLab 的 CI 实践》 Tech Talk Time - 《Docker 实战和基础架构》  分享的主题基本都围绕在容器化和 CI/CD 方面，但每次分享内容却都不一样。 感谢我的小可爱，也感谢所有支持的朋友们。
-社区中主要活跃在 Docker 和 Kubernetes 生态方向。维护一些官方镜像，做测试，解决问题，提交代码之类的，明年希望做的更多。
- 开了一个知乎专栏 『k8s生态』 明年会花更多时间进行建设。 写了一本掘金小册《Kubernetes 从上手到实践》。 其实这个名字并不能很好的概括小册里面的内容，其中也有源码分析之类的。要再次感谢小可爱，感谢编辑 Linmi ，感谢马达老板和何世友老板写的推荐语。也感谢所有人的支持，希望这本小册能对大家有所帮助。  写小册的过程其实也蛮辛苦的，一般要么晚上写，写到凌晨 2~3 点，要么早上 5~6 点钟左右起床，写到去上班。尤其要感谢小可爱，给了我很多支持。
-    </div>
-    <div class="read-more">
-      <a href="/2018/12/29/2018-%E5%B0%8F%E5%9B%9E%E9%A1%BE/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
