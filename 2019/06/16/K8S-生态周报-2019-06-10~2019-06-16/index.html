@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>K8S 生态周报| 2019-06-10~2019-06-16 - MoeLove</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1876963677156202",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+<meta name="author" content="TaoBeier" />
+  <meta name="description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Helm 新下载域名正式上线 https://get.helm.sh/ 正式上线。用户之后下载 Helm 预编译好的二进制文件时，可通过此域名进行下载。
+原来 Kubernetes 尚未成为 CNCF 托管项目时，Helm 是作为 Kubernetes 项目的一部分的，所以很自然的使用了 Google 的一个云存储仓库。但随着项目托管至 CNCF 以及后续 Helm 的独立发展，现在使用托管于 Google 的云存储不那么合适了，一方面在于 CNCF 正在接管 K8S 的基础设施，另一方面在于在于这个仓库不只受 Helm 的控制。
+考虑到项目的独立性，以及 大陆用户无法正常访问 GCloud 存储的问题 经过维护者们的慎重考虑以及实际测试，终于决定选择 Azure 的 Blob 存储 &#43; CDN 可满足当前所有地区的快速访问（尤其是国内可以直接访问并下载），不再需要花费时间精力解决网络等问题了。
+这次的更改仅限于 Helm 客户端的下载位置，类似 Tiller 或者 Chart 等并没有被包含在内。
+强烈建议更新有在 CI/自动化任务中使用的 Helm 下载地址，使用 https://get.helm.sh/ 来进行替换。
+对此内容感兴趣的朋友可参考 Move Helm Downloads 的讨论
+Apple 作为白金终端用户成员加入 CNCF Apple 在 K8S 社区中在这之前也算相对低调，并没有像各类云厂商或其他公司那样疯狂安利或者输出之类的。但是这次突然加入 CNCF 而且作为白金会员，是可具备话语权的。" />
+
+  <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes, Golang, Python, Container, Vim, 容器, k8s" />
+
+
+<meta name="baidu-site-verification" content="jO2rMlnjJi" />
+<meta name="google-site-verification" content="googlefe3fc086c62f7210.html" />
+
+
+<meta name="generator" content="Hugo 0.46" />
+
+
+<link rel="canonical" href="https://moelove.info/2019/06/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-10~2019-06-16/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="K8S 生态周报| 2019-06-10~2019-06-16" />
+<meta property="og:description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Helm 新下载域名正式上线 https://get.helm.sh/ 正式上线。用户之后下载 Helm 预编译好的二进制文件时，可通过此域名进行下载。
+原来 Kubernetes 尚未成为 CNCF 托管项目时，Helm 是作为 Kubernetes 项目的一部分的，所以很自然的使用了 Google 的一个云存储仓库。但随着项目托管至 CNCF 以及后续 Helm 的独立发展，现在使用托管于 Google 的云存储不那么合适了，一方面在于 CNCF 正在接管 K8S 的基础设施，另一方面在于在于这个仓库不只受 Helm 的控制。
+考虑到项目的独立性，以及 大陆用户无法正常访问 GCloud 存储的问题 经过维护者们的慎重考虑以及实际测试，终于决定选择 Azure 的 Blob 存储 &#43; CDN 可满足当前所有地区的快速访问（尤其是国内可以直接访问并下载），不再需要花费时间精力解决网络等问题了。
+这次的更改仅限于 Helm 客户端的下载位置，类似 Tiller 或者 Chart 等并没有被包含在内。
+强烈建议更新有在 CI/自动化任务中使用的 Helm 下载地址，使用 https://get.helm.sh/ 来进行替换。
+对此内容感兴趣的朋友可参考 Move Helm Downloads 的讨论
+Apple 作为白金终端用户成员加入 CNCF Apple 在 K8S 社区中在这之前也算相对低调，并没有像各类云厂商或其他公司那样疯狂安利或者输出之类的。但是这次突然加入 CNCF 而且作为白金会员，是可具备话语权的。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://moelove.info/2019/06/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-10~2019-06-16/" />
+
+
+
+<meta property="article:published_time" content="2019-06-16T23:17:17&#43;08:00"/>
+
+<meta property="article:modified_time" content="2019-06-16T23:17:17&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="K8S 生态周报| 2019-06-10~2019-06-16">
+<meta itemprop="description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Helm 新下载域名正式上线 https://get.helm.sh/ 正式上线。用户之后下载 Helm 预编译好的二进制文件时，可通过此域名进行下载。
+原来 Kubernetes 尚未成为 CNCF 托管项目时，Helm 是作为 Kubernetes 项目的一部分的，所以很自然的使用了 Google 的一个云存储仓库。但随着项目托管至 CNCF 以及后续 Helm 的独立发展，现在使用托管于 Google 的云存储不那么合适了，一方面在于 CNCF 正在接管 K8S 的基础设施，另一方面在于在于这个仓库不只受 Helm 的控制。
+考虑到项目的独立性，以及 大陆用户无法正常访问 GCloud 存储的问题 经过维护者们的慎重考虑以及实际测试，终于决定选择 Azure 的 Blob 存储 &#43; CDN 可满足当前所有地区的快速访问（尤其是国内可以直接访问并下载），不再需要花费时间精力解决网络等问题了。
+这次的更改仅限于 Helm 客户端的下载位置，类似 Tiller 或者 Chart 等并没有被包含在内。
+强烈建议更新有在 CI/自动化任务中使用的 Helm 下载地址，使用 https://get.helm.sh/ 来进行替换。
+对此内容感兴趣的朋友可参考 Move Helm Downloads 的讨论
+Apple 作为白金终端用户成员加入 CNCF Apple 在 K8S 社区中在这之前也算相对低调，并没有像各类云厂商或其他公司那样疯狂安利或者输出之类的。但是这次突然加入 CNCF 而且作为白金会员，是可具备话语权的。">
+
+
+<meta itemprop="datePublished" content="2019-06-16T23:17:17&#43;08:00" />
+<meta itemprop="dateModified" content="2019-06-16T23:17:17&#43;08:00" />
+<meta itemprop="wordCount" content="139">
+
+
+
+<meta itemprop="keywords" content="Linux,Weekly,Kubernetes," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="K8S 生态周报| 2019-06-10~2019-06-16"/>
+<meta name="twitter:description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Helm 新下载域名正式上线 https://get.helm.sh/ 正式上线。用户之后下载 Helm 预编译好的二进制文件时，可通过此域名进行下载。
+原来 Kubernetes 尚未成为 CNCF 托管项目时，Helm 是作为 Kubernetes 项目的一部分的，所以很自然的使用了 Google 的一个云存储仓库。但随着项目托管至 CNCF 以及后续 Helm 的独立发展，现在使用托管于 Google 的云存储不那么合适了，一方面在于 CNCF 正在接管 K8S 的基础设施，另一方面在于在于这个仓库不只受 Helm 的控制。
+考虑到项目的独立性，以及 大陆用户无法正常访问 GCloud 存储的问题 经过维护者们的慎重考虑以及实际测试，终于决定选择 Azure 的 Blob 存储 &#43; CDN 可满足当前所有地区的快速访问（尤其是国内可以直接访问并下载），不再需要花费时间精力解决网络等问题了。
+这次的更改仅限于 Helm 客户端的下载位置，类似 Tiller 或者 Chart 等并没有被包含在内。
+强烈建议更新有在 CI/自动化任务中使用的 Helm 下载地址，使用 https://get.helm.sh/ 来进行替换。
+对此内容感兴趣的朋友可参考 Move Helm Downloads 的讨论
+Apple 作为白金终端用户成员加入 CNCF Apple 在 K8S 社区中在这之前也算相对低调，并没有像各类云厂商或其他公司那样疯狂安利或者输出之类的。但是这次突然加入 CNCF 而且作为白金会员，是可具备话语权的。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">MoeLove</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/friends/">
+        <li class="mobile-menu-item">Friends</li>
+      </a><a href="/projects/">
+        <li class="mobile-menu-item">Projects</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">MoeLove</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/friends/">Friends</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/projects/">Projects</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">K8S 生态周报| 2019-06-10~2019-06-16</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-06-16 </span>
+        
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#helm-新下载域名正式上线">Helm 新下载域名正式上线</a></li>
+<li><a href="#apple-作为白金终端用户成员加入-cncf">Apple 作为白金终端用户成员加入 CNCF</a></li>
+<li><a href="#containerd-1-2-7-正式发布">containerd 1.2.7 正式发布</a></li>
+<li><a href="#kubernetes-v1-15-0-rc1-发布">Kubernetes v1.15.0-rc1 发布</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<blockquote>
+<p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏<a href="https://zhuanlan.zhihu.com/container">「k8s生态」</a>。</p>
+</blockquote>
+
+<h2 id="helm-新下载域名正式上线">Helm 新下载域名正式上线</h2>
+
+<p><a href="https://get.helm.sh/">https://get.helm.sh/</a> 正式上线。用户之后下载 Helm 预编译好的二进制文件时，可通过此域名进行下载。</p>
+
+<p>原来 Kubernetes 尚未成为 CNCF 托管项目时，Helm 是作为 Kubernetes 项目的一部分的，所以很自然的使用了 Google 的一个云存储仓库。但随着项目托管至 CNCF 以及后续 Helm 的独立发展，现在使用托管于 Google 的云存储不那么合适了，一方面在于 CNCF 正在接管 K8S 的基础设施，另一方面在于在于这个仓库不只受 Helm 的控制。</p>
+
+<p>考虑到项目的独立性，以及 <strong>大陆用户无法正常访问 GCloud 存储的问题</strong> 经过维护者们的慎重考虑以及实际测试，终于决定选择 Azure 的 Blob 存储 + CDN 可满足当前所有地区的快速访问（尤其是国内可以直接访问并下载），不再需要花费时间精力解决网络等问题了。</p>
+
+<p><strong>这次的更改仅限于 Helm 客户端的下载位置，类似 Tiller 或者 Chart 等并没有被包含在内。</strong></p>
+
+<p>强烈建议更新有在 CI/自动化任务中使用的 Helm 下载地址，使用 <a href="https://get.helm.sh/">https://get.helm.sh/</a> 来进行替换。</p>
+
+<p>对此内容感兴趣的朋友可参考 <a href="https://github.com/helm/helm/issues/5663">Move Helm Downloads</a> 的讨论</p>
+
+<h2 id="apple-作为白金终端用户成员加入-cncf">Apple 作为白金终端用户成员加入 CNCF</h2>
+
+<p>Apple 在 K8S 社区中在这之前也算相对低调，并没有像各类云厂商或其他公司那样疯狂安利或者输出之类的。但是这次突然加入 CNCF 而且作为白金会员，是可具备话语权的。</p>
+
+<p>之后会有什么动作，目前不得而知，但是随着 Apple 作为白金会员加入，对于 CNCF 当然是件利好的事情，期待后续的进展。</p>
+
+<p>对此内容感兴趣的朋友可参考 <a href="https://www.cncf.io/blog/2019/06/11/apple-joins-cloud-native-computing-foundation-as-platinum-end-user-member/">Apple Join CNCF</a> 的官方说明。</p>
+
+<h2 id="containerd-1-2-7-正式发布">containerd 1.2.7 正式发布</h2>
+
+<p>这个版本其实也是个 patch 版本，但其中也包含了一些比较重要的特性。</p>
+
+<p>这个版本支持了 OCI 镜像描述符的注解支持；包括了对 containerd shim 日志、容器的启/停、cri 插件和 SELinux 的一些修复。</p>
+
+<p>另外包含了一些 fd 和 goroutine 泄漏的修复。</p>
+
+<p>以及 runc 也终于更新到了 v1.0.0-rc8 之后使用 containerd 的朋友们需要特别关注内核版本以及 SELinux 相关的配置等信息。</p>
+
+<p>对此内容感兴趣的朋友可参考 <a href="https://github.com/containerd/containerd/releases/tag/v1.2.7">containerd v1.2.7 ReleaseNote</a></p>
+
+<h2 id="kubernetes-v1-15-0-rc1-发布">Kubernetes v1.15.0-rc1 发布</h2>
+
+<p>仍然是例行的正式发布前的 rc 版本，但有几个点尤其需要注意。</p>
+
+<ul>
+<li>CoreDNS 回滚到了 1.3.1 版本。这是由于 1.5.0 配置合并的问题，等之后有空再来介绍这个，当然如果没有对 CoreDNS 单个组件有太多其他需求或者持续追求新版本的话，这个问题也可以跳过；</li>
+<li><code>ResourceQuotaScopeSelectors</code> 的特性又由 GA 退回到了 Beta 版本，由想要尝试的小伙伴要注意。</li>
+</ul>
+
+<p>对此内容感兴趣的朋友可参考 <a href="https://github.com/kubernetes/kubernetes/releases/tag/v1.15.0-rc.1">Kubernetes v1.15.0-rc1 ReleaseNote</a></p>
+
+<hr />
+
+<p>可以通过下面二维码订阅我的文章公众号【MoeLove】</p>
+
+<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/my_qrcode.jpg" alt="TheMoeLove" /></p>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">TaoBeier</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2019-06-16</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/wx_pay.jpg">
+        <span>微信打赏</span>
+      </label>
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/alipay.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/linux/">Linux</a>
+          
+          <a href="/tags/weekly/">Weekly</a>
+          
+          <a href="/tags/kubernetes/">Kubernetes</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/2019/06/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-03~2019-06-09/">
+            <span class="next-text nav-default">K8S 生态周报| 2019-06-03~2019-06-09</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
+    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    id: '2019-06-16 23:17:17 \x2b0800 CST',
+    title: 'K8S 生态周报| 2019-06-10~2019-06-16',
+    clientID: '68312db64e870efbd0a0',
+    clientSecret: 'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',
+    repo: 'tao12345666333.github.io',
+    owner: 'tao12345666333',
+    admin: ['tao12345666333'],
+    body: decodeURI(location.href)
+  });
+  gitalk.render('gitalk-container');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhangjintao9020@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/BeierTao" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/tao12345666333" class="iconfont icon-github" title="github"></a>
+      <a href="http://weibo.com/9020taobeier" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/TaoBeier" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="https://moelove.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2013 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">TaoBeier</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

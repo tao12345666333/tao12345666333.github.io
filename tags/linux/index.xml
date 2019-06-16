@@ -6,10 +6,26 @@
     <description>Recent content in Linux on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 09 Jun 2019 22:15:11 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 16 Jun 2019 23:17:17 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8S 生态周报| 2019-06-10~2019-06-16</title>
+      <link>https://moelove.info/2019/06/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-10~2019-06-16/</link>
+      <pubDate>Sun, 16 Jun 2019 23:17:17 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/06/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-10~2019-06-16/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Helm 新下载域名正式上线 https://get.helm.sh/ 正式上线。用户之后下载 Helm 预编译好的二进制文件时，可通过此域名进行下载。
+原来 Kubernetes 尚未成为 CNCF 托管项目时，Helm 是作为 Kubernetes 项目的一部分的，所以很自然的使用了 Google 的一个云存储仓库。但随着项目托管至 CNCF 以及后续 Helm 的独立发展，现在使用托管于 Google 的云存储不那么合适了，一方面在于 CNCF 正在接管 K8S 的基础设施，另一方面在于在于这个仓库不只受 Helm 的控制。
+考虑到项目的独立性，以及 大陆用户无法正常访问 GCloud 存储的问题 经过维护者们的慎重考虑以及实际测试，终于决定选择 Azure 的 Blob 存储 + CDN 可满足当前所有地区的快速访问（尤其是国内可以直接访问并下载），不再需要花费时间精力解决网络等问题了。
+这次的更改仅限于 Helm 客户端的下载位置，类似 Tiller 或者 Chart 等并没有被包含在内。
+强烈建议更新有在 CI/自动化任务中使用的 Helm 下载地址，使用 https://get.helm.sh/ 来进行替换。
+对此内容感兴趣的朋友可参考 Move Helm Downloads 的讨论
+Apple 作为白金终端用户成员加入 CNCF Apple 在 K8S 社区中在这之前也算相对低调，并没有像各类云厂商或其他公司那样疯狂安利或者输出之类的。但是这次突然加入 CNCF 而且作为白金会员，是可具备话语权的。</description>
+    </item>
     
     <item>
       <title>K8S 生态周报| 2019-06-03~2019-06-09</title>

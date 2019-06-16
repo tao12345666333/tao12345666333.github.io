@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2015-10-16T00:59:01&#43;00:00"/>
+<meta property="og:updated_time" content="2015-10-26T22:17:36&#43;00:00"/>
 
 
 
@@ -149,6 +149,34 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2015/10/26/%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%A7%BF%E5%8A%BF%E5%BC%80%E6%BA%90Python%E9%A1%B9%E7%9B%AE/">用正确的姿势开源Python项目</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2015-10-26 </span>
+      <div class="post-category">
+          
+            <a href="/categories/python/"> Python </a>
+          
+        </div>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      做个备忘，也希望可以帮到别人。
+ 目录结构（初始化） 一般我们都会选择在项目的顶层包含较基础的文件，比如setup.py，requirements，README等文件。 一般情况下，一个预发布的Python项目中应该包含以下几类文件：
+ projects (项目的主体文件) setup.py requirements Readme (项目说明) docs (项目文档) test  其中，projects文件夹要以项目命名，存放实际的Python Package. 这里放一个我的项目的目录作为例子。
+➜ httpmultipart git:(master) tree -L 2 . ├── build │ ├── bdist.linux-x86_64 │ └── lib.linux-x86_64-2.7 ├── dist │ ├── httpmultipart-0.1.0-py2.py3-none-any.whl │ └── httpmultipart-0.1.0.tar.gz ├── docs │ ├── _build │ ├── conf.py │ ├── index.rst │ ├── Makefile │ ├── userguide │ └── userguide.rst ├── env │ ├── bin │ ├── include │ ├── lib │ └── local ├── httpmultipart │ ├── __init__.
+    </div>
+    <div class="read-more">
+      <a href="/2015/10/26/%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%A7%BF%E5%8A%BF%E5%BC%80%E6%BA%90Python%E9%A1%B9%E7%9B%AE/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -420,32 +448,6 @@ grub rescue&gt; set grub rescue&gt; prefix=(hd0,msdos9)/boot/grub2 grub rescue&g
     </div>
     <div class="read-more">
       <a href="/2014/07/02/Grub2-rescue-%E4%BF%AE%E5%A4%8D/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2014/06/19/Linux%E4%B8%ADSublime%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/">Linux中Sublime中文输入</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2014-06-19 </span>
-      <div class="post-category">
-          
-            <a href="/categories/linux/"> Linux </a>
-          
-        </div>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      这篇只是为了备忘所以把以前写的东西搬这边了 -.-
- 代码源于网络，感谢分享 这里的关键就是以下的代码和编译 /* sublime-imfix.c Use LD_PRELOAD to interpose some function to fix sublime input method support for linux. By Cjacker Huang &lt;jianzhong.huang at i-soft.com.cn&gt; gcc -shared -o libsublime-imfix.so sublime_imfix.c `pkg-config --libs --cflags gtk+-2.0` -fPIC LD_PRELOAD=./libsublime-imfix.so sublime_text */ #include &lt;gtk/gtk.h&gt; #include &lt;gdk/gdkx.h&gt; typedef GdkSegment GdkRegionBox; struct _GdkRegion { long size; long numRects; GdkRegionBox *rects; GdkRegionBox extents; }; GtkIMContext *local_context; void gdk_region_get_clipbox (const GdkRegion *region, GdkRectangle *rectangle) { g_return_if_fail (region !
-    </div>
-    <div class="read-more">
-      <a href="/2014/06/19/Linux%E4%B8%ADSublime%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
