@@ -6,10 +6,26 @@
     <description>Recent content in Weekly on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 16 Jun 2019 23:17:17 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 22 Jun 2019 23:23:17 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/tags/weekly/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8S 生态周报| 2019-06-17~2019-06-23</title>
+      <link>https://moelove.info/2019/06/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-17~2019-06-23/</link>
+      <pubDate>Sat, 22 Jun 2019 23:23:17 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/06/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-17~2019-06-23/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Kubernetes v1.15.0 正式发布 经过了三个月左右的开发，Kubernetes v1.15.0 正式发布了。
+这是 2019 年 Kubernetes 发布的第二个版本，这个版本由 25 个增强功能组成，其中 2 个移动到 stable ，13 个 beta 以及 10 个 alpha ，整体上集中于稳定性改进和扩展的增强。
+CRD (Custom Resource Definition) 是 Kubernetes 提供的一种可用于扩展其能力的方式，当前有很多使用 CRD 构建于 Kubernetes 上的平台/系统，可以说之后对 Kubernetes 的扩展，或者说想要基于 Kubernetes 开发，同时又想与上游保持同步的话，CRD 是个最佳的选择。
+Kubeadm 在此版本开始有了自己独立的 LOGO ，同时在这个版本中 kubeadm 的功能也得到了很多的完善和补充。这使得 kubeadm 成为更普遍/更好用的搭建集群的工具，同时对集群生命周期的管理也做的更加到位了。这部分的功能我很喜欢也一直在关注，近期我会针对这部分写篇文章出来。感兴趣的朋友们可以关注下
+关于此版本更多的介绍，可参考 Kubernetes v1.15 ReleaseNote
+Istio 1.2.0 正式发布 经过三个 rc 版本之后， Istio 1.2.0 版本正式发布。
+在这个版本中，它添加了对 Kubernetes IPv6 的实验性支持。Kind （Kubernetes in Docker） 项目也是本周内刚增加了 IPv6 的支持 :)</description>
+    </item>
     
     <item>
       <title>K8S 生态周报| 2019-06-10~2019-06-16</title>
