@@ -29,10 +29,9 @@
       <guid>https://moelove.info/2013/08/30/fedora%E4%B8%8B%E5%AE%89%E8%A3%85sublime-text-2%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
       <description>首先去官网下载最新的压缩包  把文件解压到$HOME/.sublime_text_2文件夹中：
 tar -xf (sublime压缩包的文件名).tar.bz2 sudo mv (解压后的文件夹) tools/Sublime_Text_2  在/usr/bin目录下面创建一个链接
-vim sublime  在文件中写入这些代码： ``` #!/bin/bash export SUBLIME_HOME=&amp;rdquo;~/tools/Sublime_Text_2&amp;rdquo;
-  $SUBLIME_HOME/sublime_text $*
-修改文件权限并且移动  chmod 555 sublime &amp;amp;&amp;amp; mv sublime /usr/bin/sublime ```
-这样就可以在终端中直接执行sublime了</description>
+vim sublime  在文件中写入这些代码：
+#!/bin/bash export SUBLIME_HOME=&amp;quot;~/tools/Sublime_Text_2&amp;quot; $SUBLIME_HOME/sublime_text $*   修改文件权限并且移动
+chmod 555 sublime &amp;amp;&amp;amp; mv sublime /usr/bin/sublime  这样就可以在终端中直接执行sublime了</description>
     </item>
     
   </channel>

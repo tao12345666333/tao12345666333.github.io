@@ -36,7 +36,7 @@
 <meta name="google-site-verification" content="googlefe3fc086c62f7210.html" />
 
 
-<meta name="generator" content="Hugo 0.46" />
+<meta name="generator" content="Hugo 0.37.1" />
 
 
 <link rel="canonical" href="https://moelove.info/2018/08/05/%E5%9F%BA%E4%BA%8E-GitLab-%E7%9A%84-CI-%E5%AE%9E%E8%B7%B5/" />
@@ -421,26 +421,26 @@ check_interval = 0
 <p>由于网络原因， clone_url 可以配置为可访问的地址，这样代码 clone 的时候，将会使用配置的这个地址。实际请求为 <code>http://gitlab-ci-token:TOKEN@172.17.0.4/namespace/project.git</code></p>
 
 <ul>
-<li>再看一下 runners.docker 的配置，这部分将影响 docker 的实际运行</li>
-</ul>
+<li><p>再看一下 runners.docker 的配置，这部分将影响 docker 的实际运行</p>
 
 <pre><code>[runners.docker]
-  host = &quot;&quot;
-  hostname = &quot;&quot;
-  tls_cert_path = &quot;/home/tao/certs&quot;
-  image = &quot;docker&quot;
-  dns = [&quot;8.8.8.8&quot;]
-  privileged = false
-  userns_mode = &quot;host&quot;
-  devices = [&quot;/dev/net/tun&quot;]
-  disable_cache = false
-  wait_for_services_timeout = 30
-  cache_dir = &quot;&quot;
-  volumes = [&quot;/data&quot;, &quot;/home/project/cache&quot;]
-  extra_hosts = [&quot;other-host:127.0.0.1&quot;]
-  services = [&quot;mongo&quot;, &quot;redis:3&quot;]
-  allowed_images = [&quot;go:*&quot;, &quot;python:*&quot;, &quot;java:*&quot;]
-</code></pre>
+host = &quot;&quot;
+hostname = &quot;&quot;
+tls_cert_path = &quot;/home/tao/certs&quot;
+image = &quot;docker&quot;
+dns = [&quot;8.8.8.8&quot;]
+privileged = false
+userns_mode = &quot;host&quot;
+devices = [&quot;/dev/net/tun&quot;]
+disable_cache = false
+wait_for_services_timeout = 30
+cache_dir = &quot;&quot;
+volumes = [&quot;/data&quot;, &quot;/home/project/cache&quot;]
+extra_hosts = [&quot;other-host:127.0.0.1&quot;]
+services = [&quot;mongo&quot;, &quot;redis:3&quot;]
+allowed_images = [&quot;go:*&quot;, &quot;python:*&quot;, &quot;java:*&quot;]
+</code></pre></li>
+</ul>
 
 <p>dns, privileged, extra_hosts, services 比较关键， 尤其是在生产中网络情况多种多样， 需要格外关注。 至于 devices 配置 ，在今儿分享的一开始已经讲过了， allowed_images 的话， 是做了个限制。</p>
 

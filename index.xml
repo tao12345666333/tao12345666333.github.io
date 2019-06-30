@@ -6,10 +6,27 @@
     <description>Recent content on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sat, 22 Jun 2019 23:23:17 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 30 Jun 2019 23:12:13 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8S 生态周报| 2019-06-24~2019-06-30</title>
+      <link>https://moelove.info/2019/06/30/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-24~2019-06-30/</link>
+      <pubDate>Sun, 30 Jun 2019 23:12:13 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/06/30/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-24~2019-06-30/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ kind (Kubernetes In Docker) v0.4.0 正式发布 kind (Kubernetes In Docker) 是我很喜欢并且一直持续参与贡献的项目，本周发布了 v0.4.0 版本。关于 Kind 的介绍和基础使用，可以参考我之前写的文章 《使用 Kind 搭建你的本地 Kubernetes 集群》
+v0.4.0 版本中，默认的 Kubernetes 版本升级到了 v1.15 版本，且 kind.sigs.k8s.io/v1alpha2 版本的 API 已经过期，请更新使用 kind.sigs.k8s.io/v1alpha3 。
+目前暂时移除了使用 apt 构建 Node 镜像的选项，之后版本中可能会加回来，直接使用上游构建好的二进制文件进行安装。
+在此版本中，我们增加了一个 nodes[].extraPortMappings 的配置，可以直接通过此配置进行端口的转发，以便从宿主机上直接访问到集群上使用 NodePort 方式部署的服务，这样更容易模拟真实的网络环境，否则只能通过其他的转发或者网络代理的方式来进行通信了。
+同样的，紧跟着上游的开放，这个版本中也增加了对 IPv6 的支持，可以直接通过 networking.ipFamily 的配置进行使用。
+为了能让 kind 更加易用，且满足多数 CI 或者测试使用的场景，在这个版本中，我们尤其对单节点集群的启动时间做了优化，可以更快速的启动集群。
+顺便公布一个数据，kind 目前的 star 数是 2.2k 上个版本发布时是 1.8k 并且还在持续增长中 :)
+更多的细节和信息请参考 ReleaseNote 欢迎大家使用！</description>
+    </item>
     
     <item>
       <title>K8S 生态周报| 2019-06-17~2019-06-23</title>
@@ -440,7 +457,8 @@ services: - name: docker:dind command: [&amp;quot;--insecure-registry=myregistry
  当前最新的 CentOS 7.3 默认安装的是 Python 2 ，并且默认的官方 yum 源中不提供 Python 3 的安装包。有些用户想要升级使用 Python 3 但实际可能有各种各样的问题，导致出错，反观一下激进的 Fedora 社区，在23的时候，就将默认的版本修改成了 Python3 （如果我没记错的话）。
 先说下我所使用的系统环境， 一个新创建的 Docker 容器。 使用 cat /etc/redhat-release 可以看到运行的是 CentOS 7.3 版本。
 在纯净的 CentOS 系统上安装 Python 环境主要有两种办法。 一种是通过源码编译安装，另外一种就是安装已经打好的 RPM 包。依照个人习惯，我们先来看一下如何通过源码编译的方式安装 Python 3.6 并且配置虚拟环境。
-使用源码进行编译安装 基础环境  先安装安装几个必须的包，以方便后续的操作  ➜ yum install wget gcc make ➜ # wget 用于下载源码包 ➜ # gcc 和 make 用于编译   上 Python的官网 下载源码包  ➜ wget https://www.</description>
+使用源码进行编译安装 基础环境  先安装安装几个必须的包，以方便后续的操作
+➜ yum install wget gcc make ➜ # wget 用于下载源码包 ➜ # gcc 和 make 用于编译    上 Python的官网 下载源码包</description>
     </item>
     
     <item>
@@ -663,7 +681,8 @@ ESLint ESLint是由Nicholas C. Zakas在2013年开始开发的，它的初衷就�
 JSLint，JSHint和ESLint的对比 这三个工具各有特色，我只是做一下对比，选择的话，看个人需求就好了。
 JSLint 优点  配置是老道已经定好的，开箱即用。  不足  有限的配置选项，很多规则不能禁用 规范严格，凡是不符合老道所认为的好的风格的，都会有警告(这一项就看你是否完全认同老道了) 扩展性差 无法根据错误定位到对应的规则  JSHint 优点  有了很多参数可以配置 支持配置文件，方便使用 支持了一些常用类库 支持了基本的ES6  不足  不支持自定义规则 无法根据错误定位到对应的规则  ESLint 优点  默认规则里面包含了JSLint和JSHint的规则，易于迁移(这肯定是故意的XD) 可配置为警告和错误两个等级，或者直接禁用掉 支持插件扩展 可以自定义规则 可以根据错误定位到对应的规则 支持ES6 唯一一个支持JSX的工具  不足  需要进行一些自定义配置(因为太灵活了嘛，不过文档是很详细的) 慢 (它比其他两个都要慢)  Vim支持 我们都使用Syntastic来配置
 JSLint的Vim配置 有一个jslint.vim当然版本太老了。。我们不用这种方式做。
- 安装jslint  sudo npm install jslint -g   在vimrc中添加如下配置  let g:syntastic_javascript_checkers = [&#39;jslint&#39;]   JSHint的Vim配置  安装jshint</description>
+ 安装jslint
+sudo npm install jslint -g  在vimrc中添加如下配置</description>
     </item>
     
     <item>
@@ -804,9 +823,12 @@ function git-branch-name { git symbolic-ref HEAD 2&amp;gt;/dev/null | cut -d&amp
       <description>昨天下午的时候想要把分区处理一下，突然发现硬盘里面有一个未使用的102M的分区,很果断的把这些乱七八糟的分区都给干掉了。结果呢，再次开机的时候就坑了（虽然酱紫的事情干过很多次了，这次做个记录吧）开机时提示如下：
 GRUB loading.. error: unknown filesystem. Entering rescue mode.... grub rescue&amp;gt;  grub rescue 支持的命令  ls 查看硬盘的分区情况，如果你已知自己的grub的安装位置（比如我的在(hd0,msdos9)/boot/grub2），那么就直接进行下一步。 如果不知道，那就ls每个分区，比如: ls (hd0,msdos2)/,如果正确就会显示里面到内容，直到找到grub  这里一个很关键的地方就是在硬盘位置后应该加入/
  set 直接输入的话， 可以看到root 和 prefix 的设置。这里需要把这两个选项改成我们已经找到的位置。  窝的设置如下
-grub rescue&amp;gt; set grub rescue&amp;gt; prefix=(hd0,msdos9)/boot/grub2 grub rescue&amp;gt; root=hd0,msdos9   insmod 载入模块。这里区别是窝这次记录的关键。 grub2和grub的一个很重要的区别就是模块的位置。grub2的模块位置在/boot/grub2/i386-pc/normal.mod 执行命令：  grub rescue&amp;gt;insmod (hd0,msdos9)/boot/grub2/i386-pc/normal.mod  执行成功之后，提示符会变成normal
- normal 进入正常模式，直接输入命令即可  grub rescue&amp;gt;normal  这个时候，就可以看到熟悉的引导界面了。
- grub2-install 进入系统后执行命令  $ sudo update-grub $ sudo grub2-install /dev/sda  如果不执行这样的命令的话，重启之后还会回到之前的界面orz</description>
+grub rescue&amp;gt; set grub rescue&amp;gt; prefix=(hd0,msdos9)/boot/grub2 grub rescue&amp;gt; root=hd0,msdos9   insmod 载入模块。这里区别是窝这次记录的关键。 grub2和grub的一个很重要的区别就是模块的位置。grub2的模块位置在/boot/grub2/i386-pc/normal.mod 执行命令：
+grub rescue&amp;gt;insmod (hd0,msdos9)/boot/grub2/i386-pc/normal.mod   执行成功之后，提示符会变成normal
+ normal 进入正常模式，直接输入命令即可
+grub rescue&amp;gt;normal   这个时候，就可以看到熟悉的引导界面了。
+ grub2-install 进入系统后执行命令
+$ sudo update-grub $ sudo grub2-install /dev/sda   如果不执行这样的命令的话，重启之后还会回到之前的界面orz</description>
     </item>
     
     <item>
@@ -886,13 +908,16 @@ python upyun-for-pelican.py  程序在 Python 2.7 环境下测试通过。
       
       <guid>https://moelove.info/2013/12/21/fedora-18-Kernel-driver-not-installed-rc-1908%E5%A4%84%E7%90%86%E5%8A%9E%E6%B3%95/</guid>
       <description>fedora 18 升级内核之后 使用VirtualBox 可以正常打开软件,但是不能启动虚拟机系统.提示信息如下: Kernel driver not installed (rc=-1908)  经过一系列的看文档还有google 之后,很多地方写着这个问题的处理方法是
- 第一种  sudo /etc/init.d/vboxdrv setup   经过实验,对feora 18 不可行
+ 第一种
+sudo /etc/init.d/vboxdrv setup   经过实验,对feora 18 不可行
  第二种
 sudo apt-get install dkms sudo /etc/init.d/vboxdrv setup  但是情况继续
  第三种
-sudo aptitude update sudo aptitude install dkms sudo /etc/init.d/vboxdrv setup   最后正确的解决方法应该是酱紫的  先看看系统的内核  uname -r  找对应的包
+sudo aptitude update sudo aptitude install dkms sudo /etc/init.d/vboxdrv setup   最后正确的解决方法应该是酱紫的  先看看系统的内核
+uname -r  找对应的包
 sudo yum search kmod-VirtualBox  然后安装和你系统内核对应的包
-sudo yum install kmod-VirtualBox-XXXX  运行</description>
+sudo yum install kmod-VirtualBox-XXXX  运行
+/etc/sysconfig/modules/VirtualBox.modules   一切OK了</description>
     </item>
     
     <item>
@@ -937,10 +962,9 @@ rake aborted! Could not find a JavaScript runtime.</description>
       <guid>https://moelove.info/2013/08/30/fedora%E4%B8%8B%E5%AE%89%E8%A3%85sublime-text-2%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
       <description>首先去官网下载最新的压缩包  把文件解压到$HOME/.sublime_text_2文件夹中：
 tar -xf (sublime压缩包的文件名).tar.bz2 sudo mv (解压后的文件夹) tools/Sublime_Text_2  在/usr/bin目录下面创建一个链接
-vim sublime  在文件中写入这些代码： ``` #!/bin/bash export SUBLIME_HOME=&amp;rdquo;~/tools/Sublime_Text_2&amp;rdquo;
-  $SUBLIME_HOME/sublime_text $*
-修改文件权限并且移动  chmod 555 sublime &amp;amp;&amp;amp; mv sublime /usr/bin/sublime ```
-这样就可以在终端中直接执行sublime了</description>
+vim sublime  在文件中写入这些代码：
+#!/bin/bash export SUBLIME_HOME=&amp;quot;~/tools/Sublime_Text_2&amp;quot; $SUBLIME_HOME/sublime_text $*   修改文件权限并且移动
+chmod 555 sublime &amp;amp;&amp;amp; mv sublime /usr/bin/sublime  这样就可以在终端中直接执行sublime了</description>
     </item>
     
     <item>
@@ -1014,10 +1038,10 @@ cat /tmp/test1 /tmp/test2 /tmp/test3 | less</description>
       <pubDate>Sat, 09 Mar 2013 21:21:14 +0000</pubDate>
       
       <guid>https://moelove.info/2013/03/09/fedora%E5%AE%89%E8%A3%85%E5%90%8E%E6%9C%80%E5%88%9D%E7%9A%84%E4%BA%8B%E6%83%85/</guid>
-      <description> 更新源 sudo yum localinstall --nogpgcheck http://mirrors.163.com/rpmfusion/free/fedora/rpmfusion-free-release-stable.noarch.rpm http://mirrors.163.com/rpmfusion/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm (这个是添加国内的软件源) sudo yum update  网络相关 firefox sudo yum install firefox  chrome / chromium 我本人比较习惯用chrome的 不过最近网络不是很稳定 先补充chromium 的安装方法吧
+      <description>更新源 sudo yum localinstall --nogpgcheck http://mirrors.163.com/rpmfusion/free/fedora/rpmfusion-free-release-stable.noarch.rpm http://mirrors.163.com/rpmfusion/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm (这个是添加国内的软件源) sudo yum update  网络相关 firefox sudo yum install firefox  chrome / chromium 我本人比较习惯用chrome的 不过最近网络不是很稳定 先补充chromium 的安装方法吧
  chromium的安装 首先添加chromium的fedora源,将下载好的 .repo 文件移动到/etc/yum.repos.d/下， 执行
 sudo yum install chromium  chrome的安装 从官网上下载chrome 的rpm包，或者从我的网盘下载对应的32位 或 64位 的rpm 包 执行
-sudo rpm -ivh google-chrome.rpm   安装证书 sudo yum localinstall --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-branched.noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-branched.noarch.rpm  压缩/解压软件 sudo yum install unrar sudo yum install p7zip  影音播放 sudo yum install gstreamer-plugins-good gstreamer-plugins-bad gstreamer-plugins-ugly libtunepimp-extras-freeworld xine-lib-extras-freeworld(安装音频解码器) sudo yum install ffmpeg ffmpeg-libs gstreamer-ffmpeg libmatroska xvidcore(安装视频解码器)  编辑器  vim  sudo yum install vim  Sublime Text 我也很喜欢因为运行速度快，而且免费。安装方法可以参考我的fedora下安装sublime text 2这篇文章。  </description>
+sudo rpm -ivh google-chrome.rpm   安装证书 sudo yum localinstall --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-branched.noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-branched.noarch.rpm  压缩/解压软件 sudo yum install unrar sudo yum install p7zip  影音播放 sudo yum install gstreamer-plugins-good gstreamer-plugins-bad gstreamer-plugins-ugly libtunepimp-extras-freeworld xine-lib-extras-freeworld(安装音频解码器) sudo yum install ffmpeg ffmpeg-libs gstreamer-ffmpeg libmatroska xvidcore(安装视频解码器)  编辑器  vim</description>
     </item>
     
   </channel>

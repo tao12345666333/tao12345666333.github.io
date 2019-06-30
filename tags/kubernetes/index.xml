@@ -6,10 +6,27 @@
     <description>Recent content in Kubernetes on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sat, 22 Jun 2019 23:23:17 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 30 Jun 2019 23:12:13 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8S 生态周报| 2019-06-24~2019-06-30</title>
+      <link>https://moelove.info/2019/06/30/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-24~2019-06-30/</link>
+      <pubDate>Sun, 30 Jun 2019 23:12:13 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/06/30/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-24~2019-06-30/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ kind (Kubernetes In Docker) v0.4.0 正式发布 kind (Kubernetes In Docker) 是我很喜欢并且一直持续参与贡献的项目，本周发布了 v0.4.0 版本。关于 Kind 的介绍和基础使用，可以参考我之前写的文章 《使用 Kind 搭建你的本地 Kubernetes 集群》
+v0.4.0 版本中，默认的 Kubernetes 版本升级到了 v1.15 版本，且 kind.sigs.k8s.io/v1alpha2 版本的 API 已经过期，请更新使用 kind.sigs.k8s.io/v1alpha3 。
+目前暂时移除了使用 apt 构建 Node 镜像的选项，之后版本中可能会加回来，直接使用上游构建好的二进制文件进行安装。
+在此版本中，我们增加了一个 nodes[].extraPortMappings 的配置，可以直接通过此配置进行端口的转发，以便从宿主机上直接访问到集群上使用 NodePort 方式部署的服务，这样更容易模拟真实的网络环境，否则只能通过其他的转发或者网络代理的方式来进行通信了。
+同样的，紧跟着上游的开放，这个版本中也增加了对 IPv6 的支持，可以直接通过 networking.ipFamily 的配置进行使用。
+为了能让 kind 更加易用，且满足多数 CI 或者测试使用的场景，在这个版本中，我们尤其对单节点集群的启动时间做了优化，可以更快速的启动集群。
+顺便公布一个数据，kind 目前的 star 数是 2.2k 上个版本发布时是 1.8k 并且还在持续增长中 :)
+更多的细节和信息请参考 ReleaseNote 欢迎大家使用！</description>
+    </item>
     
     <item>
       <title>K8S 生态周报| 2019-06-17~2019-06-23</title>

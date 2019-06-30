@@ -21,7 +21,8 @@
  当前最新的 CentOS 7.3 默认安装的是 Python 2 ，并且默认的官方 yum 源中不提供 Python 3 的安装包。有些用户想要升级使用 Python 3 但实际可能有各种各样的问题，导致出错，反观一下激进的 Fedora 社区，在23的时候，就将默认的版本修改成了 Python3 （如果我没记错的话）。
 先说下我所使用的系统环境， 一个新创建的 Docker 容器。 使用 cat /etc/redhat-release 可以看到运行的是 CentOS 7.3 版本。
 在纯净的 CentOS 系统上安装 Python 环境主要有两种办法。 一种是通过源码编译安装，另外一种就是安装已经打好的 RPM 包。依照个人习惯，我们先来看一下如何通过源码编译的方式安装 Python 3.6 并且配置虚拟环境。
-使用源码进行编译安装 基础环境  先安装安装几个必须的包，以方便后续的操作  ➜ yum install wget gcc make ➜ # wget 用于下载源码包 ➜ # gcc 和 make 用于编译   上 Python的官网 下载源码包  ➜ wget https://www.</description>
+使用源码进行编译安装 基础环境  先安装安装几个必须的包，以方便后续的操作
+➜ yum install wget gcc make ➜ # wget 用于下载源码包 ➜ # gcc 和 make 用于编译    上 Python的官网 下载源码包</description>
     </item>
     
     <item>

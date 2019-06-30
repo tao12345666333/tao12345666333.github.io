@@ -37,7 +37,7 @@
 <meta name="google-site-verification" content="googlefe3fc086c62f7210.html" />
 
 
-<meta name="generator" content="Hugo 0.46" />
+<meta name="generator" content="Hugo 0.37.1" />
 
 
 <link rel="canonical" href="https://moelove.info/2015/10/26/%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%A7%BF%E5%8A%BF%E5%BC%80%E6%BA%90Python%E9%A1%B9%E7%9B%AE/" />
@@ -93,7 +93,7 @@
 
 <meta itemprop="datePublished" content="2015-10-26T22:17:36&#43;00:00" />
 <meta itemprop="dateModified" content="2015-10-26T22:17:36&#43;00:00" />
-<meta itemprop="wordCount" content="484">
+<meta itemprop="wordCount" content="485">
 
 
 
@@ -292,20 +292,21 @@
 <li><p>安装</p>
 
 <pre><code class="language-Bash">$ pip install sphinx
-</code></pre></li>
+</code></pre>
 
-<li><p>初始化</p>
-
-<pre><code class="language-Bash">$ cd docs
+<ul>
+<li>初始化
+<code>Bash
+$ cd docs
 $ sphinx-quickstart
 ...#(这里有一系列的提问，进行初始化)
-</code></pre></li>
+</code></li>
+</ul></li>
 
 <li><p>编译</p>
 
 <pre><code class="language-Bash">$ make html #(如果按照默认配置生成的Makefile的话，这样就可以编译出html了)
-</code></pre></li>
-</ul>
+</code></pre>
 
 <p>Sphinx的使用还有很多值得说的地方，推荐两个资料：</p>
 
@@ -327,7 +328,8 @@ $ sphinx-quickstart
 <p><a href="https://travis-ci.org/"><code>Travisci</code></a>可以与Github非常好的结合，可以手动导入<code>repo</code>，并设置<code>Webhooks &amp; services</code>,在每次提交的时候都会测试运行来发现是否存在异常。在使用之前，我们需要先做一些初始化的操作：</p>
 
 <ul>
-<li><p>创建<code>.travis.yml</code>文件</p>
+<li>创建<code>.travis.yml</code>文件</li>
+</ul>
 
 <p>我们需要告诉它一些基本的信息：</p>
 
@@ -365,8 +367,7 @@ script:
 after_success:
     coveralls
 ```
-</code></pre></li>
-</ul>
+</code></pre>
 
 <p>PS： 在<code>install</code>这一项配置中要注意，如果项目存在依赖，一定要进行安装，还有<code>Travisci</code>提供了多项配置，包括出错重试等，具体配置可以参考<a href="http://docs.travis-ci.com/">官方文档</a>，要特别注意<code>travis_retry</code>等命令的使用，非常容易出现坑。</p>
 
@@ -389,7 +390,8 @@ httpmultipart/__init__.py      10      0      0      0   100%
 httpmultipart/main.py          37      0      4      0   100%
 -------------------------------------------------------------
 TOTAL                          47      0      4      0   100%
-</code></pre>
+</code></pre></li>
+</ul>
 
 <h2 id="coveralls-测试覆盖率检查">Coveralls 测试覆盖率检查</h2>
 

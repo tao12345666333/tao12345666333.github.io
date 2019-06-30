@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>K8S 生态周报| 2019-06-24~2019-06-30 - MoeLove</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1876963677156202",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+<meta name="author" content="TaoBeier" />
+  <meta name="description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ kind (Kubernetes In Docker) v0.4.0 正式发布 kind (Kubernetes In Docker) 是我很喜欢并且一直持续参与贡献的项目，本周发布了 v0.4.0 版本。关于 Kind 的介绍和基础使用，可以参考我之前写的文章 《使用 Kind 搭建你的本地 Kubernetes 集群》
+v0.4.0 版本中，默认的 Kubernetes 版本升级到了 v1.15 版本，且 kind.sigs.k8s.io/v1alpha2 版本的 API 已经过期，请更新使用 kind.sigs.k8s.io/v1alpha3 。
+目前暂时移除了使用 apt 构建 Node 镜像的选项，之后版本中可能会加回来，直接使用上游构建好的二进制文件进行安装。
+在此版本中，我们增加了一个 nodes[].extraPortMappings 的配置，可以直接通过此配置进行端口的转发，以便从宿主机上直接访问到集群上使用 NodePort 方式部署的服务，这样更容易模拟真实的网络环境，否则只能通过其他的转发或者网络代理的方式来进行通信了。
+同样的，紧跟着上游的开放，这个版本中也增加了对 IPv6 的支持，可以直接通过 networking.ipFamily 的配置进行使用。
+为了能让 kind 更加易用，且满足多数 CI 或者测试使用的场景，在这个版本中，我们尤其对单节点集群的启动时间做了优化，可以更快速的启动集群。
+顺便公布一个数据，kind 目前的 star 数是 2.2k 上个版本发布时是 1.8k 并且还在持续增长中 :)
+更多的细节和信息请参考 ReleaseNote 欢迎大家使用！" />
+
+  <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes, Golang, Python, Container, Vim, 容器, k8s" />
+
+
+<meta name="baidu-site-verification" content="jO2rMlnjJi" />
+<meta name="google-site-verification" content="googlefe3fc086c62f7210.html" />
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://moelove.info/2019/06/30/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-24~2019-06-30/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="K8S 生态周报| 2019-06-24~2019-06-30" />
+<meta property="og:description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ kind (Kubernetes In Docker) v0.4.0 正式发布 kind (Kubernetes In Docker) 是我很喜欢并且一直持续参与贡献的项目，本周发布了 v0.4.0 版本。关于 Kind 的介绍和基础使用，可以参考我之前写的文章 《使用 Kind 搭建你的本地 Kubernetes 集群》
+v0.4.0 版本中，默认的 Kubernetes 版本升级到了 v1.15 版本，且 kind.sigs.k8s.io/v1alpha2 版本的 API 已经过期，请更新使用 kind.sigs.k8s.io/v1alpha3 。
+目前暂时移除了使用 apt 构建 Node 镜像的选项，之后版本中可能会加回来，直接使用上游构建好的二进制文件进行安装。
+在此版本中，我们增加了一个 nodes[].extraPortMappings 的配置，可以直接通过此配置进行端口的转发，以便从宿主机上直接访问到集群上使用 NodePort 方式部署的服务，这样更容易模拟真实的网络环境，否则只能通过其他的转发或者网络代理的方式来进行通信了。
+同样的，紧跟着上游的开放，这个版本中也增加了对 IPv6 的支持，可以直接通过 networking.ipFamily 的配置进行使用。
+为了能让 kind 更加易用，且满足多数 CI 或者测试使用的场景，在这个版本中，我们尤其对单节点集群的启动时间做了优化，可以更快速的启动集群。
+顺便公布一个数据，kind 目前的 star 数是 2.2k 上个版本发布时是 1.8k 并且还在持续增长中 :)
+更多的细节和信息请参考 ReleaseNote 欢迎大家使用！" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://moelove.info/2019/06/30/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-24~2019-06-30/" />
+
+
+
+<meta property="article:published_time" content="2019-06-30T23:12:13&#43;08:00"/>
+
+<meta property="article:modified_time" content="2019-06-30T23:12:13&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="K8S 生态周报| 2019-06-24~2019-06-30">
+<meta itemprop="description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ kind (Kubernetes In Docker) v0.4.0 正式发布 kind (Kubernetes In Docker) 是我很喜欢并且一直持续参与贡献的项目，本周发布了 v0.4.0 版本。关于 Kind 的介绍和基础使用，可以参考我之前写的文章 《使用 Kind 搭建你的本地 Kubernetes 集群》
+v0.4.0 版本中，默认的 Kubernetes 版本升级到了 v1.15 版本，且 kind.sigs.k8s.io/v1alpha2 版本的 API 已经过期，请更新使用 kind.sigs.k8s.io/v1alpha3 。
+目前暂时移除了使用 apt 构建 Node 镜像的选项，之后版本中可能会加回来，直接使用上游构建好的二进制文件进行安装。
+在此版本中，我们增加了一个 nodes[].extraPortMappings 的配置，可以直接通过此配置进行端口的转发，以便从宿主机上直接访问到集群上使用 NodePort 方式部署的服务，这样更容易模拟真实的网络环境，否则只能通过其他的转发或者网络代理的方式来进行通信了。
+同样的，紧跟着上游的开放，这个版本中也增加了对 IPv6 的支持，可以直接通过 networking.ipFamily 的配置进行使用。
+为了能让 kind 更加易用，且满足多数 CI 或者测试使用的场景，在这个版本中，我们尤其对单节点集群的启动时间做了优化，可以更快速的启动集群。
+顺便公布一个数据，kind 目前的 star 数是 2.2k 上个版本发布时是 1.8k 并且还在持续增长中 :)
+更多的细节和信息请参考 ReleaseNote 欢迎大家使用！">
+
+
+<meta itemprop="datePublished" content="2019-06-30T23:12:13&#43;08:00" />
+<meta itemprop="dateModified" content="2019-06-30T23:12:13&#43;08:00" />
+<meta itemprop="wordCount" content="161">
+
+
+
+<meta itemprop="keywords" content="Linux,Weekly,Kubernetes," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="K8S 生态周报| 2019-06-24~2019-06-30"/>
+<meta name="twitter:description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ kind (Kubernetes In Docker) v0.4.0 正式发布 kind (Kubernetes In Docker) 是我很喜欢并且一直持续参与贡献的项目，本周发布了 v0.4.0 版本。关于 Kind 的介绍和基础使用，可以参考我之前写的文章 《使用 Kind 搭建你的本地 Kubernetes 集群》
+v0.4.0 版本中，默认的 Kubernetes 版本升级到了 v1.15 版本，且 kind.sigs.k8s.io/v1alpha2 版本的 API 已经过期，请更新使用 kind.sigs.k8s.io/v1alpha3 。
+目前暂时移除了使用 apt 构建 Node 镜像的选项，之后版本中可能会加回来，直接使用上游构建好的二进制文件进行安装。
+在此版本中，我们增加了一个 nodes[].extraPortMappings 的配置，可以直接通过此配置进行端口的转发，以便从宿主机上直接访问到集群上使用 NodePort 方式部署的服务，这样更容易模拟真实的网络环境，否则只能通过其他的转发或者网络代理的方式来进行通信了。
+同样的，紧跟着上游的开放，这个版本中也增加了对 IPv6 的支持，可以直接通过 networking.ipFamily 的配置进行使用。
+为了能让 kind 更加易用，且满足多数 CI 或者测试使用的场景，在这个版本中，我们尤其对单节点集群的启动时间做了优化，可以更快速的启动集群。
+顺便公布一个数据，kind 目前的 star 数是 2.2k 上个版本发布时是 1.8k 并且还在持续增长中 :)
+更多的细节和信息请参考 ReleaseNote 欢迎大家使用！"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">MoeLove</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/friends/">
+        <li class="mobile-menu-item">Friends</li>
+      </a><a href="/projects/">
+        <li class="mobile-menu-item">Projects</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">MoeLove</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/friends/">Friends</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/projects/">Projects</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">K8S 生态周报| 2019-06-24~2019-06-30</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-06-30 </span>
+        
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#kind-kubernetes-in-docker-v0-4-0-正式发布">kind (Kubernetes In Docker) v0.4.0 正式发布</a></li>
+<li><a href="#docker-ce-18-09-7-发布">Docker CE 18.09.7 发布</a></li>
+<li><a href="#linkerd2-edge-19-6-4-发布">Linkerd2 Edge 19.6.4 发布</a></li>
+<li><a href="#istio-1-2-2-发布">Istio 1.2.2 发布</a></li>
+<li><a href="#coredns-1-5-1-正式发布">CoreDNS 1.5.1 正式发布</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<blockquote>
+<p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏<a href="https://zhuanlan.zhihu.com/container">「k8s生态」</a>。</p>
+</blockquote>
+
+<h2 id="kind-kubernetes-in-docker-v0-4-0-正式发布">kind (Kubernetes In Docker) v0.4.0 正式发布</h2>
+
+<p>kind (Kubernetes In Docker) 是我很喜欢并且一直持续参与贡献的项目，本周发布了 v0.4.0 版本。关于 Kind 的介绍和基础使用，可以参考我之前写的文章 <a href="https://zhuanlan.zhihu.com/p/60464867">《使用 Kind 搭建你的本地 Kubernetes 集群》</a></p>
+
+<p>v0.4.0 版本中，默认的 Kubernetes 版本升级到了 v1.15 版本，且 <code>kind.sigs.k8s.io/v1alpha2</code> 版本的 API 已经过期，请更新使用 <code>kind.sigs.k8s.io/v1alpha3</code> 。</p>
+
+<p>目前暂时移除了使用 <code>apt</code> 构建 Node 镜像的选项，之后版本中可能会加回来，直接使用上游构建好的二进制文件进行安装。</p>
+
+<p>在此版本中，我们增加了一个 <code>nodes[].extraPortMappings</code> 的配置，可以直接通过此配置进行端口的转发，以便从宿主机上直接访问到集群上使用 <code>NodePort</code> 方式部署的服务，这样更容易模拟真实的网络环境，否则只能通过其他的转发或者网络代理的方式来进行通信了。</p>
+
+<p>同样的，紧跟着上游的开放，这个版本中也增加了对 IPv6 的支持，可以直接通过 <code>networking.ipFamily</code> 的配置进行使用。</p>
+
+<p>为了能让 kind 更加易用，且满足多数 CI 或者测试使用的场景，在这个版本中，我们尤其对单节点集群的启动时间做了优化，可以更快速的启动集群。</p>
+
+<p>顺便公布一个数据，kind 目前的 star 数是 2.2k 上个版本发布时是 1.8k 并且还在持续增长中 :)</p>
+
+<p>更多的细节和信息请参考 <a href="https://github.com/kubernetes-sigs/kind/releases/tag/v0.4.0">ReleaseNote</a> 欢迎大家使用！</p>
+
+<h2 id="docker-ce-18-09-7-发布">Docker CE 18.09.7 发布</h2>
+
+<p>这是一个例行的 bugfix 版本，此版本中包含两个比较重要的修复：</p>
+
+<ul>
+<li>修复了构建系统在构建只含有注释的 Dockerfile 的时候的 panic</li>
+<li>修复了 CVE-2018-15664 漏洞，关于此漏洞的说明请参考<a href="https://zhuanlan.zhihu.com/p/67674642">我之前的文章</a></li>
+</ul>
+
+<p>关于此版本的更多信息，请参考 <a href="https://github.com/docker/docker-ce/releases/tag/v18.09.7">ReleaseNote</a></p>
+
+<h2 id="linkerd2-edge-19-6-4-发布">Linkerd2 Edge 19.6.4 发布</h2>
+
+<p>Linkerd2 有两个主要发布通道，除去 Stable 外便是 Edge 通道。Edge 版本主要集中在新功能发布上，发布其实比较频繁的。</p>
+
+<p>在这个版本中最主要的特性在于支持了 <a href="https://github.com/deislabs/smi-spec/blob/master/traffic-split.md">SMI 的 流量切割 API</a>。</p>
+
+<p>当创建了 TrafficSplit 资源后，Linkerd 便可根据配置对流量进行切割。</p>
+
+<p>先暂且不说这个功能到底如何，只说 Linkerd 支持 SMI 这个事情，就已经是在往好的方面走了，这很有利于 SMI 的标准化推进。</p>
+
+<p>关于此版本的更多信息，请参考 <a href="https://github.com/linkerd/linkerd2/releases/tag/edge-19.6.4">ReleaseNote</a></p>
+
+<h2 id="istio-1-2-2-发布">Istio 1.2.2 发布</h2>
+
+<p>最近 Istio 发布很频繁，包括 1.0.9、1.1.10 和 1.2.1 都是在本周内发布的。</p>
+
+<p>其实主要内容都是 bugfix 但也有一些特性的增加，比如允许通过设置为 0 以禁止 Istio 默认的重试次数。</p>
+
+<p>这里不做太多展开了，关于此版本的更多信息，请参考 <a href="https://istio.io/about/notes/1.2.2/">ReleaseNote</a></p>
+
+<h2 id="coredns-1-5-1-正式发布">CoreDNS 1.5.1 正式发布</h2>
+
+<p>CoreDNS 发布了 1.5.1 版本，此版本中包含了不少的 bugfix，当然也有些特性增强。</p>
+
+<p>此版本增加了一个新的 <code>any</code> 插件，可以通过此插件禁止任意的查询。</p>
+
+<p>修复了重启时的问题，当重启或者配置文件不规范的时候， <code>ready</code> <code>health</code> 和 <code>prometheus</code> 插件等都将继续工作。</p>
+
+<p>需要注意的是，增加了对客户端 TLS 证书的验证，不过此版本中并没有更改默认行为，预期在 1.6 版本中，会将 TLS 的默认行为修改为 <code>required_and_verify</code> 。</p>
+
+<p>关于此版本的更多信息，请参考 <a href="https://coredns.io/2019/06/26/coredns-1.5.1-release/">ReleaseNote</a></p>
+
+<hr />
+
+<p>可以通过下面二维码订阅我的文章公众号【MoeLove】</p>
+
+<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/my_qrcode.jpg" alt="TheMoeLove" /></p>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">TaoBeier</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2019-06-30</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/wx_pay.jpg">
+        <span>微信打赏</span>
+      </label>
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/alipay.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/linux/">Linux</a>
+          
+          <a href="/tags/weekly/">Weekly</a>
+          
+          <a href="/tags/kubernetes/">Kubernetes</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/2019/06/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-17~2019-06-23/">
+            <span class="next-text nav-default">K8S 生态周报| 2019-06-17~2019-06-23</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
+    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    id: '2019-06-30 23:12:13 \x2b0800 CST',
+    title: 'K8S 生态周报| 2019-06-24~2019-06-30',
+    clientID: '68312db64e870efbd0a0',
+    clientSecret: 'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',
+    repo: 'tao12345666333.github.io',
+    owner: 'tao12345666333',
+    admin: ['tao12345666333'],
+    body: decodeURI(location.href)
+  });
+  gitalk.render('gitalk-container');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhangjintao9020@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/BeierTao" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/tao12345666333" class="iconfont icon-github" title="github"></a>
+      <a href="http://weibo.com/9020taobeier" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/TaoBeier" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="https://moelove.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2013 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">TaoBeier</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
