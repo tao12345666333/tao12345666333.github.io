@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2019-03-25T21:30:24&#43;08:00"/>
+<meta property="og:updated_time" content="2019-03-29T10:42:25&#43;08:00"/>
 
 
 
@@ -149,6 +149,38 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/03/29/runc-1.0-rc7-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/">runc 1.0-rc7 发布之际</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-03-29 </span>
+      <div class="post-category">
+          
+            <a href="/categories/linux/"> Linux </a>
+          
+        </div>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      在 18 年 11 月底时，我写了一篇文章 《runc 1.0-rc6 发布之际》 。如果你还不了解 runc 是什么，以及如何使用它，请参考我那篇文章。本文中，不再对其概念和用法等进行说明。
+在 runc 1.0-rc6 发布之时，给版本的别名为 &ldquo;For Real This Time&rdquo;，当时我们原定计划是发布 1.0 的，但是作为基础依赖软件，我们认为当时的版本还有几个问题：
+ 不够规范； 发布周期不明确;  为了给相关的 runtime 足够的时间进行修正/升级，以及规范版本生命周期等，最终决定了发布 runc 1.0-rc6。
+为何有 runc 1.0-rc7 存在 前面已经基本介绍了相关背景，并且也基本明确了 rc6 就是在 1.0 正式发布之前的最后一个版本，那 rc7 为什么会出现呢？
+CVE-2019-5736 我们首先要介绍今年 runc 的一个提权漏洞 CVE-2019-5736 。
+2019 年 2 月 11 日在oss-security 邮件组正式批露该漏洞，攻击者可以利用恶意容器覆盖主机上的 runc 文件，从而达到攻击的目的；（具体的攻击方式此处略过），注意不要轻易使用来源不可信的镜像创建容器便可有效避免被攻击的可能。
+简单补充下可能被攻击的方式：
+ 运行恶意的 Docker 镜像 在主机上执行 docker exec 进入容器内  关于容器安全或者容器的运行机制，其实涉及的点很多，我在去年的一次线上分享 《基于 GitLab 的 CI 实践》 有提到过 Linux Security Modules（LSM）等相关的内容，对容器安全感兴趣的朋友可以对 LSM 多了解下。
+    </div>
+    <div class="read-more">
+      <a href="/2019/03/29/runc-1.0-rc7-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -401,36 +433,6 @@ services: - name: docker:dind command: [&quot;--insecure-registry=myregistry:500
     </div>
     <div class="read-more">
       <a href="/2018/08/05/%E5%9F%BA%E4%BA%8E-GitLab-%E7%9A%84-CI-%E5%AE%9E%E8%B7%B5/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2017/06/30/Install-Python3.6-on-CentOS7/">Install-Python3.6-on-CentOS7</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2017-06-30 </span>
-      <div class="post-category">
-          
-            <a href="/categories/python/"> Python </a>
-          
-        </div>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      拖了很久没有更新，抱歉啦~ 今天受邀写篇如何在 CentOS 7 上配置 Python 3 环境的文章。往常我都选择直接把我早年写的一篇文章源码编译MongoDB丢过去，让他们看其中的源码编译 Python 那一节，不过那节写的其实不太详细，而且最近被很多人催，所以还是单独写一篇好了。
- 当前最新的 CentOS 7.3 默认安装的是 Python 2 ，并且默认的官方 yum 源中不提供 Python 3 的安装包。有些用户想要升级使用 Python 3 但实际可能有各种各样的问题，导致出错，反观一下激进的 Fedora 社区，在23的时候，就将默认的版本修改成了 Python3 （如果我没记错的话）。
-先说下我所使用的系统环境， 一个新创建的 Docker 容器。 使用 cat /etc/redhat-release 可以看到运行的是 CentOS 7.3 版本。
-在纯净的 CentOS 系统上安装 Python 环境主要有两种办法。 一种是通过源码编译安装，另外一种就是安装已经打好的 RPM 包。依照个人习惯，我们先来看一下如何通过源码编译的方式安装 Python 3.6 并且配置虚拟环境。
-使用源码进行编译安装 基础环境  先安装安装几个必须的包，以方便后续的操作
-➜ yum install wget gcc make ➜ # wget 用于下载源码包 ➜ # gcc 和 make 用于编译    上 Python的官网 下载源码包
-    </div>
-    <div class="read-more">
-      <a href="/2017/06/30/Install-Python3.6-on-CentOS7/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
