@@ -111,7 +111,7 @@ Debian 10 buster 正式发布 Debian 10 正式发布了，其实按一般的角�
 
 <meta itemprop="datePublished" content="2019-07-07T23:20:10&#43;08:00" />
 <meta itemprop="dateModified" content="2019-07-07T23:20:10&#43;08:00" />
-<meta itemprop="wordCount" content="111">
+<meta itemprop="wordCount" content="455">
 
 
 
@@ -217,6 +217,7 @@ Debian 10 buster 正式发布 Debian 10 正式发布了，其实按一般的角�
 <li><a href="#kubernetes-v1-16-发布周期开始">Kubernetes v1.16 发布周期开始</a></li>
 <li><a href="#knative-serving-v0-7-x-发布">Knative Serving v0.7.x 发布</a></li>
 <li><a href="#debian-10-buster-正式发布">Debian 10 buster 正式发布</a></li>
+<li><a href="#nginx-ingress-controller-1-5-1-发布">NGINX Ingress Controller 1.5.1 发布</a></li>
 <li><a href="#kubernetes-上游进展">Kubernetes 上游进展</a></li>
 </ul></li>
 </ul>
@@ -262,6 +263,211 @@ Debian 10 buster 正式发布 Debian 10 正式发布了，其实按一般的角�
 <p>这个版本的 systemd 可能会破坏 LXD 容器的网络，表现在可能无法生成 MAC 地址上。（我猜测现在关注 LXD 的用户没有那么多了，这里我也就不过多解释了。）当然这个问题同样也可能会出现在使用 Docker/runc/cri-o 等容器运行时的场景中。</p>
 
 <p>最后，还是庆祝一下 Debian 10 的正式发布，此版本内核也已经升级到了 4.19 。并且这个版本也有很多的改善和升级。具体内容可参考其 <a href="https://www.debian.org/releases/buster/">ReleaseNote</a></p>
+
+<h2 id="nginx-ingress-controller-1-5-1-发布">NGINX Ingress Controller 1.5.1 发布</h2>
+
+<p>NGINX Ingress Controller 是由 NGINX 社区开发的 Ingress Controller 相比于 Kubernetes 的 Nginx Ingress Controller 而言主要区别如下：</p>
+
+<table>
+<thead>
+<tr>
+<th>Aspect or Feature</th>
+<th>kubernetes/ingress-nginx</th>
+<th>nginxinc/kubernetes-ingress with NGINX</th>
+<th>nginxinc/kubernetes-ingress with NGINX Plus</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><strong>Fundamental</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>Authors</td>
+<td>Kubernetes community</td>
+<td>NGINX Inc and community</td>
+<td>NGINX Inc and community</td>
+</tr>
+
+<tr>
+<td>NGINX version</td>
+<td><a href="https://github.com/kubernetes/ingress-nginx/tree/master/images/nginx">Custom</a> NGINX build that includes several third-party modules</td>
+<td>NGINX official mainline <a href="https://github.com/nginxinc/docker-nginx">build</a></td>
+<td>NGINX Plus</td>
+</tr>
+
+<tr>
+<td>Commercial support</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>Included</td>
+</tr>
+
+<tr>
+<td><strong>Load balancing configuration via the Ingress resource</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>Merging Ingress rules with the same host</td>
+<td>Supported</td>
+<td>Supported via <a href="../examples/mergeable-ingress-types">Mergeable Ingresses</a></td>
+<td>Supported via <a href="../examples/mergeable-ingress-types">Mergeable Ingresses</a></td>
+</tr>
+
+<tr>
+<td>HTTP load balancing extensions - Annotations</td>
+<td>See the <a href="https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/nginx-configuration/annotations.md">supported annotations</a></td>
+<td>See the <a href="configmap-and-annotations.md">supported annotations</a></td>
+<td>See the <a href="configmap-and-annotations.md">supported annotations</a></td>
+</tr>
+
+<tr>
+<td>HTTP load balancing extensions &ndash; ConfigMap</td>
+<td>See the <a href="https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/nginx-configuration/configmap.md">supported ConfigMap keys</a></td>
+<td>See the <a href="configmap-and-annotations.md">supported ConfigMap keys</a></td>
+<td>See the <a href="configmap-and-annotations.md">supported ConfigMap keys</a></td>
+</tr>
+
+<tr>
+<td>TCP/UDP</td>
+<td>Supported via a ConfigMap</td>
+<td>Supported via a ConfigMap with native NGINX configuration</td>
+<td>Supported via a ConfigMap with native NGINX configuration</td>
+</tr>
+
+<tr>
+<td>Websocket</td>
+<td>Supported</td>
+<td>Supported via an <a href="../examples/websocket">annotation</a></td>
+<td>Supported via an <a href="../examples/websocket">annotation</a></td>
+</tr>
+
+<tr>
+<td>TCP SSL Passthrough</td>
+<td>Supported via a ConfigMap</td>
+<td>Not supported</td>
+<td>Not supported</td>
+</tr>
+
+<tr>
+<td>JWT validation</td>
+<td>Not supported</td>
+<td>Not supported</td>
+<td>Supported</td>
+</tr>
+
+<tr>
+<td>Session persistence</td>
+<td>Supported via a third-party module</td>
+<td>Not supported</td>
+<td>Supported</td>
+</tr>
+
+<tr>
+<td>Canary testing (by header, cookie, weight)</td>
+<td>Supported via annotations</td>
+<td>Supported via custom resources</td>
+<td>Supported via custom resources</td>
+</tr>
+
+<tr>
+<td>Configuration templates *1</td>
+<td>See the <a href="https://github.com/kubernetes/ingress-nginx/blob/master/rootfs/etc/nginx/template/nginx.tmpl">template</a></td>
+<td>See the <a href="../internal/configs/version1">templates</a></td>
+<td>See the <a href="../internal/configs/version1">templates</a></td>
+</tr>
+
+<tr>
+<td><strong>Load balancing configuration via Custom Resources</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>HTTP load balancing</td>
+<td>Not supported</td>
+<td>See <a href="virtualserver-and-virtualserverroute.md">VirtualServer and VirtualServerRoute</a> resources.</td>
+<td>See <a href="virtualserver-and-virtualserverroute.md">VirtualServer and VirtualServerRoute</a> resources.</td>
+</tr>
+
+<tr>
+<td><strong>Deployment</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>Command-line arguments *2</td>
+<td>See the <a href="https://github.com/kubernetes/ingress-nginx/blob/master/docs/user-guide/cli-arguments.md">arguments</a></td>
+<td>See the <a href="cli-arguments.md">arguments</a></td>
+<td>See the <a href="cli-arguments.md">arguments</a></td>
+</tr>
+
+<tr>
+<td>TLS certificate and key for the default server</td>
+<td>Required as a command-line argument/ auto-generated</td>
+<td>Required as a command-line argument</td>
+<td>Required as a command-line argument</td>
+</tr>
+
+<tr>
+<td>Helm chart</td>
+<td>Supported</td>
+<td>Supported</td>
+<td>Supported</td>
+</tr>
+
+<tr>
+<td><strong>Operational</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>Reporting the IP address(es) of the Ingress controller into Ingress resources</td>
+<td>Supported</td>
+<td>Supported</td>
+<td>Supported</td>
+</tr>
+
+<tr>
+<td>Extended Status</td>
+<td>Supported via a third-party module</td>
+<td>Not supported</td>
+<td>Supported</td>
+</tr>
+
+<tr>
+<td>Prometheus Integration</td>
+<td>Supported</td>
+<td>Supported</td>
+<td>Supported</td>
+</tr>
+
+<tr>
+<td>Dynamic reconfiguration of endpoints (no configuration reloading)</td>
+<td>Supported with a third-party Lua module</td>
+<td>Not supported</td>
+<td>Supported</td>
+</tr>
+</tbody>
+</table>
+
+<p><em>内容来源：<a href="https://github.com/nginxinc/kubernetes-ingress/blob/master/docs/nginx-ingress-controllers.md">NGINX Ingress Controller 文档</a></em></p>
+
+<p>本次发布的 1.5.1 将 NGINX 版本更新到了 1.17.1 ，升级时可直接使用 <code>nginx/nginx-ingress:1.5.1</code> 或 <code>nginx/nginx-ingress:1.5.1-alpine</code> 也可直接使用 0.3.1 的 Helm Chart</p>
+
+<p>更多信息请参考 <a href="https://github.com/nginxinc/kubernetes-ingress/releases/tag/v1.5.1">ReleaseNote</a></p>
 
 <h2 id="kubernetes-上游进展">Kubernetes 上游进展</h2>
 
