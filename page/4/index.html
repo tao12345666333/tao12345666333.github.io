@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2017-06-30T00:13:16&#43;00:00"/>
+<meta property="og:updated_time" content="2018-08-05T14:54:59&#43;08:00"/>
 
 
 
@@ -149,6 +149,33 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2018/08/05/%E5%9F%BA%E4%BA%8E-GitLab-%E7%9A%84-CI-%E5%AE%9E%E8%B7%B5/">基于 GitLab 的 CI 实践</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-08-05 </span>
+      <div class="post-category">
+          
+            <a href="/categories/linux/"> Linux </a>
+          
+        </div>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      上个月受 DockOne 社区邀请，做了一次 CI 实践方面的线上分享，在此记录下。 本文讲述 GitLab CI 的架构及其能力特性，分析它在 DevOps 实践中的作用。 通过分析 Docker In Docker 的技术细节，详细讲述 CI 实践以及在生产环境中的所做的优化，包括但不限于镜像仓库等，以达到数倍的性能提升。 本次分享内容以 GitLab Community Edition 11.0.4 edb037c 为例。
+ 为何选择 GitLab CI 认识 GitLab CI 什么是 GitLab CI GitLab CI 是 GitLab 为了提升其在软件开发工程中作用，完善 DevOPS 理念所加入的 CI/CD 基础功能。可以便捷的融入软件开发环节中。通过 GitLab CI 可以定义完善的 CI/CD Pipeline。
+优势  GitLab CI 是默认包含在 GitLab 中的，我们的代码使用 GitLab 进行托管，这样可以很容易的进行集成 GitLab CI 的前端界面比较美观，容易被人接受 包含实时构建日志，容易追踪 采用 C/S 的架构，可方面的进行横向扩展，性能上不会有影响 使用 YAML 进行配置，任何人都可以很方便的使用。  重点概念 Pipeline Pipeline 相当于一个构建任务，里面可以包含多个流程，如依赖安装、编译、测试、部署等。 任何提交或者 Merge Request 的合并都可以触发 Pipeline
+    </div>
+    <div class="read-more">
+      <a href="/2018/08/05/%E5%9F%BA%E4%BA%8E-GitLab-%E7%9A%84-CI-%E5%AE%9E%E8%B7%B5/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -430,32 +457,6 @@ wget http://tenet.dl.sourceforge.net/project/ctags/ctags/5.8/ctags-5.8.tar.gz &a
     </div>
     <div class="read-more">
       <a href="/2016/09/16/%E5%88%A9%E5%99%A8%E7%B3%BB%E5%88%97-%E6%9B%B4%E9%AB%98%E6%95%88%E7%9A%84Vim/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2016/05/14/Python%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E5%B7%A5%E5%85%B7%E7%AF%87/">Python性能优化之工具篇</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2016-05-14 </span>
-      <div class="post-category">
-          
-            <a href="/categories/python/"> Python </a>
-          
-        </div>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      之前对公司的一个后端项目做了些性能优化, 学到一些值得记录的东西, 这篇主要是介绍在做性能分析时所用到的工具, 至于如何优化基本就是智者见智吧, 如果有时间可能会写的.
- Python web应用程序的常见性能指标 此处忽略外部DNS解析等方面的性能   响应时间 错误率 吞吐率 执行时间 内存占用  Python 性能分析工具 ##TODO
-    </div>
-    <div class="read-more">
-      <a href="/2016/05/14/Python%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E5%B7%A5%E5%85%B7%E7%AF%87/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

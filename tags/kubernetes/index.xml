@@ -6,10 +6,26 @@
     <description>Recent content in Kubernetes on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 07 Jul 2019 23:20:10 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 15 Jul 2019 05:44:22 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8S 生态周报| 2019-07-08~2019-07-14</title>
+      <link>https://moelove.info/2019/07/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-08~2019-07-14/</link>
+      <pubDate>Mon, 15 Jul 2019 05:44:22 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/07/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-08~2019-07-14/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 本周为什么发布时间比往常迟呢？因为我在忙结婚呀。
+ CoreDNS v1.5.2 发布 这是 CoreDNS 在 1.5.x 版本中发布的第二个小版本，关于 1.5.1 版本的说明可参考上上周的文章。
+在此版本中，一个重要的变更便是移除掉了 upstream 插件相关的所有文档和说明。比如，Kubernetes 1.14 版本中默认的 CoreDNS 的配置文件的内容如下：
+.:53 { errors health kubernetes cluster.local in-addr.arpa ip6.arpa { pods insecure upstream fallthrough in-addr.arpa ip6.arpa } prometheus :9153 forward . /etc/resolv.conf cache 30 loop reload loadbalance }  其中 kubernetes 插件中有一行 upstream 的配置，它是定义了用于解析指向外部主机的服务的上游解析器（也称之为外部服务，CNAME）CoreDNS 将针对自身解析该服务。
+在此次变更之后， upstream 配置行便可直接移除。
+另外 template 插件支持元数据了。比如说可以给它增加一个配置 .Meta &amp;quot;kubernetes/my-namespace&amp;quot;。
+关于此版本的更详细说明可阅读 ReleaseNote
+Envoy v1.</description>
+    </item>
     
     <item>
       <title>K8S 生态周报| 2019-07-01~2019-07-07</title>
