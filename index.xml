@@ -6,10 +6,24 @@
     <description>Recent content on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Mon, 15 Jul 2019 05:44:22 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 22 Jul 2019 00:07:54 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8S 生态周报| 2019-07-15~2019-07-21</title>
+      <link>https://moelove.info/2019/07/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-15~2019-07-21/</link>
+      <pubDate>Mon, 22 Jul 2019 00:07:54 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/07/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-15~2019-07-21/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Kubernetes v1.16.0-alpha.1 发布 Kubernetes 于近日发布了 v1.16.0-alpha.1 版本，变化是比较大，但这里暂时先不细说了，等到 9 月份正式版本发布前后再慢慢说。当然也稍微聊一些 :) 比如：
+官方 etcd 镜像中不再提供 etcd 2 和 3 的兼容工具了，对 etcd 2 的兼容代码也都全部删掉了（对 etcd 2 的支持其实从 1.13 就已经停止了）#80037 ；
+1.16 中对以下四种类型资源的 API 有所调整：
+ NetworkPolicy PodSecurityPolicy DaemonSet, Deployment, StatefulSet 和 ReplicaSet Ingress  具体调整细节如下：
+ NetworkPolicy 将使用从 v1.8 版本开始提供的 networking.k8s.io/v1 API; PodSecurityPolicy 将使用从 v1.10 开始提供的 policy/v1beta1 API; DaemonSet, Deployment, StatefulSet 和 ReplicaSet 将使用从 v1.9 版本开始提供的 apps/v1 API; Ingress 迁移到 networking.</description>
+    </item>
     
     <item>
       <title>K8S 生态周报| 2019-07-08~2019-07-14</title>
