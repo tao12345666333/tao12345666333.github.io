@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2016-09-16T16:55:44&#43;00:00"/>
+<meta property="og:updated_time" content="2016-09-24T19:46:47&#43;00:00"/>
 
 
 
@@ -149,6 +149,36 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2016/09/24/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91Vim-8/">源码编译Vim 8</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2016-09-24 </span>
+      <div class="post-category">
+          
+            <a href="/categories/linux/"> Linux </a>
+          
+        </div>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Vim 8.0 在2016.09.12发布了, 在各 Linux 发行版还没更新包的时候就源码编译来使用吧! 以 Debian 编译 Vim 为例.
+ 下载Vim 源码 可以在Vim 官网下载打包好的源代码. 或者使用 Git:
+git clone https://github.com/vim/vim.git  编译 cd vim/src ./configure --with-compiledby=&quot;TaoBeier&quot; --with-features=huge --enable-pythoninterp=yes --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu --enable-cscope --enable-perlinterp=yes --enable-rubyinterp=yes --with-luajit --enable-luainterp=yes --with-lua-prefix=/usr/include/lua5.1 --enable-multibyte --with-x --enable-fail-if-missing  上面的参数使用 ./configure --help 都可以看到对应用途. 上面使用的参数是增加了对 Python, Ruby, Perl, 以及X window的支持.
+建议加上 --enable-fail-if-missing 参数, 以方便定位到哪里依赖缺失.
+依赖 这里检查可能通不过, 首先是 lua 和 luajit. 需要执行
+sudo apt-get install lua5.1 liblua5.1-0 luajit libluajit-5.1-dev
+    </div>
+    <div class="read-more">
+      <a href="/2016/09/24/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91Vim-8/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -435,38 +465,6 @@ gcc --version gcc (GCC) 4.4.7 20120313 (Red Hat 4.4.7-16) Copyright © 2010 Free
     </div>
     <div class="read-more">
       <a href="/2015/09/13/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91MongoDB/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2015/07/21/%E9%87%8D%E7%BD%AEGhost%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%AF%86%E7%A0%81/">重置Ghost博客的密码</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2015-07-21 </span>
-      <div class="post-category">
-          
-            <a href="/categories/node/"> Node </a>
-          
-        </div>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-        在搭建Ghost博客的时候，尚未配置mail服务器时，重置密码的方法做个记录
- 打开数据库查看用户信息 如果全部默认设置，使用生产环境的话，应该是 sqlite3 content/data/ghost.db
-如果是开发环境应该是 sqlite3 content/date/ghost-dev.db
-查看用户信息 sqlite&gt;SELECT * FROM users;
-更新用户密码  Ghost对用户密码用的是BCrypt加密，可以使用BCrypt Hash Generator之类的工具生成一个想要修改的密码，例如&rdquo;mypasswd&rdquo;生成的密码是 $2a$10$QecJeBdw2lONRTnHJ0RoVO6DczdJWf4h4QgaUcgKsYFZlzTe1yeEK
- 假设之前查看到的用户信息，邮箱是admin@domain.com 那么，使用这样更新密码
- UPDATE users SET password=&quot;$2a$10$QecJeBdw2lONRTnHJ0RoVO6DczdJWf4h4QgaUcgKsYFZlzTe1yeEK&quot; WHERE email=&quot;admin@domain.com&quot;  退出sqlite3 .exit
-  
-    </div>
-    <div class="read-more">
-      <a href="/2015/07/21/%E9%87%8D%E7%BD%AEGhost%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%AF%86%E7%A0%81/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

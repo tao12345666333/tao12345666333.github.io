@@ -6,10 +6,22 @@
     <description>Recent content in Posts on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Mon, 22 Jul 2019 00:07:54 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 28 Jul 2019 22:14:44 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8S 生态周报| 2019-07-21~2019-07-28</title>
+      <link>https://moelove.info/2019/07/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-21~2019-07-28/</link>
+      <pubDate>Sun, 28 Jul 2019 22:14:44 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/07/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-21~2019-07-28/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Docker CE v19.03 正式发布 7 月 22 日，正式发布了 Docker CE v19.03 版本，按照 Docker CE 版本的生命周期，此次的 v19.03 可以说是千呼万唤始出来，原本按语义应该是在 3 月，不过之前的发布计划中开始是设定在了 5 月份，而一转眼现在已经到 7 月底了。 先跳过这次发布时间延期的问题，我们来看看此版本中最值得注意的一些变化。
+首先来看看被废弃的部分：
+ 废弃 aufs 存储驱动，在此版本之前 devicemapper 和 overlay 也都已经被废弃; 当 docker daemon 运行时，如果没有指定存储驱动，则会自动选择一个，v19.03 中增加了自动选择时跳过已被废弃的存储驱动的逻辑； 废弃 image manifest v2 schema1 以支持 v2 schema2 ，这里的废弃涉及到的内容很多，尤其是涉及到了 image registry 的部分, 所以后续还有很长的路要走。还记得之前推送过 Docker Hub 今年 6 月份停止 v1 API 进行 Pull 操作的事情吗？早年 2015 年 11 月的时候，它就已经禁止了 v1 API 的 Push 操作。从这点上也能看到 Docker 在功能弃用上其实为用户考虑了很多，并且也给了足够长的时间来让用户进行迁移。  其次，我们看看功能增强的部分：</description>
+    </item>
     
     <item>
       <title>K8S 生态周报| 2019-07-15~2019-07-21</title>
