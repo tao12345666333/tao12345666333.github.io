@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2016-12-05T22:40:41&#43;00:00"/>
+<meta property="og:updated_time" content="2016-12-16T00:49:11&#43;00:00"/>
 
 
 
@@ -149,6 +149,36 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2016/12/16/Composer-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%AE%80%E8%BF%B0/">Composer 使用技巧简述</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2016-12-16 </span>
+      <div class="post-category">
+          
+            <a href="/categories/linux/"> Linux </a>
+          
+        </div>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      最近使用了世界最好的语言 PHP 用来管理依赖关系的工具 Composer. 稍微做点记录, 以做备忘. 如有错误还望指出.
+ 安装 php -r &quot;copy('https://getcomposer.org/installer', 'composer-setup.php');&quot; php -r &quot;if (hash_file('SHA384', 'composer-setup.php') === 'aa96f26c2b67226a324c27919f1eb05f21c248b987e6195cad9690d5c1ff713d53020a02ac8c217dbf90a7eacc9d141d') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;&quot; php composer-setup.php php -r &quot;unlink('composer-setup.php');&quot;  上述代码来自官网.
+局部安装 上述代码执行完成后, 只是下载到了 composer.phar 文件, 可以通过 php composer.phar 在任意位置执行.
+全局安装 全局安装只是把 composer.phar 安装到 PATH 下即可. 可以像下面这样:
+sudo mv composer.phar /usr/local/bin/composer  国内镜像加速 使用Composer中文网提供的中国全量镜像进行加速.
+单项目加速 进入项目目录(即 composer.json 文件所在目录) 执行:
+    </div>
+    <div class="read-more">
+      <a href="/2016/12/16/Composer-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%AE%80%E8%BF%B0/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -433,43 +463,6 @@ sudo npm install jslint -g  在vimrc中添加如下配置
     </div>
     <div class="read-more">
       <a href="/2015/10/26/%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%A7%BF%E5%8A%BF%E5%BC%80%E6%BA%90Python%E9%A1%B9%E7%9B%AE/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2015/10/16/%E5%AF%B9%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%80%83/">对监控系统的思考</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2015-10-16 </span>
-      <div class="post-category">
-          
-            <a href="/categories/linux/"> Linux </a>
-          
-        </div>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      近期在做运维监控方面的事情，也研究了一下其他人是如何做的。把自己的想法做个总结记录一下吧。
- 监控期望的目标  及时发现   需要的是即时监控并报警
-  及时定位   定位问题要分开讲
- 运维层面 &gt; 是机器硬件问题还是上面运行的基础服务的问题，或者是新上线代码的问题，需要回滚。
- 代码层面 &gt; 在发生问题的时候，优先解决问题。定位代码问题提交hotfix 可以在解决问题之后做。
-    及时处理 提前预测（尽量减少问题的发生）   提前预测可以做的事情有很多，数据挖掘/分析之类的。当然有个更简单的方法，就是先小范围上线，进行监控。如果发现出问题了，就停止上线，进行回滚。（我们现在就是这样做的，虽然原因并不是这个 2333
- 监控遇到的主要问题  监控指标多   服务器CPU,内存，网络等的指标，基础服务Redis, MongoDB等的运行指标，对外服务的API是否正常工作，还有数据是否正确等。
-  监控报警多   监控指标多的时候，自然报警也会相应增加，但是报警的分组与轻重缓急也是一个很麻烦的问题。还有就是部署着不同服务的机器，触发报警时候的指标也不好确定。
-  报警多而且有关联，如何查找原因   可能同时会有多个指标触发了报警，但是要定位问题的时候，如何可以快速的定位问题。
- 多维度数据监控  这个话题太大(要感谢Baidu的颜大大的指点）
- 数据监控符合二八原则,重要数据需要多角度进行观察，需要有meta管理，需要动态简单配置。选择 好的，合理的数据模型可以有效的进行处理。
- 数据采集部分，在单机器做聚合;命名上使用正则格式化;完善的配置功能，支持数据流自定义维度。
-    对开源系统的使用，需要按照自己的实际情况进行适配。保证高可用性  先写这些吧，之后有时间再写，还有QCon上对运维监控上的一些分享也非常值得思考
-    </div>
-    <div class="read-more">
-      <a href="/2015/10/16/%E5%AF%B9%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%80%83/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

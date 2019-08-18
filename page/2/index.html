@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2019-06-01T00:19:03&#43;08:00"/>
+<meta property="og:updated_time" content="2019-06-09T22:15:11&#43;08:00"/>
 
 
 
@@ -149,6 +149,33 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/06/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-03~2019-06-09/">K8S 生态周报| 2019-06-03~2019-06-09</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-06-09 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Kubernetes CVE-2019-11245 漏洞 这是一个评分为 4.9 的漏洞，算是一个中等漏洞。 受此漏洞影响的版本为 v1.13.6 和 v1.14.2 ，所以本周也加紧发布了 v1.13.7 和 v1.14.3 版本，以避免受此漏洞影响。 如果有使用 v1.13.6 和 v1.14.2 版本的小伙伴，请尽快进行 升级 以免受到影响。
+上面说了最直接的解决办法，接下来对此漏洞大致做下介绍：
+这个漏洞影响了 v1.13.6 和 v1.14.2 版本的 kubelet，具体表现为， 1) 如果 Pod 中的容器，开始时是以某个非 root 用户启动的，但是当它重启后，则会以 root (uid 0) 的身份启动。2) 或者是 Node 节点上已经存在了启动容器所需的镜像。
+第 2 个情况比较常见，不再具体介绍。我们来看下第 1 种情况。举个栗子：
+通常情况下，如果我们使用 Docker 官方的 Redis 镜像进行部署的时候，默认情况下将会以 redis 用户启动；而如果受此漏洞影响，当容器重启后，则当前的用户可能会变成 root (uid 0) 。使用 root 用户启动服务可能带来的危害，这里也不再多进行展开了。
+也存在例外，比如已经显式的通过 runAsUser 指定了运行用户，则不会受到此漏洞影响。
+    </div>
+    <div class="read-more">
+      <a href="/2019/06/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-03~2019-06-09/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -388,32 +415,6 @@ A: While we discovered unauthorized access to a single Hub database storing a su
     </div>
     <div class="read-more">
       <a href="/2019/05/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-28~2019-05-05/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2019/04/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-22~2019-04-28/">K8S 生态周报| 2019-04-22~2019-04-28</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-04-29 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Docker Hub 用户隐私数据泄漏 2019 年 4 月 25 日，Docker Hub 团队发现了对存储非财务用户数据子集的单个 Hub 数据库的未授权访问。 在发现异常后官方团队迅速采取行动并保护网站免受攻击。
-经过官方团队的调查，目前大概有 190000 帐号的敏感信息（小于总用户数的 5% ）包括用户名和哈希后的用户密码，当然也包括 GitHub 及 Bitbucket 等的用于自动构建的 Token 。
-当前的主要措施是对可能被泄漏信息的用户发送了邮件通知，对于可能泄漏哈希密码的用户发送了重置密码的邮件，并且 主动 将密码失效，以及自动构建的 Token 也都被失效。( 所以如果你收到了 Docker Hub 团队关于此次事件的直接报告邮件，很大概率是因为你的信息已经被泄漏了 )
-附上官方声明中关于此次事件的处理声明：
- During a brief period of unauthorized access to a Docker Hub database, sensitive data from approximately 190,000 accounts may have been exposed (less than 5% of Hub users).
-    </div>
-    <div class="read-more">
-      <a href="/2019/04/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-22~2019-04-28/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
