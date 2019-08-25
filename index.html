@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2019-08-19T01:08:00&#43;08:00"/>
+<meta property="og:updated_time" content="2019-08-25T21:19:10&#43;08:00"/>
 
 
 
@@ -149,6 +149,33 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/08/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-cilium-1.6-%E5%8F%91%E5%B8%83-100-kube-proxy-%E7%9A%84%E6%9B%BF%E4%BB%A3%E5%93%81/">K8S 生态周报| cilium 1.6 发布 100% kube-proxy 的替代品</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-08-25 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Kind(Kubernetes In Docker) v0.5.1 正式发布 Kind(Kubernetes In Docker) 已经广泛的应用于 Kubernetes 上游及相关项目的 CI 环境中，作为个人本地的测试环境也很方便，推荐大家尝试。
+本次发布，将默认的 Kubernetes 版本更新为 v1.15.3 ；支持了 UDP 和 SCTP 协议的端口转发；对构建 Node 镜像进行了优化，使它更快；同时也对 arm32 增加了有限的支持。
+对 kind load-image 进行了改进，从原先的只是判断镜像名称和 tag 到现在增加了对哈希值的校验；修正了在使用 Proxy 时，部分服务可能受代理影响导致的问题（对国内用户友好）。
+更多关于此版本的内容，请参考 ReleaseNote，欢迎使用和反馈。
+Kubernetes 受 Go 的 net/http 安全漏洞影响 Kubernetes 近期紧急发布了 v1.15.3, v1.14.6, v1.13.10 版本，距离上个集体更新发布仅过了两周而已，上次的说明请参考两周前的 k8s 生态周报，不过本次的漏洞的根本原因不在 Kubernetes 的功能逻辑上，还是在于其使用的 Go 语言的 net/http 库的安全漏洞 CVE-2019-9512 和 CVE-2019-9514 。
+关于此次漏洞的信息，可参考 golang/go#33606，另外 Go 最近陆续发布了几个版本，建议大家也最好升到 v1.
+    </div>
+    <div class="read-more">
+      <a href="/2019/08/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-cilium-1.6-%E5%8F%91%E5%B8%83-100-kube-proxy-%E7%9A%84%E6%9B%BF%E4%BB%A3%E5%93%81/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -390,34 +417,6 @@ Istio 1.2.0 正式发布 经过三个 rc 版本之后， Istio 1.2.0 版本正�
     </div>
     <div class="read-more">
       <a href="/2019/06/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-17~2019-06-23/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2019/06/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-10~2019-06-16/">K8S 生态周报| 2019-06-10~2019-06-16</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-06-16 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Helm 新下载域名正式上线 https://get.helm.sh/ 正式上线。用户之后下载 Helm 预编译好的二进制文件时，可通过此域名进行下载。
-原来 Kubernetes 尚未成为 CNCF 托管项目时，Helm 是作为 Kubernetes 项目的一部分的，所以很自然的使用了 Google 的一个云存储仓库。但随着项目托管至 CNCF 以及后续 Helm 的独立发展，现在使用托管于 Google 的云存储不那么合适了，一方面在于 CNCF 正在接管 K8S 的基础设施，另一方面在于在于这个仓库不只受 Helm 的控制。
-考虑到项目的独立性，以及 大陆用户无法正常访问 GCloud 存储的问题 经过维护者们的慎重考虑以及实际测试，终于决定选择 Azure 的 Blob 存储 + CDN 可满足当前所有地区的快速访问（尤其是国内可以直接访问并下载），不再需要花费时间精力解决网络等问题了。
-这次的更改仅限于 Helm 客户端的下载位置，类似 Tiller 或者 Chart 等并没有被包含在内。
-强烈建议更新有在 CI/自动化任务中使用的 Helm 下载地址，使用 https://get.helm.sh/ 来进行替换。
-对此内容感兴趣的朋友可参考 Move Helm Downloads 的讨论
-Apple 作为白金终端用户成员加入 CNCF Apple 在 K8S 社区中在这之前也算相对低调，并没有像各类云厂商或其他公司那样疯狂安利或者输出之类的。但是这次突然加入 CNCF 而且作为白金会员，是可具备话语权的。
-    </div>
-    <div class="read-more">
-      <a href="/2019/06/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-10~2019-06-16/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
