@@ -6,10 +6,24 @@
     <description>Recent content in Weekly on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 08 Sep 2019 22:43:44 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 15 Sep 2019 23:45:23 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/tags/weekly/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8S 生态周报| Istio 1.3 正式发布</title>
+      <link>https://moelove.info/2019/09/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Istio-1.3-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</link>
+      <pubDate>Sun, 15 Sep 2019 23:45:23 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/09/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Istio-1.3-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Istio 1.3.0 正式发布 上周 k8s 生态周报中，我推送了关于 Istio 1.3.0-rc2 发布的消息后，有小伙伴专门私聊我，说想问问 Istio 1.3 到底有什么新特性；以及为何上次没有对 Istio 1.3 的新特性进行介绍。
+这里我来做下说明，首先关于为何上次没有对 Istio 1.3 新特性进行介绍。有两个主要原因：1. 上周时，正式版尚未发布；2. 对 1.3 这个版本而言没有太多新特性，此版本主要在于改善用户体验。
+对 Istio 而言，今年是个很重要的节点，而且自从 3 月份发布 1.1 版本以来， Istio 的更新频率基本稳定在了 3 个月发布一个版本。1.1 版本专注于企业就绪，在此版本中一方面是提升系统的稳定性，另一方面则是解决企业落地时，可能遇到的一些问题，所以 1.1 中有大量的新特性。而 1.2 版本其实也类似，虽然花费了很多精力在保证质量上，但其中也有不少功能从 Beta 到了 Stable 阶段。
+其次是关于 1.3 版本到底有哪些新特性：
+ 出站流量自动确定协议：之前版本中，Istio 要求 Service 需要按照指定的规则进行命名才可以自动确认其协议，而在此版本中则可以自动确认其是 HTTP 或 HTTP/2 流量，如果无法自动确认，则认为其是纯 TCP 流量，如果是通过 Helm 安装的话，可以使用 --set pilot.enableProtocolSniffing=false 关闭此功能； Pod spec 中不再需要定义 containerPort，默认情况下会捕获所有端口，当然你也可以通过 traffic.</description>
+    </item>
     
     <item>
       <title>K8S 生态周报| Harbor v1.9 带来众多新特性</title>
