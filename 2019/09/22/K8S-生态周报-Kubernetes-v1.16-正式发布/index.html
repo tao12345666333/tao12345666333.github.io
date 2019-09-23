@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>K8S 生态周报| Kubernetes v1.16 正式发布 - MoeLove</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1876963677156202",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+<meta name="author" content="TaoBeier" />
+  <meta name="description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Kubernetes v1.16 正式发布 正如我在上次周报中所说，本周 Kubernetes v1.16 正式发布了。此版本中共包含 31 项功能增强：其中 8 项处于 stable 阶段，8 项处于 beta 阶段，剩下的 15 项处于 alpha 阶段。
+如果一直关注本周报系列文章的话，这个版本中比较重要的功能我基本都已经提到过了（这里划个重点）。
+ CRD 达到 GA ，这是当前社区最为推崇的一种扩展 Kubernetes 的方式，并且自从 1.7 加入后，也被越来越广泛的使用了； 准入控制 webhooks 达到 GA ，准入控制在 Kubernetes 中太过于重要了，自 1.9 该功能加入以来，被广泛用于扩展 Kubernetes 相关功能； 现在 CSI 规范中支持调整卷大小，当前正在迁移至 Beta 阶段； IPv4/IPv6 双栈支持； 为了更好的控制 kube-apiserver 的网络流量，正在尝试给它增加一个代理，详情可点击链接查看；  其余还有一些比较重要的内容：
+ 现在 kubeadm 在 TLS bootstrap 之后，将会删除 bootstrap-kubelet.conf，如果有依赖此文件的小伙伴，请尽快迁移使用 kubelet.conf ，此外也建议先看看 RBAC 相关的内容，了解下切换的意义； beta." />
+
+  <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes, Golang, Python, Container, Vim, 容器, k8s" />
+
+
+<meta name="baidu-site-verification" content="jO2rMlnjJi" />
+<meta name="google-site-verification" content="googlefe3fc086c62f7210.html" />
+
+
+<meta name="generator" content="Hugo 0.37.1" />
+
+
+<link rel="canonical" href="https://moelove.info/2019/09/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.16-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="K8S 生态周报| Kubernetes v1.16 正式发布" />
+<meta property="og:description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Kubernetes v1.16 正式发布 正如我在上次周报中所说，本周 Kubernetes v1.16 正式发布了。此版本中共包含 31 项功能增强：其中 8 项处于 stable 阶段，8 项处于 beta 阶段，剩下的 15 项处于 alpha 阶段。
+如果一直关注本周报系列文章的话，这个版本中比较重要的功能我基本都已经提到过了（这里划个重点）。
+ CRD 达到 GA ，这是当前社区最为推崇的一种扩展 Kubernetes 的方式，并且自从 1.7 加入后，也被越来越广泛的使用了； 准入控制 webhooks 达到 GA ，准入控制在 Kubernetes 中太过于重要了，自 1.9 该功能加入以来，被广泛用于扩展 Kubernetes 相关功能； 现在 CSI 规范中支持调整卷大小，当前正在迁移至 Beta 阶段； IPv4/IPv6 双栈支持； 为了更好的控制 kube-apiserver 的网络流量，正在尝试给它增加一个代理，详情可点击链接查看；  其余还有一些比较重要的内容：
+ 现在 kubeadm 在 TLS bootstrap 之后，将会删除 bootstrap-kubelet.conf，如果有依赖此文件的小伙伴，请尽快迁移使用 kubelet.conf ，此外也建议先看看 RBAC 相关的内容，了解下切换的意义； beta." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://moelove.info/2019/09/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.16-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/" />
+
+
+
+<meta property="article:published_time" content="2019-09-22T23:45:37&#43;08:00"/>
+
+<meta property="article:modified_time" content="2019-09-22T23:45:37&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="K8S 生态周报| Kubernetes v1.16 正式发布">
+<meta itemprop="description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Kubernetes v1.16 正式发布 正如我在上次周报中所说，本周 Kubernetes v1.16 正式发布了。此版本中共包含 31 项功能增强：其中 8 项处于 stable 阶段，8 项处于 beta 阶段，剩下的 15 项处于 alpha 阶段。
+如果一直关注本周报系列文章的话，这个版本中比较重要的功能我基本都已经提到过了（这里划个重点）。
+ CRD 达到 GA ，这是当前社区最为推崇的一种扩展 Kubernetes 的方式，并且自从 1.7 加入后，也被越来越广泛的使用了； 准入控制 webhooks 达到 GA ，准入控制在 Kubernetes 中太过于重要了，自 1.9 该功能加入以来，被广泛用于扩展 Kubernetes 相关功能； 现在 CSI 规范中支持调整卷大小，当前正在迁移至 Beta 阶段； IPv4/IPv6 双栈支持； 为了更好的控制 kube-apiserver 的网络流量，正在尝试给它增加一个代理，详情可点击链接查看；  其余还有一些比较重要的内容：
+ 现在 kubeadm 在 TLS bootstrap 之后，将会删除 bootstrap-kubelet.conf，如果有依赖此文件的小伙伴，请尽快迁移使用 kubelet.conf ，此外也建议先看看 RBAC 相关的内容，了解下切换的意义； beta.">
+
+
+<meta itemprop="datePublished" content="2019-09-22T23:45:37&#43;08:00" />
+<meta itemprop="dateModified" content="2019-09-22T23:45:37&#43;08:00" />
+<meta itemprop="wordCount" content="116">
+
+
+
+<meta itemprop="keywords" content="Linux,Weekly,Kubernetes," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="K8S 生态周报| Kubernetes v1.16 正式发布"/>
+<meta name="twitter:description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Kubernetes v1.16 正式发布 正如我在上次周报中所说，本周 Kubernetes v1.16 正式发布了。此版本中共包含 31 项功能增强：其中 8 项处于 stable 阶段，8 项处于 beta 阶段，剩下的 15 项处于 alpha 阶段。
+如果一直关注本周报系列文章的话，这个版本中比较重要的功能我基本都已经提到过了（这里划个重点）。
+ CRD 达到 GA ，这是当前社区最为推崇的一种扩展 Kubernetes 的方式，并且自从 1.7 加入后，也被越来越广泛的使用了； 准入控制 webhooks 达到 GA ，准入控制在 Kubernetes 中太过于重要了，自 1.9 该功能加入以来，被广泛用于扩展 Kubernetes 相关功能； 现在 CSI 规范中支持调整卷大小，当前正在迁移至 Beta 阶段； IPv4/IPv6 双栈支持； 为了更好的控制 kube-apiserver 的网络流量，正在尝试给它增加一个代理，详情可点击链接查看；  其余还有一些比较重要的内容：
+ 现在 kubeadm 在 TLS bootstrap 之后，将会删除 bootstrap-kubelet.conf，如果有依赖此文件的小伙伴，请尽快迁移使用 kubelet.conf ，此外也建议先看看 RBAC 相关的内容，了解下切换的意义； beta."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">MoeLove</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a><a href="/friends/">
+        <li class="mobile-menu-item">Friends</li>
+      </a><a href="/projects/">
+        <li class="mobile-menu-item">Projects</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">MoeLove</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/friends/">Friends</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/projects/">Projects</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">K8S 生态周报| Kubernetes v1.16 正式发布</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2019-09-22 </span>
+        
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#kubernetes-v1-16-正式发布">Kubernetes v1.16 正式发布</a></li>
+<li><a href="#kubernetes-上线-releasenote-专用网站">Kubernetes 上线 ReleaseNote 专用网站</a></li>
+<li><a href="#dockerhub-新功能-personal-access-tokens">DockerHub 新功能：Personal Access Tokens</a>
+<ul>
+<li><a href="#题外话">题外话</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<blockquote>
+<p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏<a href="https://zhuanlan.zhihu.com/container">「k8s生态」</a>。</p>
+</blockquote>
+
+<h2 id="kubernetes-v1-16-正式发布">Kubernetes v1.16 正式发布</h2>
+
+<p>正如我在上次周报中所说，本周 Kubernetes v1.16 正式发布了。此版本中共包含 31 项功能增强：其中 8 项处于 stable 阶段，8 项处于 beta 阶段，剩下的 15 项处于 alpha 阶段。</p>
+
+<p>如果一直关注本周报系列文章的话，这个版本中比较重要的功能我基本都已经提到过了（这里划个重点）。</p>
+
+<ul>
+<li>CRD 达到 GA ，这是当前社区最为推崇的一种扩展 Kubernetes 的方式，并且自从 1.7 加入后，也被越来越广泛的使用了；</li>
+<li>准入控制 webhooks 达到 GA ，准入控制在 Kubernetes 中太过于重要了，自 1.9 该功能加入以来，被广泛用于扩展 Kubernetes 相关功能；</li>
+<li>现在 CSI 规范中支持调整卷大小，当前正在迁移至 Beta 阶段；</li>
+<li>IPv4/IPv6 双栈支持；</li>
+<li>为了更好的控制 kube-apiserver 的网络流量，正在尝试给它增加一个<a href="https://github.com/kubernetes/enhancements/blob/master/keps/sig-api-machinery/20190226-network-proxy.md">代理</a>，详情可点击链接查看；</li>
+</ul>
+
+<p>其余还有一些比较重要的内容：</p>
+
+<ul>
+<li>现在 kubeadm  在 TLS bootstrap 之后，将会删除 <code>bootstrap-kubelet.conf</code>，如果有依赖此文件的小伙伴，请尽快迁移使用 <code>kubelet.conf</code> ，此外也建议先看看 RBAC 相关的内容，了解下切换的意义；</li>
+<li><code>beta.kubernetes.io/metadata-proxy-ready</code> 和 <code>beta.kubernetes.io/kube-proxy-ds-ready</code> 都被移除了；</li>
+<li>还有之前提到过的 <code>pps/v1beta1</code> 和 <code>apps/v1beta2</code> 已经被 <code>apps/v1</code> 取代等，这里不再一一列举了，有兴趣可参考之前的周报内容。</li>
+</ul>
+
+<p>整体来说 Kubernetes 1.16 是个很不错的版本，当然上面的内容也并不是其更新功能的全部，建议阅读 <a href="https://relnotes.k8s.io">ReleaseNote</a></p>
+
+<h2 id="kubernetes-上线-releasenote-专用网站">Kubernetes 上线 ReleaseNote 专用网站</h2>
+
+<p>Kubernetes 上线了专用的 ReleaseNote 的网站 <a href="https://relnotes.k8s.io">https://relnotes.k8s.io</a> 直接利用标签划分了相关领域的功能，可以更加清晰的让大家了解到自己想知道的功能变更相关的内容。</p>
+
+<h2 id="dockerhub-新功能-personal-access-tokens">DockerHub 新功能：Personal Access Tokens</h2>
+
+<p>在上个季度，我曾在 k8s 生态周报中有提到过关于 DockerHub 被攻击事件。经过这段时间的努力，现在 DockerHub 上线了新功能，允许用户创建自己的 Access Token 。</p>
+
+<p>通过这一方式，用户可以更加灵活的控制认证逻辑。当与其他工具进行集成的时候，也可避免暴露自己的密码信息等。</p>
+
+<p>当然今后这一功能还可以用于发展多因素身份验证或者做基于团队的访问控制。 另外我尝试过了多次，Token 的更新还是很及时的。</p>
+
+<p><img src="/img/dockerhub-token.png" alt="DockerHub Access Token - moelove.info" /></p>
+
+<h3 id="题外话">题外话</h3>
+
+<p>本周我主要忙着举办婚礼，这篇内容篇幅较短，就只包含了我本周所关注到的信息。
+感谢我的小可爱，感谢亲朋好友们的支持，感谢所有关注的读者朋友们的支持，谢谢你们。</p>
+
+<hr />
+
+<p>可以通过下面二维码订阅我的文章公众号【MoeLove】，在公众号后台回复 k8s 可加入技术圈交流。</p>
+
+<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/my_qrcode.jpg" alt="TheMoeLove" /></p>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">TaoBeier</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2019-09-22</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/wx_pay.jpg">
+        <span>微信打赏</span>
+      </label>
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/alipay.jpg">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/linux/">Linux</a>
+          
+          <a href="/tags/weekly/">Weekly</a>
+          
+          <a href="/tags/kubernetes/">Kubernetes</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="/2019/09/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Istio-1.3-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/">
+            <span class="next-text nav-default">K8S 生态周报| Istio 1.3 正式发布</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
+    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
+  <script type="text/javascript">
+  var gitalk = new Gitalk({
+    id: '2019-09-22 23:45:37 \x2b0800 CST',
+    title: 'K8S 生态周报| Kubernetes v1.16 正式发布',
+    clientID: '68312db64e870efbd0a0',
+    clientSecret: 'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',
+    repo: 'tao12345666333.github.io',
+    owner: 'tao12345666333',
+    admin: ['tao12345666333'],
+    body: decodeURI(location.href)
+  });
+  gitalk.render('gitalk-container');
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:zhangjintao9020@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://twitter.com/BeierTao" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://github.com/tao12345666333" class="iconfont icon-github" title="github"></a>
+      <a href="http://weibo.com/9020taobeier" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/TaoBeier" class="iconfont icon-zhihu" title="zhihu"></a>
+  <a href="https://moelove.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    
+      2013 - 
+    2019
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">TaoBeier</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

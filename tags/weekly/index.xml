@@ -6,10 +6,23 @@
     <description>Recent content in Weekly on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 15 Sep 2019 23:45:23 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 22 Sep 2019 23:45:37 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/tags/weekly/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8S 生态周报| Kubernetes v1.16 正式发布</title>
+      <link>https://moelove.info/2019/09/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.16-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</link>
+      <pubDate>Sun, 22 Sep 2019 23:45:37 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/09/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.16-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Kubernetes v1.16 正式发布 正如我在上次周报中所说，本周 Kubernetes v1.16 正式发布了。此版本中共包含 31 项功能增强：其中 8 项处于 stable 阶段，8 项处于 beta 阶段，剩下的 15 项处于 alpha 阶段。
+如果一直关注本周报系列文章的话，这个版本中比较重要的功能我基本都已经提到过了（这里划个重点）。
+ CRD 达到 GA ，这是当前社区最为推崇的一种扩展 Kubernetes 的方式，并且自从 1.7 加入后，也被越来越广泛的使用了； 准入控制 webhooks 达到 GA ，准入控制在 Kubernetes 中太过于重要了，自 1.9 该功能加入以来，被广泛用于扩展 Kubernetes 相关功能； 现在 CSI 规范中支持调整卷大小，当前正在迁移至 Beta 阶段； IPv4/IPv6 双栈支持； 为了更好的控制 kube-apiserver 的网络流量，正在尝试给它增加一个代理，详情可点击链接查看；  其余还有一些比较重要的内容：
+ 现在 kubeadm 在 TLS bootstrap 之后，将会删除 bootstrap-kubelet.conf，如果有依赖此文件的小伙伴，请尽快迁移使用 kubelet.conf ，此外也建议先看看 RBAC 相关的内容，了解下切换的意义； beta.</description>
+    </item>
     
     <item>
       <title>K8S 生态周报| Istio 1.3 正式发布</title>
