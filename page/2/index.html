@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2019-07-15T05:44:22&#43;08:00"/>
+<meta property="og:updated_time" content="2019-07-22T00:07:54&#43;08:00"/>
 
 
 
@@ -149,6 +149,32 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/07/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-15~2019-07-21/">K8S 生态周报| 2019-07-15~2019-07-21</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-07-22 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Kubernetes v1.16.0-alpha.1 发布 Kubernetes 于近日发布了 v1.16.0-alpha.1 版本，变化是比较大，但这里暂时先不细说了，等到 9 月份正式版本发布前后再慢慢说。当然也稍微聊一些 :) 比如：
+官方 etcd 镜像中不再提供 etcd 2 和 3 的兼容工具了，对 etcd 2 的兼容代码也都全部删掉了（对 etcd 2 的支持其实从 1.13 就已经停止了）#80037 ；
+1.16 中对以下四种类型资源的 API 有所调整：
+ NetworkPolicy PodSecurityPolicy DaemonSet, Deployment, StatefulSet 和 ReplicaSet Ingress  具体调整细节如下：
+ NetworkPolicy 将使用从 v1.8 版本开始提供的 networking.k8s.io/v1 API; PodSecurityPolicy 将使用从 v1.10 开始提供的 policy/v1beta1 API; DaemonSet, Deployment, StatefulSet 和 ReplicaSet 将使用从 v1.9 版本开始提供的 apps/v1 API; Ingress 迁移到 networking.
+    </div>
+    <div class="read-more">
+      <a href="/2019/07/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-15~2019-07-21/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -400,30 +426,6 @@ Docker CVE-2018-15664 安全漏洞 在 5 月 29 日我看到了 CVE 的信息，
     </div>
     <div class="read-more">
       <a href="/2019/05/26/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-20~2019-05-26/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2019/05/24/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E6%96%B0%E4%BD%93%E9%AA%8CKui/">云原生应用开发新体验：Kui</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-05-24 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      云原生（Cloud Native）应用是伴随着 Kubernetes 应用范围的扩大，基于云模型而提出的一种概念。
- 本文来介绍一个云原生应用开发的工具 Kui, 这是一款由 IBM 开源的工具，使用 Electron 提供 GUI 能力。
- Kui Shell offers a new development experience for building cloud-native applications. By combining the power of familiar CLIs with visualizations in high-impact areas, Kui enables you to manipulate complex JSON and YAML data models, integrate disparate tooling, and provides quick access to aggregate views of operational data.
- 正如以上介绍中提到的，Kui 提供了一种新的开发体验（原先大多数时候我们是通过 kubectl 与 Kubernetes 中的资源进行交互），Kui 结合了原有 CLI 的强大功能，并提供一种可视化的方式，方便我们对 Kubernetes 中 YAML 或者 JSON 格式数据的处理。
-    </div>
-    <div class="read-more">
-      <a href="/2019/05/24/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E6%96%B0%E4%BD%93%E9%AA%8CKui/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

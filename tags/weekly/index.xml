@@ -6,10 +6,28 @@
     <description>Recent content in Weekly on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 22 Sep 2019 23:45:37 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 29 Sep 2019 21:44:09 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/tags/weekly/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8S 生态周报| containerd v1.3 正式发布</title>
+      <link>https://moelove.info/2019/09/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.3-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</link>
+      <pubDate>Sun, 29 Sep 2019 21:44:09 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/09/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.3-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ containerd v1.3.0 正式发布 在上个主版本（v1.2.0）后经过 11 个月，我们终于迎来了 containerd v1.3.0 的发布，当然这个版本也是 containerd 自 CNCF 毕业后的首个主版本。（关于 containerd 毕业的信息可参考我之前的文章）
+在三周前 containerd v1.3.0-rc.0 发布时，我也提到过一些，现在我们来整体看一下。
+ 增加了 Windows v2 的 runtime API， 同时移除了 Windows v1 API； 为修复 CVE-2019-16884 更新了 runc 依赖；
+ 可配置的插件目录；
+ 允许插件注册为一个 TCP Server ，通过这种机制其实可以做到很多的事情了；
+ 增加了流式处理的插件，允许在解包的时候处理自定义资源类型（设计上考虑可使用此功能进行加解密相关的逻辑）；
+ 支持跨仓库推送镜像；
+ 新增了 devicemapper 的快照支持，然而需要注意的是 Docker 已经将 devicemapper 的存储驱动标记为了过期，推荐大家使用 Overlay2 的存储驱动；
+ 在 CRI 方面 io.containerd.runtime.v1.linux 仍然是默认的运行时，可选配置为新的 io.containerd.runc.v2，新的版本</description>
+    </item>
     
     <item>
       <title>K8S 生态周报| Kubernetes v1.16 正式发布</title>
