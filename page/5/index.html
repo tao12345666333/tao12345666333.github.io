@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2018-08-06T08:12:03&#43;08:00"/>
+<meta property="og:updated_time" content="2018-09-04T22:21:46&#43;08:00"/>
 
 
 
@@ -149,6 +149,37 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2018/09/04/Docker-%E6%B7%B1%E5%85%A5%E7%AF%87%E4%B9%8B-Build-%E5%8E%9F%E7%90%86/">Docker 深入篇之 Build 原理</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-09-04 </span>
+      <div class="post-category">
+          
+            <a href="/categories/linux/"> Linux </a>
+          
+        </div>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      使用 Docker 时，最常用的命令无非是 docker container 和 docker image 相关的子命令，当然最初没有管理类命令（或者说分组）的时候，最常使用的命令也无非是 docker run docker commit docker build 和 docker images 这些。
+今天来聊一下和 Docker 中核心概念 image 相关的重要命令， docker build 或者说 docker image build 为了简便起见，下文的命令全部使用 docker build 。
+Docker Image 先简单介绍下 Docker Image， 通常情况下我们将其称之为镜像，镜像是由多个层组成的文件，这些层用于在容器内执行代码（命令）等。每个镜像基本上都是根据应用程序完整的可执行版本进行构建的，并且需要注意的是，它会依赖于主机的系统内核。当用户在运行镜像时，这将会创建一个或者多个容器实例。
+Dockerd Dockerd 是 Docker 的服务端，默认情况下提供 Unix Domain Socket 连接，当然也可以监听某个端口，用于对外提供服务。 所以有时候，我们也可以使用服务器上的 Docker daemon 来提供服务，以加快构建速度及解决一些网络问题之类的。
+好的，基础概念了解了， 那我们开始进入正题。
+使用 Dockerfile 我们知道构建镜像的方法有多种，本文中我们只介绍使用 Dockerfile 通过 docker build 的方式构建镜像。
+为了简便，我们以一个简单的 Dockerfile 开始。构建一个容器内使用的 kubectl 工具 (当然选择它的原因在于 kubectl 足够大，并不考虑可用性，这个稍后解释)
+    </div>
+    <div class="read-more">
+      <a href="/2018/09/04/Docker-%E6%B7%B1%E5%85%A5%E7%AF%87%E4%B9%8B-Build-%E5%8E%9F%E7%90%86/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -422,36 +453,6 @@ sudo mv composer.phar /usr/local/bin/composer  国内镜像加速 使用Composer
     </div>
     <div class="read-more">
       <a href="/2016/12/04/Git-%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%92%8C%E8%A3%B8%E4%BB%93%E5%BA%93/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2016/09/24/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91Vim-8/">源码编译Vim 8</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2016-09-24 </span>
-      <div class="post-category">
-          
-            <a href="/categories/linux/"> Linux </a>
-          
-        </div>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Vim 8.0 在2016.09.12发布了, 在各 Linux 发行版还没更新包的时候就源码编译来使用吧! 以 Debian 编译 Vim 为例.
- 下载Vim 源码 可以在Vim 官网下载打包好的源代码. 或者使用 Git:
-git clone https://github.com/vim/vim.git  编译 cd vim/src ./configure --with-compiledby=&quot;TaoBeier&quot; --with-features=huge --enable-pythoninterp=yes --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu --enable-cscope --enable-perlinterp=yes --enable-rubyinterp=yes --with-luajit --enable-luainterp=yes --with-lua-prefix=/usr/include/lua5.1 --enable-multibyte --with-x --enable-fail-if-missing  上面的参数使用 ./configure --help 都可以看到对应用途. 上面使用的参数是增加了对 Python, Ruby, Perl, 以及X window的支持.
-建议加上 --enable-fail-if-missing 参数, 以方便定位到哪里依赖缺失.
-依赖 这里检查可能通不过, 首先是 lua 和 luajit. 需要执行
-sudo apt-get install lua5.1 liblua5.1-0 luajit libluajit-5.1-dev
-    </div>
-    <div class="read-more">
-      <a href="/2016/09/24/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91Vim-8/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

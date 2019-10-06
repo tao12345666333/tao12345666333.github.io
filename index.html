@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2019-09-29T21:44:09&#43;08:00"/>
+<meta property="og:updated_time" content="2019-10-06T23:07:49&#43;08:00"/>
 
 
 
@@ -149,6 +149,36 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/10/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-runc-v1.0.0-rc9-%E5%8F%91%E5%B8%83/">K8S 生态周报| runc v1.0.0-rc9 发布</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-10-06 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ runc v1.0.0-rc9 发布 不知不觉，runc v1.0.0-rc9 于近日发布了。早先关注过我文章的朋友们应该看到过我从去年开始每次在 runc 新版本发布时都有专门写一篇文章进行介绍。这次版本的定位主要是修复 CVE-2019-16884 所以我也就不再单独写文章介绍了（另一个原因是现在在假期，还是多抽空陪陪家人）
+先对 CVE-2019-16884 做个简单的介绍。这是一个中等级别的漏洞，其主要影响是 runc 源码中的 libcontainer/rootfs_linux.go 在文件挂载至 /proc 时，少做了一些检查，可绕过 AppArmor 的限制，所以可能导致被一些恶意镜像所利用。
+主要的修复方式是将原先的 checkMountDestination 函数改写为 checkProcMount，并在其中添加了对源文件类型的判断，只允许 procfs 类型的文件挂载至 /proc 。
+此漏洞影响到的范围是 runc 以及一些使用 runc 作为基础组件的容器管理软件。请尽快进行升级。
+此版本的地址是：https://github.com/opencontainers/runc/releases/tag/v1.0.0-rc9
+Docker v19.03.3-rc1 发布 自从 Docker 修改维护周期后，Docker 对软件的质量要求有了显著提高，每次版本发布前会经历多阶段的测试和回归，确保软件没有什么问题后才会发布正式版。
+按现在的进度来看 v19.03.3 应该会在一两周内放出。新版本会将 containerd 升级至最新的 1.2.10 ，并修复了一个在 5.2 版本内核上 overlay2 文件系统挂载时的错误。
+关于此版本感兴趣的朋友可以参考 ReleaseNote
+上游进展 Kubernetes v1.17 已经进入发布周期，这个版本的发布周期会比较短，现在已经发布了 v1.17.0-alpha 版本，计划是在 12 月 9 日可以最终发布。(想想看，距现在也就两个月的时间，你的集群现在是哪个版本呢？)
+    </div>
+    <div class="read-more">
+      <a href="/2019/10/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-runc-v1.0.0-rc9-%E5%8F%91%E5%B8%83/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -384,30 +414,6 @@ CVE-2019-11249 则是对于之前暴出来的使用 kubectl cp 可进行恶意�
     </div>
     <div class="read-more">
       <a href="/2019/08/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-29~2019-08-04/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2019/07/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-21~2019-07-28/">K8S 生态周报| 2019-07-21~2019-07-28</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-07-28 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Docker CE v19.03 正式发布 7 月 22 日，正式发布了 Docker CE v19.03 版本，按照 Docker CE 版本的生命周期，此次的 v19.03 可以说是千呼万唤始出来，原本按语义应该是在 3 月，不过之前的发布计划中开始是设定在了 5 月份，而一转眼现在已经到 7 月底了。 先跳过这次发布时间延期的问题，我们来看看此版本中最值得注意的一些变化。
-首先来看看被废弃的部分：
- 废弃 aufs 存储驱动，在此版本之前 devicemapper 和 overlay 也都已经被废弃; 当 docker daemon 运行时，如果没有指定存储驱动，则会自动选择一个，v19.03 中增加了自动选择时跳过已被废弃的存储驱动的逻辑； 废弃 image manifest v2 schema1 以支持 v2 schema2 ，这里的废弃涉及到的内容很多，尤其是涉及到了 image registry 的部分, 所以后续还有很长的路要走。还记得之前推送过 Docker Hub 今年 6 月份停止 v1 API 进行 Pull 操作的事情吗？早年 2015 年 11 月的时候，它就已经禁止了 v1 API 的 Push 操作。从这点上也能看到 Docker 在功能弃用上其实为用户考虑了很多，并且也给了足够长的时间来让用户进行迁移。  其次，我们看看功能增强的部分：
-    </div>
-    <div class="read-more">
-      <a href="/2019/07/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-21~2019-07-28/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
