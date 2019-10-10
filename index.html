@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2019-10-06T23:07:49&#43;08:00"/>
+<meta property="og:updated_time" content="2019-10-08T23:58:14&#43;08:00"/>
 
 
 
@@ -149,6 +149,35 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/10/08/Docker-%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/">Docker 核心知识必知必会</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-10-08 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      自 2013 年起，随着 Docker 的正式面世，容器技术迅速成为了基础技术领域中的热门。而在近两三年中，随着容器编排领域的混战结束，Kubernetes 已经成为了容器编排领域事实上的标准。
+有一些人存在误解，认为 Kubernetes 的出现取代了 Docker。但事实上，Docker 与 Kubernetes 是相辅相成的。Kubernetes 使用 Docker 作为容器运行时，用来启动应用；当 Docker 容器规模变大时，自然是需要有容器编排工具进行管理的。引用最近一次的网络研讨会后的文章内容：
+ In fact, Kubernetes is better with Docker. And Docker is better with Kubernetes.
+ 无论在使用 Docker 或是 Kubernetes 亦或者是使用基于这些技术的其他衍生技术时，都有可能会遇到一些意料之外的情况，当问题发生时，我们总是希望可以快速定位问题，并且从根本上解决问题。
+一般情况下，上层的问题比较容易解决，但如果问题发生在运行时/Docker 或容器上时，如果没有系统性的知识，很难从根本上解决问题；当然，有些时候通过搜索引擎可以帮我们找到一些问题的解决办法，但如果不将其彻底搞懂，以后遇到类似问题可能还是没法快速解决。
+我自 Docker 0.9 版本时开始学习和使用，自己踩过了很多坑，活跃在社区中，也帮别人解决了很多问题。现在我的新专栏《Docker 核心知识必知必会》正式上线了，共 51 节，从 7 个核心维度来 系统性 的讲解 Docker 容器技术的核心特性及原理，实践与源码相结合；部分内容会深入到 Linux 内核源码，以此来建立起从内核到 Docker 容器技术的知识体系。
+我希望借由这个课程，将 Docker 容器技术的本质和思想与我在开发和运维 Docker 过程中对其原理和实践经验的总结讲清楚，并将结合着实践和核心特性的原理，加深对 Docker 容器技术的理解。
+因此，我把课程划分成了三大模块：
+ Docker 入门: 这个模块分成了三篇内容，通过第一篇，带你了解 Docker 容器技术生态的发展脉络；第二篇，是为刚入门 Docker 的读者准备的，也是为后续章节进行铺垫；第三篇是很多读者或公司都常会困惑的问题，Docker 与 Linux 内核兼容性如何，要上生产环境该选择哪个版本？我会在这一篇中与你分享，让你不再困惑。
+    </div>
+    <div class="read-more">
+      <a href="/2019/10/08/Docker-%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -387,33 +416,6 @@ CVE-2019-11249 则是对于之前暴出来的使用 kubectl cp 可进行恶意�
     </div>
     <div class="read-more">
       <a href="/2019/08/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-08-05~2019-08-11/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2019/08/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-29~2019-08-04/">K8S 生态周报| 2019-07-29~2019-08-04</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-08-05 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- containerd 1.3.0-beta.0 发布 containerd 2014 年从 Docker 孵化出来，最初是作为 Docker 引擎的底层管理器；在 2017 年 3 月被 CNCF 接受后，containerd 几乎成为了行业容器运行引擎的标准，它专注于简单，健壮和可移植性，任何人都可以使用它来构建自己的容器引擎/平台。它是从 CNCF 毕业的第 5 个项目，目前发展势头良好。
-本次发布的 1.3.0-beta.0 版本是 containerd 的第 4 个主要版本，主要是为了提升项目的稳定性，以及为了保持项目的活力而持续加入了很多新的特性。
-这次的发布和之前版本类似，保持着 containerd 的一贯作风，API 变化很小；并且也保持向后兼容。插件生态和用户的发展也促使了 containerd 变得更易用，可配置和更灵活。
-在 Windows 上，此次版本带来了一个新运行时（使用 hcsshim）; 对于客户端而言，本次也带来了很多特性和升级。
-这里我只说两点，其余的等正式版出来看情况再进行介绍。
- 增加了 devicemapper 的快照插件。这个功能本身是个好事儿，如果用过旧版本 Docker 或者系统内核较低的朋友们，应该对 Docker 的 devicemapper 存储驱动不会太陌生的（虽然现在 Docker 的新版本中已经将 devicemapper 的存储驱动废弃掉了）；至于 containerd 中增加的 devicemapper 快照插件，我还没有来得及具体测试，所以这里不说太多了。 客户端支持了跨 repository push 镜像，对此功能感兴趣的朋友可以参考 #2697 的讨论。  更多关于此版本的信息请参考 ReleaseNote
-    </div>
-    <div class="read-more">
-      <a href="/2019/08/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-29~2019-08-04/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

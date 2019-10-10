@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2018-09-04T22:21:46&#43;08:00"/>
+<meta property="og:updated_time" content="2018-11-23T04:28:20&#43;08:00"/>
 
 
 
@@ -149,6 +149,33 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2018/11/23/runc-1.0-rc6-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/">runc 1.0-rc6 发布之际</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2018-11-23 </span>
+      <div class="post-category">
+          
+            <a href="/categories/linux/"> Linux </a>
+          
+        </div>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      如果你在用 Docker 或者 Kubernetes 想必你对 容器运行时 这个概念应该不会太陌生。
+在 Docker 中，当你使用 docker info 即可查看当前所使用的 runtime。
+➜ ~ docker info ... Server Version: 18.06.1-ce Storage Driver: overlay2 Backing Filesystem: extfs Supports d_type: true Native Overlay Diff: true Logging Driver: json-file Cgroup Driver: cgroupfs ... Swarm: inactive Runtimes: nvidia runc Default Runtime: runc Init Binary: docker-init containerd version: 468a545b9edcd5932818eb9de8e72413e616e86e runc version: 69663f0bd4b60df09991c08812a60108003fa340 init version: fec3683 Security Options: seccomp Profile: default ...  同时，你还可以自己在 /etc/docker/daemon.
+    </div>
+    <div class="read-more">
+      <a href="/2018/11/23/runc-1.0-rc6-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -423,36 +450,6 @@ sudo mv composer.phar /usr/local/bin/composer  国内镜像加速 使用Composer
     </div>
     <div class="read-more">
       <a href="/2016/12/05/Git-workflow-%E8%AF%A6%E8%B0%88/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2016/12/04/Git-%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%92%8C%E8%A3%B8%E4%BB%93%E5%BA%93/">Git 本地仓库和裸仓库</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2016-12-04 </span>
-      <div class="post-category">
-          
-            <a href="/categories/linux/"> Linux </a>
-          
-        </div>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      通常我们会用 git init 命令来将我们所在的目录转换为一个 Git 本地仓库或者初始化一个新的空仓库。
-用法  将当前目录转换为一个本地仓库  git init  这个命令执行后会在本地生成一个 .git 的文件夹，用来追踪仓库的所有变更。效果如下：
- 指定某个目录成为本地仓库  git init &lt;repo&gt;  这个命令执行后， 将创建一个名为repo且只包含 .git 子文件夹的空目录。效果如下：
- 指定某个目录成为中心仓库（裸仓库）  git init --bare &lt;repo&gt;  这个命令执行后，将在本地创建一个名为 repo 的文件夹， 里面包含着 Git 的基本目录， 我们一般会将这个文件夹命名为后面加 .git 的形式，如 repo.git （这也是为什么我们从 GitHub clone 仓库的时候，地址都是 xxx.git 这样的形式的原因）。效果如下：
-详细说一下使用 --bare 参数的含义，使用 --bare 参数初始化的仓库，我们一般称之为裸仓库， 因为这样创建的仓库并不包含 工作区 ， 也就是说，我们并不能在这个目录下执行我们一般使用的 Git 命令。
-对比 我们来对比一下直接使用 git init 创建的仓库和加了 --bare 参数的两个仓库。 我们直接看两个仓库的的 config 文件中的内容：
-    </div>
-    <div class="read-more">
-      <a href="/2016/12/04/Git-%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%92%8C%E8%A3%B8%E4%BB%93%E5%BA%93/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
