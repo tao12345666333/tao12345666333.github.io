@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2019-08-12T07:14:40&#43;08:00"/>
+<meta property="og:updated_time" content="2019-08-19T01:08:00&#43;08:00"/>
 
 
 
@@ -149,6 +149,34 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/08/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-08-12~2019-08-18/">K8S 生态周报| 2019-08-12~2019-08-18</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-08-19 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ rkt 项目正式被 CNCF 归档 8 月 16 日，CNCF 宣布技术委员会已经投票通过将 rkt 项目归档。
+这个事情，我在几周前的周报大概介绍过，既然现在已经尘埃落定，不如一起来看看 rkt 的前世今生，毕竟它在容器技术的发展中也曾做出了很多贡献。
+rkt 最早是由 CoreOS 公司创建的，而 CoreOS 最早应该也算是 Docker 的用户之一。但是随着 Docker 发展的日趋壮大，CoreOS 就想要脱离 Docker，成立自己的标准。
+之后 CoreOS 发布了 AppC 规范（这个规范我也曾仔细研究过），而 CoreOS 主打的旗号是开放，毕竟当时 Docker 一枝独秀，所以也就吸引了不少的伙伴参与。当然 rkt 也就借着这股风，得到了不少人的青睐。
+这里且不说 rkt 功能或是规范如何，我们单独来看看那场容器市场份额的争夺战是如何打的。
+在那时候，同时进行的另外一场战役是容器编排系统的战役。所以 rkt 也算是做了努力，它选择了与 Kubernetes 的合作（大概算是共同阵营的合作吧），所以在 2016 年 Kubernetes 1.3 版本中，宣布了支持 rkt 作为容器运行时的一个可选想。
+但 Docker 的发展（指 Docker 项目），却几乎没有受到影响。为什么呢？ Docker 早已凭借自身的稳定性和易用性占领了大批的用户，即使有用户选择 rkt 大多也只是用于尝试（心疼选择 rkt 放入生产环境中的那批）。而且不得不说，Docker 在用户心中几乎是容器的代名词，是一个默认选项。
+    </div>
+    <div class="read-more">
+      <a href="/2019/08/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-08-12~2019-08-18/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -390,33 +418,6 @@ Apple 作为白金终端用户成员加入 CNCF Apple 在 K8S 社区中在这之
     </div>
     <div class="read-more">
       <a href="/2019/06/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-10~2019-06-16/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2019/06/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-03~2019-06-09/">K8S 生态周报| 2019-06-03~2019-06-09</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-06-09 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Kubernetes CVE-2019-11245 漏洞 这是一个评分为 4.9 的漏洞，算是一个中等漏洞。 受此漏洞影响的版本为 v1.13.6 和 v1.14.2 ，所以本周也加紧发布了 v1.13.7 和 v1.14.3 版本，以避免受此漏洞影响。 如果有使用 v1.13.6 和 v1.14.2 版本的小伙伴，请尽快进行 升级 以免受到影响。
-上面说了最直接的解决办法，接下来对此漏洞大致做下介绍：
-这个漏洞影响了 v1.13.6 和 v1.14.2 版本的 kubelet，具体表现为， 1) 如果 Pod 中的容器，开始时是以某个非 root 用户启动的，但是当它重启后，则会以 root (uid 0) 的身份启动。2) 或者是 Node 节点上已经存在了启动容器所需的镜像。
-第 2 个情况比较常见，不再具体介绍。我们来看下第 1 种情况。举个栗子：
-通常情况下，如果我们使用 Docker 官方的 Redis 镜像进行部署的时候，默认情况下将会以 redis 用户启动；而如果受此漏洞影响，当容器重启后，则当前的用户可能会变成 root (uid 0) 。使用 root 用户启动服务可能带来的危害，这里也不再多进行展开了。
-也存在例外，比如已经显式的通过 runAsUser 指定了运行用户，则不会受到此漏洞影响。
-    </div>
-    <div class="read-more">
-      <a href="/2019/06/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-03~2019-06-09/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

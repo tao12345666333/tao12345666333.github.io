@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2015-10-13T21:01:00&#43;00:00"/>
+<meta property="og:updated_time" content="2015-10-16T00:59:01&#43;00:00"/>
 
 
 
@@ -149,6 +149,43 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2015/10/16/%E5%AF%B9%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%80%83/">对监控系统的思考</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2015-10-16 </span>
+      <div class="post-category">
+          
+            <a href="/categories/linux/"> Linux </a>
+          
+        </div>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      近期在做运维监控方面的事情，也研究了一下其他人是如何做的。把自己的想法做个总结记录一下吧。
+ 监控期望的目标  及时发现   需要的是即时监控并报警
+  及时定位   定位问题要分开讲
+ 运维层面 &gt; 是机器硬件问题还是上面运行的基础服务的问题，或者是新上线代码的问题，需要回滚。
+ 代码层面 &gt; 在发生问题的时候，优先解决问题。定位代码问题提交hotfix 可以在解决问题之后做。
+    及时处理 提前预测（尽量减少问题的发生）   提前预测可以做的事情有很多，数据挖掘/分析之类的。当然有个更简单的方法，就是先小范围上线，进行监控。如果发现出问题了，就停止上线，进行回滚。（我们现在就是这样做的，虽然原因并不是这个 2333
+ 监控遇到的主要问题  监控指标多   服务器CPU,内存，网络等的指标，基础服务Redis, MongoDB等的运行指标，对外服务的API是否正常工作，还有数据是否正确等。
+  监控报警多   监控指标多的时候，自然报警也会相应增加，但是报警的分组与轻重缓急也是一个很麻烦的问题。还有就是部署着不同服务的机器，触发报警时候的指标也不好确定。
+  报警多而且有关联，如何查找原因   可能同时会有多个指标触发了报警，但是要定位问题的时候，如何可以快速的定位问题。
+ 多维度数据监控  这个话题太大(要感谢Baidu的颜大大的指点）
+ 数据监控符合二八原则,重要数据需要多角度进行观察，需要有meta管理，需要动态简单配置。选择 好的，合理的数据模型可以有效的进行处理。
+ 数据采集部分，在单机器做聚合;命名上使用正则格式化;完善的配置功能，支持数据流自定义维度。
+    对开源系统的使用，需要按照自己的实际情况进行适配。保证高可用性  先写这些吧，之后有时间再写，还有QCon上对运维监控上的一些分享也非常值得思考
+    </div>
+    <div class="read-more">
+      <a href="/2015/10/16/%E5%AF%B9%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%80%83/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -412,41 +449,6 @@ $ sudo update-grub $ sudo grub2-install /dev/sda   如果不执行这样的命�
     </div>
     <div class="read-more">
       <a href="/2014/06/19/Linux%E4%B8%ADSublime%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2014/05/16/upyun-for-pelican/">upyun-for-pelican</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2014-05-16 </span>
-      <div class="post-category">
-          
-            <a href="/categories/python/"> Python </a>
-          
-        </div>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      这几天写了一个插件，方便把pelican生成静态博客部署到又拍云上。 整体思路就是：
- 先格式化路径，以/为根目录
-def formatPath(path): path = path.replace(os.sep, '/') return path  定义两个列表来存储文件和目录
-  之后就是验证用户，以及bucketname 之类的了。
-简介 pelican 是一款基于python的静态博客生成工具，本程序可以方便的把生成的静态博客部署到又拍云上。演示地址：upyun-for-pelican 
-生成网站  make html make serve (进行本地预览)  说明  程序使用了又拍云的官方SDK 需要先安装 upyun
-pip install upyun  可以自定义要上传的文件目录。在最下方的local_dir 中指定即可。Pelican默认的上传目录是 output 目录
-  使用  可以在 pelicanconf.py 文件中直接设置 BUCKETNAME, USERNAME, PASSWORD 参数（这些参数的使用大写命名格式也是为了符合*pelicanconf.py*中的习惯），也可以直接在 upyun-for-pelican.py文件的最下方直接设置。
- 执行
-python upyun-for-pelican.py  程序在 Python 2.7 环境下测试通过。
-  其他说明  程序执行开始会有上传确认提示，输入Y / y 都可以继续上传。 可以使用项目中的pelicanconf.
-    </div>
-    <div class="read-more">
-      <a href="/2014/05/16/upyun-for-pelican/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
