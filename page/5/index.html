@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2018-12-29T20:43:00&#43;08:00"/>
+<meta property="og:updated_time" content="2019-03-01T10:18:20&#43;08:00"/>
 
 
 
@@ -149,6 +149,31 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/03/01/%E6%81%AD%E5%96%9C-containerd-%E6%AF%95%E4%B8%9A/">恭喜 containerd 毕业</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-03-01 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      今年的第一篇文章更新，带来一个重大的消息。
+ CNCF（云原生计算基金会）在美国时间 2019 年 2 月 28 日宣布 containerd 今天正式毕业了。
+这是 CNCF 中毕业的第 5 个项目，之前已经毕业的项目为 Kubernetes、Prometheus、Envoy 和 CoreDNS 。
+containerd 2014 年从 Docker 孵化出来，最初是作为 Docker 引擎的底层管理器；在 2017 年 3 月被 CNCF 接受后，containerd 几乎成为了行业容器运行引擎的标准，它专注于简单，健壮和可移植性，任何人都可以使用它来构建自己的容器引擎/平台。
+ “When Docker contributed containerd to the community, our goal was to share a robust and extensible runtime that millions of users and tens of thousands of organizations have already standardized on as part of Docker Engine,” said Michael Crosby, containerd maintainer and Docker engineer.
+    </div>
+    <div class="read-more">
+      <a href="/2019/03/01/%E6%81%AD%E5%96%9C-containerd-%E6%AF%95%E4%B8%9A/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -416,42 +441,6 @@ services: - name: docker:dind command: [&quot;--insecure-registry=myregistry:500
     </div>
     <div class="read-more">
       <a href="/2017/01/01/2016-%E5%B0%8F%E5%9B%9E%E9%A1%BE/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2016/12/26/%E5%85%B3%E4%BA%8E-webpack-%E4%BD%A0%E5%8F%AF%E8%83%BD%E5%BF%BD%E7%95%A5%E7%9A%84%E7%BB%86%E8%8A%82%E9%99%84%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">关于 webpack 你可能忽略的细节（附源码分析）</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2016-12-26 </span>
-      <div class="post-category">
-          
-            <a href="/categories/web/"> Web </a>
-          
-        </div>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      注：本篇不是入门教程，入门请直接查看官方文档。本篇的主要目标是通过实际问题来介绍 webpack 中容易被人忽略的细节, 以及源码分析(以最新发布的 release 版本1.14.0的源码为例), 并且提供几种解决方案。
- 随着前端技术的火热发展，工程化，模块化和组件化的思想已逐步成为主流，与之相应的，就需要有一整套工具流可以支撑起它。
-现在比较热门的前端资源模块化管理和打包工具应该非 Webpack 莫属了。
-Webpack 是什么  它可以将许多松散的模块按照依赖和规则打包成符合生产环境部署的前端资源。还可以将按需加载的模块进行代码分隔，等到实际需要的时候再异步加载。通过 loader 的转换，任何形式的资源都可以视作模块，比如 CommonJs 模块、 AMD 模块、 ES6 模块、CSS、图片、 JSON、Coffeescript、 LESS 等。 &ndash;引自 Webpack 中文指南
- 使用举例 我们来看一下官方文档中的最小用例，新建并写入以下内容到这两个文件：
-cats.js
-var cats = ['dave', 'henry', 'martha']; module.exports = cats;  app.js (Entry Point)
-cats = require('./cats.js'); console.log(cats);  这个时候，就可以使用 webpack 进行打包了：
-webpack ./app.js app.bundle.js  我们来看一下发生了什么， 目录下生成了一个打包后的文件 app.bundle.js ，这就是最基础的打包过程。
-提出问题 如何判断打包是否成功？
-通用方案 下面是我们常用的两种判断任务是否执行成功的方案
-通过 return code 通过命令执行后的 return code 来判断（在 shell 中使用 $?
-    </div>
-    <div class="read-more">
-      <a href="/2016/12/26/%E5%85%B3%E4%BA%8E-webpack-%E4%BD%A0%E5%8F%AF%E8%83%BD%E5%BF%BD%E7%95%A5%E7%9A%84%E7%BB%86%E8%8A%82%E9%99%84%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

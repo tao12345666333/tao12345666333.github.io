@@ -6,10 +6,24 @@
     <description>Recent content in Linux on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Mon, 21 Oct 2019 10:01:23 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 27 Oct 2019 23:01:41 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8S 生态周报| Helm v3 最后一个beta版本发布</title>
+      <link>https://moelove.info/2019/10/27/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3-%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AAbeta%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/</link>
+      <pubDate>Sun, 27 Oct 2019 23:01:41 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/10/27/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3-%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AAbeta%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Helm v3.0.0-beta.5 发布 这将是最后一个 beta 版本，下一个版本将会是 Helm v3.0.0-rc.1 。现在主要精力都集中在一些 bugfix 上，也会有一些设计方面的事情还需要最终确认。
+快速的看一下在此版本中新增的内容：
+ 为了能提供更多子命令，现在 helm get 和 helm show 分别移动到了 helm get all 和 helm show all， 这是一个破坏性变更; 对 helm get values 增加了一个 --output 的选项，现在支持三种格式 table, json, yaml； helm test 新增了一个 --logs 的参数，这是在 Helm 2 中新增的；  对此版本感兴趣的朋友可以参考 ReleaseNote
+Docker Hub 新增双因素认证功能 最近 Docker Hub 上线了 双因素认证 的功能。这个事情主要有两个方面的考虑：
+ DockerHub 希望能给用户更多的安全性，以及提供更完善的功能，以此来吸引个人用户/开源项目/组织/企业等使用； 这个事情其实也算是 4 月份被攻击事件的后续，在上个月的周报中，我也介绍了 Docker Hub 上线了 Access Token 的功能。而这次上线 2FA 更是进一步提高了其安全性！  关于如何启用 2FA 可直接参考 Docker Hub 的文档 https://docs.</description>
+    </item>
     
     <item>
       <title>K8S 生态周报| Helm v2 最后一个特性版本发布</title>
