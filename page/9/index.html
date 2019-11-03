@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2013-08-07T21:30:59&#43;00:00"/>
+<meta property="og:updated_time" content="2013-08-10T21:34:17&#43;00:00"/>
 
 
 
@@ -149,6 +149,40 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2013/08/10/Vim7.3-for-Windows-%E9%85%8D%E7%BD%AE/">Vim7.3 for Windows 配置</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2013-08-10 </span>
+      <div class="post-category">
+          
+            <a href="/categories/linux/"> Linux </a>
+          
+        </div>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      一直是在Linux下用Vim，但是有些时候在别人电脑或者机房又不得不用windows来写代码，所以也就下载了vim for windows。但是今天打开一个朋友写的网页的时候，出现了乱码的问题，所以把解决方法记录一下，也就是和在linux下面一样，修改配置文件就可以了。接下来进入正题。
+ 选项意义概述 Vim有四个跟字符编码方式有关的选项，分别是:encoding、fileencoding、fileencodings、termencoding (这些选项可能的取值可以参考 Vim 的帮助 :help encoding-names)，它们各自的意义:
+ encoding: Vim 内部使用的字符编码方式，包括Vim的buffer(缓冲区)、菜单文本、消息文本等。用户手册上建议只在*.vimrc中改变它的值，事实上似乎也只有在.vimrc* 中改变它的值才有意义。
+ fileencoding: Vim 中当前编辑的文件的字符编码方式，Vim 保存文件时也会将文件保存为这种字符编码方式 (不管是否新文件都如此)。
+ fileencodings: Vim 启动时会按照它所列出的字符编码方式逐一探测即将打开的文件的字符编码方式，并且将 fileencoding 设置为最终探测到的字符编码方式。因此最好将 Unicode 编码方式放到这个列表的最前面，将拉丁语系编码方式 latin1 放到最后面。
+ termencoding: Vim 所工作的终端 (或者 Windows 的 Console 窗口) 的字符编码方式。这个选项在 Windows 下对我们常用的 GUI 模式的 gVim 无效，而对 Console 模式的 Vim 而言就是Windows控制台的代码页，并且通常我们不需要改变它。（我尝试改变了它为UTF-8，但对于console模式的编码方式却没有改变）
+  配置说明 由于 Unicode 能包含几乎所有的语言的字符，Unicode的UTF-8编码方式又是非常具有性价比和通用的编码方式，所以把*encoding*的值设置为utf-8。同时将encoding设置为utf-8时，Vim自动探测文件的编码方式会更准确。在中文Windows里编辑的文件，为了兼顾与其他软件的兼容性，文件编码还是设置为GB2312/GBK比较合适，因此*fileencoding*建议设置为chinese (chinese是个别名，在Unix里表示gb2312，在Windows里表示cp936，也就是GBK的代码页)。
+具体配置 最后对于文件中显示乱码、菜单乱码、右键菜单乱码以及Conlse输出乱码问题的解决方案，修改Vim编辑器所对应的配置文件_vimrc（这个文件在你安装vim 的那个目录下），添加如下配置：
+ 关于常规设置：
+&quot;总是显示标签。0：不显示；1：多于1个时显示&quot; set showtabline=2 &quot;开启行号&quot; set number &quot;开启自动缩进, 7.
+    </div>
+    <div class="read-more">
+      <a href="/2013/08/10/Vim7.3-for-Windows-%E9%85%8D%E7%BD%AE/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">

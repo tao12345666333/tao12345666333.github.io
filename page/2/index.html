@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2019-08-25T21:19:10&#43;08:00"/>
+<meta property="og:updated_time" content="2019-09-01T23:56:38&#43;08:00"/>
 
 
 
@@ -149,6 +149,30 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/09/01/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-etcd-v3.4.0-%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%9B%B4%E6%96%B0/">K8S 生态周报| etcd v3.4.0 带来众多更新</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-09-01 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Helm 3 beta2 发布 Helm 3 从 Alpha 之后，就一直进入了持续改进阶段。终于现在 beta2 发布了，按现在社区的开发进度来看，今年发布正式版的希望还是很大的。
+感兴趣还是建议可以先尝试下，以免之后升级时带来不适。
+CoreDNS v1.6.3 发布  federation 将在 1.7.0 中被完全废弃； 新增两个插件 clouddns 和 sign，其中 clouddns 顾名思义是为云环境设计的，现在它支持 GCP （Google Cloud Platform）Cloud DNS 提供的 zone 数据，实际上它是通过 Google Cloud 的 API 来获取这些信息的，如果你没有在使用 GCP Cloud DNS 的话，目前这个插件应该是用不到的；sign 插件则是根据 RFC 6781 对 Zone 使用 NSEC 签名，但需要注意的是签名是有时效的，如果到了过期时间，则 Zone 信息会变成 Bad 状态（RFC 4035），所以如果你想要使用这个插件，请明确知道自己需要做什么以及为何使用它； file 插件修复了一些内存泄漏的问题；  除了上述提到的内容外，想稍微再提一下在 v1.6.2 中新增的 azure 插件，它其实和 clouddns 做的事情类似，只不过是从 Azure 获取记录罢了。另外从 v1.
+    </div>
+    <div class="read-more">
+      <a href="/2019/09/01/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-etcd-v3.4.0-%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%9B%B4%E6%96%B0/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -389,34 +413,6 @@ v0.4.0 版本中，默认的 Kubernetes 版本升级到了 v1.15 版本，且 ki
     </div>
     <div class="read-more">
       <a href="/2019/06/30/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-24~2019-06-30/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2019/06/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-17~2019-06-23/">K8S 生态周报| 2019-06-17~2019-06-23</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-06-22 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Kubernetes v1.15.0 正式发布 经过了三个月左右的开发，Kubernetes v1.15.0 正式发布了。
-这是 2019 年 Kubernetes 发布的第二个版本，这个版本由 25 个增强功能组成，其中 2 个移动到 stable ，13 个 beta 以及 10 个 alpha ，整体上集中于稳定性改进和扩展的增强。
-CRD (Custom Resource Definition) 是 Kubernetes 提供的一种可用于扩展其能力的方式，当前有很多使用 CRD 构建于 Kubernetes 上的平台/系统，可以说之后对 Kubernetes 的扩展，或者说想要基于 Kubernetes 开发，同时又想与上游保持同步的话，CRD 是个最佳的选择。
-Kubeadm 在此版本开始有了自己独立的 LOGO ，同时在这个版本中 kubeadm 的功能也得到了很多的完善和补充。这使得 kubeadm 成为更普遍/更好用的搭建集群的工具，同时对集群生命周期的管理也做的更加到位了。这部分的功能我很喜欢也一直在关注，近期我会针对这部分写篇文章出来。感兴趣的朋友们可以关注下
-关于此版本更多的介绍，可参考 Kubernetes v1.15 ReleaseNote
-Istio 1.2.0 正式发布 经过三个 rc 版本之后， Istio 1.2.0 版本正式发布。
-在这个版本中，它添加了对 Kubernetes IPv6 的实验性支持。Kind （Kubernetes in Docker） 项目也是本周内刚增加了 IPv6 的支持 :)
-    </div>
-    <div class="read-more">
-      <a href="/2019/06/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-17~2019-06-23/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2019-10-27T23:01:41&#43;08:00"/>
+<meta property="og:updated_time" content="2019-11-03T23:17:05&#43;08:00"/>
 
 
 
@@ -149,6 +149,36 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/11/03/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v2-%E7%88%86%E5%87%BA%E5%85%A8%E7%89%88%E6%9C%AC%E6%BC%8F%E6%B4%9E/">K8S 生态周报| Helm v2 爆出全版本漏洞</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-11-03 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Jaeger 顺利从 CNCF 毕业 CNCF（云原生计算基金会）在美国时间 2019 年 10 月 31 日宣布 Jaeger 正式毕业了。
+这是 CNCF 中第 7 个正式毕业的项目，在上次周报的最后 我才刚提过一些项目提交了毕业申请，也同时以 Jaeger 为时一年的毕业申请申请举了个例子，没想到本周就毕业了。:)
+Jaeger 最初是由 Uber 受 Dapper 和 OpenZipkin 启发，开源出来的一套分布式追踪系统。它主要可用于微服务架构下的分布式系统的根因分析，性能/延迟优化，服务依赖等方面。截至目前，它在 GitHub 上有 9.4k 的 star ，986 个 fork 以及 115 位贡献者。
+它现在的存储后端主要就支持两种 Cassandra 3.4+ 和 Elasticsearch 5.x/6.x ，在这种系统中，随着服务规模的扩大，对后端存储的要求也会很高。另外，它有一套比较现代化的 UI，是基于 react 开发的。
+整体来看的话，在使用上基本技术栈就会成为下面这样：
+当然实际的架构也可能会因为基础设施而改变，比如说如果已经使用了 SkyWalking 的话，两者倒是也可以结合，大概就会变成下面这样：
+不过，对于技术方案的选择，我个人建议是考虑实际需求，以及对各方案进行理性的权衡，否则的话，说不定什么时候就演变成了下面这样：（这个调用链虽然是可以走通的，但此处我是开个玩笑的， 请勿当真）
+最后，再次恭喜 Jaeger 顺利毕业！
+Helm 2 爆出全版本受影响的漏洞 本周 Helm 官方披露出来一个全版本 (Helm 在 2.
+    </div>
+    <div class="read-more">
+      <a href="/2019/11/03/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v2-%E7%88%86%E5%87%BA%E5%85%A8%E7%89%88%E6%9C%AC%E6%BC%8F%E6%B4%9E/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -392,30 +422,6 @@ containerd 1.3.0-rc.0 发布 1.3 将会是 containerd 的下一个主版本；�
     </div>
     <div class="read-more">
       <a href="/2019/09/08/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Harbor-v1.9-%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2019/09/01/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-etcd-v3.4.0-%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%9B%B4%E6%96%B0/">K8S 生态周报| etcd v3.4.0 带来众多更新</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-09-01 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Helm 3 beta2 发布 Helm 3 从 Alpha 之后，就一直进入了持续改进阶段。终于现在 beta2 发布了，按现在社区的开发进度来看，今年发布正式版的希望还是很大的。
-感兴趣还是建议可以先尝试下，以免之后升级时带来不适。
-CoreDNS v1.6.3 发布  federation 将在 1.7.0 中被完全废弃； 新增两个插件 clouddns 和 sign，其中 clouddns 顾名思义是为云环境设计的，现在它支持 GCP （Google Cloud Platform）Cloud DNS 提供的 zone 数据，实际上它是通过 Google Cloud 的 API 来获取这些信息的，如果你没有在使用 GCP Cloud DNS 的话，目前这个插件应该是用不到的；sign 插件则是根据 RFC 6781 对 Zone 使用 NSEC 签名，但需要注意的是签名是有时效的，如果到了过期时间，则 Zone 信息会变成 Bad 状态（RFC 4035），所以如果你想要使用这个插件，请明确知道自己需要做什么以及为何使用它； file 插件修复了一些内存泄漏的问题；  除了上述提到的内容外，想稍微再提一下在 v1.6.2 中新增的 azure 插件，它其实和 clouddns 做的事情类似，只不过是从 Azure 获取记录罢了。另外从 v1.
-    </div>
-    <div class="read-more">
-      <a href="/2019/09/01/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-etcd-v3.4.0-%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%9B%B4%E6%96%B0/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

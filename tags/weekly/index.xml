@@ -6,10 +6,28 @@
     <description>Recent content in Weekly on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 27 Oct 2019 23:01:41 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 03 Nov 2019 23:17:05 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/tags/weekly/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8S 生态周报| Helm v2 爆出全版本漏洞</title>
+      <link>https://moelove.info/2019/11/03/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v2-%E7%88%86%E5%87%BA%E5%85%A8%E7%89%88%E6%9C%AC%E6%BC%8F%E6%B4%9E/</link>
+      <pubDate>Sun, 03 Nov 2019 23:17:05 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/11/03/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v2-%E7%88%86%E5%87%BA%E5%85%A8%E7%89%88%E6%9C%AC%E6%BC%8F%E6%B4%9E/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Jaeger 顺利从 CNCF 毕业 CNCF（云原生计算基金会）在美国时间 2019 年 10 月 31 日宣布 Jaeger 正式毕业了。
+这是 CNCF 中第 7 个正式毕业的项目，在上次周报的最后 我才刚提过一些项目提交了毕业申请，也同时以 Jaeger 为时一年的毕业申请申请举了个例子，没想到本周就毕业了。:)
+Jaeger 最初是由 Uber 受 Dapper 和 OpenZipkin 启发，开源出来的一套分布式追踪系统。它主要可用于微服务架构下的分布式系统的根因分析，性能/延迟优化，服务依赖等方面。截至目前，它在 GitHub 上有 9.4k 的 star ，986 个 fork 以及 115 位贡献者。
+它现在的存储后端主要就支持两种 Cassandra 3.4+ 和 Elasticsearch 5.x/6.x ，在这种系统中，随着服务规模的扩大，对后端存储的要求也会很高。另外，它有一套比较现代化的 UI，是基于 react 开发的。
+整体来看的话，在使用上基本技术栈就会成为下面这样：
+当然实际的架构也可能会因为基础设施而改变，比如说如果已经使用了 SkyWalking 的话，两者倒是也可以结合，大概就会变成下面这样：
+不过，对于技术方案的选择，我个人建议是考虑实际需求，以及对各方案进行理性的权衡，否则的话，说不定什么时候就演变成了下面这样：（这个调用链虽然是可以走通的，但此处我是开个玩笑的， 请勿当真）
+最后，再次恭喜 Jaeger 顺利毕业！
+Helm 2 爆出全版本受影响的漏洞 本周 Helm 官方披露出来一个全版本 (Helm 在 2.</description>
+    </item>
     
     <item>
       <title>K8S 生态周报| Helm v3 最后一个beta版本发布</title>
