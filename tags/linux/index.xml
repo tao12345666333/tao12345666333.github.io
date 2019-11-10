@@ -6,10 +6,26 @@
     <description>Recent content in Linux on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 03 Nov 2019 23:17:05 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 10 Nov 2019 23:17:45 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8S 生态周报| Vitess 正式从 CNCF 毕业</title>
+      <link>https://moelove.info/2019/11/10/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Vitess-%E6%AD%A3%E5%BC%8F%E4%BB%8E-CNCF-%E6%AF%95%E4%B8%9A/</link>
+      <pubDate>Sun, 10 Nov 2019 23:17:45 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/11/10/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Vitess-%E6%AD%A3%E5%BC%8F%E4%BB%8E-CNCF-%E6%AF%95%E4%B8%9A/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Vitess 正式从 CNCF 毕业 CNCF（云原生计算基金会）在美国时间 2019 年 11 月 5 日宣布 Vitess 正式毕业了。
+这是 CNCF 中第 8 个正式毕业的项目，最近的几次周报中，基本都会谈到关于 CNCF 项目毕业相关的信息（忙碌的 Q4 啊）
+Vitess 最初由 YouTube 在 2010 年创建， 主要是用于 MySQL 横向扩展的数据库系统。据说 Vitess 一直为 YouTube 的所有数据库提供服务，国内貌似是京东使用比较多。
+补一张 Vitess 的架构图：
+最后，再次 恭喜 Vitess 顺利毕业!
+Helm v2.16.0 正式发布 在之前的 K8S 生态周报| Helm v2 最后一个特性版本发布中，我介绍了 Helm 正式发布了 v2.15.0 作为 v2 版本的最后一个特性版本。
+而本次发布的 v2.16.0 也确实没有主要的特性更新，都是一些问题修复和安全更新等；（在这次版本中是 13 个独立 committers 之一 :) ）</description>
+    </item>
     
     <item>
       <title>K8S 生态周报| Helm v2 爆出全版本漏洞</title>
