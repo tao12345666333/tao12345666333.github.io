@@ -6,10 +6,30 @@
     <description>Recent content in Kubernetes on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 10 Nov 2019 23:17:45 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 17 Nov 2019 16:18:15 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>2019 容器使用量报告</title>
+      <link>https://moelove.info/2019/11/17/2019-%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8%E9%87%8F%E6%8A%A5%E5%91%8A/</link>
+      <pubDate>Sun, 17 Nov 2019 16:18:15 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/11/17/2019-%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8%E9%87%8F%E6%8A%A5%E5%91%8A/</guid>
+      <description>最近 sysdig 发布了 2019 容器使用报告，内容还比较有趣，特别来介绍一下。 关注公众号「Moelove」回复 docker2019 即可获取完整 PDF 报告。
+关键信息 容器运行时 Docker 仍然是占据市场规模最大的容器运行时 （79%），而其他的，类似 rkt，lxc，podman 之类的市场占比微乎其微，甚至没有在报告中出现。
+containerd 源自 Docker，现在也占据了一席之地；而对于 cri-o 报告中指出，之后市场份额可能会增加。
+在我个人看来，近一年内 Docker 在企业生产环境的使用规模仍然会保持最大。
+编排 可以看到 Kubernetes 遥遥领先，加上构建在 Kubernetes 之上的 OpenShift 和 Rancher ，这个霸主地位是非常稳了。
+个人看来，近一年内，Kubernetes 的地位是不可能被撼动了，越来越多的企业也都会将技术栈迁移上去或者调研基于 Kubernetes 的云原生解决方案。
+metrics Prometheus 已经成为事实标准，加上 Prometheus 作为 CNCF 毕业项目，以及围绕 CNCF 及云原生相关的各类基础软件等，都增加了各类 metrics，以及各类 exporter 越来越多，几乎可以涵盖生产中所需的各类 metrics 的需求了。
+报警 这个图也可以从侧面反映出，节点的稳定性是大多数用户所关注的焦点。(无论上层如何调度，底层的稳定性依然很重要)
+Pods 规模 多数集群属于中小规模的（也说明是个正在发展的阶段）
+结论 容器仍然在应用交付上发挥着重要的作用，从去年发布报告（在公众号后台回复 docker2018 获取）以来，容器技术的采用率仍在加速，容器密度翻了一番，并且随着技术的成熟，也有了越来越多的成熟案例。
+Prometheus 已经成为了云原生应用指标的标准化方案，容器编排技术 Kubernetes 成为了事实的标准，企业应该在 Kubernetes 上进行投资，以跟上技术潮流的步伐。
+可以通过下面二维码订阅我的文章公众号【MoeLove】， 在公众号后台回复 docker2019 可下载完整报告。</description>
+    </item>
     
     <item>
       <title>K8S 生态周报| Vitess 正式从 CNCF 毕业</title>
