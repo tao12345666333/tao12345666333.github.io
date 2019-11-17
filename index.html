@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2019-11-17T16:18:15&#43;08:00"/>
+<meta property="og:updated_time" content="2019-11-17T22:15:01&#43;08:00"/>
 
 
 
@@ -152,6 +152,32 @@
     
       <article class="post">
   <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/11/17/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.0.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/">K8S 生态周报| Helm v3.0.0 正式发布</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-11-17 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Helm v3.0.0 正式发布 本周 Helm v3.0.0 正式发布了。在 Helm v3 发布第一个 alpha 版时，我就写了一篇 《初试 Helm 3》 在那篇文章中，我介绍了一些 Helm 3 的变化及特性。 现在正式版发布了，我们来正式的看看这个版本带来了哪些值得期待的内容。（PS：我不会在本文中介绍其全部特性，只会聊聊我感兴趣的，对全部特性感兴趣的朋友可以参考其官方文档 https://helm.sh/docs/ ）
+移除 Tiller 这个特性想必在任何介绍 Helm 3 的文章中都会有提到，当然在我之前的文章中也有提到。在 Helm 2 时，对于启动了 RBAC 的 Kubernetes 集群而言，在生产环境中想要安全的管理 Tiller 的权限是比较麻烦的。
+如果使用默认配置（简单来说也就是没啥特别的限制），那么上手很容易，但对于多租户的集群而言，就没那么安全了。
+在 Helm 2 时期，为了简单或者说为了安全，我们可以使用 Tillerless 的方式，来避免在集群中安装 Tiller， 同时还可以正常的使用 Helm 的功能。（很早前计划写篇文章介绍一下这个经验来着，结果至今也还没有腾出时间写，现在 Helm 3 发布，也就不用写了，这里大概聊一下）
+Tillerless 是什么含义呢？ 也就是在本地启动一个 Tiller 的服务，让它使用你本地的 KUBECONFIG 的配置文件与集群进行交互，而 Helm 在初始化时，只需要初始化 client 即可， 然后可通过 $HELM_HOST 变量控制连接到本地所启动的 Tiller， 之后便可以正常使用了。(每次部署完成后，将 Tiller 关闭即可)
+    </div>
+    <div class="read-more">
+      <a href="/2019/11/17/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.0.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
+    
+      <article class="post">
+  <header class="post-header">
     <h1 class="post-title"><a class="post-link" href="/2019/11/17/2019-%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8%E9%87%8F%E6%8A%A5%E5%91%8A/">2019 容器使用量报告</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2019-11-17 </span>
@@ -177,32 +203,6 @@ Prometheus 已经成为了云原生应用指标的标准化方案，容器编排
     </div>
     <div class="read-more">
       <a href="/2019/11/17/2019-%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8%E9%87%8F%E6%8A%A5%E5%91%8A/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2019/11/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.0.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/">K8S 生态周报| Helm v3.0.0 正式发布</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-11-16 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Helm v3.0.0 正式发布 本周 Helm v3.0.0 正式发布了。在 Helm v3 发布第一个 alpha 版时，我就写了一篇 《初试 Helm 3》 在那篇文章中，我介绍了一些 Helm 3 的变化及特性。 现在正式版发布了，我们来正式的看看这个版本带来了哪些值得期待的内容。（PS：我不会在本文中介绍其全部特性，只会聊聊我感兴趣的，对全部特性感兴趣的朋友可以参考其官方文档 https://helm.sh/docs/ ）
-移除 Tiller 这个特性想必在任何介绍 Helm 3 的文章中都会有提到，当然在我之前的文章中也有提到。在 Helm 2 时，对于启动了 RBAC 的 Kubernetes 集群而言，在生产环境中想要安全的管理 Tiller 的权限是比较麻烦的。
-如果使用默认配置（简单来说也就是没啥特别的限制），那么上手很容易，但对于多租户的集群而言，就没那么安全了。
-在 Helm 2 时期，为了简单或者说为了安全，我们可以使用 Tillerless 的方式，来避免在集群中安装 Tiller， 同时还可以正常的使用 Helm 的功能。（很早前计划写篇文章介绍一下这个经验来着，结果至今也还没有腾出时间写，现在 Helm 3 发布，也就不用写了，这里大概聊一下）
-Tillerless 是什么含义呢？ 也就是在本地启动一个 Tiller 的服务，让它使用你本地的 KUBECONFIG 的配置文件与集群进行交互，而 Helm 在初始化时，只需要初始化 client 即可， 然后可通过 $HELM_HOST 变量控制连接到本地所启动的 Tiller， 之后便可以正常使用了。(每次部署完成后，将 Tiller 关闭即可)
-    </div>
-    <div class="read-more">
-      <a href="/2019/11/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.0.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

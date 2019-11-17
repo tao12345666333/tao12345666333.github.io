@@ -6,17 +6,17 @@
     <description>Recent content in Linux on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sat, 16 Nov 2019 22:15:01 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 17 Nov 2019 22:15:01 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>K8S 生态周报| Helm v3.0.0 正式发布</title>
-      <link>https://moelove.info/2019/11/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.0.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</link>
-      <pubDate>Sat, 16 Nov 2019 22:15:01 +0800</pubDate>
+      <link>https://moelove.info/2019/11/17/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.0.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</link>
+      <pubDate>Sun, 17 Nov 2019 22:15:01 +0800</pubDate>
       
-      <guid>https://moelove.info/2019/11/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.0.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</guid>
+      <guid>https://moelove.info/2019/11/17/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.0.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</guid>
       <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
  Helm v3.0.0 正式发布 本周 Helm v3.0.0 正式发布了。在 Helm v3 发布第一个 alpha 版时，我就写了一篇 《初试 Helm 3》 在那篇文章中，我介绍了一些 Helm 3 的变化及特性。 现在正式版发布了，我们来正式的看看这个版本带来了哪些值得期待的内容。（PS：我不会在本文中介绍其全部特性，只会聊聊我感兴趣的，对全部特性感兴趣的朋友可以参考其官方文档 https://helm.sh/docs/ ）
 移除 Tiller 这个特性想必在任何介绍 Helm 3 的文章中都会有提到，当然在我之前的文章中也有提到。在 Helm 2 时，对于启动了 RBAC 的 Kubernetes 集群而言，在生产环境中想要安全的管理 Tiller 的权限是比较麻烦的。
