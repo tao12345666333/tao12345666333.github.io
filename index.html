@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2019-11-17T22:15:01&#43;08:00"/>
+<meta property="og:updated_time" content="2019-11-25T04:52:31&#43;08:00"/>
 
 
 
@@ -149,6 +149,32 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/11/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.3.1-%E5%8F%91%E5%B8%83/">K8S 生态周报| containerd v1.3.1 发布</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-11-25 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ containerd v1.3.1 发布 本周 containerd v1.3.1 发布了，我们一起看看其中值得注意的变化：
+ 将 runc 更新至 v1.0.0-rc9 ， 其中包含了对 CVE-2019-16884 的修复，关于此漏洞的更多细节也可参考 https://github.com/opencontainers/runc/issues/2128 ； 修复了一个 v1.3.0 在拉取镜像遇到错误时，解包过程中的死锁问题 #3816 ; 定位了一个 containerd 在主机意外重启时，可能无法恢复损坏的镜像的问题，这个问题是比较有意思的，可能遇到这种情况的环境主要是 containerd 数据目录挂载至非根目录所在的盘中（多数环境中，系统盘的空间并不会很大，所以这种安装情况也算比较常见）。发生此问题的根本原因就在于重启后启动的时机不对（我倾向于这样表述，虽然实际的逻辑是 gc 删除了一些元数据，但它本身的行为是正常的）。所以修复的办法也比较简单， 如果你的 containerd 是使用 systemd 进行管理的，那么可以在 service 的配置文件的 After 块中增加 local-fs.target 的配置
+local-fs.target 是 systemd 中一个特殊的单元，和 dbus.service 之类的很多单元类似，都属于特殊的那一类。具体来说它是用来集合本地文件系统挂载点的目标单元，听起来可能比较抽象。实际上就是 systemd-fstab-generator 会在所有本地文件系统挂载单元中添加 Before=local-fs.target 这一条，所以呢，当在 local-fs.target 之后执行的，就表示现在机器上的所有本地文件系统均已经正确挂载。(这也是我认为这个问题有意思的地方）
+  以上就是我认为在此版本中比较值得注意的点了，对此版本有兴趣的朋友可参阅 ReleaseNote
+Kubernetes v1.17.0-rc.1 发布 虽然本周在举行 KubeCon 但 Kubernetes 的发布进度也没受太多影响，本周顺利发布了 v1.
+    </div>
+    <div class="read-more">
+      <a href="/2019/11/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.3.1-%E5%8F%91%E5%B8%83/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -400,36 +426,6 @@ Docker v19.03.3-rc1 发布 自从 Docker 修改维护周期后，Docker 对软�
     </div>
     <div class="read-more">
       <a href="/2019/10/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-runc-v1.0.0-rc9-%E5%8F%91%E5%B8%83/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2019/09/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.3-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/">K8S 生态周报| containerd v1.3 正式发布</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-09-29 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- containerd v1.3.0 正式发布 在上个主版本（v1.2.0）后经过 11 个月，我们终于迎来了 containerd v1.3.0 的发布，当然这个版本也是 containerd 自 CNCF 毕业后的首个主版本。（关于 containerd 毕业的信息可参考我之前的文章）
-在三周前 containerd v1.3.0-rc.0 发布时，我也提到过一些，现在我们来整体看一下。
- 增加了 Windows v2 的 runtime API， 同时移除了 Windows v1 API； 为修复 CVE-2019-16884 更新了 runc 依赖；
- 可配置的插件目录；
- 允许插件注册为一个 TCP Server ，通过这种机制其实可以做到很多的事情了；
- 增加了流式处理的插件，允许在解包的时候处理自定义资源类型（设计上考虑可使用此功能进行加解密相关的逻辑）；
- 支持跨仓库推送镜像；
- 新增了 devicemapper 的快照支持，然而需要注意的是 Docker 已经将 devicemapper 的存储驱动标记为了过期，推荐大家使用 Overlay2 的存储驱动；
- 在 CRI 方面 io.containerd.runtime.v1.linux 仍然是默认的运行时，可选配置为新的 io.containerd.runc.v2，新的版本
-    </div>
-    <div class="read-more">
-      <a href="/2019/09/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.3-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

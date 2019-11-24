@@ -65,7 +65,7 @@
 
 
 
-<meta property="og:updated_time" content="2019-03-31T21:52:01&#43;08:00"/>
+<meta property="og:updated_time" content="2019-04-07T10:03:13&#43;08:00"/>
 
 
 
@@ -149,6 +149,33 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/04/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.04.01~2019.04.07/">K8S 生态周报| 2019.04.01~2019.04.07</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-04-07 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Kubernetes client-go v11.0.0 正式发布 这是最后一个使用 dep 作为依赖管理的版本，后续版本将转向使用 go modules.
+Kubernetes 生态中的相关项目大多都已转向或正在转向使用 go modules 了，这也是一个技术风向，理性选择。
+Release
+containerd 1.2.6 正式发布 这是 containerd 1.2 的第 6 个 patch 版本，主要更新：
+ 在默认的 seccomp profile 白名单增加了 io_pgetevents 和 statx 这两个系统调用; 修复了在 1.2.5 中自定义 cgroup path 无法工作的 bug； 更新 CNI 插件到 v0.7.5 以修复 CVE-2019-9946; 更新 runc 版本，修复在无 SELinux 系统下的失败情况；  当然还有一些其他的改进和修复，比如修复了 pod 的 UTS namespace 等，建议阅读 ReleaseNote。
+Docker CE 19.
+    </div>
+    <div class="read-more">
+      <a href="/2019/04/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.04.01~2019.04.07/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -403,37 +430,6 @@ Dockerd Dockerd 是 Docker 的服务端，默认情况下提供 Unix Domain Sock
     </div>
     <div class="read-more">
       <a href="/2018/09/04/Docker-%E6%B7%B1%E5%85%A5%E7%AF%87%E4%B9%8B-Build-%E5%8E%9F%E7%90%86/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2018/08/06/GitLab-CI-%E4%BD%BF%E7%94%A8-InsecureRegistry/">GitLab CI 使用 InsecureRegistry</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2018-08-06 </span>
-      <div class="post-category">
-          
-            <a href="/categories/linux/"> Linux </a>
-          
-        </div>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      继上次分享后，有读者留言问 dind 使用 insecure-registry 相关的问题。
- 请教个问题，基于gitlab CI做java项目持续集成，用到了docker in docker， docker build使用的Dockerfile中使用了一个insecure registry，在dind的容器中如何配置insecure registry
- 我的回复是：
-首先, 不推荐使用 insecure registry 毕竟有其固有限制， 如果一定要用的话， 其实在 services 层配置一个 command 就可以，这也是最简单的， 例如：
-services: - name: docker:dind command: [&quot;--insecure-registry=myregistry:5000&quot;]  由于留言字数的限制，就单独写个小文来回复下。
-这个做法实际效果如下：
-(Tao) ➜ kubernetes git:(master) ✗ sudo docker run -d --privileged --name dind docker:dind --insecure-registry=&quot;myregistry:5000&quot; 8fb68865638ebc65255bb568fbe1fd6b4ed4fca771075d8e55ebbbbdf0aef6d2 (Tao) ➜ kubernetes git:(master) ✗ sudo docker top dind UID PID PPID C STIME TTY TIME CMD root 18270 18252 1 11:27 ?
-    </div>
-    <div class="read-more">
-      <a href="/2018/08/06/GitLab-CI-%E4%BD%BF%E7%94%A8-InsecureRegistry/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
