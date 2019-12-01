@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DevOps on MoeLove</title>
+    <link>https://moelove.info/tags/DevOps/</link>
+    <description>Recent content in DevOps on MoeLove</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Mon, 06 Aug 2018 08:12:03 +0800</lastBuildDate>
+    
+	<atom:link href="https://moelove.info/tags/DevOps/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>GitLab CI 使用 InsecureRegistry</title>
+      <link>https://moelove.info/2018/08/06/GitLab-CI-%E4%BD%BF%E7%94%A8-InsecureRegistry/</link>
+      <pubDate>Mon, 06 Aug 2018 08:12:03 +0800</pubDate>
+      
+      <guid>https://moelove.info/2018/08/06/GitLab-CI-%E4%BD%BF%E7%94%A8-InsecureRegistry/</guid>
+      <description>继上次分享后，有读者留言问 dind 使用 insecure-registry 相关的问题。
+ 请教个问题，基于gitlab CI做java项目持续集成，用到了docker in docker， docker build使用的Dockerfile中使用了一个insecure registry，在dind的容器中如何配置insecure registry
+ 我的回复是：
+首先, 不推荐使用 insecure registry 毕竟有其固有限制， 如果一定要用的话， 其实在 services 层配置一个 command 就可以，这也是最简单的， 例如：
+services: - name: docker:dind command: [&amp;quot;--insecure-registry=myregistry:5000&amp;quot;]  由于留言字数的限制，就单独写个小文来回复下。
+这个做法实际效果如下：
+(Tao) ➜ kubernetes git:(master) ✗ sudo docker run -d --privileged --name dind docker:dind --insecure-registry=&amp;quot;myregistry:5000&amp;quot; 8fb68865638ebc65255bb568fbe1fd6b4ed4fca771075d8e55ebbbbdf0aef6d2 (Tao) ➜ kubernetes git:(master) ✗ sudo docker top dind UID PID PPID C STIME TTY TIME CMD root 18270 18252 1 11:27 ?</description>
+    </item>
+    
+    <item>
+      <title>基于 GitLab 的 CI 实践</title>
+      <link>https://moelove.info/2018/08/05/%E5%9F%BA%E4%BA%8E-GitLab-%E7%9A%84-CI-%E5%AE%9E%E8%B7%B5/</link>
+      <pubDate>Sun, 05 Aug 2018 14:54:59 +0800</pubDate>
+      
+      <guid>https://moelove.info/2018/08/05/%E5%9F%BA%E4%BA%8E-GitLab-%E7%9A%84-CI-%E5%AE%9E%E8%B7%B5/</guid>
+      <description>上个月受 DockOne 社区邀请，做了一次 CI 实践方面的线上分享，在此记录下。 本文讲述 GitLab CI 的架构及其能力特性，分析它在 DevOps 实践中的作用。 通过分析 Docker In Docker 的技术细节，详细讲述 CI 实践以及在生产环境中的所做的优化，包括但不限于镜像仓库等，以达到数倍的性能提升。 本次分享内容以 GitLab Community Edition 11.0.4 edb037c 为例。
+ 为何选择 GitLab CI 认识 GitLab CI 什么是 GitLab CI GitLab CI 是 GitLab 为了提升其在软件开发工程中作用，完善 DevOPS 理念所加入的 CI/CD 基础功能。可以便捷的融入软件开发环节中。通过 GitLab CI 可以定义完善的 CI/CD Pipeline。
+优势  GitLab CI 是默认包含在 GitLab 中的，我们的代码使用 GitLab 进行托管，这样可以很容易的进行集成 GitLab CI 的前端界面比较美观，容易被人接受 包含实时构建日志，容易追踪 采用 C/S 的架构，可方面的进行横向扩展，性能上不会有影响 使用 YAML 进行配置，任何人都可以很方便的使用。  重点概念 Pipeline Pipeline 相当于一个构建任务，里面可以包含多个流程，如依赖安装、编译、测试、部署等。 任何提交或者 Merge Request 的合并都可以触发 Pipeline</description>
+    </item>
+    
+    <item>
+      <title>对监控系统的思考</title>
+      <link>https://moelove.info/2015/10/16/%E5%AF%B9%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%80%83/</link>
+      <pubDate>Fri, 16 Oct 2015 00:59:01 +0000</pubDate>
+      
+      <guid>https://moelove.info/2015/10/16/%E5%AF%B9%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%80%83/</guid>
+      <description>近期在做运维监控方面的事情，也研究了一下其他人是如何做的。把自己的想法做个总结记录一下吧。
+ 监控期望的目标  及时发现   需要的是即时监控并报警
+  及时定位   定位问题要分开讲
+ 运维层面 &amp;gt; 是机器硬件问题还是上面运行的基础服务的问题，或者是新上线代码的问题，需要回滚。
+ 代码层面 &amp;gt; 在发生问题的时候，优先解决问题。定位代码问题提交hotfix 可以在解决问题之后做。
+    及时处理 提前预测（尽量减少问题的发生）   提前预测可以做的事情有很多，数据挖掘/分析之类的。当然有个更简单的方法，就是先小范围上线，进行监控。如果发现出问题了，就停止上线，进行回滚。（我们现在就是这样做的，虽然原因并不是这个 2333
+ 监控遇到的主要问题  监控指标多   服务器CPU,内存，网络等的指标，基础服务Redis, MongoDB等的运行指标，对外服务的API是否正常工作，还有数据是否正确等。
+  监控报警多   监控指标多的时候，自然报警也会相应增加，但是报警的分组与轻重缓急也是一个很麻烦的问题。还有就是部署着不同服务的机器，触发报警时候的指标也不好确定。
+  报警多而且有关联，如何查找原因   可能同时会有多个指标触发了报警，但是要定位问题的时候，如何可以快速的定位问题。
+ 多维度数据监控  这个话题太大(要感谢Baidu的颜大大的指点）
+ 数据监控符合二八原则,重要数据需要多角度进行观察，需要有meta管理，需要动态简单配置。选择 好的，合理的数据模型可以有效的进行处理。
+ 数据采集部分，在单机器做聚合;命名上使用正则格式化;完善的配置功能，支持数据流自定义维度。
+    对开源系统的使用，需要按照自己的实际情况进行适配。保证高可用性  先写这些吧，之后有时间再写，还有QCon上对运维监控上的一些分享也非常值得思考</description>
+    </item>
+    
+    <item>
+      <title>Open-Falcon监控系统部署</title>
+      <link>https://moelove.info/2015/10/13/Open-Falcon%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E9%83%A8%E7%BD%B2/</link>
+      <pubDate>Tue, 13 Oct 2015 21:01:00 +0000</pubDate>
+      
+      <guid>https://moelove.info/2015/10/13/Open-Falcon%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E9%83%A8%E7%BD%B2/</guid>
+      <description>本文并不分析Open-Falcon的架构或者选用它的原因，官方的文档在这里，虽然还不够完善。不过这也是我写这篇的原因，官方文档并没能把整个部署过程连在一起，而且个别地方有点问题。我在这篇文章中就不介绍各个组件的作用和功能了，只是单纯的介绍如何从零部署。
+ 安装 下载   wget https://github.com/XiaoMi/open-falcon/releases/download/0.0.5/open-falcon-0.0.5.tar.gz -O open-falcon.tar.gz   解压   mkdir tmp tar -zxvf open-falcon.tar.gz -C ./tmp   基础环境   sudo apt-get install redis-server sudo apt-get install mysql-server pip install virtualenv # 数据库初始化的代码来源于官方文档 git clone https://github.com/open-falcon/scripts.git cd scripts mysql -h localhost -u root -p &amp;lt; db_schema/graph-db-schema.sql mysql -h localhost -u root -p &amp;lt; db_schema/dashboard-db-schema.sql mysql -h localhost -u root -p &amp;lt; db_schema/portal-db-schema.</description>
+    </item>
+    
+  </channel>
+</rss>

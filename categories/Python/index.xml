@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on MoeLove</title>
+    <link>https://moelove.info/categories/Python/</link>
+    <description>Recent content in Python on MoeLove</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Fri, 30 Jun 2017 00:13:16 +0000</lastBuildDate>
+    
+	<atom:link href="https://moelove.info/categories/Python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Install-Python3.6-on-CentOS7</title>
+      <link>https://moelove.info/2017/06/30/Install-Python3.6-on-CentOS7/</link>
+      <pubDate>Fri, 30 Jun 2017 00:13:16 +0000</pubDate>
+      
+      <guid>https://moelove.info/2017/06/30/Install-Python3.6-on-CentOS7/</guid>
+      <description>拖了很久没有更新，抱歉啦~ 今天受邀写篇如何在 CentOS 7 上配置 Python 3 环境的文章。往常我都选择直接把我早年写的一篇文章源码编译MongoDB丢过去，让他们看其中的源码编译 Python 那一节，不过那节写的其实不太详细，而且最近被很多人催，所以还是单独写一篇好了。
+ 当前最新的 CentOS 7.3 默认安装的是 Python 2 ，并且默认的官方 yum 源中不提供 Python 3 的安装包。有些用户想要升级使用 Python 3 但实际可能有各种各样的问题，导致出错，反观一下激进的 Fedora 社区，在23的时候，就将默认的版本修改成了 Python3 （如果我没记错的话）。
+先说下我所使用的系统环境， 一个新创建的 Docker 容器。 使用 cat /etc/redhat-release 可以看到运行的是 CentOS 7.3 版本。
+在纯净的 CentOS 系统上安装 Python 环境主要有两种办法。 一种是通过源码编译安装，另外一种就是安装已经打好的 RPM 包。依照个人习惯，我们先来看一下如何通过源码编译的方式安装 Python 3.6 并且配置虚拟环境。
+使用源码进行编译安装 基础环境  先安装安装几个必须的包，以方便后续的操作
+➜ yum install wget gcc make ➜ # wget 用于下载源码包 ➜ # gcc 和 make 用于编译    上 Python的官网 下载源码包</description>
+    </item>
+    
+    <item>
+      <title>Python性能优化之工具篇</title>
+      <link>https://moelove.info/2016/05/14/Python%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E5%B7%A5%E5%85%B7%E7%AF%87/</link>
+      <pubDate>Sat, 14 May 2016 00:14:54 +0000</pubDate>
+      
+      <guid>https://moelove.info/2016/05/14/Python%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E5%B7%A5%E5%85%B7%E7%AF%87/</guid>
+      <description>之前对公司的一个后端项目做了些性能优化, 学到一些值得记录的东西, 这篇主要是介绍在做性能分析时所用到的工具, 至于如何优化基本就是智者见智吧, 如果有时间可能会写的.
+ Python web应用程序的常见性能指标 此处忽略外部DNS解析等方面的性能   响应时间 错误率 吞吐率 执行时间 内存占用  Python 性能分析工具 ##TODO</description>
+    </item>
+    
+    <item>
+      <title>用正确的姿势开源Python项目</title>
+      <link>https://moelove.info/2015/10/26/%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%A7%BF%E5%8A%BF%E5%BC%80%E6%BA%90Python%E9%A1%B9%E7%9B%AE/</link>
+      <pubDate>Mon, 26 Oct 2015 22:17:36 +0000</pubDate>
+      
+      <guid>https://moelove.info/2015/10/26/%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%A7%BF%E5%8A%BF%E5%BC%80%E6%BA%90Python%E9%A1%B9%E7%9B%AE/</guid>
+      <description>做个备忘，也希望可以帮到别人。
+ 目录结构（初始化） 一般我们都会选择在项目的顶层包含较基础的文件，比如setup.py，requirements，README等文件。 一般情况下，一个预发布的Python项目中应该包含以下几类文件：
+ projects (项目的主体文件) setup.py requirements Readme (项目说明) docs (项目文档) test  其中，projects文件夹要以项目命名，存放实际的Python Package. 这里放一个我的项目的目录作为例子。
+➜ httpmultipart git:(master) tree -L 2 . ├── build │ ├── bdist.linux-x86_64 │ └── lib.linux-x86_64-2.7 ├── dist │ ├── httpmultipart-0.1.0-py2.py3-none-any.whl │ └── httpmultipart-0.1.0.tar.gz ├── docs │ ├── _build │ ├── conf.py │ ├── index.rst │ ├── Makefile │ ├── userguide │ └── userguide.rst ├── env │ ├── bin │ ├── include │ ├── lib │ └── local ├── httpmultipart │ ├── __init__.</description>
+    </item>
+    
+    <item>
+      <title>正则匹配中文及字符编码问题</title>
+      <link>https://moelove.info/2014/07/22/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%AD%E6%96%87%E5%8F%8A%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Tue, 22 Jul 2014 21:16:34 +0000</pubDate>
+      
+      <guid>https://moelove.info/2014/07/22/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%AD%E6%96%87%E5%8F%8A%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</guid>
+      <description>匹配中文的正则表达式 窝写了一小段代码（虽然写的不太好，但是基本可以表达意思）
+-- import re nickname = raw_input(&#39;Please input your nickname &amp;gt; &#39;) if not re.search(u&#39;^[\u4e00-\u9fa5a-zA-Z0-9]+$&#39;, unicode(nickname,&#39;utf8&#39;)): print &#39;Your nickname format is error, please try again !&#39; else: print &#39;Hello %s&#39;% nickname  如你所见，上面第5行的代码，就是匹配中文和字母，数字的正则表达式了。里面的\u4e00-\u9fa5 就是中文汉字的unicode编码所在位置。
+Python字符串的编码问题 还是以上面那段代码来说。注意看第5行的代码
+if not re.search(u&#39;^[\u4e00-\u9fa5a-zA-Z0-9]+$&#39;, unicode(nickname,&#39;utf8&#39;)):  其实这样的代码并不严谨。因为在Python 中默认是用unicode编码来处理字符串的，因此做编码转换的时候，一般要以unicode作为中间编码，也就是说： 其他编码格式的字符串&amp;mdash;&amp;gt;解码(decode)&amp;mdash;&amp;gt;unicode&amp;mdash;&amp;gt;编码(encode)&amp;mdash;&amp;gt;所需要的编码格式。
+因此，处理字符串编码的问题的时候，先要明白需要转换的字符串的编码格式是什么。
+代码中字符串的默认编码格式与代码文件本身的编码格式是一样的 比如： s = &amp;lsquo;涛&amp;rsquo; 在utf8的文件中，那么s就是utf8编码的，但是如果文件是gb2312编码，那么s就是gb2312编码的。此时，如果想要处理s这个字符串就要先decode成unicode编码了。
+不过如果是酱紫 s = u&amp;rsquo;涛&amp;rsquo;，那么s就是unicode编码了，这个时候s的编码方式不会被文件的编码所影响。
+如果一个字符串已经是unicode编码了，再解码就会出错 因此严谨的方式就是先对字符串进行编码格式的判别，最简单的办法就是使用Python 默认提供的isinstance() 方法.
+代码可以这样写 isinstance(s, unicode) 如果不是unicode编码就会报错。
+窝今天在处理用户昵称的地方，忘记字符串会直接使用文件的编码了，所以对它进行了重新编码orz果断就报错了。。。以后还是要好好注意细节的说。</description>
+    </item>
+    
+    <item>
+      <title>upyun-for-pelican</title>
+      <link>https://moelove.info/2014/05/16/upyun-for-pelican/</link>
+      <pubDate>Fri, 16 May 2014 21:51:41 +0000</pubDate>
+      
+      <guid>https://moelove.info/2014/05/16/upyun-for-pelican/</guid>
+      <description>这几天写了一个插件，方便把pelican生成静态博客部署到又拍云上。 整体思路就是：
+ 先格式化路径，以/为根目录
+def formatPath(path): path = path.replace(os.sep, &#39;/&#39;) return path  定义两个列表来存储文件和目录
+  之后就是验证用户，以及bucketname 之类的了。
+简介 pelican 是一款基于python的静态博客生成工具，本程序可以方便的把生成的静态博客部署到又拍云上。演示地址：upyun-for-pelican 
+生成网站  make html make serve (进行本地预览)  说明  程序使用了又拍云的官方SDK 需要先安装 upyun
+pip install upyun  可以自定义要上传的文件目录。在最下方的local_dir 中指定即可。Pelican默认的上传目录是 output 目录
+  使用  可以在 pelicanconf.py 文件中直接设置 BUCKETNAME, USERNAME, PASSWORD 参数（这些参数的使用大写命名格式也是为了符合*pelicanconf.py*中的习惯），也可以直接在 upyun-for-pelican.py文件的最下方直接设置。
+ 执行
+python upyun-for-pelican.py  程序在 Python 2.7 环境下测试通过。
+  其他说明  程序执行开始会有上传确认提示，输入Y / y 都可以继续上传。 可以使用项目中的pelicanconf.</description>
+    </item>
+    
+  </channel>
+</rss>

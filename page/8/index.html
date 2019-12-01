@@ -33,7 +33,7 @@
 <meta name="google-site-verification" content="googlefe3fc086c62f7210.html" />
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.55.6" />
 
 
 <link rel="canonical" href="https://moelove.info/" />
@@ -63,18 +63,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://moelove.info/" />
 
-
-
-<meta property="og:updated_time" content="2015-03-17T00:34:34&#43;00:00"/>
-
-
-
-
-
-
-
-
-
+<meta property="og:updated_time" content="2019-12-01T10:15:15&#43;08:00"/>
 
 <meta itemprop="name" content="MoeLove">
 <meta itemprop="description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.">
@@ -149,6 +138,38 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2015/07/21/%E9%87%8D%E7%BD%AEGhost%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%AF%86%E7%A0%81/">重置Ghost博客的密码</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2015-07-21 </span>
+      <div class="post-category">
+          
+            <a href="/categories/node/"> Node </a>
+          
+        </div>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+        在搭建Ghost博客的时候，尚未配置mail服务器时，重置密码的方法做个记录
+ 打开数据库查看用户信息 如果全部默认设置，使用生产环境的话，应该是 sqlite3 content/data/ghost.db
+如果是开发环境应该是 sqlite3 content/date/ghost-dev.db
+查看用户信息 sqlite&gt;SELECT * FROM users;
+更新用户密码  Ghost对用户密码用的是BCrypt加密，可以使用BCrypt Hash Generator之类的工具生成一个想要修改的密码，例如&rdquo;mypasswd&rdquo;生成的密码是 $2a$10$QecJeBdw2lONRTnHJ0RoVO6DczdJWf4h4QgaUcgKsYFZlzTe1yeEK
+ 假设之前查看到的用户信息，邮箱是admin@domain.com 那么，使用这样更新密码
+ UPDATE users SET password=&quot;$2a$10$QecJeBdw2lONRTnHJ0RoVO6DczdJWf4h4QgaUcgKsYFZlzTe1yeEK&quot; WHERE email=&quot;admin@domain.com&quot;  退出sqlite3 .exit
+  
+    </div>
+    <div class="read-more">
+      <a href="/2015/07/21/%E9%87%8D%E7%BD%AEGhost%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%AF%86%E7%A0%81/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -397,7 +418,7 @@ python upyun-for-pelican.py  程序在 Python 2.7 环境下测试通过。
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2014/04/18/Hello-World-/">Hello World !</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/2014/04/18/Hello-World/">Hello World !</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2014-04-18 </span>
       <div class="post-category">
@@ -418,37 +439,7 @@ python upyun-for-pelican.py  程序在 Python 2.7 环境下测试通过。
   选择Pelica是因为我对Python 比较熟悉，之前尝试过用Jekyll 和 Octopress 搭建，都比较方便 尤其是Jekyll 用户很多，文档什么的都很多了。只不过我更喜欢Python 多一些（虽然我有用ROR开发过WEB应用程序） 因为如果有什么需要的话，我也可以自己来开发插件或者自己再尝试做一个系统。 Pelican 相对来说配置也很方便， 很简单， 虽然用户不是很多，但是基本上的问题也都可以解决的 Pelican 支持restructuredText和Markdown写文章，配置灵活，扩展性强。我用的是3.3.0。  
     </div>
     <div class="read-more">
-      <a href="/2014/04/18/Hello-World-/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2014/03/10/Linux-%E5%AE%89%E8%A3%85Android-%E9%A9%B1%E5%8A%A8/">Linux 安装Android 驱动</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2014-03-10 </span>
-      <div class="post-category">
-          
-            <a href="/categories/linux/"> Linux </a>
-          
-        </div>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      在Linux下非常适合做一些对Rom 的定制以及其他的一些操作，甚至是自己制作Rom 或者从源码编译Rom 也是OK的。
-不过最开始的应该就是搭建开发环境了，我先从装驱动开始说（只是做个笔记而已）
- 使用数据线连接手机，打开adb调试模式。(在Linux上搭建开发环境， 以及adb 命令之类的， 就自行搜索吧，如果哪天更新了 我会附上链接的)
- 输入adb devices 查看设备 如果有机型的话就说明是已经有驱动了 如果没有显示的话， 就是说明需要进行驱动安装了。
-  这个时候， lsusb 查看， 会看到下面这样的信息
-[tao@localhost ~]$ lsusb Bus 001 Device 002: ID 8087:0020 Intel Corp. Integrated Rate Matching Hub Bus 002 Device 002: ID 8087:0020 Intel Corp. Integrated Rate Matching Hub Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.
-    </div>
-    <div class="read-more">
-      <a href="/2014/03/10/Linux-%E5%AE%89%E8%A3%85Android-%E9%A9%B1%E5%8A%A8/" class="read-more-link">阅读更多</a>
+      <a href="/2014/04/18/Hello-World/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

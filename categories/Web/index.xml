@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Web on MoeLove</title>
+    <link>https://moelove.info/categories/Web/</link>
+    <description>Recent content in Web on MoeLove</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Mon, 26 Dec 2016 00:43:02 +0000</lastBuildDate>
+    
+	<atom:link href="https://moelove.info/categories/Web/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>关于 webpack 你可能忽略的细节（附源码分析）</title>
+      <link>https://moelove.info/2016/12/26/%E5%85%B3%E4%BA%8E-webpack-%E4%BD%A0%E5%8F%AF%E8%83%BD%E5%BF%BD%E7%95%A5%E7%9A%84%E7%BB%86%E8%8A%82%E9%99%84%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link>
+      <pubDate>Mon, 26 Dec 2016 00:43:02 +0000</pubDate>
+      
+      <guid>https://moelove.info/2016/12/26/%E5%85%B3%E4%BA%8E-webpack-%E4%BD%A0%E5%8F%AF%E8%83%BD%E5%BF%BD%E7%95%A5%E7%9A%84%E7%BB%86%E8%8A%82%E9%99%84%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</guid>
+      <description>注：本篇不是入门教程，入门请直接查看官方文档。本篇的主要目标是通过实际问题来介绍 webpack 中容易被人忽略的细节, 以及源码分析(以最新发布的 release 版本1.14.0的源码为例), 并且提供几种解决方案。
+ 随着前端技术的火热发展，工程化，模块化和组件化的思想已逐步成为主流，与之相应的，就需要有一整套工具流可以支撑起它。
+现在比较热门的前端资源模块化管理和打包工具应该非 Webpack 莫属了。
+Webpack 是什么  它可以将许多松散的模块按照依赖和规则打包成符合生产环境部署的前端资源。还可以将按需加载的模块进行代码分隔，等到实际需要的时候再异步加载。通过 loader 的转换，任何形式的资源都可以视作模块，比如 CommonJs 模块、 AMD 模块、 ES6 模块、CSS、图片、 JSON、Coffeescript、 LESS 等。 &amp;ndash;引自 Webpack 中文指南
+ 使用举例 我们来看一下官方文档中的最小用例，新建并写入以下内容到这两个文件：
+cats.js
+var cats = [&#39;dave&#39;, &#39;henry&#39;, &#39;martha&#39;]; module.exports = cats;  app.js (Entry Point)
+cats = require(&#39;./cats.js&#39;); console.log(cats);  这个时候，就可以使用 webpack 进行打包了：
+webpack ./app.js app.bundle.js  我们来看一下发生了什么， 目录下生成了一个打包后的文件 app.bundle.js ，这就是最基础的打包过程。
+提出问题 如何判断打包是否成功？
+通用方案 下面是我们常用的两种判断任务是否执行成功的方案
+通过 return code 通过命令执行后的 return code 来判断（在 shell 中使用 $?</description>
+    </item>
+    
+    <item>
+      <title>JSLint,JSHint,ESLint对比和Vim配置</title>
+      <link>https://moelove.info/2015/11/28/JSLintJSHintESLint%E5%AF%B9%E6%AF%94%E5%92%8CVim%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Sat, 28 Nov 2015 23:43:49 +0000</pubDate>
+      
+      <guid>https://moelove.info/2015/11/28/JSLintJSHintESLint%E5%AF%B9%E6%AF%94%E5%92%8CVim%E9%85%8D%E7%BD%AE/</guid>
+      <description>最近在用React写项目，但是我的Vim配置之前并没有配置对JSX和ES6的支持，然后看着那堆报错各种不爽了，于是还是要继续折腾，顺便也增加了点知识，记录一下。
+主流的JS Lint工具及介绍 JavaScript已经发展蛮长时间了，对应的Lint工具也是层出不穷，下面介绍一下比较主流的几个Lint工具(其实是我用过的几个XD)
+JSLint JSLint是由Douglas Crockford开发的，可能是最早的JavaScript Lint工具了吧，它的名字来源于著名的C语言工具Lint。老道把他认为的非Good Parts的部分都报了warning，而且在它的文档中也提到了你应该欣然接受所有的JSLint的建议。最近看了下，老道还在持续更新着这个项目，而且官网上也有着一个在线的体验工具，可以尝试一下。对了，如果想要使用这个工具，建议看看老道在YouTube上关于JavaScript编程风格的视频，讲的还是很幽默的。
+JSHint JSHint是由Anton Kovalyov基于JSLint的代码实现的开源项目，由于JSLint时期大多数人都在受JSLint压迫，JSHint相比较之下，更友好，也更容易配置，所以很快就发展了起来，也得到了众多IDE和编辑器的支持。但是，由于它是基于JSLint开发的，自然原有的一些问题它也继承下来了，比如不易扩展，不容易直接根据报错定位到具体的规则配置等，虽然之前好像是有过相关的讨论，但是现在仍然没有什么好的解决办法。好在它发展的不错，很多时候遇到的问题都可以在网上找到相关的解决方案，而且文档也是非常不错的。
+ESLint ESLint是由Nicholas C. Zakas在2013年开始开发的，它的初衷就是为了能让开发者能自定义自己的linting rules，而且它提供了一套相当完善的插件机制，可以自由的扩展，动态加载配置规则，同时可以方便的根据报错定位到具体的规则配置。而且我比较喜欢它的一点是文档非常详细，可能这也是灵活所必须的吧。在这里还要提一点，ESLint最初并不是为了造一个重复的轮子，而是作者在实际使用中的需求没有能得到JSHint团队的回应，所以他就结合当时的JSHint和另一个代码风格的检查工具JSCS写出来了现在具备代码风格检查，自定义插件扩展功能的ESLint了。
+JSLint，JSHint和ESLint的对比 这三个工具各有特色，我只是做一下对比，选择的话，看个人需求就好了。
+JSLint 优点  配置是老道已经定好的，开箱即用。  不足  有限的配置选项，很多规则不能禁用 规范严格，凡是不符合老道所认为的好的风格的，都会有警告(这一项就看你是否完全认同老道了) 扩展性差 无法根据错误定位到对应的规则  JSHint 优点  有了很多参数可以配置 支持配置文件，方便使用 支持了一些常用类库 支持了基本的ES6  不足  不支持自定义规则 无法根据错误定位到对应的规则  ESLint 优点  默认规则里面包含了JSLint和JSHint的规则，易于迁移(这肯定是故意的XD) 可配置为警告和错误两个等级，或者直接禁用掉 支持插件扩展 可以自定义规则 可以根据错误定位到对应的规则 支持ES6 唯一一个支持JSX的工具  不足  需要进行一些自定义配置(因为太灵活了嘛，不过文档是很详细的) 慢 (它比其他两个都要慢)  Vim支持 我们都使用Syntastic来配置
+JSLint的Vim配置 有一个jslint.vim当然版本太老了。。我们不用这种方式做。
+ 安装jslint
+sudo npm install jslint -g  在vimrc中添加如下配置</description>
+    </item>
+    
+    <item>
+      <title>使用Pelican搭建Blog</title>
+      <link>https://moelove.info/2014/05/07/%E4%BD%BF%E7%94%A8Pelican%E6%90%AD%E5%BB%BABlog/</link>
+      <pubDate>Wed, 07 May 2014 21:48:59 +0000</pubDate>
+      
+      <guid>https://moelove.info/2014/05/07/%E4%BD%BF%E7%94%A8Pelican%E6%90%AD%E5%BB%BABlog/</guid>
+      <description>安装配置Pelican 使用环境：  系统 : Linux X86_64 Pelican : 3.3.0  首先说一下安装： 网上有不少建议说使用虚拟环境 virtualenv，以免污染本地的环境。不过，如果不是去更改Python的全局设置的话，也不至于影响本地环境的。我是直接安装的。根据 Pelican 官方的文档，我是使用 pip 安装的，不过pip又是依赖于distribute 安装的。所以，我使用的命令如下：
+ curl -O http://python-distribute.org/distribute_setup.py sudo python distribute_setup.py curl -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py sudo python get-pip.py sudo pip install pelican  还有，如果要用 Markdown来写文章，也需要执行如下命令：
+ pip install markdown  新建一个目录，用来存放你的博客文件（我直接建立了&amp;rdquo;blog&amp;rdquo;文件夹）
+ mkdir blog cd blog  新建博客： 使用如下命令：
+ pelican-quickstart  按照提示一步步即可完成新建， 这些配置之后可以在pelicanconf.py这个文件中修改
+ Where do you want to create your new web site?[.] (你想在哪里创建你的网站，默认为当前目录) What will be the title of this web site?</description>
+    </item>
+    
+    <item>
+      <title>Hello World !</title>
+      <link>https://moelove.info/2014/04/18/Hello-World/</link>
+      <pubDate>Fri, 18 Apr 2014 21:46:06 +0000</pubDate>
+      
+      <guid>https://moelove.info/2014/04/18/Hello-World/</guid>
+      <description> 几乎所有的程序猿的第一个演示程序都是Hello World .那我也就一样咯， 也写一个同样的吧。 其实我的博客从很早前就已经开始在写了， 换了很多的平台：
+ 从腾讯空间--&amp;gt; 百度空间--&amp;gt; 新浪博客--&amp;gt; 自己搭建的Wordpress博客--&amp;gt; 点点（点点我其实是用来碎碎念的） --&amp;gt; 博客园（个人感觉体验不是很好的说）--&amp;gt; 静态博客  选择了这么多，我最后决定还是使用 静态博客 来做个人博客。
+ 原因有以下几个：
+  使用其他平台提供的博客不是很爽， 可个性化的方面不是很多， 点点相对来说做的还是很不错的 不仅提供个性化定制而且还支持绑定个人域名之类的。但是其他网站就不是那么人性化了。 写博客总是需要贴代码的，但是除了WP外，其他的我不是很满意。 用静态博客方便备份，而且是本地编辑就可以了，在线编辑的，感觉会被束缚很多。 本人属于折腾党，喜欢可以个人定制的， 直到符合个人满意的程度为止。   接下来说说这次博客的安装：
+  选择Pelica是因为我对Python 比较熟悉，之前尝试过用Jekyll 和 Octopress 搭建，都比较方便 尤其是Jekyll 用户很多，文档什么的都很多了。只不过我更喜欢Python 多一些（虽然我有用ROR开发过WEB应用程序） 因为如果有什么需要的话，我也可以自己来开发插件或者自己再尝试做一个系统。 Pelican 相对来说配置也很方便， 很简单， 虽然用户不是很多，但是基本上的问题也都可以解决的 Pelican 支持restructuredText和Markdown写文章，配置灵活，扩展性强。我用的是3.3.0。  </description>
+    </item>
+    
+  </channel>
+</rss>

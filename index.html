@@ -33,7 +33,7 @@
 <meta name="google-site-verification" content="googlefe3fc086c62f7210.html" />
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.55.6" />
 
 
 <link rel="canonical" href="https://moelove.info/" />
@@ -63,18 +63,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://moelove.info/" />
 
-
-
-<meta property="og:updated_time" content="2019-11-25T04:52:31&#43;08:00"/>
-
-
-
-
-
-
-
-
-
+<meta property="og:updated_time" content="2019-12-01T10:15:15&#43;08:00"/>
 
 <meta itemprop="name" content="MoeLove">
 <meta itemprop="description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.">
@@ -149,6 +138,33 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/12/01/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Rancher-v2.3.3-%E5%8F%91%E5%B8%83/">K8S 生态周报| Rancher v2.3.3 发布</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-12-01 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Rancher v2.3.3 发布 本周 Rancher v2.3.3 发布，正式支持 Kubernetes v1.16，并将 v1.16.3 设置为 Rancher 默认的 Kubernetes 版本。
+在此版本中，值得关注的修复如下：
+ 修复了其不支持 kube-proxy 使用 IPVS 模式的问题;  已知问题：
+ Rancher v2.3.3 在开启 SELinux 的 RHEL 7.7 上使用 RHEL Docker 1.13 时，部署集群将导致失败；  更多关于此版本的特性及已知问题，请关注 ReleaseNote
+上游进展  api-server 的 --runtime-config 可使用 api/beta=false 参数禁用所有内置的符合 v[0-9]+beta[0-9]+ 版本的 REST API；同时 --feature-gates 可使用 AllBeta=false 禁用所有内置的 beta 特性。#84304
+ downward API 为 Dualstack 增加了支持，参数名为 status.
+    </div>
+    <div class="read-more">
+      <a href="/2019/12/01/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Rancher-v2.3.3-%E5%8F%91%E5%B8%83/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -396,36 +412,6 @@ iptables -N DOCKER-USER iptables -I FORWARD -j DOCKER-USER iptables -A DOCKER-US
     </div>
     <div class="read-more">
       <a href="/2019/10/08/Docker-%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2019/10/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-runc-v1.0.0-rc9-%E5%8F%91%E5%B8%83/">K8S 生态周报| runc v1.0.0-rc9 发布</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-10-06 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- runc v1.0.0-rc9 发布 不知不觉，runc v1.0.0-rc9 于近日发布了。早先关注过我文章的朋友们应该看到过我从去年开始每次在 runc 新版本发布时都有专门写一篇文章进行介绍。这次版本的定位主要是修复 CVE-2019-16884 所以我也就不再单独写文章介绍了（另一个原因是现在在假期，还是多抽空陪陪家人）
-先对 CVE-2019-16884 做个简单的介绍。这是一个中等级别的漏洞，其主要影响是 runc 源码中的 libcontainer/rootfs_linux.go 在文件挂载至 /proc 时，少做了一些检查，可绕过 AppArmor 的限制，所以可能导致被一些恶意镜像所利用。
-主要的修复方式是将原先的 checkMountDestination 函数改写为 checkProcMount，并在其中添加了对源文件类型的判断，只允许 procfs 类型的文件挂载至 /proc 。
-此漏洞影响到的范围是 runc 以及一些使用 runc 作为基础组件的容器管理软件。请尽快进行升级。
-此版本的地址是：https://github.com/opencontainers/runc/releases/tag/v1.0.0-rc9
-Docker v19.03.3-rc1 发布 自从 Docker 修改维护周期后，Docker 对软件的质量要求有了显著提高，每次版本发布前会经历多阶段的测试和回归，确保软件没有什么问题后才会发布正式版。
-按现在的进度来看 v19.03.3 应该会在一两周内放出。新版本会将 containerd 升级至最新的 1.2.10 ，并修复了一个在 5.2 版本内核上 overlay2 文件系统挂载时的错误。
-关于此版本感兴趣的朋友可以参考 ReleaseNote
-上游进展 Kubernetes v1.17 已经进入发布周期，这个版本的发布周期会比较短，现在已经发布了 v1.17.0-alpha 版本，计划是在 12 月 9 日可以最终发布。(想想看，距现在也就两个月的时间，你的集群现在是哪个版本呢？)
-    </div>
-    <div class="read-more">
-      <a href="/2019/10/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-runc-v1.0.0-rc9-%E5%8F%91%E5%B8%83/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

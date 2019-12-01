@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sublime Text on MoeLove</title>
+    <link>https://moelove.info/tags/Sublime-Text/</link>
+    <description>Recent content in Sublime Text on MoeLove</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Thu, 19 Jun 2014 23:17:31 +0000</lastBuildDate>
+    
+	<atom:link href="https://moelove.info/tags/Sublime-Text/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Linux中Sublime中文输入</title>
+      <link>https://moelove.info/2014/06/19/Linux%E4%B8%ADSublime%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/</link>
+      <pubDate>Thu, 19 Jun 2014 23:17:31 +0000</pubDate>
+      
+      <guid>https://moelove.info/2014/06/19/Linux%E4%B8%ADSublime%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/</guid>
+      <description>这篇只是为了备忘所以把以前写的东西搬这边了 -.-
+ 代码源于网络，感谢分享 这里的关键就是以下的代码和编译 /* sublime-imfix.c Use LD_PRELOAD to interpose some function to fix sublime input method support for linux. By Cjacker Huang &amp;lt;jianzhong.huang at i-soft.com.cn&amp;gt; gcc -shared -o libsublime-imfix.so sublime_imfix.c `pkg-config --libs --cflags gtk+-2.0` -fPIC LD_PRELOAD=./libsublime-imfix.so sublime_text */ #include &amp;lt;gtk/gtk.h&amp;gt; #include &amp;lt;gdk/gdkx.h&amp;gt; typedef GdkSegment GdkRegionBox; struct _GdkRegion { long size; long numRects; GdkRegionBox *rects; GdkRegionBox extents; }; GtkIMContext *local_context; void gdk_region_get_clipbox (const GdkRegion *region, GdkRectangle *rectangle) { g_return_if_fail (region !</description>
+    </item>
+    
+    <item>
+      <title>fedora下安装sublime text 2的方法</title>
+      <link>https://moelove.info/2013/08/30/fedora%E4%B8%8B%E5%AE%89%E8%A3%85sublime-text-2%E7%9A%84%E6%96%B9%E6%B3%95/</link>
+      <pubDate>Fri, 30 Aug 2013 21:36:09 +0000</pubDate>
+      
+      <guid>https://moelove.info/2013/08/30/fedora%E4%B8%8B%E5%AE%89%E8%A3%85sublime-text-2%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
+      <description>首先去官网下载最新的压缩包  把文件解压到$HOME/.sublime_text_2文件夹中：
+tar -xf (sublime压缩包的文件名).tar.bz2 sudo mv (解压后的文件夹) tools/Sublime_Text_2  在/usr/bin目录下面创建一个链接
+vim sublime  在文件中写入这些代码：
+#!/bin/bash export SUBLIME_HOME=&amp;quot;~/tools/Sublime_Text_2&amp;quot; $SUBLIME_HOME/sublime_text $*   修改文件权限并且移动
+chmod 555 sublime &amp;amp;&amp;amp; mv sublime /usr/bin/sublime  这样就可以在终端中直接执行sublime了</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -36,7 +36,7 @@
 <meta name="google-site-verification" content="googlefe3fc086c62f7210.html" />
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.55.6" />
 
 
 <link rel="canonical" href="https://moelove.info/2018/08/05/%E5%9F%BA%E4%BA%8E-GitLab-%E7%9A%84-CI-%E5%AE%9E%E8%B7%B5/" />
@@ -65,22 +65,8 @@
 优势  GitLab CI 是默认包含在 GitLab 中的，我们的代码使用 GitLab 进行托管，这样可以很容易的进行集成 GitLab CI 的前端界面比较美观，容易被人接受 包含实时构建日志，容易追踪 采用 C/S 的架构，可方面的进行横向扩展，性能上不会有影响 使用 YAML 进行配置，任何人都可以很方便的使用。  重点概念 Pipeline Pipeline 相当于一个构建任务，里面可以包含多个流程，如依赖安装、编译、测试、部署等。 任何提交或者 Merge Request 的合并都可以触发 Pipeline" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://moelove.info/2018/08/05/%E5%9F%BA%E4%BA%8E-GitLab-%E7%9A%84-CI-%E5%AE%9E%E8%B7%B5/" />
-
-
-
 <meta property="article:published_time" content="2018-08-05T14:54:59&#43;08:00"/>
-
 <meta property="article:modified_time" content="2018-08-05T14:54:59&#43;08:00"/>
-
-
-
-
-
-
-
-
-
-
 
 <meta itemprop="name" content="基于 GitLab 的 CI 实践">
 <meta itemprop="description" content="上个月受 DockOne 社区邀请，做了一次 CI 实践方面的线上分享，在此记录下。 本文讲述 GitLab CI 的架构及其能力特性，分析它在 DevOps 实践中的作用。 通过分析 Docker In Docker 的技术细节，详细讲述 CI 实践以及在生产环境中的所做的优化，包括但不限于镜像仓库等，以达到数倍的性能提升。 本次分享内容以 GitLab Community Edition 11.0.4 edb037c 为例。

@@ -33,7 +33,7 @@
 <meta name="google-site-verification" content="googlefe3fc086c62f7210.html" />
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.55.6" />
 
 
 <link rel="canonical" href="https://moelove.info/" />
@@ -63,18 +63,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://moelove.info/" />
 
-
-
-<meta property="og:updated_time" content="2019-07-22T00:07:54&#43;08:00"/>
-
-
-
-
-
-
-
-
-
+<meta property="og:updated_time" content="2019-12-01T10:15:15&#43;08:00"/>
 
 <meta itemprop="name" content="MoeLove">
 <meta itemprop="description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.">
@@ -149,6 +138,30 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/07/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-21~2019-07-28/">K8S 生态周报| 2019-07-21~2019-07-28</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-07-28 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Docker CE v19.03 正式发布 7 月 22 日，正式发布了 Docker CE v19.03 版本，按照 Docker CE 版本的生命周期，此次的 v19.03 可以说是千呼万唤始出来，原本按语义应该是在 3 月，不过之前的发布计划中开始是设定在了 5 月份，而一转眼现在已经到 7 月底了。 先跳过这次发布时间延期的问题，我们来看看此版本中最值得注意的一些变化。
+首先来看看被废弃的部分：
+ 废弃 aufs 存储驱动，在此版本之前 devicemapper 和 overlay 也都已经被废弃; 当 docker daemon 运行时，如果没有指定存储驱动，则会自动选择一个，v19.03 中增加了自动选择时跳过已被废弃的存储驱动的逻辑； 废弃 image manifest v2 schema1 以支持 v2 schema2 ，这里的废弃涉及到的内容很多，尤其是涉及到了 image registry 的部分, 所以后续还有很长的路要走。还记得之前推送过 Docker Hub 今年 6 月份停止 v1 API 进行 Pull 操作的事情吗？早年 2015 年 11 月的时候，它就已经禁止了 v1 API 的 Push 操作。从这点上也能看到 Docker 在功能弃用上其实为用户考虑了很多，并且也给了足够长的时间来让用户进行迁移。  其次，我们看看功能增强的部分：
+    </div>
+    <div class="read-more">
+      <a href="/2019/07/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-21~2019-07-28/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -401,31 +414,6 @@ Docker CVE-2018-15664 安全漏洞 在 5 月 29 日我看到了 CVE 的信息，
     </div>
     <div class="read-more">
       <a href="/2019/05/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-27~2019-06-02/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2019/05/26/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-20~2019-05-26/">K8S 生态周报| 2019-05-20~2019-05-26</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-05-26 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- KubeCon EU 举办 2019 年第一个 KubeCon + CloudNativeCon 于 5 月 20 ~ 23 日在巴塞罗那成功举办，这次大会吸引了七千多名参会者远超去年的参会人数。 这也从另一个侧面反映了 Kubernetes 和云原生在大大的普及
-在大会上宣布了不少值得关注的信息, 我在此大致列一下我认为值得关注的信息（虽然有些内容之前已经关注到了）：
- OpenTracing, OpenCensus 合并为 OpenTelemetry； 微软推出 Service Mesh Interface（SMI）规范； NGINX Ingress Controller 发布 1.5.0 版本； Google 宣布 GKE 将会支持 Windows Server Container； Helm 3 的发展历程；（推荐阅读我之前写的 初试 Helm 3）  当然，大会上公布的信息还有很多，还有一些 CNCF 的计划等，这里暂且不提，感兴趣的朋友可以自行搜索或者参加下个月在上海举办的 KubeCon + CloudNativeCon
-微软推出 Service Mesh Interface （SMI） Service Mesh 也是一个趋势，但现在并没有一个统一的规范，各个厂商的实现也都各有不同。微软本次提出的 SMI 主要是为 Kubernetes 服务网格提供通用接口，以便能让 Service Mesh 有更加通用的规范 （就像当初 CNI/CRI 那样子）
-    </div>
-    <div class="read-more">
-      <a href="/2019/05/26/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-20~2019-05-26/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

@@ -6,10 +6,25 @@
     <description>Recent content in Posts on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Mon, 25 Nov 2019 04:52:31 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 01 Dec 2019 10:15:15 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8S 生态周报| Rancher v2.3.3 发布</title>
+      <link>https://moelove.info/2019/12/01/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Rancher-v2.3.3-%E5%8F%91%E5%B8%83/</link>
+      <pubDate>Sun, 01 Dec 2019 10:15:15 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/12/01/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Rancher-v2.3.3-%E5%8F%91%E5%B8%83/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Rancher v2.3.3 发布 本周 Rancher v2.3.3 发布，正式支持 Kubernetes v1.16，并将 v1.16.3 设置为 Rancher 默认的 Kubernetes 版本。
+在此版本中，值得关注的修复如下：
+ 修复了其不支持 kube-proxy 使用 IPVS 模式的问题;  已知问题：
+ Rancher v2.3.3 在开启 SELinux 的 RHEL 7.7 上使用 RHEL Docker 1.13 时，部署集群将导致失败；  更多关于此版本的特性及已知问题，请关注 ReleaseNote
+上游进展  api-server 的 --runtime-config 可使用 api/beta=false 参数禁用所有内置的符合 v[0-9]+beta[0-9]+ 版本的 REST API；同时 --feature-gates 可使用 AllBeta=false 禁用所有内置的 beta 特性。#84304
+ downward API 为 Dualstack 增加了支持，参数名为 status.</description>
+    </item>
     
     <item>
       <title>K8S 生态周报| containerd v1.3.1 发布</title>
@@ -1201,10 +1216,10 @@ python upyun-for-pelican.py  程序在 Python 2.7 环境下测试通过。
     
     <item>
       <title>Hello World !</title>
-      <link>https://moelove.info/2014/04/18/Hello-World-/</link>
+      <link>https://moelove.info/2014/04/18/Hello-World/</link>
       <pubDate>Fri, 18 Apr 2014 21:46:06 +0000</pubDate>
       
-      <guid>https://moelove.info/2014/04/18/Hello-World-/</guid>
+      <guid>https://moelove.info/2014/04/18/Hello-World/</guid>
       <description> 几乎所有的程序猿的第一个演示程序都是Hello World .那我也就一样咯， 也写一个同样的吧。 其实我的博客从很早前就已经开始在写了， 换了很多的平台：
  从腾讯空间--&amp;gt; 百度空间--&amp;gt; 新浪博客--&amp;gt; 自己搭建的Wordpress博客--&amp;gt; 点点（点点我其实是用来碎碎念的） --&amp;gt; 博客园（个人感觉体验不是很好的说）--&amp;gt; 静态博客  选择了这么多，我最后决定还是使用 静态博客 来做个人博客。
  原因有以下几个：

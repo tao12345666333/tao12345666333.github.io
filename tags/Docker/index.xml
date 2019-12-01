@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docker on MoeLove</title>
+    <link>https://moelove.info/tags/Docker/</link>
+    <description>Recent content in Docker on MoeLove</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Sun, 17 Nov 2019 16:18:15 +0800</lastBuildDate>
+    
+	<atom:link href="https://moelove.info/tags/Docker/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>2019 容器使用量报告</title>
+      <link>https://moelove.info/2019/11/17/2019-%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8%E9%87%8F%E6%8A%A5%E5%91%8A/</link>
+      <pubDate>Sun, 17 Nov 2019 16:18:15 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/11/17/2019-%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8%E9%87%8F%E6%8A%A5%E5%91%8A/</guid>
+      <description>最近 sysdig 发布了 2019 容器使用报告，内容还比较有趣，特别来介绍一下。 关注公众号「Moelove」回复 docker2019 即可获取完整 PDF 报告。
+关键信息 容器运行时 Docker 仍然是占据市场规模最大的容器运行时 （79%），而其他的，类似 rkt，lxc，podman 之类的市场占比微乎其微，甚至没有在报告中出现。
+containerd 源自 Docker，现在也占据了一席之地；而对于 cri-o 报告中指出，之后市场份额可能会增加。
+在我个人看来，近一年内 Docker 在企业生产环境的使用规模仍然会保持最大。
+编排 可以看到 Kubernetes 遥遥领先，加上构建在 Kubernetes 之上的 OpenShift 和 Rancher ，这个霸主地位是非常稳了。
+个人看来，近一年内，Kubernetes 的地位是不可能被撼动了，越来越多的企业也都会将技术栈迁移上去或者调研基于 Kubernetes 的云原生解决方案。
+metrics Prometheus 已经成为事实标准，加上 Prometheus 作为 CNCF 毕业项目，以及围绕 CNCF 及云原生相关的各类基础软件等，都增加了各类 metrics，以及各类 exporter 越来越多，几乎可以涵盖生产中所需的各类 metrics 的需求了。
+报警 这个图也可以从侧面反映出，节点的稳定性是大多数用户所关注的焦点。(无论上层如何调度，底层的稳定性依然很重要)
+Pods 规模 多数集群属于中小规模的（也说明是个正在发展的阶段）
+结论 容器仍然在应用交付上发挥着重要的作用，从去年发布报告（在公众号后台回复 docker2018 获取）以来，容器技术的采用率仍在加速，容器密度翻了一番，并且随着技术的成熟，也有了越来越多的成熟案例。
+Prometheus 已经成为了云原生应用指标的标准化方案，容器编排技术 Kubernetes 成为了事实的标准，企业应该在 Kubernetes 上进行投资，以跟上技术潮流的步伐。
+可以通过下面二维码订阅我的文章公众号【MoeLove】， 在公众号后台回复 docker2019 可下载完整报告。</description>
+    </item>
+    
+    <item>
+      <title>Docker 核心知识必知必会</title>
+      <link>https://moelove.info/2019/10/08/Docker-%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</link>
+      <pubDate>Tue, 08 Oct 2019 23:58:14 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/10/08/Docker-%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</guid>
+      <description>自 2013 年起，随着 Docker 的正式面世，容器技术迅速成为了基础技术领域中的热门。而在近两三年中，随着容器编排领域的混战结束，Kubernetes 已经成为了容器编排领域事实上的标准。
+有一些人存在误解，认为 Kubernetes 的出现取代了 Docker。但事实上，Docker 与 Kubernetes 是相辅相成的。Kubernetes 使用 Docker 作为容器运行时，用来启动应用；当 Docker 容器规模变大时，自然是需要有容器编排工具进行管理的。引用最近一次的网络研讨会后的文章内容：
+ In fact, Kubernetes is better with Docker. And Docker is better with Kubernetes.
+ 无论在使用 Docker 或是 Kubernetes 亦或者是使用基于这些技术的其他衍生技术时，都有可能会遇到一些意料之外的情况，当问题发生时，我们总是希望可以快速定位问题，并且从根本上解决问题。
+一般情况下，上层的问题比较容易解决，但如果问题发生在运行时/Docker 或容器上时，如果没有系统性的知识，很难从根本上解决问题；当然，有些时候通过搜索引擎可以帮我们找到一些问题的解决办法，但如果不将其彻底搞懂，以后遇到类似问题可能还是没法快速解决。
+我自 Docker 0.9 版本时开始学习和使用，自己踩过了很多坑，活跃在社区中，也帮别人解决了很多问题。现在我的新专栏《Docker 核心知识必知必会》正式上线了，共 51 节，从 7 个核心维度来 系统性 的讲解 Docker 容器技术的核心特性及原理，实践与源码相结合；部分内容会深入到 Linux 内核源码，以此来建立起从内核到 Docker 容器技术的知识体系。
+我希望借由这个课程，将 Docker 容器技术的本质和思想与我在开发和运维 Docker 过程中对其原理和实践经验的总结讲清楚，并将结合着实践和核心特性的原理，加深对 Docker 容器技术的理解。
+因此，我把课程划分成了三大模块：
+ Docker 入门: 这个模块分成了三篇内容，通过第一篇，带你了解 Docker 容器技术生态的发展脉络；第二篇，是为刚入门 Docker 的读者准备的，也是为后续章节进行铺垫；第三篇是很多读者或公司都常会困惑的问题，Docker 与 Linux 内核兼容性如何，要上生产环境该选择哪个版本？我会在这一篇中与你分享，让你不再困惑。</description>
+    </item>
+    
+    <item>
+      <title>Docker 镜像构建三部曲</title>
+      <link>https://moelove.info/2019/06/01/Docker-%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E4%B8%89%E9%83%A8%E6%9B%B2/</link>
+      <pubDate>Sat, 01 Jun 2019 00:19:03 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/06/01/Docker-%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E4%B8%89%E9%83%A8%E6%9B%B2/</guid>
+      <description>我最近在 GitChat 写了一些 Docker 构建镜像相关的文章，这个系列写了三篇，通过这三篇将 Docker 构建镜像相关的事情基本就讲明白了，感兴趣的朋友扫描二维码或者点击链接即可。
+ 高效构建 Docker 镜像的最佳实践 Docker 可谓是开启了容器化技术的新时代，现在无论大中小公司基本上都对容器化技术有不同程度的尝试，或是已经进行了大量容器化的改造。伴随着 Kubernetes 和 Cloud Native 等技术和理念的普及，也大大增加了业务容器化需求。
+而这一切的推进，不可避免的技术之一便是构建容器镜像。
+在本场 Chat 中，会讲到如下内容：
+ Docker 镜像是什么 Docker 镜像常规管理操作 如何构建 Docker 镜像 逐步分解构建 Docker 镜像的最佳实践 如何提升构建效率  适合人群： 对高效构建 Docker 镜像有兴趣的技术人员
+地址：https://gitbook.cn/gitchat/activity/5cd527e864de19331ba79278
+进阶：Dockerfile 高阶使用指南及镜像优化 在上次的 Chat 高效构建 Docker 镜像的最佳实践 中，我们重点深入内部介绍了 Docker 镜像是什么；以及构建 Docker 镜像的最佳实践等。
+即将发布的 Docker 19.03 版本中 Dockerfile 及构建系统有了很多变化。
+在本场 Chat 中，会讲到如下内容：
+ Dockerfile 高阶使用及新特性解读 Docker 19.03 构建系统解读 Docker 镜像安全实践 发现并优化镜像大小  地址：https://gitbook.</description>
+    </item>
+    
+    <item>
+      <title>关于 Alpine Docker 镜像漏洞 CVE-2019-5021</title>
+      <link>https://moelove.info/2019/05/11/%E5%85%B3%E4%BA%8E-Alpine-Docker-%E9%95%9C%E5%83%8F%E6%BC%8F%E6%B4%9E-CVE-2019-5021/</link>
+      <pubDate>Sat, 11 May 2019 21:07:10 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/05/11/%E5%85%B3%E4%BA%8E-Alpine-Docker-%E9%95%9C%E5%83%8F%E6%BC%8F%E6%B4%9E-CVE-2019-5021/</guid>
+      <description>关于 CVE-2019-5021 带来的一点思考。
+ 本周比较吓人的是 CVE-2019-5021, 根据漏洞报告，自 Alpine Linux 3.3 版本开始的所有 Docker 镜像中，root 用户包含一个空密码，这可能会导致攻击者获得 root 权限，进而造成攻击。
+报告中称：受影响范围是 Alpine Linux Docker 镜像 3.3、3.4、3.5、3.6、3.7、3.8、3.9、edge 等全部版本。
+要知道由于 Alpine Linux 镜像体积较小，所以在构建 Docker 镜像时，很多人都会推荐使用 Alpine Linux 作为基础镜像；包括很多 Docker 官方镜像也基本上都提供了基于 Alpine Linux 的镜像，甚至像 Docker 镜像等，是只提供了使用 Alpine Linux 作为基础镜像的版本。
+报告一出，瞬间这个消息就被传播成了 “Alpine Linux Docker 镜像不安全”/“不要再使用 Alpine Linux 了”。当然 Google 的开发者也顺便推了一次自家的 distroless 镜像。
+我们来看一下 CVE-2019-5021 到底是什么以及如何复现吧。
+CVE-2019-5021 (MoeLove) ➜ ~ docker run --rm -it alpine:3.9 / # grep root /etc/passwd root❌0:0:root:/root:/bin/ash operator❌11:0:operator:/root:/bin/sh / # grep root /etc/shadow root:::0::::: / #  以上是一个 alpine:3.</description>
+    </item>
+    
+    <item>
+      <title>恭喜 Fluentd 从 CNCF 毕业</title>
+      <link>https://moelove.info/2019/04/12/%E6%81%AD%E5%96%9C-Fluentd-%E4%BB%8E-CNCF-%E6%AF%95%E4%B8%9A/</link>
+      <pubDate>Fri, 12 Apr 2019 07:23:14 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/04/12/%E6%81%AD%E5%96%9C-Fluentd-%E4%BB%8E-CNCF-%E6%AF%95%E4%B8%9A/</guid>
+      <description>今年新闻不断，多数早期进入 CNCF 的项目都相继宣布毕业。
+ CNCF（云原生计算基金会）在美国时间 2019 年 4 月 11 日宣布 fluentd 今天正式毕业了。
+这是 CNCF 中毕业的第 6 个项目，之前已经毕业的项目为 Kubernetes、Prometheus、Envoy 、CoreDNS 和 containerd 。
+fluentd 自 2011 年由 Treasure Data 公司的联合创始人 Sadayuki “Sada” Furuhashi 创建，作为构建统一记录层的开源数据收集器，统一记录层统一收集采集和消费，以便更好的使用和理解数据。在 2016 年 11 月，fluentd 也是第 6 个成为 CNCF 托管项目的。
+fluentd 可以从多种数据源采集事件，并将它写入文件, RDBMS, NoSQL, IaaS, SaaS, Hadoop等等各类的目标地址。截至目前，fluentd 在 GitHub 上有 7629 个 star ，895 个 fork，以及 166 位贡献者，超过 4k+ commit 。
+做日志相关的小伙伴基本都玩过 ELK ，我们都知道在大规模使用 Logstash 时的痛苦（还记得被 Logstash 配置文件支配的恐惧吗？ 2333） 而 fluentd 的事件路由是通过 tag 来做，相比 Logstash 使用管道将所有数据路由到单个流里再通过配置将它发送到对应的目标而言这将大大简化配置的复杂度。(是的，这里是吐槽)</description>
+    </item>
+    
+    <item>
+      <title>runc 1.0-rc7 发布之际</title>
+      <link>https://moelove.info/2019/03/29/runc-1.0-rc7-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/</link>
+      <pubDate>Fri, 29 Mar 2019 10:42:25 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/03/29/runc-1.0-rc7-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/</guid>
+      <description>在 18 年 11 月底时，我写了一篇文章 《runc 1.0-rc6 发布之际》 。如果你还不了解 runc 是什么，以及如何使用它，请参考我那篇文章。本文中，不再对其概念和用法等进行说明。
+在 runc 1.0-rc6 发布之时，给版本的别名为 &amp;ldquo;For Real This Time&amp;rdquo;，当时我们原定计划是发布 1.0 的，但是作为基础依赖软件，我们认为当时的版本还有几个问题：
+ 不够规范； 发布周期不明确;  为了给相关的 runtime 足够的时间进行修正/升级，以及规范版本生命周期等，最终决定了发布 runc 1.0-rc6。
+为何有 runc 1.0-rc7 存在 前面已经基本介绍了相关背景，并且也基本明确了 rc6 就是在 1.0 正式发布之前的最后一个版本，那 rc7 为什么会出现呢？
+CVE-2019-5736 我们首先要介绍今年 runc 的一个提权漏洞 CVE-2019-5736 。
+2019 年 2 月 11 日在oss-security 邮件组正式批露该漏洞，攻击者可以利用恶意容器覆盖主机上的 runc 文件，从而达到攻击的目的；（具体的攻击方式此处略过），注意不要轻易使用来源不可信的镜像创建容器便可有效避免被攻击的可能。
+简单补充下可能被攻击的方式：
+ 运行恶意的 Docker 镜像 在主机上执行 docker exec 进入容器内  关于容器安全或者容器的运行机制，其实涉及的点很多，我在去年的一次线上分享 《基于 GitLab 的 CI 实践》 有提到过 Linux Security Modules（LSM）等相关的内容，对容器安全感兴趣的朋友可以对 LSM 多了解下。</description>
+    </item>
+    
+    <item>
+      <title>恭喜 containerd 毕业</title>
+      <link>https://moelove.info/2019/03/01/%E6%81%AD%E5%96%9C-containerd-%E6%AF%95%E4%B8%9A/</link>
+      <pubDate>Fri, 01 Mar 2019 10:18:20 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/03/01/%E6%81%AD%E5%96%9C-containerd-%E6%AF%95%E4%B8%9A/</guid>
+      <description>今年的第一篇文章更新，带来一个重大的消息。
+ CNCF（云原生计算基金会）在美国时间 2019 年 2 月 28 日宣布 containerd 今天正式毕业了。
+这是 CNCF 中毕业的第 5 个项目，之前已经毕业的项目为 Kubernetes、Prometheus、Envoy 和 CoreDNS 。
+containerd 2014 年从 Docker 孵化出来，最初是作为 Docker 引擎的底层管理器；在 2017 年 3 月被 CNCF 接受后，containerd 几乎成为了行业容器运行引擎的标准，它专注于简单，健壮和可移植性，任何人都可以使用它来构建自己的容器引擎/平台。
+ “When Docker contributed containerd to the community, our goal was to share a robust and extensible runtime that millions of users and tens of thousands of organizations have already standardized on as part of Docker Engine,” said Michael Crosby, containerd maintainer and Docker engineer.</description>
+    </item>
+    
+    <item>
+      <title>《Kubernetes从上手到实践》正式上线</title>
+      <link>https://moelove.info/2018/12/27/Kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5%E6%AD%A3%E5%BC%8F%E4%B8%8A%E7%BA%BF/</link>
+      <pubDate>Thu, 27 Dec 2018 11:16:21 +0800</pubDate>
+      
+      <guid>https://moelove.info/2018/12/27/Kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5%E6%AD%A3%E5%BC%8F%E4%B8%8A%E7%BA%BF/</guid>
+      <description> 时间飞逝，转眼已经到了圣诞节，今年又要结束了。感谢还在关注的小伙伴，今年确实更新很少，能不取关的都是真爱&amp;hellip;
+今年发生了很多事情，留着过几天年终总结的时候再说。有很大一部分的休息时间都用来完成了我的第一本掘金小册 《Kubernetes 从上手到实践》
+小册已经正式上线，特意送上各位小伙伴一份礼物，小册 8 折优惠。直接扫码 或者点击此链接即可。
+以下是关于小册的一些介绍：
+随着容器化及微服务等概念的普及，各个公司都在围绕着如何打造生产环境可用的，高效的容器调度平台，应用快速部署，扩容等平台进行探索。Kubernetes 是 Google 在 2014 年基于其多年在 Borg 系统实践总结出的经验而开源出的一套标准化，可扩展的系统。
+而发展至现在（2018年）Kubernetes 已经基本成为了容器编排领域事实上的标准，并且大量的公司都已在生产中使用，无论是国外的 Google， Amazon, GitHub 等，还是国内的阿里，腾讯，京东，滴滴及其他中小公司都在进行着大量的探索及实践。
+之前在容器化尚未大量推进的时候，开发工程师只需要关注自己业务代码的实现，而运维工程师在反复的为部署，扩容所需的环境而费时费力。
+为了解决环境一致性的问题，也为了能够提高资源的利用率，容器化开始逐步推进，开发工程师的交付由原先的交付代码变成了交付镜像，运维工程师可以将精力集中于保障服务的可高用上。
+但为了能够快速的发版验证功能，不再受单体化架构的拖累，微服务的概念也在实践中逐步推进，从原先的单体集中式的服务，拆分为多个松耦合的微服务。到了这时，微服务 + 容器化已经大势所趋，生产中要大量使用，则容器编排变的愈发重要。Kubernetes 在容器编排领域目前已成为事实上的标准，大量公司均已在生产中推进，此时，无论是开发工程师还是运维工程师，皆需要了解并掌握 Kubernetes 的基础技能，才不至于丢失自己的竞争力。
+Kubernetes 所涉及的知识点很多, 并且版本迭代也很快，本小册将集中于 Kubernetes 的基础技能，以最常见 Case 入手，帮助大家更快的掌握相关知识并将其用于生产实践中。同时在此过程中，也会深入至 Kubernetes 必要的原理中，同时也会提供相关涉及到的 Docker 及 Linux 内核知识的补充，以便让大家不仅知其然，而且知其所以然。
+你会学到什么？  Kubernetes 基础架构 Kubernetes 的基础技能, 覆盖常见 Case 从零搭建 Kubernetes 集群 与 Kubernetes 相关的 Docker 和 Linux 内核知识补充 深入 Kubernetes 组件的原理和源码解析 了解 Kubernetes 进阶相关知识体系  适宜人群  了解 Docker，希望能进入 K8S 领域的各领域工程师； 正在或即将在生产环境使用 K8S 的后端工程师； 需要维护或在公司落地 K8S 的运维工程师； 想要走在技术前沿的前端/后端/运维工程师； 准备查缺补漏的容器相关开发工程师；  </description>
+    </item>
+    
+    <item>
+      <title>runc 1.0-rc6 发布之际</title>
+      <link>https://moelove.info/2018/11/23/runc-1.0-rc6-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/</link>
+      <pubDate>Fri, 23 Nov 2018 04:28:20 +0800</pubDate>
+      
+      <guid>https://moelove.info/2018/11/23/runc-1.0-rc6-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/</guid>
+      <description>如果你在用 Docker 或者 Kubernetes 想必你对 容器运行时 这个概念应该不会太陌生。
+在 Docker 中，当你使用 docker info 即可查看当前所使用的 runtime。
+➜ ~ docker info ... Server Version: 18.06.1-ce Storage Driver: overlay2 Backing Filesystem: extfs Supports d_type: true Native Overlay Diff: true Logging Driver: json-file Cgroup Driver: cgroupfs ... Swarm: inactive Runtimes: nvidia runc Default Runtime: runc Init Binary: docker-init containerd version: 468a545b9edcd5932818eb9de8e72413e616e86e runc version: 69663f0bd4b60df09991c08812a60108003fa340 init version: fec3683 Security Options: seccomp Profile: default ...  同时，你还可以自己在 /etc/docker/daemon.</description>
+    </item>
+    
+    <item>
+      <title>Docker 深入篇之 Build 原理</title>
+      <link>https://moelove.info/2018/09/04/Docker-%E6%B7%B1%E5%85%A5%E7%AF%87%E4%B9%8B-Build-%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Tue, 04 Sep 2018 22:21:46 +0800</pubDate>
+      
+      <guid>https://moelove.info/2018/09/04/Docker-%E6%B7%B1%E5%85%A5%E7%AF%87%E4%B9%8B-Build-%E5%8E%9F%E7%90%86/</guid>
+      <description>使用 Docker 时，最常用的命令无非是 docker container 和 docker image 相关的子命令，当然最初没有管理类命令（或者说分组）的时候，最常使用的命令也无非是 docker run docker commit docker build 和 docker images 这些。
+今天来聊一下和 Docker 中核心概念 image 相关的重要命令， docker build 或者说 docker image build 为了简便起见，下文的命令全部使用 docker build 。
+Docker Image 先简单介绍下 Docker Image， 通常情况下我们将其称之为镜像，镜像是由多个层组成的文件，这些层用于在容器内执行代码（命令）等。每个镜像基本上都是根据应用程序完整的可执行版本进行构建的，并且需要注意的是，它会依赖于主机的系统内核。当用户在运行镜像时，这将会创建一个或者多个容器实例。
+Dockerd Dockerd 是 Docker 的服务端，默认情况下提供 Unix Domain Socket 连接，当然也可以监听某个端口，用于对外提供服务。 所以有时候，我们也可以使用服务器上的 Docker daemon 来提供服务，以加快构建速度及解决一些网络问题之类的。
+好的，基础概念了解了， 那我们开始进入正题。
+使用 Dockerfile 我们知道构建镜像的方法有多种，本文中我们只介绍使用 Dockerfile 通过 docker build 的方式构建镜像。
+为了简便，我们以一个简单的 Dockerfile 开始。构建一个容器内使用的 kubectl 工具 (当然选择它的原因在于 kubectl 足够大，并不考虑可用性，这个稍后解释)</description>
+    </item>
+    
+  </channel>
+</rss>

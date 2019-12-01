@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Sqlite on MoeLove</title>
+    <title>sqlite on MoeLove</title>
     <link>https://moelove.info/tags/sqlite/</link>
-    <description>Recent content in Sqlite on MoeLove</description>
+    <description>Recent content in sqlite on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <lastBuildDate>Tue, 21 Jul 2015 23:11:04 +0000</lastBuildDate>

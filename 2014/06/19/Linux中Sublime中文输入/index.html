@@ -35,7 +35,7 @@
 <meta name="google-site-verification" content="googlefe3fc086c62f7210.html" />
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.55.6" />
 
 
 <link rel="canonical" href="https://moelove.info/2014/06/19/Linux%E4%B8%ADSublime%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" />
@@ -63,22 +63,8 @@
  代码源于网络，感谢分享 这里的关键就是以下的代码和编译 /* sublime-imfix.c Use LD_PRELOAD to interpose some function to fix sublime input method support for linux. By Cjacker Huang &lt;jianzhong.huang at i-soft.com.cn&gt; gcc -shared -o libsublime-imfix.so sublime_imfix.c `pkg-config --libs --cflags gtk&#43;-2.0` -fPIC LD_PRELOAD=./libsublime-imfix.so sublime_text */ #include &lt;gtk/gtk.h&gt; #include &lt;gdk/gdkx.h&gt; typedef GdkSegment GdkRegionBox; struct _GdkRegion { long size; long numRects; GdkRegionBox *rects; GdkRegionBox extents; }; GtkIMContext *local_context; void gdk_region_get_clipbox (const GdkRegion *region, GdkRectangle *rectangle) { g_return_if_fail (region !" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://moelove.info/2014/06/19/Linux%E4%B8%ADSublime%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/" />
-
-
-
 <meta property="article:published_time" content="2014-06-19T23:17:31&#43;00:00"/>
-
 <meta property="article:modified_time" content="2014-06-19T23:17:31&#43;00:00"/>
-
-
-
-
-
-
-
-
-
-
 
 <meta itemprop="name" content="Linux中Sublime中文输入">
 <meta itemprop="description" content="这篇只是为了备忘所以把以前写的东西搬这边了 -.-
