@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>K8S 生态周报| Rancher v2.3.3 发布 - MoeLove</title>
+  <title>2019 12 02 K8S Weekly 2019.12.02~2019.12.08 - MoeLove</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -26,12 +26,10 @@
 
 <meta name="author" content="TaoBeier" />
   <meta name="description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Rancher v2.3.3 发布 本周 Rancher v2.3.3 发布，正式支持 Kubernetes v1.16，并将 v1.16.3 设置为 Rancher 默认的 Kubernetes 版本。
-在此版本中，值得关注的修复如下：
- 修复了其不支持 kube-proxy 使用 IPVS 模式的问题;  已知问题：
- Rancher v2.3.3 在开启 SELinux 的 RHEL 7.7 上使用 RHEL Docker 1.13 时，部署集群将导致失败；  更多关于此版本的特性及已知问题，请关注 ReleaseNote
-上游进展  api-server 的 --runtime-config 可使用 api/beta=false 参数禁用所有内置的符合 v[0-9]&#43;beta[0-9]&#43; 版本的 REST API；同时 --feature-gates 可使用 AllBeta=false 禁用所有内置的 beta 特性。#84304
- downward API 为 Dualstack 增加了支持，参数名为 status." />
+ Kind v0.6.1 发布 本周 Kind Kubernetes In Docker 发布了 v0.6.1 版本，这是对 v0.6.0 的一个小 patch 版本，主要变更如下：
+ 修复 containerd 在多 control plane 节点集群下的配置； 修正了 v1alpha4 API 中的 protocol 和 propagation 配置； 重新推送了镜像，v0.6.0 发布的时候忘记把 CNI 的镜像给预加载到 Node 镜像中了。现在的默认镜像是 kindest/node:v1.16.3@sha256:70ce6ce09bee5c34ab14aec2b84d6edb260473a60638b1b095470a3a0f95ebec  另外：Kind 的 Node 镜像在 DockerHub 上的下载量超过了 500K&#43; ，也说明其正在被广泛使用。（查看了下我自己发布的镜像中，下载量最多的也才只有 50K&#43;）恭喜 Kind ！
+containerd v1.3.2 发布 这是 containerd 在 v1.3 系列的第二个 patch 版本。 此版本主要的修复内容如下：
+ 修复了一个容器 pid 的问题，会导致 Docker 卡住； 使用已缓存的状态而不是每次都执行 runc state 获取容器状态，相关影响是 Kubernetes 启用 liveness 和 readiness 探针会造成 CPU 飙高以及 Docker 容器使用健康检查也会造成 CPU 飙高；  综合来看，建议更新到此版本。" />
 
   <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes, Golang, Python, Container, Vim, 容器, k8s" />
 
@@ -43,7 +41,7 @@
 <meta name="generator" content="Hugo 0.55.6" />
 
 
-<link rel="canonical" href="https://moelove.info/2019/12/01/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Rancher-v2.3.3-%E5%8F%91%E5%B8%83/" />
+<link rel="canonical" href="https://moelove.info/2019/12/09/2019-12-02-K8S-Weekly-2019.12.02~2019.12.08/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -63,45 +61,39 @@
 
 
 
-<meta property="og:title" content="K8S 生态周报| Rancher v2.3.3 发布" />
+<meta property="og:title" content="2019 12 02 K8S Weekly 2019.12.02~2019.12.08" />
 <meta property="og:description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Rancher v2.3.3 发布 本周 Rancher v2.3.3 发布，正式支持 Kubernetes v1.16，并将 v1.16.3 设置为 Rancher 默认的 Kubernetes 版本。
-在此版本中，值得关注的修复如下：
- 修复了其不支持 kube-proxy 使用 IPVS 模式的问题;  已知问题：
- Rancher v2.3.3 在开启 SELinux 的 RHEL 7.7 上使用 RHEL Docker 1.13 时，部署集群将导致失败；  更多关于此版本的特性及已知问题，请关注 ReleaseNote
-上游进展  api-server 的 --runtime-config 可使用 api/beta=false 参数禁用所有内置的符合 v[0-9]&#43;beta[0-9]&#43; 版本的 REST API；同时 --feature-gates 可使用 AllBeta=false 禁用所有内置的 beta 特性。#84304
- downward API 为 Dualstack 增加了支持，参数名为 status." />
+ Kind v0.6.1 发布 本周 Kind Kubernetes In Docker 发布了 v0.6.1 版本，这是对 v0.6.0 的一个小 patch 版本，主要变更如下：
+ 修复 containerd 在多 control plane 节点集群下的配置； 修正了 v1alpha4 API 中的 protocol 和 propagation 配置； 重新推送了镜像，v0.6.0 发布的时候忘记把 CNI 的镜像给预加载到 Node 镜像中了。现在的默认镜像是 kindest/node:v1.16.3@sha256:70ce6ce09bee5c34ab14aec2b84d6edb260473a60638b1b095470a3a0f95ebec  另外：Kind 的 Node 镜像在 DockerHub 上的下载量超过了 500K&#43; ，也说明其正在被广泛使用。（查看了下我自己发布的镜像中，下载量最多的也才只有 50K&#43;）恭喜 Kind ！
+containerd v1.3.2 发布 这是 containerd 在 v1.3 系列的第二个 patch 版本。 此版本主要的修复内容如下：
+ 修复了一个容器 pid 的问题，会导致 Docker 卡住； 使用已缓存的状态而不是每次都执行 runc state 获取容器状态，相关影响是 Kubernetes 启用 liveness 和 readiness 探针会造成 CPU 飙高以及 Docker 容器使用健康检查也会造成 CPU 飙高；  综合来看，建议更新到此版本。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://moelove.info/2019/12/01/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Rancher-v2.3.3-%E5%8F%91%E5%B8%83/" />
-<meta property="article:published_time" content="2019-12-01T10:15:15&#43;08:00"/>
-<meta property="article:modified_time" content="2019-12-01T10:15:15&#43;08:00"/>
+<meta property="og:url" content="https://moelove.info/2019/12/09/2019-12-02-K8S-Weekly-2019.12.02~2019.12.08/" />
+<meta property="article:published_time" content="2019-12-09T01:09:07&#43;08:00"/>
+<meta property="article:modified_time" content="2019-12-09T01:09:07&#43;08:00"/>
 
-<meta itemprop="name" content="K8S 生态周报| Rancher v2.3.3 发布">
+<meta itemprop="name" content="2019 12 02 K8S Weekly 2019.12.02~2019.12.08">
 <meta itemprop="description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Rancher v2.3.3 发布 本周 Rancher v2.3.3 发布，正式支持 Kubernetes v1.16，并将 v1.16.3 设置为 Rancher 默认的 Kubernetes 版本。
-在此版本中，值得关注的修复如下：
- 修复了其不支持 kube-proxy 使用 IPVS 模式的问题;  已知问题：
- Rancher v2.3.3 在开启 SELinux 的 RHEL 7.7 上使用 RHEL Docker 1.13 时，部署集群将导致失败；  更多关于此版本的特性及已知问题，请关注 ReleaseNote
-上游进展  api-server 的 --runtime-config 可使用 api/beta=false 参数禁用所有内置的符合 v[0-9]&#43;beta[0-9]&#43; 版本的 REST API；同时 --feature-gates 可使用 AllBeta=false 禁用所有内置的 beta 特性。#84304
- downward API 为 Dualstack 增加了支持，参数名为 status.">
+ Kind v0.6.1 发布 本周 Kind Kubernetes In Docker 发布了 v0.6.1 版本，这是对 v0.6.0 的一个小 patch 版本，主要变更如下：
+ 修复 containerd 在多 control plane 节点集群下的配置； 修正了 v1alpha4 API 中的 protocol 和 propagation 配置； 重新推送了镜像，v0.6.0 发布的时候忘记把 CNI 的镜像给预加载到 Node 镜像中了。现在的默认镜像是 kindest/node:v1.16.3@sha256:70ce6ce09bee5c34ab14aec2b84d6edb260473a60638b1b095470a3a0f95ebec  另外：Kind 的 Node 镜像在 DockerHub 上的下载量超过了 500K&#43; ，也说明其正在被广泛使用。（查看了下我自己发布的镜像中，下载量最多的也才只有 50K&#43;）恭喜 Kind ！
+containerd v1.3.2 发布 这是 containerd 在 v1.3 系列的第二个 patch 版本。 此版本主要的修复内容如下：
+ 修复了一个容器 pid 的问题，会导致 Docker 卡住； 使用已缓存的状态而不是每次都执行 runc state 获取容器状态，相关影响是 Kubernetes 启用 liveness 和 readiness 探针会造成 CPU 飙高以及 Docker 容器使用健康检查也会造成 CPU 飙高；  综合来看，建议更新到此版本。">
 
 
-<meta itemprop="datePublished" content="2019-12-01T10:15:15&#43;08:00" />
-<meta itemprop="dateModified" content="2019-12-01T10:15:15&#43;08:00" />
-<meta itemprop="wordCount" content="85">
+<meta itemprop="datePublished" content="2019-12-09T01:09:07&#43;08:00" />
+<meta itemprop="dateModified" content="2019-12-09T01:09:07&#43;08:00" />
+<meta itemprop="wordCount" content="121">
 
 
 
 <meta itemprop="keywords" content="Linux,Weekly,Kubernetes," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="K8S 生态周报| Rancher v2.3.3 发布"/>
+<meta name="twitter:title" content="2019 12 02 K8S Weekly 2019.12.02~2019.12.08"/>
 <meta name="twitter:description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Rancher v2.3.3 发布 本周 Rancher v2.3.3 发布，正式支持 Kubernetes v1.16，并将 v1.16.3 设置为 Rancher 默认的 Kubernetes 版本。
-在此版本中，值得关注的修复如下：
- 修复了其不支持 kube-proxy 使用 IPVS 模式的问题;  已知问题：
- Rancher v2.3.3 在开启 SELinux 的 RHEL 7.7 上使用 RHEL Docker 1.13 时，部署集群将导致失败；  更多关于此版本的特性及已知问题，请关注 ReleaseNote
-上游进展  api-server 的 --runtime-config 可使用 api/beta=false 参数禁用所有内置的符合 v[0-9]&#43;beta[0-9]&#43; 版本的 REST API；同时 --feature-gates 可使用 AllBeta=false 禁用所有内置的 beta 特性。#84304
- downward API 为 Dualstack 增加了支持，参数名为 status."/>
+ Kind v0.6.1 发布 本周 Kind Kubernetes In Docker 发布了 v0.6.1 版本，这是对 v0.6.0 的一个小 patch 版本，主要变更如下：
+ 修复 containerd 在多 control plane 节点集群下的配置； 修正了 v1alpha4 API 中的 protocol 和 propagation 配置； 重新推送了镜像，v0.6.0 发布的时候忘记把 CNI 的镜像给预加载到 Node 镜像中了。现在的默认镜像是 kindest/node:v1.16.3@sha256:70ce6ce09bee5c34ab14aec2b84d6edb260473a60638b1b095470a3a0f95ebec  另外：Kind 的 Node 镜像在 DockerHub 上的下载量超过了 500K&#43; ，也说明其正在被广泛使用。（查看了下我自己发布的镜像中，下载量最多的也才只有 50K&#43;）恭喜 Kind ！
+containerd v1.3.2 发布 这是 containerd 在 v1.3 系列的第二个 patch 版本。 此版本主要的修复内容如下：
+ 修复了一个容器 pid 的问题，会导致 Docker 卡住； 使用已缓存的状态而不是每次都执行 runc state 获取容器状态，相关影响是 Kubernetes 启用 liveness 和 readiness 探针会造成 CPU 飙高以及 Docker 容器使用健康检查也会造成 CPU 飙高；  综合来看，建议更新到此版本。"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -168,10 +160,10 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">K8S 生态周报| Rancher v2.3.3 发布</h1>
+      <h1 class="post-title">2019 12 02 K8S Weekly 2019.12.02~2019.12.08</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2019-12-01 </span>
+        <span class="post-time"> 2019-12-09 </span>
         
         
         
@@ -188,10 +180,11 @@
 <ul>
 <li>
 <ul>
-<li><a href="#rancher-v2-3-3-发布">Rancher v2.3.3 发布</a></li>
+<li><a href="#kind-v0-6-1-发布">Kind v0.6.1 发布</a></li>
+<li><a href="#containerd-v1-3-2-发布">containerd v1.3.2 发布</a></li>
+<li><a href="#helm-v3-0-1-发布">Helm v3.0.1 发布</a></li>
 <li><a href="#上游进展">上游进展</a></li>
-<li><a href="#项目推荐">项目推荐</a></li>
-<li><a href="#题外话">题外话</a></li>
+<li><a href="#文章推荐">文章推荐</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -209,43 +202,46 @@
 <p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏<a href="https://zhuanlan.zhihu.com/container">「k8s生态」</a>。</p>
 </blockquote>
 
-<h2 id="rancher-v2-3-3-发布">Rancher v2.3.3 发布</h2>
+<h2 id="kind-v0-6-1-发布">Kind v0.6.1 发布</h2>
 
-<p>本周 Rancher v2.3.3 发布，正式支持 Kubernetes v1.16，并将 v1.16.3 设置为 Rancher 默认的 Kubernetes 版本。</p>
-
-<p>在此版本中，值得关注的修复如下：</p>
+<p>本周 Kind <a href="https://github.com/kubernetes-sigs/kind">Kubernetes In Docker</a> 发布了 v0.6.1 版本，这是对 v0.6.0 的一个小 patch 版本，主要变更如下：</p>
 
 <ul>
-<li>修复了其不支持  kube-proxy 使用 IPVS 模式的问题;</li>
+<li>修复 containerd 在多 control plane 节点集群下的配置；</li>
+<li>修正了 v1alpha4 API 中的 <code>protocol</code> 和 <code>propagation</code> 配置；</li>
+<li>重新推送了镜像，v0.6.0 发布的时候忘记把 CNI 的镜像给预加载到 Node 镜像中了。现在的默认镜像是 <code>kindest/node:v1.16.3@sha256:70ce6ce09bee5c34ab14aec2b84d6edb260473a60638b1b095470a3a0f95ebec</code></li>
 </ul>
 
-<p>已知问题：</p>
+<p>另外：Kind 的 Node 镜像在 DockerHub 上的下载量超过了 500K+ ，也说明其正在被广泛使用。（查看了下我自己发布的镜像中，下载量最多的也才只有 50K+）恭喜 Kind ！</p>
+
+<h2 id="containerd-v1-3-2-发布">containerd v1.3.2 发布</h2>
+
+<p>这是 containerd 在 v1.3 系列的第二个 patch 版本。 此版本主要的修复内容如下：</p>
 
 <ul>
-<li>Rancher v2.3.3 在开启 SELinux 的 RHEL 7.7 上使用 RHEL Docker 1.13 时，部署集群将导致失败；</li>
+<li>修复了一个容器 pid 的问题，会导致 Docker 卡住；</li>
+<li>使用已缓存的状态而不是每次都执行 <code>runc state</code> 获取容器状态，相关影响是 Kubernetes 启用 liveness 和 readiness 探针会造成 CPU 飙高以及 Docker 容器使用健康检查也会造成 CPU 飙高；</li>
 </ul>
 
-<p>更多关于此版本的特性及已知问题，请关注 <a href="https://github.com/rancher/rancher/releases/tag/v2.3.3">ReleaseNote</a></p>
+<p>综合来看，建议更新到此版本。</p>
+
+<h2 id="helm-v3-0-1-发布">Helm v3.0.1 发布</h2>
+
+<p>这是 Helm v3 系列的第一个 patch 版本，这次包含了不少修复，但都是一些比较小的修复，我大致翻了翻，就不再展开介绍了。</p>
+
+<p>为了更好的体验，建议升级到最新的版本。当然从中也可以看到 Helm v3 还是有不少需要完善的细节。</p>
 
 <h2 id="上游进展">上游进展</h2>
 
 <ul>
-<li><p>api-server 的 <code>--runtime-config</code> 可使用 <code>api/beta=false</code> 参数禁用所有内置的符合 <code>v[0-9]+beta[0-9]+</code> 版本的 REST API；同时 <code>--feature-gates</code> 可使用 <code>AllBeta=false</code> 禁用所有内置的 beta 特性。<a href="https://github.com/kubernetes/kubernetes/pull/84304">#84304</a></p></li>
-
-<li><p>downward API 为 Dualstack 增加了支持，参数名为 <code>status.podIPs</code>。<a href="https://github.com/kubernetes/kubernetes/pull/83123">#83123</a></p></li>
+<li>授权 webhook 的 LRU 缓存被调大了 8 倍 <a href="https://github.com/kubernetes/kubernetes/pull/85957">#85957</a></li>
 </ul>
 
-<h2 id="项目推荐">项目推荐</h2>
+<h2 id="文章推荐">文章推荐</h2>
 
-<p>介绍一个项目 <a href="https://github.com/kubernetes-sigs/kube-storage-version-migrator">kube-storage-version-migrator</a> 可帮助你将 Kubernetes 存储在 etcd 中数据迁移至最新的存储版本。</p>
+<p><a href="/img/debug-for-k8s.png">troubleshooting-kubernetes - https://moelove.info</a></p>
 
-<p>相关的 KEP 在：<a href="https://github.com/kubernetes/enhancements/blob/master/keps/sig-api-machinery/0030-storage-migration.md">https://github.com/kubernetes/enhancements/blob/master/keps/sig-api-machinery/0030-storage-migration.md</a></p>
-
-<p><a href="https://github.com/kubernetes/enhancements/blob/master/keps/sig-api-machinery/storage-migration-auto-trigger.md">https://github.com/kubernetes/enhancements/blob/master/keps/sig-api-machinery/storage-migration-auto-trigger.md</a></p>
-
-<h2 id="题外话">题外话</h2>
-
-<p>本周整体来看，没有特别多的内容，在接下来的两周内，如果进度正常 Kubernetes v1.17 也就会正式发布了。至此，今年 Kubernetes 的最后一个版本也就正式完成。</p>
+<p>via. <a href="https://learnk8s.io/troubleshooting-deployments">A visual guide on troubleshooting Kubernetes deployments</a></p>
 
 <hr />
 
@@ -263,7 +259,7 @@
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-12-01</span>
+    <span class="item-content">2019-12-09</span>
   </p>
   
   <p class="copyright-item">
@@ -306,14 +302,9 @@
       
       <nav class="post-nav">
         
-          <a class="prev" href="/2019/12/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.3.2-%E5%8F%91%E5%B8%83/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">K8S 生态周报| containerd v1.3.2 发布</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
         
-          <a class="next" href="/2019/11/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.3.1-%E5%8F%91%E5%B8%83/">
-            <span class="next-text nav-default">K8S 生态周报| containerd v1.3.1 发布</span>
+          <a class="next" href="/2019/12/01/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Rancher-v2.3.3-%E5%8F%91%E5%B8%83/">
+            <span class="next-text nav-default">K8S 生态周报| Rancher v2.3.3 发布</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -329,8 +320,8 @@
     <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
   <script type="text/javascript">
   var gitalk = new Gitalk({
-    id: '2019-12-01 10:15:15 \x2b0800 CST',
-    title: 'K8S 生态周报| Rancher v2.3.3 发布',
+    id: '2019-12-09 01:09:07 \x2b0800 CST',
+    title: '2019 12 02 K8S Weekly 2019.12.02~2019.12.08',
     clientID: '68312db64e870efbd0a0',
     clientSecret: 'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',
     repo: 'tao12345666333.github.io',

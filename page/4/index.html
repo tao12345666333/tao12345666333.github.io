@@ -63,7 +63,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://moelove.info/" />
 
-<meta property="og:updated_time" content="2019-12-01T10:15:15&#43;08:00"/>
+<meta property="og:updated_time" content="2019-12-09T01:09:07&#43;08:00"/>
 
 <meta itemprop="name" content="MoeLove">
 <meta itemprop="description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.">
@@ -138,6 +138,36 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/05/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-27~2019-06-02/">K8S 生态周报| 2019-05-27~2019-06-02</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-05-31 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Kubernetes v1.15.0-beta.1 发布 随着 KubeCon EU 的结束，Kubernetes 的开发工作继续回归正常，本周相继发布了 v1.12.9 和 v1.15.0-beta.1。
+随着 v1.15 的正式版临近，维护期的 Kubernetes 版本也将变成 1.12~1.15，请尽快升级。
+这个版本的变化，等正式版发布时候再进行介绍好了，有兴趣可以先看 ReleaseNote
+Docker v19.03.0-beta5 发布 按照正常规律 Docker 19.03 正式版也将在近期进行发布，而最近的所有测试版本中，其实变化比较大的东西主要在 构建系统 上；构建系统的升级可以使构建速度更快，同时也增加了更多的安全特性。
+这次的 beta5 也是常规修复，有兴趣可以先看 ReleaseNote
+Docker CVE-2018-15664 安全漏洞 在 5 月 29 日我看到了 CVE 的信息，这个漏洞会影响 Docker 的全部版本，漏洞攻击的主要途径是 docker cp 相关的操作。
+但是不必太过紧张，因为这个漏洞的攻击范围其实不算太大；最主要可能被攻击的对象其实是公有云。对于普通用户而言，如果受此攻击，那前提是攻击者已经具备了机器的权限和 Docker 的操作权限（一般用户只要自行控制权限便可避免攻击的发生）。
+漏洞发现者 Aleksa Sarai 开始提了一个 PR (他的实现方式是在 docker cp 操作的同时暂停容器)，不过现在已经被一个新的 PR 给取代了，毕竟暂停容器意味着停止服务，这是难以接受的。
+类似 Podman 之类的其实也存在相同的问题，不过现在也已经被修复了。
+    </div>
+    <div class="read-more">
+      <a href="/2019/05/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-27~2019-06-02/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -368,35 +398,6 @@ Linkerd 2.3 正式发布 Linkerd 是一个 service mesh 旨在提供平台范围
     </div>
     <div class="read-more">
       <a href="/2019/04/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-15~2019-04-21/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2019/04/14/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.04.08~2019.04.14/">K8S 生态周报| 2019.04.08~2019.04.14</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-04-14 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- CRI-O 成为 CNCF 托管项目 CRI-O 是基于 OCI 的 Kubernetes CRI 实现，旨在提供符合 OCI 运行时和 kubelet 之间的集成。简单来说就是完全符合 OCI 标准的 CRI 实现。（比如之前介绍的 runc 便是 OCI 标准的参考实现）
-在 2016 年的时候 Kubernetes 就推出了容器运行时接口（CRI），这给了 kubelet 一种使用各种不同容器运行时的能力，现在最常用的当然还是 Docker，当然也有人使用 containerd、runc、CRI-O 等各类运行时。
-CRI-O 最初由 Red Hat 和 Google 开发，现在已达到稳定状态，且已有大量的贡献者，本次成为 CNCF 托管项目，也算是给容器运行时提供一个更大的可能。
-附一张官方图：
-详细信息请阅读 CNCF 官方新闻
-Helm 子项目 chart-testing 发布 v2.3.0 版本 chart-testing v2.3.0 版本正式发布，该项目的主要目标是用于 Helm Chart 的测试，使用该项目可更方便的检查 Chart 中是否有错误，以及定位错误位置等。
-本次发布主要在于覆盖更多异常情况，详细内容建议阅读 ReleaseNote
-CoreDNS v1.
-    </div>
-    <div class="read-more">
-      <a href="/2019/04/14/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.04.08~2019.04.14/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

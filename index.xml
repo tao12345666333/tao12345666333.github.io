@@ -6,10 +6,23 @@
     <description>Recent content on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 01 Dec 2019 10:15:15 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 09 Dec 2019 01:09:07 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8S 生态周报| containerd v1.3.2 发布</title>
+      <link>https://moelove.info/2019/12/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.3.2-%E5%8F%91%E5%B8%83/</link>
+      <pubDate>Mon, 09 Dec 2019 01:09:07 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/12/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.3.2-%E5%8F%91%E5%B8%83/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Kind v0.6.1 发布 本周 Kind Kubernetes In Docker 发布了 v0.6.1 版本，这是对 v0.6.0 的一个小 patch 版本，主要变更如下：
+ 修复 containerd 在多 control plane 节点集群下的配置； 修正了 v1alpha4 API 中的 protocol 和 propagation 配置； 重新推送了镜像，v0.6.0 发布的时候忘记把 CNI 的镜像给预加载到 Node 镜像中了。现在的默认镜像是 kindest/node:v1.16.3@sha256:70ce6ce09bee5c34ab14aec2b84d6edb260473a60638b1b095470a3a0f95ebec  另外：Kind 的 Node 镜像在 DockerHub 上的下载量超过了 500K+ ，也说明其正在被广泛使用。（查看了下我自己发布的镜像中，下载量最多的也才只有 50K+）恭喜 Kind ！
+containerd v1.3.2 发布 这是 containerd 在 v1.3 系列的第二个 patch 版本。 此版本主要的修复内容如下：
+ 修复了一个容器 pid 的问题，会导致 Docker 卡住； 使用已缓存的状态而不是每次都执行 runc state 获取容器状态，相关影响是 Kubernetes 启用 liveness 和 readiness 探针会造成 CPU 飙高以及 Docker 容器使用健康检查也会造成 CPU 飙高；  综合来看，建议更新到此版本。</description>
+    </item>
     
     <item>
       <title>K8S 生态周报| Rancher v2.3.3 发布</title>

@@ -63,7 +63,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://moelove.info/" />
 
-<meta property="og:updated_time" content="2019-12-01T10:15:15&#43;08:00"/>
+<meta property="og:updated_time" content="2019-12-09T01:09:07&#43;08:00"/>
 
 <meta itemprop="name" content="MoeLove">
 <meta itemprop="description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.">
@@ -138,6 +138,36 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2016/12/04/Git-%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%92%8C%E8%A3%B8%E4%BB%93%E5%BA%93/">Git 本地仓库和裸仓库</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2016-12-04 </span>
+      <div class="post-category">
+          
+            <a href="/categories/linux/"> Linux </a>
+          
+        </div>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      通常我们会用 git init 命令来将我们所在的目录转换为一个 Git 本地仓库或者初始化一个新的空仓库。
+用法  将当前目录转换为一个本地仓库  git init  这个命令执行后会在本地生成一个 .git 的文件夹，用来追踪仓库的所有变更。效果如下：
+ 指定某个目录成为本地仓库  git init &lt;repo&gt;  这个命令执行后， 将创建一个名为repo且只包含 .git 子文件夹的空目录。效果如下：
+ 指定某个目录成为中心仓库（裸仓库）  git init --bare &lt;repo&gt;  这个命令执行后，将在本地创建一个名为 repo 的文件夹， 里面包含着 Git 的基本目录， 我们一般会将这个文件夹命名为后面加 .git 的形式，如 repo.git （这也是为什么我们从 GitHub clone 仓库的时候，地址都是 xxx.git 这样的形式的原因）。效果如下：
+详细说一下使用 --bare 参数的含义，使用 --bare 参数初始化的仓库，我们一般称之为裸仓库， 因为这样创建的仓库并不包含 工作区 ， 也就是说，我们并不能在这个目录下执行我们一般使用的 Git 命令。
+对比 我们来对比一下直接使用 git init 创建的仓库和加了 --bare 参数的两个仓库。 我们直接看两个仓库的的 config 文件中的内容：
+    </div>
+    <div class="read-more">
+      <a href="/2016/12/04/Git-%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%92%8C%E8%A3%B8%E4%BB%93%E5%BA%93/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -425,35 +455,6 @@ sudo npm install jslint -g  在vimrc中添加如下配置
     </div>
     <div class="read-more">
       <a href="/2015/10/13/Open-Falcon%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E9%83%A8%E7%BD%B2/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2015/09/13/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91MongoDB/">源码编译MongoDB</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2015-09-13 </span>
-      <div class="post-category">
-          
-            <a href="/categories/linux/"> Linux </a>
-          
-        </div>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      上周放假正好有时间，编译安装了MongoDB，虽然MongoDB用了挺长时间的，但还是第一次用源码编译。在此做个备忘。因为已经完整编译安装过了，所以写起来的时候，就按照先知视角来写了～ 2333
- 下载MongoDB源码 MongoDB的官网上是有已经编译好的二进制包的，这里选择clone MongoDB在github上的仓库
-git clone https://github.com/mongodb/mongo &amp;&amp; cd mongo  在docs/building.md中是编译所需的依赖。 * A modern C++ compiler. One of the following is required. * GCC 4.8.2 or newer * Clang 3.4 (or Apple XCode 5.1.1 Clang) or newer * Visual Studio 2013 Update 2 or newer * Python 2.7 * SCons 2.3
-我这台服务器是CentOS 6.5, 上面的gcc版本比较低，这里就先更新gcc咯.
-gcc --version gcc (GCC) 4.4.7 20120313 (Red Hat 4.4.7-16) Copyright © 2010 Free Software Foundation, Inc.
-    </div>
-    <div class="read-more">
-      <a href="/2015/09/13/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91MongoDB/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

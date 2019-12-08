@@ -63,7 +63,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://moelove.info/" />
 
-<meta property="og:updated_time" content="2019-12-01T10:15:15&#43;08:00"/>
+<meta property="og:updated_time" content="2019-12-09T01:09:07&#43;08:00"/>
 
 <meta itemprop="name" content="MoeLove">
 <meta itemprop="description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.">
@@ -138,6 +138,33 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/08/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-29~2019-08-04/">K8S 生态周报| 2019-07-29~2019-08-04</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-08-05 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ containerd 1.3.0-beta.0 发布 containerd 2014 年从 Docker 孵化出来，最初是作为 Docker 引擎的底层管理器；在 2017 年 3 月被 CNCF 接受后，containerd 几乎成为了行业容器运行引擎的标准，它专注于简单，健壮和可移植性，任何人都可以使用它来构建自己的容器引擎/平台。它是从 CNCF 毕业的第 5 个项目，目前发展势头良好。
+本次发布的 1.3.0-beta.0 版本是 containerd 的第 4 个主要版本，主要是为了提升项目的稳定性，以及为了保持项目的活力而持续加入了很多新的特性。
+这次的发布和之前版本类似，保持着 containerd 的一贯作风，API 变化很小；并且也保持向后兼容。插件生态和用户的发展也促使了 containerd 变得更易用，可配置和更灵活。
+在 Windows 上，此次版本带来了一个新运行时（使用 hcsshim）; 对于客户端而言，本次也带来了很多特性和升级。
+这里我只说两点，其余的等正式版出来看情况再进行介绍。
+ 增加了 devicemapper 的快照插件。这个功能本身是个好事儿，如果用过旧版本 Docker 或者系统内核较低的朋友们，应该对 Docker 的 devicemapper 存储驱动不会太陌生的（虽然现在 Docker 的新版本中已经将 devicemapper 的存储驱动废弃掉了）；至于 containerd 中增加的 devicemapper 快照插件，我还没有来得及具体测试，所以这里不说太多了。 客户端支持了跨 repository push 镜像，对此功能感兴趣的朋友可以参考 #2697 的讨论。  更多关于此版本的信息请参考 ReleaseNote
+    </div>
+    <div class="read-more">
+      <a href="/2019/08/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-29~2019-08-04/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -384,36 +411,6 @@ Apple 作为白金终端用户成员加入 CNCF Apple 在 K8S 社区中在这之
     </div>
     <div class="read-more">
       <a href="/2019/06/01/Docker-%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E4%B8%89%E9%83%A8%E6%9B%B2/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2019/05/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-27~2019-06-02/">K8S 生态周报| 2019-05-27~2019-06-02</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-05-31 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Kubernetes v1.15.0-beta.1 发布 随着 KubeCon EU 的结束，Kubernetes 的开发工作继续回归正常，本周相继发布了 v1.12.9 和 v1.15.0-beta.1。
-随着 v1.15 的正式版临近，维护期的 Kubernetes 版本也将变成 1.12~1.15，请尽快升级。
-这个版本的变化，等正式版发布时候再进行介绍好了，有兴趣可以先看 ReleaseNote
-Docker v19.03.0-beta5 发布 按照正常规律 Docker 19.03 正式版也将在近期进行发布，而最近的所有测试版本中，其实变化比较大的东西主要在 构建系统 上；构建系统的升级可以使构建速度更快，同时也增加了更多的安全特性。
-这次的 beta5 也是常规修复，有兴趣可以先看 ReleaseNote
-Docker CVE-2018-15664 安全漏洞 在 5 月 29 日我看到了 CVE 的信息，这个漏洞会影响 Docker 的全部版本，漏洞攻击的主要途径是 docker cp 相关的操作。
-但是不必太过紧张，因为这个漏洞的攻击范围其实不算太大；最主要可能被攻击的对象其实是公有云。对于普通用户而言，如果受此攻击，那前提是攻击者已经具备了机器的权限和 Docker 的操作权限（一般用户只要自行控制权限便可避免攻击的发生）。
-漏洞发现者 Aleksa Sarai 开始提了一个 PR (他的实现方式是在 docker cp 操作的同时暂停容器)，不过现在已经被一个新的 PR 给取代了，毕竟暂停容器意味着停止服务，这是难以接受的。
-类似 Podman 之类的其实也存在相同的问题，不过现在也已经被修复了。
-    </div>
-    <div class="read-more">
-      <a href="/2019/05/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-27~2019-06-02/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
