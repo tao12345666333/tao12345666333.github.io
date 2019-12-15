@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>K8S 生态周报| containerd v1.3.2 发布 - MoeLove</title>
+  <title>K8S 生态周报| Kubernetes v1.17 正式发布 - MoeLove</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -26,10 +26,10 @@
 
 <meta name="author" content="TaoBeier" />
   <meta name="description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Kind v0.6.1 发布 本周 Kind Kubernetes In Docker 发布了 v0.6.1 版本，这是对 v0.6.0 的一个小 patch 版本，主要变更如下：
- 修复 containerd 在多 control plane 节点集群下的配置； 修正了 v1alpha4 API 中的 protocol 和 propagation 配置； 重新推送了镜像，v0.6.0 发布的时候忘记把 CNI 的镜像给预加载到 Node 镜像中了。现在的默认镜像是 kindest/node:v1.16.3@sha256:70ce6ce09bee5c34ab14aec2b84d6edb260473a60638b1b095470a3a0f95ebec  另外：Kind 的 Node 镜像在 DockerHub 上的下载量超过了 500K&#43; ，也说明其正在被广泛使用。（查看了下我自己发布的镜像中，下载量最多的也才只有 50K&#43;）恭喜 Kind ！
-containerd v1.3.2 发布 这是 containerd 在 v1.3 系列的第二个 patch 版本。 此版本主要的修复内容如下：
- 修复了一个容器 pid 的问题，会导致 Docker 卡住； 使用已缓存的状态而不是每次都执行 runc state 获取容器状态，相关影响是 Kubernetes 启用 liveness 和 readiness 探针会造成 CPU 飙高以及 Docker 容器使用健康检查也会造成 CPU 飙高；  综合来看，建议更新到此版本。" />
+ Kubernetes v1.17 正式发布 本周 Kubernetes v1.17 正式发布了，这是 2019 年的第四次发布，当然也是今年最后一次了。Kubernetes v1.17 包含 22 个增强功能，其中 14 个已经 stable ，4 个 beta 以及剩余 4 个 alpha 。
+本次版本的主题是 Stability，在发布之时 Kubernetes 官方博客上已经有了一篇 Kubernetes 1.17: Stability 文章介绍，加上每周的周报中也都有上游进展的介绍，我在这里就不赘述了，稍微聊两三个我个人认为比较有用的内容。
+ rbac.authorization.k8s.io/v1alpha1 和 rbac.authorization.k8s.io/v1beta1 在 v1.17 被标记为废弃，并且在 v1.20 将被废弃； kubectl logs 增加了一个 --prefix 的选项，使用此选项可以在输出日志的时候展示一个前缀，格式是 [pod/name/containerName] 废弃和添加了一大堆 metrics， 感兴趣的朋友可以参考下 ReleaseNote 中 metrics 的部分  其余内容建议参考下完整的 ReleaseNote
+Harbor v1.10 正式发布 Harbor 目前在 GitHub 有 10." />
 
   <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes, Golang, Python, Container, Vim, 容器, k8s" />
 
@@ -41,7 +41,7 @@ containerd v1.3.2 发布 这是 containerd 在 v1.3 系列的第二个 patch 版
 <meta name="generator" content="Hugo 0.55.6" />
 
 
-<link rel="canonical" href="https://moelove.info/2019/12/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.3.2-%E5%8F%91%E5%B8%83/" />
+<link rel="canonical" href="https://moelove.info/2019/12/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.17-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -61,39 +61,39 @@ containerd v1.3.2 发布 这是 containerd 在 v1.3 系列的第二个 patch 版
 
 
 
-<meta property="og:title" content="K8S 生态周报| containerd v1.3.2 发布" />
+<meta property="og:title" content="K8S 生态周报| Kubernetes v1.17 正式发布" />
 <meta property="og:description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Kind v0.6.1 发布 本周 Kind Kubernetes In Docker 发布了 v0.6.1 版本，这是对 v0.6.0 的一个小 patch 版本，主要变更如下：
- 修复 containerd 在多 control plane 节点集群下的配置； 修正了 v1alpha4 API 中的 protocol 和 propagation 配置； 重新推送了镜像，v0.6.0 发布的时候忘记把 CNI 的镜像给预加载到 Node 镜像中了。现在的默认镜像是 kindest/node:v1.16.3@sha256:70ce6ce09bee5c34ab14aec2b84d6edb260473a60638b1b095470a3a0f95ebec  另外：Kind 的 Node 镜像在 DockerHub 上的下载量超过了 500K&#43; ，也说明其正在被广泛使用。（查看了下我自己发布的镜像中，下载量最多的也才只有 50K&#43;）恭喜 Kind ！
-containerd v1.3.2 发布 这是 containerd 在 v1.3 系列的第二个 patch 版本。 此版本主要的修复内容如下：
- 修复了一个容器 pid 的问题，会导致 Docker 卡住； 使用已缓存的状态而不是每次都执行 runc state 获取容器状态，相关影响是 Kubernetes 启用 liveness 和 readiness 探针会造成 CPU 飙高以及 Docker 容器使用健康检查也会造成 CPU 飙高；  综合来看，建议更新到此版本。" />
+ Kubernetes v1.17 正式发布 本周 Kubernetes v1.17 正式发布了，这是 2019 年的第四次发布，当然也是今年最后一次了。Kubernetes v1.17 包含 22 个增强功能，其中 14 个已经 stable ，4 个 beta 以及剩余 4 个 alpha 。
+本次版本的主题是 Stability，在发布之时 Kubernetes 官方博客上已经有了一篇 Kubernetes 1.17: Stability 文章介绍，加上每周的周报中也都有上游进展的介绍，我在这里就不赘述了，稍微聊两三个我个人认为比较有用的内容。
+ rbac.authorization.k8s.io/v1alpha1 和 rbac.authorization.k8s.io/v1beta1 在 v1.17 被标记为废弃，并且在 v1.20 将被废弃； kubectl logs 增加了一个 --prefix 的选项，使用此选项可以在输出日志的时候展示一个前缀，格式是 [pod/name/containerName] 废弃和添加了一大堆 metrics， 感兴趣的朋友可以参考下 ReleaseNote 中 metrics 的部分  其余内容建议参考下完整的 ReleaseNote
+Harbor v1.10 正式发布 Harbor 目前在 GitHub 有 10." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://moelove.info/2019/12/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.3.2-%E5%8F%91%E5%B8%83/" />
-<meta property="article:published_time" content="2019-12-09T01:09:07&#43;08:00"/>
-<meta property="article:modified_time" content="2019-12-09T01:09:07&#43;08:00"/>
+<meta property="og:url" content="https://moelove.info/2019/12/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.17-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/" />
+<meta property="article:published_time" content="2019-12-15T23:16:14&#43;08:00"/>
+<meta property="article:modified_time" content="2019-12-15T23:16:14&#43;08:00"/>
 
-<meta itemprop="name" content="K8S 生态周报| containerd v1.3.2 发布">
+<meta itemprop="name" content="K8S 生态周报| Kubernetes v1.17 正式发布">
 <meta itemprop="description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Kind v0.6.1 发布 本周 Kind Kubernetes In Docker 发布了 v0.6.1 版本，这是对 v0.6.0 的一个小 patch 版本，主要变更如下：
- 修复 containerd 在多 control plane 节点集群下的配置； 修正了 v1alpha4 API 中的 protocol 和 propagation 配置； 重新推送了镜像，v0.6.0 发布的时候忘记把 CNI 的镜像给预加载到 Node 镜像中了。现在的默认镜像是 kindest/node:v1.16.3@sha256:70ce6ce09bee5c34ab14aec2b84d6edb260473a60638b1b095470a3a0f95ebec  另外：Kind 的 Node 镜像在 DockerHub 上的下载量超过了 500K&#43; ，也说明其正在被广泛使用。（查看了下我自己发布的镜像中，下载量最多的也才只有 50K&#43;）恭喜 Kind ！
-containerd v1.3.2 发布 这是 containerd 在 v1.3 系列的第二个 patch 版本。 此版本主要的修复内容如下：
- 修复了一个容器 pid 的问题，会导致 Docker 卡住； 使用已缓存的状态而不是每次都执行 runc state 获取容器状态，相关影响是 Kubernetes 启用 liveness 和 readiness 探针会造成 CPU 飙高以及 Docker 容器使用健康检查也会造成 CPU 飙高；  综合来看，建议更新到此版本。">
+ Kubernetes v1.17 正式发布 本周 Kubernetes v1.17 正式发布了，这是 2019 年的第四次发布，当然也是今年最后一次了。Kubernetes v1.17 包含 22 个增强功能，其中 14 个已经 stable ，4 个 beta 以及剩余 4 个 alpha 。
+本次版本的主题是 Stability，在发布之时 Kubernetes 官方博客上已经有了一篇 Kubernetes 1.17: Stability 文章介绍，加上每周的周报中也都有上游进展的介绍，我在这里就不赘述了，稍微聊两三个我个人认为比较有用的内容。
+ rbac.authorization.k8s.io/v1alpha1 和 rbac.authorization.k8s.io/v1beta1 在 v1.17 被标记为废弃，并且在 v1.20 将被废弃； kubectl logs 增加了一个 --prefix 的选项，使用此选项可以在输出日志的时候展示一个前缀，格式是 [pod/name/containerName] 废弃和添加了一大堆 metrics， 感兴趣的朋友可以参考下 ReleaseNote 中 metrics 的部分  其余内容建议参考下完整的 ReleaseNote
+Harbor v1.10 正式发布 Harbor 目前在 GitHub 有 10.">
 
 
-<meta itemprop="datePublished" content="2019-12-09T01:09:07&#43;08:00" />
-<meta itemprop="dateModified" content="2019-12-09T01:09:07&#43;08:00" />
-<meta itemprop="wordCount" content="118">
+<meta itemprop="datePublished" content="2019-12-15T23:16:14&#43;08:00" />
+<meta itemprop="dateModified" content="2019-12-15T23:16:14&#43;08:00" />
+<meta itemprop="wordCount" content="123">
 
 
 
 <meta itemprop="keywords" content="Linux,Weekly,Kubernetes," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="K8S 生态周报| containerd v1.3.2 发布"/>
+<meta name="twitter:title" content="K8S 生态周报| Kubernetes v1.17 正式发布"/>
 <meta name="twitter:description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Kind v0.6.1 发布 本周 Kind Kubernetes In Docker 发布了 v0.6.1 版本，这是对 v0.6.0 的一个小 patch 版本，主要变更如下：
- 修复 containerd 在多 control plane 节点集群下的配置； 修正了 v1alpha4 API 中的 protocol 和 propagation 配置； 重新推送了镜像，v0.6.0 发布的时候忘记把 CNI 的镜像给预加载到 Node 镜像中了。现在的默认镜像是 kindest/node:v1.16.3@sha256:70ce6ce09bee5c34ab14aec2b84d6edb260473a60638b1b095470a3a0f95ebec  另外：Kind 的 Node 镜像在 DockerHub 上的下载量超过了 500K&#43; ，也说明其正在被广泛使用。（查看了下我自己发布的镜像中，下载量最多的也才只有 50K&#43;）恭喜 Kind ！
-containerd v1.3.2 发布 这是 containerd 在 v1.3 系列的第二个 patch 版本。 此版本主要的修复内容如下：
- 修复了一个容器 pid 的问题，会导致 Docker 卡住； 使用已缓存的状态而不是每次都执行 runc state 获取容器状态，相关影响是 Kubernetes 启用 liveness 和 readiness 探针会造成 CPU 飙高以及 Docker 容器使用健康检查也会造成 CPU 飙高；  综合来看，建议更新到此版本。"/>
+ Kubernetes v1.17 正式发布 本周 Kubernetes v1.17 正式发布了，这是 2019 年的第四次发布，当然也是今年最后一次了。Kubernetes v1.17 包含 22 个增强功能，其中 14 个已经 stable ，4 个 beta 以及剩余 4 个 alpha 。
+本次版本的主题是 Stability，在发布之时 Kubernetes 官方博客上已经有了一篇 Kubernetes 1.17: Stability 文章介绍，加上每周的周报中也都有上游进展的介绍，我在这里就不赘述了，稍微聊两三个我个人认为比较有用的内容。
+ rbac.authorization.k8s.io/v1alpha1 和 rbac.authorization.k8s.io/v1beta1 在 v1.17 被标记为废弃，并且在 v1.20 将被废弃； kubectl logs 增加了一个 --prefix 的选项，使用此选项可以在输出日志的时候展示一个前缀，格式是 [pod/name/containerName] 废弃和添加了一大堆 metrics， 感兴趣的朋友可以参考下 ReleaseNote 中 metrics 的部分  其余内容建议参考下完整的 ReleaseNote
+Harbor v1.10 正式发布 Harbor 目前在 GitHub 有 10."/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -160,10 +160,10 @@ containerd v1.3.2 发布 这是 containerd 在 v1.3 系列的第二个 patch 版
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">K8S 生态周报| containerd v1.3.2 发布</h1>
+      <h1 class="post-title">K8S 生态周报| Kubernetes v1.17 正式发布</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2019-12-09 </span>
+        <span class="post-time"> 2019-12-15 </span>
         
         
         
@@ -180,11 +180,9 @@ containerd v1.3.2 发布 这是 containerd 在 v1.3 系列的第二个 patch 版
 <ul>
 <li>
 <ul>
-<li><a href="#kind-v0-6-1-发布">Kind v0.6.1 发布</a></li>
-<li><a href="#containerd-v1-3-2-发布">containerd v1.3.2 发布</a></li>
-<li><a href="#helm-v3-0-1-发布">Helm v3.0.1 发布</a></li>
-<li><a href="#上游进展">上游进展</a></li>
-<li><a href="#文章推荐">文章推荐</a></li>
+<li><a href="#kubernetes-v1-17-正式发布">Kubernetes v1.17 正式发布</a></li>
+<li><a href="#harbor-v1-10-正式发布">Harbor v1.10 正式发布</a></li>
+<li><a href="#项目推荐">项目推荐</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -202,46 +200,50 @@ containerd v1.3.2 发布 这是 containerd 在 v1.3 系列的第二个 patch 版
 <p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏<a href="https://zhuanlan.zhihu.com/container">「k8s生态」</a>。</p>
 </blockquote>
 
-<h2 id="kind-v0-6-1-发布">Kind v0.6.1 发布</h2>
+<h2 id="kubernetes-v1-17-正式发布">Kubernetes v1.17 正式发布</h2>
 
-<p>本周 Kind <a href="https://github.com/kubernetes-sigs/kind">Kubernetes In Docker</a> 发布了 v0.6.1 版本，这是对 v0.6.0 的一个小 patch 版本，主要变更如下：</p>
+<p>本周 Kubernetes v1.17 正式发布了，这是 2019 年的第四次发布，当然也是今年最后一次了。Kubernetes v1.17 包含 22 个增强功能，其中 14 个已经 stable ，4 个 beta 以及剩余 4 个 alpha 。</p>
 
-<ul>
-<li>修复 containerd 在多 control plane 节点集群下的配置；</li>
-<li>修正了 v1alpha4 API 中的 <code>protocol</code> 和 <code>propagation</code> 配置；</li>
-<li>重新推送了镜像，v0.6.0 发布的时候忘记把 CNI 的镜像给预加载到 Node 镜像中了。现在的默认镜像是 <code>kindest/node:v1.16.3@sha256:70ce6ce09bee5c34ab14aec2b84d6edb260473a60638b1b095470a3a0f95ebec</code></li>
-</ul>
-
-<p>另外：Kind 的 Node 镜像在 DockerHub 上的下载量超过了 500K+ ，也说明其正在被广泛使用。（查看了下我自己发布的镜像中，下载量最多的也才只有 50K+）恭喜 Kind ！</p>
-
-<h2 id="containerd-v1-3-2-发布">containerd v1.3.2 发布</h2>
-
-<p>这是 containerd 在 v1.3 系列的第二个 patch 版本。 此版本主要的修复内容如下：</p>
+<p>本次版本的主题是 Stability，在发布之时 Kubernetes 官方博客上已经有了一篇 <a href="https://kubernetes.io/blog/2019/12/09/kubernetes-1-17-release-announcement/">Kubernetes 1.17: Stability</a> 文章介绍，加上每周的周报中也都有上游进展的介绍，我在这里就不赘述了，稍微聊两三个我个人认为比较有用的内容。</p>
 
 <ul>
-<li>修复了一个容器 pid 的问题，会导致 Docker 卡住；</li>
-<li>使用已缓存的状态而不是每次都执行 <code>runc state</code> 获取容器状态，相关影响是 Kubernetes 启用 liveness 和 readiness 探针会造成 CPU 飙高以及 Docker 容器使用健康检查也会造成 CPU 飙高；</li>
+<li><code>rbac.authorization.k8s.io/v1alpha1</code> 和 <code>rbac.authorization.k8s.io/v1beta1</code> 在 v1.17 被标记为废弃，并且在 v1.20 将被废弃；</li>
+<li><code>kubectl logs</code> 增加了一个 <code>--prefix</code> 的选项，使用此选项可以在输出日志的时候展示一个前缀，格式是 <code>[pod/name/containerName]</code></li>
+<li>废弃和添加了一大堆 metrics， 感兴趣的朋友可以参考下 <a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.17.md#metrics-changes">ReleaseNote 中 metrics 的部分</a></li>
 </ul>
 
-<p>综合来看，建议更新到此版本。</p>
+<p>其余内容建议参考下完整的 <a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.17.md#changes">ReleaseNote</a></p>
 
-<h2 id="helm-v3-0-1-发布">Helm v3.0.1 发布</h2>
+<h2 id="harbor-v1-10-正式发布">Harbor v1.10 正式发布</h2>
 
-<p>这是 Helm v3 系列的第一个 patch 版本，这次包含了不少修复，但都是一些比较小的修复，我大致翻了翻，就不再展开介绍了。</p>
-
-<p>为了更好的体验，建议升级到最新的版本。当然从中也可以看到 Helm v3 还是有不少需要完善的细节。</p>
-
-<h2 id="上游进展">上游进展</h2>
+<p>Harbor 目前在 GitHub 有 10.3k 的 star ，而且目前在国内被使用的也很广泛。我之前在 <a href="https://gitbook.cn/gitchat/column/5d70cfdc4dc213091bfca46f/topic/5d72052861c92c7091bd4bb1">Docker 的认证流程和原理</a> 中也介绍过 Harbor （当然也包括 Quay，GitHub registy 和 GitLab registry 等）。我们来看看本次版本中一些亮点：</p>
 
 <ul>
-<li>授权 webhook 的 LRU 缓存被调大了 8 倍 <a href="https://github.com/kubernetes/kubernetes/pull/85957">#85957</a></li>
+<li><p>支持插件化配置的扫描器，现在可支持的扫描器包括：</p>
+
+<ul>
+<li>Clair</li>
+<li>Anchore</li>
+<li>Trivy</li>
+<li>CSP</li>
+<li>DoSec</li>
+</ul></li>
+
+<li><p>Tag 的不可变性，允许管理员配置指定的 Tag 为不允许变更（或者覆盖）;</p></li>
+
+<li><p>复制功能的增强：将Gitlab，Quay.io 和 Jfrog Artifactory 添加到了受支持列表；</p></li>
+
+<li><p>增加了个 <code>Limited Guest</code> 的权限，允许 Pull 镜像，但是不允许查看日志之类的操作；</p></li>
 </ul>
 
-<h2 id="文章推荐">文章推荐</h2>
+<p>整体而言，本次版本还是很不错的，也更符合 “企业级” 的定位。现在 Harbor 也在计划从 CNCF 毕业，大概明年能正式毕业吧。
+更多关于此版本的更新请查看 <a href="https://github.com/goharbor/harbor/releases/tag/v1.10.0">ReleaseNote</a></p>
 
-<p><img src="/img/debug-for-k8s.png" alt="troubleshooting-kubernetes - https://moelove.info" /></p>
+<h2 id="项目推荐">项目推荐</h2>
 
-<p>via. <a href="https://learnk8s.io/troubleshooting-deployments">A visual guide on troubleshooting Kubernetes deployments</a></p>
+<p><a href="https://github.com/salesforce/sloop">Sloop - Kubernetes History Visualization</a> 是一个可用于 Kubernetes 中历史记录可视化的项目。</p>
+
+<p><img src="https://github.com/salesforce/sloop/blob/master/other/architecture.png?raw=true" alt="Sloop - https://moelove.info" /></p>
 
 <hr />
 
@@ -259,7 +261,7 @@ containerd v1.3.2 发布 这是 containerd 在 v1.3 系列的第二个 patch 版
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
-    <span class="item-content">2019-12-09</span>
+    <span class="item-content">2019-12-15</span>
   </p>
   
   <p class="copyright-item">
@@ -302,14 +304,9 @@ containerd v1.3.2 发布 这是 containerd 在 v1.3 系列的第二个 patch 版
       
       <nav class="post-nav">
         
-          <a class="prev" href="/2019/12/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.17-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">K8S 生态周报| Kubernetes v1.17 正式发布</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
         
-          <a class="next" href="/2019/12/01/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Rancher-v2.3.3-%E5%8F%91%E5%B8%83/">
-            <span class="next-text nav-default">K8S 生态周报| Rancher v2.3.3 发布</span>
+          <a class="next" href="/2019/12/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.3.2-%E5%8F%91%E5%B8%83/">
+            <span class="next-text nav-default">K8S 生态周报| containerd v1.3.2 发布</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
@@ -325,8 +322,8 @@ containerd v1.3.2 发布 这是 containerd 在 v1.3 系列的第二个 patch 版
     <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
   <script type="text/javascript">
   var gitalk = new Gitalk({
-    id: '2019-12-09 01:09:07 \x2b0800 CST',
-    title: 'K8S 生态周报| containerd v1.3.2 发布',
+    id: '2019-12-15 23:16:14 \x2b0800 CST',
+    title: 'K8S 生态周报| Kubernetes v1.17 正式发布',
     clientID: '68312db64e870efbd0a0',
     clientSecret: 'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',
     repo: 'tao12345666333.github.io',

@@ -63,7 +63,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://moelove.info/" />
 
-<meta property="og:updated_time" content="2019-12-09T01:09:07&#43;08:00"/>
+<meta property="og:updated_time" content="2019-12-15T23:16:14&#43;08:00"/>
 
 <meta itemprop="name" content="MoeLove">
 <meta itemprop="description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.">
@@ -138,6 +138,31 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/04/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-15~2019-04-21/">K8S 生态周报| 2019-04-15~2019-04-21</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-04-21 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Prometheus v2.9.0 正式发布 Prometheus 是 CNCF 毕业项目，可用于监控系统及服务状态。它整体是使用 Pull 的模式，在周期时间内采集目标的 metrics ，并且提供了 PromQL 的查询语言，以供对监控数据进行查询过滤等操作。并且可以通过配置规则来触发报警等。我首次接触 Prometheus 大概是在 2015 年 0.15.0 版本左右，当时 Prometheus 还处于比较早期的阶段，不过在进入 CNCF 后，Prometheus 基本就成为了 K8S 监控的实施标准了，并且多数软件也都增加了对 Prometheus metrics 的支持。
+v2.9.0 的主要更新：
+ 从 2.8 开始引入了的从 WAL 读取进行 remote write 有时候会丢数据的问题已经得到修复； Kubernetes 和 OpenStack 在服务发现时候增加了更多元数据； Consul 现在支持多 tag； 添加了一个 honor_timestamps 的选项； TLS 证书会自动从磁盘加载； 日志也变的更易读；  其他更新请阅读 ReleaseNote
+Linkerd 2.3 正式发布 Linkerd 是一个 service mesh 旨在提供平台范围的可观察性，可靠性和安全性，而无需用户更改代码。在本月初的周报推送中，推荐了一篇关于 Linkerd v2 从产品中吸取的教育和经验的文章，Linkerd v2 使用 Go 和 Rust 进行了重写，并因此获得了巨大的收益。
+    </div>
+    <div class="read-more">
+      <a href="/2019/04/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-15~2019-04-21/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -385,37 +410,6 @@ containerd 2014 年从 Docker 孵化出来，最初是作为 Docker 引擎的底
     </div>
     <div class="read-more">
       <a href="/2018/12/29/2018-%E5%B0%8F%E5%9B%9E%E9%A1%BE/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2018/12/27/Kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5%E6%AD%A3%E5%BC%8F%E4%B8%8A%E7%BA%BF/">《Kubernetes从上手到实践》正式上线</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2018-12-27 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-       时间飞逝，转眼已经到了圣诞节，今年又要结束了。感谢还在关注的小伙伴，今年确实更新很少，能不取关的都是真爱&hellip;
-今年发生了很多事情，留着过几天年终总结的时候再说。有很大一部分的休息时间都用来完成了我的第一本掘金小册 《Kubernetes 从上手到实践》
-小册已经正式上线，特意送上各位小伙伴一份礼物，小册 8 折优惠。直接扫码 或者点击此链接即可。
-以下是关于小册的一些介绍：
-随着容器化及微服务等概念的普及，各个公司都在围绕着如何打造生产环境可用的，高效的容器调度平台，应用快速部署，扩容等平台进行探索。Kubernetes 是 Google 在 2014 年基于其多年在 Borg 系统实践总结出的经验而开源出的一套标准化，可扩展的系统。
-而发展至现在（2018年）Kubernetes 已经基本成为了容器编排领域事实上的标准，并且大量的公司都已在生产中使用，无论是国外的 Google， Amazon, GitHub 等，还是国内的阿里，腾讯，京东，滴滴及其他中小公司都在进行着大量的探索及实践。
-之前在容器化尚未大量推进的时候，开发工程师只需要关注自己业务代码的实现，而运维工程师在反复的为部署，扩容所需的环境而费时费力。
-为了解决环境一致性的问题，也为了能够提高资源的利用率，容器化开始逐步推进，开发工程师的交付由原先的交付代码变成了交付镜像，运维工程师可以将精力集中于保障服务的可高用上。
-但为了能够快速的发版验证功能，不再受单体化架构的拖累，微服务的概念也在实践中逐步推进，从原先的单体集中式的服务，拆分为多个松耦合的微服务。到了这时，微服务 + 容器化已经大势所趋，生产中要大量使用，则容器编排变的愈发重要。Kubernetes 在容器编排领域目前已成为事实上的标准，大量公司均已在生产中推进，此时，无论是开发工程师还是运维工程师，皆需要了解并掌握 Kubernetes 的基础技能，才不至于丢失自己的竞争力。
-Kubernetes 所涉及的知识点很多, 并且版本迭代也很快，本小册将集中于 Kubernetes 的基础技能，以最常见 Case 入手，帮助大家更快的掌握相关知识并将其用于生产实践中。同时在此过程中，也会深入至 Kubernetes 必要的原理中，同时也会提供相关涉及到的 Docker 及 Linux 内核知识的补充，以便让大家不仅知其然，而且知其所以然。
-你会学到什么？  Kubernetes 基础架构 Kubernetes 的基础技能, 覆盖常见 Case 从零搭建 Kubernetes 集群 与 Kubernetes 相关的 Docker 和 Linux 内核知识补充 深入 Kubernetes 组件的原理和源码解析 了解 Kubernetes 进阶相关知识体系  适宜人群  了解 Docker，希望能进入 K8S 领域的各领域工程师； 正在或即将在生产环境使用 K8S 的后端工程师； 需要维护或在公司落地 K8S 的运维工程师； 想要走在技术前沿的前端/后端/运维工程师； 准备查缺补漏的容器相关开发工程师；  
-    </div>
-    <div class="read-more">
-      <a href="/2018/12/27/Kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5%E6%AD%A3%E5%BC%8F%E4%B8%8A%E7%BA%BF/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

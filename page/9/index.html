@@ -63,7 +63,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://moelove.info/" />
 
-<meta property="og:updated_time" content="2019-12-09T01:09:07&#43;08:00"/>
+<meta property="og:updated_time" content="2019-12-15T23:16:14&#43;08:00"/>
 
 <meta itemprop="name" content="MoeLove">
 <meta itemprop="description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.">
@@ -138,6 +138,36 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2014/05/07/%E4%BD%BF%E7%94%A8Pelican%E6%90%AD%E5%BB%BABlog/">使用Pelican搭建Blog</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2014-05-07 </span>
+      <div class="post-category">
+          
+            <a href="/categories/web/"> Web </a>
+          
+        </div>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      安装配置Pelican 使用环境：  系统 : Linux X86_64 Pelican : 3.3.0  首先说一下安装： 网上有不少建议说使用虚拟环境 virtualenv，以免污染本地的环境。不过，如果不是去更改Python的全局设置的话，也不至于影响本地环境的。我是直接安装的。根据 Pelican 官方的文档，我是使用 pip 安装的，不过pip又是依赖于distribute 安装的。所以，我使用的命令如下：
+ curl -O http://python-distribute.org/distribute_setup.py sudo python distribute_setup.py curl -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py sudo python get-pip.py sudo pip install pelican  还有，如果要用 Markdown来写文章，也需要执行如下命令：
+ pip install markdown  新建一个目录，用来存放你的博客文件（我直接建立了&rdquo;blog&rdquo;文件夹）
+ mkdir blog cd blog  新建博客： 使用如下命令：
+ pelican-quickstart  按照提示一步步即可完成新建， 这些配置之后可以在pelicanconf.py这个文件中修改
+ Where do you want to create your new web site?[.] (你想在哪里创建你的网站，默认为当前目录) What will be the title of this web site?
+    </div>
+    <div class="read-more">
+      <a href="/2014/05/07/%E4%BD%BF%E7%94%A8Pelican%E6%90%AD%E5%BB%BABlog/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -431,34 +461,6 @@ cat /tmp/test1 /tmp/test2 /tmp/test3 | less
 </article>
 
     
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2013/03/09/fedora%E5%AE%89%E8%A3%85%E5%90%8E%E6%9C%80%E5%88%9D%E7%9A%84%E4%BA%8B%E6%83%85/">fedora安装后最初的事情</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2013-03-09 </span>
-      <div class="post-category">
-          
-            <a href="/categories/linux/"> Linux </a>
-          
-        </div>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      更新源 sudo yum localinstall --nogpgcheck http://mirrors.163.com/rpmfusion/free/fedora/rpmfusion-free-release-stable.noarch.rpm http://mirrors.163.com/rpmfusion/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm (这个是添加国内的软件源) sudo yum update  网络相关 firefox sudo yum install firefox  chrome / chromium 我本人比较习惯用chrome的 不过最近网络不是很稳定 先补充chromium 的安装方法吧
- chromium的安装 首先添加chromium的fedora源,将下载好的 .repo 文件移动到/etc/yum.repos.d/下， 执行
-sudo yum install chromium  chrome的安装 从官网上下载chrome 的rpm包，或者从我的网盘下载对应的32位 或 64位 的rpm 包 执行
-sudo rpm -ivh google-chrome.rpm   安装证书 sudo yum localinstall --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-branched.noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-branched.noarch.rpm  压缩/解压软件 sudo yum install unrar sudo yum install p7zip  影音播放 sudo yum install gstreamer-plugins-good gstreamer-plugins-bad gstreamer-plugins-ugly libtunepimp-extras-freeworld xine-lib-extras-freeworld(安装音频解码器) sudo yum install ffmpeg ffmpeg-libs gstreamer-ffmpeg libmatroska xvidcore(安装视频解码器)  编辑器  vim
-    </div>
-    <div class="read-more">
-      <a href="/2013/03/09/fedora%E5%AE%89%E8%A3%85%E5%90%8E%E6%9C%80%E5%88%9D%E7%9A%84%E4%BA%8B%E6%83%85/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
   </section>
   
   <nav class="pagination">
@@ -468,6 +470,10 @@ sudo rpm -ivh google-chrome.rpm   安装证书 sudo yum localinstall --nogpgchec
         <span class="prev-text">上一页</span>
       </a>
     
+      <a class="next" href="/page/10/">
+        <span class="next-text">下一页</span>
+        <i class="iconfont icon-right"></i>
+      </a>
   </nav>
 
         </div>

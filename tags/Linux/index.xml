@@ -6,10 +6,23 @@
     <description>Recent content in Linux on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Mon, 09 Dec 2019 01:09:07 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 15 Dec 2019 23:16:14 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/tags/Linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8S 生态周报| Kubernetes v1.17 正式发布</title>
+      <link>https://moelove.info/2019/12/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.17-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</link>
+      <pubDate>Sun, 15 Dec 2019 23:16:14 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/12/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.17-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Kubernetes v1.17 正式发布 本周 Kubernetes v1.17 正式发布了，这是 2019 年的第四次发布，当然也是今年最后一次了。Kubernetes v1.17 包含 22 个增强功能，其中 14 个已经 stable ，4 个 beta 以及剩余 4 个 alpha 。
+本次版本的主题是 Stability，在发布之时 Kubernetes 官方博客上已经有了一篇 Kubernetes 1.17: Stability 文章介绍，加上每周的周报中也都有上游进展的介绍，我在这里就不赘述了，稍微聊两三个我个人认为比较有用的内容。
+ rbac.authorization.k8s.io/v1alpha1 和 rbac.authorization.k8s.io/v1beta1 在 v1.17 被标记为废弃，并且在 v1.20 将被废弃； kubectl logs 增加了一个 --prefix 的选项，使用此选项可以在输出日志的时候展示一个前缀，格式是 [pod/name/containerName] 废弃和添加了一大堆 metrics， 感兴趣的朋友可以参考下 ReleaseNote 中 metrics 的部分  其余内容建议参考下完整的 ReleaseNote
+Harbor v1.10 正式发布 Harbor 目前在 GitHub 有 10.</description>
+    </item>
     
     <item>
       <title>K8S 生态周报| containerd v1.3.2 发布</title>
