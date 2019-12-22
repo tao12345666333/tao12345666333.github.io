@@ -63,7 +63,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://moelove.info/" />
 
-<meta property="og:updated_time" content="2019-12-15T23:16:14&#43;08:00"/>
+<meta property="og:updated_time" content="2019-12-21T16:55:31&#43;08:00"/>
 
 <meta itemprop="name" content="MoeLove">
 <meta itemprop="description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.">
@@ -138,6 +138,34 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/10/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v2-%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E7%89%B9%E6%80%A7%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/">K8S 生态周报| Helm v2 最后一个特性版本发布</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-10-21 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 文末有活动，欢迎参与。
+ Docker 19.03.4 正式发布 在本周 Docker 发布了 19.03.4 版本，这个版本主要是为了修复上周周报中介绍的 DOCKER-USER iptables 链丢失的问题。
+如果要升级 Docker 版本的话，可选择升级到此版本。
+Kubernetes 修复全版本影响漏洞 上周周报中的 上游进展 部分，介绍了对 CVE-2019-11253 的修复，限制 YAML/JSON 的解码大小为 3M 。本周相继发布了以下版本，包含了对此漏洞的修复。
+ v1.13.12 v1.14.8 v1.15.5 v1.16.2  实际受此漏洞影响的版本是：
+ Kubernetes v1.0.0-1.12.x Kubernetes v1.13.0-1.13.11 (修复于 v1.13.12) Kubernetes v1.14.0-1.14.7 (修复于 v1.14.8) Kubernetes v1.15.0-1.15.4 (修复于 v1.15.5) Kubernetes v1.16.0-1.16.1 (修复于 v1.16.2)  建议对集群进行升级。 但是升级前，请务必先阅读完 https://github.com/kubernetes/kubernetes/issues/83253 的内容 在清楚了解不同版本的行为后，再做升级。
+对此漏洞感兴趣的朋友，也可参阅社区公告
+Prometheus Pushgateway v1.0 正式发布 Prometheus Pushgateway v1.
+    </div>
+    <div class="read-more">
+      <a href="/2019/10/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v2-%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E7%89%B9%E6%80%A7%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -378,34 +406,6 @@ Kubernetes 受 Go 的 net/http 安全漏洞影响 Kubernetes 近期紧急发布�
     </div>
     <div class="read-more">
       <a href="/2019/08/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-cilium-1.6-%E5%8F%91%E5%B8%83-100-kube-proxy-%E7%9A%84%E6%9B%BF%E4%BB%A3%E5%93%81/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2019/08/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-08-12~2019-08-18/">K8S 生态周报| 2019-08-12~2019-08-18</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-08-19 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- rkt 项目正式被 CNCF 归档 8 月 16 日，CNCF 宣布技术委员会已经投票通过将 rkt 项目归档。
-这个事情，我在几周前的周报大概介绍过，既然现在已经尘埃落定，不如一起来看看 rkt 的前世今生，毕竟它在容器技术的发展中也曾做出了很多贡献。
-rkt 最早是由 CoreOS 公司创建的，而 CoreOS 最早应该也算是 Docker 的用户之一。但是随着 Docker 发展的日趋壮大，CoreOS 就想要脱离 Docker，成立自己的标准。
-之后 CoreOS 发布了 AppC 规范（这个规范我也曾仔细研究过），而 CoreOS 主打的旗号是开放，毕竟当时 Docker 一枝独秀，所以也就吸引了不少的伙伴参与。当然 rkt 也就借着这股风，得到了不少人的青睐。
-这里且不说 rkt 功能或是规范如何，我们单独来看看那场容器市场份额的争夺战是如何打的。
-在那时候，同时进行的另外一场战役是容器编排系统的战役。所以 rkt 也算是做了努力，它选择了与 Kubernetes 的合作（大概算是共同阵营的合作吧），所以在 2016 年 Kubernetes 1.3 版本中，宣布了支持 rkt 作为容器运行时的一个可选想。
-但 Docker 的发展（指 Docker 项目），却几乎没有受到影响。为什么呢？ Docker 早已凭借自身的稳定性和易用性占领了大批的用户，即使有用户选择 rkt 大多也只是用于尝试（心疼选择 rkt 放入生产环境中的那批）。而且不得不说，Docker 在用户心中几乎是容器的代名词，是一个默认选项。
-    </div>
-    <div class="read-more">
-      <a href="/2019/08/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-08-12~2019-08-18/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

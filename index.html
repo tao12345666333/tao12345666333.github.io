@@ -63,7 +63,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://moelove.info/" />
 
-<meta property="og:updated_time" content="2019-12-15T23:16:14&#43;08:00"/>
+<meta property="og:updated_time" content="2019-12-21T16:55:31&#43;08:00"/>
 
 <meta itemprop="name" content="MoeLove">
 <meta itemprop="description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.">
@@ -138,6 +138,33 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/12/21/2019-12-21-K8S-Weekly-2019.12.16~2019.12.22/">2019 12 21 K8S Weekly 2019.12.16~2019.12.22</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-12-21 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ TUF 正式从 CNCF 毕业 本周 The Update Framework (TUF) 正式从 CNCF 毕业，现在 TUF 的官方 Python 实现有 954 个 star ，142 个 fork 以及 43 位贡献者和 3525 此 commit 记录。
+TUF 是从 CNCF 正式毕业的第 9 个项目，没记错的话也是至今为止唯一一个 star 数未上千就正式毕业的项目。不过 TUF 项目本身与其他项目不同，star 数也说明不了项目状态。
+可能不少人觉得 TUF 项目的存在感很低，或是没有了解或使用过 TUF 项目，我姑且对它做一点介绍。
+TUF 项目大概是十年前启动，并于 2017 年开始托管于 CNCF，它的主要目标正如它的名字一般，提供用于更新的框架，但它更重要的点在于它的安全性设计上。
+它充分考虑到了各个环节可能出现的攻击，在提供更新功能的同时，也可以很好的保护现有程序或者是验证待更新版本的安全和可靠性。你可能想问它是如何做到这一点的，其实它主要是提供了一套标准规范，并在各个环节中增加了更多的元数据和相关的检查，包括签名信息，文件 hash ，元数据签名和过期时间等。
+至于它的存在感嘛，不知道你是否有使用过 Docker Content Trust(DCT) 相关的功能，简单来说你可以当作就是 docker trust 所涉及到的相关功能，这其中的部分功能是构建在 Docker Notary 之上的，而 Docker Notary 则是使用 TUF 作为其基础安全框架的。(PS：Docker Inc 也已经将 Docker Notary 捐献给了 CNCF)
+    </div>
+    <div class="read-more">
+      <a href="/2019/12/21/2019-12-21-K8S-Weekly-2019.12.16~2019.12.22/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -379,34 +406,6 @@ Docker Hub 新增双因素认证功能 最近 Docker Hub 上线了 双因素认�
     </div>
     <div class="read-more">
       <a href="/2019/10/27/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3-%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AAbeta%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2019/10/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v2-%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E7%89%B9%E6%80%A7%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/">K8S 生态周报| Helm v2 最后一个特性版本发布</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-10-21 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 文末有活动，欢迎参与。
- Docker 19.03.4 正式发布 在本周 Docker 发布了 19.03.4 版本，这个版本主要是为了修复上周周报中介绍的 DOCKER-USER iptables 链丢失的问题。
-如果要升级 Docker 版本的话，可选择升级到此版本。
-Kubernetes 修复全版本影响漏洞 上周周报中的 上游进展 部分，介绍了对 CVE-2019-11253 的修复，限制 YAML/JSON 的解码大小为 3M 。本周相继发布了以下版本，包含了对此漏洞的修复。
- v1.13.12 v1.14.8 v1.15.5 v1.16.2  实际受此漏洞影响的版本是：
- Kubernetes v1.0.0-1.12.x Kubernetes v1.13.0-1.13.11 (修复于 v1.13.12) Kubernetes v1.14.0-1.14.7 (修复于 v1.14.8) Kubernetes v1.15.0-1.15.4 (修复于 v1.15.5) Kubernetes v1.16.0-1.16.1 (修复于 v1.16.2)  建议对集群进行升级。 但是升级前，请务必先阅读完 https://github.com/kubernetes/kubernetes/issues/83253 的内容 在清楚了解不同版本的行为后，再做升级。
-对此漏洞感兴趣的朋友，也可参阅社区公告
-Prometheus Pushgateway v1.0 正式发布 Prometheus Pushgateway v1.
-    </div>
-    <div class="read-more">
-      <a href="/2019/10/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v2-%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E7%89%B9%E6%80%A7%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

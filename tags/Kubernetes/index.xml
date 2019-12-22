@@ -6,10 +6,25 @@
     <description>Recent content in Kubernetes on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 15 Dec 2019 23:16:14 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 21 Dec 2019 16:55:31 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/tags/Kubernetes/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>2019 12 21 K8S Weekly 2019.12.16~2019.12.22</title>
+      <link>https://moelove.info/2019/12/21/2019-12-21-K8S-Weekly-2019.12.16~2019.12.22/</link>
+      <pubDate>Sat, 21 Dec 2019 16:55:31 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/12/21/2019-12-21-K8S-Weekly-2019.12.16~2019.12.22/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ TUF 正式从 CNCF 毕业 本周 The Update Framework (TUF) 正式从 CNCF 毕业，现在 TUF 的官方 Python 实现有 954 个 star ，142 个 fork 以及 43 位贡献者和 3525 此 commit 记录。
+TUF 是从 CNCF 正式毕业的第 9 个项目，没记错的话也是至今为止唯一一个 star 数未上千就正式毕业的项目。不过 TUF 项目本身与其他项目不同，star 数也说明不了项目状态。
+可能不少人觉得 TUF 项目的存在感很低，或是没有了解或使用过 TUF 项目，我姑且对它做一点介绍。
+TUF 项目大概是十年前启动，并于 2017 年开始托管于 CNCF，它的主要目标正如它的名字一般，提供用于更新的框架，但它更重要的点在于它的安全性设计上。
+它充分考虑到了各个环节可能出现的攻击，在提供更新功能的同时，也可以很好的保护现有程序或者是验证待更新版本的安全和可靠性。你可能想问它是如何做到这一点的，其实它主要是提供了一套标准规范，并在各个环节中增加了更多的元数据和相关的检查，包括签名信息，文件 hash ，元数据签名和过期时间等。
+至于它的存在感嘛，不知道你是否有使用过 Docker Content Trust(DCT) 相关的功能，简单来说你可以当作就是 docker trust 所涉及到的相关功能，这其中的部分功能是构建在 Docker Notary 之上的，而 Docker Notary 则是使用 TUF 作为其基础安全框架的。(PS：Docker Inc 也已经将 Docker Notary 捐献给了 CNCF)</description>
+    </item>
     
     <item>
       <title>K8S 生态周报| Kubernetes v1.17 正式发布</title>
