@@ -6,10 +6,29 @@
     <description>Recent content in Posts on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sat, 21 Dec 2019 16:55:31 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 29 Dec 2019 16:55:31 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8S 生态周报| Prometheus v2.15.0 正式发布</title>
+      <link>https://moelove.info/2019/12/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Prometheus-v2.15.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</link>
+      <pubDate>Sun, 29 Dec 2019 16:55:31 +0800</pubDate>
+      
+      <guid>https://moelove.info/2019/12/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Prometheus-v2.15.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Prometheus v2.15.0 正式发布 本周 Prometheus 发布了 v2.15.0 版本，这个版本在 TSDB 方面有诸多改进，以及提升了 PromQL 解析器的性能。
+TSDB 方面主要是对内存使用相关的优化。
+按照此版本中 对 PromQL 解析器相关变更的 PR，本次解析器性能的提升能达到之前的 7 倍。
+同时，此版本中也存在一个 bug，可能会导致并发查询数据时，出现 checksum 不匹配的情况，最直接的影响就是 Grafana 的图表会显示不出来。
+所以之后也快速发布了 v2.15.1 版本。建议如果使用 v2.15.0 的朋友可以快速升级至 v2.15.1 以规避此问题。
+更多关于此版本的变更，请查看其 ReleaseNote
+Rancher v2.4.0-alpha1 发布 Rancher 本周发布了 v2.4.0-alpha1 , 此版本中在用户角色方面有两个挺不错的改进。
+ 管理员可以自定义全局范围内的角色，并且可以让用户登录后默认使用该角色。 在使用外部认证方式时，管理员也可以默认设置属于某个组的用户，默认授予的权限。（比较类似于 Grafana 使用 LDAP 认证时，默认给用户设置的权限，但更灵活一些。)  更多关于此版本的信息，可参考其 ReleaseNote
+题外话 这是今年 「K8S 生态周报」的最后一篇了，本篇中没有上游进展，上游最近的变更并不频繁，(大概是年底休假的原因）
+从 2019 年 3 月份开始，便一直保持着每周更新。新的一年，我也将继续保持更新，与你分享我所接触到的 K8S 生态相关的每周值得推荐的一些信息。</description>
+    </item>
     
     <item>
       <title>K8S 生态周报| TUF 正式从 CNCF 毕业</title>

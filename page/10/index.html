@@ -63,7 +63,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://moelove.info/" />
 
-<meta property="og:updated_time" content="2019-12-21T16:55:31&#43;08:00"/>
+<meta property="og:updated_time" content="2019-12-29T16:55:31&#43;08:00"/>
 
 <meta itemprop="name" content="MoeLove">
 <meta itemprop="description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.">
@@ -138,6 +138,43 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2013/08/07/LAMP%E7%8E%AF%E5%A2%83%E7%9A%84%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA/">LAMP环境的快速搭建</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2013-08-07 </span>
+      <div class="post-category">
+          
+            <a href="/categories/linux/"> Linux </a>
+          
+        </div>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      这是我在我的centos 吧专门写的教程帖，目的也就是为了让新手可以更快的搭建起来环境，而不是一直在门外徘徊。所以就搬过来了，时间神马的就按照原帖来吧。
+ 写在前面 本篇文章是面向linux新手，文中采用环境是*Win7+V-BOX*，配置过程用putty进行操作（个人习惯而已），linux系统使用CentOS6.3版本。CentOS的安装方法及虚拟机中网络配置请参阅centos吧精品帖【教程】最全centos 安装方法及内容详解。为了尽量一次性可以让读者完成LAMP环境的搭建，本次安装过程都采用yum包管理机制进行安装。当然生产环境下一般都是采用源码编译的。在近期我也会再出连载文，使用源码包进行LAMP环境的搭建，欢迎关注。如果有任何意见或者建议都可以到centos吧发帖询问。 Ps:本文LAMP = Linux + Apache + Mysql + PHP
+安装过程（先确保你的系统网络正常或者搭建好了本地源） 1. 首先安装Apache，使用命令： sudo yum install httpd –y
+2. 然后安装Mysql，使用命令 sudo yum install mysql mysql-server –y
+3. 再安装php ，使用命令 sudo yum install php –y
+4. 安装完毕之后启动apache. 使用 sudo service httpd start
+启动成功了，我们访问一下，在浏览器的地址栏输入虚拟机IP。
+好，这里遇到了我们的第一个问题， 无法访问 &gt;* apache服务已经打开，但是却无法访问 这里很可能是iptables的防御规则导致的。
+执行iptables –L查看所有的iptables的规则。
+关于iptables的知识可以自行了解或者关注后续讲解 我们执行 sudo iptables –F 清除所有规则
+接下来在浏览器输入虚拟机地址 ，我们看到如下：
+我们已经访问成功了！
+  当然在这里的时候也许还有人是访问不了的，可能是因为CentOS自带的SElinux机制影响的   我们执行getenforce命令来查看SElinux的状态，使用sudo setenforce 0来改变SElinux为*permission*状态。
+    </div>
+    <div class="read-more">
+      <a href="/2013/08/07/LAMP%E7%8E%AF%E5%A2%83%E7%9A%84%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -242,7 +279,7 @@ sudo rpm -ivh google-chrome.rpm   安装证书 sudo yum localinstall --nogpgchec
     &copy; 
     
       2013 - 
-    2019
+    2020
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>

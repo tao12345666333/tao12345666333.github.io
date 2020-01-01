@@ -2,46 +2,53 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://moelove.info/2019/12/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-TUF-%E6%AD%A3%E5%BC%8F%E4%BB%8E-CNCF-%E6%AF%95%E4%B8%9A/</loc>
-    <lastmod>2019-12-21T16:55:31+08:00</lastmod>
+    <loc>https://moelove.info/2019/12/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Prometheus-v2.15.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</loc>
+    <lastmod>2019-12-29T16:55:31+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://moelove.info/tags/Kubernetes/</loc>
-    <lastmod>2019-12-21T16:55:31+08:00</lastmod>
+    <lastmod>2019-12-29T16:55:31+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://moelove.info/tags/Linux/</loc>
-    <lastmod>2019-12-21T16:55:31+08:00</lastmod>
+    <lastmod>2019-12-29T16:55:31+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://moelove.info/</loc>
-    <lastmod>2019-12-21T16:55:31+08:00</lastmod>
+    <lastmod>2019-12-29T16:55:31+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://moelove.info/post/</loc>
-    <lastmod>2019-12-21T16:55:31+08:00</lastmod>
+    <lastmod>2019-12-29T16:55:31+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://moelove.info/tags/</loc>
-    <lastmod>2019-12-21T16:55:31+08:00</lastmod>
+    <lastmod>2019-12-29T16:55:31+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://moelove.info/tags/Weekly/</loc>
-    <lastmod>2019-12-21T16:55:31+08:00</lastmod>
+    <lastmod>2019-12-29T16:55:31+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://moelove.info/2019/12/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-TUF-%E6%AD%A3%E5%BC%8F%E4%BB%8E-CNCF-%E6%AF%95%E4%B8%9A/</loc>
+    <lastmod>2019-12-21T16:55:31+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>

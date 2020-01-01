@@ -63,7 +63,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://moelove.info/" />
 
-<meta property="og:updated_time" content="2019-12-21T16:55:31&#43;08:00"/>
+<meta property="og:updated_time" content="2019-12-29T16:55:31&#43;08:00"/>
 
 <meta itemprop="name" content="MoeLove">
 <meta itemprop="description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.">
@@ -138,6 +138,32 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/05/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-28~2019-05-05/">K8S 生态周报| 2019-04-28~2019-05-05</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-05-05 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Docker Hub 只读维护 在上周的推送中，有写到 Docker Hub 用户隐私数据泄漏。受此事件影响，5 月 4 日 Docker Hub 进行升级维护，在此期间 Docker Hub 有一段时间处于只读模式，包括自动构建等服务不可用；在最后有小于 15 分钟的完全宕机时间，服务完全不可用。
+如果只是看事情表面的话，可能这就是一个由于发现“安全问题”而进行的升级/维护；但如果仔细考虑下，作为云原生服务，升级为何会有宕机的情况，为何会有服务完全不可用的时候？
+摘录一段来自本次维护的公告内容：
+ Q: Is this maintenance related to recent Docker Hub data breach?
+A: While we discovered unauthorized access to a single Hub database storing a subset of non-financial user data last week, which has since been remediated, we are always looking at ways to improve and enhance our security practices to protect our customers and their data.
+    </div>
+    <div class="read-more">
+      <a href="/2019/05/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-28~2019-05-05/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -385,31 +411,6 @@ Rancher 发布 K8S 最佳安全实践文章 Rancher 在 CNCF 最近发布的 9 �
 </article>
 
     
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2019/03/01/%E6%81%AD%E5%96%9C-containerd-%E6%AF%95%E4%B8%9A/">恭喜 containerd 毕业</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-03-01 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      今年的第一篇文章更新，带来一个重大的消息。
- CNCF（云原生计算基金会）在美国时间 2019 年 2 月 28 日宣布 containerd 今天正式毕业了。
-这是 CNCF 中毕业的第 5 个项目，之前已经毕业的项目为 Kubernetes、Prometheus、Envoy 和 CoreDNS 。
-containerd 2014 年从 Docker 孵化出来，最初是作为 Docker 引擎的底层管理器；在 2017 年 3 月被 CNCF 接受后，containerd 几乎成为了行业容器运行引擎的标准，它专注于简单，健壮和可移植性，任何人都可以使用它来构建自己的容器引擎/平台。
- “When Docker contributed containerd to the community, our goal was to share a robust and extensible runtime that millions of users and tens of thousands of organizations have already standardized on as part of Docker Engine,” said Michael Crosby, containerd maintainer and Docker engineer.
-    </div>
-    <div class="read-more">
-      <a href="/2019/03/01/%E6%81%AD%E5%96%9C-containerd-%E6%AF%95%E4%B8%9A/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
   </section>
   
   <nav class="pagination">
@@ -457,7 +458,7 @@ containerd 2014 年从 Docker 孵化出来，最初是作为 Docker 引擎的底
     &copy; 
     
       2013 - 
-    2019
+    2020
     <span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
