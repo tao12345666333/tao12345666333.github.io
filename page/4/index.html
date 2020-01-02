@@ -63,7 +63,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://moelove.info/" />
 
-<meta property="og:updated_time" content="2019-12-29T16:55:31&#43;08:00"/>
+<meta property="og:updated_time" content="2020-01-01T22:01:00&#43;08:00"/>
 
 <meta itemprop="name" content="MoeLove">
 <meta itemprop="description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.">
@@ -138,6 +138,34 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/06/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-17~2019-06-23/">K8S 生态周报| 2019-06-17~2019-06-23</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-06-22 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Kubernetes v1.15.0 正式发布 经过了三个月左右的开发，Kubernetes v1.15.0 正式发布了。
+这是 2019 年 Kubernetes 发布的第二个版本，这个版本由 25 个增强功能组成，其中 2 个移动到 stable ，13 个 beta 以及 10 个 alpha ，整体上集中于稳定性改进和扩展的增强。
+CRD (Custom Resource Definition) 是 Kubernetes 提供的一种可用于扩展其能力的方式，当前有很多使用 CRD 构建于 Kubernetes 上的平台/系统，可以说之后对 Kubernetes 的扩展，或者说想要基于 Kubernetes 开发，同时又想与上游保持同步的话，CRD 是个最佳的选择。
+Kubeadm 在此版本开始有了自己独立的 LOGO ，同时在这个版本中 kubeadm 的功能也得到了很多的完善和补充。这使得 kubeadm 成为更普遍/更好用的搭建集群的工具，同时对集群生命周期的管理也做的更加到位了。这部分的功能我很喜欢也一直在关注，近期我会针对这部分写篇文章出来。感兴趣的朋友们可以关注下
+关于此版本更多的介绍，可参考 Kubernetes v1.15 ReleaseNote
+Istio 1.2.0 正式发布 经过三个 rc 版本之后， Istio 1.2.0 版本正式发布。
+在这个版本中，它添加了对 Kubernetes IPv6 的实验性支持。Kind （Kubernetes in Docker） 项目也是本周内刚增加了 IPv6 的支持 :)
+    </div>
+    <div class="read-more">
+      <a href="/2019/06/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-17~2019-06-23/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -379,33 +407,6 @@ istio-operator 发布 0.1.12 版本 banzaicloud/istio-operator 发布 0.1.12 版
     </div>
     <div class="read-more">
       <a href="/2019/05/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-06~2019-05-12/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2019/05/11/%E5%85%B3%E4%BA%8E-Alpine-Docker-%E9%95%9C%E5%83%8F%E6%BC%8F%E6%B4%9E-CVE-2019-5021/">关于 Alpine Docker 镜像漏洞 CVE-2019-5021</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-05-11 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      关于 CVE-2019-5021 带来的一点思考。
- 本周比较吓人的是 CVE-2019-5021, 根据漏洞报告，自 Alpine Linux 3.3 版本开始的所有 Docker 镜像中，root 用户包含一个空密码，这可能会导致攻击者获得 root 权限，进而造成攻击。
-报告中称：受影响范围是 Alpine Linux Docker 镜像 3.3、3.4、3.5、3.6、3.7、3.8、3.9、edge 等全部版本。
-要知道由于 Alpine Linux 镜像体积较小，所以在构建 Docker 镜像时，很多人都会推荐使用 Alpine Linux 作为基础镜像；包括很多 Docker 官方镜像也基本上都提供了基于 Alpine Linux 的镜像，甚至像 Docker 镜像等，是只提供了使用 Alpine Linux 作为基础镜像的版本。
-报告一出，瞬间这个消息就被传播成了 “Alpine Linux Docker 镜像不安全”/“不要再使用 Alpine Linux 了”。当然 Google 的开发者也顺便推了一次自家的 distroless 镜像。
-我们来看一下 CVE-2019-5021 到底是什么以及如何复现吧。
-CVE-2019-5021 (MoeLove) ➜ ~ docker run --rm -it alpine:3.9 / # grep root /etc/passwd root❌0:0:root:/root:/bin/ash operator❌11:0:operator:/root:/bin/sh / # grep root /etc/shadow root:::0::::: / #  以上是一个 alpine:3.
-    </div>
-    <div class="read-more">
-      <a href="/2019/05/11/%E5%85%B3%E4%BA%8E-Alpine-Docker-%E9%95%9C%E5%83%8F%E6%BC%8F%E6%B4%9E-CVE-2019-5021/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
