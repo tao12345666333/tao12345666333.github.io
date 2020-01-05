@@ -63,7 +63,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://moelove.info/" />
 
-<meta property="og:updated_time" content="2020-01-01T22:01:00&#43;08:00"/>
+<meta property="og:updated_time" content="2020-01-05T09:52:30&#43;08:00"/>
 
 <meta itemprop="name" content="MoeLove">
 <meta itemprop="description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.">
@@ -138,6 +138,35 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2013/08/30/fedora%E4%B8%8B%E5%AE%89%E8%A3%85sublime-text-2%E7%9A%84%E6%96%B9%E6%B3%95/">fedora下安装sublime text 2的方法</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2013-08-30 </span>
+      <div class="post-category">
+          
+            <a href="/categories/linux/"> Linux </a>
+          
+        </div>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      首先去官网下载最新的压缩包  把文件解压到$HOME/.sublime_text_2文件夹中：
+tar -xf (sublime压缩包的文件名).tar.bz2 sudo mv (解压后的文件夹) tools/Sublime_Text_2  在/usr/bin目录下面创建一个链接
+vim sublime  在文件中写入这些代码：
+#!/bin/bash export SUBLIME_HOME=&quot;~/tools/Sublime_Text_2&quot; $SUBLIME_HOME/sublime_text $*   修改文件权限并且移动
+chmod 555 sublime &amp;&amp; mv sublime /usr/bin/sublime  这样就可以在终端中直接执行sublime了
+    </div>
+    <div class="read-more">
+      <a href="/2013/08/30/fedora%E4%B8%8B%E5%AE%89%E8%A3%85sublime-text-2%E7%9A%84%E6%96%B9%E6%B3%95/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">

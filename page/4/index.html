@@ -63,7 +63,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://moelove.info/" />
 
-<meta property="og:updated_time" content="2020-01-01T22:01:00&#43;08:00"/>
+<meta property="og:updated_time" content="2020-01-05T09:52:30&#43;08:00"/>
 
 <meta itemprop="name" content="MoeLove">
 <meta itemprop="description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.">
@@ -138,6 +138,35 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/06/30/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-24~2019-06-30/">K8S 生态周报| 2019-06-24~2019-06-30</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-06-30 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ kind (Kubernetes In Docker) v0.4.0 正式发布 kind (Kubernetes In Docker) 是我很喜欢并且一直持续参与贡献的项目，本周发布了 v0.4.0 版本。关于 Kind 的介绍和基础使用，可以参考我之前写的文章 《使用 Kind 搭建你的本地 Kubernetes 集群》
+v0.4.0 版本中，默认的 Kubernetes 版本升级到了 v1.15 版本，且 kind.sigs.k8s.io/v1alpha2 版本的 API 已经过期，请更新使用 kind.sigs.k8s.io/v1alpha3 。
+目前暂时移除了使用 apt 构建 Node 镜像的选项，之后版本中可能会加回来，直接使用上游构建好的二进制文件进行安装。
+在此版本中，我们增加了一个 nodes[].extraPortMappings 的配置，可以直接通过此配置进行端口的转发，以便从宿主机上直接访问到集群上使用 NodePort 方式部署的服务，这样更容易模拟真实的网络环境，否则只能通过其他的转发或者网络代理的方式来进行通信了。
+同样的，紧跟着上游的开放，这个版本中也增加了对 IPv6 的支持，可以直接通过 networking.ipFamily 的配置进行使用。
+为了能让 kind 更加易用，且满足多数 CI 或者测试使用的场景，在这个版本中，我们尤其对单节点集群的启动时间做了优化，可以更快速的启动集群。
+顺便公布一个数据，kind 目前的 star 数是 2.2k 上个版本发布时是 1.8k 并且还在持续增长中 :)
+更多的细节和信息请参考 ReleaseNote 欢迎大家使用！
+    </div>
+    <div class="read-more">
+      <a href="/2019/06/30/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-24~2019-06-30/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -381,32 +410,6 @@ Tiller 主要用于在 Kubernetes 集群中管理各种应用发布的版本，�
     </div>
     <div class="read-more">
       <a href="/2019/05/16/%E5%88%9D%E8%AF%95-Helm-3/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2019/05/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-06~2019-05-12/">K8S 生态周报| 2019-05-06~2019-05-12</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-05-12 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Alpine Linux Docker 镜像漏洞 CVE-2019-5021 本周比较吓人的是 CVE-2019-5021, 根据漏洞报告，自 Alpine Linux 3.3 版本开始的所有 Docker 镜像中，root 用户包含一个空密码，这可能会导致攻击者获得 root 权限，今儿造成攻击。
-报告中称：受影响范围是 Alpine Linux Docker 镜像 3.3、3.4、3.5、3.6、3.7、3.8、3.9、edge 等全部版本。
-要知道由于 Alpine Linux 镜像体积较小，所以在构建 Docker 镜像时，很多人都会推荐使用 Alpine Linux 作为基础镜像；包括很多 Docker 官方镜像也基本上都提供了基于 Alpine Linux 的镜像，甚至像 Docker 镜像等是只提供了使用 Alpine Linux 作为基础镜像的版本。
-当前漏洞已经修复，更多内容请阅读 关于 Alpine Docker 镜像漏洞 CVE-2019-5021 。
-istio-operator 发布 0.1.12 版本 banzaicloud/istio-operator 发布 0.1.12 版本，默认已支持 istio 1.1.5 。（虽然截至目前 istio 发布了 1.
-    </div>
-    <div class="read-more">
-      <a href="/2019/05/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-06~2019-05-12/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

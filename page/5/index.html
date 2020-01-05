@@ -63,7 +63,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://moelove.info/" />
 
-<meta property="og:updated_time" content="2020-01-01T22:01:00&#43;08:00"/>
+<meta property="og:updated_time" content="2020-01-05T09:52:30&#43;08:00"/>
 
 <meta itemprop="name" content="MoeLove">
 <meta itemprop="description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.">
@@ -138,6 +138,32 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/05/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-06~2019-05-12/">K8S 生态周报| 2019-05-06~2019-05-12</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-05-12 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Alpine Linux Docker 镜像漏洞 CVE-2019-5021 本周比较吓人的是 CVE-2019-5021, 根据漏洞报告，自 Alpine Linux 3.3 版本开始的所有 Docker 镜像中，root 用户包含一个空密码，这可能会导致攻击者获得 root 权限，今儿造成攻击。
+报告中称：受影响范围是 Alpine Linux Docker 镜像 3.3、3.4、3.5、3.6、3.7、3.8、3.9、edge 等全部版本。
+要知道由于 Alpine Linux 镜像体积较小，所以在构建 Docker 镜像时，很多人都会推荐使用 Alpine Linux 作为基础镜像；包括很多 Docker 官方镜像也基本上都提供了基于 Alpine Linux 的镜像，甚至像 Docker 镜像等是只提供了使用 Alpine Linux 作为基础镜像的版本。
+当前漏洞已经修复，更多内容请阅读 关于 Alpine Docker 镜像漏洞 CVE-2019-5021 。
+istio-operator 发布 0.1.12 版本 banzaicloud/istio-operator 发布 0.1.12 版本，默认已支持 istio 1.1.5 。（虽然截至目前 istio 发布了 1.
+    </div>
+    <div class="read-more">
+      <a href="/2019/05/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-06~2019-05-12/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -380,34 +406,6 @@ CVE-2019-5736 我们首先要介绍今年 runc 的一个提权漏洞 CVE-2019-57
     </div>
     <div class="read-more">
       <a href="/2019/03/29/runc-1.0-rc7-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2019/03/25/%E4%BD%BF%E7%94%A8-Kind-%E6%90%AD%E5%BB%BA%E4%BD%A0%E7%9A%84%E6%9C%AC%E5%9C%B0-Kubernetes-%E9%9B%86%E7%BE%A4/">使用 Kind 搭建你的本地 Kubernetes 集群</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-03-25 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      Kind 是我很喜欢也一直在参与的项目，我计划将 Kind 相关的文章写成一个系列。（flag++） 这是第一篇。
- Kind 介绍 Kind 是 Kubernetes In Docker 的缩写，顾名思义是使用 Docker 容器作为 Node 并将 Kubernetes 部署至其中的一个工具。官方文档中也把 Kind 作为一种本地集群搭建的工具进行推荐。
-安装 二进制安装 Kind 使用 Golang 进行开发，在仓库的 Release 页面，已经上传了构建好的二进制，支持多种操作系统，可直接按需下载进行使用。
-e.g.
-# 下载最新的 0.2.0 版本 wget -O /usr/local/bin/kind https://github.com/kubernetes-sigs/kind/releases/download/0.2.0/kind-linux-amd64 &amp;&amp; chmod +x /usr/local/bin/kind  通过源码安装 如果你本地已经配置好了 Golang 的开发环境，那你可以直接通过源码进行安装。
-e.g.
-go get -u sigs.k8s.io/kind  运行完上述命令后，会将 kind 的可执行文件放到 $(go env GOPATH)/bin 文件夹内，你可能需要将此目录加入到 $PATH 中。
-或者也可以先 clone 源代码再通过 go build 进行构建。
-    </div>
-    <div class="read-more">
-      <a href="/2019/03/25/%E4%BD%BF%E7%94%A8-Kind-%E6%90%AD%E5%BB%BA%E4%BD%A0%E7%9A%84%E6%9C%AC%E5%9C%B0-Kubernetes-%E9%9B%86%E7%BE%A4/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

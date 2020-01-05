@@ -63,7 +63,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://moelove.info/" />
 
-<meta property="og:updated_time" content="2020-01-01T22:01:00&#43;08:00"/>
+<meta property="og:updated_time" content="2020-01-05T09:52:30&#43;08:00"/>
 
 <meta itemprop="name" content="MoeLove">
 <meta itemprop="description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.">
@@ -138,6 +138,34 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/03/25/%E4%BD%BF%E7%94%A8-Kind-%E6%90%AD%E5%BB%BA%E4%BD%A0%E7%9A%84%E6%9C%AC%E5%9C%B0-Kubernetes-%E9%9B%86%E7%BE%A4/">使用 Kind 搭建你的本地 Kubernetes 集群</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-03-25 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      Kind 是我很喜欢也一直在参与的项目，我计划将 Kind 相关的文章写成一个系列。（flag++） 这是第一篇。
+ Kind 介绍 Kind 是 Kubernetes In Docker 的缩写，顾名思义是使用 Docker 容器作为 Node 并将 Kubernetes 部署至其中的一个工具。官方文档中也把 Kind 作为一种本地集群搭建的工具进行推荐。
+安装 二进制安装 Kind 使用 Golang 进行开发，在仓库的 Release 页面，已经上传了构建好的二进制，支持多种操作系统，可直接按需下载进行使用。
+e.g.
+# 下载最新的 0.2.0 版本 wget -O /usr/local/bin/kind https://github.com/kubernetes-sigs/kind/releases/download/0.2.0/kind-linux-amd64 &amp;&amp; chmod +x /usr/local/bin/kind  通过源码安装 如果你本地已经配置好了 Golang 的开发环境，那你可以直接通过源码进行安装。
+e.g.
+go get -u sigs.k8s.io/kind  运行完上述命令后，会将 kind 的可执行文件放到 $(go env GOPATH)/bin 文件夹内，你可能需要将此目录加入到 $PATH 中。
+或者也可以先 clone 源代码再通过 go build 进行构建。
+    </div>
+    <div class="read-more">
+      <a href="/2019/03/25/%E4%BD%BF%E7%94%A8-Kind-%E6%90%AD%E5%BB%BA%E4%BD%A0%E7%9A%84%E6%9C%AC%E5%9C%B0-Kubernetes-%E9%9B%86%E7%BE%A4/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -392,37 +420,6 @@ services: - name: docker:dind command: [&quot;--insecure-registry=myregistry:500
     </div>
     <div class="read-more">
       <a href="/2017/06/30/Install-Python3.6-on-CentOS7/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2017/03/05/%E7%90%86%E8%A7%A3-Redis-%E7%9A%84-RESP-%E5%8D%8F%E8%AE%AE/">理解 Redis 的 RESP 协议</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2017-03-05 </span>
-      <div class="post-category">
-          
-            <a href="/categories/linux/"> Linux </a>
-          
-        </div>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      简介 Redis 的客户端和服务端之间采取了一种独立名为 RESP(REdis Serialization Protocol) 的协议，作者主要考虑了以下几个点：
- 容易实现 解析快 人类可读  注意：RESP 虽然是为 Redis 设计的，但是同样也可以用于其他 C/S 的软件。
-数据类型及示例 RESP 主要可以序列化以下几种类型：整数，单行回复(简单字符串)，数组，错误信息，多行字符串。Redis 客户端向服务端发送的是一组由执行的命令组成的字符串数组，服务端根据不同的命令回复不同类型的数据，但协议的每部分都是以 &ldquo;\r\n&rdquo; (CRLF) 结尾的。另外 RESP 是二进制安全的，不需要处理从一个进程到另一个进程的传输，因为它使用了前缀长度进行传输。
-在 RESP 中, 一些数据的类型通过它的第一个字节进行判断：
- 单行回复：回复的第一个字节是 &ldquo;+&rdquo; 错误信息：回复的第一个字节是 &ldquo;-&rdquo; 整形数字：回复的第一个字节是 &ldquo;:&rdquo; 多行字符串：回复的第一个字节是 &ldquo;\$&rdquo; 数组：回复的第一个字节是 &ldquo;*&rdquo;  单行回复 以 &ldquo;+&rdquo; 开头，以 &ldquo;\r\n&rdquo; 结尾的字符串形式。e.g.
-+OK\r\n  响应的客户端库，应该返回除 &ldquo;+&rdquo; 和 CRLF 以外的内容，例如上面的内容，则返回 &ldquo;OK&rdquo;. e.g.
-127.0.0.1:6379&gt; set name TaoBeier +OK\r\n # 服务端实际返回 --- OK # redis-cli 客户端显示  错误信息 错误信息和单行回复很像，不过是把 &ldquo;+&rdquo; 替换成了 &ldquo;-&ldquo;。而这两者之间真正的区别是，错误信息会被客户端视为异常，并且组成错误类型的是错误消息本身。e.
-    </div>
-    <div class="read-more">
-      <a href="/2017/03/05/%E7%90%86%E8%A7%A3-Redis-%E7%9A%84-RESP-%E5%8D%8F%E8%AE%AE/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

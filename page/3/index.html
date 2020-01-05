@@ -63,7 +63,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://moelove.info/" />
 
-<meta property="og:updated_time" content="2020-01-01T22:01:00&#43;08:00"/>
+<meta property="og:updated_time" content="2020-01-05T09:52:30&#43;08:00"/>
 
 <meta itemprop="name" content="MoeLove">
 <meta itemprop="description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.">
@@ -138,6 +138,33 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2019/09/08/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Harbor-v1.9-%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/">K8S 生态周报| Harbor v1.9 带来众多新特性</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2019-09-08 </span>
+      
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Docker CE 19.03.2 发布 Docker CE 19.03.2 已于近日发布，事实上此版本内更新的内容本该在 19.03.1 中发布的，不过 19.03.1 主要是为了修正 CVE-2019-14271 如果你正在使用 19.03.0 那我建议你进行升级。
+为了保证尽可能快的修复问题，所以专程发布了 19.03.1 版本，而把原先预期的功能转移至 19.03.2 中进行发布。这其实也是 Docker 做的比较好的一个事情，Docker 的版本发布很有原则。
+我们来看看 19.03.2 中带来了哪些变化：
+ 修正了Docker CLI 对 HTTP Proxy 环境变量的支持； 修正了一个为容器使用 XFS 磁盘配额可能产生的 panic；  其他变化，感兴趣的朋友可以参看其 ReleaseNote
+containerd 1.3.0-rc.0 发布 1.3 将会是 containerd 的下一个主版本；而自 containerd 1.2 发布以来已经过去了近 9 个月。我们来大致看看 1.3 中有哪些值得期待的功能。
+ 增加了 Windows v2 的 runtime API， 同时移除了 Windows v1 API； 新增了 devicemapper 的快照支持，然而需要注意的是 Docker 已经将 devicemapper 的存储驱动标记为了过期，推荐大家使用 Overlay2 的存储驱动； 允许插件注册为一个 TCP Server ，通过这种机制其实可以做到很多的事情了； 可配置的插件目录； 在 CRI 方面 io.
+    </div>
+    <div class="read-more">
+      <a href="/2019/09/08/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Harbor-v1.9-%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -373,35 +400,6 @@ Debian 10 buster 正式发布 Debian 10 正式发布了，其实按一般的角�
     </div>
     <div class="read-more">
       <a href="/2019/07/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-01~2019-07-07/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2019/06/30/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-24~2019-06-30/">K8S 生态周报| 2019-06-24~2019-06-30</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2019-06-30 </span>
-      
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-      「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- kind (Kubernetes In Docker) v0.4.0 正式发布 kind (Kubernetes In Docker) 是我很喜欢并且一直持续参与贡献的项目，本周发布了 v0.4.0 版本。关于 Kind 的介绍和基础使用，可以参考我之前写的文章 《使用 Kind 搭建你的本地 Kubernetes 集群》
-v0.4.0 版本中，默认的 Kubernetes 版本升级到了 v1.15 版本，且 kind.sigs.k8s.io/v1alpha2 版本的 API 已经过期，请更新使用 kind.sigs.k8s.io/v1alpha3 。
-目前暂时移除了使用 apt 构建 Node 镜像的选项，之后版本中可能会加回来，直接使用上游构建好的二进制文件进行安装。
-在此版本中，我们增加了一个 nodes[].extraPortMappings 的配置，可以直接通过此配置进行端口的转发，以便从宿主机上直接访问到集群上使用 NodePort 方式部署的服务，这样更容易模拟真实的网络环境，否则只能通过其他的转发或者网络代理的方式来进行通信了。
-同样的，紧跟着上游的开放，这个版本中也增加了对 IPv6 的支持，可以直接通过 networking.ipFamily 的配置进行使用。
-为了能让 kind 更加易用，且满足多数 CI 或者测试使用的场景，在这个版本中，我们尤其对单节点集群的启动时间做了优化，可以更快速的启动集群。
-顺便公布一个数据，kind 目前的 star 数是 2.2k 上个版本发布时是 1.8k 并且还在持续增长中 :)
-更多的细节和信息请参考 ReleaseNote 欢迎大家使用！
-    </div>
-    <div class="read-more">
-      <a href="/2019/06/30/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-24~2019-06-30/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

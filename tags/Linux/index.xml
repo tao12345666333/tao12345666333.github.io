@@ -6,10 +6,26 @@
     <description>Recent content in Linux on MoeLove</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 29 Dec 2019 16:55:31 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 05 Jan 2020 09:52:30 +0800</lastBuildDate>
     
 	<atom:link href="https://moelove.info/tags/Linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>K8S 生态周报| 终端下的 K8S 资源树查看器</title>
+      <link>https://moelove.info/2020/01/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E7%BB%88%E7%AB%AF%E4%B8%8B%E7%9A%84-K8S-%E8%B5%84%E6%BA%90%E6%A0%91%E6%9F%A5%E7%9C%8B%E5%99%A8/</link>
+      <pubDate>Sun, 05 Jan 2020 09:52:30 +0800</pubDate>
+      
+      <guid>https://moelove.info/2020/01/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E7%BB%88%E7%AB%AF%E4%B8%8B%E7%9A%84-K8S-%E8%B5%84%E6%BA%90%E6%A0%91%E6%9F%A5%E7%9C%8B%E5%99%A8/</guid>
+      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ 上游进展  Kubernetes v1.17.0 中，如果将 CIDR 设置为低于 /16 位，则 IP 分配器可能会报错。这个问题当前已经在 #86534中修复，将随着 v1.17.1 发布，如果尚未升级至 v1.17.0 的朋友可以稍后； api-server 的 bind-address 最近稍作了调整，如果未指定或者使用 0.0.0.0 或 :: 则会监听本地的所有可用的地址。  项目推荐 kubectl-tree 是一个用于在终端内以树形结构展示 Kubernetes 资源的 Kubectl 插件。（已经登上了 GitHub 的趋势榜）
+使用效果如图：
+在我的终端下，它不能对齐，不过我还没来得及具体去看原因。
+新项目：APISIX-ingress-controller 最近看到一个为 Apache APISIX 实现 Ingress Controller 的项目 APISIX-ingress-controller
+同时也看到了一篇文章: 为什么我们重新写了一个 k8s ingress controller  文章的作者解释了为何要重新写一个 Ingress Controller。
+在我个人看来，多实现一种 Ingress Controller 对社区而言是好事儿，让大家有了更多的选择，另一方面，这个项目刚起步不久，如果有对实现 APISIX Ingress Controller 感兴趣的朋友可以尽早加入。
+( 抛开此项目不谈，单纯谈写一个简单的自定义 Ingress Controller 其实比较简单，倒也挺有趣的，只不过在处理一些高级特性及处理大量请求时，不同的实现会有些区别。 推荐大家都尝试下</description>
+    </item>
     
     <item>
       <title>K8S 生态周报| Prometheus v2.15.0 正式发布</title>

@@ -63,7 +63,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://moelove.info/" />
 
-<meta property="og:updated_time" content="2020-01-01T22:01:00&#43;08:00"/>
+<meta property="og:updated_time" content="2020-01-05T09:52:30&#43;08:00"/>
 
 <meta itemprop="name" content="MoeLove">
 <meta itemprop="description" content="Jintao Zhang&#39;s Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.">
@@ -138,6 +138,37 @@
   <section id="posts" class="posts">
     
     
+    
+      <article class="post">
+  <header class="post-header">
+    <h1 class="post-title"><a class="post-link" href="/2017/03/05/%E7%90%86%E8%A7%A3-Redis-%E7%9A%84-RESP-%E5%8D%8F%E8%AE%AE/">理解 Redis 的 RESP 协议</a></h1>
+    <div class="post-meta">
+      <span class="post-time"> 2017-03-05 </span>
+      <div class="post-category">
+          
+            <a href="/categories/linux/"> Linux </a>
+          
+        </div>
+      
+    </div>
+  </header>
+  
+  <div class="post-content">
+    <div class="post-summary">
+      简介 Redis 的客户端和服务端之间采取了一种独立名为 RESP(REdis Serialization Protocol) 的协议，作者主要考虑了以下几个点：
+ 容易实现 解析快 人类可读  注意：RESP 虽然是为 Redis 设计的，但是同样也可以用于其他 C/S 的软件。
+数据类型及示例 RESP 主要可以序列化以下几种类型：整数，单行回复(简单字符串)，数组，错误信息，多行字符串。Redis 客户端向服务端发送的是一组由执行的命令组成的字符串数组，服务端根据不同的命令回复不同类型的数据，但协议的每部分都是以 &ldquo;\r\n&rdquo; (CRLF) 结尾的。另外 RESP 是二进制安全的，不需要处理从一个进程到另一个进程的传输，因为它使用了前缀长度进行传输。
+在 RESP 中, 一些数据的类型通过它的第一个字节进行判断：
+ 单行回复：回复的第一个字节是 &ldquo;+&rdquo; 错误信息：回复的第一个字节是 &ldquo;-&rdquo; 整形数字：回复的第一个字节是 &ldquo;:&rdquo; 多行字符串：回复的第一个字节是 &ldquo;\$&rdquo; 数组：回复的第一个字节是 &ldquo;*&rdquo;  单行回复 以 &ldquo;+&rdquo; 开头，以 &ldquo;\r\n&rdquo; 结尾的字符串形式。e.g.
++OK\r\n  响应的客户端库，应该返回除 &ldquo;+&rdquo; 和 CRLF 以外的内容，例如上面的内容，则返回 &ldquo;OK&rdquo;. e.g.
+127.0.0.1:6379&gt; set name TaoBeier +OK\r\n # 服务端实际返回 --- OK # redis-cli 客户端显示  错误信息 错误信息和单行回复很像，不过是把 &ldquo;+&rdquo; 替换成了 &ldquo;-&ldquo;。而这两者之间真正的区别是，错误信息会被客户端视为异常，并且组成错误类型的是错误消息本身。e.
+    </div>
+    <div class="read-more">
+      <a href="/2017/03/05/%E7%90%86%E8%A7%A3-Redis-%E7%9A%84-RESP-%E5%8D%8F%E8%AE%AE/" class="read-more-link">阅读更多</a>
+    </div>
+  </div>
+</article>
+
     
       <article class="post">
   <header class="post-header">
@@ -427,37 +458,6 @@ Coser需要经过服装，道具，化妆等工序打磨，而一般在网上直
     </div>
     <div class="read-more">
       <a href="/2016/04/16/%E6%83%B3%E4%BB%8E%E4%BA%8C%E6%AC%A1%E5%85%83%E7%BE%A4%E4%BD%93%E6%89%8B%E9%87%8C%E8%B5%9A%E9%92%B1%E4%BD%A0%E7%9C%9F%E7%9A%84%E6%87%82%E4%BA%8C%E6%AC%A1%E5%85%83%E5%90%97/" class="read-more-link">阅读更多</a>
-    </div>
-  </div>
-</article>
-
-    
-      <article class="post">
-  <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="/2015/12/31/2015%E5%B0%8F%E5%9B%9E%E9%A1%BE/">2015小回顾</a></h1>
-    <div class="post-meta">
-      <span class="post-time"> 2015-12-31 </span>
-      <div class="post-category">
-          
-            <a href="/categories/life/"> Life </a>
-          
-        </div>
-      
-    </div>
-  </header>
-  
-  <div class="post-content">
-    <div class="post-summary">
-       时间过得很快2015年最后一天。 还是继续给自己做个总结吧。 去年也有做总结，不过没有发布到Blog罢了。
-2015年初在公司定了两个主要目标:
- 对工具的打磨 计算机图形学  第一个目标算是基本完成，现在在用的工具都很顺手，效率能提升很多，而且用起来也很爽！现在也还会再尝试一些其他的工具，或者提升现在使用的工具的便利性。有时间的话可以写篇文章介绍一下。第二个目标目前没有什么进展，可以考虑是不是要留到今年了XD，当然还有一些其他自己定的目标基本完成，大致写写自己的收获好了。
-收获 (大致按照时间来写吧)
- 读了一部分 Nginx 的源码，算是对Nginx有了比以前更深入的认识，但是现在回过头来再重新审视的话，发现对它的理解还远远不够，还需要继续深入。 学习了 Haskell, Haskell我觉得是一门非常棒的语言，非常值得学习，通过对这门语言的学习，改变了我的一些思维方式。除了用它写过一些小程序以外，还没能在工程中大量使用，今后继续加油，尽量引入到工程中～ 学习了 Node.js, 同样的还缺乏工程中的实践 学习了 Backbone.js,AngularJS 和 ReactJS. Backbone记忆中应该是5月份左右学习的，ReactJS要晚很多。写Backbone的时候想起来了之前用过的Riot, 轻量，随意，但是要写完整的应用相比AngularJS之类的要写很多代码。 开源了qyweixin和一个HTTPmultipart的库，下载量各自也都已经几千了，上次在评论中也看到确实有人在使用～ 还是蛮开心的啦！ 学会了使用 Docker，也准备学习一些内部机制之类的东西。 还在翻译中的Tornado 4.3文档也会尽快抽时间翻译完成的. 此外还有学习了Lua和正在深入学习的Shell，还有一系列的框架和库, 正在用来写一些自己的小东西。 1383 Contributions. 运营了公众号 TheMoeLove  还有一些目前还无法放入*收获*这一项中的东西，在2016年尽量都再多积累一些。
-另外，下面这部分也非常的重要！
- 认识了很多好玩的小伙伴，从他们那里也学到了很多东西 工作中同事们都很好，感谢给予的帮助～  总结  学会拒绝。一些事情是可以容忍的，但是要遵守原则，也要考虑时间成本和效率问题。 学习和思考。这一年之间其实学到的东西也蛮多的，只不过有些东西没能在工程实践中应用，效果不是很明显。多思考，做个靠谱的人，尽量不在相同的地方摔倒两次。 多读书 尝试新东西 多深入一些。浅尝辄止不是应该有的状态。 合理安排追番时间 2333  
-    </div>
-    <div class="read-more">
-      <a href="/2015/12/31/2015%E5%B0%8F%E5%9B%9E%E9%A1%BE/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
