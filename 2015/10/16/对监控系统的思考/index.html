@@ -1,31 +1,4 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>对监控系统的思考 - MoeLove</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-1876963677156202",
-    enable_page_level_ads: true
-  });
-</script>
-
-
-<meta name="author" content="TaoBeier" />
-  <meta name="description" content="近期在做运维监控方面的事情，也研究了一下其他人是如何做的。把自己的想法做个总结记录一下吧。
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>对监控系统的思考 - MoeLove</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><script async src=//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script><script>(adsbygoogle=window.adsbygoogle||[]).push({google_ad_client:"ca-pub-1876963677156202",enable_page_level_ads:true});</script><meta name=author content="TaoBeier"><meta name=description content="近期在做运维监控方面的事情，也研究了一下其他人是如何做的。把自己的想法做个总结记录一下吧。
  监控期望的目标  及时发现   需要的是即时监控并报警
   及时定位   定位问题要分开讲
  运维层面 &amp;gt; 是机器硬件问题还是上面运行的基础服务的问题，或者是新上线代码的问题，需要回滚。
@@ -37,40 +10,7 @@
  多维度数据监控  这个话题太大(要感谢Baidu的颜大大的指点）
  数据监控符合二八原则,重要数据需要多角度进行观察，需要有meta管理，需要动态简单配置。选择 好的，合理的数据模型可以有效的进行处理。
  数据采集部分，在单机器做聚合;命名上使用正则格式化;完善的配置功能，支持数据流自定义维度。
-    对开源系统的使用，需要按照自己的实际情况进行适配。保证高可用性  先写这些吧，之后有时间再写，还有QCon上对运维监控上的一些分享也非常值得思考" />
-
-  <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes, Golang, Python, Container, Vim, 容器, k8s" />
-
-
-<meta name="baidu-site-verification" content="jO2rMlnjJi" />
-<meta name="google-site-verification" content="googlefe3fc086c62f7210.html" />
-
-
-<meta name="generator" content="Hugo 0.55.6" />
-
-
-<link rel="canonical" href="https://moelove.info/2015/10/16/%E5%AF%B9%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%80%83/" />
-
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-
-
-
-
-<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
-
-
-<meta property="og:title" content="对监控系统的思考" />
-<meta property="og:description" content="近期在做运维监控方面的事情，也研究了一下其他人是如何做的。把自己的想法做个总结记录一下吧。
+    对开源系统的使用，需要按照自己的实际情况进行适配。保证高可用性  先写这些吧，之后有时间再写，还有QCon上对运维监控上的一些分享也非常值得思考"><meta name=keywords content="MoeLove,Linux,Docker,Kubernetes,Golang,Python,Container,Vim,容器,k8s"><meta name=baidu-site-verification content="jO2rMlnjJi"><meta name=google-site-verification content="googlefe3fc086c62f7210.html"><meta name=generator content="Hugo 0.55.6"><link rel=canonical href=https://moelove.info/2015/10/16/%E5%AF%B9%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%80%83/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href="/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><meta property="og:title" content="对监控系统的思考"><meta property="og:description" content="近期在做运维监控方面的事情，也研究了一下其他人是如何做的。把自己的想法做个总结记录一下吧。
  监控期望的目标  及时发现   需要的是即时监控并报警
   及时定位   定位问题要分开讲
  运维层面 &gt; 是机器硬件问题还是上面运行的基础服务的问题，或者是新上线代码的问题，需要回滚。
@@ -82,14 +22,7 @@
  多维度数据监控  这个话题太大(要感谢Baidu的颜大大的指点）
  数据监控符合二八原则,重要数据需要多角度进行观察，需要有meta管理，需要动态简单配置。选择 好的，合理的数据模型可以有效的进行处理。
  数据采集部分，在单机器做聚合;命名上使用正则格式化;完善的配置功能，支持数据流自定义维度。
-    对开源系统的使用，需要按照自己的实际情况进行适配。保证高可用性  先写这些吧，之后有时间再写，还有QCon上对运维监控上的一些分享也非常值得思考" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://moelove.info/2015/10/16/%E5%AF%B9%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%80%83/" />
-<meta property="article:published_time" content="2015-10-16T00:59:01&#43;00:00"/>
-<meta property="article:modified_time" content="2015-10-16T00:59:01&#43;00:00"/>
-
-<meta itemprop="name" content="对监控系统的思考">
-<meta itemprop="description" content="近期在做运维监控方面的事情，也研究了一下其他人是如何做的。把自己的想法做个总结记录一下吧。
+    对开源系统的使用，需要按照自己的实际情况进行适配。保证高可用性  先写这些吧，之后有时间再写，还有QCon上对运维监控上的一些分享也非常值得思考"><meta property="og:type" content="article"><meta property="og:url" content="https://moelove.info/2015/10/16/%E5%AF%B9%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%80%83/"><meta property="article:published_time" content="2015-10-16T00:59:01&#43;00:00"><meta property="article:modified_time" content="2015-10-16T00:59:01&#43;00:00"><meta itemprop=name content="对监控系统的思考"><meta itemprop=description content="近期在做运维监控方面的事情，也研究了一下其他人是如何做的。把自己的想法做个总结记录一下吧。
  监控期望的目标  及时发现   需要的是即时监控并报警
   及时定位   定位问题要分开讲
  运维层面 &gt; 是机器硬件问题还是上面运行的基础服务的问题，或者是新上线代码的问题，需要回滚。
@@ -101,19 +34,7 @@
  多维度数据监控  这个话题太大(要感谢Baidu的颜大大的指点）
  数据监控符合二八原则,重要数据需要多角度进行观察，需要有meta管理，需要动态简单配置。选择 好的，合理的数据模型可以有效的进行处理。
  数据采集部分，在单机器做聚合;命名上使用正则格式化;完善的配置功能，支持数据流自定义维度。
-    对开源系统的使用，需要按照自己的实际情况进行适配。保证高可用性  先写这些吧，之后有时间再写，还有QCon上对运维监控上的一些分享也非常值得思考">
-
-
-<meta itemprop="datePublished" content="2015-10-16T00:59:01&#43;00:00" />
-<meta itemprop="dateModified" content="2015-10-16T00:59:01&#43;00:00" />
-<meta itemprop="wordCount" content="32">
-
-
-
-<meta itemprop="keywords" content="Linux,DevOps," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="对监控系统的思考"/>
-<meta name="twitter:description" content="近期在做运维监控方面的事情，也研究了一下其他人是如何做的。把自己的想法做个总结记录一下吧。
+    对开源系统的使用，需要按照自己的实际情况进行适配。保证高可用性  先写这些吧，之后有时间再写，还有QCon上对运维监控上的一些分享也非常值得思考"><meta itemprop=datePublished content="2015-10-16T00:59:01&#43;00:00"><meta itemprop=dateModified content="2015-10-16T00:59:01&#43;00:00"><meta itemprop=wordCount content="32"><meta itemprop=keywords content="Linux,DevOps,"><meta name=twitter:card content="summary"><meta name=twitter:title content="对监控系统的思考"><meta name=twitter:description content="近期在做运维监控方面的事情，也研究了一下其他人是如何做的。把自己的想法做个总结记录一下吧。
  监控期望的目标  及时发现   需要的是即时监控并报警
   及时定位   定位问题要分开讲
  运维层面 &gt; 是机器硬件问题还是上面运行的基础服务的问题，或者是新上线代码的问题，需要回滚。
@@ -125,342 +46,25 @@
  多维度数据监控  这个话题太大(要感谢Baidu的颜大大的指点）
  数据监控符合二八原则,重要数据需要多角度进行观察，需要有meta管理，需要动态简单配置。选择 好的，合理的数据模型可以有效的进行处理。
  数据采集部分，在单机器做聚合;命名上使用正则格式化;完善的配置功能，支持数据流自定义维度。
-    对开源系统的使用，需要按照自己的实际情况进行适配。保证高可用性  先写这些吧，之后有时间再写，还有QCon上对运维监控上的一些分享也非常值得思考"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-</head>
-<body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">MoeLove</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/about/">
-        <li class="mobile-menu-item">About</li>
-      </a><a href="/friends/">
-        <li class="mobile-menu-item">Friends</li>
-      </a><a href="/projects/">
-        <li class="mobile-menu-item">Projects</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">MoeLove</a>
-</div>
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/about/">About</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/friends/">Friends</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/projects/">Projects</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li>
-  </ul>
-</nav>
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">对监控系统的思考</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2015-10-16 </span>
-        <div class="post-category">
-            
-              <a href="/categories/linux/"> Linux </a>
-            
-          </div>
-        
-        
-      </div>
-    </header>
-
-    
-    
-<div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
-  
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#监控期望的目标">监控期望的目标</a></li>
-<li><a href="#监控遇到的主要问题">监控遇到的主要问题</a></li>
-<li><a href="#多维度数据监控">多维度数据监控</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
-  </div>
-</div>
-
-    
-    
-
-    
-    <div class="post-content">
-      
-
-<blockquote>
-<p>近期在做运维监控方面的事情，也研究了一下其他人是如何做的。把自己的想法做个总结记录一下吧。</p>
-</blockquote>
-
-<h3 id="监控期望的目标">监控期望的目标</h3>
-
-<ul>
-<li>及时发现</li>
-</ul>
-
-<blockquote>
-<p>需要的是即时监控并报警</p>
-</blockquote>
-
-<ul>
-<li>及时定位</li>
-</ul>
-
-<blockquote>
-<p>定位问题要分开讲</p>
-
-<ul>
-<li><p>运维层面
-&gt; 是机器硬件问题还是上面运行的基础服务的问题，或者是新上线代码的问题，需要回滚。</p></li>
-
-<li><p>代码层面
-&gt; 在发生问题的时候，优先解决问题。定位代码问题提交hotfix 可以在解决问题之后做。</p></li>
-</ul>
-</blockquote>
-
-<ul>
-<li>及时处理</li>
-<li>提前预测（尽量减少问题的发生）</li>
-</ul>
-
-<blockquote>
-<p>提前预测可以做的事情有很多，数据挖掘/分析之类的。当然有个更简单的方法，就是先小范围上线，进行监控。如果发现出问题了，就停止上线，进行回滚。（我们现在就是这样做的，虽然原因并不是这个 2333</p>
-</blockquote>
-
-<h3 id="监控遇到的主要问题">监控遇到的主要问题</h3>
-
-<ul>
-<li>监控指标多</li>
-</ul>
-
-<blockquote>
-<p>服务器CPU,内存，网络等的指标，基础服务Redis, MongoDB等的运行指标，对外服务的API是否正常工作，还有数据是否正确等。</p>
-</blockquote>
-
-<ul>
-<li>监控报警多</li>
-</ul>
-
-<blockquote>
-<p>监控指标多的时候，自然报警也会相应增加，但是报警的分组与轻重缓急也是一个很麻烦的问题。还有就是部署着不同服务的机器，触发报警时候的指标也不好确定。</p>
-</blockquote>
-
-<ul>
-<li>报警多而且有关联，如何查找原因</li>
-</ul>
-
-<blockquote>
-<p>可能同时会有多个指标触发了报警，但是要定位问题的时候，如何可以快速的定位问题。</p>
-</blockquote>
-
-<h3 id="多维度数据监控">多维度数据监控</h3>
-
-<blockquote>
-<p>这个话题太大(要感谢Baidu的颜大大的指点）</p>
-
-<ul>
-<li><p>数据监控符合<a href="https://zh.wikipedia.org/wiki/%E5%B8%95%E9%9B%B7%E6%89%98%E6%B3%95%E5%88%99">二八原则</a>,重要数据需要多角度进行观察，需要有meta管理，需要动态简单配置。选择 好的，合理的数据模型可以有效的进行处理。</p></li>
-
-<li><p>数据采集部分，在单机器做聚合;命名上使用正则格式化;完善的配置功能，支持数据流自定义维度。</p></li>
-</ul>
-</blockquote>
-
-<ul>
-<li>对开源系统的使用，需要按照自己的实际情况进行适配。保证高可用性</li>
-</ul>
-
-<p><em>先写这些吧，之后有时间再写，还有QCon上对运维监控上的一些分享也非常值得思考</em></p>
-
-    </div>
-
-    
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">TaoBeier</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">2015-10-16</span>
-  </p>
-  
-  <p class="copyright-item">
-    <span class="item-title">许可协议</span>
-    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a></span>
-  </p>
-</div>
-
-    
-    
-<div class="post-reward">
-  <input type="checkbox" name="reward" id="reward" hidden />
-  <label class="reward-button" for="reward">赞赏支持</label>
-  <div class="qr-code">
-    
-    
-      <label class="qr-code-image" for="reward">
-        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/wx_pay.jpg">
-        <span>微信打赏</span>
-      </label>
-    
-      <label class="qr-code-image" for="reward">
-        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/alipay.jpg">
-        <span>支付宝打赏</span>
-      </label>
-  </div>
-</div>
-
-    <footer class="post-footer">
-      <div class="post-tags">
-          
-          <a href="/tags/linux/">Linux</a>
-          
-          <a href="/tags/devops/">DevOps</a>
-          
-        </div>
-
-      
-      <nav class="post-nav">
-        
-          <a class="prev" href="/2015/10/26/%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%A7%BF%E5%8A%BF%E5%BC%80%E6%BA%90Python%E9%A1%B9%E7%9B%AE/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">用正确的姿势开源Python项目</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
-        
-          <a class="next" href="/2015/10/13/Open-Falcon%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E9%83%A8%E7%BD%B2/">
-            <span class="next-text nav-default">Open-Falcon监控系统部署</span>
-            <span class="next-text nav-mobile">下一篇</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-  
-
-  <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
-    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
-  <script type="text/javascript">
-  var gitalk = new Gitalk({
-    id: '2015-10-16 00:59:01 \x2b0000 UTC',
-    title: '对监控系统的思考',
-    clientID: '68312db64e870efbd0a0',
-    clientSecret: 'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',
-    repo: 'tao12345666333.github.io',
-    owner: 'tao12345666333',
-    admin: ['tao12345666333'],
-    body: decodeURI(location.href)
-  });
-  gitalk.render('gitalk-container');
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
-
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:zhangjintao9020@gmail.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://twitter.com/BeierTao" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="https://github.com/tao12345666333" class="iconfont icon-github" title="github"></a>
-      <a href="http://weibo.com/9020taobeier" class="iconfont icon-weibo" title="weibo"></a>
-      <a href="https://www.zhihu.com/people/TaoBeier" class="iconfont icon-zhihu" title="zhihu"></a>
-  <a href="https://moelove.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主题 - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    
-      2013 - 
-    2020
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">TaoBeier</span>
-  </span>
-</div>
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div>
-  
-<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
-
-
-<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
-
-
-
-
-
-
-
-
-</body>
-</html>
+    对开源系统的使用，需要按照自己的实际情况进行适配。保证高可用性  先写这些吧，之后有时间再写，还有QCon上对运维监控上的一些分享也非常值得思考"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>MoeLove</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/about/><li class=mobile-menu-item>About</li></a><a href=/friends/><li class=mobile-menu-item>Friends</li></a><a href=/projects/><li class=mobile-menu-item>Projects</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>MoeLove</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/about/>About</a></li><li class=menu-item><a class=menu-item-link href=/friends/>Friends</a></li><li class=menu-item><a class=menu-item-link href=/projects/>Projects</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>对监控系统的思考</h1><div class=post-meta><span class=post-time>2015-10-16</span><div class=post-category><a href=/categories/linux/>Linux</a></div></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><ul><li><a href=#监控期望的目标>监控期望的目标</a></li><li><a href=#监控遇到的主要问题>监控遇到的主要问题</a></li><li><a href=#多维度数据监控>多维度数据监控</a></li></ul></li></ul></li></ul></nav></div></div><div class=post-content><blockquote><p>近期在做运维监控方面的事情，也研究了一下其他人是如何做的。把自己的想法做个总结记录一下吧。</p></blockquote><h3 id=监控期望的目标>监控期望的目标</h3><ul><li>及时发现</li></ul><blockquote><p>需要的是即时监控并报警</p></blockquote><ul><li>及时定位</li></ul><blockquote><p>定位问题要分开讲</p><ul><li><p>运维层面
+&gt; 是机器硬件问题还是上面运行的基础服务的问题，或者是新上线代码的问题，需要回滚。</p></li><li><p>代码层面
+&gt; 在发生问题的时候，优先解决问题。定位代码问题提交hotfix 可以在解决问题之后做。</p></li></ul></blockquote><ul><li>及时处理</li><li>提前预测（尽量减少问题的发生）</li></ul><blockquote><p>提前预测可以做的事情有很多，数据挖掘/分析之类的。当然有个更简单的方法，就是先小范围上线，进行监控。如果发现出问题了，就停止上线，进行回滚。（我们现在就是这样做的，虽然原因并不是这个 2333</p></blockquote><h3 id=监控遇到的主要问题>监控遇到的主要问题</h3><ul><li>监控指标多</li></ul><blockquote><p>服务器CPU,内存，网络等的指标，基础服务Redis, MongoDB等的运行指标，对外服务的API是否正常工作，还有数据是否正确等。</p></blockquote><ul><li>监控报警多</li></ul><blockquote><p>监控指标多的时候，自然报警也会相应增加，但是报警的分组与轻重缓急也是一个很麻烦的问题。还有就是部署着不同服务的机器，触发报警时候的指标也不好确定。</p></blockquote><ul><li>报警多而且有关联，如何查找原因</li></ul><blockquote><p>可能同时会有多个指标触发了报警，但是要定位问题的时候，如何可以快速的定位问题。</p></blockquote><h3 id=多维度数据监控>多维度数据监控</h3><blockquote><p>这个话题太大(要感谢Baidu的颜大大的指点）</p><ul><li><p>数据监控符合<a href=https://zh.wikipedia.org/wiki/%E5%B8%95%E9%9B%B7%E6%89%98%E6%B3%95%E5%88%99>二八原则</a>,重要数据需要多角度进行观察，需要有meta管理，需要动态简单配置。选择 好的，合理的数据模型可以有效的进行处理。</p></li><li><p>数据采集部分，在单机器做聚合;命名上使用正则格式化;完善的配置功能，支持数据流自定义维度。</p></li></ul></blockquote><ul><li>对开源系统的使用，需要按照自己的实际情况进行适配。保证高可用性</li></ul><p><em>先写这些吧，之后有时间再写，还有QCon上对运维监控上的一些分享也非常值得思考</em></p></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>TaoBeier</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2015-10-16</span></p><p class=copyright-item><span class=item-title>许可协议</span>
+<span class=item-content><a rel="license noopener" href=https://creativecommons.org/licenses/by-sa/4.0/ target=_blank>CC BY-SA 4.0</a></span></p></div><div class=post-reward><input type=checkbox name=reward id=reward hidden>
+<label class=reward-button for=reward>赞赏支持</label><div class=qr-code><label class=qr-code-image for=reward><img class=image src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/wx_pay.jpg>
+<span>微信打赏</span></label>
+<label class=qr-code-image for=reward><img class=image src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/alipay.jpg>
+<span>支付宝打赏</span></label></div></div><footer class=post-footer><div class=post-tags><a href=/tags/linux/>Linux</a>
+<a href=/tags/devops/>DevOps</a></div><nav class=post-nav><a class=prev href=/2015/10/26/%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%A7%BF%E5%8A%BF%E5%BC%80%E6%BA%90Python%E9%A1%B9%E7%9B%AE/><i class="iconfont icon-left"></i><span class="prev-text nav-default">用正确的姿势开源Python项目</span>
+<span class="prev-text nav-mobile">上一篇</span></a>
+<a class=next href=/2015/10/13/Open-Falcon%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E9%83%A8%E7%BD%B2/><span class="next-text nav-default">Open-Falcon监控系统部署</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div><div id=gitalk-container></div><link rel=stylesheet href=/lib/gitalk/gitalk-1.2.2.min.css><script src=/lib/gitalk/gitalk-1.2.2.min.js></script><script type=text/javascript>var gitalk=new Gitalk({id:'2015-10-16 00:59:01 \x2b0000 UTC',title:'对监控系统的思考',clientID:'68312db64e870efbd0a0',clientSecret:'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',repo:'tao12345666333.github.io',owner:'tao12345666333',admin:['tao12345666333'],body:decodeURI(location.href)});gitalk.render('gitalk-container');</script><noscript>Please enable JavaScript to view the <a href=https://github.com/gitalk/gitalk>comments powered by gitalk.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:zhangjintao9020@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/BeierTao class="iconfont icon-twitter" title=twitter></a><a href=https://github.com/tao12345666333 class="iconfont icon-github" title=github></a><a href=http://weibo.com/9020taobeier class="iconfont icon-weibo" title=weibo></a><a href=https://www.zhihu.com/people/TaoBeier class="iconfont icon-zhihu" title=zhihu></a><a href=https://moelove.info/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动</span>
+<span class=division>|</span>
+<span class=theme-info>主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span>
+<span class=copyright-year>&copy;
+2013 -
+2020
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>TaoBeier</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src="/dist/even.min.js?v=3.2.0"></script></body></html>

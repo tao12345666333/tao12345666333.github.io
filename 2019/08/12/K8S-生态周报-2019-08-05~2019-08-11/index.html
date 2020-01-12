@@ -1,213 +1,20 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>K8S 生态周报| 2019-08-05~2019-08-11 - MoeLove</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-1876963677156202",
-    enable_page_level_ads: true
-  });
-</script>
-
-
-<meta name="author" content="TaoBeier" />
-  <meta name="description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>K8S 生态周报| 2019-08-05~2019-08-11 - MoeLove</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><script async src=//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script><script>(adsbygoogle=window.adsbygoogle||[]).push({google_ad_client:"ca-pub-1876963677156202",enable_page_level_ads:true});</script><meta name=author content="TaoBeier"><meta name=description content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
  Kubernetes 两个重要漏洞修复 最近 Kubernetes 发布了 1.13.9, 1.14.5, 和 1.15.2 版本，旨在修复两个重要漏洞对 Kubernetes 带来的影响， 强烈建议将集群及 kubectl 进行升级
 CVE-2019-11247 简单来说其影响就是可以访问单个命名空间中的自定义资源的用户可以访问具有集群范围的自定义资源。当然，这里的修正主要是 针对 CRD 。核心的修正代码如下：
 var possiblyAcrossAllNamespacesVerbs = sets.NewString(&amp;quot;list&amp;quot;, &amp;quot;watch&amp;quot;) namespacedCRD, namespacedReq := crd.Spec.Scope == apiextensions.NamespaceScoped, len(requestInfo.Namespace) &amp;gt; 0 if !namespacedCRD &amp;amp;&amp;amp; namespacedReq { r.delegate.ServeHTTP(w, req) return } if namespacedCRD &amp;amp;&amp;amp; !namespacedReq &amp;amp;&amp;amp; !possiblyAcrossAllNamespacesVerbs.Has(requestInfo.Verb) { r.delegate.ServeHTTP(w, req) return }  当未通过检查时，delegate 将会触发一个 404 。对此问题感兴趣的朋友可以查看 #80983 。
-CVE-2019-11249 则是对于之前暴出来的使用 kubectl cp 可进行恶意目录浏览的漏洞 CVE-2019-1002101 和 CVE-2019-11246 的不完整修复。有兴趣可以参考 #80436 。" />
-
-  <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes, Golang, Python, Container, Vim, 容器, k8s" />
-
-
-<meta name="baidu-site-verification" content="jO2rMlnjJi" />
-<meta name="google-site-verification" content="googlefe3fc086c62f7210.html" />
-
-
-<meta name="generator" content="Hugo 0.55.6" />
-
-
-<link rel="canonical" href="https://moelove.info/2019/08/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-08-05~2019-08-11/" />
-
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-
-
-
-
-<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
-
-
-<meta property="og:title" content="K8S 生态周报| 2019-08-05~2019-08-11" />
-<meta property="og:description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+CVE-2019-11249 则是对于之前暴出来的使用 kubectl cp 可进行恶意目录浏览的漏洞 CVE-2019-1002101 和 CVE-2019-11246 的不完整修复。有兴趣可以参考 #80436 。"><meta name=keywords content="MoeLove,Linux,Docker,Kubernetes,Golang,Python,Container,Vim,容器,k8s"><meta name=baidu-site-verification content="jO2rMlnjJi"><meta name=google-site-verification content="googlefe3fc086c62f7210.html"><meta name=generator content="Hugo 0.55.6"><link rel=canonical href=https://moelove.info/2019/08/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-08-05~2019-08-11/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href="/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><meta property="og:title" content="K8S 生态周报| 2019-08-05~2019-08-11"><meta property="og:description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
  Kubernetes 两个重要漏洞修复 最近 Kubernetes 发布了 1.13.9, 1.14.5, 和 1.15.2 版本，旨在修复两个重要漏洞对 Kubernetes 带来的影响， 强烈建议将集群及 kubectl 进行升级
 CVE-2019-11247 简单来说其影响就是可以访问单个命名空间中的自定义资源的用户可以访问具有集群范围的自定义资源。当然，这里的修正主要是 针对 CRD 。核心的修正代码如下：
-var possiblyAcrossAllNamespacesVerbs = sets.NewString(&quot;list&quot;, &quot;watch&quot;) namespacedCRD, namespacedReq := crd.Spec.Scope == apiextensions.NamespaceScoped, len(requestInfo.Namespace) &gt; 0 if !namespacedCRD &amp;&amp; namespacedReq { r.delegate.ServeHTTP(w, req) return } if namespacedCRD &amp;&amp; !namespacedReq &amp;&amp; !possiblyAcrossAllNamespacesVerbs.Has(requestInfo.Verb) { r.delegate.ServeHTTP(w, req) return }  当未通过检查时，delegate 将会触发一个 404 。对此问题感兴趣的朋友可以查看 #80983 。
-CVE-2019-11249 则是对于之前暴出来的使用 kubectl cp 可进行恶意目录浏览的漏洞 CVE-2019-1002101 和 CVE-2019-11246 的不完整修复。有兴趣可以参考 #80436 。" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://moelove.info/2019/08/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-08-05~2019-08-11/" />
-<meta property="article:published_time" content="2019-08-12T07:14:40&#43;08:00"/>
-<meta property="article:modified_time" content="2019-08-12T07:14:40&#43;08:00"/>
-
-<meta itemprop="name" content="K8S 生态周报| 2019-08-05~2019-08-11">
-<meta itemprop="description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+var possiblyAcrossAllNamespacesVerbs = sets.NewString(&#34;list&#34;, &#34;watch&#34;) namespacedCRD, namespacedReq := crd.Spec.Scope == apiextensions.NamespaceScoped, len(requestInfo.Namespace) &gt; 0 if !namespacedCRD &amp;&amp; namespacedReq { r.delegate.ServeHTTP(w, req) return } if namespacedCRD &amp;&amp; !namespacedReq &amp;&amp; !possiblyAcrossAllNamespacesVerbs.Has(requestInfo.Verb) { r.delegate.ServeHTTP(w, req) return }  当未通过检查时，delegate 将会触发一个 404 。对此问题感兴趣的朋友可以查看 #80983 。
+CVE-2019-11249 则是对于之前暴出来的使用 kubectl cp 可进行恶意目录浏览的漏洞 CVE-2019-1002101 和 CVE-2019-11246 的不完整修复。有兴趣可以参考 #80436 。"><meta property="og:type" content="article"><meta property="og:url" content="https://moelove.info/2019/08/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-08-05~2019-08-11/"><meta property="article:published_time" content="2019-08-12T07:14:40&#43;08:00"><meta property="article:modified_time" content="2019-08-12T07:14:40&#43;08:00"><meta itemprop=name content="K8S 生态周报| 2019-08-05~2019-08-11"><meta itemprop=description content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
  Kubernetes 两个重要漏洞修复 最近 Kubernetes 发布了 1.13.9, 1.14.5, 和 1.15.2 版本，旨在修复两个重要漏洞对 Kubernetes 带来的影响， 强烈建议将集群及 kubectl 进行升级
 CVE-2019-11247 简单来说其影响就是可以访问单个命名空间中的自定义资源的用户可以访问具有集群范围的自定义资源。当然，这里的修正主要是 针对 CRD 。核心的修正代码如下：
-var possiblyAcrossAllNamespacesVerbs = sets.NewString(&quot;list&quot;, &quot;watch&quot;) namespacedCRD, namespacedReq := crd.Spec.Scope == apiextensions.NamespaceScoped, len(requestInfo.Namespace) &gt; 0 if !namespacedCRD &amp;&amp; namespacedReq { r.delegate.ServeHTTP(w, req) return } if namespacedCRD &amp;&amp; !namespacedReq &amp;&amp; !possiblyAcrossAllNamespacesVerbs.Has(requestInfo.Verb) { r.delegate.ServeHTTP(w, req) return }  当未通过检查时，delegate 将会触发一个 404 。对此问题感兴趣的朋友可以查看 #80983 。
-CVE-2019-11249 则是对于之前暴出来的使用 kubectl cp 可进行恶意目录浏览的漏洞 CVE-2019-1002101 和 CVE-2019-11246 的不完整修复。有兴趣可以参考 #80436 。">
-
-
-<meta itemprop="datePublished" content="2019-08-12T07:14:40&#43;08:00" />
-<meta itemprop="dateModified" content="2019-08-12T07:14:40&#43;08:00" />
-<meta itemprop="wordCount" content="137">
-
-
-
-<meta itemprop="keywords" content="Linux,Weekly,Kubernetes," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="K8S 生态周报| 2019-08-05~2019-08-11"/>
-<meta name="twitter:description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+var possiblyAcrossAllNamespacesVerbs = sets.NewString(&#34;list&#34;, &#34;watch&#34;) namespacedCRD, namespacedReq := crd.Spec.Scope == apiextensions.NamespaceScoped, len(requestInfo.Namespace) &gt; 0 if !namespacedCRD &amp;&amp; namespacedReq { r.delegate.ServeHTTP(w, req) return } if namespacedCRD &amp;&amp; !namespacedReq &amp;&amp; !possiblyAcrossAllNamespacesVerbs.Has(requestInfo.Verb) { r.delegate.ServeHTTP(w, req) return }  当未通过检查时，delegate 将会触发一个 404 。对此问题感兴趣的朋友可以查看 #80983 。
+CVE-2019-11249 则是对于之前暴出来的使用 kubectl cp 可进行恶意目录浏览的漏洞 CVE-2019-1002101 和 CVE-2019-11246 的不完整修复。有兴趣可以参考 #80436 。"><meta itemprop=datePublished content="2019-08-12T07:14:40&#43;08:00"><meta itemprop=dateModified content="2019-08-12T07:14:40&#43;08:00"><meta itemprop=wordCount content="137"><meta itemprop=keywords content="Linux,Weekly,Kubernetes,"><meta name=twitter:card content="summary"><meta name=twitter:title content="K8S 生态周报| 2019-08-05~2019-08-11"><meta name=twitter:description content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
  Kubernetes 两个重要漏洞修复 最近 Kubernetes 发布了 1.13.9, 1.14.5, 和 1.15.2 版本，旨在修复两个重要漏洞对 Kubernetes 带来的影响， 强烈建议将集群及 kubectl 进行升级
 CVE-2019-11247 简单来说其影响就是可以访问单个命名空间中的自定义资源的用户可以访问具有集群范围的自定义资源。当然，这里的修正主要是 针对 CRD 。核心的修正代码如下：
-var possiblyAcrossAllNamespacesVerbs = sets.NewString(&quot;list&quot;, &quot;watch&quot;) namespacedCRD, namespacedReq := crd.Spec.Scope == apiextensions.NamespaceScoped, len(requestInfo.Namespace) &gt; 0 if !namespacedCRD &amp;&amp; namespacedReq { r.delegate.ServeHTTP(w, req) return } if namespacedCRD &amp;&amp; !namespacedReq &amp;&amp; !possiblyAcrossAllNamespacesVerbs.Has(requestInfo.Verb) { r.delegate.ServeHTTP(w, req) return }  当未通过检查时，delegate 将会触发一个 404 。对此问题感兴趣的朋友可以查看 #80983 。
-CVE-2019-11249 则是对于之前暴出来的使用 kubectl cp 可进行恶意目录浏览的漏洞 CVE-2019-1002101 和 CVE-2019-11246 的不完整修复。有兴趣可以参考 #80436 。"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-</head>
-<body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">MoeLove</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/about/">
-        <li class="mobile-menu-item">About</li>
-      </a><a href="/friends/">
-        <li class="mobile-menu-item">Friends</li>
-      </a><a href="/projects/">
-        <li class="mobile-menu-item">Projects</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">MoeLove</a>
-</div>
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/about/">About</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/friends/">Friends</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/projects/">Projects</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li>
-  </ul>
-</nav>
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">K8S 生态周报| 2019-08-05~2019-08-11</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2019-08-12 </span>
-        
-        
-        
-      </div>
-    </header>
-
-    
-    
-<div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
-  
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#kubernetes-两个重要漏洞修复">Kubernetes 两个重要漏洞修复</a></li>
-<li><a href="#coredns-v1-6-1-发布">CoreDNS v1.6.1 发布</a></li>
-<li><a href="#nginx-ingress-controller-1-5-3-发布">NGINX Ingress Controller 1.5.3 发布</a></li>
-<li><a href="#kubernetes-上游开发进展">Kubernetes 上游开发进展</a></li>
-</ul></li>
-</ul>
-</nav>
-  </div>
-</div>
-
-    
-    
-
-    
-    <div class="post-content">
-      
-
-<blockquote>
-<p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏<a href="https://zhuanlan.zhihu.com/container">「k8s生态」</a>。</p>
-</blockquote>
-
-<h2 id="kubernetes-两个重要漏洞修复">Kubernetes 两个重要漏洞修复</h2>
-
-<p>最近 Kubernetes 发布了 1.13.9, 1.14.5, 和 1.15.2 版本，旨在修复两个重要漏洞对 Kubernetes 带来的影响， <strong>强烈建议将集群及 kubectl 进行升级</strong></p>
-
-<p><strong>CVE-2019-11247</strong> 简单来说其影响就是可以访问单个命名空间中的自定义资源的用户可以访问具有集群范围的自定义资源。当然，这里的修正主要是 <strong>针对 CRD</strong> 。核心的修正代码如下：</p>
-
-<pre><code class="language-go">    var possiblyAcrossAllNamespacesVerbs = sets.NewString(&quot;list&quot;, &quot;watch&quot;)
+var possiblyAcrossAllNamespacesVerbs = sets.NewString(&#34;list&#34;, &#34;watch&#34;) namespacedCRD, namespacedReq := crd.Spec.Scope == apiextensions.NamespaceScoped, len(requestInfo.Namespace) &gt; 0 if !namespacedCRD &amp;&amp; namespacedReq { r.delegate.ServeHTTP(w, req) return } if namespacedCRD &amp;&amp; !namespacedReq &amp;&amp; !possiblyAcrossAllNamespacesVerbs.Has(requestInfo.Verb) { r.delegate.ServeHTTP(w, req) return }  当未通过检查时，delegate 将会触发一个 404 。对此问题感兴趣的朋友可以查看 #80983 。
+CVE-2019-11249 则是对于之前暴出来的使用 kubectl cp 可进行恶意目录浏览的漏洞 CVE-2019-1002101 和 CVE-2019-11246 的不完整修复。有兴趣可以参考 #80436 。"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>MoeLove</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/about/><li class=mobile-menu-item>About</li></a><a href=/friends/><li class=mobile-menu-item>Friends</li></a><a href=/projects/><li class=mobile-menu-item>Projects</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>MoeLove</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/about/>About</a></li><li class=menu-item><a class=menu-item-link href=/friends/>Friends</a></li><li class=menu-item><a class=menu-item-link href=/projects/>Projects</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>K8S 生态周报| 2019-08-05~2019-08-11</h1><div class=post-meta><span class=post-time>2019-08-12</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#kubernetes-两个重要漏洞修复>Kubernetes 两个重要漏洞修复</a></li><li><a href=#coredns-v1-6-1-发布>CoreDNS v1.6.1 发布</a></li><li><a href=#nginx-ingress-controller-1-5-3-发布>NGINX Ingress Controller 1.5.3 发布</a></li><li><a href=#kubernetes-上游开发进展>Kubernetes 上游开发进展</a></li></ul></li></ul></nav></div></div><div class=post-content><blockquote><p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏<a href=https://zhuanlan.zhihu.com/container>「k8s生态」</a>。</p></blockquote><h2 id=kubernetes-两个重要漏洞修复>Kubernetes 两个重要漏洞修复</h2><p>最近 Kubernetes 发布了 1.13.9, 1.14.5, 和 1.15.2 版本，旨在修复两个重要漏洞对 Kubernetes 带来的影响， <strong>强烈建议将集群及 kubectl 进行升级</strong></p><p><strong>CVE-2019-11247</strong> 简单来说其影响就是可以访问单个命名空间中的自定义资源的用户可以访问具有集群范围的自定义资源。当然，这里的修正主要是 <strong>针对 CRD</strong> 。核心的修正代码如下：</p><pre><code class=language-go>    var possiblyAcrossAllNamespacesVerbs = sets.NewString(&quot;list&quot;, &quot;watch&quot;)
 	namespacedCRD, namespacedReq := crd.Spec.Scope == apiextensions.NamespaceScoped, len(requestInfo.Namespace) &gt; 0
 	if !namespacedCRD &amp;&amp; namespacedReq {
 		r.delegate.ServeHTTP(w, req)
@@ -217,181 +24,24 @@ CVE-2019-11249 则是对于之前暴出来的使用 kubectl cp 可进行恶意�
 		r.delegate.ServeHTTP(w, req)
 		return
 	}
-</code></pre>
-
-<p>当未通过检查时，delegate 将会触发一个 404 。对此问题感兴趣的朋友可以查看 <a href="https://github.com/kubernetes/kubernetes/issues/80983">#80983</a> 。</p>
-
-<p><strong>CVE-2019-11249</strong> 则是对于之前暴出来的使用 <code>kubectl cp</code> 可进行恶意目录浏览的漏洞 CVE-2019-1002101 和 CVE-2019-11246 的不完整修复。有兴趣可以参考 <a href="https://github.com/kubernetes/kubernetes/pull/80436">#80436</a> 。</p>
-
-<h2 id="coredns-v1-6-1-发布">CoreDNS v1.6.1 发布</h2>
-
-<p>主要是修复了 <code>host</code> 插件的错误处理；<code>reload</code> 插件也可以检测 Corefile 中导入的文件的变化了。</p>
-
-<p>更多关于此版本的信息请参考 <a href="https://coredns.io/2019/08/01/coredns-1.6.1-release/">ReleaseNote</a></p>
-
-<h2 id="nginx-ingress-controller-1-5-3-发布">NGINX Ingress Controller 1.5.3 发布</h2>
-
-<p>这个版本其实没啥说的，把 NGINX Plus 版本更新到了 R18p1. 升级的话，直接修改镜像的 tag 到 1.5.3 或者 Helm chart 使用 0.3.3 版本即可。</p>
-
-<h2 id="kubernetes-上游开发进展">Kubernetes 上游开发进展</h2>
-
-<p>1.16 将会有 39 项特性增强，看现在的发布进度也还算是按照预期的，期待后续顺利。</p>
-
-<p>最近合并的 PR 中我认为值得注意的是 <a href="https://github.com/kubernetes/kubernetes/pull/80231">#80231 AdmissionReview 版本至 v1 </a> 这里没有 schema 的变化，但是所有的系统都将接收 v1 版本的对象和数据，当发送回 v1 响应的时候，响应验证比 beta 时候更加严格。</p>
-
-<p>注意，现在要使用的 API 版本是 <code>apiVersion: &quot;admission.k8s.io/v1&quot;</code> 如果升级的话，请注意检查对应代码的变化。</p>
-
-<hr />
-
-<p>可以通过下面二维码订阅我的文章公众号【MoeLove】，在公众号后台回复 k8s 可加入技术圈交流。</p>
-
-<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/my_qrcode.jpg" alt="TheMoeLove" /></p>
-
-    </div>
-
-    
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">TaoBeier</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">2019-08-12</span>
-  </p>
-  
-  <p class="copyright-item">
-    <span class="item-title">许可协议</span>
-    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a></span>
-  </p>
-</div>
-
-    
-    
-<div class="post-reward">
-  <input type="checkbox" name="reward" id="reward" hidden />
-  <label class="reward-button" for="reward">赞赏支持</label>
-  <div class="qr-code">
-    
-    
-      <label class="qr-code-image" for="reward">
-        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/wx_pay.jpg">
-        <span>微信打赏</span>
-      </label>
-    
-      <label class="qr-code-image" for="reward">
-        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/alipay.jpg">
-        <span>支付宝打赏</span>
-      </label>
-  </div>
-</div>
-
-    <footer class="post-footer">
-      <div class="post-tags">
-          
-          <a href="/tags/linux/">Linux</a>
-          
-          <a href="/tags/weekly/">Weekly</a>
-          
-          <a href="/tags/kubernetes/">Kubernetes</a>
-          
-        </div>
-
-      
-      <nav class="post-nav">
-        
-          <a class="prev" href="/2019/08/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-08-12~2019-08-18/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">K8S 生态周报| 2019-08-12~2019-08-18</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
-        
-          <a class="next" href="/2019/08/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-29~2019-08-04/">
-            <span class="next-text nav-default">K8S 生态周报| 2019-07-29~2019-08-04</span>
-            <span class="next-text nav-mobile">下一篇</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-  
-
-  <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
-    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
-  <script type="text/javascript">
-  var gitalk = new Gitalk({
-    id: '2019-08-12 07:14:40 \x2b0800 CST',
-    title: 'K8S 生态周报| 2019-08-05~2019-08-11',
-    clientID: '68312db64e870efbd0a0',
-    clientSecret: 'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',
-    repo: 'tao12345666333.github.io',
-    owner: 'tao12345666333',
-    admin: ['tao12345666333'],
-    body: decodeURI(location.href)
-  });
-  gitalk.render('gitalk-container');
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
-
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:zhangjintao9020@gmail.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://twitter.com/BeierTao" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="https://github.com/tao12345666333" class="iconfont icon-github" title="github"></a>
-      <a href="http://weibo.com/9020taobeier" class="iconfont icon-weibo" title="weibo"></a>
-      <a href="https://www.zhihu.com/people/TaoBeier" class="iconfont icon-zhihu" title="zhihu"></a>
-  <a href="https://moelove.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主题 - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    
-      2013 - 
-    2020
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">TaoBeier</span>
-  </span>
-</div>
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div>
-  
-<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
-
-
-<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
-
-
-
-
-
-
-
-
-</body>
-</html>
+</code></pre><p>当未通过检查时，delegate 将会触发一个 404 。对此问题感兴趣的朋友可以查看 <a href=https://github.com/kubernetes/kubernetes/issues/80983>#80983</a> 。</p><p><strong>CVE-2019-11249</strong> 则是对于之前暴出来的使用 <code>kubectl cp</code> 可进行恶意目录浏览的漏洞 CVE-2019-1002101 和 CVE-2019-11246 的不完整修复。有兴趣可以参考 <a href=https://github.com/kubernetes/kubernetes/pull/80436>#80436</a> 。</p><h2 id=coredns-v1-6-1-发布>CoreDNS v1.6.1 发布</h2><p>主要是修复了 <code>host</code> 插件的错误处理；<code>reload</code> 插件也可以检测 Corefile 中导入的文件的变化了。</p><p>更多关于此版本的信息请参考 <a href=https://coredns.io/2019/08/01/coredns-1.6.1-release/>ReleaseNote</a></p><h2 id=nginx-ingress-controller-1-5-3-发布>NGINX Ingress Controller 1.5.3 发布</h2><p>这个版本其实没啥说的，把 NGINX Plus 版本更新到了 R18p1. 升级的话，直接修改镜像的 tag 到 1.5.3 或者 Helm chart 使用 0.3.3 版本即可。</p><h2 id=kubernetes-上游开发进展>Kubernetes 上游开发进展</h2><p>1.16 将会有 39 项特性增强，看现在的发布进度也还算是按照预期的，期待后续顺利。</p><p>最近合并的 PR 中我认为值得注意的是 <a href=https://github.com/kubernetes/kubernetes/pull/80231>#80231 AdmissionReview 版本至 v1</a> 这里没有 schema 的变化，但是所有的系统都将接收 v1 版本的对象和数据，当发送回 v1 响应的时候，响应验证比 beta 时候更加严格。</p><p>注意，现在要使用的 API 版本是 <code>apiVersion: &quot;admission.k8s.io/v1&quot;</code> 如果升级的话，请注意检查对应代码的变化。</p><hr><p>可以通过下面二维码订阅我的文章公众号【MoeLove】，在公众号后台回复 k8s 可加入技术圈交流。</p><p><img src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/my_qrcode.jpg alt=TheMoeLove></p></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>TaoBeier</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2019-08-12</span></p><p class=copyright-item><span class=item-title>许可协议</span>
+<span class=item-content><a rel="license noopener" href=https://creativecommons.org/licenses/by-sa/4.0/ target=_blank>CC BY-SA 4.0</a></span></p></div><div class=post-reward><input type=checkbox name=reward id=reward hidden>
+<label class=reward-button for=reward>赞赏支持</label><div class=qr-code><label class=qr-code-image for=reward><img class=image src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/wx_pay.jpg>
+<span>微信打赏</span></label>
+<label class=qr-code-image for=reward><img class=image src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/alipay.jpg>
+<span>支付宝打赏</span></label></div></div><footer class=post-footer><div class=post-tags><a href=/tags/linux/>Linux</a>
+<a href=/tags/weekly/>Weekly</a>
+<a href=/tags/kubernetes/>Kubernetes</a></div><nav class=post-nav><a class=prev href=/2019/08/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-08-12~2019-08-18/><i class="iconfont icon-left"></i><span class="prev-text nav-default">K8S 生态周报| 2019-08-12~2019-08-18</span>
+<span class="prev-text nav-mobile">上一篇</span></a>
+<a class=next href=/2019/08/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-29~2019-08-04/><span class="next-text nav-default">K8S 生态周报| 2019-07-29~2019-08-04</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div><div id=gitalk-container></div><link rel=stylesheet href=/lib/gitalk/gitalk-1.2.2.min.css><script src=/lib/gitalk/gitalk-1.2.2.min.js></script><script type=text/javascript>var gitalk=new Gitalk({id:'2019-08-12 07:14:40 \x2b0800 CST',title:'K8S 生态周报| 2019-08-05~2019-08-11',clientID:'68312db64e870efbd0a0',clientSecret:'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',repo:'tao12345666333.github.io',owner:'tao12345666333',admin:['tao12345666333'],body:decodeURI(location.href)});gitalk.render('gitalk-container');</script><noscript>Please enable JavaScript to view the <a href=https://github.com/gitalk/gitalk>comments powered by gitalk.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:zhangjintao9020@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/BeierTao class="iconfont icon-twitter" title=twitter></a><a href=https://github.com/tao12345666333 class="iconfont icon-github" title=github></a><a href=http://weibo.com/9020taobeier class="iconfont icon-weibo" title=weibo></a><a href=https://www.zhihu.com/people/TaoBeier class="iconfont icon-zhihu" title=zhihu></a><a href=https://moelove.info/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动</span>
+<span class=division>|</span>
+<span class=theme-info>主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span>
+<span class=copyright-year>&copy;
+2013 -
+2020
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>TaoBeier</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src="/dist/even.min.js?v=3.2.0"></script></body></html>

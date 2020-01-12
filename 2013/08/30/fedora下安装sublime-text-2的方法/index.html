@@ -1,379 +1,44 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>fedora下安装sublime text 2的方法 - MoeLove</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-1876963677156202",
-    enable_page_level_ads: true
-  });
-</script>
-
-
-<meta name="author" content="TaoBeier" />
-  <meta name="description" content="首先去官网下载最新的压缩包  把文件解压到$HOME/.sublime_text_2文件夹中：
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>fedora下安装sublime text 2的方法 - MoeLove</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><script async src=//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script><script>(adsbygoogle=window.adsbygoogle||[]).push({google_ad_client:"ca-pub-1876963677156202",enable_page_level_ads:true});</script><meta name=author content="TaoBeier"><meta name=description content="首先去官网下载最新的压缩包  把文件解压到$HOME/.sublime_text_2文件夹中：
 tar -xf (sublime压缩包的文件名).tar.bz2 sudo mv (解压后的文件夹) tools/Sublime_Text_2  在/usr/bin目录下面创建一个链接
 vim sublime  在文件中写入这些代码：
 #!/bin/bash export SUBLIME_HOME=&amp;quot;~/tools/Sublime_Text_2&amp;quot; $SUBLIME_HOME/sublime_text $*   修改文件权限并且移动
-chmod 555 sublime &amp;amp;&amp;amp; mv sublime /usr/bin/sublime  这样就可以在终端中直接执行sublime了" />
-
-  <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes, Golang, Python, Container, Vim, 容器, k8s" />
-
-
-<meta name="baidu-site-verification" content="jO2rMlnjJi" />
-<meta name="google-site-verification" content="googlefe3fc086c62f7210.html" />
-
-
-<meta name="generator" content="Hugo 0.55.6" />
-
-
-<link rel="canonical" href="https://moelove.info/2013/08/30/fedora%E4%B8%8B%E5%AE%89%E8%A3%85sublime-text-2%E7%9A%84%E6%96%B9%E6%B3%95/" />
-
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-
-
-
-
-<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
-
-
-<meta property="og:title" content="fedora下安装sublime text 2的方法" />
-<meta property="og:description" content="首先去官网下载最新的压缩包  把文件解压到$HOME/.sublime_text_2文件夹中：
+chmod 555 sublime &amp;amp;&amp;amp; mv sublime /usr/bin/sublime  这样就可以在终端中直接执行sublime了"><meta name=keywords content="MoeLove,Linux,Docker,Kubernetes,Golang,Python,Container,Vim,容器,k8s"><meta name=baidu-site-verification content="jO2rMlnjJi"><meta name=google-site-verification content="googlefe3fc086c62f7210.html"><meta name=generator content="Hugo 0.55.6"><link rel=canonical href=https://moelove.info/2013/08/30/fedora%E4%B8%8B%E5%AE%89%E8%A3%85sublime-text-2%E7%9A%84%E6%96%B9%E6%B3%95/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href="/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><meta property="og:title" content="fedora下安装sublime text 2的方法"><meta property="og:description" content="首先去官网下载最新的压缩包  把文件解压到$HOME/.sublime_text_2文件夹中：
 tar -xf (sublime压缩包的文件名).tar.bz2 sudo mv (解压后的文件夹) tools/Sublime_Text_2  在/usr/bin目录下面创建一个链接
 vim sublime  在文件中写入这些代码：
-#!/bin/bash export SUBLIME_HOME=&quot;~/tools/Sublime_Text_2&quot; $SUBLIME_HOME/sublime_text $*   修改文件权限并且移动
-chmod 555 sublime &amp;&amp; mv sublime /usr/bin/sublime  这样就可以在终端中直接执行sublime了" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://moelove.info/2013/08/30/fedora%E4%B8%8B%E5%AE%89%E8%A3%85sublime-text-2%E7%9A%84%E6%96%B9%E6%B3%95/" />
-<meta property="article:published_time" content="2013-08-30T21:36:09&#43;00:00"/>
-<meta property="article:modified_time" content="2013-08-30T21:36:09&#43;00:00"/>
-
-<meta itemprop="name" content="fedora下安装sublime text 2的方法">
-<meta itemprop="description" content="首先去官网下载最新的压缩包  把文件解压到$HOME/.sublime_text_2文件夹中：
+#!/bin/bash export SUBLIME_HOME=&#34;~/tools/Sublime_Text_2&#34; $SUBLIME_HOME/sublime_text $*   修改文件权限并且移动
+chmod 555 sublime &amp;&amp; mv sublime /usr/bin/sublime  这样就可以在终端中直接执行sublime了"><meta property="og:type" content="article"><meta property="og:url" content="https://moelove.info/2013/08/30/fedora%E4%B8%8B%E5%AE%89%E8%A3%85sublime-text-2%E7%9A%84%E6%96%B9%E6%B3%95/"><meta property="article:published_time" content="2013-08-30T21:36:09&#43;00:00"><meta property="article:modified_time" content="2013-08-30T21:36:09&#43;00:00"><meta itemprop=name content="fedora下安装sublime text 2的方法"><meta itemprop=description content="首先去官网下载最新的压缩包  把文件解压到$HOME/.sublime_text_2文件夹中：
 tar -xf (sublime压缩包的文件名).tar.bz2 sudo mv (解压后的文件夹) tools/Sublime_Text_2  在/usr/bin目录下面创建一个链接
 vim sublime  在文件中写入这些代码：
-#!/bin/bash export SUBLIME_HOME=&quot;~/tools/Sublime_Text_2&quot; $SUBLIME_HOME/sublime_text $*   修改文件权限并且移动
-chmod 555 sublime &amp;&amp; mv sublime /usr/bin/sublime  这样就可以在终端中直接执行sublime了">
-
-
-<meta itemprop="datePublished" content="2013-08-30T21:36:09&#43;00:00" />
-<meta itemprop="dateModified" content="2013-08-30T21:36:09&#43;00:00" />
-<meta itemprop="wordCount" content="27">
-
-
-
-<meta itemprop="keywords" content="Linux,Sublime Text," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="fedora下安装sublime text 2的方法"/>
-<meta name="twitter:description" content="首先去官网下载最新的压缩包  把文件解压到$HOME/.sublime_text_2文件夹中：
+#!/bin/bash export SUBLIME_HOME=&#34;~/tools/Sublime_Text_2&#34; $SUBLIME_HOME/sublime_text $*   修改文件权限并且移动
+chmod 555 sublime &amp;&amp; mv sublime /usr/bin/sublime  这样就可以在终端中直接执行sublime了"><meta itemprop=datePublished content="2013-08-30T21:36:09&#43;00:00"><meta itemprop=dateModified content="2013-08-30T21:36:09&#43;00:00"><meta itemprop=wordCount content="27"><meta itemprop=keywords content="Linux,Sublime Text,"><meta name=twitter:card content="summary"><meta name=twitter:title content="fedora下安装sublime text 2的方法"><meta name=twitter:description content="首先去官网下载最新的压缩包  把文件解压到$HOME/.sublime_text_2文件夹中：
 tar -xf (sublime压缩包的文件名).tar.bz2 sudo mv (解压后的文件夹) tools/Sublime_Text_2  在/usr/bin目录下面创建一个链接
 vim sublime  在文件中写入这些代码：
-#!/bin/bash export SUBLIME_HOME=&quot;~/tools/Sublime_Text_2&quot; $SUBLIME_HOME/sublime_text $*   修改文件权限并且移动
-chmod 555 sublime &amp;&amp; mv sublime /usr/bin/sublime  这样就可以在终端中直接执行sublime了"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-</head>
-<body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">MoeLove</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/about/">
-        <li class="mobile-menu-item">About</li>
-      </a><a href="/friends/">
-        <li class="mobile-menu-item">Friends</li>
-      </a><a href="/projects/">
-        <li class="mobile-menu-item">Projects</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">MoeLove</a>
-</div>
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/about/">About</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/friends/">Friends</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/projects/">Projects</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li>
-  </ul>
-</nav>
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">fedora下安装sublime text 2的方法</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2013-08-30 </span>
-        <div class="post-category">
-            
-              <a href="/categories/linux/"> Linux </a>
-            
-          </div>
-        
-        
-      </div>
-    </header>
-
-    
-    
-<div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
-  
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#首先去-官网-http-www-sublimetext-com-下载最新的压缩包">首先去<a href="http://www.sublimetext.com/">官网</a>下载最新的压缩包</a></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
-  </div>
-</div>
-
-    
-    
-
-    
-    <div class="post-content">
-      
-
-<h3 id="首先去-官网-http-www-sublimetext-com-下载最新的压缩包">首先去<a href="http://www.sublimetext.com/">官网</a>下载最新的压缩包</h3>
-
-<ul>
-<li><p>把文件解压到$HOME/.sublime_text_2文件夹中：</p>
-
-<pre><code>tar -xf (sublime压缩包的文件名).tar.bz2
+#!/bin/bash export SUBLIME_HOME=&#34;~/tools/Sublime_Text_2&#34; $SUBLIME_HOME/sublime_text $*   修改文件权限并且移动
+chmod 555 sublime &amp;&amp; mv sublime /usr/bin/sublime  这样就可以在终端中直接执行sublime了"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>MoeLove</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/about/><li class=mobile-menu-item>About</li></a><a href=/friends/><li class=mobile-menu-item>Friends</li></a><a href=/projects/><li class=mobile-menu-item>Projects</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>MoeLove</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/about/>About</a></li><li class=menu-item><a class=menu-item-link href=/friends/>Friends</a></li><li class=menu-item><a class=menu-item-link href=/projects/>Projects</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>fedora下安装sublime text 2的方法</h1><div class=post-meta><span class=post-time>2013-08-30</span><div class=post-category><a href=/categories/linux/>Linux</a></div></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><ul><li><a href=#首先去-官网-http-www-sublimetext-com-下载最新的压缩包>首先去<a href=http://www.sublimetext.com/>官网</a>下载最新的压缩包</a></li></ul></li></ul></li></ul></nav></div></div><div class=post-content><h3 id=首先去-官网-http-www-sublimetext-com-下载最新的压缩包>首先去<a href=http://www.sublimetext.com/>官网</a>下载最新的压缩包</h3><ul><li><p>把文件解压到$HOME/.sublime_text_2文件夹中：</p><pre><code>tar -xf (sublime压缩包的文件名).tar.bz2
 sudo mv (解压后的文件夹) tools/Sublime_Text_2
-</code></pre></li>
-
-<li><p>在/usr/bin目录下面创建一个链接</p>
-
-<pre><code>vim sublime
-</code></pre>
-
-<p>在文件中写入这些代码：</p>
-
-<pre><code>#!/bin/bash
+</code></pre></li><li><p>在/usr/bin目录下面创建一个链接</p><pre><code>vim sublime
+</code></pre><p>在文件中写入这些代码：</p><pre><code>#!/bin/bash
 export SUBLIME_HOME=&quot;~/tools/Sublime_Text_2&quot;
 
 $SUBLIME_HOME/sublime_text $*
-</code></pre></li>
-</ul>
-
-<p>修改文件权限并且移动</p>
-
-<pre><code>chmod 555 sublime &amp;&amp; mv sublime /usr/bin/sublime
-</code></pre>
-
-<p>这样就可以在终端中直接执行sublime了</p>
-
-    </div>
-
-    
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">TaoBeier</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">2013-08-30</span>
-  </p>
-  
-  <p class="copyright-item">
-    <span class="item-title">许可协议</span>
-    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a></span>
-  </p>
-</div>
-
-    
-    
-<div class="post-reward">
-  <input type="checkbox" name="reward" id="reward" hidden />
-  <label class="reward-button" for="reward">赞赏支持</label>
-  <div class="qr-code">
-    
-    
-      <label class="qr-code-image" for="reward">
-        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/wx_pay.jpg">
-        <span>微信打赏</span>
-      </label>
-    
-      <label class="qr-code-image" for="reward">
-        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/alipay.jpg">
-        <span>支付宝打赏</span>
-      </label>
-  </div>
-</div>
-
-    <footer class="post-footer">
-      <div class="post-tags">
-          
-          <a href="/tags/linux/">Linux</a>
-          
-          <a href="/tags/sublime-text/">Sublime Text</a>
-          
-        </div>
-
-      
-      <nav class="post-nav">
-        
-          <a class="prev" href="/2013/09/06/%E5%88%A9%E7%94%A8%E7%99%BE%E5%BA%A6BAE%E6%90%AD%E5%BB%BAdiscuz%E8%AE%BA%E5%9D%9B/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">利用百度BAE搭建discuz论坛</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
-        
-          <a class="next" href="/2013/08/10/Vim7.3-for-Windows-%E9%85%8D%E7%BD%AE/">
-            <span class="next-text nav-default">Vim7.3 for Windows 配置</span>
-            <span class="next-text nav-mobile">下一篇</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-  
-
-  <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
-    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
-  <script type="text/javascript">
-  var gitalk = new Gitalk({
-    id: '2013-08-30 21:36:09 \x2b0000 UTC',
-    title: 'fedora下安装sublime text 2的方法',
-    clientID: '68312db64e870efbd0a0',
-    clientSecret: 'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',
-    repo: 'tao12345666333.github.io',
-    owner: 'tao12345666333',
-    admin: ['tao12345666333'],
-    body: decodeURI(location.href)
-  });
-  gitalk.render('gitalk-container');
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
-
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:zhangjintao9020@gmail.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://twitter.com/BeierTao" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="https://github.com/tao12345666333" class="iconfont icon-github" title="github"></a>
-      <a href="http://weibo.com/9020taobeier" class="iconfont icon-weibo" title="weibo"></a>
-      <a href="https://www.zhihu.com/people/TaoBeier" class="iconfont icon-zhihu" title="zhihu"></a>
-  <a href="https://moelove.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主题 - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    
-      2013 - 
-    2020
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">TaoBeier</span>
-  </span>
-</div>
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div>
-  
-<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
-
-
-<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
-
-
-
-
-
-
-
-
-</body>
-</html>
+</code></pre></li></ul><p>修改文件权限并且移动</p><pre><code>chmod 555 sublime &amp;&amp; mv sublime /usr/bin/sublime
+</code></pre><p>这样就可以在终端中直接执行sublime了</p></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>TaoBeier</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2013-08-30</span></p><p class=copyright-item><span class=item-title>许可协议</span>
+<span class=item-content><a rel="license noopener" href=https://creativecommons.org/licenses/by-sa/4.0/ target=_blank>CC BY-SA 4.0</a></span></p></div><div class=post-reward><input type=checkbox name=reward id=reward hidden>
+<label class=reward-button for=reward>赞赏支持</label><div class=qr-code><label class=qr-code-image for=reward><img class=image src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/wx_pay.jpg>
+<span>微信打赏</span></label>
+<label class=qr-code-image for=reward><img class=image src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/alipay.jpg>
+<span>支付宝打赏</span></label></div></div><footer class=post-footer><div class=post-tags><a href=/tags/linux/>Linux</a>
+<a href=/tags/sublime-text/>Sublime Text</a></div><nav class=post-nav><a class=prev href=/2013/09/06/%E5%88%A9%E7%94%A8%E7%99%BE%E5%BA%A6BAE%E6%90%AD%E5%BB%BAdiscuz%E8%AE%BA%E5%9D%9B/><i class="iconfont icon-left"></i><span class="prev-text nav-default">利用百度BAE搭建discuz论坛</span>
+<span class="prev-text nav-mobile">上一篇</span></a>
+<a class=next href=/2013/08/10/Vim7.3-for-Windows-%E9%85%8D%E7%BD%AE/><span class="next-text nav-default">Vim7.3 for Windows 配置</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div><div id=gitalk-container></div><link rel=stylesheet href=/lib/gitalk/gitalk-1.2.2.min.css><script src=/lib/gitalk/gitalk-1.2.2.min.js></script><script type=text/javascript>var gitalk=new Gitalk({id:'2013-08-30 21:36:09 \x2b0000 UTC',title:'fedora下安装sublime text 2的方法',clientID:'68312db64e870efbd0a0',clientSecret:'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',repo:'tao12345666333.github.io',owner:'tao12345666333',admin:['tao12345666333'],body:decodeURI(location.href)});gitalk.render('gitalk-container');</script><noscript>Please enable JavaScript to view the <a href=https://github.com/gitalk/gitalk>comments powered by gitalk.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:zhangjintao9020@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/BeierTao class="iconfont icon-twitter" title=twitter></a><a href=https://github.com/tao12345666333 class="iconfont icon-github" title=github></a><a href=http://weibo.com/9020taobeier class="iconfont icon-weibo" title=weibo></a><a href=https://www.zhihu.com/people/TaoBeier class="iconfont icon-zhihu" title=zhihu></a><a href=https://moelove.info/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动</span>
+<span class=division>|</span>
+<span class=theme-info>主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span>
+<span class=copyright-year>&copy;
+2013 -
+2020
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>TaoBeier</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src="/dist/even.min.js?v=3.2.0"></script></body></html>

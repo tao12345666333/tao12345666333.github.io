@@ -1,414 +1,44 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>K8S 生态周报| 2019-07-21~2019-07-28 - MoeLove</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-1876963677156202",
-    enable_page_level_ads: true
-  });
-</script>
-
-
-<meta name="author" content="TaoBeier" />
-  <meta name="description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>K8S 生态周报| 2019-07-21~2019-07-28 - MoeLove</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><script async src=//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script><script>(adsbygoogle=window.adsbygoogle||[]).push({google_ad_client:"ca-pub-1876963677156202",enable_page_level_ads:true});</script><meta name=author content="TaoBeier"><meta name=description content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
  Docker CE v19.03 正式发布 7 月 22 日，正式发布了 Docker CE v19.03 版本，按照 Docker CE 版本的生命周期，此次的 v19.03 可以说是千呼万唤始出来，原本按语义应该是在 3 月，不过之前的发布计划中开始是设定在了 5 月份，而一转眼现在已经到 7 月底了。 先跳过这次发布时间延期的问题，我们来看看此版本中最值得注意的一些变化。
 首先来看看被废弃的部分：
- 废弃 aufs 存储驱动，在此版本之前 devicemapper 和 overlay 也都已经被废弃; 当 docker daemon 运行时，如果没有指定存储驱动，则会自动选择一个，v19.03 中增加了自动选择时跳过已被废弃的存储驱动的逻辑； 废弃 image manifest v2 schema1 以支持 v2 schema2 ，这里的废弃涉及到的内容很多，尤其是涉及到了 image registry 的部分, 所以后续还有很长的路要走。还记得之前推送过 Docker Hub 今年 6 月份停止 v1 API 进行 Pull 操作的事情吗？早年 2015 年 11 月的时候，它就已经禁止了 v1 API 的 Push 操作。从这点上也能看到 Docker 在功能弃用上其实为用户考虑了很多，并且也给了足够长的时间来让用户进行迁移。  其次，我们看看功能增强的部分：" />
-
-  <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes, Golang, Python, Container, Vim, 容器, k8s" />
-
-
-<meta name="baidu-site-verification" content="jO2rMlnjJi" />
-<meta name="google-site-verification" content="googlefe3fc086c62f7210.html" />
-
-
-<meta name="generator" content="Hugo 0.55.6" />
-
-
-<link rel="canonical" href="https://moelove.info/2019/07/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-21~2019-07-28/" />
-
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-
-
-
-
-<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
-
-
-<meta property="og:title" content="K8S 生态周报| 2019-07-21~2019-07-28" />
-<meta property="og:description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ 废弃 aufs 存储驱动，在此版本之前 devicemapper 和 overlay 也都已经被废弃; 当 docker daemon 运行时，如果没有指定存储驱动，则会自动选择一个，v19.03 中增加了自动选择时跳过已被废弃的存储驱动的逻辑； 废弃 image manifest v2 schema1 以支持 v2 schema2 ，这里的废弃涉及到的内容很多，尤其是涉及到了 image registry 的部分, 所以后续还有很长的路要走。还记得之前推送过 Docker Hub 今年 6 月份停止 v1 API 进行 Pull 操作的事情吗？早年 2015 年 11 月的时候，它就已经禁止了 v1 API 的 Push 操作。从这点上也能看到 Docker 在功能弃用上其实为用户考虑了很多，并且也给了足够长的时间来让用户进行迁移。  其次，我们看看功能增强的部分："><meta name=keywords content="MoeLove,Linux,Docker,Kubernetes,Golang,Python,Container,Vim,容器,k8s"><meta name=baidu-site-verification content="jO2rMlnjJi"><meta name=google-site-verification content="googlefe3fc086c62f7210.html"><meta name=generator content="Hugo 0.55.6"><link rel=canonical href=https://moelove.info/2019/07/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-21~2019-07-28/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href="/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><meta property="og:title" content="K8S 生态周报| 2019-07-21~2019-07-28"><meta property="og:description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
  Docker CE v19.03 正式发布 7 月 22 日，正式发布了 Docker CE v19.03 版本，按照 Docker CE 版本的生命周期，此次的 v19.03 可以说是千呼万唤始出来，原本按语义应该是在 3 月，不过之前的发布计划中开始是设定在了 5 月份，而一转眼现在已经到 7 月底了。 先跳过这次发布时间延期的问题，我们来看看此版本中最值得注意的一些变化。
 首先来看看被废弃的部分：
- 废弃 aufs 存储驱动，在此版本之前 devicemapper 和 overlay 也都已经被废弃; 当 docker daemon 运行时，如果没有指定存储驱动，则会自动选择一个，v19.03 中增加了自动选择时跳过已被废弃的存储驱动的逻辑； 废弃 image manifest v2 schema1 以支持 v2 schema2 ，这里的废弃涉及到的内容很多，尤其是涉及到了 image registry 的部分, 所以后续还有很长的路要走。还记得之前推送过 Docker Hub 今年 6 月份停止 v1 API 进行 Pull 操作的事情吗？早年 2015 年 11 月的时候，它就已经禁止了 v1 API 的 Push 操作。从这点上也能看到 Docker 在功能弃用上其实为用户考虑了很多，并且也给了足够长的时间来让用户进行迁移。  其次，我们看看功能增强的部分：" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://moelove.info/2019/07/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-21~2019-07-28/" />
-<meta property="article:published_time" content="2019-07-28T22:14:44&#43;08:00"/>
-<meta property="article:modified_time" content="2019-07-28T22:14:44&#43;08:00"/>
-
-<meta itemprop="name" content="K8S 生态周报| 2019-07-21~2019-07-28">
-<meta itemprop="description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ 废弃 aufs 存储驱动，在此版本之前 devicemapper 和 overlay 也都已经被废弃; 当 docker daemon 运行时，如果没有指定存储驱动，则会自动选择一个，v19.03 中增加了自动选择时跳过已被废弃的存储驱动的逻辑； 废弃 image manifest v2 schema1 以支持 v2 schema2 ，这里的废弃涉及到的内容很多，尤其是涉及到了 image registry 的部分, 所以后续还有很长的路要走。还记得之前推送过 Docker Hub 今年 6 月份停止 v1 API 进行 Pull 操作的事情吗？早年 2015 年 11 月的时候，它就已经禁止了 v1 API 的 Push 操作。从这点上也能看到 Docker 在功能弃用上其实为用户考虑了很多，并且也给了足够长的时间来让用户进行迁移。  其次，我们看看功能增强的部分："><meta property="og:type" content="article"><meta property="og:url" content="https://moelove.info/2019/07/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-21~2019-07-28/"><meta property="article:published_time" content="2019-07-28T22:14:44&#43;08:00"><meta property="article:modified_time" content="2019-07-28T22:14:44&#43;08:00"><meta itemprop=name content="K8S 生态周报| 2019-07-21~2019-07-28"><meta itemprop=description content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
  Docker CE v19.03 正式发布 7 月 22 日，正式发布了 Docker CE v19.03 版本，按照 Docker CE 版本的生命周期，此次的 v19.03 可以说是千呼万唤始出来，原本按语义应该是在 3 月，不过之前的发布计划中开始是设定在了 5 月份，而一转眼现在已经到 7 月底了。 先跳过这次发布时间延期的问题，我们来看看此版本中最值得注意的一些变化。
 首先来看看被废弃的部分：
- 废弃 aufs 存储驱动，在此版本之前 devicemapper 和 overlay 也都已经被废弃; 当 docker daemon 运行时，如果没有指定存储驱动，则会自动选择一个，v19.03 中增加了自动选择时跳过已被废弃的存储驱动的逻辑； 废弃 image manifest v2 schema1 以支持 v2 schema2 ，这里的废弃涉及到的内容很多，尤其是涉及到了 image registry 的部分, 所以后续还有很长的路要走。还记得之前推送过 Docker Hub 今年 6 月份停止 v1 API 进行 Pull 操作的事情吗？早年 2015 年 11 月的时候，它就已经禁止了 v1 API 的 Push 操作。从这点上也能看到 Docker 在功能弃用上其实为用户考虑了很多，并且也给了足够长的时间来让用户进行迁移。  其次，我们看看功能增强的部分：">
-
-
-<meta itemprop="datePublished" content="2019-07-28T22:14:44&#43;08:00" />
-<meta itemprop="dateModified" content="2019-07-28T22:14:44&#43;08:00" />
-<meta itemprop="wordCount" content="277">
-
-
-
-<meta itemprop="keywords" content="Linux,Weekly,Kubernetes," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="K8S 生态周报| 2019-07-21~2019-07-28"/>
-<meta name="twitter:description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ 废弃 aufs 存储驱动，在此版本之前 devicemapper 和 overlay 也都已经被废弃; 当 docker daemon 运行时，如果没有指定存储驱动，则会自动选择一个，v19.03 中增加了自动选择时跳过已被废弃的存储驱动的逻辑； 废弃 image manifest v2 schema1 以支持 v2 schema2 ，这里的废弃涉及到的内容很多，尤其是涉及到了 image registry 的部分, 所以后续还有很长的路要走。还记得之前推送过 Docker Hub 今年 6 月份停止 v1 API 进行 Pull 操作的事情吗？早年 2015 年 11 月的时候，它就已经禁止了 v1 API 的 Push 操作。从这点上也能看到 Docker 在功能弃用上其实为用户考虑了很多，并且也给了足够长的时间来让用户进行迁移。  其次，我们看看功能增强的部分："><meta itemprop=datePublished content="2019-07-28T22:14:44&#43;08:00"><meta itemprop=dateModified content="2019-07-28T22:14:44&#43;08:00"><meta itemprop=wordCount content="277"><meta itemprop=keywords content="Linux,Weekly,Kubernetes,"><meta name=twitter:card content="summary"><meta name=twitter:title content="K8S 生态周报| 2019-07-21~2019-07-28"><meta name=twitter:description content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
  Docker CE v19.03 正式发布 7 月 22 日，正式发布了 Docker CE v19.03 版本，按照 Docker CE 版本的生命周期，此次的 v19.03 可以说是千呼万唤始出来，原本按语义应该是在 3 月，不过之前的发布计划中开始是设定在了 5 月份，而一转眼现在已经到 7 月底了。 先跳过这次发布时间延期的问题，我们来看看此版本中最值得注意的一些变化。
 首先来看看被废弃的部分：
- 废弃 aufs 存储驱动，在此版本之前 devicemapper 和 overlay 也都已经被废弃; 当 docker daemon 运行时，如果没有指定存储驱动，则会自动选择一个，v19.03 中增加了自动选择时跳过已被废弃的存储驱动的逻辑； 废弃 image manifest v2 schema1 以支持 v2 schema2 ，这里的废弃涉及到的内容很多，尤其是涉及到了 image registry 的部分, 所以后续还有很长的路要走。还记得之前推送过 Docker Hub 今年 6 月份停止 v1 API 进行 Pull 操作的事情吗？早年 2015 年 11 月的时候，它就已经禁止了 v1 API 的 Push 操作。从这点上也能看到 Docker 在功能弃用上其实为用户考虑了很多，并且也给了足够长的时间来让用户进行迁移。  其次，我们看看功能增强的部分："/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-</head>
-<body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">MoeLove</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/about/">
-        <li class="mobile-menu-item">About</li>
-      </a><a href="/friends/">
-        <li class="mobile-menu-item">Friends</li>
-      </a><a href="/projects/">
-        <li class="mobile-menu-item">Projects</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">MoeLove</a>
-</div>
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/about/">About</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/friends/">Friends</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/projects/">Projects</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li>
-  </ul>
-</nav>
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">K8S 生态周报| 2019-07-21~2019-07-28</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2019-07-28 </span>
-        
-        
-        
-      </div>
-    </header>
-
-    
-    
-<div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
-  
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#docker-ce-v19-03-正式发布">Docker CE v19.03 正式发布</a></li>
-<li><a href="#helm-v3-0-0-alpha-2-发布">Helm v3.0.0-alpha.2 发布</a></li>
-<li><a href="#kubernetes-上游开发进展">Kubernetes 上游开发进展</a></li>
-</ul></li>
-</ul>
-</nav>
-  </div>
-</div>
-
-    
-    
-
-    
-    <div class="post-content">
-      
-
-<blockquote>
-<p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏<a href="https://zhuanlan.zhihu.com/container">「k8s生态」</a>。</p>
-</blockquote>
-
-<h2 id="docker-ce-v19-03-正式发布">Docker CE v19.03 正式发布</h2>
-
-<p>7 月 22 日，正式发布了 Docker CE v19.03 版本，按照 Docker CE 版本的生命周期，此次的 v19.03 可以说是千呼万唤始出来，原本按语义应该是在 3 月，不过之前的发布计划中开始是设定在了 5 月份，而一转眼现在已经到 7 月底了。
-先跳过这次发布时间延期的问题，我们来看看此版本中最值得注意的一些变化。</p>
-
-<p>首先来看看被废弃的部分：</p>
-
-<ul>
-<li>废弃 <code>aufs</code> 存储驱动，在此版本之前 <code>devicemapper</code> 和 <code>overlay</code> 也都已经被废弃;</li>
-<li>当 docker daemon 运行时，如果没有指定存储驱动，则会自动选择一个，v19.03 中增加了自动选择时跳过已被废弃的存储驱动的逻辑；</li>
-<li>废弃 image manifest v2 schema1 以支持 v2 schema2 ，这里的废弃涉及到的内容很多，尤其是涉及到了 image registry 的部分, 所以后续还有很长的路要走。还记得之前推送过 Docker Hub 今年 6 月份停止 v1 API 进行 Pull 操作的事情吗？早年 2015 年 11 月的时候，它就已经禁止了 v1 API 的 Push 操作。从这点上也能看到 Docker 在功能弃用上其实为用户考虑了很多，并且也给了足够长的时间来让用户进行迁移。</li>
-</ul>
-
-<p>其次，我们看看功能增强的部分：</p>
-
-<ul>
-<li><strong>对 NVIDIA GPU 设备的支持</strong>，在 docker CLI 的 <code>docker run</code> 命令中添加了 <code>--gpus</code> 参数，用于为容器添加 GPU 设备。事实上，大家需要注意的是，这里严格的表述应该是它目前是对 <strong>NVIDIA GPU的支持</strong>而不是很多国内媒体报道的，对 GPU 的支持（毕竟做 GPU 的有很多家），而且现在对 NVIDIA 的支持，也都是硬编码在代码中的，之后还有很长的路要走。至于很多人可能想问，它添加这个支持后，是否还需要安装驱动，安装 CUDA 是否需要安装 nvidia-docker2 之类的， 我在这部分逻辑刚合并后就在机器上实验过了， <strong>代码中硬编码了对 <code>nvidia-container-cli</code> 的依赖，现在修改成了对 <code>vidia-container-runtime-hook</code> 的依赖，</strong> 所以，像驱动啊 <code>nvidia-container-cli</code> 之类的东西还是需要装的，只不过用户使用上和原先用法不一样了罢了。（这里非常希望大家能自行尝试下）</li>
-<li>API 更新至了 v1.40；</li>
-<li>对 <code>/_ping</code> 接口添加了对 <code>HEAD</code> 请求的支持，返回结果中会包含当前 docker daemon 的 API 和版本，系统类型等信息；</li>
-<li>构建系统有了很多的改进，这里不再一一细述，感兴趣的朋友可以看我写的文章 <a href="https://gitbook.cn/gitchat/activity/5cf026eaff33b82ee0eb425b">「Docker 镜像构建原理及源码分析」</a> 这篇文章中使用的源码版本是 v19.03.0-rc2 内容很新；</li>
-<li>支持 <code>Rootless</code> 模式，事实上这个功能在去年就已经在逐步推进了，但即使是现在，我也尚不推荐将此功能应用于生产环境。（国内有很多媒体对此大肆宣扬来着，说以后可以不用 <code>root</code> 权限了如何如何 - - 我只想说你们有没有真的用过 <code>Rootless</code> 模式，或者有没有在生产实践中验证过） 这个功能确实是有了，但尚不完善，也尚并不能达到替代当前 docker 全部能力的时候，包括它的网络能力，它的存储能力等目前都还有很多路要走；</li>
-<li>对 <code>docker network</code> 支持了 <code>dangling</code> 状态的筛选支持。</li>
-</ul>
-
-<p>以上便是 v19.03 中我个人认为最值得注意的内容。当然，现在我还要额外多说一点（划重点）：</p>
-
-<p>使用此版本，我们可以在一台机器上同时管理多个 Docker Engine 这是我用了很长时间的功能，特别有用，与大家分享一下具体使用方法：</p>
-
-<pre><code>(MoeLove) ➜  ~ docker context create build-context --description &quot;build context&quot; --docker &quot;host=tcp://172.17.0.3:2375&quot;
+ 废弃 aufs 存储驱动，在此版本之前 devicemapper 和 overlay 也都已经被废弃; 当 docker daemon 运行时，如果没有指定存储驱动，则会自动选择一个，v19.03 中增加了自动选择时跳过已被废弃的存储驱动的逻辑； 废弃 image manifest v2 schema1 以支持 v2 schema2 ，这里的废弃涉及到的内容很多，尤其是涉及到了 image registry 的部分, 所以后续还有很长的路要走。还记得之前推送过 Docker Hub 今年 6 月份停止 v1 API 进行 Pull 操作的事情吗？早年 2015 年 11 月的时候，它就已经禁止了 v1 API 的 Push 操作。从这点上也能看到 Docker 在功能弃用上其实为用户考虑了很多，并且也给了足够长的时间来让用户进行迁移。  其次，我们看看功能增强的部分："><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>MoeLove</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/about/><li class=mobile-menu-item>About</li></a><a href=/friends/><li class=mobile-menu-item>Friends</li></a><a href=/projects/><li class=mobile-menu-item>Projects</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>MoeLove</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/about/>About</a></li><li class=menu-item><a class=menu-item-link href=/friends/>Friends</a></li><li class=menu-item><a class=menu-item-link href=/projects/>Projects</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>K8S 生态周报| 2019-07-21~2019-07-28</h1><div class=post-meta><span class=post-time>2019-07-28</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#docker-ce-v19-03-正式发布>Docker CE v19.03 正式发布</a></li><li><a href=#helm-v3-0-0-alpha-2-发布>Helm v3.0.0-alpha.2 发布</a></li><li><a href=#kubernetes-上游开发进展>Kubernetes 上游开发进展</a></li></ul></li></ul></nav></div></div><div class=post-content><blockquote><p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏<a href=https://zhuanlan.zhihu.com/container>「k8s生态」</a>。</p></blockquote><h2 id=docker-ce-v19-03-正式发布>Docker CE v19.03 正式发布</h2><p>7 月 22 日，正式发布了 Docker CE v19.03 版本，按照 Docker CE 版本的生命周期，此次的 v19.03 可以说是千呼万唤始出来，原本按语义应该是在 3 月，不过之前的发布计划中开始是设定在了 5 月份，而一转眼现在已经到 7 月底了。
+先跳过这次发布时间延期的问题，我们来看看此版本中最值得注意的一些变化。</p><p>首先来看看被废弃的部分：</p><ul><li>废弃 <code>aufs</code> 存储驱动，在此版本之前 <code>devicemapper</code> 和 <code>overlay</code> 也都已经被废弃;</li><li>当 docker daemon 运行时，如果没有指定存储驱动，则会自动选择一个，v19.03 中增加了自动选择时跳过已被废弃的存储驱动的逻辑；</li><li>废弃 image manifest v2 schema1 以支持 v2 schema2 ，这里的废弃涉及到的内容很多，尤其是涉及到了 image registry 的部分, 所以后续还有很长的路要走。还记得之前推送过 Docker Hub 今年 6 月份停止 v1 API 进行 Pull 操作的事情吗？早年 2015 年 11 月的时候，它就已经禁止了 v1 API 的 Push 操作。从这点上也能看到 Docker 在功能弃用上其实为用户考虑了很多，并且也给了足够长的时间来让用户进行迁移。</li></ul><p>其次，我们看看功能增强的部分：</p><ul><li><strong>对 NVIDIA GPU 设备的支持</strong>，在 docker CLI 的 <code>docker run</code> 命令中添加了 <code>--gpus</code> 参数，用于为容器添加 GPU 设备。事实上，大家需要注意的是，这里严格的表述应该是它目前是对 <strong>NVIDIA GPU的支持</strong>而不是很多国内媒体报道的，对 GPU 的支持（毕竟做 GPU 的有很多家），而且现在对 NVIDIA 的支持，也都是硬编码在代码中的，之后还有很长的路要走。至于很多人可能想问，它添加这个支持后，是否还需要安装驱动，安装 CUDA 是否需要安装 nvidia-docker2 之类的， 我在这部分逻辑刚合并后就在机器上实验过了， <strong>代码中硬编码了对 <code>nvidia-container-cli</code> 的依赖，现在修改成了对 <code>vidia-container-runtime-hook</code> 的依赖，</strong> 所以，像驱动啊 <code>nvidia-container-cli</code> 之类的东西还是需要装的，只不过用户使用上和原先用法不一样了罢了。（这里非常希望大家能自行尝试下）</li><li>API 更新至了 v1.40；</li><li>对 <code>/_ping</code> 接口添加了对 <code>HEAD</code> 请求的支持，返回结果中会包含当前 docker daemon 的 API 和版本，系统类型等信息；</li><li>构建系统有了很多的改进，这里不再一一细述，感兴趣的朋友可以看我写的文章 <a href=https://gitbook.cn/gitchat/activity/5cf026eaff33b82ee0eb425b>「Docker 镜像构建原理及源码分析」</a> 这篇文章中使用的源码版本是 v19.03.0-rc2 内容很新；</li><li>支持 <code>Rootless</code> 模式，事实上这个功能在去年就已经在逐步推进了，但即使是现在，我也尚不推荐将此功能应用于生产环境。（国内有很多媒体对此大肆宣扬来着，说以后可以不用 <code>root</code> 权限了如何如何 - - 我只想说你们有没有真的用过 <code>Rootless</code> 模式，或者有没有在生产实践中验证过） 这个功能确实是有了，但尚不完善，也尚并不能达到替代当前 docker 全部能力的时候，包括它的网络能力，它的存储能力等目前都还有很多路要走；</li><li>对 <code>docker network</code> 支持了 <code>dangling</code> 状态的筛选支持。</li></ul><p>以上便是 v19.03 中我个人认为最值得注意的内容。当然，现在我还要额外多说一点（划重点）：</p><p>使用此版本，我们可以在一台机器上同时管理多个 Docker Engine 这是我用了很长时间的功能，特别有用，与大家分享一下具体使用方法：</p><pre><code>(MoeLove) ➜  ~ docker context create build-context --description &quot;build context&quot; --docker &quot;host=tcp://172.17.0.3:2375&quot;
 build-context                                           
 Successfully created context &quot;build-context&quot;
 (MoeLove) ➜  ~ docker context ls                 
 NAME                DESCRIPTION                               DOCKER ENDPOINT               KUBERNETES ENDPOINT                  ORCHESTRATOR          
 build-context       build context                             tcp://172.17.0.3:2375
 default *           Current DOCKER_HOST based configuration   unix:///var/run/docker.sock   https://10.234.9.30:8443 (default)   swarm
-</code></pre>
-
-<p>使用该 <code>context</code></p>
-
-<pre><code>(MoeLove) ➜  ~ docker context  use build-context 
+</code></pre><p>使用该 <code>context</code></p><pre><code>(MoeLove) ➜  ~ docker context  use build-context 
 build-context                                           
 Current context is now &quot;build-context&quot;
-</code></pre>
-
-<p>这样，我们便可以直接在本机管理远程的一台机器上的 Docker Engine 了，当然它也可以支持用 <code>ssh</code> 连接远程主机的模式。</p>
-
-<p>好了，关于此版本的介绍就到这里，对此版本中构建系统有想深入的了解的还是同样建议阅读 <a href="https://gitbook.cn/gitchat/activity/5cf026eaff33b82ee0eb425b">「Docker 镜像构建原理及源码分析」</a> 关于此版本中更多的更新内容请参考 <a href="https://github.com/docker/docker-ce/releases/tag/v19.03.1">ReleaseNote</a></p>
-
-<h2 id="helm-v3-0-0-alpha-2-发布">Helm v3.0.0-alpha.2 发布</h2>
-
-<p>这个版本中主要是对 Helm 3 内部的架构进行了优化，所以外部看到的功能特性变化并不是很大。 如果对 Helm 3 还不了解的朋友，推荐阅读 <a href="https://zhuanlan.zhihu.com/p/66058355">初试 Helm 3</a> 。</p>
-
-<p>更多关于此版本的信息请参考 <a href="https://github.com/helm/helm/releases/tag/v3.0.0-alpha.2">ReleaseNote</a></p>
-
-<h2 id="kubernetes-上游开发进展">Kubernetes 上游开发进展</h2>
-
-<p>按照预期，特性冻结的 deadline 是 7 月 30 日，过段时间，下一个版本就将会正式发布了。</p>
-
-<p>最近合并的 PR 中最值得注意的我个人认为应该是 <a href="https://github.com/kubernetes/kubernetes/pull/59416">#59416 将 Ephemeral Containers 添加到 Kubernetes 核心 API</a> 这个 PR 应该归属于 <a href="https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190212-ephemeral-containers.md">Ephemeral Containers 相关 KEP</a> 的一部分。</p>
-
-<p>其主要目的在于提供一种机制，方便进行容器的在线调试或者监测。可以理解为启动一个与待调试容器具备相同网络和 Namespace 的容器，以此来进行调试。现在我们一般做这个事情一般是手动完成或者借助一些其他工具，但其实不够&rdquo;优雅&rdquo;，随着这个 KEP 的完善，希望能弥补这部分的空缺。</p>
-
-<hr />
-
-<p>可以通过下面二维码订阅我的文章公众号【MoeLove】</p>
-
-<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/my_qrcode.jpg" alt="TheMoeLove" /></p>
-
-    </div>
-
-    
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">TaoBeier</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">2019-07-28</span>
-  </p>
-  
-  <p class="copyright-item">
-    <span class="item-title">许可协议</span>
-    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a></span>
-  </p>
-</div>
-
-    
-    
-<div class="post-reward">
-  <input type="checkbox" name="reward" id="reward" hidden />
-  <label class="reward-button" for="reward">赞赏支持</label>
-  <div class="qr-code">
-    
-    
-      <label class="qr-code-image" for="reward">
-        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/wx_pay.jpg">
-        <span>微信打赏</span>
-      </label>
-    
-      <label class="qr-code-image" for="reward">
-        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/alipay.jpg">
-        <span>支付宝打赏</span>
-      </label>
-  </div>
-</div>
-
-    <footer class="post-footer">
-      <div class="post-tags">
-          
-          <a href="/tags/linux/">Linux</a>
-          
-          <a href="/tags/weekly/">Weekly</a>
-          
-          <a href="/tags/kubernetes/">Kubernetes</a>
-          
-        </div>
-
-      
-      <nav class="post-nav">
-        
-          <a class="prev" href="/2019/08/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-29~2019-08-04/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">K8S 生态周报| 2019-07-29~2019-08-04</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
-        
-          <a class="next" href="/2019/07/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-15~2019-07-21/">
-            <span class="next-text nav-default">K8S 生态周报| 2019-07-15~2019-07-21</span>
-            <span class="next-text nav-mobile">下一篇</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-  
-
-  <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
-    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
-  <script type="text/javascript">
-  var gitalk = new Gitalk({
-    id: '2019-07-28 22:14:44 \x2b0800 CST',
-    title: 'K8S 生态周报| 2019-07-21~2019-07-28',
-    clientID: '68312db64e870efbd0a0',
-    clientSecret: 'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',
-    repo: 'tao12345666333.github.io',
-    owner: 'tao12345666333',
-    admin: ['tao12345666333'],
-    body: decodeURI(location.href)
-  });
-  gitalk.render('gitalk-container');
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
-
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:zhangjintao9020@gmail.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://twitter.com/BeierTao" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="https://github.com/tao12345666333" class="iconfont icon-github" title="github"></a>
-      <a href="http://weibo.com/9020taobeier" class="iconfont icon-weibo" title="weibo"></a>
-      <a href="https://www.zhihu.com/people/TaoBeier" class="iconfont icon-zhihu" title="zhihu"></a>
-  <a href="https://moelove.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主题 - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    
-      2013 - 
-    2020
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">TaoBeier</span>
-  </span>
-</div>
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div>
-  
-<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
-
-
-<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
-
-
-
-
-
-
-
-
-</body>
-</html>
+</code></pre><p>这样，我们便可以直接在本机管理远程的一台机器上的 Docker Engine 了，当然它也可以支持用 <code>ssh</code> 连接远程主机的模式。</p><p>好了，关于此版本的介绍就到这里，对此版本中构建系统有想深入的了解的还是同样建议阅读 <a href=https://gitbook.cn/gitchat/activity/5cf026eaff33b82ee0eb425b>「Docker 镜像构建原理及源码分析」</a> 关于此版本中更多的更新内容请参考 <a href=https://github.com/docker/docker-ce/releases/tag/v19.03.1>ReleaseNote</a></p><h2 id=helm-v3-0-0-alpha-2-发布>Helm v3.0.0-alpha.2 发布</h2><p>这个版本中主要是对 Helm 3 内部的架构进行了优化，所以外部看到的功能特性变化并不是很大。 如果对 Helm 3 还不了解的朋友，推荐阅读 <a href=https://zhuanlan.zhihu.com/p/66058355>初试 Helm 3</a> 。</p><p>更多关于此版本的信息请参考 <a href=https://github.com/helm/helm/releases/tag/v3.0.0-alpha.2>ReleaseNote</a></p><h2 id=kubernetes-上游开发进展>Kubernetes 上游开发进展</h2><p>按照预期，特性冻结的 deadline 是 7 月 30 日，过段时间，下一个版本就将会正式发布了。</p><p>最近合并的 PR 中最值得注意的我个人认为应该是 <a href=https://github.com/kubernetes/kubernetes/pull/59416>#59416 将 Ephemeral Containers 添加到 Kubernetes 核心 API</a> 这个 PR 应该归属于 <a href=https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190212-ephemeral-containers.md>Ephemeral Containers 相关 KEP</a> 的一部分。</p><p>其主要目的在于提供一种机制，方便进行容器的在线调试或者监测。可以理解为启动一个与待调试容器具备相同网络和 Namespace 的容器，以此来进行调试。现在我们一般做这个事情一般是手动完成或者借助一些其他工具，但其实不够&rdquo;优雅&rdquo;，随着这个 KEP 的完善，希望能弥补这部分的空缺。</p><hr><p>可以通过下面二维码订阅我的文章公众号【MoeLove】</p><p><img src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/my_qrcode.jpg alt=TheMoeLove></p></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>TaoBeier</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2019-07-28</span></p><p class=copyright-item><span class=item-title>许可协议</span>
+<span class=item-content><a rel="license noopener" href=https://creativecommons.org/licenses/by-sa/4.0/ target=_blank>CC BY-SA 4.0</a></span></p></div><div class=post-reward><input type=checkbox name=reward id=reward hidden>
+<label class=reward-button for=reward>赞赏支持</label><div class=qr-code><label class=qr-code-image for=reward><img class=image src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/wx_pay.jpg>
+<span>微信打赏</span></label>
+<label class=qr-code-image for=reward><img class=image src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/alipay.jpg>
+<span>支付宝打赏</span></label></div></div><footer class=post-footer><div class=post-tags><a href=/tags/linux/>Linux</a>
+<a href=/tags/weekly/>Weekly</a>
+<a href=/tags/kubernetes/>Kubernetes</a></div><nav class=post-nav><a class=prev href=/2019/08/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-29~2019-08-04/><i class="iconfont icon-left"></i><span class="prev-text nav-default">K8S 生态周报| 2019-07-29~2019-08-04</span>
+<span class="prev-text nav-mobile">上一篇</span></a>
+<a class=next href=/2019/07/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-15~2019-07-21/><span class="next-text nav-default">K8S 生态周报| 2019-07-15~2019-07-21</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div><div id=gitalk-container></div><link rel=stylesheet href=/lib/gitalk/gitalk-1.2.2.min.css><script src=/lib/gitalk/gitalk-1.2.2.min.js></script><script type=text/javascript>var gitalk=new Gitalk({id:'2019-07-28 22:14:44 \x2b0800 CST',title:'K8S 生态周报| 2019-07-21~2019-07-28',clientID:'68312db64e870efbd0a0',clientSecret:'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',repo:'tao12345666333.github.io',owner:'tao12345666333',admin:['tao12345666333'],body:decodeURI(location.href)});gitalk.render('gitalk-container');</script><noscript>Please enable JavaScript to view the <a href=https://github.com/gitalk/gitalk>comments powered by gitalk.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:zhangjintao9020@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/BeierTao class="iconfont icon-twitter" title=twitter></a><a href=https://github.com/tao12345666333 class="iconfont icon-github" title=github></a><a href=http://weibo.com/9020taobeier class="iconfont icon-weibo" title=weibo></a><a href=https://www.zhihu.com/people/TaoBeier class="iconfont icon-zhihu" title=zhihu></a><a href=https://moelove.info/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动</span>
+<span class=division>|</span>
+<span class=theme-info>主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span>
+<span class=copyright-year>&copy;
+2013 -
+2020
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>TaoBeier</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src="/dist/even.min.js?v=3.2.0"></script></body></html>

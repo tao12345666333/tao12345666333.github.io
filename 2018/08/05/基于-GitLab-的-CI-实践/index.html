@@ -1,292 +1,15 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>基于 GitLab 的 CI 实践 - MoeLove</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-1876963677156202",
-    enable_page_level_ads: true
-  });
-</script>
-
-
-<meta name="author" content="TaoBeier" />
-  <meta name="description" content="上个月受 DockOne 社区邀请，做了一次 CI 实践方面的线上分享，在此记录下。 本文讲述 GitLab CI 的架构及其能力特性，分析它在 DevOps 实践中的作用。 通过分析 Docker In Docker 的技术细节，详细讲述 CI 实践以及在生产环境中的所做的优化，包括但不限于镜像仓库等，以达到数倍的性能提升。 本次分享内容以 GitLab Community Edition 11.0.4 edb037c 为例。
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>基于 GitLab 的 CI 实践 - MoeLove</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><script async src=//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script><script>(adsbygoogle=window.adsbygoogle||[]).push({google_ad_client:"ca-pub-1876963677156202",enable_page_level_ads:true});</script><meta name=author content="TaoBeier"><meta name=description content="上个月受 DockOne 社区邀请，做了一次 CI 实践方面的线上分享，在此记录下。 本文讲述 GitLab CI 的架构及其能力特性，分析它在 DevOps 实践中的作用。 通过分析 Docker In Docker 的技术细节，详细讲述 CI 实践以及在生产环境中的所做的优化，包括但不限于镜像仓库等，以达到数倍的性能提升。 本次分享内容以 GitLab Community Edition 11.0.4 edb037c 为例。
  为何选择 GitLab CI 认识 GitLab CI 什么是 GitLab CI GitLab CI 是 GitLab 为了提升其在软件开发工程中作用，完善 DevOPS 理念所加入的 CI/CD 基础功能。可以便捷的融入软件开发环节中。通过 GitLab CI 可以定义完善的 CI/CD Pipeline。
-优势  GitLab CI 是默认包含在 GitLab 中的，我们的代码使用 GitLab 进行托管，这样可以很容易的进行集成 GitLab CI 的前端界面比较美观，容易被人接受 包含实时构建日志，容易追踪 采用 C/S 的架构，可方面的进行横向扩展，性能上不会有影响 使用 YAML 进行配置，任何人都可以很方便的使用。  重点概念 Pipeline Pipeline 相当于一个构建任务，里面可以包含多个流程，如依赖安装、编译、测试、部署等。 任何提交或者 Merge Request 的合并都可以触发 Pipeline" />
-
-  <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes, Golang, Python, Container, Vim, 容器, k8s" />
-
-
-<meta name="baidu-site-verification" content="jO2rMlnjJi" />
-<meta name="google-site-verification" content="googlefe3fc086c62f7210.html" />
-
-
-<meta name="generator" content="Hugo 0.55.6" />
-
-
-<link rel="canonical" href="https://moelove.info/2018/08/05/%E5%9F%BA%E4%BA%8E-GitLab-%E7%9A%84-CI-%E5%AE%9E%E8%B7%B5/" />
-
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-
-
-
-
-<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
-
-
-<meta property="og:title" content="基于 GitLab 的 CI 实践" />
-<meta property="og:description" content="上个月受 DockOne 社区邀请，做了一次 CI 实践方面的线上分享，在此记录下。 本文讲述 GitLab CI 的架构及其能力特性，分析它在 DevOps 实践中的作用。 通过分析 Docker In Docker 的技术细节，详细讲述 CI 实践以及在生产环境中的所做的优化，包括但不限于镜像仓库等，以达到数倍的性能提升。 本次分享内容以 GitLab Community Edition 11.0.4 edb037c 为例。
+优势  GitLab CI 是默认包含在 GitLab 中的，我们的代码使用 GitLab 进行托管，这样可以很容易的进行集成 GitLab CI 的前端界面比较美观，容易被人接受 包含实时构建日志，容易追踪 采用 C/S 的架构，可方面的进行横向扩展，性能上不会有影响 使用 YAML 进行配置，任何人都可以很方便的使用。  重点概念 Pipeline Pipeline 相当于一个构建任务，里面可以包含多个流程，如依赖安装、编译、测试、部署等。 任何提交或者 Merge Request 的合并都可以触发 Pipeline"><meta name=keywords content="MoeLove,Linux,Docker,Kubernetes,Golang,Python,Container,Vim,容器,k8s"><meta name=baidu-site-verification content="jO2rMlnjJi"><meta name=google-site-verification content="googlefe3fc086c62f7210.html"><meta name=generator content="Hugo 0.55.6"><link rel=canonical href=https://moelove.info/2018/08/05/%E5%9F%BA%E4%BA%8E-GitLab-%E7%9A%84-CI-%E5%AE%9E%E8%B7%B5/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href="/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><meta property="og:title" content="基于 GitLab 的 CI 实践"><meta property="og:description" content="上个月受 DockOne 社区邀请，做了一次 CI 实践方面的线上分享，在此记录下。 本文讲述 GitLab CI 的架构及其能力特性，分析它在 DevOps 实践中的作用。 通过分析 Docker In Docker 的技术细节，详细讲述 CI 实践以及在生产环境中的所做的优化，包括但不限于镜像仓库等，以达到数倍的性能提升。 本次分享内容以 GitLab Community Edition 11.0.4 edb037c 为例。
  为何选择 GitLab CI 认识 GitLab CI 什么是 GitLab CI GitLab CI 是 GitLab 为了提升其在软件开发工程中作用，完善 DevOPS 理念所加入的 CI/CD 基础功能。可以便捷的融入软件开发环节中。通过 GitLab CI 可以定义完善的 CI/CD Pipeline。
-优势  GitLab CI 是默认包含在 GitLab 中的，我们的代码使用 GitLab 进行托管，这样可以很容易的进行集成 GitLab CI 的前端界面比较美观，容易被人接受 包含实时构建日志，容易追踪 采用 C/S 的架构，可方面的进行横向扩展，性能上不会有影响 使用 YAML 进行配置，任何人都可以很方便的使用。  重点概念 Pipeline Pipeline 相当于一个构建任务，里面可以包含多个流程，如依赖安装、编译、测试、部署等。 任何提交或者 Merge Request 的合并都可以触发 Pipeline" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://moelove.info/2018/08/05/%E5%9F%BA%E4%BA%8E-GitLab-%E7%9A%84-CI-%E5%AE%9E%E8%B7%B5/" />
-<meta property="article:published_time" content="2018-08-05T14:54:59&#43;08:00"/>
-<meta property="article:modified_time" content="2018-08-05T14:54:59&#43;08:00"/>
-
-<meta itemprop="name" content="基于 GitLab 的 CI 实践">
-<meta itemprop="description" content="上个月受 DockOne 社区邀请，做了一次 CI 实践方面的线上分享，在此记录下。 本文讲述 GitLab CI 的架构及其能力特性，分析它在 DevOps 实践中的作用。 通过分析 Docker In Docker 的技术细节，详细讲述 CI 实践以及在生产环境中的所做的优化，包括但不限于镜像仓库等，以达到数倍的性能提升。 本次分享内容以 GitLab Community Edition 11.0.4 edb037c 为例。
+优势  GitLab CI 是默认包含在 GitLab 中的，我们的代码使用 GitLab 进行托管，这样可以很容易的进行集成 GitLab CI 的前端界面比较美观，容易被人接受 包含实时构建日志，容易追踪 采用 C/S 的架构，可方面的进行横向扩展，性能上不会有影响 使用 YAML 进行配置，任何人都可以很方便的使用。  重点概念 Pipeline Pipeline 相当于一个构建任务，里面可以包含多个流程，如依赖安装、编译、测试、部署等。 任何提交或者 Merge Request 的合并都可以触发 Pipeline"><meta property="og:type" content="article"><meta property="og:url" content="https://moelove.info/2018/08/05/%E5%9F%BA%E4%BA%8E-GitLab-%E7%9A%84-CI-%E5%AE%9E%E8%B7%B5/"><meta property="article:published_time" content="2018-08-05T14:54:59&#43;08:00"><meta property="article:modified_time" content="2018-08-05T14:54:59&#43;08:00"><meta itemprop=name content="基于 GitLab 的 CI 实践"><meta itemprop=description content="上个月受 DockOne 社区邀请，做了一次 CI 实践方面的线上分享，在此记录下。 本文讲述 GitLab CI 的架构及其能力特性，分析它在 DevOps 实践中的作用。 通过分析 Docker In Docker 的技术细节，详细讲述 CI 实践以及在生产环境中的所做的优化，包括但不限于镜像仓库等，以达到数倍的性能提升。 本次分享内容以 GitLab Community Edition 11.0.4 edb037c 为例。
  为何选择 GitLab CI 认识 GitLab CI 什么是 GitLab CI GitLab CI 是 GitLab 为了提升其在软件开发工程中作用，完善 DevOPS 理念所加入的 CI/CD 基础功能。可以便捷的融入软件开发环节中。通过 GitLab CI 可以定义完善的 CI/CD Pipeline。
-优势  GitLab CI 是默认包含在 GitLab 中的，我们的代码使用 GitLab 进行托管，这样可以很容易的进行集成 GitLab CI 的前端界面比较美观，容易被人接受 包含实时构建日志，容易追踪 采用 C/S 的架构，可方面的进行横向扩展，性能上不会有影响 使用 YAML 进行配置，任何人都可以很方便的使用。  重点概念 Pipeline Pipeline 相当于一个构建任务，里面可以包含多个流程，如依赖安装、编译、测试、部署等。 任何提交或者 Merge Request 的合并都可以触发 Pipeline">
-
-
-<meta itemprop="datePublished" content="2018-08-05T14:54:59&#43;08:00" />
-<meta itemprop="dateModified" content="2018-08-05T14:54:59&#43;08:00" />
-<meta itemprop="wordCount" content="1182">
-
-
-
-<meta itemprop="keywords" content="DevOps,CI,GitLab," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="基于 GitLab 的 CI 实践"/>
-<meta name="twitter:description" content="上个月受 DockOne 社区邀请，做了一次 CI 实践方面的线上分享，在此记录下。 本文讲述 GitLab CI 的架构及其能力特性，分析它在 DevOps 实践中的作用。 通过分析 Docker In Docker 的技术细节，详细讲述 CI 实践以及在生产环境中的所做的优化，包括但不限于镜像仓库等，以达到数倍的性能提升。 本次分享内容以 GitLab Community Edition 11.0.4 edb037c 为例。
+优势  GitLab CI 是默认包含在 GitLab 中的，我们的代码使用 GitLab 进行托管，这样可以很容易的进行集成 GitLab CI 的前端界面比较美观，容易被人接受 包含实时构建日志，容易追踪 采用 C/S 的架构，可方面的进行横向扩展，性能上不会有影响 使用 YAML 进行配置，任何人都可以很方便的使用。  重点概念 Pipeline Pipeline 相当于一个构建任务，里面可以包含多个流程，如依赖安装、编译、测试、部署等。 任何提交或者 Merge Request 的合并都可以触发 Pipeline"><meta itemprop=datePublished content="2018-08-05T14:54:59&#43;08:00"><meta itemprop=dateModified content="2018-08-05T14:54:59&#43;08:00"><meta itemprop=wordCount content="1182"><meta itemprop=keywords content="DevOps,CI,GitLab,"><meta name=twitter:card content="summary"><meta name=twitter:title content="基于 GitLab 的 CI 实践"><meta name=twitter:description content="上个月受 DockOne 社区邀请，做了一次 CI 实践方面的线上分享，在此记录下。 本文讲述 GitLab CI 的架构及其能力特性，分析它在 DevOps 实践中的作用。 通过分析 Docker In Docker 的技术细节，详细讲述 CI 实践以及在生产环境中的所做的优化，包括但不限于镜像仓库等，以达到数倍的性能提升。 本次分享内容以 GitLab Community Edition 11.0.4 edb037c 为例。
  为何选择 GitLab CI 认识 GitLab CI 什么是 GitLab CI GitLab CI 是 GitLab 为了提升其在软件开发工程中作用，完善 DevOPS 理念所加入的 CI/CD 基础功能。可以便捷的融入软件开发环节中。通过 GitLab CI 可以定义完善的 CI/CD Pipeline。
-优势  GitLab CI 是默认包含在 GitLab 中的，我们的代码使用 GitLab 进行托管，这样可以很容易的进行集成 GitLab CI 的前端界面比较美观，容易被人接受 包含实时构建日志，容易追踪 采用 C/S 的架构，可方面的进行横向扩展，性能上不会有影响 使用 YAML 进行配置，任何人都可以很方便的使用。  重点概念 Pipeline Pipeline 相当于一个构建任务，里面可以包含多个流程，如依赖安装、编译、测试、部署等。 任何提交或者 Merge Request 的合并都可以触发 Pipeline"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-</head>
-<body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">MoeLove</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/about/">
-        <li class="mobile-menu-item">About</li>
-      </a><a href="/friends/">
-        <li class="mobile-menu-item">Friends</li>
-      </a><a href="/projects/">
-        <li class="mobile-menu-item">Projects</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">MoeLove</a>
-</div>
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/about/">About</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/friends/">Friends</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/projects/">Projects</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li>
-  </ul>
-</nav>
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">基于 GitLab 的 CI 实践</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2018-08-05 </span>
-        <div class="post-category">
-            
-              <a href="/categories/linux/"> Linux </a>
-            
-          </div>
-        
-        
-      </div>
-    </header>
-
-    
-    
-<div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
-  
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#为何选择-gitlab-ci">为何选择 GitLab CI</a>
-<ul>
-<li><a href="#认识-gitlab-ci">认识 GitLab CI</a>
-<ul>
-<li><a href="#什么是-gitlab-ci">什么是 GitLab CI</a></li>
-<li><a href="#优势">优势</a></li>
-</ul></li>
-<li><a href="#重点概念">重点概念</a>
-<ul>
-<li><a href="#pipeline">Pipeline</a></li>
-<li><a href="#stages">Stages</a></li>
-<li><a href="#jobs">Jobs</a></li>
-</ul></li>
-<li><a href="#gitlab-runner">GitLab runner</a>
-<ul>
-<li><a href="#注册">注册</a></li>
-<li><a href="#类型">类型</a></li>
-<li><a href="#配置">配置</a>
-<ul>
-<li><a href="#全局配置">全局配置</a></li>
-</ul></li>
-<li><a href="#executor">Executor</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#详解-docker-in-docker">详解 Docker In Docker</a>
-<ul>
-<li><a href="#概述">概述</a></li>
-<li><a href="#如何实现">如何实现</a></li>
-<li><a href="#简单做法">简单做法</a></li>
-</ul></li>
-<li><a href="#ci-实践">CI 实践</a>
-<ul>
-<li><a href="#runner-实践">runner 实践</a></li>
-<li><a href="#docker-executor-如何工作">Docker Executor 如何工作</a></li>
-<li><a href="#私有镜像源">私有镜像源</a></li>
-</ul></li>
-<li><a href="#生产环境中的-ci-性能优化">生产环境中的 CI 性能优化</a></li>
-<li><a href="#q-a">Q&amp;A</a></li>
-</ul></li>
-</ul>
-</nav>
-  </div>
-</div>
-
-    
-    
-
-    
-    <div class="post-content">
-      
-
-<blockquote>
-<p>上个月受 DockOne 社区邀请，做了一次 CI 实践方面的线上分享，在此记录下。
+优势  GitLab CI 是默认包含在 GitLab 中的，我们的代码使用 GitLab 进行托管，这样可以很容易的进行集成 GitLab CI 的前端界面比较美观，容易被人接受 包含实时构建日志，容易追踪 采用 C/S 的架构，可方面的进行横向扩展，性能上不会有影响 使用 YAML 进行配置，任何人都可以很方便的使用。  重点概念 Pipeline Pipeline 相当于一个构建任务，里面可以包含多个流程，如依赖安装、编译、测试、部署等。 任何提交或者 Merge Request 的合并都可以触发 Pipeline"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>MoeLove</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/about/><li class=mobile-menu-item>About</li></a><a href=/friends/><li class=mobile-menu-item>Friends</li></a><a href=/projects/><li class=mobile-menu-item>Projects</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>MoeLove</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/about/>About</a></li><li class=menu-item><a class=menu-item-link href=/friends/>Friends</a></li><li class=menu-item><a class=menu-item-link href=/projects/>Projects</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>基于 GitLab 的 CI 实践</h1><div class=post-meta><span class=post-time>2018-08-05</span><div class=post-category><a href=/categories/linux/>Linux</a></div></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#为何选择-gitlab-ci>为何选择 GitLab CI</a><ul><li><a href=#认识-gitlab-ci>认识 GitLab CI</a><ul><li><a href=#什么是-gitlab-ci>什么是 GitLab CI</a></li><li><a href=#优势>优势</a></li></ul></li><li><a href=#重点概念>重点概念</a><ul><li><a href=#pipeline>Pipeline</a></li><li><a href=#stages>Stages</a></li><li><a href=#jobs>Jobs</a></li></ul></li><li><a href=#gitlab-runner>GitLab runner</a><ul><li><a href=#注册>注册</a></li><li><a href=#类型>类型</a></li><li><a href=#配置>配置</a><ul><li><a href=#全局配置>全局配置</a></li></ul></li><li><a href=#executor>Executor</a></li></ul></li></ul></li><li><a href=#详解-docker-in-docker>详解 Docker In Docker</a><ul><li><a href=#概述>概述</a></li><li><a href=#如何实现>如何实现</a></li><li><a href=#简单做法>简单做法</a></li></ul></li><li><a href=#ci-实践>CI 实践</a><ul><li><a href=#runner-实践>runner 实践</a></li><li><a href=#docker-executor-如何工作>Docker Executor 如何工作</a></li><li><a href=#私有镜像源>私有镜像源</a></li></ul></li><li><a href=#生产环境中的-ci-性能优化>生产环境中的 CI 性能优化</a></li><li><a href=#q-a>Q&amp;A</a></li></ul></li></ul></nav></div></div><div class=post-content><blockquote><p>上个月受 DockOne 社区邀请，做了一次 CI 实践方面的线上分享，在此记录下。
 本文讲述 GitLab CI 的架构及其能力特性，分析它在 DevOps 实践中的作用。 通过分析 Docker In Docker 的技术细节，详细讲述 CI 实践以及在生产环境中的所做的优化，包括但不限于镜像仓库等，以达到数倍的性能提升。
-本次分享内容以 GitLab Community Edition 11.0.4 edb037c 为例。</p>
-</blockquote>
-
-<h2 id="为何选择-gitlab-ci">为何选择 GitLab CI</h2>
-
-<h3 id="认识-gitlab-ci">认识 GitLab CI</h3>
-
-<h4 id="什么是-gitlab-ci">什么是 GitLab CI</h4>
-
-<p>GitLab CI 是 GitLab 为了提升其在软件开发工程中作用，完善 DevOPS 理念所加入的 CI/CD 基础功能。可以便捷的融入软件开发环节中。通过 GitLab CI 可以定义完善的 CI/CD Pipeline。</p>
-
-<h4 id="优势">优势</h4>
-
-<ul>
-<li>GitLab CI 是默认包含在 GitLab 中的，我们的代码使用 GitLab 进行托管，这样可以很容易的进行集成</li>
-<li>GitLab CI 的前端界面比较美观，容易被人接受</li>
-<li>包含实时构建日志，容易追踪</li>
-<li>采用 C/S 的架构，可方面的进行横向扩展，性能上不会有影响</li>
-<li>使用 YAML 进行配置，任何人都可以很方便的使用。</li>
-</ul>
-
-<h3 id="重点概念">重点概念</h3>
-
-<h4 id="pipeline">Pipeline</h4>
-
-<p>Pipeline 相当于一个构建任务，里面可以包含多个流程，如依赖安装、编译、测试、部署等。
-任何提交或者 Merge Request 的合并都可以触发 Pipeline</p>
-
-<h4 id="stages">Stages</h4>
-
-<p>Stage 表示构建的阶段，即上面提到的流程.</p>
-
-<ul>
-<li>所有 Stages 按顺序执行，即当一个 Stage 完成后，下一个 Stage 才会开始</li>
-<li>任一 Stage 失败，后面的 Stages 将永不会执行，Pipeline 失败</li>
-<li>只有当所有 Stages 完成后，Pipeline 才会成功</li>
-</ul>
-
-<h4 id="jobs">Jobs</h4>
-
-<p>Job 是 Stage 中的任务.</p>
-
-<ul>
-<li>相同 Stage 中的 Jobs 会并行执行</li>
-<li>任一 Job 失败，那么 Stage 失败，Pipeline 失败</li>
-<li>相同 Stage 中的 Jobs 都执行成功时，该 Stage 成功</li>
-</ul>
-
-<p>好的，基本的概念已经和大家介绍了， 大家可以发现，上面说的概念，没有提到任务的实际执行者. 那任务在哪里执行呢？</p>
-
-<h3 id="gitlab-runner">GitLab runner</h3>
-
-<p>Runner 是任务的实际执行者， 可以在 MacOS/Linux/Windows 等系统上运行。使用 golang 进行开发。 同时也可部署在 k8s 上</p>
-
-<h4 id="注册">注册</h4>
-
-<pre><code>docker run --rm -t -i -v /path/to/config:/etc/gitlab-runner --name gitlab-runner gitlab/gitlab-runner register \
+本次分享内容以 GitLab Community Edition 11.0.4 edb037c 为例。</p></blockquote><h2 id=为何选择-gitlab-ci>为何选择 GitLab CI</h2><h3 id=认识-gitlab-ci>认识 GitLab CI</h3><h4 id=什么是-gitlab-ci>什么是 GitLab CI</h4><p>GitLab CI 是 GitLab 为了提升其在软件开发工程中作用，完善 DevOPS 理念所加入的 CI/CD 基础功能。可以便捷的融入软件开发环节中。通过 GitLab CI 可以定义完善的 CI/CD Pipeline。</p><h4 id=优势>优势</h4><ul><li>GitLab CI 是默认包含在 GitLab 中的，我们的代码使用 GitLab 进行托管，这样可以很容易的进行集成</li><li>GitLab CI 的前端界面比较美观，容易被人接受</li><li>包含实时构建日志，容易追踪</li><li>采用 C/S 的架构，可方面的进行横向扩展，性能上不会有影响</li><li>使用 YAML 进行配置，任何人都可以很方便的使用。</li></ul><h3 id=重点概念>重点概念</h3><h4 id=pipeline>Pipeline</h4><p>Pipeline 相当于一个构建任务，里面可以包含多个流程，如依赖安装、编译、测试、部署等。
+任何提交或者 Merge Request 的合并都可以触发 Pipeline</p><h4 id=stages>Stages</h4><p>Stage 表示构建的阶段，即上面提到的流程.</p><ul><li>所有 Stages 按顺序执行，即当一个 Stage 完成后，下一个 Stage 才会开始</li><li>任一 Stage 失败，后面的 Stages 将永不会执行，Pipeline 失败</li><li>只有当所有 Stages 完成后，Pipeline 才会成功</li></ul><h4 id=jobs>Jobs</h4><p>Job 是 Stage 中的任务.</p><ul><li>相同 Stage 中的 Jobs 会并行执行</li><li>任一 Job 失败，那么 Stage 失败，Pipeline 失败</li><li>相同 Stage 中的 Jobs 都执行成功时，该 Stage 成功</li></ul><p>好的，基本的概念已经和大家介绍了， 大家可以发现，上面说的概念，没有提到任务的实际执行者. 那任务在哪里执行呢？</p><h3 id=gitlab-runner>GitLab runner</h3><p>Runner 是任务的实际执行者， 可以在 MacOS/Linux/Windows 等系统上运行。使用 golang 进行开发。 同时也可部署在 k8s 上</p><h4 id=注册>注册</h4><pre><code>docker run --rm -t -i -v /path/to/config:/etc/gitlab-runner --name gitlab-runner gitlab/gitlab-runner register \
   --executor &quot;docker&quot; \
   --docker-image alpine:3 \
   --url &quot;https://gitlab.com/&quot; \
@@ -295,11 +18,7 @@
   --tag-list &quot;dev&quot; \
   --run-untagged \
   --locked=&quot;true&quot;
-</code></pre>
-
-<p>上面的示例为将 runner 注册为一个容器， 当然 大家也可以直接在物理机上执行。 在物理机上的注册方式与注册为容器大致相同</p>
-
-<pre><code>sudo gitlab-runner register \
+</code></pre><p>上面的示例为将 runner 注册为一个容器， 当然 大家也可以直接在物理机上执行。 在物理机上的注册方式与注册为容器大致相同</p><pre><code>sudo gitlab-runner register \
   --non-interactive \
   --url &quot;https://gitlab.com/&quot; \
   --registration-token &quot;PROJECT_REGISTRATION_TOKEN&quot; \
@@ -311,88 +30,9 @@
   --locked=&quot;false&quot; \
 
 # （这段代码来自官方文档）
-</code></pre>
-
-<p>接下来，我们来看下 runner 的类型， 以便在使用时进行区分。</p>
-
-<h4 id="类型">类型</h4>
-
-<ul>
-<li>Shared - Runner runs jobs from all unassigned projects</li>
-<li>Group - Runner runs jobs from all unassigned projects in its group</li>
-<li>Specific - Runner runs jobs from assigned projects</li>
-<li>Locked - Runner cannot be assigned to other projects</li>
-<li>Paused - Runner will not receive any new jobs</li>
-</ul>
-
-<h4 id="配置">配置</h4>
-
-<p>首先最外层的是全局配置， 默认会有</p>
-
-<pre><code>concurrent = 1
+</code></pre><p>接下来，我们来看下 runner 的类型， 以便在使用时进行区分。</p><h4 id=类型>类型</h4><ul><li>Shared - Runner runs jobs from all unassigned projects</li><li>Group - Runner runs jobs from all unassigned projects in its group</li><li>Specific - Runner runs jobs from assigned projects</li><li>Locked - Runner cannot be assigned to other projects</li><li>Paused - Runner will not receive any new jobs</li></ul><h4 id=配置>配置</h4><p>首先最外层的是全局配置， 默认会有</p><pre><code>concurrent = 1
 check_interval = 0
-</code></pre>
-
-<p>这两个。 比较需要关注的是下面几个</p>
-
-<h5 id="全局配置">全局配置</h5>
-
-<ul>
-<li>concurrent: 并发数, 0 为无限制</li>
-<li>sentry_dsn：与 Sentry 联动，可以将异常等收集至 Sentry 中。</li>
-<li>listen_address: 暴露出 metrics 供 Prometheus 监控</li>
-</ul>
-
-<h4 id="executor">Executor</h4>
-
-<ul>
-<li>Shell</li>
-<li>Docker (本次的分享内容)</li>
-<li>Docker Machine and Docker Machine SSH (autoscaling)</li>
-<li>Parallels</li>
-<li>VirtualBox</li>
-<li>SSH</li>
-<li>Kubernetes (推荐)</li>
-</ul>
-
-<h2 id="详解-docker-in-docker">详解 Docker In Docker</h2>
-
-<h3 id="概述">概述</h3>
-
-<p>Docker In Docker 简称 dind，在 GitLab CI 的使用中，可能会常被用于 service 的部分。 dind 表示在 Docker 中实际运行了一个 Docker 容器, 或 Docker daemon。</p>
-
-<p>其实如果只是在 Docker 中执行 docker 命令， 那装个二进制文件即可。 但是如果想要运行 Docker daemon (比如需要执行 docker info)或者访问任意的设备都是不允许的。</p>
-
-<p>Docker 在 run 命令中提供了两个很重要的选项 <code>--privileged</code> 和 <code>--device</code> ， 另外的选项比如 <code>--cap-add</code> 和 <code>--cap-drop</code> 跟权限也很相关，不过不是今天的重点，按下不表。</p>
-
-<p><code>--device</code> 选项可以供我们在不使用 <code>--privileged</code> 选项时，访问到指定设备, 比如 <code>docker run --device=/dev/sda:/dev/xvdc --rm -it ubuntu fdisk  /dev/xvdc</code> 但是这也只是有限的权限， 我们知道 docker 的技术实现其实是基于 cgroup 的资源隔离，而 <code>--device</code> 却不足于让我们在容器内有足够的权限来完成 docker daemon 的启动。</p>
-
-<p>在 2013年 左右， &ndash;privileged 选项被加入 docker， 这让我们在容器内启动容器变成了可能。 虽然 &ndash;privileged 的初始想法是为了能让容器开发更加便利，不过有些人在使用的时候，其实可能有些误解。</p>
-
-<p>有时候，我们可能只是想要能够在容器内正常的build 镜像，或者是与 Docker daemon 进行交互，例如 docker images 等命令。 那么，我们其实不需要 dind， 我们需要的是 Docker Out Of Docker，即 dood，在使用的时候，其实是将 docker.sock 挂载入容器内</p>
-
-<p>例如， 使用如下命令： <code>sudo docker run --rm -ti -v /var/run/docker.sock:/var/run/docker.sock taobeier/docker /bin/sh</code> 在容器内可进行正常的docker images 等操作， 同时需要注意，在容器内的动作，将影响到宿主机上的 docker daemon。</p>
-
-<h3 id="如何实现">如何实现</h3>
-
-<ul>
-<li>创建组和用户，并将用户加入该组。 使用 groupadd 和 useradd 命令</li>
-<li>更新 subuid 和 subgid 文件， 将新用户和组配置到 /etc/subgid 和 /etc/subuid 文件中。 subuid 和 subgid 规定了允许用户使用的从属id</li>
-<li>接下来需要挂载 /sys/kernel/security 为 securityfs 类型可以使用 mountpoint 命令进行测试 <code>mountpoint /sys/kernel/security</code> 如果不是一个挂载点， 那么使用 <code>mount -t securityfs none /sys/kernel/security</code> 进行挂载。如果没有挂载成功的话， 可以检查是否是 SELinux 或者 AppArmor 阻止了这个行为。这里详细的安全问题，可以参考 Linux Security Modules (LSM)</li>
-<li>接下来允许 dockerd 命令启动 daemon 即可， <code>dockerd --host=unix:///var/run/docker.sock --host=tcp://0.0.0.0:2375</code> 即可将docker daemon 监听至 2375 端口</li>
-</ul>
-
-<h3 id="简单做法">简单做法</h3>
-
-<p>可以直接使用 Docker 官方镜像仓库中的 docker:dind 镜像, 但是在运行时， 需要指定 <code>--privileged</code> 选项</p>
-
-<h2 id="ci-实践">CI 实践</h2>
-
-<h3 id="runner-实践">runner 实践</h3>
-
-<p>看 runner 部分的配置</p>
-
-<pre><code>[[runners]]
+</code></pre><p>这两个。 比较需要关注的是下面几个</p><h5 id=全局配置>全局配置</h5><ul><li>concurrent: 并发数, 0 为无限制</li><li>sentry_dsn：与 Sentry 联动，可以将异常等收集至 Sentry 中。</li><li>listen_address: 暴露出 metrics 供 Prometheus 监控</li></ul><h4 id=executor>Executor</h4><ul><li>Shell</li><li>Docker (本次的分享内容)</li><li>Docker Machine and Docker Machine SSH (autoscaling)</li><li>Parallels</li><li>VirtualBox</li><li>SSH</li><li>Kubernetes (推荐)</li></ul><h2 id=详解-docker-in-docker>详解 Docker In Docker</h2><h3 id=概述>概述</h3><p>Docker In Docker 简称 dind，在 GitLab CI 的使用中，可能会常被用于 service 的部分。 dind 表示在 Docker 中实际运行了一个 Docker 容器, 或 Docker daemon。</p><p>其实如果只是在 Docker 中执行 docker 命令， 那装个二进制文件即可。 但是如果想要运行 Docker daemon (比如需要执行 docker info)或者访问任意的设备都是不允许的。</p><p>Docker 在 run 命令中提供了两个很重要的选项 <code>--privileged</code> 和 <code>--device</code> ， 另外的选项比如 <code>--cap-add</code> 和 <code>--cap-drop</code> 跟权限也很相关，不过不是今天的重点，按下不表。</p><p><code>--device</code> 选项可以供我们在不使用 <code>--privileged</code> 选项时，访问到指定设备, 比如 <code>docker run --device=/dev/sda:/dev/xvdc --rm -it ubuntu fdisk /dev/xvdc</code> 但是这也只是有限的权限， 我们知道 docker 的技术实现其实是基于 cgroup 的资源隔离，而 <code>--device</code> 却不足于让我们在容器内有足够的权限来完成 docker daemon 的启动。</p><p>在 2013年 左右， &ndash;privileged 选项被加入 docker， 这让我们在容器内启动容器变成了可能。 虽然 &ndash;privileged 的初始想法是为了能让容器开发更加便利，不过有些人在使用的时候，其实可能有些误解。</p><p>有时候，我们可能只是想要能够在容器内正常的build 镜像，或者是与 Docker daemon 进行交互，例如 docker images 等命令。 那么，我们其实不需要 dind， 我们需要的是 Docker Out Of Docker，即 dood，在使用的时候，其实是将 docker.sock 挂载入容器内</p><p>例如， 使用如下命令： <code>sudo docker run --rm -ti -v /var/run/docker.sock:/var/run/docker.sock taobeier/docker /bin/sh</code> 在容器内可进行正常的docker images 等操作， 同时需要注意，在容器内的动作，将影响到宿主机上的 docker daemon。</p><h3 id=如何实现>如何实现</h3><ul><li>创建组和用户，并将用户加入该组。 使用 groupadd 和 useradd 命令</li><li>更新 subuid 和 subgid 文件， 将新用户和组配置到 /etc/subgid 和 /etc/subuid 文件中。 subuid 和 subgid 规定了允许用户使用的从属id</li><li>接下来需要挂载 /sys/kernel/security 为 securityfs 类型可以使用 mountpoint 命令进行测试 <code>mountpoint /sys/kernel/security</code> 如果不是一个挂载点， 那么使用 <code>mount -t securityfs none /sys/kernel/security</code> 进行挂载。如果没有挂载成功的话， 可以检查是否是 SELinux 或者 AppArmor 阻止了这个行为。这里详细的安全问题，可以参考 Linux Security Modules (LSM)</li><li>接下来允许 dockerd 命令启动 daemon 即可， <code>dockerd --host=unix:///var/run/docker.sock --host=tcp://0.0.0.0:2375</code> 即可将docker daemon 监听至 2375 端口</li></ul><h3 id=简单做法>简单做法</h3><p>可以直接使用 Docker 官方镜像仓库中的 docker:dind 镜像, 但是在运行时， 需要指定 <code>--privileged</code> 选项</p><h2 id=ci-实践>CI 实践</h2><h3 id=runner-实践>runner 实践</h3><p>看 runner 部分的配置</p><pre><code>[[runners]]
   name = &quot;docker&quot;
   url = &quot;https://gitlab.example.com/&quot;
   token = &quot;TOKEN&quot;
@@ -402,14 +42,7 @@ check_interval = 0
   shell = &quot;&quot;
   environment = [&quot;ENV=value&quot;, &quot;LC_ALL=en_US.UTF-8&quot;]
   clone_url = &quot;http://172.17.0.4&quot;
-</code></pre>
-
-<p>由于网络原因， clone_url 可以配置为可访问的地址，这样代码 clone 的时候，将会使用配置的这个地址。实际请求为 <code>http://gitlab-ci-token:TOKEN@172.17.0.4/namespace/project.git</code></p>
-
-<ul>
-<li><p>再看一下 runners.docker 的配置，这部分将影响 docker 的实际运行</p>
-
-<pre><code>[runners.docker]
+</code></pre><p>由于网络原因， clone_url 可以配置为可访问的地址，这样代码 clone 的时候，将会使用配置的这个地址。实际请求为 <code>http://gitlab-ci-token:TOKEN@172.17.0.4/namespace/project.git</code></p><ul><li><p>再看一下 runners.docker 的配置，这部分将影响 docker 的实际运行</p><pre><code>[runners.docker]
 host = &quot;&quot;
 hostname = &quot;&quot;
 tls_cert_path = &quot;/home/tao/certs&quot;
@@ -425,14 +58,7 @@ volumes = [&quot;/data&quot;, &quot;/home/project/cache&quot;]
 extra_hosts = [&quot;other-host:127.0.0.1&quot;]
 services = [&quot;mongo&quot;, &quot;redis:3&quot;]
 allowed_images = [&quot;go:*&quot;, &quot;python:*&quot;, &quot;java:*&quot;]
-</code></pre></li>
-</ul>
-
-<p>dns, privileged, extra_hosts, services 比较关键， 尤其是在生产中网络情况多种多样， 需要格外关注。 至于 devices 配置 ，在今儿分享的一开始已经讲过了， allowed_images 的话， 是做了个限制。</p>
-
-<p>上面几个配置项， 用过 docker 的同学，应该很容易理解。 我们来看下 services 这个配置项</p>
-
-<pre><code>image: registry.docker-cn.com/taobeier/docker
+</code></pre></li></ul><p>dns, privileged, extra_hosts, services 比较关键， 尤其是在生产中网络情况多种多样， 需要格外关注。 至于 devices 配置 ，在今儿分享的一开始已经讲过了， allowed_images 的话， 是做了个限制。</p><p>上面几个配置项， 用过 docker 的同学，应该很容易理解。 我们来看下 services 这个配置项</p><pre><code>image: registry.docker-cn.com/taobeier/docker
 
 variables:
   DOCKER_DRIVER: overlay2    # overlay2 is best bug need kernel &gt;= 4.2
@@ -485,273 +111,38 @@ deploy:
     - rm -rf .git
     - scp -r -P $SSH_PORT . $DEPLOY_USER@$DEPLOY_HOST:~/we/
 
-</code></pre>
-
-<p>services 的本质其实是使用了 docker 的 &ndash;link ，我们来看下它如何工作</p>
-
-<h3 id="docker-executor-如何工作">Docker Executor 如何工作</h3>
-
-<ul>
-<li>创建 service 容器 (已经配置在 service 中的镜像)</li>
-<li>创建 cache 容器 (存储已经配置在 config.toml 的卷和构建镜像的 Dockerfile)</li>
-<li>创建 build 容器 并且 link 所有的 service 容器.</li>
-<li>启动 build 容器 并且发送 job 脚本到该容器中.</li>
-<li>执行 job 的脚本.</li>
-<li>检出代码: /builds/group-name/project-name/.</li>
-<li>执行 .gitlab-ci.yml 中定义的步骤.</li>
-<li>检查脚本执行后的状态码，如果非 0 则构建失败.</li>
-<li>移除 build 和 service 容器.</li>
-</ul>
-
-<h3 id="私有镜像源">私有镜像源</h3>
-
-<p>用户认证需要 GitLab Runner 1.8 或更高版本，在 0.6 ~ 1.8 版本之间的 Runner 需要自行去 Runner 的机器上手动执行。</p>
-
-<p>默认情况下，如果访问的镜像仓库需要认真的话， GitLab Runner 会使用 DOCKER_AUTH_CONFIG 变量的作为认证的凭证。</p>
-
-<p>注意：DOCKER_AUTH_CONFIG 是完成的 docker auth 凭证，也就是说，它应该和我们 ~/.docker/config.json 中的内容一致，例如：</p>
-
-<pre><code>{
+</code></pre><p>services 的本质其实是使用了 docker 的 &ndash;link ，我们来看下它如何工作</p><h3 id=docker-executor-如何工作>Docker Executor 如何工作</h3><ul><li>创建 service 容器 (已经配置在 service 中的镜像)</li><li>创建 cache 容器 (存储已经配置在 config.toml 的卷和构建镜像的 Dockerfile)</li><li>创建 build 容器 并且 link 所有的 service 容器.</li><li>启动 build 容器 并且发送 job 脚本到该容器中.</li><li>执行 job 的脚本.</li><li>检出代码: /builds/group-name/project-name/.</li><li>执行 .gitlab-ci.yml 中定义的步骤.</li><li>检查脚本执行后的状态码，如果非 0 则构建失败.</li><li>移除 build 和 service 容器.</li></ul><h3 id=私有镜像源>私有镜像源</h3><p>用户认证需要 GitLab Runner 1.8 或更高版本，在 0.6 ~ 1.8 版本之间的 Runner 需要自行去 Runner 的机器上手动执行。</p><p>默认情况下，如果访问的镜像仓库需要认真的话， GitLab Runner 会使用 DOCKER_AUTH_CONFIG 变量的作为认证的凭证。</p><p>注意：DOCKER_AUTH_CONFIG 是完成的 docker auth 凭证，也就是说，它应该和我们 ~/.docker/config.json 中的内容一致，例如：</p><pre><code>{
     &quot;auths&quot;: {
         &quot;registry.example.com&quot;: {
             &quot;auth&quot;: &quot;5oiR5piv5byg5pmL5rab&quot;
         }
     }
 }
-</code></pre>
-
-<p>简单的做法就是，我们在本地/服务器上执行 <code>docker login 私有镜像源</code> 登录成功后，将 ~/.docker/config.json 的文件内容直接复制，作为我们的变量的值, 或者是  <code>echo -n '用户名:密码' | base64</code> 以这样的方式来获得 auth 的内容，组装成对应的格式，写入 GitLab 的 value 配置中。</p>
-
-<h2 id="生产环境中的-ci-性能优化">生产环境中的 CI 性能优化</h2>
-
-<ol>
-<li><p>使用国内源对容器镜像进行加速 例如：使用 Docker 中国官方镜像加速服务 <a href="https://registry.docker-cn.com">https://registry.docker-cn.com</a> 当然各家公司其实也有提供镜像加速的服务。</p></li>
-
-<li><p>使用私有镜像仓库。例如 Docker Registry, 或者 Harbor, 我们是在使用 Harbor 作为私有镜像仓库的。</p></li>
-</ol>
-
-<p>因为网络的原因， 如果默认使用官方镜像， 1. 官方镜像拉不下来；2. 在官方镜像中安装包耗时长；3. 如果换源，需要每个 Dockerfile 都要做相同的事情。 这我们当然是不能同意的。 所以，我们构建了自己的私有镜像。 从 BusyBox 开始, 构建 Alpine Linux 使用私有源， 以此为基础 构建我们所需要的其他镜像。 用户不再需要自行换源。</p>
-
-<p>这个操作完成后， 原先我们需要在 CI 执行的过程中安装 py-pip（为了安装 docker-compose 和我们的服务依赖）耗时从 3min30s 减少到了 18s。</p>
-
-<p>这里，需要说下为何我们是从头开始构建镜像，而不是基于官方镜像。 主要是为了减少镜像体积 以及为了更快的适用于我们的需求。</p>
-
-<p>同样的，我们构建了基础的 Docker 镜像，Python/Maven 等镜像，都是默认使用了我们的私有源，并且，用户在使用时， 并不需要关注换源的事情， 减少用户的心智负担。</p>
-
-<ol>
-<li><p>规范 Dockerfile， 减少不必要的依赖安装, 减少镜像体积。其实结合上面的部分，我们做的事情是直接构建了我们的基础镜像 docker/alpine/maven之类的基础镜像，默认直接都换了源。这样既方便使用，还可以减少镜像层数。</p></li>
-
-<li><p>拆分 job， 通过 tag 的方式可指定runner， 由不同的 runner 来并行执行无强依赖的一些动作。 便于分摊压力。</p></li>
-
-<li><p>使用 Cache, CI 的构建中，大多数的镜像，其实变化不大，所以使用cache 可以成倍的提升 CI 的速度。</p></li>
-
-<li><p>可能遇到的坑</p></li>
-</ol>
-
-<p>前面提到了 service 中可以使用各种各样的服务， 无论是 dind 还是 mysql redis 等。 但是 如果我们全部做到了优化，都使用我们的私有源， 那便会发现问题。</p>
-
-<p>因为 gitlab ci 默认对于 <code>docker:dind</code> 的 service  其实会选择连名为 docker 的 host ，以及 2375 端口。 当使用私有镜像源的时候，  比如</p>
-
-<pre><code>services:
+</code></pre><p>简单的做法就是，我们在本地/服务器上执行 <code>docker login 私有镜像源</code> 登录成功后，将 ~/.docker/config.json 的文件内容直接复制，作为我们的变量的值, 或者是 <code>echo -n '用户名:密码' | base64</code> 以这样的方式来获得 auth 的内容，组装成对应的格式，写入 GitLab 的 value 配置中。</p><h2 id=生产环境中的-ci-性能优化>生产环境中的 CI 性能优化</h2><ol><li><p>使用国内源对容器镜像进行加速 例如：使用 Docker 中国官方镜像加速服务 <a href=https://registry.docker-cn.com>https://registry.docker-cn.com</a> 当然各家公司其实也有提供镜像加速的服务。</p></li><li><p>使用私有镜像仓库。例如 Docker Registry, 或者 Harbor, 我们是在使用 Harbor 作为私有镜像仓库的。</p></li></ol><p>因为网络的原因， 如果默认使用官方镜像， 1. 官方镜像拉不下来；2. 在官方镜像中安装包耗时长；3. 如果换源，需要每个 Dockerfile 都要做相同的事情。 这我们当然是不能同意的。 所以，我们构建了自己的私有镜像。 从 BusyBox 开始, 构建 Alpine Linux 使用私有源， 以此为基础 构建我们所需要的其他镜像。 用户不再需要自行换源。</p><p>这个操作完成后， 原先我们需要在 CI 执行的过程中安装 py-pip（为了安装 docker-compose 和我们的服务依赖）耗时从 3min30s 减少到了 18s。</p><p>这里，需要说下为何我们是从头开始构建镜像，而不是基于官方镜像。 主要是为了减少镜像体积 以及为了更快的适用于我们的需求。</p><p>同样的，我们构建了基础的 Docker 镜像，Python/Maven 等镜像，都是默认使用了我们的私有源，并且，用户在使用时， 并不需要关注换源的事情， 减少用户的心智负担。</p><ol><li><p>规范 Dockerfile， 减少不必要的依赖安装, 减少镜像体积。其实结合上面的部分，我们做的事情是直接构建了我们的基础镜像 docker/alpine/maven之类的基础镜像，默认直接都换了源。这样既方便使用，还可以减少镜像层数。</p></li><li><p>拆分 job， 通过 tag 的方式可指定runner， 由不同的 runner 来并行执行无强依赖的一些动作。 便于分摊压力。</p></li><li><p>使用 Cache, CI 的构建中，大多数的镜像，其实变化不大，所以使用cache 可以成倍的提升 CI 的速度。</p></li><li><p>可能遇到的坑</p></li></ol><p>前面提到了 service 中可以使用各种各样的服务， 无论是 dind 还是 mysql redis 等。 但是 如果我们全部做到了优化，都使用我们的私有源， 那便会发现问题。</p><p>因为 gitlab ci 默认对于 <code>docker:dind</code> 的 service 其实会选择连名为 docker 的 host ，以及 2375 端口。 当使用私有镜像源的时候， 比如</p><pre><code>services:
     - name: registry.docker-cn.com/taobeier/docker:stable-dind
-</code></pre>
-
-<p>那这个 service 的 host 是什么呢？</p>
-
-<p>这个 service 的 host 其实是会变成 <code>registry.docker-cn.com__taobeier__docker</code> ，然后 gitlab runner 便会找不到， job 就会执行失败</p>
-
-<p>有两种解决办法。 一种是加一个变量</p>
-
-<pre><code>variables:
+</code></pre><p>那这个 service 的 host 是什么呢？</p><p>这个 service 的 host 其实是会变成 <code>registry.docker-cn.com__taobeier__docker</code> ，然后 gitlab runner 便会找不到， job 就会执行失败</p><p>有两种解决办法。 一种是加一个变量</p><pre><code>variables:
     DOCKER_HOST: &quot;tcp://registry.docker-cn.com__taobeier__docker:2375&quot;
-</code></pre>
-
-<p>但是 这种方式 很麻烦， 没有人能完全记住 遇到 / 会转换为 _  难免会有问题。 那么就有了第二种办法：</p>
-
-<pre><code>services:
+</code></pre><p>但是 这种方式 很麻烦， 没有人能完全记住 遇到 / 会转换为 _ 难免会有问题。 那么就有了第二种办法：</p><pre><code>services:
     - name: registry.docker-cn.com/taobeier/docker:stable-dind
     -       alias: docker
-</code></pre>
-
-<p>加一个 alias 。 这个方法目前很少人在用， 毕竟网络上查到的都是第一种 ，但是这个方式却是最简单的。</p>
-
-<h2 id="q-a">Q&amp;A</h2>
-
-<p>Q：您提到把各种依赖都以 Service 的提供，请问是以哪种方式呢？ 比如Python的依赖，怎么做成Service呢？</p>
-
-<p>A：Service 化的依赖，主要是指类似 DB / MySQL/ Reids 之类的。 或者是 dind 其实它提供的是 2375 端口的TCP服务。 Python 的依赖，我推荐的做法是， 构建一个换了源的 Python 镜像。 安装依赖的时候，耗时会少很多。 或者说， 可以在定义 Pipeline 的时候， 将虚拟环境的 venv 文件夹作为 cache ，之后的安装也会检查这个，避免不必要的安装。</p>
-
-<p>Q：请问，你们为什么不用Jenkins Pipeline，而使用GitLab CI？</p>
-
-<p>A：主要原因是我提到的那几个方面。 集成较好， 界面美观优雅， 使用简单（所有有仓库写权限的人 都可以使用， 只要创建 .gitlab-ci.yml 并且配置了 Runner 即可使用） 。换个角度，我们来看下使用Jenkins 的问题， Jenkins 对于项目的配置其实和 GitLab 的代码是分离的， 两部分的， 用户（或者说我们的开发者）在使用的时候， 需要有两个平台， 并且，大多数时候， Jenkins 的权限是不放开的。 对用户来讲， 那相当于是个黑盒。 那可能的问题是什么呢？ 遇到构建失败了， 但是只有运维知道发生了什么，但是研发无能为力，因为没有权限。 使用GItLab的好处，这个时候就更加突出了， 配置就在代码仓库里面，并且使用 YAML 的配置，很简单。 有啥问题，直接查，直接改。</p>
-
-<p>Q：关于 Runner 的清理的问题，在长时间使用后，Runner 机器上回产生很多的 Cache 容器，如何清理呢。能够在任务中自动清除吗？</p>
-
-<p>A：这个就相对简单了，首先， 如果你的 Cache 容器确认没用了， 每个 Cache 容器其实都有名字的， 直接按 Cache 的名字过略， 批量删掉。 如果你不确定它是否有用，那你直接删掉也是不影响的， 因为 Docker Excutor 的执行机制是创建完 Service 容器后， 创建 Cache 容器。 要是删掉了，它只是会再创建一次。 如果你想在任务中清除， 目前还没做相关的实践，待我实践后，看看有没有很优雅的方式。</p>
-
-<p>Q：请问下Maven的settings.xml怎么处理？本地Maven仓库呢？</p>
-
-<p>A：我们构建了私有的 Maven 镜像， 私有镜像中是默认使用了我们的私有源。 对于项目中用户无需关注 settings.xml 中是否配置repo。</p>
-
-<p>Q：在GitLab的CD方案中，在部署的时候，需要在变量中配置跳板机的私钥，如果这个项目是对公司整部门开发，那么如何保护这个私钥呢？</p>
-
-<p>A：可以使用 secret variable 将私钥写入其中， （但是项目的管理员，具备查看该 variable 的权限）开发一个 web server （其实只要暴露 IP 端口之类的就可以） 在 CI 执行的过程中去请求， server 对来源做判断 （比如 执行CI 的时候，会有一些特定的变量，以此来判断，是否真的是 CI 在请求）然后返回私钥。</p>
-
-<p>Q：GitLab CI适合什么类型的项目呢？国内目前还比较小众吧？</p>
-
-<p>A：国内目前还较为小众（相比 Jenkins 来说）其实只要需要 CI 的项目，它都适合。</p>
-
-<hr />
-
-<p>可以通过下面二维码订阅我的文章公众号【MoeLove】</p>
-
-<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/my_qrcode.jpg" alt="TheMoeLove" /></p>
-
-    </div>
-
-    
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">TaoBeier</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">2018-08-05</span>
-  </p>
-  
-  <p class="copyright-item">
-    <span class="item-title">许可协议</span>
-    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a></span>
-  </p>
-</div>
-
-    
-    
-<div class="post-reward">
-  <input type="checkbox" name="reward" id="reward" hidden />
-  <label class="reward-button" for="reward">赞赏支持</label>
-  <div class="qr-code">
-    
-    
-      <label class="qr-code-image" for="reward">
-        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/wx_pay.jpg">
-        <span>微信打赏</span>
-      </label>
-    
-      <label class="qr-code-image" for="reward">
-        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/alipay.jpg">
-        <span>支付宝打赏</span>
-      </label>
-  </div>
-</div>
-
-    <footer class="post-footer">
-      <div class="post-tags">
-          
-          <a href="/tags/devops/">DevOps</a>
-          
-          <a href="/tags/ci/">CI</a>
-          
-          <a href="/tags/gitlab/">GitLab</a>
-          
-        </div>
-
-      
-      <nav class="post-nav">
-        
-          <a class="prev" href="/2018/08/06/GitLab-CI-%E4%BD%BF%E7%94%A8-InsecureRegistry/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">GitLab CI 使用 InsecureRegistry</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
-        
-          <a class="next" href="/2017/06/30/Install-Python3.6-on-CentOS7/">
-            <span class="next-text nav-default">Install-Python3.6-on-CentOS7</span>
-            <span class="next-text nav-mobile">下一篇</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-  
-
-  <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
-    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
-  <script type="text/javascript">
-  var gitalk = new Gitalk({
-    id: '2018-08-05 14:54:59 \x2b0800 CST',
-    title: '基于 GitLab 的 CI 实践',
-    clientID: '68312db64e870efbd0a0',
-    clientSecret: 'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',
-    repo: 'tao12345666333.github.io',
-    owner: 'tao12345666333',
-    admin: ['tao12345666333'],
-    body: decodeURI(location.href)
-  });
-  gitalk.render('gitalk-container');
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
-
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:zhangjintao9020@gmail.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://twitter.com/BeierTao" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="https://github.com/tao12345666333" class="iconfont icon-github" title="github"></a>
-      <a href="http://weibo.com/9020taobeier" class="iconfont icon-weibo" title="weibo"></a>
-      <a href="https://www.zhihu.com/people/TaoBeier" class="iconfont icon-zhihu" title="zhihu"></a>
-  <a href="https://moelove.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主题 - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    
-      2013 - 
-    2020
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">TaoBeier</span>
-  </span>
-</div>
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div>
-  
-<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
-
-
-<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
-
-
-
-
-
-
-
-
-</body>
-</html>
+</code></pre><p>加一个 alias 。 这个方法目前很少人在用， 毕竟网络上查到的都是第一种 ，但是这个方式却是最简单的。</p><h2 id=q-a>Q&amp;A</h2><p>Q：您提到把各种依赖都以 Service 的提供，请问是以哪种方式呢？ 比如Python的依赖，怎么做成Service呢？</p><p>A：Service 化的依赖，主要是指类似 DB / MySQL/ Reids 之类的。 或者是 dind 其实它提供的是 2375 端口的TCP服务。 Python 的依赖，我推荐的做法是， 构建一个换了源的 Python 镜像。 安装依赖的时候，耗时会少很多。 或者说， 可以在定义 Pipeline 的时候， 将虚拟环境的 venv 文件夹作为 cache ，之后的安装也会检查这个，避免不必要的安装。</p><p>Q：请问，你们为什么不用Jenkins Pipeline，而使用GitLab CI？</p><p>A：主要原因是我提到的那几个方面。 集成较好， 界面美观优雅， 使用简单（所有有仓库写权限的人 都可以使用， 只要创建 .gitlab-ci.yml 并且配置了 Runner 即可使用） 。换个角度，我们来看下使用Jenkins 的问题， Jenkins 对于项目的配置其实和 GitLab 的代码是分离的， 两部分的， 用户（或者说我们的开发者）在使用的时候， 需要有两个平台， 并且，大多数时候， Jenkins 的权限是不放开的。 对用户来讲， 那相当于是个黑盒。 那可能的问题是什么呢？ 遇到构建失败了， 但是只有运维知道发生了什么，但是研发无能为力，因为没有权限。 使用GItLab的好处，这个时候就更加突出了， 配置就在代码仓库里面，并且使用 YAML 的配置，很简单。 有啥问题，直接查，直接改。</p><p>Q：关于 Runner 的清理的问题，在长时间使用后，Runner 机器上回产生很多的 Cache 容器，如何清理呢。能够在任务中自动清除吗？</p><p>A：这个就相对简单了，首先， 如果你的 Cache 容器确认没用了， 每个 Cache 容器其实都有名字的， 直接按 Cache 的名字过略， 批量删掉。 如果你不确定它是否有用，那你直接删掉也是不影响的， 因为 Docker Excutor 的执行机制是创建完 Service 容器后， 创建 Cache 容器。 要是删掉了，它只是会再创建一次。 如果你想在任务中清除， 目前还没做相关的实践，待我实践后，看看有没有很优雅的方式。</p><p>Q：请问下Maven的settings.xml怎么处理？本地Maven仓库呢？</p><p>A：我们构建了私有的 Maven 镜像， 私有镜像中是默认使用了我们的私有源。 对于项目中用户无需关注 settings.xml 中是否配置repo。</p><p>Q：在GitLab的CD方案中，在部署的时候，需要在变量中配置跳板机的私钥，如果这个项目是对公司整部门开发，那么如何保护这个私钥呢？</p><p>A：可以使用 secret variable 将私钥写入其中， （但是项目的管理员，具备查看该 variable 的权限）开发一个 web server （其实只要暴露 IP 端口之类的就可以） 在 CI 执行的过程中去请求， server 对来源做判断 （比如 执行CI 的时候，会有一些特定的变量，以此来判断，是否真的是 CI 在请求）然后返回私钥。</p><p>Q：GitLab CI适合什么类型的项目呢？国内目前还比较小众吧？</p><p>A：国内目前还较为小众（相比 Jenkins 来说）其实只要需要 CI 的项目，它都适合。</p><hr><p>可以通过下面二维码订阅我的文章公众号【MoeLove】</p><p><img src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/my_qrcode.jpg alt=TheMoeLove></p></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>TaoBeier</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2018-08-05</span></p><p class=copyright-item><span class=item-title>许可协议</span>
+<span class=item-content><a rel="license noopener" href=https://creativecommons.org/licenses/by-sa/4.0/ target=_blank>CC BY-SA 4.0</a></span></p></div><div class=post-reward><input type=checkbox name=reward id=reward hidden>
+<label class=reward-button for=reward>赞赏支持</label><div class=qr-code><label class=qr-code-image for=reward><img class=image src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/wx_pay.jpg>
+<span>微信打赏</span></label>
+<label class=qr-code-image for=reward><img class=image src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/alipay.jpg>
+<span>支付宝打赏</span></label></div></div><footer class=post-footer><div class=post-tags><a href=/tags/devops/>DevOps</a>
+<a href=/tags/ci/>CI</a>
+<a href=/tags/gitlab/>GitLab</a></div><nav class=post-nav><a class=prev href=/2018/08/06/GitLab-CI-%E4%BD%BF%E7%94%A8-InsecureRegistry/><i class="iconfont icon-left"></i><span class="prev-text nav-default">GitLab CI 使用 InsecureRegistry</span>
+<span class="prev-text nav-mobile">上一篇</span></a>
+<a class=next href=/2017/06/30/Install-Python3.6-on-CentOS7/><span class="next-text nav-default">Install-Python3.6-on-CentOS7</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div><div id=gitalk-container></div><link rel=stylesheet href=/lib/gitalk/gitalk-1.2.2.min.css><script src=/lib/gitalk/gitalk-1.2.2.min.js></script><script type=text/javascript>var gitalk=new Gitalk({id:'2018-08-05 14:54:59 \x2b0800 CST',title:'基于 GitLab 的 CI 实践',clientID:'68312db64e870efbd0a0',clientSecret:'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',repo:'tao12345666333.github.io',owner:'tao12345666333',admin:['tao12345666333'],body:decodeURI(location.href)});gitalk.render('gitalk-container');</script><noscript>Please enable JavaScript to view the <a href=https://github.com/gitalk/gitalk>comments powered by gitalk.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:zhangjintao9020@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/BeierTao class="iconfont icon-twitter" title=twitter></a><a href=https://github.com/tao12345666333 class="iconfont icon-github" title=github></a><a href=http://weibo.com/9020taobeier class="iconfont icon-weibo" title=weibo></a><a href=https://www.zhihu.com/people/TaoBeier class="iconfont icon-zhihu" title=zhihu></a><a href=https://moelove.info/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动</span>
+<span class=division>|</span>
+<span class=theme-info>主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span>
+<span class=copyright-year>&copy;
+2013 -
+2020
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>TaoBeier</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src="/dist/even.min.js?v=3.2.0"></script></body></html>

@@ -1,275 +1,25 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>K8S 生态周报| 2019-07-15~2019-07-21 - MoeLove</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-1876963677156202",
-    enable_page_level_ads: true
-  });
-</script>
-
-
-<meta name="author" content="TaoBeier" />
-  <meta name="description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>K8S 生态周报| 2019-07-15~2019-07-21 - MoeLove</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><script async src=//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script><script>(adsbygoogle=window.adsbygoogle||[]).push({google_ad_client:"ca-pub-1876963677156202",enable_page_level_ads:true});</script><meta name=author content="TaoBeier"><meta name=description content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
  Kubernetes v1.16.0-alpha.1 发布 Kubernetes 于近日发布了 v1.16.0-alpha.1 版本，变化是比较大，但这里暂时先不细说了，等到 9 月份正式版本发布前后再慢慢说。当然也稍微聊一些 :) 比如：
 官方 etcd 镜像中不再提供 etcd 2 和 3 的兼容工具了，对 etcd 2 的兼容代码也都全部删掉了（对 etcd 2 的支持其实从 1.13 就已经停止了）#80037 ；
 1.16 中对以下四种类型资源的 API 有所调整：
  NetworkPolicy PodSecurityPolicy DaemonSet, Deployment, StatefulSet 和 ReplicaSet Ingress  具体调整细节如下：
- NetworkPolicy 将使用从 v1.8 版本开始提供的 networking.k8s.io/v1 API; PodSecurityPolicy 将使用从 v1.10 开始提供的 policy/v1beta1 API; DaemonSet, Deployment, StatefulSet 和 ReplicaSet 将使用从 v1.9 版本开始提供的 apps/v1 API; Ingress 迁移到 networking." />
-
-  <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes, Golang, Python, Container, Vim, 容器, k8s" />
-
-
-<meta name="baidu-site-verification" content="jO2rMlnjJi" />
-<meta name="google-site-verification" content="googlefe3fc086c62f7210.html" />
-
-
-<meta name="generator" content="Hugo 0.55.6" />
-
-
-<link rel="canonical" href="https://moelove.info/2019/07/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-15~2019-07-21/" />
-
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-
-
-
-
-<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
-
-
-<meta property="og:title" content="K8S 生态周报| 2019-07-15~2019-07-21" />
-<meta property="og:description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ NetworkPolicy 将使用从 v1.8 版本开始提供的 networking.k8s.io/v1 API; PodSecurityPolicy 将使用从 v1.10 开始提供的 policy/v1beta1 API; DaemonSet, Deployment, StatefulSet 和 ReplicaSet 将使用从 v1.9 版本开始提供的 apps/v1 API; Ingress 迁移到 networking."><meta name=keywords content="MoeLove,Linux,Docker,Kubernetes,Golang,Python,Container,Vim,容器,k8s"><meta name=baidu-site-verification content="jO2rMlnjJi"><meta name=google-site-verification content="googlefe3fc086c62f7210.html"><meta name=generator content="Hugo 0.55.6"><link rel=canonical href=https://moelove.info/2019/07/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-15~2019-07-21/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href="/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><meta property="og:title" content="K8S 生态周报| 2019-07-15~2019-07-21"><meta property="og:description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
  Kubernetes v1.16.0-alpha.1 发布 Kubernetes 于近日发布了 v1.16.0-alpha.1 版本，变化是比较大，但这里暂时先不细说了，等到 9 月份正式版本发布前后再慢慢说。当然也稍微聊一些 :) 比如：
 官方 etcd 镜像中不再提供 etcd 2 和 3 的兼容工具了，对 etcd 2 的兼容代码也都全部删掉了（对 etcd 2 的支持其实从 1.13 就已经停止了）#80037 ；
 1.16 中对以下四种类型资源的 API 有所调整：
  NetworkPolicy PodSecurityPolicy DaemonSet, Deployment, StatefulSet 和 ReplicaSet Ingress  具体调整细节如下：
- NetworkPolicy 将使用从 v1.8 版本开始提供的 networking.k8s.io/v1 API; PodSecurityPolicy 将使用从 v1.10 开始提供的 policy/v1beta1 API; DaemonSet, Deployment, StatefulSet 和 ReplicaSet 将使用从 v1.9 版本开始提供的 apps/v1 API; Ingress 迁移到 networking." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://moelove.info/2019/07/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-15~2019-07-21/" />
-<meta property="article:published_time" content="2019-07-22T00:07:54&#43;08:00"/>
-<meta property="article:modified_time" content="2019-07-22T00:07:54&#43;08:00"/>
-
-<meta itemprop="name" content="K8S 生态周报| 2019-07-15~2019-07-21">
-<meta itemprop="description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ NetworkPolicy 将使用从 v1.8 版本开始提供的 networking.k8s.io/v1 API; PodSecurityPolicy 将使用从 v1.10 开始提供的 policy/v1beta1 API; DaemonSet, Deployment, StatefulSet 和 ReplicaSet 将使用从 v1.9 版本开始提供的 apps/v1 API; Ingress 迁移到 networking."><meta property="og:type" content="article"><meta property="og:url" content="https://moelove.info/2019/07/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-15~2019-07-21/"><meta property="article:published_time" content="2019-07-22T00:07:54&#43;08:00"><meta property="article:modified_time" content="2019-07-22T00:07:54&#43;08:00"><meta itemprop=name content="K8S 生态周报| 2019-07-15~2019-07-21"><meta itemprop=description content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
  Kubernetes v1.16.0-alpha.1 发布 Kubernetes 于近日发布了 v1.16.0-alpha.1 版本，变化是比较大，但这里暂时先不细说了，等到 9 月份正式版本发布前后再慢慢说。当然也稍微聊一些 :) 比如：
 官方 etcd 镜像中不再提供 etcd 2 和 3 的兼容工具了，对 etcd 2 的兼容代码也都全部删掉了（对 etcd 2 的支持其实从 1.13 就已经停止了）#80037 ；
 1.16 中对以下四种类型资源的 API 有所调整：
  NetworkPolicy PodSecurityPolicy DaemonSet, Deployment, StatefulSet 和 ReplicaSet Ingress  具体调整细节如下：
- NetworkPolicy 将使用从 v1.8 版本开始提供的 networking.k8s.io/v1 API; PodSecurityPolicy 将使用从 v1.10 开始提供的 policy/v1beta1 API; DaemonSet, Deployment, StatefulSet 和 ReplicaSet 将使用从 v1.9 版本开始提供的 apps/v1 API; Ingress 迁移到 networking.">
-
-
-<meta itemprop="datePublished" content="2019-07-22T00:07:54&#43;08:00" />
-<meta itemprop="dateModified" content="2019-07-22T00:07:54&#43;08:00" />
-<meta itemprop="wordCount" content="266">
-
-
-
-<meta itemprop="keywords" content="Linux,Weekly,Kubernetes," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="K8S 生态周报| 2019-07-15~2019-07-21"/>
-<meta name="twitter:description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ NetworkPolicy 将使用从 v1.8 版本开始提供的 networking.k8s.io/v1 API; PodSecurityPolicy 将使用从 v1.10 开始提供的 policy/v1beta1 API; DaemonSet, Deployment, StatefulSet 和 ReplicaSet 将使用从 v1.9 版本开始提供的 apps/v1 API; Ingress 迁移到 networking."><meta itemprop=datePublished content="2019-07-22T00:07:54&#43;08:00"><meta itemprop=dateModified content="2019-07-22T00:07:54&#43;08:00"><meta itemprop=wordCount content="266"><meta itemprop=keywords content="Linux,Weekly,Kubernetes,"><meta name=twitter:card content="summary"><meta name=twitter:title content="K8S 生态周报| 2019-07-15~2019-07-21"><meta name=twitter:description content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
  Kubernetes v1.16.0-alpha.1 发布 Kubernetes 于近日发布了 v1.16.0-alpha.1 版本，变化是比较大，但这里暂时先不细说了，等到 9 月份正式版本发布前后再慢慢说。当然也稍微聊一些 :) 比如：
 官方 etcd 镜像中不再提供 etcd 2 和 3 的兼容工具了，对 etcd 2 的兼容代码也都全部删掉了（对 etcd 2 的支持其实从 1.13 就已经停止了）#80037 ；
 1.16 中对以下四种类型资源的 API 有所调整：
  NetworkPolicy PodSecurityPolicy DaemonSet, Deployment, StatefulSet 和 ReplicaSet Ingress  具体调整细节如下：
- NetworkPolicy 将使用从 v1.8 版本开始提供的 networking.k8s.io/v1 API; PodSecurityPolicy 将使用从 v1.10 开始提供的 policy/v1beta1 API; DaemonSet, Deployment, StatefulSet 和 ReplicaSet 将使用从 v1.9 版本开始提供的 apps/v1 API; Ingress 迁移到 networking."/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-</head>
-<body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">MoeLove</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/about/">
-        <li class="mobile-menu-item">About</li>
-      </a><a href="/friends/">
-        <li class="mobile-menu-item">Friends</li>
-      </a><a href="/projects/">
-        <li class="mobile-menu-item">Projects</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">MoeLove</a>
-</div>
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/about/">About</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/friends/">Friends</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/projects/">Projects</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li>
-  </ul>
-</nav>
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">K8S 生态周报| 2019-07-15~2019-07-21</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2019-07-22 </span>
-        
-        
-        
-      </div>
-    </header>
-
-    
-    
-<div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
-  
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#kubernetes-v1-16-0-alpha-1-发布">Kubernetes v1.16.0-alpha.1 发布</a></li>
-<li><a href="#docker-ce-v18-09-8-发布">Docker CE v18.09.8 发布</a></li>
-<li><a href="#thanos-正式成为-cncf-sandbox-孵化项目">thanos 正式成为 CNCF Sandbox 孵化项目</a></li>
-<li><a href="#kubernetes-nginx-ingress-0-25-0-正式发布">Kubernetes NGINX Ingress 0.25.0 正式发布</a></li>
-<li><a href="#kubectl-get-w-新增了事件列"><code>kubectl get -w</code> 新增了事件列</a></li>
-</ul></li>
-</ul>
-</nav>
-  </div>
-</div>
-
-    
-    
-
-    
-    <div class="post-content">
-      
-
-<blockquote>
-<p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏<a href="https://zhuanlan.zhihu.com/container">「k8s生态」</a>。</p>
-</blockquote>
-
-<h2 id="kubernetes-v1-16-0-alpha-1-发布">Kubernetes v1.16.0-alpha.1 发布</h2>
-
-<p>Kubernetes 于近日发布了 v1.16.0-alpha.1 版本，变化是比较大，但这里暂时先不细说了，等到 9 月份正式版本发布前后再慢慢说。当然也稍微聊一些 :) 比如：</p>
-
-<p>官方 <code>etcd</code> 镜像中不再提供 <code>etcd</code> 2 和 3 的兼容工具了，对 <code>etcd</code> 2 的兼容代码也都全部删掉了（对 <code>etcd</code> 2 的支持其实从 1.13 就已经停止了）#80037 ；</p>
-
-<p>1.16 中对以下四种类型资源的 API 有所调整：</p>
-
-<ul>
-<li><code>NetworkPolicy</code></li>
-<li><code>PodSecurityPolicy</code></li>
-<li><code>DaemonSet</code>, <code>Deployment</code>, <code>StatefulSet</code> 和 <code>ReplicaSet</code></li>
-<li><code>Ingress</code></li>
-</ul>
-
-<p>具体调整细节如下：</p>
-
-<ul>
-<li><code>NetworkPolicy</code> 将使用从 v1.8 版本开始提供的 <code>networking.k8s.io/v1</code> API;</li>
-<li><code>PodSecurityPolicy</code> 将使用从 v1.10 开始提供的 <code>policy/v1beta1</code> API;</li>
-<li><code>DaemonSet</code>, <code>Deployment</code>, <code>StatefulSet</code> 和 <code>ReplicaSet</code> 将使用从 v1.9 版本开始提供的 <code>apps/v1</code> API;</li>
-<li><code>Ingress</code> 迁移到 <code>networking.k8s.io/v1beta1</code> API;</li>
-</ul>
-
-<p><strong>注意：只是资源的 API 进行了调整，并不会删除这些资源</strong> 现在还有足够的时间将 API 进行调整和更新。</p>
-
-<p>可以直接通过 <code>kubectl</code> 来完成 API 升级的转换，比如 <code>kubectl convert -f &lt;file&gt; --output-version &lt;group&gt;/&lt;version&gt;</code> 。验证的话，可以直接通过修改 <code>api-server</code> 的 <code>runtime-config</code> 参数来进行验证。（当然更简单的方式是使用 Kind 来完成）</p>
-
-<p>另外 <code>MutatingWebhookConfiguration</code> 和 <code>ValidatingWebhookConfiguration</code> API 也被提升为 <code>admissionregistration.k8s.io/v1</code> 并且一些默认值，比如 <code>failurePolicy</code> 也从 <code>Ignore</code> 改为了 <code>Fail</code>  <strong>注意：只影响了 v1 API</strong> 更多细节可参考 #79549</p>
-
-<p>关于 Kubernetes v1.16.0-alpha.1 版更多内容请参考 <a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.16.md#v1160-alpha1">ReleaseNote</a></p>
-
-<h2 id="docker-ce-v18-09-8-发布">Docker CE v18.09.8 发布</h2>
-
-<p>这是个常规的 bugfix 版本，本次更新的主要内容是修复 CVE-2019-13509 ，建议大家升级。
-另外，如果是将 Docker daemon 的 API 暴露出来的话，建议增加 TLS ，以确保安全。</p>
-
-<p>更多内容请参考 <a href="https://github.com/docker/docker-ce/releases/tag/v18.09.8">ReleaseNote</a></p>
-
-<h2 id="thanos-正式成为-cncf-sandbox-孵化项目">thanos 正式成为 CNCF Sandbox 孵化项目</h2>
-
-<p><a href="https://github.com/thanos-io/thanos">thanos</a> 是一个致力于提供 Prometheus 高可用方案的一套组件，可在现有 Prometheus 基础上无缝添加。</p>
-
-<p>具体而言，通过 thanos 可以“无限”的保存指标，可以提供全局查询视图，可提供包括 Prometheus 在内组件的高可用。</p>
-
-<p>随着 Kubernetes 的发展，Prometheus 几乎成为了当前云原生时代下的首选监控系统了，如果你在用 Prometheus 我推荐你看看 thanos。</p>
-
-<p>贴一张官方的架构图：</p>
-
-<p><img src="https://raw.githubusercontent.com/thanos-io/thanos/master/docs/img/arch.jpg" alt="thanos's arch - moelove.info" /></p>
-
-<h2 id="kubernetes-nginx-ingress-0-25-0-正式发布">Kubernetes NGINX Ingress 0.25.0 正式发布</h2>
-
-<p><a href="https://moelove.info/2019/07/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-01~2019-07-07/#nginx-ingress-controller-1-5-1-%E5%8F%91%E5%B8%83">前两周 NGINX Ingress 也发布过新版本</a>，看当前社区的情况，两者都有人在使用。</p>
-
-<p>本次 Kubernetes NGINX Ingress 新版本中最重要的点之一莫过于 <strong>将 <code>NGINX</code> 迁移到了 <code>OpenResty</code></strong> ，通过这一改变，也可以利用 <code>OpenResty</code> 社区的工具和模块等扩展一些功能（我考虑也可能是为了吸引一部分用户）</p>
-
-<p>关于此版本的更多细节请参考 <a href="https://github.com/kubernetes/ingress-nginx/releases/tag/nginx-0.25.0">ReleaseNote</a></p>
-
-<h2 id="kubectl-get-w-新增了事件列"><code>kubectl get -w</code> 新增了事件列</h2>
-
-<p>通过指定 <code>--output-watch-events</code> 可以为 <code>kubectl get -w</code> 的输出增加事件列，之后配合其他简单的代码便可完成很多有趣的事情了，比如说 Node 的登记变更等。 这个功能预期会在下个版本发布。</p>
-
-<pre><code>(MoeLove) ➜  ~ kubectl get ns  -w --output-watch-events 
+ NetworkPolicy 将使用从 v1.8 版本开始提供的 networking.k8s.io/v1 API; PodSecurityPolicy 将使用从 v1.10 开始提供的 policy/v1beta1 API; DaemonSet, Deployment, StatefulSet 和 ReplicaSet 将使用从 v1.9 版本开始提供的 apps/v1 API; Ingress 迁移到 networking."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>MoeLove</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/about/><li class=mobile-menu-item>About</li></a><a href=/friends/><li class=mobile-menu-item>Friends</li></a><a href=/projects/><li class=mobile-menu-item>Projects</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>MoeLove</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/about/>About</a></li><li class=menu-item><a class=menu-item-link href=/friends/>Friends</a></li><li class=menu-item><a class=menu-item-link href=/projects/>Projects</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>K8S 生态周报| 2019-07-15~2019-07-21</h1><div class=post-meta><span class=post-time>2019-07-22</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#kubernetes-v1-16-0-alpha-1-发布>Kubernetes v1.16.0-alpha.1 发布</a></li><li><a href=#docker-ce-v18-09-8-发布>Docker CE v18.09.8 发布</a></li><li><a href=#thanos-正式成为-cncf-sandbox-孵化项目>thanos 正式成为 CNCF Sandbox 孵化项目</a></li><li><a href=#kubernetes-nginx-ingress-0-25-0-正式发布>Kubernetes NGINX Ingress 0.25.0 正式发布</a></li><li><a href=#kubectl-get-w-新增了事件列><code>kubectl get -w</code> 新增了事件列</a></li></ul></li></ul></nav></div></div><div class=post-content><blockquote><p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏<a href=https://zhuanlan.zhihu.com/container>「k8s生态」</a>。</p></blockquote><h2 id=kubernetes-v1-16-0-alpha-1-发布>Kubernetes v1.16.0-alpha.1 发布</h2><p>Kubernetes 于近日发布了 v1.16.0-alpha.1 版本，变化是比较大，但这里暂时先不细说了，等到 9 月份正式版本发布前后再慢慢说。当然也稍微聊一些 :) 比如：</p><p>官方 <code>etcd</code> 镜像中不再提供 <code>etcd</code> 2 和 3 的兼容工具了，对 <code>etcd</code> 2 的兼容代码也都全部删掉了（对 <code>etcd</code> 2 的支持其实从 1.13 就已经停止了）#80037 ；</p><p>1.16 中对以下四种类型资源的 API 有所调整：</p><ul><li><code>NetworkPolicy</code></li><li><code>PodSecurityPolicy</code></li><li><code>DaemonSet</code>, <code>Deployment</code>, <code>StatefulSet</code> 和 <code>ReplicaSet</code></li><li><code>Ingress</code></li></ul><p>具体调整细节如下：</p><ul><li><code>NetworkPolicy</code> 将使用从 v1.8 版本开始提供的 <code>networking.k8s.io/v1</code> API;</li><li><code>PodSecurityPolicy</code> 将使用从 v1.10 开始提供的 <code>policy/v1beta1</code> API;</li><li><code>DaemonSet</code>, <code>Deployment</code>, <code>StatefulSet</code> 和 <code>ReplicaSet</code> 将使用从 v1.9 版本开始提供的 <code>apps/v1</code> API;</li><li><code>Ingress</code> 迁移到 <code>networking.k8s.io/v1beta1</code> API;</li></ul><p><strong>注意：只是资源的 API 进行了调整，并不会删除这些资源</strong> 现在还有足够的时间将 API 进行调整和更新。</p><p>可以直接通过 <code>kubectl</code> 来完成 API 升级的转换，比如 <code>kubectl convert -f &lt;file&gt; --output-version &lt;group&gt;/&lt;version&gt;</code> 。验证的话，可以直接通过修改 <code>api-server</code> 的 <code>runtime-config</code> 参数来进行验证。（当然更简单的方式是使用 Kind 来完成）</p><p>另外 <code>MutatingWebhookConfiguration</code> 和 <code>ValidatingWebhookConfiguration</code> API 也被提升为 <code>admissionregistration.k8s.io/v1</code> 并且一些默认值，比如 <code>failurePolicy</code> 也从 <code>Ignore</code> 改为了 <code>Fail</code> <strong>注意：只影响了 v1 API</strong> 更多细节可参考 #79549</p><p>关于 Kubernetes v1.16.0-alpha.1 版更多内容请参考 <a href=https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG-1.16.md#v1160-alpha1>ReleaseNote</a></p><h2 id=docker-ce-v18-09-8-发布>Docker CE v18.09.8 发布</h2><p>这是个常规的 bugfix 版本，本次更新的主要内容是修复 CVE-2019-13509 ，建议大家升级。
+另外，如果是将 Docker daemon 的 API 暴露出来的话，建议增加 TLS ，以确保安全。</p><p>更多内容请参考 <a href=https://github.com/docker/docker-ce/releases/tag/v18.09.8>ReleaseNote</a></p><h2 id=thanos-正式成为-cncf-sandbox-孵化项目>thanos 正式成为 CNCF Sandbox 孵化项目</h2><p><a href=https://github.com/thanos-io/thanos>thanos</a> 是一个致力于提供 Prometheus 高可用方案的一套组件，可在现有 Prometheus 基础上无缝添加。</p><p>具体而言，通过 thanos 可以“无限”的保存指标，可以提供全局查询视图，可提供包括 Prometheus 在内组件的高可用。</p><p>随着 Kubernetes 的发展，Prometheus 几乎成为了当前云原生时代下的首选监控系统了，如果你在用 Prometheus 我推荐你看看 thanos。</p><p>贴一张官方的架构图：</p><p><img src=https://raw.githubusercontent.com/thanos-io/thanos/master/docs/img/arch.jpg alt="thanos's arch - moelove.info"></p><h2 id=kubernetes-nginx-ingress-0-25-0-正式发布>Kubernetes NGINX Ingress 0.25.0 正式发布</h2><p><a href=https://moelove.info/2019/07/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-01~2019-07-07/#nginx-ingress-controller-1-5-1-%E5%8F%91%E5%B8%83>前两周 NGINX Ingress 也发布过新版本</a>，看当前社区的情况，两者都有人在使用。</p><p>本次 Kubernetes NGINX Ingress 新版本中最重要的点之一莫过于 <strong>将 <code>NGINX</code> 迁移到了 <code>OpenResty</code></strong> ，通过这一改变，也可以利用 <code>OpenResty</code> 社区的工具和模块等扩展一些功能（我考虑也可能是为了吸引一部分用户）</p><p>关于此版本的更多细节请参考 <a href=https://github.com/kubernetes/ingress-nginx/releases/tag/nginx-0.25.0>ReleaseNote</a></p><h2 id=kubectl-get-w-新增了事件列><code>kubectl get -w</code> 新增了事件列</h2><p>通过指定 <code>--output-watch-events</code> 可以为 <code>kubectl get -w</code> 的输出增加事件列，之后配合其他简单的代码便可完成很多有趣的事情了，比如说 Node 的登记变更等。 这个功能预期会在下个版本发布。</p><pre><code>(MoeLove) ➜  ~ kubectl get ns  -w --output-watch-events 
 EVENT      NAME              STATUS   AGE
 ADDED      default           Active   19m
 ADDED      kube-node-lease   Active   19m
@@ -288,161 +38,24 @@ namespace &quot;moelove&quot; deleted
 (MoeLove) ➜  ~ kubectl create ns moelove 
 namespace/moelove created
 (MoeLove) ➜  ~ 
-</code></pre>
-
-<p><img src="/img/kubectl-watch-out-event.jpg" alt="kubectl-watch-out-event - moelove.info" /></p>
-
-<hr />
-
-<p>可以通过下面二维码订阅我的文章公众号【MoeLove】</p>
-
-<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/my_qrcode.jpg" alt="TheMoeLove" /></p>
-
-    </div>
-
-    
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">TaoBeier</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">2019-07-22</span>
-  </p>
-  
-  <p class="copyright-item">
-    <span class="item-title">许可协议</span>
-    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a></span>
-  </p>
-</div>
-
-    
-    
-<div class="post-reward">
-  <input type="checkbox" name="reward" id="reward" hidden />
-  <label class="reward-button" for="reward">赞赏支持</label>
-  <div class="qr-code">
-    
-    
-      <label class="qr-code-image" for="reward">
-        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/wx_pay.jpg">
-        <span>微信打赏</span>
-      </label>
-    
-      <label class="qr-code-image" for="reward">
-        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/alipay.jpg">
-        <span>支付宝打赏</span>
-      </label>
-  </div>
-</div>
-
-    <footer class="post-footer">
-      <div class="post-tags">
-          
-          <a href="/tags/linux/">Linux</a>
-          
-          <a href="/tags/weekly/">Weekly</a>
-          
-          <a href="/tags/kubernetes/">Kubernetes</a>
-          
-        </div>
-
-      
-      <nav class="post-nav">
-        
-          <a class="prev" href="/2019/07/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-21~2019-07-28/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">K8S 生态周报| 2019-07-21~2019-07-28</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
-        
-          <a class="next" href="/2019/07/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-08~2019-07-14/">
-            <span class="next-text nav-default">K8S 生态周报| 2019-07-08~2019-07-14</span>
-            <span class="next-text nav-mobile">下一篇</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-  
-
-  <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
-    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
-  <script type="text/javascript">
-  var gitalk = new Gitalk({
-    id: '2019-07-22 00:07:54 \x2b0800 CST',
-    title: 'K8S 生态周报| 2019-07-15~2019-07-21',
-    clientID: '68312db64e870efbd0a0',
-    clientSecret: 'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',
-    repo: 'tao12345666333.github.io',
-    owner: 'tao12345666333',
-    admin: ['tao12345666333'],
-    body: decodeURI(location.href)
-  });
-  gitalk.render('gitalk-container');
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
-
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:zhangjintao9020@gmail.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://twitter.com/BeierTao" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="https://github.com/tao12345666333" class="iconfont icon-github" title="github"></a>
-      <a href="http://weibo.com/9020taobeier" class="iconfont icon-weibo" title="weibo"></a>
-      <a href="https://www.zhihu.com/people/TaoBeier" class="iconfont icon-zhihu" title="zhihu"></a>
-  <a href="https://moelove.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主题 - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    
-      2013 - 
-    2020
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">TaoBeier</span>
-  </span>
-</div>
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div>
-  
-<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
-
-
-<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
-
-
-
-
-
-
-
-
-</body>
-</html>
+</code></pre><p><img src=/img/kubectl-watch-out-event.jpg alt="kubectl-watch-out-event - moelove.info"></p><hr><p>可以通过下面二维码订阅我的文章公众号【MoeLove】</p><p><img src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/my_qrcode.jpg alt=TheMoeLove></p></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>TaoBeier</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2019-07-22</span></p><p class=copyright-item><span class=item-title>许可协议</span>
+<span class=item-content><a rel="license noopener" href=https://creativecommons.org/licenses/by-sa/4.0/ target=_blank>CC BY-SA 4.0</a></span></p></div><div class=post-reward><input type=checkbox name=reward id=reward hidden>
+<label class=reward-button for=reward>赞赏支持</label><div class=qr-code><label class=qr-code-image for=reward><img class=image src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/wx_pay.jpg>
+<span>微信打赏</span></label>
+<label class=qr-code-image for=reward><img class=image src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/alipay.jpg>
+<span>支付宝打赏</span></label></div></div><footer class=post-footer><div class=post-tags><a href=/tags/linux/>Linux</a>
+<a href=/tags/weekly/>Weekly</a>
+<a href=/tags/kubernetes/>Kubernetes</a></div><nav class=post-nav><a class=prev href=/2019/07/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-21~2019-07-28/><i class="iconfont icon-left"></i><span class="prev-text nav-default">K8S 生态周报| 2019-07-21~2019-07-28</span>
+<span class="prev-text nav-mobile">上一篇</span></a>
+<a class=next href=/2019/07/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-08~2019-07-14/><span class="next-text nav-default">K8S 生态周报| 2019-07-08~2019-07-14</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div><div id=gitalk-container></div><link rel=stylesheet href=/lib/gitalk/gitalk-1.2.2.min.css><script src=/lib/gitalk/gitalk-1.2.2.min.js></script><script type=text/javascript>var gitalk=new Gitalk({id:'2019-07-22 00:07:54 \x2b0800 CST',title:'K8S 生态周报| 2019-07-15~2019-07-21',clientID:'68312db64e870efbd0a0',clientSecret:'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',repo:'tao12345666333.github.io',owner:'tao12345666333',admin:['tao12345666333'],body:decodeURI(location.href)});gitalk.render('gitalk-container');</script><noscript>Please enable JavaScript to view the <a href=https://github.com/gitalk/gitalk>comments powered by gitalk.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:zhangjintao9020@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/BeierTao class="iconfont icon-twitter" title=twitter></a><a href=https://github.com/tao12345666333 class="iconfont icon-github" title=github></a><a href=http://weibo.com/9020taobeier class="iconfont icon-weibo" title=weibo></a><a href=https://www.zhihu.com/people/TaoBeier class="iconfont icon-zhihu" title=zhihu></a><a href=https://moelove.info/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动</span>
+<span class=division>|</span>
+<span class=theme-info>主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span>
+<span class=copyright-year>&copy;
+2013 -
+2020
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>TaoBeier</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src="/dist/even.min.js?v=3.2.0"></script></body></html>

@@ -1,32 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>grub2 on MoeLove</title>
-    <link>https://moelove.info/tags/grub2/</link>
-    <description>Recent content in grub2 on MoeLove</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh</language>
-    <lastBuildDate>Wed, 02 Jul 2014 21:53:03 +0000</lastBuildDate>
-    
-	<atom:link href="https://moelove.info/tags/grub2/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Grub2 rescue 修复</title>
-      <link>https://moelove.info/2014/07/02/Grub2-rescue-%E4%BF%AE%E5%A4%8D/</link>
-      <pubDate>Wed, 02 Jul 2014 21:53:03 +0000</pubDate>
-      
-      <guid>https://moelove.info/2014/07/02/Grub2-rescue-%E4%BF%AE%E5%A4%8D/</guid>
-      <description>昨天下午的时候想要把分区处理一下，突然发现硬盘里面有一个未使用的102M的分区,很果断的把这些乱七八糟的分区都给干掉了。结果呢，再次开机的时候就坑了（虽然酱紫的事情干过很多次了，这次做个记录吧）开机时提示如下：
-GRUB loading.. error: unknown filesystem. Entering rescue mode.... grub rescue&amp;gt;  grub rescue 支持的命令  ls 查看硬盘的分区情况，如果你已知自己的grub的安装位置（比如我的在(hd0,msdos9)/boot/grub2），那么就直接进行下一步。 如果不知道，那就ls每个分区，比如: ls (hd0,msdos2)/,如果正确就会显示里面到内容，直到找到grub  这里一个很关键的地方就是在硬盘位置后应该加入/
- set 直接输入的话， 可以看到root 和 prefix 的设置。这里需要把这两个选项改成我们已经找到的位置。  窝的设置如下
-grub rescue&amp;gt; set grub rescue&amp;gt; prefix=(hd0,msdos9)/boot/grub2 grub rescue&amp;gt; root=hd0,msdos9   insmod 载入模块。这里区别是窝这次记录的关键。 grub2和grub的一个很重要的区别就是模块的位置。grub2的模块位置在/boot/grub2/i386-pc/normal.mod 执行命令：
-grub rescue&amp;gt;insmod (hd0,msdos9)/boot/grub2/i386-pc/normal.mod   执行成功之后，提示符会变成normal
- normal 进入正常模式，直接输入命令即可
-grub rescue&amp;gt;normal   这个时候，就可以看到熟悉的引导界面了。
- grub2-install 进入系统后执行命令
-$ sudo update-grub $ sudo grub2-install /dev/sda   如果不执行这样的命令的话，重启之后还会回到之前的界面orz</description>
-    </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>grub2 on MoeLove</title><link>https://moelove.info/tags/grub2/</link><description>Recent content in grub2 on MoeLove</description><generator>Hugo -- gohugo.io</generator><language>zh</language><lastBuildDate>Wed, 02 Jul 2014 21:53:03 +0000</lastBuildDate><atom:link href="https://moelove.info/tags/grub2/index.xml" rel="self" type="application/rss+xml"/><item><title>Grub2 rescue 修复</title><link>https://moelove.info/2014/07/02/Grub2-rescue-%E4%BF%AE%E5%A4%8D/</link><pubDate>Wed, 02 Jul 2014 21:53:03 +0000</pubDate><guid>https://moelove.info/2014/07/02/Grub2-rescue-%E4%BF%AE%E5%A4%8D/</guid><description>昨天下午的时候想要把分区处理一下，突然发现硬盘里面有一个未使用的102M的分区,很果断的把这些乱七八糟的分区都给干掉了。结果呢，再次开机的时候就坑了（虽然酱紫的事情干过很多次了，这次做个记录吧）开机时提示如下：
+GRUB loading.. error: unknown filesystem. Entering rescue mode.... grub rescue&amp;gt; grub rescue 支持的命令 ls 查看硬盘的分区情况，如果你已知自己的grub的安装位置（比如我的在(hd0,msdos9)/boot/grub2），那么就直接进行下一步。 如果不知道，那就ls每个分区，比如: ls (hd0,msdos2)/,如果正确就会显示里面到内容，直到找到grub 这里一个很关键的地方就是在硬盘位置后应该加入/
+set 直接输入的话， 可以看到root 和 prefix 的设置。这里需要把这两个选项改成我们已经找到的位置。 窝的设置如下
+grub rescue&amp;gt; set grub rescue&amp;gt; prefix=(hd0,msdos9)/boot/grub2 grub rescue&amp;gt; root=hd0,msdos9 insmod 载入模块。这里区别是窝这次记录的关键。 grub2和grub的一个很重要的区别就是模块的位置。grub2的模块位置在/boot/grub2/i386-pc/normal.mod 执行命令：
+grub rescue&amp;gt;insmod (hd0,msdos9)/boot/grub2/i386-pc/normal.mod 执行成功之后，提示符会变成normal
+normal 进入正常模式，直接输入命令即可
+grub rescue&amp;gt;normal 这个时候，就可以看到熟悉的引导界面了。
+grub2-install 进入系统后执行命令
+$ sudo update-grub $ sudo grub2-install /dev/sda 如果不执行这样的命令的话，重启之后还会回到之前的界面orz</description></item></channel></rss>

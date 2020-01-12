@@ -1,28 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>MongoDB on MoeLove</title>
-    <link>https://moelove.info/tags/MongoDB/</link>
-    <description>Recent content in MongoDB on MoeLove</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh</language>
-    <lastBuildDate>Sun, 13 Sep 2015 21:28:43 +0000</lastBuildDate>
-    
-	<atom:link href="https://moelove.info/tags/MongoDB/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>源码编译MongoDB</title>
-      <link>https://moelove.info/2015/09/13/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91MongoDB/</link>
-      <pubDate>Sun, 13 Sep 2015 21:28:43 +0000</pubDate>
-      
-      <guid>https://moelove.info/2015/09/13/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91MongoDB/</guid>
-      <description>上周放假正好有时间，编译安装了MongoDB，虽然MongoDB用了挺长时间的，但还是第一次用源码编译。在此做个备忘。因为已经完整编译安装过了，所以写起来的时候，就按照先知视角来写了～ 2333
- 下载MongoDB源码 MongoDB的官网上是有已经编译好的二进制包的，这里选择clone MongoDB在github上的仓库
-git clone https://github.com/mongodb/mongo &amp;amp;&amp;amp; cd mongo  在docs/building.md中是编译所需的依赖。 * A modern C++ compiler. One of the following is required. * GCC 4.8.2 or newer * Clang 3.4 (or Apple XCode 5.1.1 Clang) or newer * Visual Studio 2013 Update 2 or newer * Python 2.7 * SCons 2.3
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MongoDB on MoeLove</title><link>https://moelove.info/tags/MongoDB/</link><description>Recent content in MongoDB on MoeLove</description><generator>Hugo -- gohugo.io</generator><language>zh</language><lastBuildDate>Sun, 13 Sep 2015 21:28:43 +0000</lastBuildDate><atom:link href="https://moelove.info/tags/MongoDB/index.xml" rel="self" type="application/rss+xml"/><item><title>源码编译MongoDB</title><link>https://moelove.info/2015/09/13/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91MongoDB/</link><pubDate>Sun, 13 Sep 2015 21:28:43 +0000</pubDate><guid>https://moelove.info/2015/09/13/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91MongoDB/</guid><description>上周放假正好有时间，编译安装了MongoDB，虽然MongoDB用了挺长时间的，但还是第一次用源码编译。在此做个备忘。因为已经完整编译安装过了，所以写起来的时候，就按照先知视角来写了～ 2333
+下载MongoDB源码 MongoDB的官网上是有已经编译好的二进制包的，这里选择clone MongoDB在github上的仓库
+git clone https://github.com/mongodb/mongo &amp;amp;&amp;amp; cd mongo 在docs/building.md中是编译所需的依赖。 * A modern C++ compiler. One of the following is required. * GCC 4.8.2 or newer * Clang 3.4 (or Apple XCode 5.1.1 Clang) or newer * Visual Studio 2013 Update 2 or newer * Python 2.7 * SCons 2.3
 我这台服务器是CentOS 6.5, 上面的gcc版本比较低，这里就先更新gcc咯.
-gcc --version gcc (GCC) 4.4.7 20120313 (Red Hat 4.4.7-16) Copyright © 2010 Free Software Foundation, Inc.</description>
-    </item>
-    
-  </channel>
-</rss>
+gcc --version gcc (GCC) 4.4.7 20120313 (Red Hat 4.4.7-16) Copyright © 2010 Free Software Foundation, Inc.</description></item></channel></rss>

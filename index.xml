@@ -1,159 +1,63 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>MoeLove</title>
-    <link>https://moelove.info/</link>
-    <description>Recent content on MoeLove</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh</language>
-    <lastBuildDate>Sun, 05 Jan 2020 09:52:30 +0800</lastBuildDate>
-    
-	<atom:link href="https://moelove.info/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>K8S 生态周报| 终端下的 K8S 资源树查看器</title>
-      <link>https://moelove.info/2020/01/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E7%BB%88%E7%AB%AF%E4%B8%8B%E7%9A%84-K8S-%E8%B5%84%E6%BA%90%E6%A0%91%E6%9F%A5%E7%9C%8B%E5%99%A8/</link>
-      <pubDate>Sun, 05 Jan 2020 09:52:30 +0800</pubDate>
-      
-      <guid>https://moelove.info/2020/01/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E7%BB%88%E7%AB%AF%E4%B8%8B%E7%9A%84-K8S-%E8%B5%84%E6%BA%90%E6%A0%91%E6%9F%A5%E7%9C%8B%E5%99%A8/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- 上游进展  Kubernetes v1.17.0 中，如果将 CIDR 设置为低于 /16 位，则 IP 分配器可能会报错。这个问题当前已经在 #86534中修复，将随着 v1.17.1 发布，如果尚未升级至 v1.17.0 的朋友可以稍后； api-server 的 bind-address 最近稍作了调整，如果未指定或者使用 0.0.0.0 或 :: 则会监听本地的所有可用的地址。  项目推荐 kubectl-tree 是一个用于在终端内以树形结构展示 Kubernetes 资源的 Kubectl 插件。（已经登上了 GitHub 的趋势榜）
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Recent content on MoeLove</description><generator>Hugo -- gohugo.io</generator><language>zh</language><lastBuildDate>Sun, 12 Jan 2020 20:18:09 +0800</lastBuildDate><atom:link href="https://moelove.info/index.xml" rel="self" type="application/rss+xml"/><item><title>K8S 生态周报| Istio v1.4.3 发布</title><link>https://moelove.info/2020/01/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Istio-v1.4.3-%E5%8F%91%E5%B8%83/</link><pubDate>Sun, 12 Jan 2020 20:18:09 +0800</pubDate><guid>https://moelove.info/2020/01/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Istio-v1.4.3-%E5%8F%91%E5%B8%83/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Prometheus v2.15.2 发布 本周 Prometheus 发布了 v2.15.2 版本，其修复了两个 TSDB 相关的问题。
+修复对 2.1.0 之前版本构建的 TSDB 块的支持，这个问题直接影响的是那些直接从 2.1.0 版本之前直接升级到 2.15 的用户，根本原因是在 2.1.0 版本加入的一个对 key 排序的特性； 修复了 TSDB 在 Windows 下的压缩问题； 其他变化，感兴趣的朋友可以参看其 ReleaseNote
+Istio v1.4.3 发布 Istio 发布了 v1.4.3 版本，带来了众多 bugfix 和改进，我们来具体看看：
+修复了 Mixer 为 secret 创建大量 watcher 可能导致 Kubernetes api-server OOM 的问题 #19481 ; 修复了注入相关的模板。当 POD 有多个 container 但 container 未暴露端口时，istio-proxy 无法启动的问题。#18594；</description></item><item><title>K8S 生态周报| 终端下的 K8S 资源树查看器</title><link>https://moelove.info/2020/01/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E7%BB%88%E7%AB%AF%E4%B8%8B%E7%9A%84-K8S-%E8%B5%84%E6%BA%90%E6%A0%91%E6%9F%A5%E7%9C%8B%E5%99%A8/</link><pubDate>Sun, 05 Jan 2020 09:52:30 +0800</pubDate><guid>https://moelove.info/2020/01/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E7%BB%88%E7%AB%AF%E4%B8%8B%E7%9A%84-K8S-%E8%B5%84%E6%BA%90%E6%A0%91%E6%9F%A5%E7%9C%8B%E5%99%A8/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+上游进展 Kubernetes v1.17.0 中，如果将 CIDR 设置为低于 /16 位，则 IP 分配器可能会报错。这个问题当前已经在 #86534中修复，将随着 v1.17.1 发布，如果尚未升级至 v1.17.0 的朋友可以稍后； api-server 的 bind-address 最近稍作了调整，如果未指定或者使用 0.0.0.0 或 :: 则会监听本地的所有可用的地址。 项目推荐 kubectl-tree 是一个用于在终端内以树形结构展示 Kubernetes 资源的 Kubectl 插件。（已经登上了 GitHub 的趋势榜）
 使用效果如图：
 在我的终端下，它不能对齐，不过我还没来得及具体去看原因。
 新项目：APISIX-ingress-controller 最近看到一个为 Apache APISIX 实现 Ingress Controller 的项目 APISIX-ingress-controller
-同时也看到了一篇文章: 为什么我们重新写了一个 k8s ingress controller  文章的作者解释了为何要重新写一个 Ingress Controller。
+同时也看到了一篇文章: 为什么我们重新写了一个 k8s ingress controller 文章的作者解释了为何要重新写一个 Ingress Controller。
 在我个人看来，多实现一种 Ingress Controller 对社区而言是好事儿，让大家有了更多的选择，另一方面，这个项目刚起步不久，如果有对实现 APISIX Ingress Controller 感兴趣的朋友可以尽早加入。
-( 抛开此项目不谈，单纯谈写一个简单的自定义 Ingress Controller 其实比较简单，倒也挺有趣的，只不过在处理一些高级特性及处理大量请求时，不同的实现会有些区别。 推荐大家都尝试下</description>
-    </item>
-    
-    <item>
-      <title>2019 小回顾</title>
-      <link>https://moelove.info/2020/01/01/2019-%E5%B0%8F%E5%9B%9E%E9%A1%BE/</link>
-      <pubDate>Wed, 01 Jan 2020 22:01:00 +0800</pubDate>
-      
-      <guid>https://moelove.info/2020/01/01/2019-%E5%B0%8F%E5%9B%9E%E9%A1%BE/</guid>
-      <description>这篇文章起笔于上周（年底），不过工作比较忙，一直耽搁到今天（1 月 1 日）才抽出时间，索性就重写了。算是一篇岁岁念，想到什么就写点。
- 转眼已是 2020 年 1 月 1 日了，惯例做个小回顾。 2019 年发生了太多事情，非常值得好好回顾一下。每年的回顾不仅是对过去一年的总结，也是对新的一年做个计划。 依旧按照我每年的习惯，分别从工作和生活来聊聊。
+( 抛开此项目不谈，单纯谈写一个简单的自定义 Ingress Controller 其实比较简单，倒也挺有趣的，只不过在处理一些高级特性及处理大量请求时，不同的实现会有些区别。 推荐大家都尝试下</description></item><item><title>2019 小回顾</title><link>https://moelove.info/2020/01/01/2019-%E5%B0%8F%E5%9B%9E%E9%A1%BE/</link><pubDate>Wed, 01 Jan 2020 22:01:00 +0800</pubDate><guid>https://moelove.info/2020/01/01/2019-%E5%B0%8F%E5%9B%9E%E9%A1%BE/</guid><description>这篇文章起笔于上周（年底），不过工作比较忙，一直耽搁到今天（1 月 1 日）才抽出时间，索性就重写了。算是一篇岁岁念，想到什么就写点。
+转眼已是 2020 年 1 月 1 日了，惯例做个小回顾。 2019 年发生了太多事情，非常值得好好回顾一下。每年的回顾不仅是对过去一年的总结，也是对新的一年做个计划。 依旧按照我每年的习惯，分别从工作和生活来聊聊。
 工作 2019 年我做的事情，主要涉及以下几个方面：
- Docker 容器化和 Kubernetes API Gateway CI/CD 存储 监控 告警信息收敛  也算是比较典型的云原生工程师的工作内容了，感谢同事们的支持和配合。
+Docker 容器化和 Kubernetes API Gateway CI/CD 存储 监控 告警信息收敛 也算是比较典型的云原生工程师的工作内容了，感谢同事们的支持和配合。
 2019 年是云原生形势大好的一年，这一年整个行业内都发生了不小的变动，关注我每周推送的「k8s 生态周报」的小伙伴可能已经发现，周报中最多的内容是 K8S 生态中比较核心的软件的版本发布及功能变更或漏洞相关的信息。
 为什么这类信息会这么多呢？主要还是因为 2019 年云原生或者说 Kubernetes 的普及越来越广泛，需求增多，场景愈发复杂，相应的像 Docker, Kubernetes, Prometheus 这类基础软件也就需要提供更多的特性支持，或者 bugfix 。所以我在这方面投入的时间也就更多一些。
 此外，从 19 年 3 月底，我开始了每周 「k8s 生态周报」 的推送，直到今天共计推送了 41 篇周报，未曾落下，也积累了不少读者，感谢大家关注。
 今年在 PyCon China 的角色从讲师变成了出品人，原本计划会有一个主题演讲，但是由于跟我的婚礼时间冲突了，所以未能参加。感谢 PyCon China 的一众小伙伴的谅解和支持。
-在国庆假期结束后，我在 GitChat 上发布的专栏《Docker 核心知识必知必会》正式上线了，至今专栏内容已经更新了一半，按照 GitChat 的字数统计现在写了大概是 9w 字左右（这个统计包括了我之前发布的五篇 Chat 文章）。感谢我的小可爱一直督促我，感谢编辑们的辛苦，感谢读者的信任和支持。</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| Prometheus v2.15.0 正式发布</title>
-      <link>https://moelove.info/2019/12/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Prometheus-v2.15.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</link>
-      <pubDate>Sun, 29 Dec 2019 16:55:31 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/12/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Prometheus-v2.15.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Prometheus v2.15.0 正式发布 本周 Prometheus 发布了 v2.15.0 版本，这个版本在 TSDB 方面有诸多改进，以及提升了 PromQL 解析器的性能。
+在国庆假期结束后，我在 GitChat 上发布的专栏《Docker 核心知识必知必会》正式上线了，至今专栏内容已经更新了一半，按照 GitChat 的字数统计现在写了大概是 9w 字左右（这个统计包括了我之前发布的五篇 Chat 文章）。感谢我的小可爱一直督促我，感谢编辑们的辛苦，感谢读者的信任和支持。</description></item><item><title>K8S 生态周报| Prometheus v2.15.0 正式发布</title><link>https://moelove.info/2019/12/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Prometheus-v2.15.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</link><pubDate>Sun, 29 Dec 2019 16:55:31 +0800</pubDate><guid>https://moelove.info/2019/12/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Prometheus-v2.15.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Prometheus v2.15.0 正式发布 本周 Prometheus 发布了 v2.15.0 版本，这个版本在 TSDB 方面有诸多改进，以及提升了 PromQL 解析器的性能。
 TSDB 方面主要是对内存使用相关的优化。
 按照此版本中 对 PromQL 解析器相关变更的 PR，本次解析器性能的提升能达到之前的 7 倍。
 同时，此版本中也存在一个 bug，可能会导致并发查询数据时，出现 checksum 不匹配的情况，最直接的影响就是 Grafana 的图表会显示不出来。
 所以之后也快速发布了 v2.15.1 版本。建议如果使用 v2.15.0 的朋友可以快速升级至 v2.15.1 以规避此问题。
 更多关于此版本的变更，请查看其 ReleaseNote
 Rancher v2.4.0-alpha1 发布 Rancher 本周发布了 v2.4.0-alpha1 , 此版本中在用户角色方面有两个挺不错的改进。
- 管理员可以自定义全局范围内的角色，并且可以让用户登录后默认使用该角色。 在使用外部认证方式时，管理员也可以默认设置属于某个组的用户，默认授予的权限。（比较类似于 Grafana 使用 LDAP 认证时，默认给用户设置的权限，但更灵活一些。)  更多关于此版本的信息，可参考其 ReleaseNote
+管理员可以自定义全局范围内的角色，并且可以让用户登录后默认使用该角色。 在使用外部认证方式时，管理员也可以默认设置属于某个组的用户，默认授予的权限。（比较类似于 Grafana 使用 LDAP 认证时，默认给用户设置的权限，但更灵活一些。) 更多关于此版本的信息，可参考其 ReleaseNote
 题外话 这是今年 「K8S 生态周报」的最后一篇了，本篇中没有上游进展，上游最近的变更并不频繁，(大概是年底休假的原因）
-从 2019 年 3 月份开始，便一直保持着每周更新。新的一年，我也将继续保持更新，与你分享我所接触到的 K8S 生态相关的每周值得推荐的一些信息。</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| TUF 正式从 CNCF 毕业</title>
-      <link>https://moelove.info/2019/12/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-TUF-%E6%AD%A3%E5%BC%8F%E4%BB%8E-CNCF-%E6%AF%95%E4%B8%9A/</link>
-      <pubDate>Sat, 21 Dec 2019 16:55:31 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/12/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-TUF-%E6%AD%A3%E5%BC%8F%E4%BB%8E-CNCF-%E6%AF%95%E4%B8%9A/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- TUF 正式从 CNCF 毕业 本周 The Update Framework (TUF) 正式从 CNCF 毕业，现在 TUF 的官方 Python 实现有 954 个 star ，142 个 fork 以及 43 位贡献者和 3525 次 commit 记录。
+从 2019 年 3 月份开始，便一直保持着每周更新。新的一年，我也将继续保持更新，与你分享我所接触到的 K8S 生态相关的每周值得推荐的一些信息。</description></item><item><title>K8S 生态周报| TUF 正式从 CNCF 毕业</title><link>https://moelove.info/2019/12/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-TUF-%E6%AD%A3%E5%BC%8F%E4%BB%8E-CNCF-%E6%AF%95%E4%B8%9A/</link><pubDate>Sat, 21 Dec 2019 16:55:31 +0800</pubDate><guid>https://moelove.info/2019/12/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-TUF-%E6%AD%A3%E5%BC%8F%E4%BB%8E-CNCF-%E6%AF%95%E4%B8%9A/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+TUF 正式从 CNCF 毕业 本周 The Update Framework (TUF) 正式从 CNCF 毕业，现在 TUF 的官方 Python 实现有 954 个 star ，142 个 fork 以及 43 位贡献者和 3525 次 commit 记录。
 TUF 是从 CNCF 正式毕业的第 9 个项目，没记错的话也是至今为止唯一一个 star 数未上千就正式毕业的项目。不过 TUF 项目本身与其他项目不同，star 数也说明不了项目状态。
 可能不少人觉得 TUF 项目的存在感很低，或是没有了解或使用过 TUF 项目，我姑且对它做一点介绍。
 TUF 项目大概是十年前启动，并于 2017 年开始托管于 CNCF，它的主要目标正如它的名字一般，提供用于更新的框架，但它更重要的点在于它的安全性设计上。
 它充分考虑到了各个环节可能出现的攻击，在提供更新功能的同时，也可以很好的保护现有程序或者是验证待更新版本的安全和可靠性。你可能想问它是如何做到这一点的，其实它主要是提供了一套标准规范，并在各个环节中增加了更多的元数据和相关的检查，包括签名信息，文件 hash ，元数据签名和过期时间等。
-至于它的存在感嘛，不知道你是否有使用过 Docker Content Trust(DCT) 相关的功能，简单来说你可以当作就是 docker trust 所涉及到的相关功能，这其中的部分功能是构建在 Docker Notary 之上的，而 Docker Notary 则是使用 TUF 作为其基础安全框架的。(PS：Docker Inc 也已经将 Docker Notary 捐献给了 CNCF)</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| Kubernetes v1.17 正式发布</title>
-      <link>https://moelove.info/2019/12/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.17-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</link>
-      <pubDate>Sun, 15 Dec 2019 23:16:14 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/12/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.17-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Kubernetes v1.17 正式发布 本周 Kubernetes v1.17 正式发布了，这是 2019 年的第四次发布，当然也是今年最后一次了。Kubernetes v1.17 包含 22 个增强功能，其中 14 个已经 stable ，4 个 beta 以及剩余 4 个 alpha 。
+至于它的存在感嘛，不知道你是否有使用过 Docker Content Trust(DCT) 相关的功能，简单来说你可以当作就是 docker trust 所涉及到的相关功能，这其中的部分功能是构建在 Docker Notary 之上的，而 Docker Notary 则是使用 TUF 作为其基础安全框架的。(PS：Docker Inc 也已经将 Docker Notary 捐献给了 CNCF)</description></item><item><title>K8S 生态周报| Kubernetes v1.17 正式发布</title><link>https://moelove.info/2019/12/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.17-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</link><pubDate>Sun, 15 Dec 2019 23:16:14 +0800</pubDate><guid>https://moelove.info/2019/12/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.17-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Kubernetes v1.17 正式发布 本周 Kubernetes v1.17 正式发布了，这是 2019 年的第四次发布，当然也是今年最后一次了。Kubernetes v1.17 包含 22 个增强功能，其中 14 个已经 stable ，4 个 beta 以及剩余 4 个 alpha 。
 本次版本的主题是 Stability，在发布之时 Kubernetes 官方博客上已经有了一篇 Kubernetes 1.17: Stability 文章介绍，加上每周的周报中也都有上游进展的介绍，我在这里就不赘述了，稍微聊两三个我个人认为比较有用的内容。
- rbac.authorization.k8s.io/v1alpha1 和 rbac.authorization.k8s.io/v1beta1 在 v1.17 被标记为废弃，并且在 v1.20 将被废弃； kubectl logs 增加了一个 --prefix 的选项，使用此选项可以在输出日志的时候展示一个前缀，格式是 [pod/name/containerName] 废弃和添加了一大堆 metrics， 感兴趣的朋友可以参考下 ReleaseNote 中 metrics 的部分  其余内容建议参考下完整的 ReleaseNote
-Harbor v1.10 正式发布 Harbor 目前在 GitHub 有 10.</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| containerd v1.3.2 发布</title>
-      <link>https://moelove.info/2019/12/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.3.2-%E5%8F%91%E5%B8%83/</link>
-      <pubDate>Mon, 09 Dec 2019 01:09:07 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/12/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.3.2-%E5%8F%91%E5%B8%83/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Kind v0.6.1 发布 本周 Kind Kubernetes In Docker 发布了 v0.6.1 版本，这是对 v0.6.0 的一个小 patch 版本，主要变更如下：
- 修复 containerd 在多 control plane 节点集群下的配置； 修正了 v1alpha4 API 中的 protocol 和 propagation 配置； 重新推送了镜像，v0.6.0 发布的时候忘记把 CNI 的镜像给预加载到 Node 镜像中了。现在的默认镜像是 kindest/node:v1.16.3@sha256:70ce6ce09bee5c34ab14aec2b84d6edb260473a60638b1b095470a3a0f95ebec  另外：Kind 的 Node 镜像在 DockerHub 上的下载量超过了 500K+ ，也说明其正在被广泛使用。（查看了下我自己发布的镜像中，下载量最多的也才只有 50K+）恭喜 Kind ！
+rbac.authorization.k8s.io/v1alpha1 和 rbac.authorization.k8s.io/v1beta1 在 v1.17 被标记为废弃，并且在 v1.20 将被废弃； kubectl logs 增加了一个 --prefix 的选项，使用此选项可以在输出日志的时候展示一个前缀，格式是 [pod/name/containerName] 废弃和添加了一大堆 metrics， 感兴趣的朋友可以参考下 ReleaseNote 中 metrics 的部分 其余内容建议参考下完整的 ReleaseNote
+Harbor v1.10 正式发布 Harbor 目前在 GitHub 有 10.</description></item><item><title>K8S 生态周报| containerd v1.3.2 发布</title><link>https://moelove.info/2019/12/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.3.2-%E5%8F%91%E5%B8%83/</link><pubDate>Mon, 09 Dec 2019 01:09:07 +0800</pubDate><guid>https://moelove.info/2019/12/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.3.2-%E5%8F%91%E5%B8%83/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Kind v0.6.1 发布 本周 Kind Kubernetes In Docker 发布了 v0.6.1 版本，这是对 v0.6.0 的一个小 patch 版本，主要变更如下：
+修复 containerd 在多 control plane 节点集群下的配置； 修正了 v1alpha4 API 中的 protocol 和 propagation 配置； 重新推送了镜像，v0.6.0 发布的时候忘记把 CNI 的镜像给预加载到 Node 镜像中了。现在的默认镜像是 kindest/node:v1.16.3@sha256:70ce6ce09bee5c34ab14aec2b84d6edb260473a60638b1b095470a3a0f95ebec 另外：Kind 的 Node 镜像在 DockerHub 上的下载量超过了 500K+ ，也说明其正在被广泛使用。（查看了下我自己发布的镜像中，下载量最多的也才只有 50K+）恭喜 Kind ！
 containerd v1.3.2 发布 这是 containerd 在 v1.3 系列的第二个 patch 版本。 此版本主要的修复内容如下：
- 修复了一个容器 pid 的问题，会导致 Docker 卡住； 使用已缓存的状态而不是每次都执行 runc state 获取容器状态，相关影响是 Kubernetes 启用 liveness 和 readiness 探针会造成 CPU 飙高以及 Docker 容器使用健康检查也会造成 CPU 飙高；  综合来看，建议更新到此版本。</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| Rancher v2.3.3 发布</title>
-      <link>https://moelove.info/2019/12/01/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Rancher-v2.3.3-%E5%8F%91%E5%B8%83/</link>
-      <pubDate>Sun, 01 Dec 2019 10:15:15 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/12/01/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Rancher-v2.3.3-%E5%8F%91%E5%B8%83/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Rancher v2.3.3 发布 本周 Rancher v2.3.3 发布，正式支持 Kubernetes v1.16，并将 v1.16.3 设置为 Rancher 默认的 Kubernetes 版本。
+修复了一个容器 pid 的问题，会导致 Docker 卡住； 使用已缓存的状态而不是每次都执行 runc state 获取容器状态，相关影响是 Kubernetes 启用 liveness 和 readiness 探针会造成 CPU 飙高以及 Docker 容器使用健康检查也会造成 CPU 飙高； 综合来看，建议更新到此版本。</description></item><item><title>K8S 生态周报| Rancher v2.3.3 发布</title><link>https://moelove.info/2019/12/01/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Rancher-v2.3.3-%E5%8F%91%E5%B8%83/</link><pubDate>Sun, 01 Dec 2019 10:15:15 +0800</pubDate><guid>https://moelove.info/2019/12/01/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Rancher-v2.3.3-%E5%8F%91%E5%B8%83/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Rancher v2.3.3 发布 本周 Rancher v2.3.3 发布，正式支持 Kubernetes v1.16，并将 v1.16.3 设置为 Rancher 默认的 Kubernetes 版本。
 在此版本中，值得关注的修复如下：
- 修复了其不支持 kube-proxy 使用 IPVS 模式的问题;  已知问题：
- Rancher v2.3.3 在开启 SELinux 的 RHEL 7.7 上使用 RHEL Docker 1.13 时，部署集群将导致失败；  更多关于此版本的特性及已知问题，请关注 ReleaseNote
-上游进展  api-server 的 --runtime-config 可使用 api/beta=false 参数禁用所有内置的符合 v[0-9]+beta[0-9]+ 版本的 REST API；同时 --feature-gates 可使用 AllBeta=false 禁用所有内置的 beta 特性。#84304
- downward API 为 Dualstack 增加了支持，参数名为 status.</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| containerd v1.3.1 发布</title>
-      <link>https://moelove.info/2019/11/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.3.1-%E5%8F%91%E5%B8%83/</link>
-      <pubDate>Mon, 25 Nov 2019 04:52:31 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/11/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.3.1-%E5%8F%91%E5%B8%83/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- containerd v1.3.1 发布 本周 containerd v1.3.1 发布了，我们一起看看其中值得注意的变化：
- 将 runc 更新至 v1.0.0-rc9 ， 其中包含了对 CVE-2019-16884 的修复，关于此漏洞的更多细节也可参考 https://github.com/opencontainers/runc/issues/2128 ； 修复了一个 v1.3.0 在拉取镜像遇到错误时，解包过程中的死锁问题 #3816 ; 定位了一个 containerd 在主机意外重启时，可能无法恢复损坏的镜像的问题，这个问题是比较有意思的，可能遇到这种情况的环境主要是 containerd 数据目录挂载至非根目录所在的盘中（多数环境中，系统盘的空间并不会很大，所以这种安装情况也算比较常见）。发生此问题的根本原因就在于重启后启动的时机不对（我倾向于这样表述，虽然实际的逻辑是 gc 删除了一些元数据，但它本身的行为是正常的）。所以修复的办法也比较简单， 如果你的 containerd 是使用 systemd 进行管理的，那么可以在 service 的配置文件的 After 块中增加 local-fs.target 的配置
+修复了其不支持 kube-proxy 使用 IPVS 模式的问题; 已知问题：
+Rancher v2.3.3 在开启 SELinux 的 RHEL 7.7 上使用 RHEL Docker 1.13 时，部署集群将导致失败； 更多关于此版本的特性及已知问题，请关注 ReleaseNote
+上游进展 api-server 的 --runtime-config 可使用 api/beta=false 参数禁用所有内置的符合 v[0-9]+beta[0-9]+ 版本的 REST API；同时 --feature-gates 可使用 AllBeta=false 禁用所有内置的 beta 特性。#84304
+downward API 为 Dualstack 增加了支持，参数名为 status.</description></item><item><title>K8S 生态周报| containerd v1.3.1 发布</title><link>https://moelove.info/2019/11/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.3.1-%E5%8F%91%E5%B8%83/</link><pubDate>Mon, 25 Nov 2019 04:52:31 +0800</pubDate><guid>https://moelove.info/2019/11/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.3.1-%E5%8F%91%E5%B8%83/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+containerd v1.3.1 发布 本周 containerd v1.3.1 发布了，我们一起看看其中值得注意的变化：
+将 runc 更新至 v1.0.0-rc9 ， 其中包含了对 CVE-2019-16884 的修复，关于此漏洞的更多细节也可参考 https://github.com/opencontainers/runc/issues/2128 ； 修复了一个 v1.3.0 在拉取镜像遇到错误时，解包过程中的死锁问题 #3816 ; 定位了一个 containerd 在主机意外重启时，可能无法恢复损坏的镜像的问题，这个问题是比较有意思的，可能遇到这种情况的环境主要是 containerd 数据目录挂载至非根目录所在的盘中（多数环境中，系统盘的空间并不会很大，所以这种安装情况也算比较常见）。发生此问题的根本原因就在于重启后启动的时机不对（我倾向于这样表述，虽然实际的逻辑是 gc 删除了一些元数据，但它本身的行为是正常的）。所以修复的办法也比较简单， 如果你的 containerd 是使用 systemd 进行管理的，那么可以在 service 的配置文件的 After 块中增加 local-fs.target 的配置
 local-fs.target 是 systemd 中一个特殊的单元，和 dbus.service 之类的很多单元类似，都属于特殊的那一类。具体来说它是用来集合本地文件系统挂载点的目标单元，听起来可能比较抽象。实际上就是 systemd-fstab-generator 会在所有本地文件系统挂载单元中添加 Before=local-fs.target 这一条，所以呢，当在 local-fs.target 之后执行的，就表示现在机器上的所有本地文件系统均已经正确挂载。(这也是我认为这个问题有意思的地方）
-  以上就是我认为在此版本中比较值得注意的点了，对此版本有兴趣的朋友可参阅 ReleaseNote
-Kubernetes v1.17.0-rc.1 发布 虽然本周在举行 KubeCon 但 Kubernetes 的发布进度也没受太多影响，本周顺利发布了 v1.</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| Helm v3.0.0 正式发布</title>
-      <link>https://moelove.info/2019/11/17/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.0.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</link>
-      <pubDate>Sun, 17 Nov 2019 22:15:01 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/11/17/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.0.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Helm v3.0.0 正式发布 本周 Helm v3.0.0 正式发布了。在 Helm v3 发布第一个 alpha 版时，我就写了一篇 《初试 Helm 3》 在那篇文章中，我介绍了一些 Helm 3 的变化及特性。 现在正式版发布了，我们来正式的看看这个版本带来了哪些值得期待的内容。（PS：我不会在本文中介绍其全部特性，只会聊聊我感兴趣的，对全部特性感兴趣的朋友可以参考其官方文档 https://helm.sh/docs/ ）
+以上就是我认为在此版本中比较值得注意的点了，对此版本有兴趣的朋友可参阅 ReleaseNote
+Kubernetes v1.17.0-rc.1 发布 虽然本周在举行 KubeCon 但 Kubernetes 的发布进度也没受太多影响，本周顺利发布了 v1.</description></item><item><title>K8S 生态周报| Helm v3.0.0 正式发布</title><link>https://moelove.info/2019/11/17/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.0.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</link><pubDate>Sun, 17 Nov 2019 22:15:01 +0800</pubDate><guid>https://moelove.info/2019/11/17/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.0.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Helm v3.0.0 正式发布 本周 Helm v3.0.0 正式发布了。在 Helm v3 发布第一个 alpha 版时，我就写了一篇 《初试 Helm 3》 在那篇文章中，我介绍了一些 Helm 3 的变化及特性。 现在正式版发布了，我们来正式的看看这个版本带来了哪些值得期待的内容。（PS：我不会在本文中介绍其全部特性，只会聊聊我感兴趣的，对全部特性感兴趣的朋友可以参考其官方文档 https://helm.sh/docs/ ）
 移除 Tiller 这个特性想必在任何介绍 Helm 3 的文章中都会有提到，当然在我之前的文章中也有提到。在 Helm 2 时，对于启动了 RBAC 的 Kubernetes 集群而言，在生产环境中想要安全的管理 Tiller 的权限是比较麻烦的。
 如果使用默认配置（简单来说也就是没啥特别的限制），那么上手很容易，但对于多租户的集群而言，就没那么安全了。
 在 Helm 2 时期，为了简单或者说为了安全，我们可以使用 Tillerless 的方式，来避免在集群中安装 Tiller， 同时还可以正常的使用 Helm 的功能。（很早前计划写篇文章介绍一下这个经验来着，结果至今也还没有腾出时间写，现在 Helm 3 发布，也就不用写了，这里大概聊一下）
-Tillerless 是什么含义呢？ 也就是在本地启动一个 Tiller 的服务，让它使用你本地的 KUBECONFIG 的配置文件与集群进行交互，而 Helm 在初始化时，只需要初始化 client 即可， 然后可通过 $HELM_HOST 变量控制连接到本地所启动的 Tiller， 之后便可以正常使用了。(每次部署完成后，将 Tiller 关闭即可)</description>
-    </item>
-    
-    <item>
-      <title>2019 容器使用量报告</title>
-      <link>https://moelove.info/2019/11/17/2019-%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8%E9%87%8F%E6%8A%A5%E5%91%8A/</link>
-      <pubDate>Sun, 17 Nov 2019 16:18:15 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/11/17/2019-%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8%E9%87%8F%E6%8A%A5%E5%91%8A/</guid>
-      <description>最近 sysdig 发布了 2019 容器使用报告，内容还比较有趣，特别来介绍一下。 关注公众号「Moelove」回复 docker2019 即可获取完整 PDF 报告。
+Tillerless 是什么含义呢？ 也就是在本地启动一个 Tiller 的服务，让它使用你本地的 KUBECONFIG 的配置文件与集群进行交互，而 Helm 在初始化时，只需要初始化 client 即可， 然后可通过 $HELM_HOST 变量控制连接到本地所启动的 Tiller， 之后便可以正常使用了。(每次部署完成后，将 Tiller 关闭即可)</description></item><item><title>2019 容器使用量报告</title><link>https://moelove.info/2019/11/17/2019-%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8%E9%87%8F%E6%8A%A5%E5%91%8A/</link><pubDate>Sun, 17 Nov 2019 16:18:15 +0800</pubDate><guid>https://moelove.info/2019/11/17/2019-%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8%E9%87%8F%E6%8A%A5%E5%91%8A/</guid><description>最近 sysdig 发布了 2019 容器使用报告，内容还比较有趣，特别来介绍一下。 关注公众号「Moelove」回复 docker2019 即可获取完整 PDF 报告。
 关键信息 容器运行时 Docker 仍然是占据市场规模最大的容器运行时 （79%），而其他的，类似 rkt，lxc，podman 之类的市场占比微乎其微，甚至没有在报告中出现。
 containerd 源自 Docker，现在也占据了一席之地；而对于 cri-o 报告中指出，之后市场份额可能会增加。
 在我个人看来，近一年内 Docker 在企业生产环境的使用规模仍然会保持最大。
@@ -164,33 +68,15 @@ metrics Prometheus 已经成为事实标准，加上 Prometheus 作为 CNCF 毕�
 Pods 规模 多数集群属于中小规模的（也说明是个正在发展的阶段）
 结论 容器仍然在应用交付上发挥着重要的作用，从去年发布报告（在公众号后台回复 docker2018 获取）以来，容器技术的采用率仍在加速，容器密度翻了一番，并且随着技术的成熟，也有了越来越多的成熟案例。
 Prometheus 已经成为了云原生应用指标的标准化方案，容器编排技术 Kubernetes 成为了事实的标准，企业应该在 Kubernetes 上进行投资，以跟上技术潮流的步伐。
-可以通过下面二维码订阅我的文章公众号【MoeLove】， 在公众号后台回复 docker2019 可下载完整报告。</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| Vitess 正式从 CNCF 毕业</title>
-      <link>https://moelove.info/2019/11/10/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Vitess-%E6%AD%A3%E5%BC%8F%E4%BB%8E-CNCF-%E6%AF%95%E4%B8%9A/</link>
-      <pubDate>Sun, 10 Nov 2019 23:17:45 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/11/10/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Vitess-%E6%AD%A3%E5%BC%8F%E4%BB%8E-CNCF-%E6%AF%95%E4%B8%9A/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Vitess 正式从 CNCF 毕业 CNCF（云原生计算基金会）在美国时间 2019 年 11 月 5 日宣布 Vitess 正式毕业了。
+可以通过下面二维码订阅我的文章公众号【MoeLove】， 在公众号后台回复 docker2019 可下载完整报告。</description></item><item><title>K8S 生态周报| Vitess 正式从 CNCF 毕业</title><link>https://moelove.info/2019/11/10/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Vitess-%E6%AD%A3%E5%BC%8F%E4%BB%8E-CNCF-%E6%AF%95%E4%B8%9A/</link><pubDate>Sun, 10 Nov 2019 23:17:45 +0800</pubDate><guid>https://moelove.info/2019/11/10/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Vitess-%E6%AD%A3%E5%BC%8F%E4%BB%8E-CNCF-%E6%AF%95%E4%B8%9A/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Vitess 正式从 CNCF 毕业 CNCF（云原生计算基金会）在美国时间 2019 年 11 月 5 日宣布 Vitess 正式毕业了。
 这是 CNCF 中第 8 个正式毕业的项目，最近的几次周报中，基本都会谈到关于 CNCF 项目毕业相关的信息（忙碌的 Q4 啊）
 Vitess 最初由 YouTube 在 2010 年创建， 主要是用于 MySQL 横向扩展的数据库系统。据说 Vitess 一直为 YouTube 的所有数据库提供服务，国内貌似是京东使用比较多。
 补一张 Vitess 的架构图：
 最后，再次 恭喜 Vitess 顺利毕业!
 Helm v2.16.0 正式发布 在之前的 K8S 生态周报| Helm v2 最后一个特性版本发布中，我介绍了 Helm 正式发布了 v2.15.0 作为 v2 版本的最后一个特性版本。
-而本次发布的 v2.16.0 也确实没有主要的特性更新，都是一些问题修复和安全更新等；（在这次版本中是 13 个独立 committers 之一 :) ）</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| Helm v2 爆出全版本漏洞</title>
-      <link>https://moelove.info/2019/11/03/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v2-%E7%88%86%E5%87%BA%E5%85%A8%E7%89%88%E6%9C%AC%E6%BC%8F%E6%B4%9E/</link>
-      <pubDate>Sun, 03 Nov 2019 23:17:05 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/11/03/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v2-%E7%88%86%E5%87%BA%E5%85%A8%E7%89%88%E6%9C%AC%E6%BC%8F%E6%B4%9E/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Jaeger 顺利从 CNCF 毕业 CNCF（云原生计算基金会）在美国时间 2019 年 10 月 31 日宣布 Jaeger 正式毕业了。
+而本次发布的 v2.16.0 也确实没有主要的特性更新，都是一些问题修复和安全更新等；（在这次版本中是 13 个独立 committers 之一 :) ）</description></item><item><title>K8S 生态周报| Helm v2 爆出全版本漏洞</title><link>https://moelove.info/2019/11/03/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v2-%E7%88%86%E5%87%BA%E5%85%A8%E7%89%88%E6%9C%AC%E6%BC%8F%E6%B4%9E/</link><pubDate>Sun, 03 Nov 2019 23:17:05 +0800</pubDate><guid>https://moelove.info/2019/11/03/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v2-%E7%88%86%E5%87%BA%E5%85%A8%E7%89%88%E6%9C%AC%E6%BC%8F%E6%B4%9E/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Jaeger 顺利从 CNCF 毕业 CNCF（云原生计算基金会）在美国时间 2019 年 10 月 31 日宣布 Jaeger 正式毕业了。
 这是 CNCF 中第 7 个正式毕业的项目，在上次周报的最后 我才刚提过一些项目提交了毕业申请，也同时以 Jaeger 为时一年的毕业申请申请举了个例子，没想到本周就毕业了。:)
 Jaeger 最初是由 Uber 受 Dapper 和 OpenZipkin 启发，开源出来的一套分布式追踪系统。它主要可用于微服务架构下的分布式系统的根因分析，性能/延迟优化，服务依赖等方面。截至目前，它在 GitHub 上有 9.4k 的 star ，986 个 fork 以及 115 位贡献者。
 它现在的存储后端主要就支持两种 Cassandra 3.4+ 和 Elasticsearch 5.x/6.x ，在这种系统中，随着服务规模的扩大，对后端存储的要求也会很高。另外，它有一套比较现代化的 UI，是基于 react 开发的。
@@ -198,78 +84,33 @@ Jaeger 最初是由 Uber 受 Dapper 和 OpenZipkin 启发，开源出来的一�
 当然实际的架构也可能会因为基础设施而改变，比如说如果已经使用了 SkyWalking 的话，两者倒是也可以结合，大概就会变成下面这样：
 不过，对于技术方案的选择，我个人建议是考虑实际需求，以及对各方案进行理性的权衡，否则的话，说不定什么时候就演变成了下面这样：（这个调用链虽然是可以走通的，但此处我是开个玩笑的， 请勿当真）
 最后，再次恭喜 Jaeger 顺利毕业！
-Helm 2 爆出全版本受影响的漏洞 本周 Helm 官方披露出来一个全版本 (Helm 在 2.</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| Helm v3 最后一个beta版本发布</title>
-      <link>https://moelove.info/2019/10/27/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3-%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AAbeta%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/</link>
-      <pubDate>Sun, 27 Oct 2019 23:01:41 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/10/27/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3-%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AAbeta%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Helm v3.0.0-beta.5 发布 这将是最后一个 beta 版本，下一个版本将会是 Helm v3.0.0-rc.1 。现在主要精力都集中在一些 bugfix 上，也会有一些设计方面的事情还需要最终确认。
+Helm 2 爆出全版本受影响的漏洞 本周 Helm 官方披露出来一个全版本 (Helm 在 2.</description></item><item><title>K8S 生态周报| Helm v3 最后一个beta版本发布</title><link>https://moelove.info/2019/10/27/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3-%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AAbeta%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/</link><pubDate>Sun, 27 Oct 2019 23:01:41 +0800</pubDate><guid>https://moelove.info/2019/10/27/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3-%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AAbeta%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Helm v3.0.0-beta.5 发布 这将是最后一个 beta 版本，下一个版本将会是 Helm v3.0.0-rc.1 。现在主要精力都集中在一些 bugfix 上，也会有一些设计方面的事情还需要最终确认。
 快速的看一下在此版本中新增的内容：
- 为了能提供更多子命令，现在 helm get 和 helm show 分别移动到了 helm get all 和 helm show all， 这是一个破坏性变更; 对 helm get values 增加了一个 --output 的选项，现在支持三种格式 table, json, yaml； helm test 新增了一个 --logs 的参数，这是在 Helm 2 中新增的；  对此版本感兴趣的朋友可以参考 ReleaseNote
+为了能提供更多子命令，现在 helm get 和 helm show 分别移动到了 helm get all 和 helm show all， 这是一个破坏性变更; 对 helm get values 增加了一个 --output 的选项，现在支持三种格式 table, json, yaml； helm test 新增了一个 --logs 的参数，这是在 Helm 2 中新增的； 对此版本感兴趣的朋友可以参考 ReleaseNote
 Docker Hub 新增双因素认证功能 最近 Docker Hub 上线了 双因素认证 的功能。这个事情主要有两个方面的考虑：
- DockerHub 希望能给用户更多的安全性，以及提供更完善的功能，以此来吸引个人用户/开源项目/组织/企业等使用； 这个事情其实也算是 4 月份被攻击事件的后续，在上个月的周报中，我也介绍了 Docker Hub 上线了 Access Token 的功能。而这次上线 2FA 更是进一步提高了其安全性！  关于如何启用 2FA 可直接参考 Docker Hub 的文档 https://docs.</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| Helm v2 最后一个特性版本发布</title>
-      <link>https://moelove.info/2019/10/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v2-%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E7%89%B9%E6%80%A7%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/</link>
-      <pubDate>Mon, 21 Oct 2019 10:01:23 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/10/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v2-%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E7%89%B9%E6%80%A7%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 文末有活动，欢迎参与。
- Docker 19.03.4 正式发布 在本周 Docker 发布了 19.03.4 版本，这个版本主要是为了修复上周周报中介绍的 DOCKER-USER iptables 链丢失的问题。
+DockerHub 希望能给用户更多的安全性，以及提供更完善的功能，以此来吸引个人用户/开源项目/组织/企业等使用； 这个事情其实也算是 4 月份被攻击事件的后续，在上个月的周报中，我也介绍了 Docker Hub 上线了 Access Token 的功能。而这次上线 2FA 更是进一步提高了其安全性！ 关于如何启用 2FA 可直接参考 Docker Hub 的文档 https://docs.</description></item><item><title>K8S 生态周报| Helm v2 最后一个特性版本发布</title><link>https://moelove.info/2019/10/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v2-%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E7%89%B9%E6%80%A7%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/</link><pubDate>Mon, 21 Oct 2019 10:01:23 +0800</pubDate><guid>https://moelove.info/2019/10/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v2-%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E7%89%B9%E6%80%A7%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 文末有活动，欢迎参与。
+Docker 19.03.4 正式发布 在本周 Docker 发布了 19.03.4 版本，这个版本主要是为了修复上周周报中介绍的 DOCKER-USER iptables 链丢失的问题。
 如果要升级 Docker 版本的话，可选择升级到此版本。
 Kubernetes 修复全版本影响漏洞 上周周报中的 上游进展 部分，介绍了对 CVE-2019-11253 的修复，限制 YAML/JSON 的解码大小为 3M 。本周相继发布了以下版本，包含了对此漏洞的修复。
- v1.13.12 v1.14.8 v1.15.5 v1.16.2  实际受此漏洞影响的版本是：
- Kubernetes v1.0.0-1.12.x Kubernetes v1.13.0-1.13.11 (修复于 v1.13.12) Kubernetes v1.14.0-1.14.7 (修复于 v1.14.8) Kubernetes v1.15.0-1.15.4 (修复于 v1.15.5) Kubernetes v1.16.0-1.16.1 (修复于 v1.16.2)  建议对集群进行升级。 但是升级前，请务必先阅读完 https://github.com/kubernetes/kubernetes/issues/83253 的内容 在清楚了解不同版本的行为后，再做升级。
+v1.13.12 v1.14.8 v1.15.5 v1.16.2 实际受此漏洞影响的版本是：
+Kubernetes v1.0.0-1.12.x Kubernetes v1.13.0-1.13.11 (修复于 v1.13.12) Kubernetes v1.14.0-1.14.7 (修复于 v1.14.8) Kubernetes v1.15.0-1.15.4 (修复于 v1.15.5) Kubernetes v1.16.0-1.16.1 (修复于 v1.16.2) 建议对集群进行升级。 但是升级前，请务必先阅读完 https://github.com/kubernetes/kubernetes/issues/83253 的内容 在清楚了解不同版本的行为后，再做升级。
 对此漏洞感兴趣的朋友，也可参阅社区公告
-Prometheus Pushgateway v1.0 正式发布 Prometheus Pushgateway v1.</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| Docker 19.03.3 DNS 不再区分大小写</title>
-      <link>https://moelove.info/2019/10/13/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-19.03.3-DNS-%E4%B8%8D%E5%86%8D%E5%8C%BA%E5%88%86%E5%A4%A7%E5%B0%8F%E5%86%99/</link>
-      <pubDate>Sun, 13 Oct 2019 22:42:59 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/10/13/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-19.03.3-DNS-%E4%B8%8D%E5%86%8D%E5%8C%BA%E5%88%86%E5%A4%A7%E5%B0%8F%E5%86%99/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 文末有活动，欢迎参与。
- Docker 19.03.3 正式发布 在本周 Docker 发布了 19.03.3 版本，这个版本的变更内容 很重要，我会将主要内容都列出来。(上周周报介绍了 19.03.3-rc1 的一些情况)
+Prometheus Pushgateway v1.0 正式发布 Prometheus Pushgateway v1.</description></item><item><title>K8S 生态周报| Docker 19.03.3 DNS 不再区分大小写</title><link>https://moelove.info/2019/10/13/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-19.03.3-DNS-%E4%B8%8D%E5%86%8D%E5%8C%BA%E5%88%86%E5%A4%A7%E5%B0%8F%E5%86%99/</link><pubDate>Sun, 13 Oct 2019 22:42:59 +0800</pubDate><guid>https://moelove.info/2019/10/13/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-19.03.3-DNS-%E4%B8%8D%E5%86%8D%E5%8C%BA%E5%88%86%E5%A4%A7%E5%B0%8F%E5%86%99/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 文末有活动，欢迎参与。
+Docker 19.03.3 正式发布 在本周 Docker 发布了 19.03.3 版本，这个版本的变更内容 很重要，我会将主要内容都列出来。(上周周报介绍了 19.03.3-rc1 的一些情况)
 已知问题 DOCKER-USER iptables 链丢失；如果你并不需要在 DOCKER-USER 链上定义规则的话，那你也并不会受此问题的影响。
 临时解决办法：手动添加丢失的链，操作如下：
-iptables -N DOCKER-USER iptables -I FORWARD -j DOCKER-USER iptables -A DOCKER-USER -j RETURN  这个问题会在 19.03.4 中进行修复, 很快会进行发布； 实际会把 libnetwork 中有问题的那段代码先去掉。 如果已经升级了此版本的用户，受到此问题影响的话，可以使用上述方式进行临时解决。
-安全问题  将 runc 更新到了 v1.0.0-rc8-92-g84373aaa 这其中包含了 runc 中对 CVE-2017-18367 的修复，该漏洞的根本原因在于 libseccomp-golang 中一个错误的逻辑运算 ，有兴趣的朋友可以点开链接看看实际的修复代码，并且也可以发现该代码其实在 2017 年 4 月就已经合并进 libseccomp-golang 的主干中了，但实际上在今年 6 月在 runc 中才真正修复。  这个问题其实反映出来的是当我们在维护项目时，对自己所用的各种依赖需要有所了解和把握，整体来讲，尽可能避免依赖项过旧是个好事儿；并且安全问题非常值得关注。</description>
-    </item>
-    
-    <item>
-      <title>Docker 核心知识必知必会</title>
-      <link>https://moelove.info/2019/10/08/Docker-%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</link>
-      <pubDate>Tue, 08 Oct 2019 23:58:14 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/10/08/Docker-%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</guid>
-      <description>自 2013 年起，随着 Docker 的正式面世，容器技术迅速成为了基础技术领域中的热门。而在近两三年中，随着容器编排领域的混战结束，Kubernetes 已经成为了容器编排领域事实上的标准。
+iptables -N DOCKER-USER iptables -I FORWARD -j DOCKER-USER iptables -A DOCKER-USER -j RETURN 这个问题会在 19.03.4 中进行修复, 很快会进行发布； 实际会把 libnetwork 中有问题的那段代码先去掉。 如果已经升级了此版本的用户，受到此问题影响的话，可以使用上述方式进行临时解决。
+安全问题 将 runc 更新到了 v1.0.0-rc8-92-g84373aaa 这其中包含了 runc 中对 CVE-2017-18367 的修复，该漏洞的根本原因在于 libseccomp-golang 中一个错误的逻辑运算 ，有兴趣的朋友可以点开链接看看实际的修复代码，并且也可以发现该代码其实在 2017 年 4 月就已经合并进 libseccomp-golang 的主干中了，但实际上在今年 6 月在 runc 中才真正修复。 这个问题其实反映出来的是当我们在维护项目时，对自己所用的各种依赖需要有所了解和把握，整体来讲，尽可能避免依赖项过旧是个好事儿；并且安全问题非常值得关注。</description></item><item><title>Docker 核心知识必知必会</title><link>https://moelove.info/2019/10/08/Docker-%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</link><pubDate>Tue, 08 Oct 2019 23:58:14 +0800</pubDate><guid>https://moelove.info/2019/10/08/Docker-%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86%E5%BF%85%E7%9F%A5%E5%BF%85%E4%BC%9A/</guid><description>自 2013 年起，随着 Docker 的正式面世，容器技术迅速成为了基础技术领域中的热门。而在近两三年中，随着容器编排领域的混战结束，Kubernetes 已经成为了容器编排领域事实上的标准。
 有一些人存在误解，认为 Kubernetes 的出现取代了 Docker。但事实上，Docker 与 Kubernetes 是相辅相成的。Kubernetes 使用 Docker 作为容器运行时，用来启动应用；当 Docker 容器规模变大时，自然是需要有容器编排工具进行管理的。引用最近一次的网络研讨会后的文章内容：
- In fact, Kubernetes is better with Docker. And Docker is better with Kubernetes.
- 无论在使用 Docker 或是 Kubernetes 亦或者是使用基于这些技术的其他衍生技术时，都有可能会遇到一些意料之外的情况，当问题发生时，我们总是希望可以快速定位问题，并且从根本上解决问题。
+In fact, Kubernetes is better with Docker. And Docker is better with Kubernetes.
+无论在使用 Docker 或是 Kubernetes 亦或者是使用基于这些技术的其他衍生技术时，都有可能会遇到一些意料之外的情况，当问题发生时，我们总是希望可以快速定位问题，并且从根本上解决问题。
 一般情况下，上层的问题比较容易解决，但如果问题发生在运行时/Docker 或容器上时，如果没有系统性的知识，很难从根本上解决问题；当然，有些时候通过搜索引擎可以帮我们找到一些问题的解决办法，但如果不将其彻底搞懂，以后遇到类似问题可能还是没法快速解决。
 我自 Docker 0.9 版本时开始学习和使用，自己踩过了很多坑，活跃在社区中，也帮别人解决了很多问题。现在我的新专栏《Docker 核心知识必知必会》正式上线了，共 51 节，从 7 个核心维度来 系统性 的讲解 Docker 容器技术的核心特性及原理，实践与源码相结合；部分内容会深入到 Linux 内核源码，以此来建立起从内核到 Docker 容器技术的知识体系。
 我希望借由这个课程，将 Docker 容器技术的本质和思想与我在开发和运维 Docker 过程中对其原理和实践经验的总结讲清楚，并将结合着实践和核心特性的原理，加深对 Docker 容器技术的理解。
 因此，我把课程划分成了三大模块：
- Docker 入门: 这个模块分成了三篇内容，通过第一篇，带你了解 Docker 容器技术生态的发展脉络；第二篇，是为刚入门 Docker 的读者准备的，也是为后续章节进行铺垫；第三篇是很多读者或公司都常会困惑的问题，Docker 与 Linux 内核兼容性如何，要上生产环境该选择哪个版本？我会在这一篇中与你分享，让你不再困惑。</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| runc v1.0.0-rc9 发布</title>
-      <link>https://moelove.info/2019/10/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-runc-v1.0.0-rc9-%E5%8F%91%E5%B8%83/</link>
-      <pubDate>Sun, 06 Oct 2019 23:07:49 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/10/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-runc-v1.0.0-rc9-%E5%8F%91%E5%B8%83/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- runc v1.0.0-rc9 发布 不知不觉，runc v1.0.0-rc9 于近日发布了。早先关注过我文章的朋友们应该看到过我从去年开始每次在 runc 新版本发布时都有专门写一篇文章进行介绍。这次版本的定位主要是修复 CVE-2019-16884 所以我也就不再单独写文章介绍了（另一个原因是现在在假期，还是多抽空陪陪家人）
+Docker 入门: 这个模块分成了三篇内容，通过第一篇，带你了解 Docker 容器技术生态的发展脉络；第二篇，是为刚入门 Docker 的读者准备的，也是为后续章节进行铺垫；第三篇是很多读者或公司都常会困惑的问题，Docker 与 Linux 内核兼容性如何，要上生产环境该选择哪个版本？我会在这一篇中与你分享，让你不再困惑。</description></item><item><title>K8S 生态周报| runc v1.0.0-rc9 发布</title><link>https://moelove.info/2019/10/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-runc-v1.0.0-rc9-%E5%8F%91%E5%B8%83/</link><pubDate>Sun, 06 Oct 2019 23:07:49 +0800</pubDate><guid>https://moelove.info/2019/10/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-runc-v1.0.0-rc9-%E5%8F%91%E5%B8%83/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+runc v1.0.0-rc9 发布 不知不觉，runc v1.0.0-rc9 于近日发布了。早先关注过我文章的朋友们应该看到过我从去年开始每次在 runc 新版本发布时都有专门写一篇文章进行介绍。这次版本的定位主要是修复 CVE-2019-16884 所以我也就不再单独写文章介绍了（另一个原因是现在在假期，还是多抽空陪陪家人）
 先对 CVE-2019-16884 做个简单的介绍。这是一个中等级别的漏洞，其主要影响是 runc 源码中的 libcontainer/rootfs_linux.go 在文件挂载至 /proc 时，少做了一些检查，可绕过 AppArmor 的限制，所以可能导致被一些恶意镜像所利用。
 主要的修复方式是将原先的 checkMountDestination 函数改写为 checkProcMount，并在其中添加了对源文件类型的判断，只允许 procfs 类型的文件挂载至 /proc 。
 此漏洞影响到的范围是 runc 以及一些使用 runc 作为基础组件的容器管理软件。请尽快进行升级。
@@ -277,190 +118,73 @@ iptables -N DOCKER-USER iptables -I FORWARD -j DOCKER-USER iptables -A DOCKER-US
 Docker v19.03.3-rc1 发布 自从 Docker 修改维护周期后，Docker 对软件的质量要求有了显著提高，每次版本发布前会经历多阶段的测试和回归，确保软件没有什么问题后才会发布正式版。
 按现在的进度来看 v19.03.3 应该会在一两周内放出。新版本会将 containerd 升级至最新的 1.2.10 ，并修复了一个在 5.2 版本内核上 overlay2 文件系统挂载时的错误。
 关于此版本感兴趣的朋友可以参考 ReleaseNote
-上游进展 Kubernetes v1.17 已经进入发布周期，这个版本的发布周期会比较短，现在已经发布了 v1.17.0-alpha 版本，计划是在 12 月 9 日可以最终发布。(想想看，距现在也就两个月的时间，你的集群现在是哪个版本呢？)</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| containerd v1.3 正式发布</title>
-      <link>https://moelove.info/2019/09/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.3-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</link>
-      <pubDate>Sun, 29 Sep 2019 21:44:09 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/09/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.3-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- containerd v1.3.0 正式发布 在上个主版本（v1.2.0）后经过 11 个月，我们终于迎来了 containerd v1.3.0 的发布，当然这个版本也是 containerd 自 CNCF 毕业后的首个主版本。（关于 containerd 毕业的信息可参考我之前的文章）
+上游进展 Kubernetes v1.17 已经进入发布周期，这个版本的发布周期会比较短，现在已经发布了 v1.17.0-alpha 版本，计划是在 12 月 9 日可以最终发布。(想想看，距现在也就两个月的时间，你的集群现在是哪个版本呢？)</description></item><item><title>K8S 生态周报| containerd v1.3 正式发布</title><link>https://moelove.info/2019/09/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.3-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</link><pubDate>Sun, 29 Sep 2019 21:44:09 +0800</pubDate><guid>https://moelove.info/2019/09/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.3-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+containerd v1.3.0 正式发布 在上个主版本（v1.2.0）后经过 11 个月，我们终于迎来了 containerd v1.3.0 的发布，当然这个版本也是 containerd 自 CNCF 毕业后的首个主版本。（关于 containerd 毕业的信息可参考我之前的文章）
 在三周前 containerd v1.3.0-rc.0 发布时，我也提到过一些，现在我们来整体看一下。
- 增加了 Windows v2 的 runtime API， 同时移除了 Windows v1 API； 为修复 CVE-2019-16884 更新了 runc 依赖；
- 可配置的插件目录；
- 允许插件注册为一个 TCP Server ，通过这种机制其实可以做到很多的事情了；
- 增加了流式处理的插件，允许在解包的时候处理自定义资源类型（设计上考虑可使用此功能进行加解密相关的逻辑）；
- 支持跨仓库推送镜像；
- 新增了 devicemapper 的快照支持，然而需要注意的是 Docker 已经将 devicemapper 的存储驱动标记为了过期，推荐大家使用 Overlay2 的存储驱动；
- 在 CRI 方面 io.containerd.runtime.v1.linux 仍然是默认的运行时，可选配置为新的 io.containerd.runc.v2，新的版本</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| Kubernetes v1.16 正式发布</title>
-      <link>https://moelove.info/2019/09/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.16-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</link>
-      <pubDate>Sun, 22 Sep 2019 23:45:37 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/09/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.16-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Kubernetes v1.16 正式发布 正如我在上次周报中所说，本周 Kubernetes v1.16 正式发布了。此版本中共包含 31 项功能增强：其中 8 项处于 stable 阶段，8 项处于 beta 阶段，剩下的 15 项处于 alpha 阶段。
+增加了 Windows v2 的 runtime API， 同时移除了 Windows v1 API； 为修复 CVE-2019-16884 更新了 runc 依赖；
+可配置的插件目录；
+允许插件注册为一个 TCP Server ，通过这种机制其实可以做到很多的事情了；
+增加了流式处理的插件，允许在解包的时候处理自定义资源类型（设计上考虑可使用此功能进行加解密相关的逻辑）；
+支持跨仓库推送镜像；
+新增了 devicemapper 的快照支持，然而需要注意的是 Docker 已经将 devicemapper 的存储驱动标记为了过期，推荐大家使用 Overlay2 的存储驱动；
+在 CRI 方面 io.containerd.runtime.v1.linux 仍然是默认的运行时，可选配置为新的 io.containerd.runc.v2，新的版本</description></item><item><title>K8S 生态周报| Kubernetes v1.16 正式发布</title><link>https://moelove.info/2019/09/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.16-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</link><pubDate>Sun, 22 Sep 2019 23:45:37 +0800</pubDate><guid>https://moelove.info/2019/09/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.16-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Kubernetes v1.16 正式发布 正如我在上次周报中所说，本周 Kubernetes v1.16 正式发布了。此版本中共包含 31 项功能增强：其中 8 项处于 stable 阶段，8 项处于 beta 阶段，剩下的 15 项处于 alpha 阶段。
 如果一直关注本周报系列文章的话，这个版本中比较重要的功能我基本都已经提到过了（这里划个重点）。
- CRD 达到 GA ，这是当前社区最为推崇的一种扩展 Kubernetes 的方式，并且自从 1.7 加入后，也被越来越广泛的使用了； 准入控制 webhooks 达到 GA ，准入控制在 Kubernetes 中太过于重要了，自 1.9 该功能加入以来，被广泛用于扩展 Kubernetes 相关功能； 现在 CSI 规范中支持调整卷大小，当前正在迁移至 Beta 阶段； IPv4/IPv6 双栈支持； 为了更好的控制 kube-apiserver 的网络流量，正在尝试给它增加一个代理，详情可点击链接查看；  其余还有一些比较重要的内容：
- 现在 kubeadm 在 TLS bootstrap 之后，将会删除 bootstrap-kubelet.conf，如果有依赖此文件的小伙伴，请尽快迁移使用 kubelet.conf ，此外也建议先看看 RBAC 相关的内容，了解下切换的意义； beta.</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| Istio 1.3 正式发布</title>
-      <link>https://moelove.info/2019/09/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Istio-1.3-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</link>
-      <pubDate>Sun, 15 Sep 2019 23:45:23 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/09/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Istio-1.3-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Istio 1.3.0 正式发布 上周 k8s 生态周报中，我推送了关于 Istio 1.3.0-rc2 发布的消息后，有小伙伴专门私聊我，说想问问 Istio 1.3 到底有什么新特性；以及为何上次没有对 Istio 1.3 的新特性进行介绍。
+CRD 达到 GA ，这是当前社区最为推崇的一种扩展 Kubernetes 的方式，并且自从 1.7 加入后，也被越来越广泛的使用了； 准入控制 webhooks 达到 GA ，准入控制在 Kubernetes 中太过于重要了，自 1.9 该功能加入以来，被广泛用于扩展 Kubernetes 相关功能； 现在 CSI 规范中支持调整卷大小，当前正在迁移至 Beta 阶段； IPv4/IPv6 双栈支持； 为了更好的控制 kube-apiserver 的网络流量，正在尝试给它增加一个代理，详情可点击链接查看； 其余还有一些比较重要的内容：
+现在 kubeadm 在 TLS bootstrap 之后，将会删除 bootstrap-kubelet.conf，如果有依赖此文件的小伙伴，请尽快迁移使用 kubelet.conf ，此外也建议先看看 RBAC 相关的内容，了解下切换的意义； beta.</description></item><item><title>K8S 生态周报| Istio 1.3 正式发布</title><link>https://moelove.info/2019/09/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Istio-1.3-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</link><pubDate>Sun, 15 Sep 2019 23:45:23 +0800</pubDate><guid>https://moelove.info/2019/09/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Istio-1.3-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Istio 1.3.0 正式发布 上周 k8s 生态周报中，我推送了关于 Istio 1.3.0-rc2 发布的消息后，有小伙伴专门私聊我，说想问问 Istio 1.3 到底有什么新特性；以及为何上次没有对 Istio 1.3 的新特性进行介绍。
 这里我来做下说明，首先关于为何上次没有对 Istio 1.3 新特性进行介绍。有两个主要原因：1. 上周时，正式版尚未发布；2. 对 1.3 这个版本而言没有太多新特性，此版本主要在于改善用户体验。
 对 Istio 而言，今年是个很重要的节点，而且自从 3 月份发布 1.1 版本以来， Istio 的更新频率基本稳定在了 3 个月发布一个版本。1.1 版本专注于企业就绪，在此版本中一方面是提升系统的稳定性，另一方面则是解决企业落地时，可能遇到的一些问题，所以 1.1 中有大量的新特性。而 1.2 版本其实也类似，虽然花费了很多精力在保证质量上，但其中也有不少功能从 Beta 到了 Stable 阶段。
 其次是关于 1.3 版本到底有哪些新特性：
- 出站流量自动确定协议：之前版本中，Istio 要求 Service 需要按照指定的规则进行命名才可以自动确认其协议，而在此版本中则可以自动确认其是 HTTP 或 HTTP/2 流量，如果无法自动确认，则认为其是纯 TCP 流量，如果是通过 Helm 安装的话，可以使用 --set pilot.enableProtocolSniffing=false 关闭此功能； Pod spec 中不再需要定义 containerPort，默认情况下会捕获所有端口，当然你也可以通过 traffic.</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| Harbor v1.9 带来众多新特性</title>
-      <link>https://moelove.info/2019/09/08/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Harbor-v1.9-%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/</link>
-      <pubDate>Sun, 08 Sep 2019 22:43:44 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/09/08/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Harbor-v1.9-%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Docker CE 19.03.2 发布 Docker CE 19.03.2 已于近日发布，事实上此版本内更新的内容本该在 19.03.1 中发布的，不过 19.03.1 主要是为了修正 CVE-2019-14271 如果你正在使用 19.03.0 那我建议你进行升级。
+出站流量自动确定协议：之前版本中，Istio 要求 Service 需要按照指定的规则进行命名才可以自动确认其协议，而在此版本中则可以自动确认其是 HTTP 或 HTTP/2 流量，如果无法自动确认，则认为其是纯 TCP 流量，如果是通过 Helm 安装的话，可以使用 --set pilot.enableProtocolSniffing=false 关闭此功能； Pod spec 中不再需要定义 containerPort，默认情况下会捕获所有端口，当然你也可以通过 traffic.</description></item><item><title>K8S 生态周报| Harbor v1.9 带来众多新特性</title><link>https://moelove.info/2019/09/08/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Harbor-v1.9-%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/</link><pubDate>Sun, 08 Sep 2019 22:43:44 +0800</pubDate><guid>https://moelove.info/2019/09/08/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Harbor-v1.9-%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Docker CE 19.03.2 发布 Docker CE 19.03.2 已于近日发布，事实上此版本内更新的内容本该在 19.03.1 中发布的，不过 19.03.1 主要是为了修正 CVE-2019-14271 如果你正在使用 19.03.0 那我建议你进行升级。
 为了保证尽可能快的修复问题，所以专程发布了 19.03.1 版本，而把原先预期的功能转移至 19.03.2 中进行发布。这其实也是 Docker 做的比较好的一个事情，Docker 的版本发布很有原则。
 我们来看看 19.03.2 中带来了哪些变化：
- 修正了Docker CLI 对 HTTP Proxy 环境变量的支持； 修正了一个为容器使用 XFS 磁盘配额可能产生的 panic；  其他变化，感兴趣的朋友可以参看其 ReleaseNote
+修正了Docker CLI 对 HTTP Proxy 环境变量的支持； 修正了一个为容器使用 XFS 磁盘配额可能产生的 panic； 其他变化，感兴趣的朋友可以参看其 ReleaseNote
 containerd 1.3.0-rc.0 发布 1.3 将会是 containerd 的下一个主版本；而自 containerd 1.2 发布以来已经过去了近 9 个月。我们来大致看看 1.3 中有哪些值得期待的功能。
- 增加了 Windows v2 的 runtime API， 同时移除了 Windows v1 API； 新增了 devicemapper 的快照支持，然而需要注意的是 Docker 已经将 devicemapper 的存储驱动标记为了过期，推荐大家使用 Overlay2 的存储驱动； 允许插件注册为一个 TCP Server ，通过这种机制其实可以做到很多的事情了； 可配置的插件目录； 在 CRI 方面 io.</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| etcd v3.4.0 带来众多更新</title>
-      <link>https://moelove.info/2019/09/01/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-etcd-v3.4.0-%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%9B%B4%E6%96%B0/</link>
-      <pubDate>Sun, 01 Sep 2019 23:56:38 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/09/01/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-etcd-v3.4.0-%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%9B%B4%E6%96%B0/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Helm 3 beta2 发布 Helm 3 从 Alpha 之后，就一直进入了持续改进阶段。终于现在 beta2 发布了，按现在社区的开发进度来看，今年发布正式版的希望还是很大的。
+增加了 Windows v2 的 runtime API， 同时移除了 Windows v1 API； 新增了 devicemapper 的快照支持，然而需要注意的是 Docker 已经将 devicemapper 的存储驱动标记为了过期，推荐大家使用 Overlay2 的存储驱动； 允许插件注册为一个 TCP Server ，通过这种机制其实可以做到很多的事情了； 可配置的插件目录； 在 CRI 方面 io.</description></item><item><title>K8S 生态周报| etcd v3.4.0 带来众多更新</title><link>https://moelove.info/2019/09/01/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-etcd-v3.4.0-%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%9B%B4%E6%96%B0/</link><pubDate>Sun, 01 Sep 2019 23:56:38 +0800</pubDate><guid>https://moelove.info/2019/09/01/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-etcd-v3.4.0-%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%9B%B4%E6%96%B0/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Helm 3 beta2 发布 Helm 3 从 Alpha 之后，就一直进入了持续改进阶段。终于现在 beta2 发布了，按现在社区的开发进度来看，今年发布正式版的希望还是很大的。
 感兴趣还是建议可以先尝试下，以免之后升级时带来不适。
-CoreDNS v1.6.3 发布  federation 将在 1.7.0 中被完全废弃； 新增两个插件 clouddns 和 sign，其中 clouddns 顾名思义是为云环境设计的，现在它支持 GCP （Google Cloud Platform）Cloud DNS 提供的 zone 数据，实际上它是通过 Google Cloud 的 API 来获取这些信息的，如果你没有在使用 GCP Cloud DNS 的话，目前这个插件应该是用不到的；sign 插件则是根据 RFC 6781 对 Zone 使用 NSEC 签名，但需要注意的是签名是有时效的，如果到了过期时间，则 Zone 信息会变成 Bad 状态（RFC 4035），所以如果你想要使用这个插件，请明确知道自己需要做什么以及为何使用它； file 插件修复了一些内存泄漏的问题；  除了上述提到的内容外，想稍微再提一下在 v1.6.2 中新增的 azure 插件，它其实和 clouddns 做的事情类似，只不过是从 Azure 获取记录罢了。另外从 v1.</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| cilium 1.6 发布 100% kube-proxy 的替代品</title>
-      <link>https://moelove.info/2019/08/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-cilium-1.6-%E5%8F%91%E5%B8%83-100-kube-proxy-%E7%9A%84%E6%9B%BF%E4%BB%A3%E5%93%81/</link>
-      <pubDate>Sun, 25 Aug 2019 21:19:10 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/08/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-cilium-1.6-%E5%8F%91%E5%B8%83-100-kube-proxy-%E7%9A%84%E6%9B%BF%E4%BB%A3%E5%93%81/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Kind(Kubernetes In Docker) v0.5.1 正式发布 Kind(Kubernetes In Docker) 已经广泛的应用于 Kubernetes 上游及相关项目的 CI 环境中，作为个人本地的测试环境也很方便，推荐大家尝试。
+CoreDNS v1.6.3 发布 federation 将在 1.7.0 中被完全废弃； 新增两个插件 clouddns 和 sign，其中 clouddns 顾名思义是为云环境设计的，现在它支持 GCP （Google Cloud Platform）Cloud DNS 提供的 zone 数据，实际上它是通过 Google Cloud 的 API 来获取这些信息的，如果你没有在使用 GCP Cloud DNS 的话，目前这个插件应该是用不到的；sign 插件则是根据 RFC 6781 对 Zone 使用 NSEC 签名，但需要注意的是签名是有时效的，如果到了过期时间，则 Zone 信息会变成 Bad 状态（RFC 4035），所以如果你想要使用这个插件，请明确知道自己需要做什么以及为何使用它； file 插件修复了一些内存泄漏的问题； 除了上述提到的内容外，想稍微再提一下在 v1.6.2 中新增的 azure 插件，它其实和 clouddns 做的事情类似，只不过是从 Azure 获取记录罢了。另外从 v1.</description></item><item><title>K8S 生态周报| cilium 1.6 发布 100% kube-proxy 的替代品</title><link>https://moelove.info/2019/08/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-cilium-1.6-%E5%8F%91%E5%B8%83-100-kube-proxy-%E7%9A%84%E6%9B%BF%E4%BB%A3%E5%93%81/</link><pubDate>Sun, 25 Aug 2019 21:19:10 +0800</pubDate><guid>https://moelove.info/2019/08/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-cilium-1.6-%E5%8F%91%E5%B8%83-100-kube-proxy-%E7%9A%84%E6%9B%BF%E4%BB%A3%E5%93%81/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Kind(Kubernetes In Docker) v0.5.1 正式发布 Kind(Kubernetes In Docker) 已经广泛的应用于 Kubernetes 上游及相关项目的 CI 环境中，作为个人本地的测试环境也很方便，推荐大家尝试。
 本次发布，将默认的 Kubernetes 版本更新为 v1.15.3 ；支持了 UDP 和 SCTP 协议的端口转发；对构建 Node 镜像进行了优化，使它更快；同时也对 arm32 增加了有限的支持。
 对 kind load-image 进行了改进，从原先的只是判断镜像名称和 tag 到现在增加了对哈希值的校验；修正了在使用 Proxy 时，部分服务可能受代理影响导致的问题（对国内用户友好）。
 更多关于此版本的内容，请参考 ReleaseNote，欢迎使用和反馈。
 Kubernetes 受 Go 的 net/http 安全漏洞影响 Kubernetes 近期紧急发布了 v1.15.3, v1.14.6, v1.13.10 版本，距离上个集体更新发布仅过了两周而已，上次的说明请参考两周前的 k8s 生态周报，不过本次的漏洞的根本原因不在 Kubernetes 的功能逻辑上，还是在于其使用的 Go 语言的 net/http 库的安全漏洞 CVE-2019-9512 和 CVE-2019-9514 。
-关于此次漏洞的信息，可参考 golang/go#33606，另外 Go 最近陆续发布了几个版本，建议大家也最好升到 v1.</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| 2019-08-12~2019-08-18</title>
-      <link>https://moelove.info/2019/08/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-08-12~2019-08-18/</link>
-      <pubDate>Mon, 19 Aug 2019 01:08:00 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/08/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-08-12~2019-08-18/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- rkt 项目正式被 CNCF 归档 8 月 16 日，CNCF 宣布技术委员会已经投票通过将 rkt 项目归档。
+关于此次漏洞的信息，可参考 golang/go#33606，另外 Go 最近陆续发布了几个版本，建议大家也最好升到 v1.</description></item><item><title>K8S 生态周报| 2019-08-12~2019-08-18</title><link>https://moelove.info/2019/08/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-08-12~2019-08-18/</link><pubDate>Mon, 19 Aug 2019 01:08:00 +0800</pubDate><guid>https://moelove.info/2019/08/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-08-12~2019-08-18/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+rkt 项目正式被 CNCF 归档 8 月 16 日，CNCF 宣布技术委员会已经投票通过将 rkt 项目归档。
 这个事情，我在几周前的周报大概介绍过，既然现在已经尘埃落定，不如一起来看看 rkt 的前世今生，毕竟它在容器技术的发展中也曾做出了很多贡献。
 rkt 最早是由 CoreOS 公司创建的，而 CoreOS 最早应该也算是 Docker 的用户之一。但是随着 Docker 发展的日趋壮大，CoreOS 就想要脱离 Docker，成立自己的标准。
 之后 CoreOS 发布了 AppC 规范（这个规范我也曾仔细研究过），而 CoreOS 主打的旗号是开放，毕竟当时 Docker 一枝独秀，所以也就吸引了不少的伙伴参与。当然 rkt 也就借着这股风，得到了不少人的青睐。
 这里且不说 rkt 功能或是规范如何，我们单独来看看那场容器市场份额的争夺战是如何打的。
 在那时候，同时进行的另外一场战役是容器编排系统的战役。所以 rkt 也算是做了努力，它选择了与 Kubernetes 的合作（大概算是共同阵营的合作吧），所以在 2016 年 Kubernetes 1.3 版本中，宣布了支持 rkt 作为容器运行时的一个可选想。
-但 Docker 的发展（指 Docker 项目），却几乎没有受到影响。为什么呢？ Docker 早已凭借自身的稳定性和易用性占领了大批的用户，即使有用户选择 rkt 大多也只是用于尝试（心疼选择 rkt 放入生产环境中的那批）。而且不得不说，Docker 在用户心中几乎是容器的代名词，是一个默认选项。</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| 2019-08-05~2019-08-11</title>
-      <link>https://moelove.info/2019/08/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-08-05~2019-08-11/</link>
-      <pubDate>Mon, 12 Aug 2019 07:14:40 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/08/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-08-05~2019-08-11/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Kubernetes 两个重要漏洞修复 最近 Kubernetes 发布了 1.13.9, 1.14.5, 和 1.15.2 版本，旨在修复两个重要漏洞对 Kubernetes 带来的影响， 强烈建议将集群及 kubectl 进行升级
+但 Docker 的发展（指 Docker 项目），却几乎没有受到影响。为什么呢？ Docker 早已凭借自身的稳定性和易用性占领了大批的用户，即使有用户选择 rkt 大多也只是用于尝试（心疼选择 rkt 放入生产环境中的那批）。而且不得不说，Docker 在用户心中几乎是容器的代名词，是一个默认选项。</description></item><item><title>K8S 生态周报| 2019-08-05~2019-08-11</title><link>https://moelove.info/2019/08/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-08-05~2019-08-11/</link><pubDate>Mon, 12 Aug 2019 07:14:40 +0800</pubDate><guid>https://moelove.info/2019/08/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-08-05~2019-08-11/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Kubernetes 两个重要漏洞修复 最近 Kubernetes 发布了 1.13.9, 1.14.5, 和 1.15.2 版本，旨在修复两个重要漏洞对 Kubernetes 带来的影响， 强烈建议将集群及 kubectl 进行升级
 CVE-2019-11247 简单来说其影响就是可以访问单个命名空间中的自定义资源的用户可以访问具有集群范围的自定义资源。当然，这里的修正主要是 针对 CRD 。核心的修正代码如下：
-var possiblyAcrossAllNamespacesVerbs = sets.NewString(&amp;quot;list&amp;quot;, &amp;quot;watch&amp;quot;) namespacedCRD, namespacedReq := crd.Spec.Scope == apiextensions.NamespaceScoped, len(requestInfo.Namespace) &amp;gt; 0 if !namespacedCRD &amp;amp;&amp;amp; namespacedReq { r.delegate.ServeHTTP(w, req) return } if namespacedCRD &amp;amp;&amp;amp; !namespacedReq &amp;amp;&amp;amp; !possiblyAcrossAllNamespacesVerbs.Has(requestInfo.Verb) { r.delegate.ServeHTTP(w, req) return }  当未通过检查时，delegate 将会触发一个 404 。对此问题感兴趣的朋友可以查看 #80983 。
-CVE-2019-11249 则是对于之前暴出来的使用 kubectl cp 可进行恶意目录浏览的漏洞 CVE-2019-1002101 和 CVE-2019-11246 的不完整修复。有兴趣可以参考 #80436 。</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| 2019-07-29~2019-08-04</title>
-      <link>https://moelove.info/2019/08/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-29~2019-08-04/</link>
-      <pubDate>Mon, 05 Aug 2019 00:47:54 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/08/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-29~2019-08-04/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- containerd 1.3.0-beta.0 发布 containerd 2014 年从 Docker 孵化出来，最初是作为 Docker 引擎的底层管理器；在 2017 年 3 月被 CNCF 接受后，containerd 几乎成为了行业容器运行引擎的标准，它专注于简单，健壮和可移植性，任何人都可以使用它来构建自己的容器引擎/平台。它是从 CNCF 毕业的第 5 个项目，目前发展势头良好。
+var possiblyAcrossAllNamespacesVerbs = sets.NewString(&amp;quot;list&amp;quot;, &amp;quot;watch&amp;quot;) namespacedCRD, namespacedReq := crd.Spec.Scope == apiextensions.NamespaceScoped, len(requestInfo.Namespace) &amp;gt; 0 if !namespacedCRD &amp;amp;&amp;amp; namespacedReq { r.delegate.ServeHTTP(w, req) return } if namespacedCRD &amp;amp;&amp;amp; !namespacedReq &amp;amp;&amp;amp; !possiblyAcrossAllNamespacesVerbs.Has(requestInfo.Verb) { r.delegate.ServeHTTP(w, req) return } 当未通过检查时，delegate 将会触发一个 404 。对此问题感兴趣的朋友可以查看 #80983 。
+CVE-2019-11249 则是对于之前暴出来的使用 kubectl cp 可进行恶意目录浏览的漏洞 CVE-2019-1002101 和 CVE-2019-11246 的不完整修复。有兴趣可以参考 #80436 。</description></item><item><title>K8S 生态周报| 2019-07-29~2019-08-04</title><link>https://moelove.info/2019/08/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-29~2019-08-04/</link><pubDate>Mon, 05 Aug 2019 00:47:54 +0800</pubDate><guid>https://moelove.info/2019/08/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-29~2019-08-04/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+containerd 1.3.0-beta.0 发布 containerd 2014 年从 Docker 孵化出来，最初是作为 Docker 引擎的底层管理器；在 2017 年 3 月被 CNCF 接受后，containerd 几乎成为了行业容器运行引擎的标准，它专注于简单，健壮和可移植性，任何人都可以使用它来构建自己的容器引擎/平台。它是从 CNCF 毕业的第 5 个项目，目前发展势头良好。
 本次发布的 1.3.0-beta.0 版本是 containerd 的第 4 个主要版本，主要是为了提升项目的稳定性，以及为了保持项目的活力而持续加入了很多新的特性。
 这次的发布和之前版本类似，保持着 containerd 的一贯作风，API 变化很小；并且也保持向后兼容。插件生态和用户的发展也促使了 containerd 变得更易用，可配置和更灵活。
 在 Windows 上，此次版本带来了一个新运行时（使用 hcsshim）; 对于客户端而言，本次也带来了很多特性和升级。
 这里我只说两点，其余的等正式版出来看情况再进行介绍。
- 增加了 devicemapper 的快照插件。这个功能本身是个好事儿，如果用过旧版本 Docker 或者系统内核较低的朋友们，应该对 Docker 的 devicemapper 存储驱动不会太陌生的（虽然现在 Docker 的新版本中已经将 devicemapper 的存储驱动废弃掉了）；至于 containerd 中增加的 devicemapper 快照插件，我还没有来得及具体测试，所以这里不说太多了。 客户端支持了跨 repository push 镜像，对此功能感兴趣的朋友可以参考 #2697 的讨论。  更多关于此版本的信息请参考 ReleaseNote</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| 2019-07-21~2019-07-28</title>
-      <link>https://moelove.info/2019/07/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-21~2019-07-28/</link>
-      <pubDate>Sun, 28 Jul 2019 22:14:44 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/07/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-21~2019-07-28/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Docker CE v19.03 正式发布 7 月 22 日，正式发布了 Docker CE v19.03 版本，按照 Docker CE 版本的生命周期，此次的 v19.03 可以说是千呼万唤始出来，原本按语义应该是在 3 月，不过之前的发布计划中开始是设定在了 5 月份，而一转眼现在已经到 7 月底了。 先跳过这次发布时间延期的问题，我们来看看此版本中最值得注意的一些变化。
+增加了 devicemapper 的快照插件。这个功能本身是个好事儿，如果用过旧版本 Docker 或者系统内核较低的朋友们，应该对 Docker 的 devicemapper 存储驱动不会太陌生的（虽然现在 Docker 的新版本中已经将 devicemapper 的存储驱动废弃掉了）；至于 containerd 中增加的 devicemapper 快照插件，我还没有来得及具体测试，所以这里不说太多了。 客户端支持了跨 repository push 镜像，对此功能感兴趣的朋友可以参考 #2697 的讨论。 更多关于此版本的信息请参考 ReleaseNote</description></item><item><title>K8S 生态周报| 2019-07-21~2019-07-28</title><link>https://moelove.info/2019/07/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-21~2019-07-28/</link><pubDate>Sun, 28 Jul 2019 22:14:44 +0800</pubDate><guid>https://moelove.info/2019/07/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-21~2019-07-28/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Docker CE v19.03 正式发布 7 月 22 日，正式发布了 Docker CE v19.03 版本，按照 Docker CE 版本的生命周期，此次的 v19.03 可以说是千呼万唤始出来，原本按语义应该是在 3 月，不过之前的发布计划中开始是设定在了 5 月份，而一转眼现在已经到 7 月底了。 先跳过这次发布时间延期的问题，我们来看看此版本中最值得注意的一些变化。
 首先来看看被废弃的部分：
- 废弃 aufs 存储驱动，在此版本之前 devicemapper 和 overlay 也都已经被废弃; 当 docker daemon 运行时，如果没有指定存储驱动，则会自动选择一个，v19.03 中增加了自动选择时跳过已被废弃的存储驱动的逻辑； 废弃 image manifest v2 schema1 以支持 v2 schema2 ，这里的废弃涉及到的内容很多，尤其是涉及到了 image registry 的部分, 所以后续还有很长的路要走。还记得之前推送过 Docker Hub 今年 6 月份停止 v1 API 进行 Pull 操作的事情吗？早年 2015 年 11 月的时候，它就已经禁止了 v1 API 的 Push 操作。从这点上也能看到 Docker 在功能弃用上其实为用户考虑了很多，并且也给了足够长的时间来让用户进行迁移。  其次，我们看看功能增强的部分：</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| 2019-07-15~2019-07-21</title>
-      <link>https://moelove.info/2019/07/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-15~2019-07-21/</link>
-      <pubDate>Mon, 22 Jul 2019 00:07:54 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/07/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-15~2019-07-21/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Kubernetes v1.16.0-alpha.1 发布 Kubernetes 于近日发布了 v1.16.0-alpha.1 版本，变化是比较大，但这里暂时先不细说了，等到 9 月份正式版本发布前后再慢慢说。当然也稍微聊一些 :) 比如：
+废弃 aufs 存储驱动，在此版本之前 devicemapper 和 overlay 也都已经被废弃; 当 docker daemon 运行时，如果没有指定存储驱动，则会自动选择一个，v19.03 中增加了自动选择时跳过已被废弃的存储驱动的逻辑； 废弃 image manifest v2 schema1 以支持 v2 schema2 ，这里的废弃涉及到的内容很多，尤其是涉及到了 image registry 的部分, 所以后续还有很长的路要走。还记得之前推送过 Docker Hub 今年 6 月份停止 v1 API 进行 Pull 操作的事情吗？早年 2015 年 11 月的时候，它就已经禁止了 v1 API 的 Push 操作。从这点上也能看到 Docker 在功能弃用上其实为用户考虑了很多，并且也给了足够长的时间来让用户进行迁移。 其次，我们看看功能增强的部分：</description></item><item><title>K8S 生态周报| 2019-07-15~2019-07-21</title><link>https://moelove.info/2019/07/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-15~2019-07-21/</link><pubDate>Mon, 22 Jul 2019 00:07:54 +0800</pubDate><guid>https://moelove.info/2019/07/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-15~2019-07-21/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Kubernetes v1.16.0-alpha.1 发布 Kubernetes 于近日发布了 v1.16.0-alpha.1 版本，变化是比较大，但这里暂时先不细说了，等到 9 月份正式版本发布前后再慢慢说。当然也稍微聊一些 :) 比如：
 官方 etcd 镜像中不再提供 etcd 2 和 3 的兼容工具了，对 etcd 2 的兼容代码也都全部删掉了（对 etcd 2 的支持其实从 1.13 就已经停止了）#80037 ；
 1.16 中对以下四种类型资源的 API 有所调整：
- NetworkPolicy PodSecurityPolicy DaemonSet, Deployment, StatefulSet 和 ReplicaSet Ingress  具体调整细节如下：
- NetworkPolicy 将使用从 v1.8 版本开始提供的 networking.k8s.io/v1 API; PodSecurityPolicy 将使用从 v1.10 开始提供的 policy/v1beta1 API; DaemonSet, Deployment, StatefulSet 和 ReplicaSet 将使用从 v1.9 版本开始提供的 apps/v1 API; Ingress 迁移到 networking.</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| 2019-07-08~2019-07-14</title>
-      <link>https://moelove.info/2019/07/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-08~2019-07-14/</link>
-      <pubDate>Mon, 15 Jul 2019 05:44:22 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/07/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-08~2019-07-14/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 本周为什么发布时间比往常迟呢？因为我在忙结婚呀。
- CoreDNS v1.5.2 发布 这是 CoreDNS 在 1.5.x 版本中发布的第二个小版本，关于 1.5.1 版本的说明可参考上上周的文章。
+NetworkPolicy PodSecurityPolicy DaemonSet, Deployment, StatefulSet 和 ReplicaSet Ingress 具体调整细节如下：
+NetworkPolicy 将使用从 v1.8 版本开始提供的 networking.k8s.io/v1 API; PodSecurityPolicy 将使用从 v1.10 开始提供的 policy/v1beta1 API; DaemonSet, Deployment, StatefulSet 和 ReplicaSet 将使用从 v1.9 版本开始提供的 apps/v1 API; Ingress 迁移到 networking.</description></item><item><title>K8S 生态周报| 2019-07-08~2019-07-14</title><link>https://moelove.info/2019/07/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-08~2019-07-14/</link><pubDate>Mon, 15 Jul 2019 05:44:22 +0800</pubDate><guid>https://moelove.info/2019/07/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-08~2019-07-14/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 本周为什么发布时间比往常迟呢？因为我在忙结婚呀。
+CoreDNS v1.5.2 发布 这是 CoreDNS 在 1.5.x 版本中发布的第二个小版本，关于 1.5.1 版本的说明可参考上上周的文章。
 在此版本中，一个重要的变更便是移除掉了 upstream 插件相关的所有文档和说明。比如，Kubernetes 1.14 版本中默认的 CoreDNS 的配置文件的内容如下：
-.:53 { errors health kubernetes cluster.local in-addr.arpa ip6.arpa { pods insecure upstream fallthrough in-addr.arpa ip6.arpa } prometheus :9153 forward . /etc/resolv.conf cache 30 loop reload loadbalance }  其中 kubernetes 插件中有一行 upstream 的配置，它是定义了用于解析指向外部主机的服务的上游解析器（也称之为外部服务，CNAME）CoreDNS 将针对自身解析该服务。
+.:53 { errors health kubernetes cluster.local in-addr.arpa ip6.arpa { pods insecure upstream fallthrough in-addr.arpa ip6.arpa } prometheus :9153 forward . /etc/resolv.conf cache 30 loop reload loadbalance } 其中 kubernetes 插件中有一行 upstream 的配置，它是定义了用于解析指向外部主机的服务的上游解析器（也称之为外部服务，CNAME）CoreDNS 将针对自身解析该服务。
 在此次变更之后， upstream 配置行便可直接移除。
 另外 template 插件支持元数据了。比如说可以给它增加一个配置 .Meta &amp;quot;kubernetes/my-namespace&amp;quot;。
 关于此版本的更详细说明可阅读 ReleaseNote
-Envoy v1.</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| 2019-07-01~2019-07-07</title>
-      <link>https://moelove.info/2019/07/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-01~2019-07-07/</link>
-      <pubDate>Sun, 07 Jul 2019 23:20:10 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/07/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-01~2019-07-07/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Kubernetes v1.16 发布周期开始 随着前段时间 Kubernetes v1.15 的发布，v1.16 的发布周期开始了。本次的发布周期一如往常，本月底增强功能冻结，下月底代码冻结，9 月初完善文档，计划在 9 月中发布 v1.16 版本。
+Envoy v1.</description></item><item><title>K8S 生态周报| 2019-07-01~2019-07-07</title><link>https://moelove.info/2019/07/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-01~2019-07-07/</link><pubDate>Sun, 07 Jul 2019 23:20:10 +0800</pubDate><guid>https://moelove.info/2019/07/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-07-01~2019-07-07/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Kubernetes v1.16 发布周期开始 随着前段时间 Kubernetes v1.15 的发布，v1.16 的发布周期开始了。本次的发布周期一如往常，本月底增强功能冻结，下月底代码冻结，9 月初完善文档，计划在 9 月中发布 v1.16 版本。
 其实按这个节奏看得话，大家如果需要维护生产中的 Kubernetes 集群的话，还是尽快测试验证并完成升级，以免所用版本 EOL，带来一些其他的问题。
 Knative Serving v0.7.x 发布 本周 Knative Serving 发布了 v0.7.1 版本，Knative 近期的开发还是比较活跃的。
 需要注意的是若使用 v0.7.x 版本中新增的 serving.knative.dev/v1beta1 API 的话，则需要 Kubernetes v1.14 版本以上。具体原因请参考 #4533
@@ -468,99 +192,45 @@ Non-root 容器：在这个版本中所有发布的容器均以非 root 用户�
 当然此版本中也包含一些破坏性变更，比如 status 字段废弃。
 关于此版本更多的细节请参考 ReleaseNote
 Debian 10 buster 正式发布 Debian 10 正式发布了，其实按一般的角度来看，Linux 的一个发行版发布不会出现在 K8S 生态周报中的。
-但这里有个需要注意的点，对于使用此版本部署 Kubernetes 时，需要注意一下。此版本中使用的 systemd 版本是 241.</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| 2019-06-24~2019-06-30</title>
-      <link>https://moelove.info/2019/06/30/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-24~2019-06-30/</link>
-      <pubDate>Sun, 30 Jun 2019 23:12:13 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/06/30/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-24~2019-06-30/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- kind (Kubernetes In Docker) v0.4.0 正式发布 kind (Kubernetes In Docker) 是我很喜欢并且一直持续参与贡献的项目，本周发布了 v0.4.0 版本。关于 Kind 的介绍和基础使用，可以参考我之前写的文章 《使用 Kind 搭建你的本地 Kubernetes 集群》
+但这里有个需要注意的点，对于使用此版本部署 Kubernetes 时，需要注意一下。此版本中使用的 systemd 版本是 241.</description></item><item><title>K8S 生态周报| 2019-06-24~2019-06-30</title><link>https://moelove.info/2019/06/30/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-24~2019-06-30/</link><pubDate>Sun, 30 Jun 2019 23:12:13 +0800</pubDate><guid>https://moelove.info/2019/06/30/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-24~2019-06-30/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+kind (Kubernetes In Docker) v0.4.0 正式发布 kind (Kubernetes In Docker) 是我很喜欢并且一直持续参与贡献的项目，本周发布了 v0.4.0 版本。关于 Kind 的介绍和基础使用，可以参考我之前写的文章 《使用 Kind 搭建你的本地 Kubernetes 集群》
 v0.4.0 版本中，默认的 Kubernetes 版本升级到了 v1.15 版本，且 kind.sigs.k8s.io/v1alpha2 版本的 API 已经过期，请更新使用 kind.sigs.k8s.io/v1alpha3 。
 目前暂时移除了使用 apt 构建 Node 镜像的选项，之后版本中可能会加回来，直接使用上游构建好的二进制文件进行安装。
 在此版本中，我们增加了一个 nodes[].extraPortMappings 的配置，可以直接通过此配置进行端口的转发，以便从宿主机上直接访问到集群上使用 NodePort 方式部署的服务，这样更容易模拟真实的网络环境，否则只能通过其他的转发或者网络代理的方式来进行通信了。
 同样的，紧跟着上游的开放，这个版本中也增加了对 IPv6 的支持，可以直接通过 networking.ipFamily 的配置进行使用。
 为了能让 kind 更加易用，且满足多数 CI 或者测试使用的场景，在这个版本中，我们尤其对单节点集群的启动时间做了优化，可以更快速的启动集群。
 顺便公布一个数据，kind 目前的 star 数是 2.2k 上个版本发布时是 1.8k 并且还在持续增长中 :)
-更多的细节和信息请参考 ReleaseNote 欢迎大家使用！</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| 2019-06-17~2019-06-23</title>
-      <link>https://moelove.info/2019/06/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-17~2019-06-23/</link>
-      <pubDate>Sat, 22 Jun 2019 23:23:17 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/06/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-17~2019-06-23/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Kubernetes v1.15.0 正式发布 经过了三个月左右的开发，Kubernetes v1.15.0 正式发布了。
+更多的细节和信息请参考 ReleaseNote 欢迎大家使用！</description></item><item><title>K8S 生态周报| 2019-06-17~2019-06-23</title><link>https://moelove.info/2019/06/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-17~2019-06-23/</link><pubDate>Sat, 22 Jun 2019 23:23:17 +0800</pubDate><guid>https://moelove.info/2019/06/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-17~2019-06-23/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Kubernetes v1.15.0 正式发布 经过了三个月左右的开发，Kubernetes v1.15.0 正式发布了。
 这是 2019 年 Kubernetes 发布的第二个版本，这个版本由 25 个增强功能组成，其中 2 个移动到 stable ，13 个 beta 以及 10 个 alpha ，整体上集中于稳定性改进和扩展的增强。
 CRD (Custom Resource Definition) 是 Kubernetes 提供的一种可用于扩展其能力的方式，当前有很多使用 CRD 构建于 Kubernetes 上的平台/系统，可以说之后对 Kubernetes 的扩展，或者说想要基于 Kubernetes 开发，同时又想与上游保持同步的话，CRD 是个最佳的选择。
 Kubeadm 在此版本开始有了自己独立的 LOGO ，同时在这个版本中 kubeadm 的功能也得到了很多的完善和补充。这使得 kubeadm 成为更普遍/更好用的搭建集群的工具，同时对集群生命周期的管理也做的更加到位了。这部分的功能我很喜欢也一直在关注，近期我会针对这部分写篇文章出来。感兴趣的朋友们可以关注下
 关于此版本更多的介绍，可参考 Kubernetes v1.15 ReleaseNote
 Istio 1.2.0 正式发布 经过三个 rc 版本之后， Istio 1.2.0 版本正式发布。
-在这个版本中，它添加了对 Kubernetes IPv6 的实验性支持。Kind （Kubernetes in Docker） 项目也是本周内刚增加了 IPv6 的支持 :)</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| 2019-06-10~2019-06-16</title>
-      <link>https://moelove.info/2019/06/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-10~2019-06-16/</link>
-      <pubDate>Sun, 16 Jun 2019 23:17:17 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/06/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-10~2019-06-16/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Helm 新下载域名正式上线 https://get.helm.sh/ 正式上线。用户之后下载 Helm 预编译好的二进制文件时，可通过此域名进行下载。
+在这个版本中，它添加了对 Kubernetes IPv6 的实验性支持。Kind （Kubernetes in Docker） 项目也是本周内刚增加了 IPv6 的支持 :)</description></item><item><title>K8S 生态周报| 2019-06-10~2019-06-16</title><link>https://moelove.info/2019/06/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-10~2019-06-16/</link><pubDate>Sun, 16 Jun 2019 23:17:17 +0800</pubDate><guid>https://moelove.info/2019/06/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-10~2019-06-16/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Helm 新下载域名正式上线 https://get.helm.sh/ 正式上线。用户之后下载 Helm 预编译好的二进制文件时，可通过此域名进行下载。
 原来 Kubernetes 尚未成为 CNCF 托管项目时，Helm 是作为 Kubernetes 项目的一部分的，所以很自然的使用了 Google 的一个云存储仓库。但随着项目托管至 CNCF 以及后续 Helm 的独立发展，现在使用托管于 Google 的云存储不那么合适了，一方面在于 CNCF 正在接管 K8S 的基础设施，另一方面在于在于这个仓库不只受 Helm 的控制。
 考虑到项目的独立性，以及 大陆用户无法正常访问 GCloud 存储的问题 经过维护者们的慎重考虑以及实际测试，终于决定选择 Azure 的 Blob 存储 + CDN 可满足当前所有地区的快速访问（尤其是国内可以直接访问并下载），不再需要花费时间精力解决网络等问题了。
 这次的更改仅限于 Helm 客户端的下载位置，类似 Tiller 或者 Chart 等并没有被包含在内。
 强烈建议更新有在 CI/自动化任务中使用的 Helm 下载地址，使用 https://get.helm.sh/ 来进行替换。
 对此内容感兴趣的朋友可参考 Move Helm Downloads 的讨论
-Apple 作为白金终端用户成员加入 CNCF Apple 在 K8S 社区中在这之前也算相对低调，并没有像各类云厂商或其他公司那样疯狂安利或者输出之类的。但是这次突然加入 CNCF 而且作为白金会员，是可具备话语权的。</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| 2019-06-03~2019-06-09</title>
-      <link>https://moelove.info/2019/06/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-03~2019-06-09/</link>
-      <pubDate>Sun, 09 Jun 2019 22:15:11 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/06/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-03~2019-06-09/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Kubernetes CVE-2019-11245 漏洞 这是一个评分为 4.9 的漏洞，算是一个中等漏洞。 受此漏洞影响的版本为 v1.13.6 和 v1.14.2 ，所以本周也加紧发布了 v1.13.7 和 v1.14.3 版本，以避免受此漏洞影响。 如果有使用 v1.13.6 和 v1.14.2 版本的小伙伴，请尽快进行 升级 以免受到影响。
+Apple 作为白金终端用户成员加入 CNCF Apple 在 K8S 社区中在这之前也算相对低调，并没有像各类云厂商或其他公司那样疯狂安利或者输出之类的。但是这次突然加入 CNCF 而且作为白金会员，是可具备话语权的。</description></item><item><title>K8S 生态周报| 2019-06-03~2019-06-09</title><link>https://moelove.info/2019/06/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-03~2019-06-09/</link><pubDate>Sun, 09 Jun 2019 22:15:11 +0800</pubDate><guid>https://moelove.info/2019/06/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-06-03~2019-06-09/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Kubernetes CVE-2019-11245 漏洞 这是一个评分为 4.9 的漏洞，算是一个中等漏洞。 受此漏洞影响的版本为 v1.13.6 和 v1.14.2 ，所以本周也加紧发布了 v1.13.7 和 v1.14.3 版本，以避免受此漏洞影响。 如果有使用 v1.13.6 和 v1.14.2 版本的小伙伴，请尽快进行 升级 以免受到影响。
 上面说了最直接的解决办法，接下来对此漏洞大致做下介绍：
 这个漏洞影响了 v1.13.6 和 v1.14.2 版本的 kubelet，具体表现为， 1) 如果 Pod 中的容器，开始时是以某个非 root 用户启动的，但是当它重启后，则会以 root (uid 0) 的身份启动。2) 或者是 Node 节点上已经存在了启动容器所需的镜像。
 第 2 个情况比较常见，不再具体介绍。我们来看下第 1 种情况。举个栗子：
 通常情况下，如果我们使用 Docker 官方的 Redis 镜像进行部署的时候，默认情况下将会以 redis 用户启动；而如果受此漏洞影响，当容器重启后，则当前的用户可能会变成 root (uid 0) 。使用 root 用户启动服务可能带来的危害，这里也不再多进行展开了。
-也存在例外，比如已经显式的通过 runAsUser 指定了运行用户，则不会受到此漏洞影响。</description>
-    </item>
-    
-    <item>
-      <title>Docker 镜像构建三部曲</title>
-      <link>https://moelove.info/2019/06/01/Docker-%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E4%B8%89%E9%83%A8%E6%9B%B2/</link>
-      <pubDate>Sat, 01 Jun 2019 00:19:03 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/06/01/Docker-%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E4%B8%89%E9%83%A8%E6%9B%B2/</guid>
-      <description>我最近在 GitChat 写了一些 Docker 构建镜像相关的文章，这个系列写了三篇，通过这三篇将 Docker 构建镜像相关的事情基本就讲明白了，感兴趣的朋友扫描二维码或者点击链接即可。
- 高效构建 Docker 镜像的最佳实践 Docker 可谓是开启了容器化技术的新时代，现在无论大中小公司基本上都对容器化技术有不同程度的尝试，或是已经进行了大量容器化的改造。伴随着 Kubernetes 和 Cloud Native 等技术和理念的普及，也大大增加了业务容器化需求。
+也存在例外，比如已经显式的通过 runAsUser 指定了运行用户，则不会受到此漏洞影响。</description></item><item><title>Docker 镜像构建三部曲</title><link>https://moelove.info/2019/06/01/Docker-%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E4%B8%89%E9%83%A8%E6%9B%B2/</link><pubDate>Sat, 01 Jun 2019 00:19:03 +0800</pubDate><guid>https://moelove.info/2019/06/01/Docker-%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E4%B8%89%E9%83%A8%E6%9B%B2/</guid><description>我最近在 GitChat 写了一些 Docker 构建镜像相关的文章，这个系列写了三篇，通过这三篇将 Docker 构建镜像相关的事情基本就讲明白了，感兴趣的朋友扫描二维码或者点击链接即可。
+高效构建 Docker 镜像的最佳实践 Docker 可谓是开启了容器化技术的新时代，现在无论大中小公司基本上都对容器化技术有不同程度的尝试，或是已经进行了大量容器化的改造。伴随着 Kubernetes 和 Cloud Native 等技术和理念的普及，也大大增加了业务容器化需求。
 而这一切的推进，不可避免的技术之一便是构建容器镜像。
 在本场 Chat 中，会讲到如下内容：
- Docker 镜像是什么 Docker 镜像常规管理操作 如何构建 Docker 镜像 逐步分解构建 Docker 镜像的最佳实践 如何提升构建效率  适合人群： 对高效构建 Docker 镜像有兴趣的技术人员
+Docker 镜像是什么 Docker 镜像常规管理操作 如何构建 Docker 镜像 逐步分解构建 Docker 镜像的最佳实践 如何提升构建效率 适合人群： 对高效构建 Docker 镜像有兴趣的技术人员
 地址：https://gitbook.cn/gitchat/activity/5cd527e864de19331ba79278
 进阶：Dockerfile 高阶使用指南及镜像优化 在上次的 Chat 高效构建 Docker 镜像的最佳实践 中，我们重点深入内部介绍了 Docker 镜像是什么；以及构建 Docker 镜像的最佳实践等。
 即将发布的 Docker 19.03 版本中 Dockerfile 及构建系统有了很多变化。
 在本场 Chat 中，会讲到如下内容：
- Dockerfile 高阶使用及新特性解读 Docker 19.03 构建系统解读 Docker 镜像安全实践 发现并优化镜像大小  地址：https://gitbook.</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| 2019-05-27~2019-06-02</title>
-      <link>https://moelove.info/2019/05/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-27~2019-06-02/</link>
-      <pubDate>Fri, 31 May 2019 07:42:37 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/05/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-27~2019-06-02/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Kubernetes v1.15.0-beta.1 发布 随着 KubeCon EU 的结束，Kubernetes 的开发工作继续回归正常，本周相继发布了 v1.12.9 和 v1.15.0-beta.1。
+Dockerfile 高阶使用及新特性解读 Docker 19.03 构建系统解读 Docker 镜像安全实践 发现并优化镜像大小 地址：https://gitbook.</description></item><item><title>K8S 生态周报| 2019-05-27~2019-06-02</title><link>https://moelove.info/2019/05/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-27~2019-06-02/</link><pubDate>Fri, 31 May 2019 07:42:37 +0800</pubDate><guid>https://moelove.info/2019/05/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-27~2019-06-02/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Kubernetes v1.15.0-beta.1 发布 随着 KubeCon EU 的结束，Kubernetes 的开发工作继续回归正常，本周相继发布了 v1.12.9 和 v1.15.0-beta.1。
 随着 v1.15 的正式版临近，维护期的 Kubernetes 版本也将变成 1.12~1.15，请尽快升级。
 这个版本的变化，等正式版发布时候再进行介绍好了，有兴趣可以先看 ReleaseNote
 Docker v19.03.0-beta5 发布 按照正常规律 Docker 19.03 正式版也将在近期进行发布，而最近的所有测试版本中，其实变化比较大的东西主要在 构建系统 上；构建系统的升级可以使构建速度更快，同时也增加了更多的安全特性。
@@ -568,262 +238,100 @@ Docker v19.03.0-beta5 发布 按照正常规律 Docker 19.03 正式版也将在�
 Docker CVE-2018-15664 安全漏洞 在 5 月 29 日我看到了 CVE 的信息，这个漏洞会影响 Docker 的全部版本，漏洞攻击的主要途径是 docker cp 相关的操作。
 但是不必太过紧张，因为这个漏洞的攻击范围其实不算太大；最主要可能被攻击的对象其实是公有云。对于普通用户而言，如果受此攻击，那前提是攻击者已经具备了机器的权限和 Docker 的操作权限（一般用户只要自行控制权限便可避免攻击的发生）。
 漏洞发现者 Aleksa Sarai 开始提了一个 PR (他的实现方式是在 docker cp 操作的同时暂停容器)，不过现在已经被一个新的 PR 给取代了，毕竟暂停容器意味着停止服务，这是难以接受的。
-类似 Podman 之类的其实也存在相同的问题，不过现在也已经被修复了。</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| 2019-05-20~2019-05-26</title>
-      <link>https://moelove.info/2019/05/26/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-20~2019-05-26/</link>
-      <pubDate>Sun, 26 May 2019 23:24:46 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/05/26/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-20~2019-05-26/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- KubeCon EU 举办 2019 年第一个 KubeCon + CloudNativeCon 于 5 月 20 ~ 23 日在巴塞罗那成功举办，这次大会吸引了七千多名参会者远超去年的参会人数。 这也从另一个侧面反映了 Kubernetes 和云原生在大大的普及
+类似 Podman 之类的其实也存在相同的问题，不过现在也已经被修复了。</description></item><item><title>K8S 生态周报| 2019-05-20~2019-05-26</title><link>https://moelove.info/2019/05/26/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-20~2019-05-26/</link><pubDate>Sun, 26 May 2019 23:24:46 +0800</pubDate><guid>https://moelove.info/2019/05/26/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-20~2019-05-26/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+KubeCon EU 举办 2019 年第一个 KubeCon + CloudNativeCon 于 5 月 20 ~ 23 日在巴塞罗那成功举办，这次大会吸引了七千多名参会者远超去年的参会人数。 这也从另一个侧面反映了 Kubernetes 和云原生在大大的普及
 在大会上宣布了不少值得关注的信息, 我在此大致列一下我认为值得关注的信息（虽然有些内容之前已经关注到了）：
- OpenTracing, OpenCensus 合并为 OpenTelemetry； 微软推出 Service Mesh Interface（SMI）规范； NGINX Ingress Controller 发布 1.5.0 版本； Google 宣布 GKE 将会支持 Windows Server Container； Helm 3 的发展历程；（推荐阅读我之前写的 初试 Helm 3）  当然，大会上公布的信息还有很多，还有一些 CNCF 的计划等，这里暂且不提，感兴趣的朋友可以自行搜索或者参加下个月在上海举办的 KubeCon + CloudNativeCon
-微软推出 Service Mesh Interface （SMI） Service Mesh 也是一个趋势，但现在并没有一个统一的规范，各个厂商的实现也都各有不同。微软本次提出的 SMI 主要是为 Kubernetes 服务网格提供通用接口，以便能让 Service Mesh 有更加通用的规范 （就像当初 CNI/CRI 那样子）</description>
-    </item>
-    
-    <item>
-      <title>云原生应用开发新体验：Kui</title>
-      <link>https://moelove.info/2019/05/24/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E6%96%B0%E4%BD%93%E9%AA%8CKui/</link>
-      <pubDate>Fri, 24 May 2019 10:19:03 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/05/24/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E6%96%B0%E4%BD%93%E9%AA%8CKui/</guid>
-      <description>云原生（Cloud Native）应用是伴随着 Kubernetes 应用范围的扩大，基于云模型而提出的一种概念。
- 本文来介绍一个云原生应用开发的工具 Kui, 这是一款由 IBM 开源的工具，使用 Electron 提供 GUI 能力。
- Kui Shell offers a new development experience for building cloud-native applications. By combining the power of familiar CLIs with visualizations in high-impact areas, Kui enables you to manipulate complex JSON and YAML data models, integrate disparate tooling, and provides quick access to aggregate views of operational data.
- 正如以上介绍中提到的，Kui 提供了一种新的开发体验（原先大多数时候我们是通过 kubectl 与 Kubernetes 中的资源进行交互），Kui 结合了原有 CLI 的强大功能，并提供一种可视化的方式，方便我们对 Kubernetes 中 YAML 或者 JSON 格式数据的处理。</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| 2019-05-13~2019-05-19</title>
-      <link>https://moelove.info/2019/05/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-13~2019-05-19/</link>
-      <pubDate>Sun, 19 May 2019 23:13:42 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/05/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-13~2019-05-19/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- kind v0.3.0 正式发布 kind (Kubernetes In Docker) 是我很喜欢并且一直持续参与贡献的项目，本周发布了 v0.3.0 版本。关于 Kind 的介绍和基础使用，可以参考我之前写的文章 《使用 Kind 搭建你的本地 Kubernetes 集群》
+OpenTracing, OpenCensus 合并为 OpenTelemetry； 微软推出 Service Mesh Interface（SMI）规范； NGINX Ingress Controller 发布 1.5.0 版本； Google 宣布 GKE 将会支持 Windows Server Container； Helm 3 的发展历程；（推荐阅读我之前写的 初试 Helm 3） 当然，大会上公布的信息还有很多，还有一些 CNCF 的计划等，这里暂且不提，感兴趣的朋友可以自行搜索或者参加下个月在上海举办的 KubeCon + CloudNativeCon
+微软推出 Service Mesh Interface （SMI） Service Mesh 也是一个趋势，但现在并没有一个统一的规范，各个厂商的实现也都各有不同。微软本次提出的 SMI 主要是为 Kubernetes 服务网格提供通用接口，以便能让 Service Mesh 有更加通用的规范 （就像当初 CNI/CRI 那样子）</description></item><item><title>云原生应用开发新体验：Kui</title><link>https://moelove.info/2019/05/24/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E6%96%B0%E4%BD%93%E9%AA%8CKui/</link><pubDate>Fri, 24 May 2019 10:19:03 +0800</pubDate><guid>https://moelove.info/2019/05/24/%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E6%96%B0%E4%BD%93%E9%AA%8CKui/</guid><description>云原生（Cloud Native）应用是伴随着 Kubernetes 应用范围的扩大，基于云模型而提出的一种概念。
+本文来介绍一个云原生应用开发的工具 Kui, 这是一款由 IBM 开源的工具，使用 Electron 提供 GUI 能力。
+Kui Shell offers a new development experience for building cloud-native applications. By combining the power of familiar CLIs with visualizations in high-impact areas, Kui enables you to manipulate complex JSON and YAML data models, integrate disparate tooling, and provides quick access to aggregate views of operational data.
+正如以上介绍中提到的，Kui 提供了一种新的开发体验（原先大多数时候我们是通过 kubectl 与 Kubernetes 中的资源进行交互），Kui 结合了原有 CLI 的强大功能，并提供一种可视化的方式，方便我们对 Kubernetes 中 YAML 或者 JSON 格式数据的处理。</description></item><item><title>K8S 生态周报| 2019-05-13~2019-05-19</title><link>https://moelove.info/2019/05/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-13~2019-05-19/</link><pubDate>Sun, 19 May 2019 23:13:42 +0800</pubDate><guid>https://moelove.info/2019/05/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-13~2019-05-19/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+kind v0.3.0 正式发布 kind (Kubernetes In Docker) 是我很喜欢并且一直持续参与贡献的项目，本周发布了 v0.3.0 版本。关于 Kind 的介绍和基础使用，可以参考我之前写的文章 《使用 Kind 搭建你的本地 Kubernetes 集群》
 本次的发布主要侧重于加速集群的启动速度及提高稳定性，优化镜像大小，以及对网络的优化和一些 bugfix 等；其中最主要的内容是将默认的 CRI 从 Docker 换成了 Containerd，以此可以缩小镜像体积，以及加快集群的启动。
 v0.3.0 版本中，可以通过配置文件自行部署不同的 CNI，更有利于用户测试实际的集群情况；现在版本中已经将默认的 Kubernetes 版本升级到了最新的 v1.14.2 。
 当然，也还有一些正在增加的特性，预计会在 v0.4.0 版本中发布，主要集中于 IPv6 和集群重启的支持（相信很快就可以完成了）。
 顺便公布一个数据，Kind 目前的 star 数是 1.8k 还在持续增长中 :)
 更多的细节和信息请参考 ReleaseNote
 Kubernetes v1.14.2 正式发布 这是一个常规的 bugfix 版本，但有个值得关注的点：
- 升级到了 golang v1.12.5 版本。  你可能要问为什么需要关注 golang 版本的升级？这是因为在此版本中 golang 有一些关于运行时的修改，尤其是其中关于二叉树查找部分的修改等部分的修改，可有效的降低 Kubernetes API server 的延迟。</description>
-    </item>
-    
-    <item>
-      <title>初试 Helm 3</title>
-      <link>https://moelove.info/2019/05/16/%E5%88%9D%E8%AF%95-Helm-3/</link>
-      <pubDate>Thu, 16 May 2019 21:30:00 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/05/16/%E5%88%9D%E8%AF%95-Helm-3/</guid>
-      <description>经过了长时间的开发，Helm 3 终于在今天发布了第一个 alpha 版本。本文将简单介绍 Helm 3 新特性。
- 移除 Tiller Helm 2 是 C/S 架构，主要分为客户端 helm 和服务端 Tiller; 与之前版本相同，Helm 3 同样在 Release 页面提供了预编译好的二进制文件。差别在于原先的二进制包下载下来你会看到 helm 和 tiller 。而 Helm 3 则只有 helm 的存在了。
+升级到了 golang v1.12.5 版本。 你可能要问为什么需要关注 golang 版本的升级？这是因为在此版本中 golang 有一些关于运行时的修改，尤其是其中关于二叉树查找部分的修改等部分的修改，可有效的降低 Kubernetes API server 的延迟。</description></item><item><title>初试 Helm 3</title><link>https://moelove.info/2019/05/16/%E5%88%9D%E8%AF%95-Helm-3/</link><pubDate>Thu, 16 May 2019 21:30:00 +0800</pubDate><guid>https://moelove.info/2019/05/16/%E5%88%9D%E8%AF%95-Helm-3/</guid><description>经过了长时间的开发，Helm 3 终于在今天发布了第一个 alpha 版本。本文将简单介绍 Helm 3 新特性。
+移除 Tiller Helm 2 是 C/S 架构，主要分为客户端 helm 和服务端 Tiller; 与之前版本相同，Helm 3 同样在 Release 页面提供了预编译好的二进制文件。差别在于原先的二进制包下载下来你会看到 helm 和 tiller 。而 Helm 3 则只有 helm 的存在了。
 Tiller 主要用于在 Kubernetes 集群中管理各种应用发布的版本，在 Helm 3 中移除了 Tiller, 版本相关的数据直接存储在了 Kubernetes 中。
 现在我们直接在一个新创建的集群上来使用 Helm。测试集群的创建可以参考我之前的文章 使用 Kind 搭建你的本地 Kubernetes 集群。
 与之前版本相同，我们需要先执行 helm init 来进行初始化。但现在的初始化就简单了很多，不再需要给集群中部署 Tiller 了
-(MoeLove) ➜ ~ export HELM_HOME=/tmp/helm3 (MoeLove) ➜ ~ helm3 init Creating /tmp/helm3/repository Creating /tmp/helm3/repository/cache Creating /tmp/helm3/plugins Creating /tmp/helm3/starters Creating /tmp/helm3/cache/archive Creating /tmp/helm3/repository/repositories.</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| 2019-05-06~2019-05-12</title>
-      <link>https://moelove.info/2019/05/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-06~2019-05-12/</link>
-      <pubDate>Sun, 12 May 2019 20:47:02 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/05/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-06~2019-05-12/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Alpine Linux Docker 镜像漏洞 CVE-2019-5021 本周比较吓人的是 CVE-2019-5021, 根据漏洞报告，自 Alpine Linux 3.3 版本开始的所有 Docker 镜像中，root 用户包含一个空密码，这可能会导致攻击者获得 root 权限，今儿造成攻击。
+(MoeLove) ➜ ~ export HELM_HOME=/tmp/helm3 (MoeLove) ➜ ~ helm3 init Creating /tmp/helm3/repository Creating /tmp/helm3/repository/cache Creating /tmp/helm3/plugins Creating /tmp/helm3/starters Creating /tmp/helm3/cache/archive Creating /tmp/helm3/repository/repositories.</description></item><item><title>K8S 生态周报| 2019-05-06~2019-05-12</title><link>https://moelove.info/2019/05/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-06~2019-05-12/</link><pubDate>Sun, 12 May 2019 20:47:02 +0800</pubDate><guid>https://moelove.info/2019/05/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-05-06~2019-05-12/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Alpine Linux Docker 镜像漏洞 CVE-2019-5021 本周比较吓人的是 CVE-2019-5021, 根据漏洞报告，自 Alpine Linux 3.3 版本开始的所有 Docker 镜像中，root 用户包含一个空密码，这可能会导致攻击者获得 root 权限，今儿造成攻击。
 报告中称：受影响范围是 Alpine Linux Docker 镜像 3.3、3.4、3.5、3.6、3.7、3.8、3.9、edge 等全部版本。
 要知道由于 Alpine Linux 镜像体积较小，所以在构建 Docker 镜像时，很多人都会推荐使用 Alpine Linux 作为基础镜像；包括很多 Docker 官方镜像也基本上都提供了基于 Alpine Linux 的镜像，甚至像 Docker 镜像等是只提供了使用 Alpine Linux 作为基础镜像的版本。
 当前漏洞已经修复，更多内容请阅读 关于 Alpine Docker 镜像漏洞 CVE-2019-5021 。
-istio-operator 发布 0.1.12 版本 banzaicloud/istio-operator 发布 0.1.12 版本，默认已支持 istio 1.1.5 。（虽然截至目前 istio 发布了 1.</description>
-    </item>
-    
-    <item>
-      <title>关于 Alpine Docker 镜像漏洞 CVE-2019-5021</title>
-      <link>https://moelove.info/2019/05/11/%E5%85%B3%E4%BA%8E-Alpine-Docker-%E9%95%9C%E5%83%8F%E6%BC%8F%E6%B4%9E-CVE-2019-5021/</link>
-      <pubDate>Sat, 11 May 2019 21:07:10 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/05/11/%E5%85%B3%E4%BA%8E-Alpine-Docker-%E9%95%9C%E5%83%8F%E6%BC%8F%E6%B4%9E-CVE-2019-5021/</guid>
-      <description>关于 CVE-2019-5021 带来的一点思考。
- 本周比较吓人的是 CVE-2019-5021, 根据漏洞报告，自 Alpine Linux 3.3 版本开始的所有 Docker 镜像中，root 用户包含一个空密码，这可能会导致攻击者获得 root 权限，进而造成攻击。
+istio-operator 发布 0.1.12 版本 banzaicloud/istio-operator 发布 0.1.12 版本，默认已支持 istio 1.1.5 。（虽然截至目前 istio 发布了 1.</description></item><item><title>关于 Alpine Docker 镜像漏洞 CVE-2019-5021</title><link>https://moelove.info/2019/05/11/%E5%85%B3%E4%BA%8E-Alpine-Docker-%E9%95%9C%E5%83%8F%E6%BC%8F%E6%B4%9E-CVE-2019-5021/</link><pubDate>Sat, 11 May 2019 21:07:10 +0800</pubDate><guid>https://moelove.info/2019/05/11/%E5%85%B3%E4%BA%8E-Alpine-Docker-%E9%95%9C%E5%83%8F%E6%BC%8F%E6%B4%9E-CVE-2019-5021/</guid><description>关于 CVE-2019-5021 带来的一点思考。
+本周比较吓人的是 CVE-2019-5021, 根据漏洞报告，自 Alpine Linux 3.3 版本开始的所有 Docker 镜像中，root 用户包含一个空密码，这可能会导致攻击者获得 root 权限，进而造成攻击。
 报告中称：受影响范围是 Alpine Linux Docker 镜像 3.3、3.4、3.5、3.6、3.7、3.8、3.9、edge 等全部版本。
 要知道由于 Alpine Linux 镜像体积较小，所以在构建 Docker 镜像时，很多人都会推荐使用 Alpine Linux 作为基础镜像；包括很多 Docker 官方镜像也基本上都提供了基于 Alpine Linux 的镜像，甚至像 Docker 镜像等，是只提供了使用 Alpine Linux 作为基础镜像的版本。
 报告一出，瞬间这个消息就被传播成了 “Alpine Linux Docker 镜像不安全”/“不要再使用 Alpine Linux 了”。当然 Google 的开发者也顺便推了一次自家的 distroless 镜像。
 我们来看一下 CVE-2019-5021 到底是什么以及如何复现吧。
-CVE-2019-5021 (MoeLove) ➜ ~ docker run --rm -it alpine:3.9 / # grep root /etc/passwd root❌0:0:root:/root:/bin/ash operator❌11:0:operator:/root:/bin/sh / # grep root /etc/shadow root:::0::::: / #  以上是一个 alpine:3.</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| 2019-04-28~2019-05-05</title>
-      <link>https://moelove.info/2019/05/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-28~2019-05-05/</link>
-      <pubDate>Sun, 05 May 2019 21:59:07 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/05/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-28~2019-05-05/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Docker Hub 只读维护 在上周的推送中，有写到 Docker Hub 用户隐私数据泄漏。受此事件影响，5 月 4 日 Docker Hub 进行升级维护，在此期间 Docker Hub 有一段时间处于只读模式，包括自动构建等服务不可用；在最后有小于 15 分钟的完全宕机时间，服务完全不可用。
+CVE-2019-5021 (MoeLove) ➜ ~ docker run --rm -it alpine:3.9 / # grep root /etc/passwd root❌0:0:root:/root:/bin/ash operator❌11:0:operator:/root:/bin/sh / # grep root /etc/shadow root:::0::::: / # 以上是一个 alpine:3.</description></item><item><title>K8S 生态周报| 2019-04-28~2019-05-05</title><link>https://moelove.info/2019/05/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-28~2019-05-05/</link><pubDate>Sun, 05 May 2019 21:59:07 +0800</pubDate><guid>https://moelove.info/2019/05/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-28~2019-05-05/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Docker Hub 只读维护 在上周的推送中，有写到 Docker Hub 用户隐私数据泄漏。受此事件影响，5 月 4 日 Docker Hub 进行升级维护，在此期间 Docker Hub 有一段时间处于只读模式，包括自动构建等服务不可用；在最后有小于 15 分钟的完全宕机时间，服务完全不可用。
 如果只是看事情表面的话，可能这就是一个由于发现“安全问题”而进行的升级/维护；但如果仔细考虑下，作为云原生服务，升级为何会有宕机的情况，为何会有服务完全不可用的时候？
 摘录一段来自本次维护的公告内容：
- Q: Is this maintenance related to recent Docker Hub data breach?
-A: While we discovered unauthorized access to a single Hub database storing a subset of non-financial user data last week, which has since been remediated, we are always looking at ways to improve and enhance our security practices to protect our customers and their data.</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| 2019-04-22~2019-04-28</title>
-      <link>https://moelove.info/2019/04/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-22~2019-04-28/</link>
-      <pubDate>Mon, 29 Apr 2019 00:36:25 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/04/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-22~2019-04-28/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Docker Hub 用户隐私数据泄漏 2019 年 4 月 25 日，Docker Hub 团队发现了对存储非财务用户数据子集的单个 Hub 数据库的未授权访问。 在发现异常后官方团队迅速采取行动并保护网站免受攻击。
+Q: Is this maintenance related to recent Docker Hub data breach?
+A: While we discovered unauthorized access to a single Hub database storing a subset of non-financial user data last week, which has since been remediated, we are always looking at ways to improve and enhance our security practices to protect our customers and their data.</description></item><item><title>K8S 生态周报| 2019-04-22~2019-04-28</title><link>https://moelove.info/2019/04/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-22~2019-04-28/</link><pubDate>Mon, 29 Apr 2019 00:36:25 +0800</pubDate><guid>https://moelove.info/2019/04/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-22~2019-04-28/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Docker Hub 用户隐私数据泄漏 2019 年 4 月 25 日，Docker Hub 团队发现了对存储非财务用户数据子集的单个 Hub 数据库的未授权访问。 在发现异常后官方团队迅速采取行动并保护网站免受攻击。
 经过官方团队的调查，目前大概有 190000 帐号的敏感信息（小于总用户数的 5% ）包括用户名和哈希后的用户密码，当然也包括 GitHub 及 Bitbucket 等的用于自动构建的 Token 。
 当前的主要措施是对可能被泄漏信息的用户发送了邮件通知，对于可能泄漏哈希密码的用户发送了重置密码的邮件，并且 主动 将密码失效，以及自动构建的 Token 也都被失效。( 所以如果你收到了 Docker Hub 团队关于此次事件的直接报告邮件，很大概率是因为你的信息已经被泄漏了 )
 附上官方声明中关于此次事件的处理声明：
- During a brief period of unauthorized access to a Docker Hub database, sensitive data from approximately 190,000 accounts may have been exposed (less than 5% of Hub users).</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| 2019-04-15~2019-04-21</title>
-      <link>https://moelove.info/2019/04/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-15~2019-04-21/</link>
-      <pubDate>Sun, 21 Apr 2019 21:46:02 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/04/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-15~2019-04-21/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Prometheus v2.9.0 正式发布 Prometheus 是 CNCF 毕业项目，可用于监控系统及服务状态。它整体是使用 Pull 的模式，在周期时间内采集目标的 metrics ，并且提供了 PromQL 的查询语言，以供对监控数据进行查询过滤等操作。并且可以通过配置规则来触发报警等。我首次接触 Prometheus 大概是在 2015 年 0.15.0 版本左右，当时 Prometheus 还处于比较早期的阶段，不过在进入 CNCF 后，Prometheus 基本就成为了 K8S 监控的实施标准了，并且多数软件也都增加了对 Prometheus metrics 的支持。
+During a brief period of unauthorized access to a Docker Hub database, sensitive data from approximately 190,000 accounts may have been exposed (less than 5% of Hub users).</description></item><item><title>K8S 生态周报| 2019-04-15~2019-04-21</title><link>https://moelove.info/2019/04/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-15~2019-04-21/</link><pubDate>Sun, 21 Apr 2019 21:46:02 +0800</pubDate><guid>https://moelove.info/2019/04/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019-04-15~2019-04-21/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Prometheus v2.9.0 正式发布 Prometheus 是 CNCF 毕业项目，可用于监控系统及服务状态。它整体是使用 Pull 的模式，在周期时间内采集目标的 metrics ，并且提供了 PromQL 的查询语言，以供对监控数据进行查询过滤等操作。并且可以通过配置规则来触发报警等。我首次接触 Prometheus 大概是在 2015 年 0.15.0 版本左右，当时 Prometheus 还处于比较早期的阶段，不过在进入 CNCF 后，Prometheus 基本就成为了 K8S 监控的实施标准了，并且多数软件也都增加了对 Prometheus metrics 的支持。
 v2.9.0 的主要更新：
- 从 2.8 开始引入了的从 WAL 读取进行 remote write 有时候会丢数据的问题已经得到修复； Kubernetes 和 OpenStack 在服务发现时候增加了更多元数据； Consul 现在支持多 tag； 添加了一个 honor_timestamps 的选项； TLS 证书会自动从磁盘加载； 日志也变的更易读；  其他更新请阅读 ReleaseNote
-Linkerd 2.3 正式发布 Linkerd 是一个 service mesh 旨在提供平台范围的可观察性，可靠性和安全性，而无需用户更改代码。在本月初的周报推送中，推荐了一篇关于 Linkerd v2 从产品中吸取的教育和经验的文章，Linkerd v2 使用 Go 和 Rust 进行了重写，并因此获得了巨大的收益。</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| 2019.04.08~2019.04.14</title>
-      <link>https://moelove.info/2019/04/14/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.04.08~2019.04.14/</link>
-      <pubDate>Sun, 14 Apr 2019 22:53:09 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/04/14/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.04.08~2019.04.14/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- CRI-O 成为 CNCF 托管项目 CRI-O 是基于 OCI 的 Kubernetes CRI 实现，旨在提供符合 OCI 运行时和 kubelet 之间的集成。简单来说就是完全符合 OCI 标准的 CRI 实现。（比如之前介绍的 runc 便是 OCI 标准的参考实现）
+从 2.8 开始引入了的从 WAL 读取进行 remote write 有时候会丢数据的问题已经得到修复； Kubernetes 和 OpenStack 在服务发现时候增加了更多元数据； Consul 现在支持多 tag； 添加了一个 honor_timestamps 的选项； TLS 证书会自动从磁盘加载； 日志也变的更易读； 其他更新请阅读 ReleaseNote
+Linkerd 2.3 正式发布 Linkerd 是一个 service mesh 旨在提供平台范围的可观察性，可靠性和安全性，而无需用户更改代码。在本月初的周报推送中，推荐了一篇关于 Linkerd v2 从产品中吸取的教育和经验的文章，Linkerd v2 使用 Go 和 Rust 进行了重写，并因此获得了巨大的收益。</description></item><item><title>K8S 生态周报| 2019.04.08~2019.04.14</title><link>https://moelove.info/2019/04/14/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.04.08~2019.04.14/</link><pubDate>Sun, 14 Apr 2019 22:53:09 +0800</pubDate><guid>https://moelove.info/2019/04/14/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.04.08~2019.04.14/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+CRI-O 成为 CNCF 托管项目 CRI-O 是基于 OCI 的 Kubernetes CRI 实现，旨在提供符合 OCI 运行时和 kubelet 之间的集成。简单来说就是完全符合 OCI 标准的 CRI 实现。（比如之前介绍的 runc 便是 OCI 标准的参考实现）
 在 2016 年的时候 Kubernetes 就推出了容器运行时接口（CRI），这给了 kubelet 一种使用各种不同容器运行时的能力，现在最常用的当然还是 Docker，当然也有人使用 containerd、runc、CRI-O 等各类运行时。
 CRI-O 最初由 Red Hat 和 Google 开发，现在已达到稳定状态，且已有大量的贡献者，本次成为 CNCF 托管项目，也算是给容器运行时提供一个更大的可能。
 附一张官方图：
 详细信息请阅读 CNCF 官方新闻
 Helm 子项目 chart-testing 发布 v2.3.0 版本 chart-testing v2.3.0 版本正式发布，该项目的主要目标是用于 Helm Chart 的测试，使用该项目可更方便的检查 Chart 中是否有错误，以及定位错误位置等。
 本次发布主要在于覆盖更多异常情况，详细内容建议阅读 ReleaseNote
-CoreDNS v1.</description>
-    </item>
-    
-    <item>
-      <title>恭喜 Fluentd 从 CNCF 毕业</title>
-      <link>https://moelove.info/2019/04/12/%E6%81%AD%E5%96%9C-Fluentd-%E4%BB%8E-CNCF-%E6%AF%95%E4%B8%9A/</link>
-      <pubDate>Fri, 12 Apr 2019 07:23:14 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/04/12/%E6%81%AD%E5%96%9C-Fluentd-%E4%BB%8E-CNCF-%E6%AF%95%E4%B8%9A/</guid>
-      <description>今年新闻不断，多数早期进入 CNCF 的项目都相继宣布毕业。
- CNCF（云原生计算基金会）在美国时间 2019 年 4 月 11 日宣布 fluentd 今天正式毕业了。
+CoreDNS v1.</description></item><item><title>恭喜 Fluentd 从 CNCF 毕业</title><link>https://moelove.info/2019/04/12/%E6%81%AD%E5%96%9C-Fluentd-%E4%BB%8E-CNCF-%E6%AF%95%E4%B8%9A/</link><pubDate>Fri, 12 Apr 2019 07:23:14 +0800</pubDate><guid>https://moelove.info/2019/04/12/%E6%81%AD%E5%96%9C-Fluentd-%E4%BB%8E-CNCF-%E6%AF%95%E4%B8%9A/</guid><description>今年新闻不断，多数早期进入 CNCF 的项目都相继宣布毕业。
+CNCF（云原生计算基金会）在美国时间 2019 年 4 月 11 日宣布 fluentd 今天正式毕业了。
 这是 CNCF 中毕业的第 6 个项目，之前已经毕业的项目为 Kubernetes、Prometheus、Envoy 、CoreDNS 和 containerd 。
 fluentd 自 2011 年由 Treasure Data 公司的联合创始人 Sadayuki “Sada” Furuhashi 创建，作为构建统一记录层的开源数据收集器，统一记录层统一收集采集和消费，以便更好的使用和理解数据。在 2016 年 11 月，fluentd 也是第 6 个成为 CNCF 托管项目的。
 fluentd 可以从多种数据源采集事件，并将它写入文件, RDBMS, NoSQL, IaaS, SaaS, Hadoop等等各类的目标地址。截至目前，fluentd 在 GitHub 上有 7629 个 star ，895 个 fork，以及 166 位贡献者，超过 4k+ commit 。
-做日志相关的小伙伴基本都玩过 ELK ，我们都知道在大规模使用 Logstash 时的痛苦（还记得被 Logstash 配置文件支配的恐惧吗？ 2333） 而 fluentd 的事件路由是通过 tag 来做，相比 Logstash 使用管道将所有数据路由到单个流里再通过配置将它发送到对应的目标而言这将大大简化配置的复杂度。(是的，这里是吐槽)</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| 2019.04.01~2019.04.07</title>
-      <link>https://moelove.info/2019/04/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.04.01~2019.04.07/</link>
-      <pubDate>Sun, 07 Apr 2019 10:03:13 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/04/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.04.01~2019.04.07/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Kubernetes client-go v11.0.0 正式发布 这是最后一个使用 dep 作为依赖管理的版本，后续版本将转向使用 go modules.
+做日志相关的小伙伴基本都玩过 ELK ，我们都知道在大规模使用 Logstash 时的痛苦（还记得被 Logstash 配置文件支配的恐惧吗？ 2333） 而 fluentd 的事件路由是通过 tag 来做，相比 Logstash 使用管道将所有数据路由到单个流里再通过配置将它发送到对应的目标而言这将大大简化配置的复杂度。(是的，这里是吐槽)</description></item><item><title>K8S 生态周报| 2019.04.01~2019.04.07</title><link>https://moelove.info/2019/04/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.04.01~2019.04.07/</link><pubDate>Sun, 07 Apr 2019 10:03:13 +0800</pubDate><guid>https://moelove.info/2019/04/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.04.01~2019.04.07/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Kubernetes client-go v11.0.0 正式发布 这是最后一个使用 dep 作为依赖管理的版本，后续版本将转向使用 go modules.
 Kubernetes 生态中的相关项目大多都已转向或正在转向使用 go modules 了，这也是一个技术风向，理性选择。
 Release
 containerd 1.2.6 正式发布 这是 containerd 1.2 的第 6 个 patch 版本，主要更新：
- 在默认的 seccomp profile 白名单增加了 io_pgetevents 和 statx 这两个系统调用; 修复了在 1.2.5 中自定义 cgroup path 无法工作的 bug； 更新 CNI 插件到 v0.7.5 以修复 CVE-2019-9946; 更新 runc 版本，修复在无 SELinux 系统下的失败情况；  当然还有一些其他的改进和修复，比如修复了 pod 的 UTS namespace 等，建议阅读 ReleaseNote。
-Docker CE 19.</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| 2019.03.25~2019.03.31</title>
-      <link>https://moelove.info/2019/03/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.03.25~2019.03.31/</link>
-      <pubDate>Sun, 31 Mar 2019 21:52:01 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/03/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.03.25~2019.03.31/</guid>
-      <description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
- Kubernetes 1.14 正式发布 1.14 的主要更新：
- 对 Windows Node 和 container 的支持达到生产级别，支持 Windows Server 2019； 本地持久化数据卷正式可用，这可以方便使用本地 SSD 之类的存储，但注意这个特性容错性较差； Pod 优先级和抢占机制正式可用，(建议慎重使用)； Pod Ready++ (Pod Readiness Gates) 达到稳定，可以更好的判断 Pod 及其需要的资源是否均已就绪；  当然还有很多的改进和很多被废弃的功能特性等，建议阅读 ReleaseNote。
+在默认的 seccomp profile 白名单增加了 io_pgetevents 和 statx 这两个系统调用; 修复了在 1.2.5 中自定义 cgroup path 无法工作的 bug； 更新 CNI 插件到 v0.7.5 以修复 CVE-2019-9946; 更新 runc 版本，修复在无 SELinux 系统下的失败情况； 当然还有一些其他的改进和修复，比如修复了 pod 的 UTS namespace 等，建议阅读 ReleaseNote。
+Docker CE 19.</description></item><item><title>K8S 生态周报| 2019.03.25~2019.03.31</title><link>https://moelove.info/2019/03/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.03.25~2019.03.31/</link><pubDate>Sun, 31 Mar 2019 21:52:01 +0800</pubDate><guid>https://moelove.info/2019/03/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.03.25~2019.03.31/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Kubernetes 1.14 正式发布 1.14 的主要更新：
+对 Windows Node 和 container 的支持达到生产级别，支持 Windows Server 2019； 本地持久化数据卷正式可用，这可以方便使用本地 SSD 之类的存储，但注意这个特性容错性较差； Pod 优先级和抢占机制正式可用，(建议慎重使用)； Pod Ready++ (Pod Readiness Gates) 达到稳定，可以更好的判断 Pod 及其需要的资源是否均已就绪； 当然还有很多的改进和很多被废弃的功能特性等，建议阅读 ReleaseNote。
 Minikube 1.0.0 正式发布 Minikube 是一个用于本地搭建 Kubernetes 环境的工具，使用方法可参考 使用 Minikube 搭建本地 Kubernetes 环境。
 1.0.0 的主要更新：
- 默认 Kubernetes 版本更新至 1.14.0; 新增 --image-repository 参数，方便国内用户使用镜像解决网络问题；  其他特性请阅读 ReleaseNote
+默认 Kubernetes 版本更新至 1.14.0; 新增 --image-repository 参数，方便国内用户使用镜像解决网络问题； 其他特性请阅读 ReleaseNote
 runc 1.0-rc7 发布 注意，低版本内核(尤其是 3.x)的系统，请不要升级至此版本
-这个版本主要为解决之前的漏洞及修正一些规范等，版本说明请参考 runc 1.</description>
-    </item>
-    
-    <item>
-      <title>runc 1.0-rc7 发布之际</title>
-      <link>https://moelove.info/2019/03/29/runc-1.0-rc7-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/</link>
-      <pubDate>Fri, 29 Mar 2019 10:42:25 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/03/29/runc-1.0-rc7-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/</guid>
-      <description>在 18 年 11 月底时，我写了一篇文章 《runc 1.0-rc6 发布之际》 。如果你还不了解 runc 是什么，以及如何使用它，请参考我那篇文章。本文中，不再对其概念和用法等进行说明。
+这个版本主要为解决之前的漏洞及修正一些规范等，版本说明请参考 runc 1.</description></item><item><title>runc 1.0-rc7 发布之际</title><link>https://moelove.info/2019/03/29/runc-1.0-rc7-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/</link><pubDate>Fri, 29 Mar 2019 10:42:25 +0800</pubDate><guid>https://moelove.info/2019/03/29/runc-1.0-rc7-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/</guid><description>在 18 年 11 月底时，我写了一篇文章 《runc 1.0-rc6 发布之际》 。如果你还不了解 runc 是什么，以及如何使用它，请参考我那篇文章。本文中，不再对其概念和用法等进行说明。
 在 runc 1.0-rc6 发布之时，给版本的别名为 &amp;ldquo;For Real This Time&amp;rdquo;，当时我们原定计划是发布 1.0 的，但是作为基础依赖软件，我们认为当时的版本还有几个问题：
- 不够规范； 发布周期不明确;  为了给相关的 runtime 足够的时间进行修正/升级，以及规范版本生命周期等，最终决定了发布 runc 1.0-rc6。
+不够规范； 发布周期不明确; 为了给相关的 runtime 足够的时间进行修正/升级，以及规范版本生命周期等，最终决定了发布 runc 1.0-rc6。
 为何有 runc 1.0-rc7 存在 前面已经基本介绍了相关背景，并且也基本明确了 rc6 就是在 1.0 正式发布之前的最后一个版本，那 rc7 为什么会出现呢？
 CVE-2019-5736 我们首先要介绍今年 runc 的一个提权漏洞 CVE-2019-5736 。
 2019 年 2 月 11 日在oss-security 邮件组正式批露该漏洞，攻击者可以利用恶意容器覆盖主机上的 runc 文件，从而达到攻击的目的；（具体的攻击方式此处略过），注意不要轻易使用来源不可信的镜像创建容器便可有效避免被攻击的可能。
 简单补充下可能被攻击的方式：
- 运行恶意的 Docker 镜像 在主机上执行 docker exec 进入容器内  关于容器安全或者容器的运行机制，其实涉及的点很多，我在去年的一次线上分享 《基于 GitLab 的 CI 实践》 有提到过 Linux Security Modules（LSM）等相关的内容，对容器安全感兴趣的朋友可以对 LSM 多了解下。</description>
-    </item>
-    
-    <item>
-      <title>使用 Kind 搭建你的本地 Kubernetes 集群</title>
-      <link>https://moelove.info/2019/03/25/%E4%BD%BF%E7%94%A8-Kind-%E6%90%AD%E5%BB%BA%E4%BD%A0%E7%9A%84%E6%9C%AC%E5%9C%B0-Kubernetes-%E9%9B%86%E7%BE%A4/</link>
-      <pubDate>Mon, 25 Mar 2019 21:30:24 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/03/25/%E4%BD%BF%E7%94%A8-Kind-%E6%90%AD%E5%BB%BA%E4%BD%A0%E7%9A%84%E6%9C%AC%E5%9C%B0-Kubernetes-%E9%9B%86%E7%BE%A4/</guid>
-      <description>Kind 是我很喜欢也一直在参与的项目，我计划将 Kind 相关的文章写成一个系列。（flag++） 这是第一篇。
- Kind 介绍 Kind 是 Kubernetes In Docker 的缩写，顾名思义是使用 Docker 容器作为 Node 并将 Kubernetes 部署至其中的一个工具。官方文档中也把 Kind 作为一种本地集群搭建的工具进行推荐。
+运行恶意的 Docker 镜像 在主机上执行 docker exec 进入容器内 关于容器安全或者容器的运行机制，其实涉及的点很多，我在去年的一次线上分享 《基于 GitLab 的 CI 实践》 有提到过 Linux Security Modules（LSM）等相关的内容，对容器安全感兴趣的朋友可以对 LSM 多了解下。</description></item><item><title>使用 Kind 搭建你的本地 Kubernetes 集群</title><link>https://moelove.info/2019/03/25/%E4%BD%BF%E7%94%A8-Kind-%E6%90%AD%E5%BB%BA%E4%BD%A0%E7%9A%84%E6%9C%AC%E5%9C%B0-Kubernetes-%E9%9B%86%E7%BE%A4/</link><pubDate>Mon, 25 Mar 2019 21:30:24 +0800</pubDate><guid>https://moelove.info/2019/03/25/%E4%BD%BF%E7%94%A8-Kind-%E6%90%AD%E5%BB%BA%E4%BD%A0%E7%9A%84%E6%9C%AC%E5%9C%B0-Kubernetes-%E9%9B%86%E7%BE%A4/</guid><description>Kind 是我很喜欢也一直在参与的项目，我计划将 Kind 相关的文章写成一个系列。（flag++） 这是第一篇。
+Kind 介绍 Kind 是 Kubernetes In Docker 的缩写，顾名思义是使用 Docker 容器作为 Node 并将 Kubernetes 部署至其中的一个工具。官方文档中也把 Kind 作为一种本地集群搭建的工具进行推荐。
 安装 二进制安装 Kind 使用 Golang 进行开发，在仓库的 Release 页面，已经上传了构建好的二进制，支持多种操作系统，可直接按需下载进行使用。
 e.g.
-# 下载最新的 0.2.0 版本 wget -O /usr/local/bin/kind https://github.com/kubernetes-sigs/kind/releases/download/0.2.0/kind-linux-amd64 &amp;amp;&amp;amp; chmod +x /usr/local/bin/kind  通过源码安装 如果你本地已经配置好了 Golang 的开发环境，那你可以直接通过源码进行安装。
+# 下载最新的 0.2.0 版本 wget -O /usr/local/bin/kind https://github.com/kubernetes-sigs/kind/releases/download/0.2.0/kind-linux-amd64 &amp;amp;&amp;amp; chmod +x /usr/local/bin/kind 通过源码安装 如果你本地已经配置好了 Golang 的开发环境，那你可以直接通过源码进行安装。
 e.g.
-go get -u sigs.k8s.io/kind  运行完上述命令后，会将 kind 的可执行文件放到 $(go env GOPATH)/bin 文件夹内，你可能需要将此目录加入到 $PATH 中。
-或者也可以先 clone 源代码再通过 go build 进行构建。</description>
-    </item>
-    
-    <item>
-      <title>K8S 生态周报| 2019.03.18~2019.03.24</title>
-      <link>https://moelove.info/2019/03/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.03.18~2019.03.24/</link>
-      <pubDate>Mon, 25 Mar 2019 20:49:06 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/03/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.03.18~2019.03.24/</guid>
-      <description>我将从本篇开始维护「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。
- Docker 6 岁啦 Docker 从 2013 年首次亮相，至今已 6 年之久，而 Docker 也已一度成为容器技术的代名词，很庆幸能投身 Docker 相关的领域。官方博客
+go get -u sigs.k8s.io/kind 运行完上述命令后，会将 kind 的可执行文件放到 $(go env GOPATH)/bin 文件夹内，你可能需要将此目录加入到 $PATH 中。
+或者也可以先 clone 源代码再通过 go build 进行构建。</description></item><item><title>K8S 生态周报| 2019.03.18~2019.03.24</title><link>https://moelove.info/2019/03/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.03.18~2019.03.24/</link><pubDate>Mon, 25 Mar 2019 20:49:06 +0800</pubDate><guid>https://moelove.info/2019/03/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2019.03.18~2019.03.24/</guid><description>我将从本篇开始维护「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。
+Docker 6 岁啦 Docker 从 2013 年首次亮相，至今已 6 年之久，而 Docker 也已一度成为容器技术的代名词，很庆幸能投身 Docker 相关的领域。官方博客
 Kind (Kubernetes In Docker) 发布 0.2.0 版本 Kind 是一个利用容器技术快速部署本地 Kubernetes 的工具，主要是用于对 Kubernetes 1.11+ 版本的测试。现在发布的 0.2.0 版本支持最新 Kubernetes v1.13.4 及 Docker 18.06.3 且通过了 CNCF 的一致性认证。
 Rancher 发布 K8S 最佳安全实践文章 Rancher 在 CNCF 最近发布的 9 个 Kubernetes 最佳安全实践的基础上发布了一篇更安全的最佳实践，这两篇文章都值得一看。
-可以通过下面二维码订阅我的文章公众号【MoeLove】</description>
-    </item>
-    
-    <item>
-      <title>恭喜 containerd 毕业</title>
-      <link>https://moelove.info/2019/03/01/%E6%81%AD%E5%96%9C-containerd-%E6%AF%95%E4%B8%9A/</link>
-      <pubDate>Fri, 01 Mar 2019 10:18:20 +0800</pubDate>
-      
-      <guid>https://moelove.info/2019/03/01/%E6%81%AD%E5%96%9C-containerd-%E6%AF%95%E4%B8%9A/</guid>
-      <description>今年的第一篇文章更新，带来一个重大的消息。
- CNCF（云原生计算基金会）在美国时间 2019 年 2 月 28 日宣布 containerd 今天正式毕业了。
+可以通过下面二维码订阅我的文章公众号【MoeLove】</description></item><item><title>恭喜 containerd 毕业</title><link>https://moelove.info/2019/03/01/%E6%81%AD%E5%96%9C-containerd-%E6%AF%95%E4%B8%9A/</link><pubDate>Fri, 01 Mar 2019 10:18:20 +0800</pubDate><guid>https://moelove.info/2019/03/01/%E6%81%AD%E5%96%9C-containerd-%E6%AF%95%E4%B8%9A/</guid><description>今年的第一篇文章更新，带来一个重大的消息。
+CNCF（云原生计算基金会）在美国时间 2019 年 2 月 28 日宣布 containerd 今天正式毕业了。
 这是 CNCF 中毕业的第 5 个项目，之前已经毕业的项目为 Kubernetes、Prometheus、Envoy 和 CoreDNS 。
 containerd 2014 年从 Docker 孵化出来，最初是作为 Docker 引擎的底层管理器；在 2017 年 3 月被 CNCF 接受后，containerd 几乎成为了行业容器运行引擎的标准，它专注于简单，健壮和可移植性，任何人都可以使用它来构建自己的容器引擎/平台。
- “When Docker contributed containerd to the community, our goal was to share a robust and extensible runtime that millions of users and tens of thousands of organizations have already standardized on as part of Docker Engine,” said Michael Crosby, containerd maintainer and Docker engineer.</description>
-    </item>
-    
-    <item>
-      <title>2018 小回顾</title>
-      <link>https://moelove.info/2018/12/29/2018-%E5%B0%8F%E5%9B%9E%E9%A1%BE/</link>
-      <pubDate>Sat, 29 Dec 2018 20:43:00 +0800</pubDate>
-      
-      <guid>https://moelove.info/2018/12/29/2018-%E5%B0%8F%E5%9B%9E%E9%A1%BE/</guid>
-      <description>年底了，惯例做个小回顾，对这一年做个总结，也对下一年大致做个规划。
+“When Docker contributed containerd to the community, our goal was to share a robust and extensible runtime that millions of users and tens of thousands of organizations have already standardized on as part of Docker Engine,” said Michael Crosby, containerd maintainer and Docker engineer.</description></item><item><title>2018 小回顾</title><link>https://moelove.info/2018/12/29/2018-%E5%B0%8F%E5%9B%9E%E9%A1%BE/</link><pubDate>Sat, 29 Dec 2018 20:43:00 +0800</pubDate><guid>https://moelove.info/2018/12/29/2018-%E5%B0%8F%E5%9B%9E%E9%A1%BE/</guid><description>年底了，惯例做个小回顾，对这一年做个总结，也对下一年大致做个规划。
 不过今儿与往年不同的是昨晚突然发高烧，今儿都没能去上班，感谢我的小可爱在照顾我。这篇文章也是躺在床上用手机编辑的。
 还是按照惯例从工作，生活两方面来说。先聊聊工作。
 工作 现在在网易有道负责 DevOPS 实践落地及 k8s 容器化平台和自动化平台的规划建设等。
@@ -831,18 +339,9 @@ containerd 2014 年从 Docker 孵化出来，最初是作为 Docker 引擎的底
 说到现在负责的工作，如果大致有些了解的就会知道这个过程比较漫长，推进起来也会有各种阻力。毕竟要改变很多人的思想和习惯，我也在尽量让这一过程变的更加平滑。
 同时也在 push 一些理念到行业内，到社区中，不断的进行交流碰撞总结。
 社区贡献 今年下半年的贡献和分享相比去年更多一些。主要的分享有:
- GITC - 《云原生时代下的 CI/CD 实践》 PyCon China - 《基于 Docker 的 CI/CD 实践》 DockerOne 社区 - 《基于 GitLab 的 CI 实践》 Tech Talk Time - 《Docker 实战和基础架构》  分享的主题基本都围绕在容器化和 CI/CD 方面，但每次分享内容却都不一样。 感谢我的小可爱，也感谢所有支持的朋友们。
+GITC - 《云原生时代下的 CI/CD 实践》 PyCon China - 《基于 Docker 的 CI/CD 实践》 DockerOne 社区 - 《基于 GitLab 的 CI 实践》 Tech Talk Time - 《Docker 实战和基础架构》 分享的主题基本都围绕在容器化和 CI/CD 方面，但每次分享内容却都不一样。 感谢我的小可爱，也感谢所有支持的朋友们。
 社区中主要活跃在 Docker 和 Kubernetes 生态方向。维护一些官方镜像，做测试，解决问题，提交代码之类的，明年希望做的更多。
- 开了一个知乎专栏 『k8s生态』 明年会花更多时间进行建设。 写了一本掘金小册《Kubernetes 从上手到实践》。 其实这个名字并不能很好的概括小册里面的内容，其中也有源码分析之类的。要再次感谢小可爱，感谢编辑 Linmi ，感谢马达老板和何世友老板写的推荐语。也感谢所有人的支持，希望这本小册能对大家有所帮助。  写小册的过程其实也蛮辛苦的，一般要么晚上写，写到凌晨 2~3 点，要么早上 5~6 点钟左右起床，写到去上班。尤其要感谢小可爱，给了我很多支持。</description>
-    </item>
-    
-    <item>
-      <title>《Kubernetes从上手到实践》正式上线</title>
-      <link>https://moelove.info/2018/12/27/Kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5%E6%AD%A3%E5%BC%8F%E4%B8%8A%E7%BA%BF/</link>
-      <pubDate>Thu, 27 Dec 2018 11:16:21 +0800</pubDate>
-      
-      <guid>https://moelove.info/2018/12/27/Kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5%E6%AD%A3%E5%BC%8F%E4%B8%8A%E7%BA%BF/</guid>
-      <description> 时间飞逝，转眼已经到了圣诞节，今年又要结束了。感谢还在关注的小伙伴，今年确实更新很少，能不取关的都是真爱&amp;hellip;
+开了一个知乎专栏 『k8s生态』 明年会花更多时间进行建设。 写了一本掘金小册《Kubernetes 从上手到实践》。 其实这个名字并不能很好的概括小册里面的内容，其中也有源码分析之类的。要再次感谢小可爱，感谢编辑 Linmi ，感谢马达老板和何世友老板写的推荐语。也感谢所有人的支持，希望这本小册能对大家有所帮助。 写小册的过程其实也蛮辛苦的，一般要么晚上写，写到凌晨 2~3 点，要么早上 5~6 点钟左右起床，写到去上班。尤其要感谢小可爱，给了我很多支持。</description></item><item><title>《Kubernetes从上手到实践》正式上线</title><link>https://moelove.info/2018/12/27/Kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5%E6%AD%A3%E5%BC%8F%E4%B8%8A%E7%BA%BF/</link><pubDate>Thu, 27 Dec 2018 11:16:21 +0800</pubDate><guid>https://moelove.info/2018/12/27/Kubernetes%E4%BB%8E%E4%B8%8A%E6%89%8B%E5%88%B0%E5%AE%9E%E8%B7%B5%E6%AD%A3%E5%BC%8F%E4%B8%8A%E7%BA%BF/</guid><description> 时间飞逝，转眼已经到了圣诞节，今年又要结束了。感谢还在关注的小伙伴，今年确实更新很少，能不取关的都是真爱&amp;hellip;
 今年发生了很多事情，留着过几天年终总结的时候再说。有很大一部分的休息时间都用来完成了我的第一本掘金小册 《Kubernetes 从上手到实践》
 小册已经正式上线，特意送上各位小伙伴一份礼物，小册 8 折优惠。直接扫码 或者点击此链接即可。
 以下是关于小册的一些介绍：
@@ -852,246 +351,93 @@ containerd 2014 年从 Docker 孵化出来，最初是作为 Docker 引擎的底
 为了解决环境一致性的问题，也为了能够提高资源的利用率，容器化开始逐步推进，开发工程师的交付由原先的交付代码变成了交付镜像，运维工程师可以将精力集中于保障服务的可高用上。
 但为了能够快速的发版验证功能，不再受单体化架构的拖累，微服务的概念也在实践中逐步推进，从原先的单体集中式的服务，拆分为多个松耦合的微服务。到了这时，微服务 + 容器化已经大势所趋，生产中要大量使用，则容器编排变的愈发重要。Kubernetes 在容器编排领域目前已成为事实上的标准，大量公司均已在生产中推进，此时，无论是开发工程师还是运维工程师，皆需要了解并掌握 Kubernetes 的基础技能，才不至于丢失自己的竞争力。
 Kubernetes 所涉及的知识点很多, 并且版本迭代也很快，本小册将集中于 Kubernetes 的基础技能，以最常见 Case 入手，帮助大家更快的掌握相关知识并将其用于生产实践中。同时在此过程中，也会深入至 Kubernetes 必要的原理中，同时也会提供相关涉及到的 Docker 及 Linux 内核知识的补充，以便让大家不仅知其然，而且知其所以然。
-你会学到什么？  Kubernetes 基础架构 Kubernetes 的基础技能, 覆盖常见 Case 从零搭建 Kubernetes 集群 与 Kubernetes 相关的 Docker 和 Linux 内核知识补充 深入 Kubernetes 组件的原理和源码解析 了解 Kubernetes 进阶相关知识体系  适宜人群  了解 Docker，希望能进入 K8S 领域的各领域工程师； 正在或即将在生产环境使用 K8S 的后端工程师； 需要维护或在公司落地 K8S 的运维工程师； 想要走在技术前沿的前端/后端/运维工程师； 准备查缺补漏的容器相关开发工程师；  </description>
-    </item>
-    
-    <item>
-      <title>runc 1.0-rc6 发布之际</title>
-      <link>https://moelove.info/2018/11/23/runc-1.0-rc6-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/</link>
-      <pubDate>Fri, 23 Nov 2018 04:28:20 +0800</pubDate>
-      
-      <guid>https://moelove.info/2018/11/23/runc-1.0-rc6-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/</guid>
-      <description>如果你在用 Docker 或者 Kubernetes 想必你对 容器运行时 这个概念应该不会太陌生。
+你会学到什么？ Kubernetes 基础架构 Kubernetes 的基础技能, 覆盖常见 Case 从零搭建 Kubernetes 集群 与 Kubernetes 相关的 Docker 和 Linux 内核知识补充 深入 Kubernetes 组件的原理和源码解析 了解 Kubernetes 进阶相关知识体系 适宜人群 了解 Docker，希望能进入 K8S 领域的各领域工程师； 正在或即将在生产环境使用 K8S 的后端工程师； 需要维护或在公司落地 K8S 的运维工程师； 想要走在技术前沿的前端/后端/运维工程师； 准备查缺补漏的容器相关开发工程师；</description></item><item><title>runc 1.0-rc6 发布之际</title><link>https://moelove.info/2018/11/23/runc-1.0-rc6-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/</link><pubDate>Fri, 23 Nov 2018 04:28:20 +0800</pubDate><guid>https://moelove.info/2018/11/23/runc-1.0-rc6-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/</guid><description>如果你在用 Docker 或者 Kubernetes 想必你对 容器运行时 这个概念应该不会太陌生。
 在 Docker 中，当你使用 docker info 即可查看当前所使用的 runtime。
-➜ ~ docker info ... Server Version: 18.06.1-ce Storage Driver: overlay2 Backing Filesystem: extfs Supports d_type: true Native Overlay Diff: true Logging Driver: json-file Cgroup Driver: cgroupfs ... Swarm: inactive Runtimes: nvidia runc Default Runtime: runc Init Binary: docker-init containerd version: 468a545b9edcd5932818eb9de8e72413e616e86e runc version: 69663f0bd4b60df09991c08812a60108003fa340 init version: fec3683 Security Options: seccomp Profile: default ...  同时，你还可以自己在 /etc/docker/daemon.</description>
-    </item>
-    
-    <item>
-      <title>Docker 深入篇之 Build 原理</title>
-      <link>https://moelove.info/2018/09/04/Docker-%E6%B7%B1%E5%85%A5%E7%AF%87%E4%B9%8B-Build-%E5%8E%9F%E7%90%86/</link>
-      <pubDate>Tue, 04 Sep 2018 22:21:46 +0800</pubDate>
-      
-      <guid>https://moelove.info/2018/09/04/Docker-%E6%B7%B1%E5%85%A5%E7%AF%87%E4%B9%8B-Build-%E5%8E%9F%E7%90%86/</guid>
-      <description>使用 Docker 时，最常用的命令无非是 docker container 和 docker image 相关的子命令，当然最初没有管理类命令（或者说分组）的时候，最常使用的命令也无非是 docker run docker commit docker build 和 docker images 这些。
+➜ ~ docker info ... Server Version: 18.06.1-ce Storage Driver: overlay2 Backing Filesystem: extfs Supports d_type: true Native Overlay Diff: true Logging Driver: json-file Cgroup Driver: cgroupfs ... Swarm: inactive Runtimes: nvidia runc Default Runtime: runc Init Binary: docker-init containerd version: 468a545b9edcd5932818eb9de8e72413e616e86e runc version: 69663f0bd4b60df09991c08812a60108003fa340 init version: fec3683 Security Options: seccomp Profile: default ... 同时，你还可以自己在 /etc/docker/daemon.</description></item><item><title>Docker 深入篇之 Build 原理</title><link>https://moelove.info/2018/09/04/Docker-%E6%B7%B1%E5%85%A5%E7%AF%87%E4%B9%8B-Build-%E5%8E%9F%E7%90%86/</link><pubDate>Tue, 04 Sep 2018 22:21:46 +0800</pubDate><guid>https://moelove.info/2018/09/04/Docker-%E6%B7%B1%E5%85%A5%E7%AF%87%E4%B9%8B-Build-%E5%8E%9F%E7%90%86/</guid><description>使用 Docker 时，最常用的命令无非是 docker container 和 docker image 相关的子命令，当然最初没有管理类命令（或者说分组）的时候，最常使用的命令也无非是 docker run docker commit docker build 和 docker images 这些。
 今天来聊一下和 Docker 中核心概念 image 相关的重要命令， docker build 或者说 docker image build 为了简便起见，下文的命令全部使用 docker build 。
 Docker Image 先简单介绍下 Docker Image， 通常情况下我们将其称之为镜像，镜像是由多个层组成的文件，这些层用于在容器内执行代码（命令）等。每个镜像基本上都是根据应用程序完整的可执行版本进行构建的，并且需要注意的是，它会依赖于主机的系统内核。当用户在运行镜像时，这将会创建一个或者多个容器实例。
 Dockerd Dockerd 是 Docker 的服务端，默认情况下提供 Unix Domain Socket 连接，当然也可以监听某个端口，用于对外提供服务。 所以有时候，我们也可以使用服务器上的 Docker daemon 来提供服务，以加快构建速度及解决一些网络问题之类的。
 好的，基础概念了解了， 那我们开始进入正题。
 使用 Dockerfile 我们知道构建镜像的方法有多种，本文中我们只介绍使用 Dockerfile 通过 docker build 的方式构建镜像。
-为了简便，我们以一个简单的 Dockerfile 开始。构建一个容器内使用的 kubectl 工具 (当然选择它的原因在于 kubectl 足够大，并不考虑可用性，这个稍后解释)</description>
-    </item>
-    
-    <item>
-      <title>GitLab CI 使用 InsecureRegistry</title>
-      <link>https://moelove.info/2018/08/06/GitLab-CI-%E4%BD%BF%E7%94%A8-InsecureRegistry/</link>
-      <pubDate>Mon, 06 Aug 2018 08:12:03 +0800</pubDate>
-      
-      <guid>https://moelove.info/2018/08/06/GitLab-CI-%E4%BD%BF%E7%94%A8-InsecureRegistry/</guid>
-      <description>继上次分享后，有读者留言问 dind 使用 insecure-registry 相关的问题。
- 请教个问题，基于gitlab CI做java项目持续集成，用到了docker in docker， docker build使用的Dockerfile中使用了一个insecure registry，在dind的容器中如何配置insecure registry
- 我的回复是：
+为了简便，我们以一个简单的 Dockerfile 开始。构建一个容器内使用的 kubectl 工具 (当然选择它的原因在于 kubectl 足够大，并不考虑可用性，这个稍后解释)</description></item><item><title>GitLab CI 使用 InsecureRegistry</title><link>https://moelove.info/2018/08/06/GitLab-CI-%E4%BD%BF%E7%94%A8-InsecureRegistry/</link><pubDate>Mon, 06 Aug 2018 08:12:03 +0800</pubDate><guid>https://moelove.info/2018/08/06/GitLab-CI-%E4%BD%BF%E7%94%A8-InsecureRegistry/</guid><description>继上次分享后，有读者留言问 dind 使用 insecure-registry 相关的问题。
+请教个问题，基于gitlab CI做java项目持续集成，用到了docker in docker， docker build使用的Dockerfile中使用了一个insecure registry，在dind的容器中如何配置insecure registry
+我的回复是：
 首先, 不推荐使用 insecure registry 毕竟有其固有限制， 如果一定要用的话， 其实在 services 层配置一个 command 就可以，这也是最简单的， 例如：
-services: - name: docker:dind command: [&amp;quot;--insecure-registry=myregistry:5000&amp;quot;]  由于留言字数的限制，就单独写个小文来回复下。
+services: - name: docker:dind command: [&amp;quot;--insecure-registry=myregistry:5000&amp;quot;] 由于留言字数的限制，就单独写个小文来回复下。
 这个做法实际效果如下：
-(Tao) ➜ kubernetes git:(master) ✗ sudo docker run -d --privileged --name dind docker:dind --insecure-registry=&amp;quot;myregistry:5000&amp;quot; 8fb68865638ebc65255bb568fbe1fd6b4ed4fca771075d8e55ebbbbdf0aef6d2 (Tao) ➜ kubernetes git:(master) ✗ sudo docker top dind UID PID PPID C STIME TTY TIME CMD root 18270 18252 1 11:27 ?</description>
-    </item>
-    
-    <item>
-      <title>基于 GitLab 的 CI 实践</title>
-      <link>https://moelove.info/2018/08/05/%E5%9F%BA%E4%BA%8E-GitLab-%E7%9A%84-CI-%E5%AE%9E%E8%B7%B5/</link>
-      <pubDate>Sun, 05 Aug 2018 14:54:59 +0800</pubDate>
-      
-      <guid>https://moelove.info/2018/08/05/%E5%9F%BA%E4%BA%8E-GitLab-%E7%9A%84-CI-%E5%AE%9E%E8%B7%B5/</guid>
-      <description>上个月受 DockOne 社区邀请，做了一次 CI 实践方面的线上分享，在此记录下。 本文讲述 GitLab CI 的架构及其能力特性，分析它在 DevOps 实践中的作用。 通过分析 Docker In Docker 的技术细节，详细讲述 CI 实践以及在生产环境中的所做的优化，包括但不限于镜像仓库等，以达到数倍的性能提升。 本次分享内容以 GitLab Community Edition 11.0.4 edb037c 为例。
- 为何选择 GitLab CI 认识 GitLab CI 什么是 GitLab CI GitLab CI 是 GitLab 为了提升其在软件开发工程中作用，完善 DevOPS 理念所加入的 CI/CD 基础功能。可以便捷的融入软件开发环节中。通过 GitLab CI 可以定义完善的 CI/CD Pipeline。
-优势  GitLab CI 是默认包含在 GitLab 中的，我们的代码使用 GitLab 进行托管，这样可以很容易的进行集成 GitLab CI 的前端界面比较美观，容易被人接受 包含实时构建日志，容易追踪 采用 C/S 的架构，可方面的进行横向扩展，性能上不会有影响 使用 YAML 进行配置，任何人都可以很方便的使用。  重点概念 Pipeline Pipeline 相当于一个构建任务，里面可以包含多个流程，如依赖安装、编译、测试、部署等。 任何提交或者 Merge Request 的合并都可以触发 Pipeline</description>
-    </item>
-    
-    <item>
-      <title>Install-Python3.6-on-CentOS7</title>
-      <link>https://moelove.info/2017/06/30/Install-Python3.6-on-CentOS7/</link>
-      <pubDate>Fri, 30 Jun 2017 00:13:16 +0000</pubDate>
-      
-      <guid>https://moelove.info/2017/06/30/Install-Python3.6-on-CentOS7/</guid>
-      <description>拖了很久没有更新，抱歉啦~ 今天受邀写篇如何在 CentOS 7 上配置 Python 3 环境的文章。往常我都选择直接把我早年写的一篇文章源码编译MongoDB丢过去，让他们看其中的源码编译 Python 那一节，不过那节写的其实不太详细，而且最近被很多人催，所以还是单独写一篇好了。
- 当前最新的 CentOS 7.3 默认安装的是 Python 2 ，并且默认的官方 yum 源中不提供 Python 3 的安装包。有些用户想要升级使用 Python 3 但实际可能有各种各样的问题，导致出错，反观一下激进的 Fedora 社区，在23的时候，就将默认的版本修改成了 Python3 （如果我没记错的话）。
+(Tao) ➜ kubernetes git:(master) ✗ sudo docker run -d --privileged --name dind docker:dind --insecure-registry=&amp;quot;myregistry:5000&amp;quot; 8fb68865638ebc65255bb568fbe1fd6b4ed4fca771075d8e55ebbbbdf0aef6d2 (Tao) ➜ kubernetes git:(master) ✗ sudo docker top dind UID PID PPID C STIME TTY TIME CMD root 18270 18252 1 11:27 ?</description></item><item><title>基于 GitLab 的 CI 实践</title><link>https://moelove.info/2018/08/05/%E5%9F%BA%E4%BA%8E-GitLab-%E7%9A%84-CI-%E5%AE%9E%E8%B7%B5/</link><pubDate>Sun, 05 Aug 2018 14:54:59 +0800</pubDate><guid>https://moelove.info/2018/08/05/%E5%9F%BA%E4%BA%8E-GitLab-%E7%9A%84-CI-%E5%AE%9E%E8%B7%B5/</guid><description>上个月受 DockOne 社区邀请，做了一次 CI 实践方面的线上分享，在此记录下。 本文讲述 GitLab CI 的架构及其能力特性，分析它在 DevOps 实践中的作用。 通过分析 Docker In Docker 的技术细节，详细讲述 CI 实践以及在生产环境中的所做的优化，包括但不限于镜像仓库等，以达到数倍的性能提升。 本次分享内容以 GitLab Community Edition 11.0.4 edb037c 为例。
+为何选择 GitLab CI 认识 GitLab CI 什么是 GitLab CI GitLab CI 是 GitLab 为了提升其在软件开发工程中作用，完善 DevOPS 理念所加入的 CI/CD 基础功能。可以便捷的融入软件开发环节中。通过 GitLab CI 可以定义完善的 CI/CD Pipeline。
+优势 GitLab CI 是默认包含在 GitLab 中的，我们的代码使用 GitLab 进行托管，这样可以很容易的进行集成 GitLab CI 的前端界面比较美观，容易被人接受 包含实时构建日志，容易追踪 采用 C/S 的架构，可方面的进行横向扩展，性能上不会有影响 使用 YAML 进行配置，任何人都可以很方便的使用。 重点概念 Pipeline Pipeline 相当于一个构建任务，里面可以包含多个流程，如依赖安装、编译、测试、部署等。 任何提交或者 Merge Request 的合并都可以触发 Pipeline</description></item><item><title>Install-Python3.6-on-CentOS7</title><link>https://moelove.info/2017/06/30/Install-Python3.6-on-CentOS7/</link><pubDate>Fri, 30 Jun 2017 00:13:16 +0000</pubDate><guid>https://moelove.info/2017/06/30/Install-Python3.6-on-CentOS7/</guid><description>拖了很久没有更新，抱歉啦~ 今天受邀写篇如何在 CentOS 7 上配置 Python 3 环境的文章。往常我都选择直接把我早年写的一篇文章源码编译MongoDB丢过去，让他们看其中的源码编译 Python 那一节，不过那节写的其实不太详细，而且最近被很多人催，所以还是单独写一篇好了。
+当前最新的 CentOS 7.3 默认安装的是 Python 2 ，并且默认的官方 yum 源中不提供 Python 3 的安装包。有些用户想要升级使用 Python 3 但实际可能有各种各样的问题，导致出错，反观一下激进的 Fedora 社区，在23的时候，就将默认的版本修改成了 Python3 （如果我没记错的话）。
 先说下我所使用的系统环境， 一个新创建的 Docker 容器。 使用 cat /etc/redhat-release 可以看到运行的是 CentOS 7.3 版本。
 在纯净的 CentOS 系统上安装 Python 环境主要有两种办法。 一种是通过源码编译安装，另外一种就是安装已经打好的 RPM 包。依照个人习惯，我们先来看一下如何通过源码编译的方式安装 Python 3.6 并且配置虚拟环境。
-使用源码进行编译安装 基础环境  先安装安装几个必须的包，以方便后续的操作
-➜ yum install wget gcc make ➜ # wget 用于下载源码包 ➜ # gcc 和 make 用于编译    上 Python的官网 下载源码包</description>
-    </item>
-    
-    <item>
-      <title>Projects</title>
-      <link>https://moelove.info/projects/</link>
-      <pubDate>Wed, 21 Jun 2017 21:42:18 +0000</pubDate>
-      
-      <guid>https://moelove.info/projects/</guid>
-      <description>My Vim Configuration  My vim configuration, more Python and Javascript. Will add Haskell, Ruby, Lua, Go and C/C++.
- qyweixin  An API wrapper for Enterprise Weixin written in Python.
- HTTPMultipart  A http multipart library for send multipart request, written in Python.
- Docker Python Perf  A benchmark test for Python Docker images.
- backslide  CLI tool for making HTML presentations with Remark.js using Markdown.</description>
-    </item>
-    
-    <item>
-      <title>about</title>
-      <link>https://moelove.info/about/</link>
-      <pubDate>Wed, 21 Jun 2017 21:42:18 +0000</pubDate>
-      
-      <guid>https://moelove.info/about/</guid>
-      <description>About Me  年少时一度沉迷到了后期（视频、音频）制作中，锻炼了一手好的PS技能，后来转投 OpenCV 和 FFmpeg 现已弃坑 写过 C &amp;amp;&amp;amp; Android &amp;amp;&amp;amp; ROR &amp;amp;&amp;amp; 折腾了很长时间的 Haskell &amp;hellip; 目前工作主力 Python/Go/JavaScript 了解并学习过多种语言，Rust 用来写点小工具 日常系统 Linux ，坚定的 Vimer，开源爱好者 目前在网易有道任职资深运维开发，负责 DevOPS 实践落地及 Kubernetes 容器化平台及自动化平台的规划建设等 《Kubernetes 从上手到实践》 作者 知乎专栏 「k8s生态」  Contact Me  E-mail： emhhbmdqaW50YW85MDIwQGdtYWlsLmNvbQ== GitHub: Jintao Zhang Weibo： @张晋涛 知乎：张晋涛 掘金：张晋涛 Twitter：TaoBeier V2EX：TaoBeier SegmentFault：张晋涛  About The Blog  记录一下自己以前，现在以及未来的生活
+使用源码进行编译安装 基础环境 先安装安装几个必须的包，以方便后续的操作
+➜ yum install wget gcc make ➜ # wget 用于下载源码包 ➜ # gcc 和 make 用于编译 上 Python的官网 下载源码包</description></item><item><title>Projects</title><link>https://moelove.info/projects/</link><pubDate>Wed, 21 Jun 2017 21:42:18 +0000</pubDate><guid>https://moelove.info/projects/</guid><description>My Vim Configuration My vim configuration, more Python and Javascript. Will add Haskell, Ruby, Lua, Go and C/C++.
+qyweixin An API wrapper for Enterprise Weixin written in Python.
+HTTPMultipart A http multipart library for send multipart request, written in Python.
+Docker Python Perf A benchmark test for Python Docker images.
+backslide CLI tool for making HTML presentations with Remark.js using Markdown.</description></item><item><title>about</title><link>https://moelove.info/about/</link><pubDate>Wed, 21 Jun 2017 21:42:18 +0000</pubDate><guid>https://moelove.info/about/</guid><description>About Me 年少时一度沉迷到了后期（视频、音频）制作中，锻炼了一手好的PS技能，后来转投 OpenCV 和 FFmpeg 现已弃坑 写过 C &amp;amp;&amp;amp; Android &amp;amp;&amp;amp; ROR &amp;amp;&amp;amp; 折腾了很长时间的 Haskell &amp;hellip; 目前工作主力 Python/Go/JavaScript 了解并学习过多种语言，Rust 用来写点小工具 日常系统 Linux ，坚定的 Vimer，开源爱好者 目前在网易有道任职资深运维开发，负责 DevOPS 实践落地及 Kubernetes 容器化平台及自动化平台的规划建设等 《Kubernetes 从上手到实践》 作者 知乎专栏 「k8s生态」 Contact Me E-mail： emhhbmdqaW50YW85MDIwQGdtYWlsLmNvbQ== GitHub: Jintao Zhang Weibo： @张晋涛 知乎：张晋涛 掘金：张晋涛 Twitter：TaoBeier V2EX：TaoBeier SegmentFault：张晋涛 About The Blog 记录一下自己以前，现在以及未来的生活
 分享一些自己的感悟和经验
 感谢Hexo , Hugo，GitHub 以及其他开源软件提供的支持
 可以关注公众号「MoeLove」订阅更新或者和我交流你的想法，期待ing～ 一对一付费问答可使用思否 思否一对一问答
-长期专业内容交流请加入我的知识星球  在没有特别注明的情况下：</description>
-    </item>
-    
-    <item>
-      <title>理解 Redis 的 RESP 协议</title>
-      <link>https://moelove.info/2017/03/05/%E7%90%86%E8%A7%A3-Redis-%E7%9A%84-RESP-%E5%8D%8F%E8%AE%AE/</link>
-      <pubDate>Sun, 05 Mar 2017 21:45:07 +0000</pubDate>
-      
-      <guid>https://moelove.info/2017/03/05/%E7%90%86%E8%A7%A3-Redis-%E7%9A%84-RESP-%E5%8D%8F%E8%AE%AE/</guid>
-      <description>简介 Redis 的客户端和服务端之间采取了一种独立名为 RESP(REdis Serialization Protocol) 的协议，作者主要考虑了以下几个点：
- 容易实现 解析快 人类可读  注意：RESP 虽然是为 Redis 设计的，但是同样也可以用于其他 C/S 的软件。
+长期专业内容交流请加入我的知识星球 在没有特别注明的情况下：</description></item><item><title>理解 Redis 的 RESP 协议</title><link>https://moelove.info/2017/03/05/%E7%90%86%E8%A7%A3-Redis-%E7%9A%84-RESP-%E5%8D%8F%E8%AE%AE/</link><pubDate>Sun, 05 Mar 2017 21:45:07 +0000</pubDate><guid>https://moelove.info/2017/03/05/%E7%90%86%E8%A7%A3-Redis-%E7%9A%84-RESP-%E5%8D%8F%E8%AE%AE/</guid><description>简介 Redis 的客户端和服务端之间采取了一种独立名为 RESP(REdis Serialization Protocol) 的协议，作者主要考虑了以下几个点：
+容易实现 解析快 人类可读 注意：RESP 虽然是为 Redis 设计的，但是同样也可以用于其他 C/S 的软件。
 数据类型及示例 RESP 主要可以序列化以下几种类型：整数，单行回复(简单字符串)，数组，错误信息，多行字符串。Redis 客户端向服务端发送的是一组由执行的命令组成的字符串数组，服务端根据不同的命令回复不同类型的数据，但协议的每部分都是以 &amp;ldquo;\r\n&amp;rdquo; (CRLF) 结尾的。另外 RESP 是二进制安全的，不需要处理从一个进程到另一个进程的传输，因为它使用了前缀长度进行传输。
 在 RESP 中, 一些数据的类型通过它的第一个字节进行判断：
- 单行回复：回复的第一个字节是 &amp;ldquo;+&amp;rdquo; 错误信息：回复的第一个字节是 &amp;ldquo;-&amp;rdquo; 整形数字：回复的第一个字节是 &amp;ldquo;:&amp;rdquo; 多行字符串：回复的第一个字节是 &amp;ldquo;\$&amp;rdquo; 数组：回复的第一个字节是 &amp;ldquo;*&amp;rdquo;  单行回复 以 &amp;ldquo;+&amp;rdquo; 开头，以 &amp;ldquo;\r\n&amp;rdquo; 结尾的字符串形式。e.g.
-+OK\r\n  响应的客户端库，应该返回除 &amp;ldquo;+&amp;rdquo; 和 CRLF 以外的内容，例如上面的内容，则返回 &amp;ldquo;OK&amp;rdquo;. e.g.
-127.0.0.1:6379&amp;gt; set name TaoBeier +OK\r\n # 服务端实际返回 --- OK # redis-cli 客户端显示  错误信息 错误信息和单行回复很像，不过是把 &amp;ldquo;+&amp;rdquo; 替换成了 &amp;ldquo;-&amp;ldquo;。而这两者之间真正的区别是，错误信息会被客户端视为异常，并且组成错误类型的是错误消息本身。e.</description>
-    </item>
-    
-    <item>
-      <title>2016 小回顾</title>
-      <link>https://moelove.info/2017/01/01/2016-%E5%B0%8F%E5%9B%9E%E9%A1%BE/</link>
-      <pubDate>Sun, 01 Jan 2017 01:00:51 +0000</pubDate>
-      
-      <guid>https://moelove.info/2017/01/01/2016-%E5%B0%8F%E5%9B%9E%E9%A1%BE/</guid>
-      <description>时间很快， 已经走到了 2016 的末尾， 惯例的做个小回顾。（注：这篇起笔的时间是圣诞节TAT）
+单行回复：回复的第一个字节是 &amp;ldquo;+&amp;rdquo; 错误信息：回复的第一个字节是 &amp;ldquo;-&amp;rdquo; 整形数字：回复的第一个字节是 &amp;ldquo;:&amp;rdquo; 多行字符串：回复的第一个字节是 &amp;ldquo;\$&amp;rdquo; 数组：回复的第一个字节是 &amp;ldquo;*&amp;rdquo; 单行回复 以 &amp;ldquo;+&amp;rdquo; 开头，以 &amp;ldquo;\r\n&amp;rdquo; 结尾的字符串形式。e.g.
++OK\r\n 响应的客户端库，应该返回除 &amp;ldquo;+&amp;rdquo; 和 CRLF 以外的内容，例如上面的内容，则返回 &amp;ldquo;OK&amp;rdquo;. e.g.
+127.0.0.1:6379&amp;gt; set name TaoBeier +OK\r\n # 服务端实际返回 --- OK # redis-cli 客户端显示 错误信息 错误信息和单行回复很像，不过是把 &amp;ldquo;+&amp;rdquo; 替换成了 &amp;ldquo;-&amp;ldquo;。而这两者之间真正的区别是，错误信息会被客户端视为异常，并且组成错误类型的是错误消息本身。e.</description></item><item><title>2016 小回顾</title><link>https://moelove.info/2017/01/01/2016-%E5%B0%8F%E5%9B%9E%E9%A1%BE/</link><pubDate>Sun, 01 Jan 2017 01:00:51 +0000</pubDate><guid>https://moelove.info/2017/01/01/2016-%E5%B0%8F%E5%9B%9E%E9%A1%BE/</guid><description>时间很快， 已经走到了 2016 的末尾， 惯例的做个小回顾。（注：这篇起笔的时间是圣诞节TAT）
 年初定的目标除了没有能合理安排追番时间， 其他的都基本完成了！（话说今年追番的时间简直少的可怜QAQ）
 2016 年发生了太多的事情，要回顾的事情很多，索性就不写那么多了, 只按时间序稍微列几件有趣的事情。
- 单表亿级数据量的 MongoDB 做在线实时的数据拆分 在之前做的一些应用性能分析的方案上做了一些额外的设计和开发（明年修改下开源出来） PyCon China 2016 一些预期的计划顺利推进、落地，产出了一些系统 看了很多源码，折腾了很多东西，如果以后有空就写点东西出来（我又在给自己挖坑了） 认识了很多有趣的小伙伴~  全年的状态基本和上面的截图是一致的， 全年都在 coding （截图仅限 GitHub上的记录）倒也比较开心， 另外就是现在看到自己项目的 star/fork 数，文章的阅读/收藏/转发数之类的，也已经不像以前看到 star 数刚上百时候会有那种喜悦了，大概这也是另一种成熟？ 哈哈哈
+单表亿级数据量的 MongoDB 做在线实时的数据拆分 在之前做的一些应用性能分析的方案上做了一些额外的设计和开发（明年修改下开源出来） PyCon China 2016 一些预期的计划顺利推进、落地，产出了一些系统 看了很多源码，折腾了很多东西，如果以后有空就写点东西出来（我又在给自己挖坑了） 认识了很多有趣的小伙伴~ 全年的状态基本和上面的截图是一致的， 全年都在 coding （截图仅限 GitHub上的记录）倒也比较开心， 另外就是现在看到自己项目的 star/fork 数，文章的阅读/收藏/转发数之类的，也已经不像以前看到 star 数刚上百时候会有那种喜悦了，大概这也是另一种成熟？ 哈哈哈
 另外写一下今年对我比较重要的几个数字：
- 1354 376 105  对这些数字的解释, 放在以后吧 :-)
+1354 376 105 对这些数字的解释, 放在以后吧 :-)
 2017 年，希望想做的事情都能基本完成，挖的坑慢慢填。 感谢一路上陪我走过的各位！
-可以通过下面二维码订阅我的文章公众号【MoeLove】</description>
-    </item>
-    
-    <item>
-      <title>关于 webpack 你可能忽略的细节（附源码分析）</title>
-      <link>https://moelove.info/2016/12/26/%E5%85%B3%E4%BA%8E-webpack-%E4%BD%A0%E5%8F%AF%E8%83%BD%E5%BF%BD%E7%95%A5%E7%9A%84%E7%BB%86%E8%8A%82%E9%99%84%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link>
-      <pubDate>Mon, 26 Dec 2016 00:43:02 +0000</pubDate>
-      
-      <guid>https://moelove.info/2016/12/26/%E5%85%B3%E4%BA%8E-webpack-%E4%BD%A0%E5%8F%AF%E8%83%BD%E5%BF%BD%E7%95%A5%E7%9A%84%E7%BB%86%E8%8A%82%E9%99%84%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</guid>
-      <description>注：本篇不是入门教程，入门请直接查看官方文档。本篇的主要目标是通过实际问题来介绍 webpack 中容易被人忽略的细节, 以及源码分析(以最新发布的 release 版本1.14.0的源码为例), 并且提供几种解决方案。
- 随着前端技术的火热发展，工程化，模块化和组件化的思想已逐步成为主流，与之相应的，就需要有一整套工具流可以支撑起它。
+可以通过下面二维码订阅我的文章公众号【MoeLove】</description></item><item><title>关于 webpack 你可能忽略的细节（附源码分析）</title><link>https://moelove.info/2016/12/26/%E5%85%B3%E4%BA%8E-webpack-%E4%BD%A0%E5%8F%AF%E8%83%BD%E5%BF%BD%E7%95%A5%E7%9A%84%E7%BB%86%E8%8A%82%E9%99%84%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</link><pubDate>Mon, 26 Dec 2016 00:43:02 +0000</pubDate><guid>https://moelove.info/2016/12/26/%E5%85%B3%E4%BA%8E-webpack-%E4%BD%A0%E5%8F%AF%E8%83%BD%E5%BF%BD%E7%95%A5%E7%9A%84%E7%BB%86%E8%8A%82%E9%99%84%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</guid><description>注：本篇不是入门教程，入门请直接查看官方文档。本篇的主要目标是通过实际问题来介绍 webpack 中容易被人忽略的细节, 以及源码分析(以最新发布的 release 版本1.14.0的源码为例), 并且提供几种解决方案。
+随着前端技术的火热发展，工程化，模块化和组件化的思想已逐步成为主流，与之相应的，就需要有一整套工具流可以支撑起它。
 现在比较热门的前端资源模块化管理和打包工具应该非 Webpack 莫属了。
-Webpack 是什么  它可以将许多松散的模块按照依赖和规则打包成符合生产环境部署的前端资源。还可以将按需加载的模块进行代码分隔，等到实际需要的时候再异步加载。通过 loader 的转换，任何形式的资源都可以视作模块，比如 CommonJs 模块、 AMD 模块、 ES6 模块、CSS、图片、 JSON、Coffeescript、 LESS 等。 &amp;ndash;引自 Webpack 中文指南
- 使用举例 我们来看一下官方文档中的最小用例，新建并写入以下内容到这两个文件：
+Webpack 是什么 它可以将许多松散的模块按照依赖和规则打包成符合生产环境部署的前端资源。还可以将按需加载的模块进行代码分隔，等到实际需要的时候再异步加载。通过 loader 的转换，任何形式的资源都可以视作模块，比如 CommonJs 模块、 AMD 模块、 ES6 模块、CSS、图片、 JSON、Coffeescript、 LESS 等。 &amp;ndash;引自 Webpack 中文指南
+使用举例 我们来看一下官方文档中的最小用例，新建并写入以下内容到这两个文件：
 cats.js
-var cats = [&#39;dave&#39;, &#39;henry&#39;, &#39;martha&#39;]; module.exports = cats;  app.js (Entry Point)
-cats = require(&#39;./cats.js&#39;); console.log(cats);  这个时候，就可以使用 webpack 进行打包了：
-webpack ./app.js app.bundle.js  我们来看一下发生了什么， 目录下生成了一个打包后的文件 app.bundle.js ，这就是最基础的打包过程。
+var cats = [&#39;dave&#39;, &#39;henry&#39;, &#39;martha&#39;]; module.exports = cats; app.js (Entry Point)
+cats = require(&#39;./cats.js&#39;); console.log(cats); 这个时候，就可以使用 webpack 进行打包了：
+webpack ./app.js app.bundle.js 我们来看一下发生了什么， 目录下生成了一个打包后的文件 app.bundle.js ，这就是最基础的打包过程。
 提出问题 如何判断打包是否成功？
 通用方案 下面是我们常用的两种判断任务是否执行成功的方案
-通过 return code 通过命令执行后的 return code 来判断（在 shell 中使用 $?</description>
-    </item>
-    
-    <item>
-      <title>Composer 使用技巧简述</title>
-      <link>https://moelove.info/2016/12/16/Composer-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%AE%80%E8%BF%B0/</link>
-      <pubDate>Fri, 16 Dec 2016 00:49:11 +0000</pubDate>
-      
-      <guid>https://moelove.info/2016/12/16/Composer-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%AE%80%E8%BF%B0/</guid>
-      <description>最近使用了世界最好的语言 PHP 用来管理依赖关系的工具 Composer. 稍微做点记录, 以做备忘. 如有错误还望指出.
- 安装 php -r &amp;quot;copy(&#39;https://getcomposer.org/installer&#39;, &#39;composer-setup.php&#39;);&amp;quot; php -r &amp;quot;if (hash_file(&#39;SHA384&#39;, &#39;composer-setup.php&#39;) === &#39;aa96f26c2b67226a324c27919f1eb05f21c248b987e6195cad9690d5c1ff713d53020a02ac8c217dbf90a7eacc9d141d&#39;) { echo &#39;Installer verified&#39;; } else { echo &#39;Installer corrupt&#39;; unlink(&#39;composer-setup.php&#39;); } echo PHP_EOL;&amp;quot; php composer-setup.php php -r &amp;quot;unlink(&#39;composer-setup.php&#39;);&amp;quot;  上述代码来自官网.
+通过 return code 通过命令执行后的 return code 来判断（在 shell 中使用 $?</description></item><item><title>Composer 使用技巧简述</title><link>https://moelove.info/2016/12/16/Composer-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%AE%80%E8%BF%B0/</link><pubDate>Fri, 16 Dec 2016 00:49:11 +0000</pubDate><guid>https://moelove.info/2016/12/16/Composer-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%AE%80%E8%BF%B0/</guid><description>最近使用了世界最好的语言 PHP 用来管理依赖关系的工具 Composer. 稍微做点记录, 以做备忘. 如有错误还望指出.
+安装 php -r &amp;quot;copy(&#39;https://getcomposer.org/installer&#39;, &#39;composer-setup.php&#39;);&amp;quot; php -r &amp;quot;if (hash_file(&#39;SHA384&#39;, &#39;composer-setup.php&#39;) === &#39;aa96f26c2b67226a324c27919f1eb05f21c248b987e6195cad9690d5c1ff713d53020a02ac8c217dbf90a7eacc9d141d&#39;) { echo &#39;Installer verified&#39;; } else { echo &#39;Installer corrupt&#39;; unlink(&#39;composer-setup.php&#39;); } echo PHP_EOL;&amp;quot; php composer-setup.php php -r &amp;quot;unlink(&#39;composer-setup.php&#39;);&amp;quot; 上述代码来自官网.
 局部安装 上述代码执行完成后, 只是下载到了 composer.phar 文件, 可以通过 php composer.phar 在任意位置执行.
 全局安装 全局安装只是把 composer.phar 安装到 PATH 下即可. 可以像下面这样:
-sudo mv composer.phar /usr/local/bin/composer  国内镜像加速 使用Composer中文网提供的中国全量镜像进行加速.
-单项目加速 进入项目目录(即 composer.json 文件所在目录) 执行:</description>
-    </item>
-    
-    <item>
-      <title>Git workflow 详谈</title>
-      <link>https://moelove.info/2016/12/05/Git-workflow-%E8%AF%A6%E8%B0%88/</link>
-      <pubDate>Mon, 05 Dec 2016 22:40:41 +0000</pubDate>
-      
-      <guid>https://moelove.info/2016/12/05/Git-workflow-%E8%AF%A6%E8%B0%88/</guid>
-      <description>作为一名工程师， Git 在日常开发中是不可或缺的工具。 这里详细介绍几种比较常用的基于 Git 的工作流模型, 以便于团队协作的规范化和效率提升。
+sudo mv composer.phar /usr/local/bin/composer 国内镜像加速 使用Composer中文网提供的中国全量镜像进行加速.
+单项目加速 进入项目目录(即 composer.json 文件所在目录) 执行:</description></item><item><title>Git workflow 详谈</title><link>https://moelove.info/2016/12/05/Git-workflow-%E8%AF%A6%E8%B0%88/</link><pubDate>Mon, 05 Dec 2016 22:40:41 +0000</pubDate><guid>https://moelove.info/2016/12/05/Git-workflow-%E8%AF%A6%E8%B0%88/</guid><description>作为一名工程师， Git 在日常开发中是不可或缺的工具。 这里详细介绍几种比较常用的基于 Git 的工作流模型, 以便于团队协作的规范化和效率提升。
 中心化工作流 使用过SVN的应该都知道， SVN使用的是集中式管理流程， 如果你刚从SVN 切换到 Git ， 你可以尝试使用中心化工作流的方式。这样，你几乎不需要变更之前的工作方式， 就可以完成平滑的过渡了。 而且在使用过程中还可以看到 Git 优于 SVN 的地方： 第一，每个成员都可以在本地拥有一份完整的项目代码仓库，而不只是一个工作区的副本，任何人都可以在本地执行 add 和 commit ，而不需要考虑远端仓库是否有变更，直到需要的时候再去提交即可。 第二，Git 的工作区、暂存区、引用更新等设计，可以给开发者更多自由来切换当前工作，且不会造成代码丢失。
 工作细节 中心化工作流的方式是：在远端（远端可以是服务器端，也可以是本地的任意目录）新建一个仓库，默认是 master 分支，作为唯一的中心仓库。 所有人都 clone 这个仓库作为本地仓库，并在本地仓库进行开发。本地的提交是和远端仓库无关的，等需要的时候再 push 进主仓库的 master 分支即可。
 在这种方式下， 远端是唯一确定的中心仓库， 所有人都要以这个仓库为准。 所以，在提交之前要先 fetch 最新提交，在这些提交之上作出自己的更改(一般我们使用 rebase来完成)。
 如果本地的修改和远端仓库中的变更发生了冲突，那么 Git 会暂停 rebase ，并让你来解决这些冲突。我们可以很简单的使用 git status 和 git add 等命令完成冲突的合并。 另外, 如果我们解决不了冲突, 我们也可以使用 git rebase --abort 很容易的退出 rebase 的过程。
-这样每天的工作方式就变成了，从中心仓库拉取最新代码， 然后开始一天的工作， 开发完成后，拉取中心仓库的更新， 合并代码后， 再提交至中心仓库， 结束一天的工作。 这样的好处就是不需要变更原先（使用SVN）的工作方式。当然弊端也很明显，你并不知道中心仓库的代码是否是稳定的，或者说并不能确定当你的代码和中心仓库代码合并后，是否是稳定的，带来的问题就是开发进度和回滚不那么方便控制。</description>
-    </item>
-    
-    <item>
-      <title>Git 本地仓库和裸仓库</title>
-      <link>https://moelove.info/2016/12/04/Git-%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%92%8C%E8%A3%B8%E4%BB%93%E5%BA%93/</link>
-      <pubDate>Sun, 04 Dec 2016 01:37:39 +0000</pubDate>
-      
-      <guid>https://moelove.info/2016/12/04/Git-%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%92%8C%E8%A3%B8%E4%BB%93%E5%BA%93/</guid>
-      <description>通常我们会用 git init 命令来将我们所在的目录转换为一个 Git 本地仓库或者初始化一个新的空仓库。
-用法  将当前目录转换为一个本地仓库  git init  这个命令执行后会在本地生成一个 .git 的文件夹，用来追踪仓库的所有变更。效果如下：
- 指定某个目录成为本地仓库  git init &amp;lt;repo&amp;gt;  这个命令执行后， 将创建一个名为repo且只包含 .git 子文件夹的空目录。效果如下：
- 指定某个目录成为中心仓库（裸仓库）  git init --bare &amp;lt;repo&amp;gt;  这个命令执行后，将在本地创建一个名为 repo 的文件夹， 里面包含着 Git 的基本目录， 我们一般会将这个文件夹命名为后面加 .git 的形式，如 repo.git （这也是为什么我们从 GitHub clone 仓库的时候，地址都是 xxx.git 这样的形式的原因）。效果如下：
+这样每天的工作方式就变成了，从中心仓库拉取最新代码， 然后开始一天的工作， 开发完成后，拉取中心仓库的更新， 合并代码后， 再提交至中心仓库， 结束一天的工作。 这样的好处就是不需要变更原先（使用SVN）的工作方式。当然弊端也很明显，你并不知道中心仓库的代码是否是稳定的，或者说并不能确定当你的代码和中心仓库代码合并后，是否是稳定的，带来的问题就是开发进度和回滚不那么方便控制。</description></item><item><title>Git 本地仓库和裸仓库</title><link>https://moelove.info/2016/12/04/Git-%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%92%8C%E8%A3%B8%E4%BB%93%E5%BA%93/</link><pubDate>Sun, 04 Dec 2016 01:37:39 +0000</pubDate><guid>https://moelove.info/2016/12/04/Git-%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%92%8C%E8%A3%B8%E4%BB%93%E5%BA%93/</guid><description>通常我们会用 git init 命令来将我们所在的目录转换为一个 Git 本地仓库或者初始化一个新的空仓库。
+用法 将当前目录转换为一个本地仓库 git init 这个命令执行后会在本地生成一个 .git 的文件夹，用来追踪仓库的所有变更。效果如下：
+指定某个目录成为本地仓库 git init &amp;lt;repo&amp;gt; 这个命令执行后， 将创建一个名为repo且只包含 .git 子文件夹的空目录。效果如下：
+指定某个目录成为中心仓库（裸仓库） git init --bare &amp;lt;repo&amp;gt; 这个命令执行后，将在本地创建一个名为 repo 的文件夹， 里面包含着 Git 的基本目录， 我们一般会将这个文件夹命名为后面加 .git 的形式，如 repo.git （这也是为什么我们从 GitHub clone 仓库的时候，地址都是 xxx.git 这样的形式的原因）。效果如下：
 详细说一下使用 --bare 参数的含义，使用 --bare 参数初始化的仓库，我们一般称之为裸仓库， 因为这样创建的仓库并不包含 工作区 ， 也就是说，我们并不能在这个目录下执行我们一般使用的 Git 命令。
-对比 我们来对比一下直接使用 git init 创建的仓库和加了 --bare 参数的两个仓库。 我们直接看两个仓库的的 config 文件中的内容：</description>
-    </item>
-    
-    <item>
-      <title>源码编译Vim 8</title>
-      <link>https://moelove.info/2016/09/24/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91Vim-8/</link>
-      <pubDate>Sat, 24 Sep 2016 19:46:47 +0000</pubDate>
-      
-      <guid>https://moelove.info/2016/09/24/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91Vim-8/</guid>
-      <description>Vim 8.0 在2016.09.12发布了, 在各 Linux 发行版还没更新包的时候就源码编译来使用吧! 以 Debian 编译 Vim 为例.
- 下载Vim 源码 可以在Vim 官网下载打包好的源代码. 或者使用 Git:
-git clone https://github.com/vim/vim.git  编译 cd vim/src ./configure --with-compiledby=&amp;quot;TaoBeier&amp;quot; --with-features=huge --enable-pythoninterp=yes --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu --enable-cscope --enable-perlinterp=yes --enable-rubyinterp=yes --with-luajit --enable-luainterp=yes --with-lua-prefix=/usr/include/lua5.1 --enable-multibyte --with-x --enable-fail-if-missing  上面的参数使用 ./configure --help 都可以看到对应用途. 上面使用的参数是增加了对 Python, Ruby, Perl, 以及X window的支持.
+对比 我们来对比一下直接使用 git init 创建的仓库和加了 --bare 参数的两个仓库。 我们直接看两个仓库的的 config 文件中的内容：</description></item><item><title>源码编译Vim 8</title><link>https://moelove.info/2016/09/24/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91Vim-8/</link><pubDate>Sat, 24 Sep 2016 19:46:47 +0000</pubDate><guid>https://moelove.info/2016/09/24/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91Vim-8/</guid><description>Vim 8.0 在2016.09.12发布了, 在各 Linux 发行版还没更新包的时候就源码编译来使用吧! 以 Debian 编译 Vim 为例.
+下载Vim 源码 可以在Vim 官网下载打包好的源代码. 或者使用 Git:
+git clone https://github.com/vim/vim.git 编译 cd vim/src ./configure --with-compiledby=&amp;quot;TaoBeier&amp;quot; --with-features=huge --enable-pythoninterp=yes --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu --enable-cscope --enable-perlinterp=yes --enable-rubyinterp=yes --with-luajit --enable-luainterp=yes --with-lua-prefix=/usr/include/lua5.1 --enable-multibyte --with-x --enable-fail-if-missing 上面的参数使用 ./configure --help 都可以看到对应用途. 上面使用的参数是增加了对 Python, Ruby, Perl, 以及X window的支持.
 建议加上 --enable-fail-if-missing 参数, 以方便定位到哪里依赖缺失.
 依赖 这里检查可能通不过, 首先是 lua 和 luajit. 需要执行
-sudo apt-get install lua5.1 liblua5.1-0 luajit libluajit-5.1-dev</description>
-    </item>
-    
-    <item>
-      <title>利器系列-更高效的Vim</title>
-      <link>https://moelove.info/2016/09/16/%E5%88%A9%E5%99%A8%E7%B3%BB%E5%88%97-%E6%9B%B4%E9%AB%98%E6%95%88%E7%9A%84Vim/</link>
-      <pubDate>Fri, 16 Sep 2016 16:55:44 +0000</pubDate>
-      
-      <guid>https://moelove.info/2016/09/16/%E5%88%A9%E5%99%A8%E7%B3%BB%E5%88%97-%E6%9B%B4%E9%AB%98%E6%95%88%E7%9A%84Vim/</guid>
-      <description>这是利器系列第0篇, 当然要以每天我使用率最高的Vim来开始啦!
- 截图 安装 (你需要一个有Python支持的Vim版本. 请使用 vim --version | grep +python 来检查)
- 依赖(Debian/Ubuntu 平台)
+sudo apt-get install lua5.1 liblua5.1-0 luajit libluajit-5.1-dev</description></item><item><title>利器系列-更高效的Vim</title><link>https://moelove.info/2016/09/16/%E5%88%A9%E5%99%A8%E7%B3%BB%E5%88%97-%E6%9B%B4%E9%AB%98%E6%95%88%E7%9A%84Vim/</link><pubDate>Fri, 16 Sep 2016 16:55:44 +0000</pubDate><guid>https://moelove.info/2016/09/16/%E5%88%A9%E5%99%A8%E7%B3%BB%E5%88%97-%E6%9B%B4%E9%AB%98%E6%95%88%E7%9A%84Vim/</guid><description>这是利器系列第0篇, 当然要以每天我使用率最高的Vim来开始啦!
+截图 安装 (你需要一个有Python支持的Vim版本. 请使用 vim --version | grep +python 来检查)
+依赖(Debian/Ubuntu 平台)
 sudo apt-get install python vim exuberant-ctags git
 sudo pip install dbgp vim-debug pep8 flake8 pyflakes isort
- 依赖(RedHat/CentOS 平台)
+依赖(RedHat/CentOS 平台)
 CentOS 6.7的yum源自带的Python版本较旧，推荐自行安装Python2.7.
 sudo yum install python vim ctags git
 sudo pip install dbgp vim-debug pep8 flake8 pyflakes isort
- 依赖(Mac OS 平台)
+依赖(Mac OS 平台)
 brew install python vim git
-wget http://tenet.dl.sourceforge.net/project/ctags/ctags/5.8/ctags-5.8.tar.gz &amp;amp;&amp;amp; tar -zxvf ctags-5.8.tar.gz &amp;amp;&amp;amp; cd ctags-5.</description>
-    </item>
-    
-    <item>
-      <title>Python性能优化之工具篇</title>
-      <link>https://moelove.info/2016/05/14/Python%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E5%B7%A5%E5%85%B7%E7%AF%87/</link>
-      <pubDate>Sat, 14 May 2016 00:14:54 +0000</pubDate>
-      
-      <guid>https://moelove.info/2016/05/14/Python%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E5%B7%A5%E5%85%B7%E7%AF%87/</guid>
-      <description>之前对公司的一个后端项目做了些性能优化, 学到一些值得记录的东西, 这篇主要是介绍在做性能分析时所用到的工具, 至于如何优化基本就是智者见智吧, 如果有时间可能会写的.
- Python web应用程序的常见性能指标 此处忽略外部DNS解析等方面的性能   响应时间 错误率 吞吐率 执行时间 内存占用  Python 性能分析工具 ##TODO</description>
-    </item>
-    
-    <item>
-      <title>想从二次元群体手里赚钱？你真的懂二次元吗!</title>
-      <link>https://moelove.info/2016/04/16/%E6%83%B3%E4%BB%8E%E4%BA%8C%E6%AC%A1%E5%85%83%E7%BE%A4%E4%BD%93%E6%89%8B%E9%87%8C%E8%B5%9A%E9%92%B1%E4%BD%A0%E7%9C%9F%E7%9A%84%E6%87%82%E4%BA%8C%E6%AC%A1%E5%85%83%E5%90%97/</link>
-      <pubDate>Sat, 16 Apr 2016 10:36:04 +0000</pubDate>
-      
-      <guid>https://moelove.info/2016/04/16/%E6%83%B3%E4%BB%8E%E4%BA%8C%E6%AC%A1%E5%85%83%E7%BE%A4%E4%BD%93%E6%89%8B%E9%87%8C%E8%B5%9A%E9%92%B1%E4%BD%A0%E7%9C%9F%E7%9A%84%E6%87%82%E4%BA%8C%E6%AC%A1%E5%85%83%E5%90%97/</guid>
-      <description>“节操”，“鬼畜”，“萌”, &amp;ldquo;二次元&amp;rdquo;这些词是不是逐渐的融入了你的日常？ 这些词其实都是二次元产物。越来越多的人将关注点放到了“二次元群体”上，但是这里的价值和它真正的含义你懂了吗？
- 什么是原本的二次元 很多人认为二次元就是指“二维平面”，“平面世界”，也有人认为是ACGN，但这个观点其实是带有误区的。
+wget http://tenet.dl.sourceforge.net/project/ctags/ctags/5.8/ctags-5.8.tar.gz &amp;amp;&amp;amp; tar -zxvf ctags-5.8.tar.gz &amp;amp;&amp;amp; cd ctags-5.</description></item><item><title>Python性能优化之工具篇</title><link>https://moelove.info/2016/05/14/Python%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E5%B7%A5%E5%85%B7%E7%AF%87/</link><pubDate>Sat, 14 May 2016 00:14:54 +0000</pubDate><guid>https://moelove.info/2016/05/14/Python%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E5%B7%A5%E5%85%B7%E7%AF%87/</guid><description>之前对公司的一个后端项目做了些性能优化, 学到一些值得记录的东西, 这篇主要是介绍在做性能分析时所用到的工具, 至于如何优化基本就是智者见智吧, 如果有时间可能会写的.
+Python web应用程序的常见性能指标 此处忽略外部DNS解析等方面的性能 响应时间 错误率 吞吐率 执行时间 内存占用 Python 性能分析工具 ##TODO</description></item><item><title>想从二次元群体手里赚钱？你真的懂二次元吗!</title><link>https://moelove.info/2016/04/16/%E6%83%B3%E4%BB%8E%E4%BA%8C%E6%AC%A1%E5%85%83%E7%BE%A4%E4%BD%93%E6%89%8B%E9%87%8C%E8%B5%9A%E9%92%B1%E4%BD%A0%E7%9C%9F%E7%9A%84%E6%87%82%E4%BA%8C%E6%AC%A1%E5%85%83%E5%90%97/</link><pubDate>Sat, 16 Apr 2016 10:36:04 +0000</pubDate><guid>https://moelove.info/2016/04/16/%E6%83%B3%E4%BB%8E%E4%BA%8C%E6%AC%A1%E5%85%83%E7%BE%A4%E4%BD%93%E6%89%8B%E9%87%8C%E8%B5%9A%E9%92%B1%E4%BD%A0%E7%9C%9F%E7%9A%84%E6%87%82%E4%BA%8C%E6%AC%A1%E5%85%83%E5%90%97/</guid><description>“节操”，“鬼畜”，“萌”, &amp;ldquo;二次元&amp;rdquo;这些词是不是逐渐的融入了你的日常？ 这些词其实都是二次元产物。越来越多的人将关注点放到了“二次元群体”上，但是这里的价值和它真正的含义你懂了吗？
+什么是原本的二次元 很多人认为二次元就是指“二维平面”，“平面世界”，也有人认为是ACGN，但这个观点其实是带有误区的。
 为什么这样说呢？我们一起来追溯一下“二次元”这个词是什么时候出现的，有部和我年龄相仿的动画片《机动战舰》(暴露年龄系列,我下一篇就写这个)，其中的反派们超级崇拜一部叫《激钢人3》的动画片，甚至这部动画片已经成为反派军中的圣典（除了很热血很好看外，其实是因为他们逃亡的时候就只带了这一部动画片吧，充分说明做资源党是有好处的！），当然剧中的主角也是很喜欢这部动画片的。动画（机动战舰）中的反派非常喜欢激钢人3中的女主菜菜子，但是毕竟现实和动画是不可逾越的（明明都是在动画里面！），处于伤感中的反派们相互安慰：“菜菜子再好，但她毕竟只是二次元的女子啊！”，这句话引起了很多ACG爱好者的共鸣，所以逐步的借用了其中的“二次元”来描述自己所喜爱的由ACG创造出来的世界了。
 什么是现在的二次元 很多人说现在的二次元是“泛二次元”，可这个”泛“到底是泛到了什么程度呢？这就好像从15年开始，”IP“在圈子里吵得火热，但到底什么是IP？很多人只是知道一个名词或者一个模糊的概念罢了。 有多少真正爆款的IP产生呢？
 现在一般指的二次元确实是”泛二次元“，不仅包含着ACGN，还包含着其相关的衍生产物（这不是废话吗？）。也就是这种模棱两可的概念让绝大多数人身处次元壁外，不得其门而入。
@@ -1105,363 +451,146 @@ Coser需要经过服装，道具，化妆等工序打磨，而一般在网上直
 &amp;ldquo;网配&amp;rdquo; “网配”（网络配音）大多是基于网配文或某些小说进行PIA戏，也有一部分人会选择制作广播剧之类的。
 其他 其他就是一部分我不常接触或者人数相对较少的群体了。
 为什么是二次元群体 在大致了解了当前二次元群体之后，我们来谈谈为什么从二次元群体入手
- 群体基数大，覆盖面广。在上面我已经大致说过了，看看自己的周围，随便上微博、贴吧之类的看看，大抵就知道了; 增长迅速。看看当前A、B站，腾讯动漫等的用户增长量也可窥一斑; 付费能力强。只要戳中了二次元群体的G点，付费能力非常强，以Coser和lo娘为例，一般都会花上万块在服装上; 自我传播能力较强。二次元群体大多活跃在手Q，微博，贴吧等平台上，且有自己的圈子，自我传播能力相对更强; 用户相对忠实。由于二次元文化作为一个独特的亚文化发展起来，当前占据主体的还是90后，00后，碎片化时间相对较多，且更容易在应用/网站中形成关系链; 二次元作品相对可扩展的面更广，更容易找到增长点。  可能发展的方向 资源平台 二次元群体本就对资源有非常高的渴望和期待，当然也很挑剔，有着很完整的选择要求，用资源吸引到用户，才是解决了用户的需求。
+群体基数大，覆盖面广。在上面我已经大致说过了，看看自己的周围，随便上微博、贴吧之类的看看，大抵就知道了; 增长迅速。看看当前A、B站，腾讯动漫等的用户增长量也可窥一斑; 付费能力强。只要戳中了二次元群体的G点，付费能力非常强，以Coser和lo娘为例，一般都会花上万块在服装上; 自我传播能力较强。二次元群体大多活跃在手Q，微博，贴吧等平台上，且有自己的圈子，自我传播能力相对更强; 用户相对忠实。由于二次元文化作为一个独特的亚文化发展起来，当前占据主体的还是90后，00后，碎片化时间相对较多，且更容易在应用/网站中形成关系链; 二次元作品相对可扩展的面更广，更容易找到增长点。 可能发展的方向 资源平台 二次元群体本就对资源有非常高的渴望和期待，当然也很挑剔，有着很完整的选择要求，用资源吸引到用户，才是解决了用户的需求。
 周边产业 二次元群体对于正版周边产物是有着强烈需求的，但是目前无论是市场还是价格上都不是很好。
 同人 同人资源对二次元文化的发展是有着相当大影响的，若能吸引到用户，将可能迎来爆发式的增长。
-以上都是我一本正经的胡说八道，小心误入歧途 2333</description>
-    </item>
-    
-    <item>
-      <title>2015小回顾</title>
-      <link>https://moelove.info/2015/12/31/2015%E5%B0%8F%E5%9B%9E%E9%A1%BE/</link>
-      <pubDate>Thu, 31 Dec 2015 00:00:00 +0000</pubDate>
-      
-      <guid>https://moelove.info/2015/12/31/2015%E5%B0%8F%E5%9B%9E%E9%A1%BE/</guid>
-      <description> 时间过得很快2015年最后一天。 还是继续给自己做个总结吧。 去年也有做总结，不过没有发布到Blog罢了。
+以上都是我一本正经的胡说八道，小心误入歧途 2333</description></item><item><title>2015小回顾</title><link>https://moelove.info/2015/12/31/2015%E5%B0%8F%E5%9B%9E%E9%A1%BE/</link><pubDate>Thu, 31 Dec 2015 00:00:00 +0000</pubDate><guid>https://moelove.info/2015/12/31/2015%E5%B0%8F%E5%9B%9E%E9%A1%BE/</guid><description> 时间过得很快2015年最后一天。 还是继续给自己做个总结吧。 去年也有做总结，不过没有发布到Blog罢了。
 2015年初在公司定了两个主要目标:
- 对工具的打磨 计算机图形学  第一个目标算是基本完成，现在在用的工具都很顺手，效率能提升很多，而且用起来也很爽！现在也还会再尝试一些其他的工具，或者提升现在使用的工具的便利性。有时间的话可以写篇文章介绍一下。第二个目标目前没有什么进展，可以考虑是不是要留到今年了XD，当然还有一些其他自己定的目标基本完成，大致写写自己的收获好了。
+对工具的打磨 计算机图形学 第一个目标算是基本完成，现在在用的工具都很顺手，效率能提升很多，而且用起来也很爽！现在也还会再尝试一些其他的工具，或者提升现在使用的工具的便利性。有时间的话可以写篇文章介绍一下。第二个目标目前没有什么进展，可以考虑是不是要留到今年了XD，当然还有一些其他自己定的目标基本完成，大致写写自己的收获好了。
 收获 (大致按照时间来写吧)
- 读了一部分 Nginx 的源码，算是对Nginx有了比以前更深入的认识，但是现在回过头来再重新审视的话，发现对它的理解还远远不够，还需要继续深入。 学习了 Haskell, Haskell我觉得是一门非常棒的语言，非常值得学习，通过对这门语言的学习，改变了我的一些思维方式。除了用它写过一些小程序以外，还没能在工程中大量使用，今后继续加油，尽量引入到工程中～ 学习了 Node.js, 同样的还缺乏工程中的实践 学习了 Backbone.js,AngularJS 和 ReactJS. Backbone记忆中应该是5月份左右学习的，ReactJS要晚很多。写Backbone的时候想起来了之前用过的Riot, 轻量，随意，但是要写完整的应用相比AngularJS之类的要写很多代码。 开源了qyweixin和一个HTTPmultipart的库，下载量各自也都已经几千了，上次在评论中也看到确实有人在使用～ 还是蛮开心的啦！ 学会了使用 Docker，也准备学习一些内部机制之类的东西。 还在翻译中的Tornado 4.3文档也会尽快抽时间翻译完成的. 此外还有学习了Lua和正在深入学习的Shell，还有一系列的框架和库, 正在用来写一些自己的小东西。 1383 Contributions. 运营了公众号 TheMoeLove  还有一些目前还无法放入*收获*这一项中的东西，在2016年尽量都再多积累一些。
+读了一部分 Nginx 的源码，算是对Nginx有了比以前更深入的认识，但是现在回过头来再重新审视的话，发现对它的理解还远远不够，还需要继续深入。 学习了 Haskell, Haskell我觉得是一门非常棒的语言，非常值得学习，通过对这门语言的学习，改变了我的一些思维方式。除了用它写过一些小程序以外，还没能在工程中大量使用，今后继续加油，尽量引入到工程中～ 学习了 Node.js, 同样的还缺乏工程中的实践 学习了 Backbone.js,AngularJS 和 ReactJS. Backbone记忆中应该是5月份左右学习的，ReactJS要晚很多。写Backbone的时候想起来了之前用过的Riot, 轻量，随意，但是要写完整的应用相比AngularJS之类的要写很多代码。 开源了qyweixin和一个HTTPmultipart的库，下载量各自也都已经几千了，上次在评论中也看到确实有人在使用～ 还是蛮开心的啦！ 学会了使用 Docker，也准备学习一些内部机制之类的东西。 还在翻译中的Tornado 4.3文档也会尽快抽时间翻译完成的. 此外还有学习了Lua和正在深入学习的Shell，还有一系列的框架和库, 正在用来写一些自己的小东西。 1383 Contributions. 运营了公众号 TheMoeLove 还有一些目前还无法放入*收获*这一项中的东西，在2016年尽量都再多积累一些。
 另外，下面这部分也非常的重要！
- 认识了很多好玩的小伙伴，从他们那里也学到了很多东西 工作中同事们都很好，感谢给予的帮助～  总结  学会拒绝。一些事情是可以容忍的，但是要遵守原则，也要考虑时间成本和效率问题。 学习和思考。这一年之间其实学到的东西也蛮多的，只不过有些东西没能在工程实践中应用，效果不是很明显。多思考，做个靠谱的人，尽量不在相同的地方摔倒两次。 多读书 尝试新东西 多深入一些。浅尝辄止不是应该有的状态。 合理安排追番时间 2333  </description>
-    </item>
-    
-    <item>
-      <title>JSLint,JSHint,ESLint对比和Vim配置</title>
-      <link>https://moelove.info/2015/11/28/JSLintJSHintESLint%E5%AF%B9%E6%AF%94%E5%92%8CVim%E9%85%8D%E7%BD%AE/</link>
-      <pubDate>Sat, 28 Nov 2015 23:43:49 +0000</pubDate>
-      
-      <guid>https://moelove.info/2015/11/28/JSLintJSHintESLint%E5%AF%B9%E6%AF%94%E5%92%8CVim%E9%85%8D%E7%BD%AE/</guid>
-      <description>最近在用React写项目，但是我的Vim配置之前并没有配置对JSX和ES6的支持，然后看着那堆报错各种不爽了，于是还是要继续折腾，顺便也增加了点知识，记录一下。
+认识了很多好玩的小伙伴，从他们那里也学到了很多东西 工作中同事们都很好，感谢给予的帮助～ 总结 学会拒绝。一些事情是可以容忍的，但是要遵守原则，也要考虑时间成本和效率问题。 学习和思考。这一年之间其实学到的东西也蛮多的，只不过有些东西没能在工程实践中应用，效果不是很明显。多思考，做个靠谱的人，尽量不在相同的地方摔倒两次。 多读书 尝试新东西 多深入一些。浅尝辄止不是应该有的状态。 合理安排追番时间 2333</description></item><item><title>JSLint,JSHint,ESLint对比和Vim配置</title><link>https://moelove.info/2015/11/28/JSLintJSHintESLint%E5%AF%B9%E6%AF%94%E5%92%8CVim%E9%85%8D%E7%BD%AE/</link><pubDate>Sat, 28 Nov 2015 23:43:49 +0000</pubDate><guid>https://moelove.info/2015/11/28/JSLintJSHintESLint%E5%AF%B9%E6%AF%94%E5%92%8CVim%E9%85%8D%E7%BD%AE/</guid><description>最近在用React写项目，但是我的Vim配置之前并没有配置对JSX和ES6的支持，然后看着那堆报错各种不爽了，于是还是要继续折腾，顺便也增加了点知识，记录一下。
 主流的JS Lint工具及介绍 JavaScript已经发展蛮长时间了，对应的Lint工具也是层出不穷，下面介绍一下比较主流的几个Lint工具(其实是我用过的几个XD)
 JSLint JSLint是由Douglas Crockford开发的，可能是最早的JavaScript Lint工具了吧，它的名字来源于著名的C语言工具Lint。老道把他认为的非Good Parts的部分都报了warning，而且在它的文档中也提到了你应该欣然接受所有的JSLint的建议。最近看了下，老道还在持续更新着这个项目，而且官网上也有着一个在线的体验工具，可以尝试一下。对了，如果想要使用这个工具，建议看看老道在YouTube上关于JavaScript编程风格的视频，讲的还是很幽默的。
 JSHint JSHint是由Anton Kovalyov基于JSLint的代码实现的开源项目，由于JSLint时期大多数人都在受JSLint压迫，JSHint相比较之下，更友好，也更容易配置，所以很快就发展了起来，也得到了众多IDE和编辑器的支持。但是，由于它是基于JSLint开发的，自然原有的一些问题它也继承下来了，比如不易扩展，不容易直接根据报错定位到具体的规则配置等，虽然之前好像是有过相关的讨论，但是现在仍然没有什么好的解决办法。好在它发展的不错，很多时候遇到的问题都可以在网上找到相关的解决方案，而且文档也是非常不错的。
 ESLint ESLint是由Nicholas C. Zakas在2013年开始开发的，它的初衷就是为了能让开发者能自定义自己的linting rules，而且它提供了一套相当完善的插件机制，可以自由的扩展，动态加载配置规则，同时可以方便的根据报错定位到具体的规则配置。而且我比较喜欢它的一点是文档非常详细，可能这也是灵活所必须的吧。在这里还要提一点，ESLint最初并不是为了造一个重复的轮子，而是作者在实际使用中的需求没有能得到JSHint团队的回应，所以他就结合当时的JSHint和另一个代码风格的检查工具JSCS写出来了现在具备代码风格检查，自定义插件扩展功能的ESLint了。
 JSLint，JSHint和ESLint的对比 这三个工具各有特色，我只是做一下对比，选择的话，看个人需求就好了。
-JSLint 优点  配置是老道已经定好的，开箱即用。  不足  有限的配置选项，很多规则不能禁用 规范严格，凡是不符合老道所认为的好的风格的，都会有警告(这一项就看你是否完全认同老道了) 扩展性差 无法根据错误定位到对应的规则  JSHint 优点  有了很多参数可以配置 支持配置文件，方便使用 支持了一些常用类库 支持了基本的ES6  不足  不支持自定义规则 无法根据错误定位到对应的规则  ESLint 优点  默认规则里面包含了JSLint和JSHint的规则，易于迁移(这肯定是故意的XD) 可配置为警告和错误两个等级，或者直接禁用掉 支持插件扩展 可以自定义规则 可以根据错误定位到对应的规则 支持ES6 唯一一个支持JSX的工具  不足  需要进行一些自定义配置(因为太灵活了嘛，不过文档是很详细的) 慢 (它比其他两个都要慢)  Vim支持 我们都使用Syntastic来配置
+JSLint 优点 配置是老道已经定好的，开箱即用。 不足 有限的配置选项，很多规则不能禁用 规范严格，凡是不符合老道所认为的好的风格的，都会有警告(这一项就看你是否完全认同老道了) 扩展性差 无法根据错误定位到对应的规则 JSHint 优点 有了很多参数可以配置 支持配置文件，方便使用 支持了一些常用类库 支持了基本的ES6 不足 不支持自定义规则 无法根据错误定位到对应的规则 ESLint 优点 默认规则里面包含了JSLint和JSHint的规则，易于迁移(这肯定是故意的XD) 可配置为警告和错误两个等级，或者直接禁用掉 支持插件扩展 可以自定义规则 可以根据错误定位到对应的规则 支持ES6 唯一一个支持JSX的工具 不足 需要进行一些自定义配置(因为太灵活了嘛，不过文档是很详细的) 慢 (它比其他两个都要慢) Vim支持 我们都使用Syntastic来配置
 JSLint的Vim配置 有一个jslint.vim当然版本太老了。。我们不用这种方式做。
- 安装jslint
-sudo npm install jslint -g  在vimrc中添加如下配置</description>
-    </item>
-    
-    <item>
-      <title>用正确的姿势开源Python项目</title>
-      <link>https://moelove.info/2015/10/26/%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%A7%BF%E5%8A%BF%E5%BC%80%E6%BA%90Python%E9%A1%B9%E7%9B%AE/</link>
-      <pubDate>Mon, 26 Oct 2015 22:17:36 +0000</pubDate>
-      
-      <guid>https://moelove.info/2015/10/26/%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%A7%BF%E5%8A%BF%E5%BC%80%E6%BA%90Python%E9%A1%B9%E7%9B%AE/</guid>
-      <description>做个备忘，也希望可以帮到别人。
- 目录结构（初始化） 一般我们都会选择在项目的顶层包含较基础的文件，比如setup.py，requirements，README等文件。 一般情况下，一个预发布的Python项目中应该包含以下几类文件：
- projects (项目的主体文件) setup.py requirements Readme (项目说明) docs (项目文档) test  其中，projects文件夹要以项目命名，存放实际的Python Package. 这里放一个我的项目的目录作为例子。
-➜ httpmultipart git:(master) tree -L 2 . ├── build │ ├── bdist.linux-x86_64 │ └── lib.linux-x86_64-2.7 ├── dist │ ├── httpmultipart-0.1.0-py2.py3-none-any.whl │ └── httpmultipart-0.1.0.tar.gz ├── docs │ ├── _build │ ├── conf.py │ ├── index.rst │ ├── Makefile │ ├── userguide │ └── userguide.rst ├── env │ ├── bin │ ├── include │ ├── lib │ └── local ├── httpmultipart │ ├── __init__.</description>
-    </item>
-    
-    <item>
-      <title>对监控系统的思考</title>
-      <link>https://moelove.info/2015/10/16/%E5%AF%B9%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%80%83/</link>
-      <pubDate>Fri, 16 Oct 2015 00:59:01 +0000</pubDate>
-      
-      <guid>https://moelove.info/2015/10/16/%E5%AF%B9%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%80%83/</guid>
-      <description>近期在做运维监控方面的事情，也研究了一下其他人是如何做的。把自己的想法做个总结记录一下吧。
- 监控期望的目标  及时发现   需要的是即时监控并报警
-  及时定位   定位问题要分开讲
- 运维层面 &amp;gt; 是机器硬件问题还是上面运行的基础服务的问题，或者是新上线代码的问题，需要回滚。
- 代码层面 &amp;gt; 在发生问题的时候，优先解决问题。定位代码问题提交hotfix 可以在解决问题之后做。
-    及时处理 提前预测（尽量减少问题的发生）   提前预测可以做的事情有很多，数据挖掘/分析之类的。当然有个更简单的方法，就是先小范围上线，进行监控。如果发现出问题了，就停止上线，进行回滚。（我们现在就是这样做的，虽然原因并不是这个 2333
- 监控遇到的主要问题  监控指标多   服务器CPU,内存，网络等的指标，基础服务Redis, MongoDB等的运行指标，对外服务的API是否正常工作，还有数据是否正确等。
-  监控报警多   监控指标多的时候，自然报警也会相应增加，但是报警的分组与轻重缓急也是一个很麻烦的问题。还有就是部署着不同服务的机器，触发报警时候的指标也不好确定。
-  报警多而且有关联，如何查找原因   可能同时会有多个指标触发了报警，但是要定位问题的时候，如何可以快速的定位问题。
- 多维度数据监控  这个话题太大(要感谢Baidu的颜大大的指点）
- 数据监控符合二八原则,重要数据需要多角度进行观察，需要有meta管理，需要动态简单配置。选择 好的，合理的数据模型可以有效的进行处理。
- 数据采集部分，在单机器做聚合;命名上使用正则格式化;完善的配置功能，支持数据流自定义维度。
-    对开源系统的使用，需要按照自己的实际情况进行适配。保证高可用性  先写这些吧，之后有时间再写，还有QCon上对运维监控上的一些分享也非常值得思考</description>
-    </item>
-    
-    <item>
-      <title>Open-Falcon监控系统部署</title>
-      <link>https://moelove.info/2015/10/13/Open-Falcon%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E9%83%A8%E7%BD%B2/</link>
-      <pubDate>Tue, 13 Oct 2015 21:01:00 +0000</pubDate>
-      
-      <guid>https://moelove.info/2015/10/13/Open-Falcon%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E9%83%A8%E7%BD%B2/</guid>
-      <description>本文并不分析Open-Falcon的架构或者选用它的原因，官方的文档在这里，虽然还不够完善。不过这也是我写这篇的原因，官方文档并没能把整个部署过程连在一起，而且个别地方有点问题。我在这篇文章中就不介绍各个组件的作用和功能了，只是单纯的介绍如何从零部署。
- 安装 下载   wget https://github.com/XiaoMi/open-falcon/releases/download/0.0.5/open-falcon-0.0.5.tar.gz -O open-falcon.tar.gz   解压   mkdir tmp tar -zxvf open-falcon.tar.gz -C ./tmp   基础环境   sudo apt-get install redis-server sudo apt-get install mysql-server pip install virtualenv # 数据库初始化的代码来源于官方文档 git clone https://github.com/open-falcon/scripts.git cd scripts mysql -h localhost -u root -p &amp;lt; db_schema/graph-db-schema.sql mysql -h localhost -u root -p &amp;lt; db_schema/dashboard-db-schema.sql mysql -h localhost -u root -p &amp;lt; db_schema/portal-db-schema.</description>
-    </item>
-    
-    <item>
-      <title>源码编译MongoDB</title>
-      <link>https://moelove.info/2015/09/13/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91MongoDB/</link>
-      <pubDate>Sun, 13 Sep 2015 21:28:43 +0000</pubDate>
-      
-      <guid>https://moelove.info/2015/09/13/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91MongoDB/</guid>
-      <description>上周放假正好有时间，编译安装了MongoDB，虽然MongoDB用了挺长时间的，但还是第一次用源码编译。在此做个备忘。因为已经完整编译安装过了，所以写起来的时候，就按照先知视角来写了～ 2333
- 下载MongoDB源码 MongoDB的官网上是有已经编译好的二进制包的，这里选择clone MongoDB在github上的仓库
-git clone https://github.com/mongodb/mongo &amp;amp;&amp;amp; cd mongo  在docs/building.md中是编译所需的依赖。 * A modern C++ compiler. One of the following is required. * GCC 4.8.2 or newer * Clang 3.4 (or Apple XCode 5.1.1 Clang) or newer * Visual Studio 2013 Update 2 or newer * Python 2.7 * SCons 2.3
+安装jslint
+sudo npm install jslint -g 在vimrc中添加如下配置</description></item><item><title>用正确的姿势开源Python项目</title><link>https://moelove.info/2015/10/26/%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%A7%BF%E5%8A%BF%E5%BC%80%E6%BA%90Python%E9%A1%B9%E7%9B%AE/</link><pubDate>Mon, 26 Oct 2015 22:17:36 +0000</pubDate><guid>https://moelove.info/2015/10/26/%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%A7%BF%E5%8A%BF%E5%BC%80%E6%BA%90Python%E9%A1%B9%E7%9B%AE/</guid><description>做个备忘，也希望可以帮到别人。
+目录结构（初始化） 一般我们都会选择在项目的顶层包含较基础的文件，比如setup.py，requirements，README等文件。 一般情况下，一个预发布的Python项目中应该包含以下几类文件：
+projects (项目的主体文件) setup.py requirements Readme (项目说明) docs (项目文档) test 其中，projects文件夹要以项目命名，存放实际的Python Package. 这里放一个我的项目的目录作为例子。
+➜ httpmultipart git:(master) tree -L 2 . ├── build │ ├── bdist.linux-x86_64 │ └── lib.linux-x86_64-2.7 ├── dist │ ├── httpmultipart-0.1.0-py2.py3-none-any.whl │ └── httpmultipart-0.1.0.tar.gz ├── docs │ ├── _build │ ├── conf.py │ ├── index.rst │ ├── Makefile │ ├── userguide │ └── userguide.rst ├── env │ ├── bin │ ├── include │ ├── lib │ └── local ├── httpmultipart │ ├── __init__.</description></item><item><title>对监控系统的思考</title><link>https://moelove.info/2015/10/16/%E5%AF%B9%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%80%83/</link><pubDate>Fri, 16 Oct 2015 00:59:01 +0000</pubDate><guid>https://moelove.info/2015/10/16/%E5%AF%B9%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%9D%E8%80%83/</guid><description>近期在做运维监控方面的事情，也研究了一下其他人是如何做的。把自己的想法做个总结记录一下吧。
+监控期望的目标 及时发现 需要的是即时监控并报警
+及时定位 定位问题要分开讲
+运维层面 &amp;gt; 是机器硬件问题还是上面运行的基础服务的问题，或者是新上线代码的问题，需要回滚。
+代码层面 &amp;gt; 在发生问题的时候，优先解决问题。定位代码问题提交hotfix 可以在解决问题之后做。
+及时处理 提前预测（尽量减少问题的发生） 提前预测可以做的事情有很多，数据挖掘/分析之类的。当然有个更简单的方法，就是先小范围上线，进行监控。如果发现出问题了，就停止上线，进行回滚。（我们现在就是这样做的，虽然原因并不是这个 2333
+监控遇到的主要问题 监控指标多 服务器CPU,内存，网络等的指标，基础服务Redis, MongoDB等的运行指标，对外服务的API是否正常工作，还有数据是否正确等。
+监控报警多 监控指标多的时候，自然报警也会相应增加，但是报警的分组与轻重缓急也是一个很麻烦的问题。还有就是部署着不同服务的机器，触发报警时候的指标也不好确定。
+报警多而且有关联，如何查找原因 可能同时会有多个指标触发了报警，但是要定位问题的时候，如何可以快速的定位问题。
+多维度数据监控 这个话题太大(要感谢Baidu的颜大大的指点）
+数据监控符合二八原则,重要数据需要多角度进行观察，需要有meta管理，需要动态简单配置。选择 好的，合理的数据模型可以有效的进行处理。
+数据采集部分，在单机器做聚合;命名上使用正则格式化;完善的配置功能，支持数据流自定义维度。
+对开源系统的使用，需要按照自己的实际情况进行适配。保证高可用性 先写这些吧，之后有时间再写，还有QCon上对运维监控上的一些分享也非常值得思考</description></item><item><title>Open-Falcon监控系统部署</title><link>https://moelove.info/2015/10/13/Open-Falcon%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E9%83%A8%E7%BD%B2/</link><pubDate>Tue, 13 Oct 2015 21:01:00 +0000</pubDate><guid>https://moelove.info/2015/10/13/Open-Falcon%E7%9B%91%E6%8E%A7%E7%B3%BB%E7%BB%9F%E9%83%A8%E7%BD%B2/</guid><description>本文并不分析Open-Falcon的架构或者选用它的原因，官方的文档在这里，虽然还不够完善。不过这也是我写这篇的原因，官方文档并没能把整个部署过程连在一起，而且个别地方有点问题。我在这篇文章中就不介绍各个组件的作用和功能了，只是单纯的介绍如何从零部署。
+安装 下载 wget https://github.com/XiaoMi/open-falcon/releases/download/0.0.5/open-falcon-0.0.5.tar.gz -O open-falcon.tar.gz 解压 mkdir tmp tar -zxvf open-falcon.tar.gz -C ./tmp 基础环境 sudo apt-get install redis-server sudo apt-get install mysql-server pip install virtualenv # 数据库初始化的代码来源于官方文档 git clone https://github.com/open-falcon/scripts.git cd scripts mysql -h localhost -u root -p &amp;lt; db_schema/graph-db-schema.sql mysql -h localhost -u root -p &amp;lt; db_schema/dashboard-db-schema.sql mysql -h localhost -u root -p &amp;lt; db_schema/portal-db-schema.</description></item><item><title>源码编译MongoDB</title><link>https://moelove.info/2015/09/13/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91MongoDB/</link><pubDate>Sun, 13 Sep 2015 21:28:43 +0000</pubDate><guid>https://moelove.info/2015/09/13/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91MongoDB/</guid><description>上周放假正好有时间，编译安装了MongoDB，虽然MongoDB用了挺长时间的，但还是第一次用源码编译。在此做个备忘。因为已经完整编译安装过了，所以写起来的时候，就按照先知视角来写了～ 2333
+下载MongoDB源码 MongoDB的官网上是有已经编译好的二进制包的，这里选择clone MongoDB在github上的仓库
+git clone https://github.com/mongodb/mongo &amp;amp;&amp;amp; cd mongo 在docs/building.md中是编译所需的依赖。 * A modern C++ compiler. One of the following is required. * GCC 4.8.2 or newer * Clang 3.4 (or Apple XCode 5.1.1 Clang) or newer * Visual Studio 2013 Update 2 or newer * Python 2.7 * SCons 2.3
 我这台服务器是CentOS 6.5, 上面的gcc版本比较低，这里就先更新gcc咯.
-gcc --version gcc (GCC) 4.4.7 20120313 (Red Hat 4.4.7-16) Copyright © 2010 Free Software Foundation, Inc.</description>
-    </item>
-    
-    <item>
-      <title>重置Ghost博客的密码</title>
-      <link>https://moelove.info/2015/07/21/%E9%87%8D%E7%BD%AEGhost%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%AF%86%E7%A0%81/</link>
-      <pubDate>Tue, 21 Jul 2015 23:11:04 +0000</pubDate>
-      
-      <guid>https://moelove.info/2015/07/21/%E9%87%8D%E7%BD%AEGhost%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%AF%86%E7%A0%81/</guid>
-      <description>  在搭建Ghost博客的时候，尚未配置mail服务器时，重置密码的方法做个记录
- 打开数据库查看用户信息 如果全部默认设置，使用生产环境的话，应该是 sqlite3 content/data/ghost.db
+gcc --version gcc (GCC) 4.4.7 20120313 (Red Hat 4.4.7-16) Copyright © 2010 Free Software Foundation, Inc.</description></item><item><title>重置Ghost博客的密码</title><link>https://moelove.info/2015/07/21/%E9%87%8D%E7%BD%AEGhost%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%AF%86%E7%A0%81/</link><pubDate>Tue, 21 Jul 2015 23:11:04 +0000</pubDate><guid>https://moelove.info/2015/07/21/%E9%87%8D%E7%BD%AEGhost%E5%8D%9A%E5%AE%A2%E7%9A%84%E5%AF%86%E7%A0%81/</guid><description> 在搭建Ghost博客的时候，尚未配置mail服务器时，重置密码的方法做个记录
+打开数据库查看用户信息 如果全部默认设置，使用生产环境的话，应该是 sqlite3 content/data/ghost.db
 如果是开发环境应该是 sqlite3 content/date/ghost-dev.db
 查看用户信息 sqlite&amp;gt;SELECT * FROM users;
-更新用户密码  Ghost对用户密码用的是BCrypt加密，可以使用BCrypt Hash Generator之类的工具生成一个想要修改的密码，例如&amp;rdquo;mypasswd&amp;rdquo;生成的密码是 $2a$10$QecJeBdw2lONRTnHJ0RoVO6DczdJWf4h4QgaUcgKsYFZlzTe1yeEK
- 假设之前查看到的用户信息，邮箱是admin@domain.com 那么，使用这样更新密码
- UPDATE users SET password=&amp;quot;$2a$10$QecJeBdw2lONRTnHJ0RoVO6DczdJWf4h4QgaUcgKsYFZlzTe1yeEK&amp;quot; WHERE email=&amp;quot;admin@domain.com&amp;quot;  退出sqlite3 .exit
-  </description>
-    </item>
-    
-    <item>
-      <title>3.17</title>
-      <link>https://moelove.info/2015/03/17/3.17/</link>
-      <pubDate>Tue, 17 Mar 2015 00:34:34 +0000</pubDate>
-      
-      <guid>https://moelove.info/2015/03/17/3.17/</guid>
-      <description> 8小时内求生存 8小时外求发展 </description>
-    </item>
-    
-    <item>
-      <title>近况</title>
-      <link>https://moelove.info/2014/10/16/%E8%BF%91%E5%86%B5/</link>
-      <pubDate>Thu, 16 Oct 2014 23:34:39 +0000</pubDate>
-      
-      <guid>https://moelove.info/2014/10/16/%E8%BF%91%E5%86%B5/</guid>
-      <description>  博客好长时间没有更新了，今天抽空大致来说一下近况吧
- 工作 用这个标题的话，其实感觉想写的确实好多，但是还是挑一些比较重要的来说吧。现在的公司说实话还确实没有让我失望，工位上配的是一个 22寸的 AOC 显示器和一个24寸的 Dell 显示器， 主机内存 12G （我每天跑个Linux是有点浪费）办公区每天有物业定时打扫神马的，下午的时候有茶歇（茶水间还有一堆零食）。同事们相处感觉都很不错,每天中午一起出去吃饭，各种聊天调侃神马的，只是一开始不太了解项目中的配置神马的，让老大费心了&amp;hellip;
+更新用户密码 Ghost对用户密码用的是BCrypt加密，可以使用BCrypt Hash Generator之类的工具生成一个想要修改的密码，例如&amp;rdquo;mypasswd&amp;rdquo;生成的密码是 $2a$10$QecJeBdw2lONRTnHJ0RoVO6DczdJWf4h4QgaUcgKsYFZlzTe1yeEK
+假设之前查看到的用户信息，邮箱是admin@domain.com 那么，使用这样更新密码
+UPDATE users SET password=&amp;quot;$2a$10$QecJeBdw2lONRTnHJ0RoVO6DczdJWf4h4QgaUcgKsYFZlzTe1yeEK&amp;quot; WHERE email=&amp;quot;admin@domain.com&amp;quot; 退出sqlite3 .exit</description></item><item><title>3.17</title><link>https://moelove.info/2015/03/17/3.17/</link><pubDate>Tue, 17 Mar 2015 00:34:34 +0000</pubDate><guid>https://moelove.info/2015/03/17/3.17/</guid><description> 8小时内求生存 8小时外求发展</description></item><item><title>近况</title><link>https://moelove.info/2014/10/16/%E8%BF%91%E5%86%B5/</link><pubDate>Thu, 16 Oct 2014 23:34:39 +0000</pubDate><guid>https://moelove.info/2014/10/16/%E8%BF%91%E5%86%B5/</guid><description> 博客好长时间没有更新了，今天抽空大致来说一下近况吧
+工作 用这个标题的话，其实感觉想写的确实好多，但是还是挑一些比较重要的来说吧。现在的公司说实话还确实没有让我失望，工位上配的是一个 22寸的 AOC 显示器和一个24寸的 Dell 显示器， 主机内存 12G （我每天跑个Linux是有点浪费）办公区每天有物业定时打扫神马的，下午的时候有茶歇（茶水间还有一堆零食）。同事们相处感觉都很不错,每天中午一起出去吃饭，各种聊天调侃神马的，只是一开始不太了解项目中的配置神马的，让老大费心了&amp;hellip;
 这段时间还有很多有趣的事情 比如： 去金海湾度假村团建之类的。 再说一下最近的感受吧。
 因为国庆前需要上线，所以放假前就每天都是在忙着开发神马的。不过那两周也是近期感觉最爽的时候 写代码高潮不断 而且也确实感觉工作是蛮有挑战性的，确实是我想要的工作 :-) 。 不过我还记得那周一，一打开邮箱看到中有7份未读的需求邮件， 确实是略惊吓。 在开发的项目，因为改变了设计思路，所以这些天主要都是在写前端。只不过一开始的时候感觉略虐心啊， 写Python时间长了已经是不习惯其他语言那种书写规范了 一堆括号写的好烦躁 但是从这两天的感觉来看，得感谢老大的这种设计思路，这段时间学到的确实很多。 从框架到一些库，一些插件， 还有程序上一些比较巧妙的用法 正在努力消化中
 生活 有点后悔加上标题了 其实主要要说的应该都放在这里吧。 从搬家后基本上每天生活都很规律，目前差不多适应了。(找工作和面试神马的我写到碎碎念里面了，具体的等半年或者一年后当回忆录来写 233)值得吐槽的就是电信的客服，用的是电信的网，前几天换了路由器忘记了密码，打客服重置密码，但是一直连接不成功（691错误，明显就是帐号密码的问题嘛）结果本来想到了周末放假的时候再好好处理，结果到了周末打电话却一直没有客服啊用联通号打电信的客服我也是醉了 最后到了周一才让客服又重置才成功。
 其实那也是导致我这么久没有更新博客的原因orz 。 * 一个原因是因为电脑重装了系统，环境啥的一直没有配置 * 另一个就是因为网络坑爹，实在有心无力
 再者就是帝都的天气让人确实有点无奈，有天早上刚下楼，我还以为我要迈步进入寂静岭了 TAT ，感觉能幸存下来确实是很不容易啊。
 最后说一下最近在网络弄好之后，挖了一个坑。打算独立开发一个网站的说， 重复造轮子的原因和大多数人是一样的 ，现有的东西没有我想要的 正好把最近学到的东西都拿来练练手
- Try My Best !  </description>
-    </item>
-    
-    <item>
-      <title>正则匹配中文及字符编码问题</title>
-      <link>https://moelove.info/2014/07/22/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%AD%E6%96%87%E5%8F%8A%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</link>
-      <pubDate>Tue, 22 Jul 2014 21:16:34 +0000</pubDate>
-      
-      <guid>https://moelove.info/2014/07/22/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%AD%E6%96%87%E5%8F%8A%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</guid>
-      <description>匹配中文的正则表达式 窝写了一小段代码（虽然写的不太好，但是基本可以表达意思）
--- import re nickname = raw_input(&#39;Please input your nickname &amp;gt; &#39;) if not re.search(u&#39;^[\u4e00-\u9fa5a-zA-Z0-9]+$&#39;, unicode(nickname,&#39;utf8&#39;)): print &#39;Your nickname format is error, please try again !&#39; else: print &#39;Hello %s&#39;% nickname  如你所见，上面第5行的代码，就是匹配中文和字母，数字的正则表达式了。里面的\u4e00-\u9fa5 就是中文汉字的unicode编码所在位置。
+Try My Best !</description></item><item><title>正则匹配中文及字符编码问题</title><link>https://moelove.info/2014/07/22/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%AD%E6%96%87%E5%8F%8A%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</link><pubDate>Tue, 22 Jul 2014 21:16:34 +0000</pubDate><guid>https://moelove.info/2014/07/22/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%AD%E6%96%87%E5%8F%8A%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</guid><description>匹配中文的正则表达式 窝写了一小段代码（虽然写的不太好，但是基本可以表达意思）
+-- import re nickname = raw_input(&#39;Please input your nickname &amp;gt; &#39;) if not re.search(u&#39;^[\u4e00-\u9fa5a-zA-Z0-9]+$&#39;, unicode(nickname,&#39;utf8&#39;)): print &#39;Your nickname format is error, please try again !&#39; else: print &#39;Hello %s&#39;% nickname 如你所见，上面第5行的代码，就是匹配中文和字母，数字的正则表达式了。里面的\u4e00-\u9fa5 就是中文汉字的unicode编码所在位置。
 Python字符串的编码问题 还是以上面那段代码来说。注意看第5行的代码
-if not re.search(u&#39;^[\u4e00-\u9fa5a-zA-Z0-9]+$&#39;, unicode(nickname,&#39;utf8&#39;)):  其实这样的代码并不严谨。因为在Python 中默认是用unicode编码来处理字符串的，因此做编码转换的时候，一般要以unicode作为中间编码，也就是说： 其他编码格式的字符串&amp;mdash;&amp;gt;解码(decode)&amp;mdash;&amp;gt;unicode&amp;mdash;&amp;gt;编码(encode)&amp;mdash;&amp;gt;所需要的编码格式。
+if not re.search(u&#39;^[\u4e00-\u9fa5a-zA-Z0-9]+$&#39;, unicode(nickname,&#39;utf8&#39;)): 其实这样的代码并不严谨。因为在Python 中默认是用unicode编码来处理字符串的，因此做编码转换的时候，一般要以unicode作为中间编码，也就是说： 其他编码格式的字符串&amp;mdash;&amp;gt;解码(decode)&amp;mdash;&amp;gt;unicode&amp;mdash;&amp;gt;编码(encode)&amp;mdash;&amp;gt;所需要的编码格式。
 因此，处理字符串编码的问题的时候，先要明白需要转换的字符串的编码格式是什么。
 代码中字符串的默认编码格式与代码文件本身的编码格式是一样的 比如： s = &amp;lsquo;涛&amp;rsquo; 在utf8的文件中，那么s就是utf8编码的，但是如果文件是gb2312编码，那么s就是gb2312编码的。此时，如果想要处理s这个字符串就要先decode成unicode编码了。
 不过如果是酱紫 s = u&amp;rsquo;涛&amp;rsquo;，那么s就是unicode编码了，这个时候s的编码方式不会被文件的编码所影响。
 如果一个字符串已经是unicode编码了，再解码就会出错 因此严谨的方式就是先对字符串进行编码格式的判别，最简单的办法就是使用Python 默认提供的isinstance() 方法.
 代码可以这样写 isinstance(s, unicode) 如果不是unicode编码就会报错。
-窝今天在处理用户昵称的地方，忘记字符串会直接使用文件的编码了，所以对它进行了重新编码orz果断就报错了。。。以后还是要好好注意细节的说。</description>
-    </item>
-    
-    <item>
-      <title>Bash 显示 Git 分支</title>
-      <link>https://moelove.info/2014/07/17/Bash-%E6%98%BE%E7%A4%BA-Git-%E5%88%86%E6%94%AF/</link>
-      <pubDate>Thu, 17 Jul 2014 21:54:33 +0000</pubDate>
-      
-      <guid>https://moelove.info/2014/07/17/Bash-%E6%98%BE%E7%A4%BA-Git-%E5%88%86%E6%94%AF/</guid>
-      <description> 虽然一直都在用git，但是并没有注意到还有这个方便的用法 于是乎赶快学习一下 ：-）
+窝今天在处理用户昵称的地方，忘记字符串会直接使用文件的编码了，所以对它进行了重新编码orz果断就报错了。。。以后还是要好好注意细节的说。</description></item><item><title>Bash 显示 Git 分支</title><link>https://moelove.info/2014/07/17/Bash-%E6%98%BE%E7%A4%BA-Git-%E5%88%86%E6%94%AF/</link><pubDate>Thu, 17 Jul 2014 21:54:33 +0000</pubDate><guid>https://moelove.info/2014/07/17/Bash-%E6%98%BE%E7%A4%BA-Git-%E5%88%86%E6%94%AF/</guid><description> 虽然一直都在用git，但是并没有注意到还有这个方便的用法 于是乎赶快学习一下 ：-）
 上网查了一下资料，都说Ubuntu下如何如何方便，其他的发行版需要先下载一个文件，然后添加source，再如何如何。。
 其实查再多都不如实践。以下是窝经过查资料加上对个人bash的配色后写出的配置文件，加入到 ~/.bashrc 中即可（对各个发行版通用的）
-function git_branch { ref=$(git symbolic-ref HEAD 2&amp;gt; /dev/null) || return; echo &amp;quot;(&amp;quot;${ref#refs/heads/}&amp;quot;) &amp;quot;; } PS1=&amp;quot;[\[\e[1;35m\]\u\[\e[1;32m\]\w\[\e[0m\]] \[\e[0m\]\[\e[1;36m\]\$(git_branch)\[\e[0;33m\]\$&amp;quot;  或者
-function git-branch-name { git symbolic-ref HEAD 2&amp;gt;/dev/null | cut -d&amp;quot;/&amp;quot; -f 3 #git rev-parse --abbrev-ref HEAD } function git-branch-prompt { local branch=`git-branch-name` if [ $branch ]; then printf &amp;quot; [%s]&amp;quot; $branch; fi } PS1=&amp;quot;\u@\h \[\033[0;36m\]\W\[\033[0m\]\[\033[0;32m\]\$(git-branch-prompt)\[\033[0m\] \$ &amp;quot;  -- 按照惯例，上一张图 </description>
-    </item>
-    
-    <item>
-      <title>Grub2 rescue 修复</title>
-      <link>https://moelove.info/2014/07/02/Grub2-rescue-%E4%BF%AE%E5%A4%8D/</link>
-      <pubDate>Wed, 02 Jul 2014 21:53:03 +0000</pubDate>
-      
-      <guid>https://moelove.info/2014/07/02/Grub2-rescue-%E4%BF%AE%E5%A4%8D/</guid>
-      <description>昨天下午的时候想要把分区处理一下，突然发现硬盘里面有一个未使用的102M的分区,很果断的把这些乱七八糟的分区都给干掉了。结果呢，再次开机的时候就坑了（虽然酱紫的事情干过很多次了，这次做个记录吧）开机时提示如下：
-GRUB loading.. error: unknown filesystem. Entering rescue mode.... grub rescue&amp;gt;  grub rescue 支持的命令  ls 查看硬盘的分区情况，如果你已知自己的grub的安装位置（比如我的在(hd0,msdos9)/boot/grub2），那么就直接进行下一步。 如果不知道，那就ls每个分区，比如: ls (hd0,msdos2)/,如果正确就会显示里面到内容，直到找到grub  这里一个很关键的地方就是在硬盘位置后应该加入/
- set 直接输入的话， 可以看到root 和 prefix 的设置。这里需要把这两个选项改成我们已经找到的位置。  窝的设置如下
-grub rescue&amp;gt; set grub rescue&amp;gt; prefix=(hd0,msdos9)/boot/grub2 grub rescue&amp;gt; root=hd0,msdos9   insmod 载入模块。这里区别是窝这次记录的关键。 grub2和grub的一个很重要的区别就是模块的位置。grub2的模块位置在/boot/grub2/i386-pc/normal.mod 执行命令：
-grub rescue&amp;gt;insmod (hd0,msdos9)/boot/grub2/i386-pc/normal.mod   执行成功之后，提示符会变成normal
- normal 进入正常模式，直接输入命令即可
-grub rescue&amp;gt;normal   这个时候，就可以看到熟悉的引导界面了。
- grub2-install 进入系统后执行命令
-$ sudo update-grub $ sudo grub2-install /dev/sda   如果不执行这样的命令的话，重启之后还会回到之前的界面orz</description>
-    </item>
-    
-    <item>
-      <title>Linux中Sublime中文输入</title>
-      <link>https://moelove.info/2014/06/19/Linux%E4%B8%ADSublime%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/</link>
-      <pubDate>Thu, 19 Jun 2014 23:17:31 +0000</pubDate>
-      
-      <guid>https://moelove.info/2014/06/19/Linux%E4%B8%ADSublime%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/</guid>
-      <description>这篇只是为了备忘所以把以前写的东西搬这边了 -.-
- 代码源于网络，感谢分享 这里的关键就是以下的代码和编译 /* sublime-imfix.c Use LD_PRELOAD to interpose some function to fix sublime input method support for linux. By Cjacker Huang &amp;lt;jianzhong.huang at i-soft.com.cn&amp;gt; gcc -shared -o libsublime-imfix.so sublime_imfix.c `pkg-config --libs --cflags gtk+-2.0` -fPIC LD_PRELOAD=./libsublime-imfix.so sublime_text */ #include &amp;lt;gtk/gtk.h&amp;gt; #include &amp;lt;gdk/gdkx.h&amp;gt; typedef GdkSegment GdkRegionBox; struct _GdkRegion { long size; long numRects; GdkRegionBox *rects; GdkRegionBox extents; }; GtkIMContext *local_context; void gdk_region_get_clipbox (const GdkRegion *region, GdkRectangle *rectangle) { g_return_if_fail (region !</description>
-    </item>
-    
-    <item>
-      <title>upyun-for-pelican</title>
-      <link>https://moelove.info/2014/05/16/upyun-for-pelican/</link>
-      <pubDate>Fri, 16 May 2014 21:51:41 +0000</pubDate>
-      
-      <guid>https://moelove.info/2014/05/16/upyun-for-pelican/</guid>
-      <description>这几天写了一个插件，方便把pelican生成静态博客部署到又拍云上。 整体思路就是：
- 先格式化路径，以/为根目录
-def formatPath(path): path = path.replace(os.sep, &#39;/&#39;) return path  定义两个列表来存储文件和目录
-  之后就是验证用户，以及bucketname 之类的了。
-简介 pelican 是一款基于python的静态博客生成工具，本程序可以方便的把生成的静态博客部署到又拍云上。演示地址：upyun-for-pelican 
-生成网站  make html make serve (进行本地预览)  说明  程序使用了又拍云的官方SDK 需要先安装 upyun
-pip install upyun  可以自定义要上传的文件目录。在最下方的local_dir 中指定即可。Pelican默认的上传目录是 output 目录
-  使用  可以在 pelicanconf.py 文件中直接设置 BUCKETNAME, USERNAME, PASSWORD 参数（这些参数的使用大写命名格式也是为了符合*pelicanconf.py*中的习惯），也可以直接在 upyun-for-pelican.py文件的最下方直接设置。
- 执行
-python upyun-for-pelican.py  程序在 Python 2.7 环境下测试通过。
-  其他说明  程序执行开始会有上传确认提示，输入Y / y 都可以继续上传。 可以使用项目中的pelicanconf.</description>
-    </item>
-    
-    <item>
-      <title>使用Pelican搭建Blog</title>
-      <link>https://moelove.info/2014/05/07/%E4%BD%BF%E7%94%A8Pelican%E6%90%AD%E5%BB%BABlog/</link>
-      <pubDate>Wed, 07 May 2014 21:48:59 +0000</pubDate>
-      
-      <guid>https://moelove.info/2014/05/07/%E4%BD%BF%E7%94%A8Pelican%E6%90%AD%E5%BB%BABlog/</guid>
-      <description>安装配置Pelican 使用环境：  系统 : Linux X86_64 Pelican : 3.3.0  首先说一下安装： 网上有不少建议说使用虚拟环境 virtualenv，以免污染本地的环境。不过，如果不是去更改Python的全局设置的话，也不至于影响本地环境的。我是直接安装的。根据 Pelican 官方的文档，我是使用 pip 安装的，不过pip又是依赖于distribute 安装的。所以，我使用的命令如下：
- curl -O http://python-distribute.org/distribute_setup.py sudo python distribute_setup.py curl -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py sudo python get-pip.py sudo pip install pelican  还有，如果要用 Markdown来写文章，也需要执行如下命令：
- pip install markdown  新建一个目录，用来存放你的博客文件（我直接建立了&amp;rdquo;blog&amp;rdquo;文件夹）
- mkdir blog cd blog  新建博客： 使用如下命令：
- pelican-quickstart  按照提示一步步即可完成新建， 这些配置之后可以在pelicanconf.py这个文件中修改
- Where do you want to create your new web site?[.] (你想在哪里创建你的网站，默认为当前目录) What will be the title of this web site?</description>
-    </item>
-    
-    <item>
-      <title>Hello World !</title>
-      <link>https://moelove.info/2014/04/18/Hello-World/</link>
-      <pubDate>Fri, 18 Apr 2014 21:46:06 +0000</pubDate>
-      
-      <guid>https://moelove.info/2014/04/18/Hello-World/</guid>
-      <description> 几乎所有的程序猿的第一个演示程序都是Hello World .那我也就一样咯， 也写一个同样的吧。 其实我的博客从很早前就已经开始在写了， 换了很多的平台：
- 从腾讯空间--&amp;gt; 百度空间--&amp;gt; 新浪博客--&amp;gt; 自己搭建的Wordpress博客--&amp;gt; 点点（点点我其实是用来碎碎念的） --&amp;gt; 博客园（个人感觉体验不是很好的说）--&amp;gt; 静态博客  选择了这么多，我最后决定还是使用 静态博客 来做个人博客。
- 原因有以下几个：
-  使用其他平台提供的博客不是很爽， 可个性化的方面不是很多， 点点相对来说做的还是很不错的 不仅提供个性化定制而且还支持绑定个人域名之类的。但是其他网站就不是那么人性化了。 写博客总是需要贴代码的，但是除了WP外，其他的我不是很满意。 用静态博客方便备份，而且是本地编辑就可以了，在线编辑的，感觉会被束缚很多。 本人属于折腾党，喜欢可以个人定制的， 直到符合个人满意的程度为止。   接下来说说这次博客的安装：
-  选择Pelica是因为我对Python 比较熟悉，之前尝试过用Jekyll 和 Octopress 搭建，都比较方便 尤其是Jekyll 用户很多，文档什么的都很多了。只不过我更喜欢Python 多一些（虽然我有用ROR开发过WEB应用程序） 因为如果有什么需要的话，我也可以自己来开发插件或者自己再尝试做一个系统。 Pelican 相对来说配置也很方便， 很简单， 虽然用户不是很多，但是基本上的问题也都可以解决的 Pelican 支持restructuredText和Markdown写文章，配置灵活，扩展性强。我用的是3.3.0。  </description>
-    </item>
-    
-    <item>
-      <title>Linux 安装Android 驱动</title>
-      <link>https://moelove.info/2014/03/10/Linux-%E5%AE%89%E8%A3%85Android-%E9%A9%B1%E5%8A%A8/</link>
-      <pubDate>Mon, 10 Mar 2014 21:44:06 +0000</pubDate>
-      
-      <guid>https://moelove.info/2014/03/10/Linux-%E5%AE%89%E8%A3%85Android-%E9%A9%B1%E5%8A%A8/</guid>
-      <description>在Linux下非常适合做一些对Rom 的定制以及其他的一些操作，甚至是自己制作Rom 或者从源码编译Rom 也是OK的。
+function git_branch { ref=$(git symbolic-ref HEAD 2&amp;gt; /dev/null) || return; echo &amp;quot;(&amp;quot;${ref#refs/heads/}&amp;quot;) &amp;quot;; } PS1=&amp;quot;[\[\e[1;35m\]\u\[\e[1;32m\]\w\[\e[0m\]] \[\e[0m\]\[\e[1;36m\]\$(git_branch)\[\e[0;33m\]\$&amp;quot; 或者
+function git-branch-name { git symbolic-ref HEAD 2&amp;gt;/dev/null | cut -d&amp;quot;/&amp;quot; -f 3 #git rev-parse --abbrev-ref HEAD } function git-branch-prompt { local branch=`git-branch-name` if [ $branch ]; then printf &amp;quot; [%s]&amp;quot; $branch; fi } PS1=&amp;quot;\u@\h \[\033[0;36m\]\W\[\033[0m\]\[\033[0;32m\]\$(git-branch-prompt)\[\033[0m\] \$ &amp;quot; -- 按照惯例，上一张图</description></item><item><title>Grub2 rescue 修复</title><link>https://moelove.info/2014/07/02/Grub2-rescue-%E4%BF%AE%E5%A4%8D/</link><pubDate>Wed, 02 Jul 2014 21:53:03 +0000</pubDate><guid>https://moelove.info/2014/07/02/Grub2-rescue-%E4%BF%AE%E5%A4%8D/</guid><description>昨天下午的时候想要把分区处理一下，突然发现硬盘里面有一个未使用的102M的分区,很果断的把这些乱七八糟的分区都给干掉了。结果呢，再次开机的时候就坑了（虽然酱紫的事情干过很多次了，这次做个记录吧）开机时提示如下：
+GRUB loading.. error: unknown filesystem. Entering rescue mode.... grub rescue&amp;gt; grub rescue 支持的命令 ls 查看硬盘的分区情况，如果你已知自己的grub的安装位置（比如我的在(hd0,msdos9)/boot/grub2），那么就直接进行下一步。 如果不知道，那就ls每个分区，比如: ls (hd0,msdos2)/,如果正确就会显示里面到内容，直到找到grub 这里一个很关键的地方就是在硬盘位置后应该加入/
+set 直接输入的话， 可以看到root 和 prefix 的设置。这里需要把这两个选项改成我们已经找到的位置。 窝的设置如下
+grub rescue&amp;gt; set grub rescue&amp;gt; prefix=(hd0,msdos9)/boot/grub2 grub rescue&amp;gt; root=hd0,msdos9 insmod 载入模块。这里区别是窝这次记录的关键。 grub2和grub的一个很重要的区别就是模块的位置。grub2的模块位置在/boot/grub2/i386-pc/normal.mod 执行命令：
+grub rescue&amp;gt;insmod (hd0,msdos9)/boot/grub2/i386-pc/normal.mod 执行成功之后，提示符会变成normal
+normal 进入正常模式，直接输入命令即可
+grub rescue&amp;gt;normal 这个时候，就可以看到熟悉的引导界面了。
+grub2-install 进入系统后执行命令
+$ sudo update-grub $ sudo grub2-install /dev/sda 如果不执行这样的命令的话，重启之后还会回到之前的界面orz</description></item><item><title>Linux中Sublime中文输入</title><link>https://moelove.info/2014/06/19/Linux%E4%B8%ADSublime%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/</link><pubDate>Thu, 19 Jun 2014 23:17:31 +0000</pubDate><guid>https://moelove.info/2014/06/19/Linux%E4%B8%ADSublime%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/</guid><description>这篇只是为了备忘所以把以前写的东西搬这边了 -.-
+代码源于网络，感谢分享 这里的关键就是以下的代码和编译 /* sublime-imfix.c Use LD_PRELOAD to interpose some function to fix sublime input method support for linux. By Cjacker Huang &amp;lt;jianzhong.huang at i-soft.com.cn&amp;gt; gcc -shared -o libsublime-imfix.so sublime_imfix.c `pkg-config --libs --cflags gtk+-2.0` -fPIC LD_PRELOAD=./libsublime-imfix.so sublime_text */ #include &amp;lt;gtk/gtk.h&amp;gt; #include &amp;lt;gdk/gdkx.h&amp;gt; typedef GdkSegment GdkRegionBox; struct _GdkRegion { long size; long numRects; GdkRegionBox *rects; GdkRegionBox extents; }; GtkIMContext *local_context; void gdk_region_get_clipbox (const GdkRegion *region, GdkRectangle *rectangle) { g_return_if_fail (region !</description></item><item><title>upyun-for-pelican</title><link>https://moelove.info/2014/05/16/upyun-for-pelican/</link><pubDate>Fri, 16 May 2014 21:51:41 +0000</pubDate><guid>https://moelove.info/2014/05/16/upyun-for-pelican/</guid><description>这几天写了一个插件，方便把pelican生成静态博客部署到又拍云上。 整体思路就是：
+先格式化路径，以/为根目录
+def formatPath(path): path = path.replace(os.sep, &#39;/&#39;) return path 定义两个列表来存储文件和目录
+之后就是验证用户，以及bucketname 之类的了。
+简介 pelican 是一款基于python的静态博客生成工具，本程序可以方便的把生成的静态博客部署到又拍云上。演示地址：upyun-for-pelican
+生成网站 make html make serve (进行本地预览) 说明 程序使用了又拍云的官方SDK 需要先安装 upyun
+pip install upyun 可以自定义要上传的文件目录。在最下方的local_dir 中指定即可。Pelican默认的上传目录是 output 目录
+使用 可以在 pelicanconf.py 文件中直接设置 BUCKETNAME, USERNAME, PASSWORD 参数（这些参数的使用大写命名格式也是为了符合*pelicanconf.py*中的习惯），也可以直接在 upyun-for-pelican.py文件的最下方直接设置。
+执行
+python upyun-for-pelican.py 程序在 Python 2.7 环境下测试通过。
+其他说明 程序执行开始会有上传确认提示，输入Y / y 都可以继续上传。 可以使用项目中的pelicanconf.</description></item><item><title>使用Pelican搭建Blog</title><link>https://moelove.info/2014/05/07/%E4%BD%BF%E7%94%A8Pelican%E6%90%AD%E5%BB%BABlog/</link><pubDate>Wed, 07 May 2014 21:48:59 +0000</pubDate><guid>https://moelove.info/2014/05/07/%E4%BD%BF%E7%94%A8Pelican%E6%90%AD%E5%BB%BABlog/</guid><description>安装配置Pelican 使用环境： 系统 : Linux X86_64 Pelican : 3.3.0 首先说一下安装： 网上有不少建议说使用虚拟环境 virtualenv，以免污染本地的环境。不过，如果不是去更改Python的全局设置的话，也不至于影响本地环境的。我是直接安装的。根据 Pelican 官方的文档，我是使用 pip 安装的，不过pip又是依赖于distribute 安装的。所以，我使用的命令如下：
+curl -O http://python-distribute.org/distribute_setup.py sudo python distribute_setup.py curl -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py sudo python get-pip.py sudo pip install pelican 还有，如果要用 Markdown来写文章，也需要执行如下命令：
+pip install markdown 新建一个目录，用来存放你的博客文件（我直接建立了&amp;rdquo;blog&amp;rdquo;文件夹）
+mkdir blog cd blog 新建博客： 使用如下命令：
+pelican-quickstart 按照提示一步步即可完成新建， 这些配置之后可以在pelicanconf.py这个文件中修改
+Where do you want to create your new web site?[.] (你想在哪里创建你的网站，默认为当前目录) What will be the title of this web site?</description></item><item><title>Hello World !</title><link>https://moelove.info/2014/04/18/Hello-World/</link><pubDate>Fri, 18 Apr 2014 21:46:06 +0000</pubDate><guid>https://moelove.info/2014/04/18/Hello-World/</guid><description> 几乎所有的程序猿的第一个演示程序都是Hello World .那我也就一样咯， 也写一个同样的吧。 其实我的博客从很早前就已经开始在写了， 换了很多的平台：
+从腾讯空间--&amp;gt; 百度空间--&amp;gt; 新浪博客--&amp;gt; 自己搭建的Wordpress博客--&amp;gt; 点点（点点我其实是用来碎碎念的） --&amp;gt; 博客园（个人感觉体验不是很好的说）--&amp;gt; 静态博客 选择了这么多，我最后决定还是使用 静态博客 来做个人博客。
+原因有以下几个：
+使用其他平台提供的博客不是很爽， 可个性化的方面不是很多， 点点相对来说做的还是很不错的 不仅提供个性化定制而且还支持绑定个人域名之类的。但是其他网站就不是那么人性化了。 写博客总是需要贴代码的，但是除了WP外，其他的我不是很满意。 用静态博客方便备份，而且是本地编辑就可以了，在线编辑的，感觉会被束缚很多。 本人属于折腾党，喜欢可以个人定制的， 直到符合个人满意的程度为止。 接下来说说这次博客的安装：
+选择Pelica是因为我对Python 比较熟悉，之前尝试过用Jekyll 和 Octopress 搭建，都比较方便 尤其是Jekyll 用户很多，文档什么的都很多了。只不过我更喜欢Python 多一些（虽然我有用ROR开发过WEB应用程序） 因为如果有什么需要的话，我也可以自己来开发插件或者自己再尝试做一个系统。 Pelican 相对来说配置也很方便， 很简单， 虽然用户不是很多，但是基本上的问题也都可以解决的 Pelican 支持restructuredText和Markdown写文章，配置灵活，扩展性强。我用的是3.3.0。</description></item><item><title>Linux 安装Android 驱动</title><link>https://moelove.info/2014/03/10/Linux-%E5%AE%89%E8%A3%85Android-%E9%A9%B1%E5%8A%A8/</link><pubDate>Mon, 10 Mar 2014 21:44:06 +0000</pubDate><guid>https://moelove.info/2014/03/10/Linux-%E5%AE%89%E8%A3%85Android-%E9%A9%B1%E5%8A%A8/</guid><description>在Linux下非常适合做一些对Rom 的定制以及其他的一些操作，甚至是自己制作Rom 或者从源码编译Rom 也是OK的。
 不过最开始的应该就是搭建开发环境了，我先从装驱动开始说（只是做个笔记而已）
- 使用数据线连接手机，打开adb调试模式。(在Linux上搭建开发环境， 以及adb 命令之类的， 就自行搜索吧，如果哪天更新了 我会附上链接的)
- 输入adb devices 查看设备 如果有机型的话就说明是已经有驱动了 如果没有显示的话， 就是说明需要进行驱动安装了。
-  这个时候， lsusb 查看， 会看到下面这样的信息
-[tao@localhost ~]$ lsusb Bus 001 Device 002: ID 8087:0020 Intel Corp. Integrated Rate Matching Hub Bus 002 Device 002: ID 8087:0020 Intel Corp. Integrated Rate Matching Hub Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.</description>
-    </item>
-    
-    <item>
-      <title>fedora 18 Kernel driver not installed (rc=-1908)处理办法</title>
-      <link>https://moelove.info/2013/12/21/fedora-18-Kernel-driver-not-installed-rc-1908%E5%A4%84%E7%90%86%E5%8A%9E%E6%B3%95/</link>
-      <pubDate>Sat, 21 Dec 2013 21:42:18 +0000</pubDate>
-      
-      <guid>https://moelove.info/2013/12/21/fedora-18-Kernel-driver-not-installed-rc-1908%E5%A4%84%E7%90%86%E5%8A%9E%E6%B3%95/</guid>
-      <description>fedora 18 升级内核之后 使用VirtualBox 可以正常打开软件,但是不能启动虚拟机系统.提示信息如下: Kernel driver not installed (rc=-1908)  经过一系列的看文档还有google 之后,很多地方写着这个问题的处理方法是
- 第一种
-sudo /etc/init.d/vboxdrv setup   经过实验,对feora 18 不可行
- 第二种
-sudo apt-get install dkms sudo /etc/init.d/vboxdrv setup  但是情况继续
- 第三种
-sudo aptitude update sudo aptitude install dkms sudo /etc/init.d/vboxdrv setup   最后正确的解决方法应该是酱紫的  先看看系统的内核
-uname -r  找对应的包
-sudo yum search kmod-VirtualBox  然后安装和你系统内核对应的包
-sudo yum install kmod-VirtualBox-XXXX  运行
-/etc/sysconfig/modules/VirtualBox.modules   一切OK了</description>
-    </item>
-    
-    <item>
-      <title>Ruby on Rails 环境</title>
-      <link>https://moelove.info/2013/09/21/Ruby-on-Rails-%E7%8E%AF%E5%A2%83/</link>
-      <pubDate>Sat, 21 Sep 2013 21:39:55 +0000</pubDate>
-      
-      <guid>https://moelove.info/2013/09/21/Ruby-on-Rails-%E7%8E%AF%E5%A2%83/</guid>
-      <description>就这次的尝试写一下自己的记录 安装ruby 和 ruby-devel(安装ruby-devel是因为后续的工作如果没有ruby-devel的话，会报错)
-sudo yum install ruby ruby-devel rubygems sqlite -y  需要的环境有了，那么就可以开始正式的工作了
-sudo gem install rails  找到一个合适的目录来放自己的代码.然后执行
-$ rails new mysite // 这个是建立一个叫mysite 的rails程式 ，在当前目录下面 $ cd mysite //进入这个目录 $ bundle install //因为在做测试 所以 也没有必要安装其他的gem  接下来看看它的数据库 配置文件是 config/database.yml 默认的支持是是SQLite3(当然也支持其他的比如mysql之类的)它有三种模式:
- development environment开发模式，用在你的开发的时候 test environment测试模式，用在自动测试时 production environment正式上线模式，用在实际的上线运作环境  SQLite配置大致是这样的:
-development: adapter: sqlite3 database: db/development.sqlite3 pool: 5 timeout: 5000  接下来建立自己的数据库
-rake db:create  在这里我遇到一个错误
-rake aborted! Could not find a JavaScript runtime.</description>
-    </item>
-    
-    <item>
-      <title>利用百度BAE搭建discuz论坛</title>
-      <link>https://moelove.info/2013/09/06/%E5%88%A9%E7%94%A8%E7%99%BE%E5%BA%A6BAE%E6%90%AD%E5%BB%BAdiscuz%E8%AE%BA%E5%9D%9B/</link>
-      <pubDate>Fri, 06 Sep 2013 21:38:39 +0000</pubDate>
-      
-      <guid>https://moelove.info/2013/09/06/%E5%88%A9%E7%94%A8%E7%99%BE%E5%BA%A6BAE%E6%90%AD%E5%BB%BAdiscuz%E8%AE%BA%E5%9D%9B/</guid>
-      <description>最近尝试了利用百度云应用管理*BAE*搭建discuz论坛， 这里做简要记录
+使用数据线连接手机，打开adb调试模式。(在Linux上搭建开发环境， 以及adb 命令之类的， 就自行搜索吧，如果哪天更新了 我会附上链接的)
+输入adb devices 查看设备 如果有机型的话就说明是已经有驱动了 如果没有显示的话， 就是说明需要进行驱动安装了。
+这个时候， lsusb 查看， 会看到下面这样的信息
+[tao@localhost ~]$ lsusb Bus 001 Device 002: ID 8087:0020 Intel Corp. Integrated Rate Matching Hub Bus 002 Device 002: ID 8087:0020 Intel Corp. Integrated Rate Matching Hub Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.</description></item><item><title>fedora 18 Kernel driver not installed (rc=-1908)处理办法</title><link>https://moelove.info/2013/12/21/fedora-18-Kernel-driver-not-installed-rc-1908%E5%A4%84%E7%90%86%E5%8A%9E%E6%B3%95/</link><pubDate>Sat, 21 Dec 2013 21:42:18 +0000</pubDate><guid>https://moelove.info/2013/12/21/fedora-18-Kernel-driver-not-installed-rc-1908%E5%A4%84%E7%90%86%E5%8A%9E%E6%B3%95/</guid><description>fedora 18 升级内核之后 使用VirtualBox 可以正常打开软件,但是不能启动虚拟机系统.提示信息如下: Kernel driver not installed (rc=-1908) 经过一系列的看文档还有google 之后,很多地方写着这个问题的处理方法是
+第一种
+sudo /etc/init.d/vboxdrv setup 经过实验,对feora 18 不可行
+第二种
+sudo apt-get install dkms sudo /etc/init.d/vboxdrv setup 但是情况继续
+第三种
+sudo aptitude update sudo aptitude install dkms sudo /etc/init.d/vboxdrv setup 最后正确的解决方法应该是酱紫的 先看看系统的内核
+uname -r 找对应的包
+sudo yum search kmod-VirtualBox 然后安装和你系统内核对应的包
+sudo yum install kmod-VirtualBox-XXXX 运行
+/etc/sysconfig/modules/VirtualBox.modules 一切OK了</description></item><item><title>Ruby on Rails 环境</title><link>https://moelove.info/2013/09/21/Ruby-on-Rails-%E7%8E%AF%E5%A2%83/</link><pubDate>Sat, 21 Sep 2013 21:39:55 +0000</pubDate><guid>https://moelove.info/2013/09/21/Ruby-on-Rails-%E7%8E%AF%E5%A2%83/</guid><description>就这次的尝试写一下自己的记录 安装ruby 和 ruby-devel(安装ruby-devel是因为后续的工作如果没有ruby-devel的话，会报错)
+sudo yum install ruby ruby-devel rubygems sqlite -y 需要的环境有了，那么就可以开始正式的工作了
+sudo gem install rails 找到一个合适的目录来放自己的代码.然后执行
+$ rails new mysite // 这个是建立一个叫mysite 的rails程式 ，在当前目录下面 $ cd mysite //进入这个目录 $ bundle install //因为在做测试 所以 也没有必要安装其他的gem 接下来看看它的数据库 配置文件是 config/database.yml 默认的支持是是SQLite3(当然也支持其他的比如mysql之类的)它有三种模式:
+development environment开发模式，用在你的开发的时候 test environment测试模式，用在自动测试时 production environment正式上线模式，用在实际的上线运作环境 SQLite配置大致是这样的:
+development: adapter: sqlite3 database: db/development.sqlite3 pool: 5 timeout: 5000 接下来建立自己的数据库
+rake db:create 在这里我遇到一个错误
+rake aborted! Could not find a JavaScript runtime.</description></item><item><title>利用百度BAE搭建discuz论坛</title><link>https://moelove.info/2013/09/06/%E5%88%A9%E7%94%A8%E7%99%BE%E5%BA%A6BAE%E6%90%AD%E5%BB%BAdiscuz%E8%AE%BA%E5%9D%9B/</link><pubDate>Fri, 06 Sep 2013 21:38:39 +0000</pubDate><guid>https://moelove.info/2013/09/06/%E5%88%A9%E7%94%A8%E7%99%BE%E5%BA%A6BAE%E6%90%AD%E5%BB%BAdiscuz%E8%AE%BA%E5%9D%9B/</guid><description>最近尝试了利用百度云应用管理*BAE*搭建discuz论坛， 这里做简要记录
 创建应用 在 百度开发者中心 创建一个应用，选择WEB应用下的PC Iframe应用
 托管设置 之后进行托管设置， 确定域名XXX.duapp.com
 创建一个版本，并上传PHP代码包
 (BAE有些函数规则发生改变，所以需要使用为BAE环境做过调整的discuz for BAE 版本)
 需要注意的是在上传的代码包里面的 bcs/config.php 中的内容应该修改为
-&amp;lt;?php define(&#39;BAIDU_BCS_BUCKET&#39;, &#39;创建的bucket名称&#39;); define(&#39;BAIDU_BCS_AK&#39;, getenv(&#39;HTTP_BAE_ENV_AK&#39;)); define(&#39;BAIDU_BCS_SK&#39;, getenv(&#39;HTTP_BAE_ENV_SK&#39;)); ?&amp;gt;  同时在数据库中设置为UTF-8,
+&amp;lt;?php define(&#39;BAIDU_BCS_BUCKET&#39;, &#39;创建的bucket名称&#39;); define(&#39;BAIDU_BCS_AK&#39;, getenv(&#39;HTTP_BAE_ENV_AK&#39;)); define(&#39;BAIDU_BCS_SK&#39;, getenv(&#39;HTTP_BAE_ENV_SK&#39;)); ?&amp;gt; 同时在数据库中设置为UTF-8,
 注意开启缓存 cache 最少30M(亲测50M完全是OK的)
 安装 之后上线应用，访问http://你的域名.duapp.com/install/index.php
-即可完成安装(需要用到创建的数据库名称)</description>
-    </item>
-    
-    <item>
-      <title>fedora下安装sublime text 2的方法</title>
-      <link>https://moelove.info/2013/08/30/fedora%E4%B8%8B%E5%AE%89%E8%A3%85sublime-text-2%E7%9A%84%E6%96%B9%E6%B3%95/</link>
-      <pubDate>Fri, 30 Aug 2013 21:36:09 +0000</pubDate>
-      
-      <guid>https://moelove.info/2013/08/30/fedora%E4%B8%8B%E5%AE%89%E8%A3%85sublime-text-2%E7%9A%84%E6%96%B9%E6%B3%95/</guid>
-      <description>首先去官网下载最新的压缩包  把文件解压到$HOME/.sublime_text_2文件夹中：
-tar -xf (sublime压缩包的文件名).tar.bz2 sudo mv (解压后的文件夹) tools/Sublime_Text_2  在/usr/bin目录下面创建一个链接
-vim sublime  在文件中写入这些代码：
-#!/bin/bash export SUBLIME_HOME=&amp;quot;~/tools/Sublime_Text_2&amp;quot; $SUBLIME_HOME/sublime_text $*   修改文件权限并且移动
-chmod 555 sublime &amp;amp;&amp;amp; mv sublime /usr/bin/sublime  这样就可以在终端中直接执行sublime了</description>
-    </item>
-    
-    <item>
-      <title>Vim7.3 for Windows 配置</title>
-      <link>https://moelove.info/2013/08/10/Vim7.3-for-Windows-%E9%85%8D%E7%BD%AE/</link>
-      <pubDate>Sat, 10 Aug 2013 21:34:17 +0000</pubDate>
-      
-      <guid>https://moelove.info/2013/08/10/Vim7.3-for-Windows-%E9%85%8D%E7%BD%AE/</guid>
-      <description>一直是在Linux下用Vim，但是有些时候在别人电脑或者机房又不得不用windows来写代码，所以也就下载了vim for windows。但是今天打开一个朋友写的网页的时候，出现了乱码的问题，所以把解决方法记录一下，也就是和在linux下面一样，修改配置文件就可以了。接下来进入正题。
- 选项意义概述 Vim有四个跟字符编码方式有关的选项，分别是:encoding、fileencoding、fileencodings、termencoding (这些选项可能的取值可以参考 Vim 的帮助 :help encoding-names)，它们各自的意义:
- encoding: Vim 内部使用的字符编码方式，包括Vim的buffer(缓冲区)、菜单文本、消息文本等。用户手册上建议只在*.vimrc中改变它的值，事实上似乎也只有在.vimrc* 中改变它的值才有意义。
- fileencoding: Vim 中当前编辑的文件的字符编码方式，Vim 保存文件时也会将文件保存为这种字符编码方式 (不管是否新文件都如此)。
- fileencodings: Vim 启动时会按照它所列出的字符编码方式逐一探测即将打开的文件的字符编码方式，并且将 fileencoding 设置为最终探测到的字符编码方式。因此最好将 Unicode 编码方式放到这个列表的最前面，将拉丁语系编码方式 latin1 放到最后面。
- termencoding: Vim 所工作的终端 (或者 Windows 的 Console 窗口) 的字符编码方式。这个选项在 Windows 下对我们常用的 GUI 模式的 gVim 无效，而对 Console 模式的 Vim 而言就是Windows控制台的代码页，并且通常我们不需要改变它。（我尝试改变了它为UTF-8，但对于console模式的编码方式却没有改变）
-  配置说明 由于 Unicode 能包含几乎所有的语言的字符，Unicode的UTF-8编码方式又是非常具有性价比和通用的编码方式，所以把*encoding*的值设置为utf-8。同时将encoding设置为utf-8时，Vim自动探测文件的编码方式会更准确。在中文Windows里编辑的文件，为了兼顾与其他软件的兼容性，文件编码还是设置为GB2312/GBK比较合适，因此*fileencoding*建议设置为chinese (chinese是个别名，在Unix里表示gb2312，在Windows里表示cp936，也就是GBK的代码页)。
+即可完成安装(需要用到创建的数据库名称)</description></item><item><title>fedora下安装sublime text 2的方法</title><link>https://moelove.info/2013/08/30/fedora%E4%B8%8B%E5%AE%89%E8%A3%85sublime-text-2%E7%9A%84%E6%96%B9%E6%B3%95/</link><pubDate>Fri, 30 Aug 2013 21:36:09 +0000</pubDate><guid>https://moelove.info/2013/08/30/fedora%E4%B8%8B%E5%AE%89%E8%A3%85sublime-text-2%E7%9A%84%E6%96%B9%E6%B3%95/</guid><description>首先去官网下载最新的压缩包 把文件解压到$HOME/.sublime_text_2文件夹中：
+tar -xf (sublime压缩包的文件名).tar.bz2 sudo mv (解压后的文件夹) tools/Sublime_Text_2 在/usr/bin目录下面创建一个链接
+vim sublime 在文件中写入这些代码：
+#!/bin/bash export SUBLIME_HOME=&amp;quot;~/tools/Sublime_Text_2&amp;quot; $SUBLIME_HOME/sublime_text $* 修改文件权限并且移动
+chmod 555 sublime &amp;amp;&amp;amp; mv sublime /usr/bin/sublime 这样就可以在终端中直接执行sublime了</description></item><item><title>Vim7.3 for Windows 配置</title><link>https://moelove.info/2013/08/10/Vim7.3-for-Windows-%E9%85%8D%E7%BD%AE/</link><pubDate>Sat, 10 Aug 2013 21:34:17 +0000</pubDate><guid>https://moelove.info/2013/08/10/Vim7.3-for-Windows-%E9%85%8D%E7%BD%AE/</guid><description>一直是在Linux下用Vim，但是有些时候在别人电脑或者机房又不得不用windows来写代码，所以也就下载了vim for windows。但是今天打开一个朋友写的网页的时候，出现了乱码的问题，所以把解决方法记录一下，也就是和在linux下面一样，修改配置文件就可以了。接下来进入正题。
+选项意义概述 Vim有四个跟字符编码方式有关的选项，分别是:encoding、fileencoding、fileencodings、termencoding (这些选项可能的取值可以参考 Vim 的帮助 :help encoding-names)，它们各自的意义:
+encoding: Vim 内部使用的字符编码方式，包括Vim的buffer(缓冲区)、菜单文本、消息文本等。用户手册上建议只在*.vimrc中改变它的值，事实上似乎也只有在.vimrc* 中改变它的值才有意义。
+fileencoding: Vim 中当前编辑的文件的字符编码方式，Vim 保存文件时也会将文件保存为这种字符编码方式 (不管是否新文件都如此)。
+fileencodings: Vim 启动时会按照它所列出的字符编码方式逐一探测即将打开的文件的字符编码方式，并且将 fileencoding 设置为最终探测到的字符编码方式。因此最好将 Unicode 编码方式放到这个列表的最前面，将拉丁语系编码方式 latin1 放到最后面。
+termencoding: Vim 所工作的终端 (或者 Windows 的 Console 窗口) 的字符编码方式。这个选项在 Windows 下对我们常用的 GUI 模式的 gVim 无效，而对 Console 模式的 Vim 而言就是Windows控制台的代码页，并且通常我们不需要改变它。（我尝试改变了它为UTF-8，但对于console模式的编码方式却没有改变）
+配置说明 由于 Unicode 能包含几乎所有的语言的字符，Unicode的UTF-8编码方式又是非常具有性价比和通用的编码方式，所以把*encoding*的值设置为utf-8。同时将encoding设置为utf-8时，Vim自动探测文件的编码方式会更准确。在中文Windows里编辑的文件，为了兼顾与其他软件的兼容性，文件编码还是设置为GB2312/GBK比较合适，因此*fileencoding*建议设置为chinese (chinese是个别名，在Unix里表示gb2312，在Windows里表示cp936，也就是GBK的代码页)。
 具体配置 最后对于文件中显示乱码、菜单乱码、右键菜单乱码以及Conlse输出乱码问题的解决方案，修改Vim编辑器所对应的配置文件_vimrc（这个文件在你安装vim 的那个目录下），添加如下配置：
- 关于常规设置：
-&amp;quot;总是显示标签。0：不显示；1：多于1个时显示&amp;quot; set showtabline=2 &amp;quot;开启行号&amp;quot; set number &amp;quot;开启自动缩进, 7.</description>
-    </item>
-    
-    <item>
-      <title>Friends</title>
-      <link>https://moelove.info/friends/</link>
-      <pubDate>Thu, 08 Aug 2013 21:42:18 +0000</pubDate>
-      
-      <guid>https://moelove.info/friends/</guid>
-      <description> 一定要单独拿一个大页写 木有先后顺序哦
-  龙哥盟: http://www.flygon.net/ 神岸あかり: https://blog.andyxu.me/ Cee总: http://blog.cee.moe/  </description>
-    </item>
-    
-    <item>
-      <title>LAMP环境的快速搭建</title>
-      <link>https://moelove.info/2013/08/07/LAMP%E7%8E%AF%E5%A2%83%E7%9A%84%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA/</link>
-      <pubDate>Wed, 07 Aug 2013 21:30:59 +0000</pubDate>
-      
-      <guid>https://moelove.info/2013/08/07/LAMP%E7%8E%AF%E5%A2%83%E7%9A%84%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA/</guid>
-      <description>这是我在我的centos 吧专门写的教程帖，目的也就是为了让新手可以更快的搭建起来环境，而不是一直在门外徘徊。所以就搬过来了，时间神马的就按照原帖来吧。
- 写在前面 本篇文章是面向linux新手，文中采用环境是*Win7+V-BOX*，配置过程用putty进行操作（个人习惯而已），linux系统使用CentOS6.3版本。CentOS的安装方法及虚拟机中网络配置请参阅centos吧精品帖【教程】最全centos 安装方法及内容详解。为了尽量一次性可以让读者完成LAMP环境的搭建，本次安装过程都采用yum包管理机制进行安装。当然生产环境下一般都是采用源码编译的。在近期我也会再出连载文，使用源码包进行LAMP环境的搭建，欢迎关注。如果有任何意见或者建议都可以到centos吧发帖询问。 Ps:本文LAMP = Linux + Apache + Mysql + PHP
+关于常规设置：
+&amp;quot;总是显示标签。0：不显示；1：多于1个时显示&amp;quot; set showtabline=2 &amp;quot;开启行号&amp;quot; set number &amp;quot;开启自动缩进, 7.</description></item><item><title>Friends</title><link>https://moelove.info/friends/</link><pubDate>Thu, 08 Aug 2013 21:42:18 +0000</pubDate><guid>https://moelove.info/friends/</guid><description> 一定要单独拿一个大页写 木有先后顺序哦
+龙哥盟: http://www.flygon.net/ 神岸あかり: https://blog.andyxu.me/ Cee总: http://blog.cee.moe/</description></item><item><title>LAMP环境的快速搭建</title><link>https://moelove.info/2013/08/07/LAMP%E7%8E%AF%E5%A2%83%E7%9A%84%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA/</link><pubDate>Wed, 07 Aug 2013 21:30:59 +0000</pubDate><guid>https://moelove.info/2013/08/07/LAMP%E7%8E%AF%E5%A2%83%E7%9A%84%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA/</guid><description>这是我在我的centos 吧专门写的教程帖，目的也就是为了让新手可以更快的搭建起来环境，而不是一直在门外徘徊。所以就搬过来了，时间神马的就按照原帖来吧。
+写在前面 本篇文章是面向linux新手，文中采用环境是*Win7+V-BOX*，配置过程用putty进行操作（个人习惯而已），linux系统使用CentOS6.3版本。CentOS的安装方法及虚拟机中网络配置请参阅centos吧精品帖【教程】最全centos 安装方法及内容详解。为了尽量一次性可以让读者完成LAMP环境的搭建，本次安装过程都采用yum包管理机制进行安装。当然生产环境下一般都是采用源码编译的。在近期我也会再出连载文，使用源码包进行LAMP环境的搭建，欢迎关注。如果有任何意见或者建议都可以到centos吧发帖询问。 Ps:本文LAMP = Linux + Apache + Mysql + PHP
 安装过程（先确保你的系统网络正常或者搭建好了本地源） 1. 首先安装Apache，使用命令： sudo yum install httpd –y
 2. 然后安装Mysql，使用命令 sudo yum install mysql mysql-server –y
 3. 再安装php ，使用命令 sudo yum install php –y
@@ -1472,36 +601,14 @@ chmod 555 sublime &amp;amp;&amp;amp; mv sublime /usr/bin/sublime  这样就可�
 关于iptables的知识可以自行了解或者关注后续讲解 我们执行 sudo iptables –F 清除所有规则
 接下来在浏览器输入虚拟机地址 ，我们看到如下：
 我们已经访问成功了！
-  当然在这里的时候也许还有人是访问不了的，可能是因为CentOS自带的SElinux机制影响的   我们执行getenforce命令来查看SElinux的状态，使用sudo setenforce 0来改变SElinux为*permission*状态。</description>
-    </item>
-    
-    <item>
-      <title>cat 命令研究</title>
-      <link>https://moelove.info/2013/03/20/cat-%E5%91%BD%E4%BB%A4%E7%A0%94%E7%A9%B6/</link>
-      <pubDate>Wed, 20 Mar 2013 21:24:20 +0000</pubDate>
-      
-      <guid>https://moelove.info/2013/03/20/cat-%E5%91%BD%E4%BB%A4%E7%A0%94%E7%A9%B6/</guid>
-      <description>有人问我关于centos里面使用cat命令的问题，我在这里简单记录一下。 在linux下，cat应该是使用最频繁的命令之一了吧。
- cat命令在Linux作以下用途：  在屏幕上显示文本文件。 复制文本文件。 合并文本文件。 创建新的文本文件。  cat命令支持的语法如下： cat filename cat options filename cat file1 file2 cat file1 file2 &amp;gt; newcombinedfile  显示文件的内容： cat /tmp/test  上面的命令就是查看文件/tmp/test的内容，把内容输出到屏幕。 但是也可以使用
-cat /tmp/test &amp;gt; /tmp/test2  使用上面的命令，可以把文件内容重定向到/tmp/test2文件中
+当然在这里的时候也许还有人是访问不了的，可能是因为CentOS自带的SElinux机制影响的 我们执行getenforce命令来查看SElinux的状态，使用sudo setenforce 0来改变SElinux为*permission*状态。</description></item><item><title>cat 命令研究</title><link>https://moelove.info/2013/03/20/cat-%E5%91%BD%E4%BB%A4%E7%A0%94%E7%A9%B6/</link><pubDate>Wed, 20 Mar 2013 21:24:20 +0000</pubDate><guid>https://moelove.info/2013/03/20/cat-%E5%91%BD%E4%BB%A4%E7%A0%94%E7%A9%B6/</guid><description>有人问我关于centos里面使用cat命令的问题，我在这里简单记录一下。 在linux下，cat应该是使用最频繁的命令之一了吧。
+cat命令在Linux作以下用途： 在屏幕上显示文本文件。 复制文本文件。 合并文本文件。 创建新的文本文件。 cat命令支持的语法如下： cat filename cat options filename cat file1 file2 cat file1 file2 &amp;gt; newcombinedfile 显示文件的内容： cat /tmp/test 上面的命令就是查看文件/tmp/test的内容，把内容输出到屏幕。 但是也可以使用
+cat /tmp/test &amp;gt; /tmp/test2 使用上面的命令，可以把文件内容重定向到/tmp/test2文件中
 串联文件： 串联文件是把文件内容一起输出，但是不会改变源文件的内容
-cat /tmp/test1 /tmp/test2 /tmp/test3  以上命令会将/tmp 目录下的 test1 ,test2 ,test3 三个文件的内容一起输出，当然也可以使用重定向命令查看输出内容
-cat /tmp/test1 /tmp/test2 /tmp/test3 &amp;gt;/tmp/testoutputs  重定向至/tmp 下的testoutputs 文件中
+cat /tmp/test1 /tmp/test2 /tmp/test3 以上命令会将/tmp 目录下的 test1 ,test2 ,test3 三个文件的内容一起输出，当然也可以使用重定向命令查看输出内容
+cat /tmp/test1 /tmp/test2 /tmp/test3 &amp;gt;/tmp/testoutputs 重定向至/tmp 下的testoutputs 文件中
 当然查看的时候可以配合管道命令使用
-cat /tmp/test1 /tmp/test2 /tmp/test3 | less</description>
-    </item>
-    
-    <item>
-      <title>fedora安装后最初的事情</title>
-      <link>https://moelove.info/2013/03/09/fedora%E5%AE%89%E8%A3%85%E5%90%8E%E6%9C%80%E5%88%9D%E7%9A%84%E4%BA%8B%E6%83%85/</link>
-      <pubDate>Sat, 09 Mar 2013 21:21:14 +0000</pubDate>
-      
-      <guid>https://moelove.info/2013/03/09/fedora%E5%AE%89%E8%A3%85%E5%90%8E%E6%9C%80%E5%88%9D%E7%9A%84%E4%BA%8B%E6%83%85/</guid>
-      <description>更新源 sudo yum localinstall --nogpgcheck http://mirrors.163.com/rpmfusion/free/fedora/rpmfusion-free-release-stable.noarch.rpm http://mirrors.163.com/rpmfusion/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm (这个是添加国内的软件源) sudo yum update  网络相关 firefox sudo yum install firefox  chrome / chromium 我本人比较习惯用chrome的 不过最近网络不是很稳定 先补充chromium 的安装方法吧
- chromium的安装 首先添加chromium的fedora源,将下载好的 .repo 文件移动到/etc/yum.repos.d/下， 执行
-sudo yum install chromium  chrome的安装 从官网上下载chrome 的rpm包，或者从我的网盘下载对应的32位 或 64位 的rpm 包 执行
-sudo rpm -ivh google-chrome.rpm   安装证书 sudo yum localinstall --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-branched.noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-branched.noarch.rpm  压缩/解压软件 sudo yum install unrar sudo yum install p7zip  影音播放 sudo yum install gstreamer-plugins-good gstreamer-plugins-bad gstreamer-plugins-ugly libtunepimp-extras-freeworld xine-lib-extras-freeworld(安装音频解码器) sudo yum install ffmpeg ffmpeg-libs gstreamer-ffmpeg libmatroska xvidcore(安装视频解码器)  编辑器  vim</description>
-    </item>
-    
-  </channel>
-</rss>
+cat /tmp/test1 /tmp/test2 /tmp/test3 | less</description></item><item><title>fedora安装后最初的事情</title><link>https://moelove.info/2013/03/09/fedora%E5%AE%89%E8%A3%85%E5%90%8E%E6%9C%80%E5%88%9D%E7%9A%84%E4%BA%8B%E6%83%85/</link><pubDate>Sat, 09 Mar 2013 21:21:14 +0000</pubDate><guid>https://moelove.info/2013/03/09/fedora%E5%AE%89%E8%A3%85%E5%90%8E%E6%9C%80%E5%88%9D%E7%9A%84%E4%BA%8B%E6%83%85/</guid><description>更新源 sudo yum localinstall --nogpgcheck http://mirrors.163.com/rpmfusion/free/fedora/rpmfusion-free-release-stable.noarch.rpm http://mirrors.163.com/rpmfusion/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm (这个是添加国内的软件源) sudo yum update 网络相关 firefox sudo yum install firefox chrome / chromium 我本人比较习惯用chrome的 不过最近网络不是很稳定 先补充chromium 的安装方法吧
+chromium的安装 首先添加chromium的fedora源,将下载好的 .repo 文件移动到/etc/yum.repos.d/下， 执行
+sudo yum install chromium chrome的安装 从官网上下载chrome 的rpm包，或者从我的网盘下载对应的32位 或 64位 的rpm 包 执行
+sudo rpm -ivh google-chrome.rpm 安装证书 sudo yum localinstall --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-branched.noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-branched.noarch.rpm 压缩/解压软件 sudo yum install unrar sudo yum install p7zip 影音播放 sudo yum install gstreamer-plugins-good gstreamer-plugins-bad gstreamer-plugins-ugly libtunepimp-extras-freeworld xine-lib-extras-freeworld(安装音频解码器) sudo yum install ffmpeg ffmpeg-libs gstreamer-ffmpeg libmatroska xvidcore(安装视频解码器) 编辑器 vim</description></item></channel></rss>

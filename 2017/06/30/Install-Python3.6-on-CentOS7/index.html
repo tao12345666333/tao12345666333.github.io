@@ -1,314 +1,39 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Install-Python3.6-on-CentOS7 - MoeLove</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-1876963677156202",
-    enable_page_level_ads: true
-  });
-</script>
-
-
-<meta name="author" content="TaoBeier" />
-  <meta name="description" content="拖了很久没有更新，抱歉啦~ 今天受邀写篇如何在 CentOS 7 上配置 Python 3 环境的文章。往常我都选择直接把我早年写的一篇文章源码编译MongoDB丢过去，让他们看其中的源码编译 Python 那一节，不过那节写的其实不太详细，而且最近被很多人催，所以还是单独写一篇好了。
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>Install-Python3.6-on-CentOS7 - MoeLove</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><script async src=//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script><script>(adsbygoogle=window.adsbygoogle||[]).push({google_ad_client:"ca-pub-1876963677156202",enable_page_level_ads:true});</script><meta name=author content="TaoBeier"><meta name=description content="拖了很久没有更新，抱歉啦~ 今天受邀写篇如何在 CentOS 7 上配置 Python 3 环境的文章。往常我都选择直接把我早年写的一篇文章源码编译MongoDB丢过去，让他们看其中的源码编译 Python 那一节，不过那节写的其实不太详细，而且最近被很多人催，所以还是单独写一篇好了。
  当前最新的 CentOS 7.3 默认安装的是 Python 2 ，并且默认的官方 yum 源中不提供 Python 3 的安装包。有些用户想要升级使用 Python 3 但实际可能有各种各样的问题，导致出错，反观一下激进的 Fedora 社区，在23的时候，就将默认的版本修改成了 Python3 （如果我没记错的话）。
 先说下我所使用的系统环境， 一个新创建的 Docker 容器。 使用 cat /etc/redhat-release 可以看到运行的是 CentOS 7.3 版本。
 在纯净的 CentOS 系统上安装 Python 环境主要有两种办法。 一种是通过源码编译安装，另外一种就是安装已经打好的 RPM 包。依照个人习惯，我们先来看一下如何通过源码编译的方式安装 Python 3.6 并且配置虚拟环境。
 使用源码进行编译安装 基础环境  先安装安装几个必须的包，以方便后续的操作
-➜ yum install wget gcc make ➜ # wget 用于下载源码包 ➜ # gcc 和 make 用于编译    上 Python的官网 下载源码包" />
-
-  <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes, Golang, Python, Container, Vim, 容器, k8s" />
-
-
-<meta name="baidu-site-verification" content="jO2rMlnjJi" />
-<meta name="google-site-verification" content="googlefe3fc086c62f7210.html" />
-
-
-<meta name="generator" content="Hugo 0.55.6" />
-
-
-<link rel="canonical" href="https://moelove.info/2017/06/30/Install-Python3.6-on-CentOS7/" />
-
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-
-
-
-
-<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
-
-
-<meta property="og:title" content="Install-Python3.6-on-CentOS7" />
-<meta property="og:description" content="拖了很久没有更新，抱歉啦~ 今天受邀写篇如何在 CentOS 7 上配置 Python 3 环境的文章。往常我都选择直接把我早年写的一篇文章源码编译MongoDB丢过去，让他们看其中的源码编译 Python 那一节，不过那节写的其实不太详细，而且最近被很多人催，所以还是单独写一篇好了。
+➜ yum install wget gcc make ➜ # wget 用于下载源码包 ➜ # gcc 和 make 用于编译    上 Python的官网 下载源码包"><meta name=keywords content="MoeLove,Linux,Docker,Kubernetes,Golang,Python,Container,Vim,容器,k8s"><meta name=baidu-site-verification content="jO2rMlnjJi"><meta name=google-site-verification content="googlefe3fc086c62f7210.html"><meta name=generator content="Hugo 0.55.6"><link rel=canonical href=https://moelove.info/2017/06/30/Install-Python3.6-on-CentOS7/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href="/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><meta property="og:title" content="Install-Python3.6-on-CentOS7"><meta property="og:description" content="拖了很久没有更新，抱歉啦~ 今天受邀写篇如何在 CentOS 7 上配置 Python 3 环境的文章。往常我都选择直接把我早年写的一篇文章源码编译MongoDB丢过去，让他们看其中的源码编译 Python 那一节，不过那节写的其实不太详细，而且最近被很多人催，所以还是单独写一篇好了。
  当前最新的 CentOS 7.3 默认安装的是 Python 2 ，并且默认的官方 yum 源中不提供 Python 3 的安装包。有些用户想要升级使用 Python 3 但实际可能有各种各样的问题，导致出错，反观一下激进的 Fedora 社区，在23的时候，就将默认的版本修改成了 Python3 （如果我没记错的话）。
 先说下我所使用的系统环境， 一个新创建的 Docker 容器。 使用 cat /etc/redhat-release 可以看到运行的是 CentOS 7.3 版本。
 在纯净的 CentOS 系统上安装 Python 环境主要有两种办法。 一种是通过源码编译安装，另外一种就是安装已经打好的 RPM 包。依照个人习惯，我们先来看一下如何通过源码编译的方式安装 Python 3.6 并且配置虚拟环境。
 使用源码进行编译安装 基础环境  先安装安装几个必须的包，以方便后续的操作
-➜ yum install wget gcc make ➜ # wget 用于下载源码包 ➜ # gcc 和 make 用于编译    上 Python的官网 下载源码包" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://moelove.info/2017/06/30/Install-Python3.6-on-CentOS7/" />
-<meta property="article:published_time" content="2017-06-30T00:13:16&#43;00:00"/>
-<meta property="article:modified_time" content="2017-06-30T00:13:16&#43;00:00"/>
-
-<meta itemprop="name" content="Install-Python3.6-on-CentOS7">
-<meta itemprop="description" content="拖了很久没有更新，抱歉啦~ 今天受邀写篇如何在 CentOS 7 上配置 Python 3 环境的文章。往常我都选择直接把我早年写的一篇文章源码编译MongoDB丢过去，让他们看其中的源码编译 Python 那一节，不过那节写的其实不太详细，而且最近被很多人催，所以还是单独写一篇好了。
+➜ yum install wget gcc make ➜ # wget 用于下载源码包 ➜ # gcc 和 make 用于编译    上 Python的官网 下载源码包"><meta property="og:type" content="article"><meta property="og:url" content="https://moelove.info/2017/06/30/Install-Python3.6-on-CentOS7/"><meta property="article:published_time" content="2017-06-30T00:13:16&#43;00:00"><meta property="article:modified_time" content="2017-06-30T00:13:16&#43;00:00"><meta itemprop=name content="Install-Python3.6-on-CentOS7"><meta itemprop=description content="拖了很久没有更新，抱歉啦~ 今天受邀写篇如何在 CentOS 7 上配置 Python 3 环境的文章。往常我都选择直接把我早年写的一篇文章源码编译MongoDB丢过去，让他们看其中的源码编译 Python 那一节，不过那节写的其实不太详细，而且最近被很多人催，所以还是单独写一篇好了。
  当前最新的 CentOS 7.3 默认安装的是 Python 2 ，并且默认的官方 yum 源中不提供 Python 3 的安装包。有些用户想要升级使用 Python 3 但实际可能有各种各样的问题，导致出错，反观一下激进的 Fedora 社区，在23的时候，就将默认的版本修改成了 Python3 （如果我没记错的话）。
 先说下我所使用的系统环境， 一个新创建的 Docker 容器。 使用 cat /etc/redhat-release 可以看到运行的是 CentOS 7.3 版本。
 在纯净的 CentOS 系统上安装 Python 环境主要有两种办法。 一种是通过源码编译安装，另外一种就是安装已经打好的 RPM 包。依照个人习惯，我们先来看一下如何通过源码编译的方式安装 Python 3.6 并且配置虚拟环境。
 使用源码进行编译安装 基础环境  先安装安装几个必须的包，以方便后续的操作
-➜ yum install wget gcc make ➜ # wget 用于下载源码包 ➜ # gcc 和 make 用于编译    上 Python的官网 下载源码包">
-
-
-<meta itemprop="datePublished" content="2017-06-30T00:13:16&#43;00:00" />
-<meta itemprop="dateModified" content="2017-06-30T00:13:16&#43;00:00" />
-<meta itemprop="wordCount" content="377">
-
-
-
-<meta itemprop="keywords" content="Python,Linux," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Install-Python3.6-on-CentOS7"/>
-<meta name="twitter:description" content="拖了很久没有更新，抱歉啦~ 今天受邀写篇如何在 CentOS 7 上配置 Python 3 环境的文章。往常我都选择直接把我早年写的一篇文章源码编译MongoDB丢过去，让他们看其中的源码编译 Python 那一节，不过那节写的其实不太详细，而且最近被很多人催，所以还是单独写一篇好了。
+➜ yum install wget gcc make ➜ # wget 用于下载源码包 ➜ # gcc 和 make 用于编译    上 Python的官网 下载源码包"><meta itemprop=datePublished content="2017-06-30T00:13:16&#43;00:00"><meta itemprop=dateModified content="2017-06-30T00:13:16&#43;00:00"><meta itemprop=wordCount content="377"><meta itemprop=keywords content="Python,Linux,"><meta name=twitter:card content="summary"><meta name=twitter:title content="Install-Python3.6-on-CentOS7"><meta name=twitter:description content="拖了很久没有更新，抱歉啦~ 今天受邀写篇如何在 CentOS 7 上配置 Python 3 环境的文章。往常我都选择直接把我早年写的一篇文章源码编译MongoDB丢过去，让他们看其中的源码编译 Python 那一节，不过那节写的其实不太详细，而且最近被很多人催，所以还是单独写一篇好了。
  当前最新的 CentOS 7.3 默认安装的是 Python 2 ，并且默认的官方 yum 源中不提供 Python 3 的安装包。有些用户想要升级使用 Python 3 但实际可能有各种各样的问题，导致出错，反观一下激进的 Fedora 社区，在23的时候，就将默认的版本修改成了 Python3 （如果我没记错的话）。
 先说下我所使用的系统环境， 一个新创建的 Docker 容器。 使用 cat /etc/redhat-release 可以看到运行的是 CentOS 7.3 版本。
 在纯净的 CentOS 系统上安装 Python 环境主要有两种办法。 一种是通过源码编译安装，另外一种就是安装已经打好的 RPM 包。依照个人习惯，我们先来看一下如何通过源码编译的方式安装 Python 3.6 并且配置虚拟环境。
 使用源码进行编译安装 基础环境  先安装安装几个必须的包，以方便后续的操作
-➜ yum install wget gcc make ➜ # wget 用于下载源码包 ➜ # gcc 和 make 用于编译    上 Python的官网 下载源码包"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-</head>
-<body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">MoeLove</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/about/">
-        <li class="mobile-menu-item">About</li>
-      </a><a href="/friends/">
-        <li class="mobile-menu-item">Friends</li>
-      </a><a href="/projects/">
-        <li class="mobile-menu-item">Projects</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">MoeLove</a>
-</div>
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/about/">About</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/friends/">Friends</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/projects/">Projects</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li>
-  </ul>
-</nav>
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">Install-Python3.6-on-CentOS7</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2017-06-30 </span>
-        <div class="post-category">
-            
-              <a href="/categories/python/"> Python </a>
-            
-          </div>
-        
-        
-      </div>
-    </header>
-
-    
-    
-<div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
-  
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-<ul>
-<li><a href="#使用源码进行编译安装">使用源码进行编译安装</a>
-<ul>
-<li><a href="#基础环境">基础环境</a></li>
-</ul></li>
-<li><a href="#使用-rpm-包进行安装">使用 rpm 包进行安装</a></li>
-<li><a href="#环境配置">环境配置</a></li>
-<li><a href="#总结">总结</a></li>
-</ul>
-</nav>
-  </div>
-</div>
-
-    
-    
-
-    
-    <div class="post-content">
-      
-
-<blockquote>
-<p>拖了很久没有更新，抱歉啦~ 今天受邀写篇如何在 CentOS 7 上配置 Python 3 环境的文章。往常我都选择直接把我早年写的一篇文章<a href="http://moelove.info/2015/09/13/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91MongoDB/">源码编译MongoDB</a>丢过去，让他们看其中的源码编译 Python 那一节，不过那节写的其实不太详细，而且最近被很多人催，所以还是单独写一篇好了。</p>
-</blockquote>
-
-<p>当前最新的 CentOS 7.3 默认安装的是 Python 2 ，并且默认的官方 <code>yum</code> 源中不提供 Python 3 的安装包。有些用户想要升级使用 Python 3 但实际可能有各种各样的问题，导致出错，反观一下激进的 Fedora 社区，在23的时候，就将默认的版本修改成了 Python3 （如果我没记错的话）。</p>
-
-<p>先说下我所使用的系统环境， 一个新创建的 Docker 容器。 使用 <code>cat /etc/redhat-release</code>  可以看到运行的是 CentOS 7.3 版本。</p>
-
-<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/systemInfo.png" alt="systeminfo" /></p>
-
-<p>在纯净的 CentOS 系统上安装 Python 环境主要有两种办法。 一种是通过源码编译安装，另外一种就是安装已经打好的 RPM 包。依照个人习惯，我们先来看一下如何通过源码编译的方式安装 Python 3.6 并且配置虚拟环境。</p>
-
-<h1 id="使用源码进行编译安装">使用源码进行编译安装</h1>
-
-<h2 id="基础环境">基础环境</h2>
-
-<ul>
-<li><p>先安装安装几个必须的包，以方便后续的操作</p>
-
-<pre><code>➜  yum install wget gcc make
+➜ yum install wget gcc make ➜ # wget 用于下载源码包 ➜ # gcc 和 make 用于编译    上 Python的官网 下载源码包"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>MoeLove</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/about/><li class=mobile-menu-item>About</li></a><a href=/friends/><li class=mobile-menu-item>Friends</li></a><a href=/projects/><li class=mobile-menu-item>Projects</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>MoeLove</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/about/>About</a></li><li class=menu-item><a class=menu-item-link href=/friends/>Friends</a></li><li class=menu-item><a class=menu-item-link href=/projects/>Projects</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>Install-Python3.6-on-CentOS7</h1><div class=post-meta><span class=post-time>2017-06-30</span><div class=post-category><a href=/categories/python/>Python</a></div></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#使用源码进行编译安装>使用源码进行编译安装</a><ul><li><a href=#基础环境>基础环境</a></li></ul></li><li><a href=#使用-rpm-包进行安装>使用 rpm 包进行安装</a></li><li><a href=#环境配置>环境配置</a></li><li><a href=#总结>总结</a></li></ul></nav></div></div><div class=post-content><blockquote><p>拖了很久没有更新，抱歉啦~ 今天受邀写篇如何在 CentOS 7 上配置 Python 3 环境的文章。往常我都选择直接把我早年写的一篇文章<a href=http://moelove.info/2015/09/13/%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91MongoDB/>源码编译MongoDB</a>丢过去，让他们看其中的源码编译 Python 那一节，不过那节写的其实不太详细，而且最近被很多人催，所以还是单独写一篇好了。</p></blockquote><p>当前最新的 CentOS 7.3 默认安装的是 Python 2 ，并且默认的官方 <code>yum</code> 源中不提供 Python 3 的安装包。有些用户想要升级使用 Python 3 但实际可能有各种各样的问题，导致出错，反观一下激进的 Fedora 社区，在23的时候，就将默认的版本修改成了 Python3 （如果我没记错的话）。</p><p>先说下我所使用的系统环境， 一个新创建的 Docker 容器。 使用 <code>cat /etc/redhat-release</code> 可以看到运行的是 CentOS 7.3 版本。</p><p><img src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/systemInfo.png alt=systeminfo></p><p>在纯净的 CentOS 系统上安装 Python 环境主要有两种办法。 一种是通过源码编译安装，另外一种就是安装已经打好的 RPM 包。依照个人习惯，我们先来看一下如何通过源码编译的方式安装 Python 3.6 并且配置虚拟环境。</p><h1 id=使用源码进行编译安装>使用源码进行编译安装</h1><h2 id=基础环境>基础环境</h2><ul><li><p>先安装安装几个必须的包，以方便后续的操作</p><pre><code>➜  yum install wget gcc make
 ➜  # wget 用于下载源码包
 ➜  # gcc 和 make 用于编译
-</code></pre></li>
-</ul>
-
-<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/install_gcc_wget.png" alt="install_gcc_wget" /></p>
-
-<ul>
-<li><p>上 <a href="https://www.python.org/">Python的官网</a> 下载源码包</p>
-
-<pre><code>➜  wget https://www.python.org/ftp/python/3.6.1/Python-3.6.1.tar.xz
-</code></pre></li>
-
-<li><p>解包，解压缩</p>
-
-<pre><code>➜  xz -d Python-3.6.1.tar.xz
+</code></pre></li></ul><p><img src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/install_gcc_wget.png alt=install_gcc_wget></p><ul><li><p>上 <a href=https://www.python.org/>Python的官网</a> 下载源码包</p><pre><code>➜  wget https://www.python.org/ftp/python/3.6.1/Python-3.6.1.tar.xz
+</code></pre></li><li><p>解包，解压缩</p><pre><code>➜  xz -d Python-3.6.1.tar.xz
 ➜  tar -xvf Python-3.6.1.tar
-</code></pre></li>
-</ul>
-
-<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/decompress_archives.png" alt="decompress_archives" /></p>
-
-<ul>
-<li><p>编译</p>
-
-<pre><code>➜  cd Python-3.6.1
+</code></pre></li></ul><p><img src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/decompress_archives.png alt=decompress_archives></p><ul><li><p>编译</p><pre><code>➜  cd Python-3.6.1
 ➜  ./configure --prefix=/usr/local/python3.6 --enable-optimizations
 ➜  
-</code></pre></li>
-</ul>
-
-<p>先解释下上面的参数，<code>--prefix</code> 是预期安装目录，<code>--enable-optimizations</code> 是优化选项（LTO，PGO 等）加上这个 flag 编译后，性能有 10% 左右的优化（如果没记错的话），但是这会明显的增加编译时间。不过关于 LTO 和 PGO 其实不在今天文章的讨论范围内，建议感兴趣的可以看看 <a href="https://gcc.gnu.org/onlinedocs/gccint/LTO-Overview.html">GCC 中 LTO 的具体实现</a>。我应该不太可能去写相关的文章 哈哈哈 毕竟写起来就会停不下来。</p>
-
-<p>接下来</p>
-
-<pre><code>➜  make
+</code></pre></li></ul><p>先解释下上面的参数，<code>--prefix</code> 是预期安装目录，<code>--enable-optimizations</code> 是优化选项（LTO，PGO 等）加上这个 flag 编译后，性能有 10% 左右的优化（如果没记错的话），但是这会明显的增加编译时间。不过关于 LTO 和 PGO 其实不在今天文章的讨论范围内，建议感兴趣的可以看看 <a href=https://gcc.gnu.org/onlinedocs/gccint/LTO-Overview.html>GCC 中 LTO 的具体实现</a>。我应该不太可能去写相关的文章 哈哈哈 毕竟写起来就会停不下来。</p><p>接下来</p><pre><code>➜  make
 ➜  make install
-</code></pre>
-
-<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/make_error.png" alt="make_error" /></p>
-
-<p>如图，会看到出错了，提示 <code>zlib not available</code> 所以，我们需要装一下依赖</p>
-
-<pre><code>➜  yum install zlib-devel
-</code></pre>
-
-<p>那为什么需要这个依赖包呢， 其实是因为 Python 有个很重要的内建模块 <code>zipimport</code> 用于从 Zip 压缩包中导入模块。 而如果没有 zlib 的包，那么就无法进行解压缩了，也自然该模块就不能使用了。</p>
-
-<p>当我们的依赖安装好之后，重新执行上面的编译安装的步骤，发现执行成功。</p>
-
-<pre><code>➜  /usr/local/python3.6/bin/python3 --version
+</code></pre><p><img src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/make_error.png alt=make_error></p><p>如图，会看到出错了，提示 <code>zlib not available</code> 所以，我们需要装一下依赖</p><pre><code>➜  yum install zlib-devel
+</code></pre><p>那为什么需要这个依赖包呢， 其实是因为 Python 有个很重要的内建模块 <code>zipimport</code> 用于从 Zip 压缩包中导入模块。 而如果没有 zlib 的包，那么就无法进行解压缩了，也自然该模块就不能使用了。</p><p>当我们的依赖安装好之后，重新执行上面的编译安装的步骤，发现执行成功。</p><pre><code>➜  /usr/local/python3.6/bin/python3 --version
 Python 3.6.1
-</code></pre>
-
-<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/install_success.png" alt="install_success" /></p>
-
-<p>此刻，我们的 Python 3 也就安装成功了。</p>
-
-<ul>
-<li>检查</li>
-</ul>
-
-<p>编译安装完还远远不够，我们来做些检查。</p>
-
-<p>当我们运行 Python 终端，输入 <code>import bz2</code> 的时候，会发现没有这个模块。如果你对这个模块不熟悉，那也没关系。我们输入 <code>import sqlite3</code>熟悉 Python 的同学应该对 sqlite3 不会太陌生，但如果你还是不熟悉的话，那你按方向键试试看。有没有发现，输出变成了<code>^[[D^[[A</code> 类似这样的内容？</p>
-
-<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/arrow_keys_problem.png" alt="arrow_keys_problem" /></p>
-
-<p>熟悉 Python 源码的同学，肯定知道我要说什么了。但是假如你不熟悉，没关系，我来告诉你。正常来讲，在终端下我们预期当输入上方向键，会显示上一条命令，输入左方向键，可以将光标移动到左侧。但现实和我们的预期不同，什么原因？</p>
-
-<p>这里涉及到了一点点关于输入设备的历史原因，简单来说就是需要有个模块来对用户的输入进行转义。回到本文的重点，就是我们编译安装的时候缺少了 <code>readline</code> 这个模块。既然已经发现了问题，那解决的办法其实很简单</p>
-
-<pre><code>➜  yum install readline-devel
-</code></pre>
-
-<p>安装完成后，重复上面的步骤，编译&amp;&amp;安装即可。</p>
-
-<ul>
-<li>再检查</li>
-</ul>
-
-<p>前面只是解决了方向键输入的问题，但是我提到的那两个模块还是 import 不进来，那我们仔细的看看我们的编译过程的输出。其中有这样的一段（依据系统环境的不同，输出可能也是不一致的）</p>
-
-<pre><code>Python build finished successfully!
+</code></pre><p><img src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/install_success.png alt=install_success></p><p>此刻，我们的 Python 3 也就安装成功了。</p><ul><li>检查</li></ul><p>编译安装完还远远不够，我们来做些检查。</p><p>当我们运行 Python 终端，输入 <code>import bz2</code> 的时候，会发现没有这个模块。如果你对这个模块不熟悉，那也没关系。我们输入 <code>import sqlite3</code>熟悉 Python 的同学应该对 sqlite3 不会太陌生，但如果你还是不熟悉的话，那你按方向键试试看。有没有发现，输出变成了<code>^[[D^[[A</code> 类似这样的内容？</p><p><img src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/arrow_keys_problem.png alt=arrow_keys_problem></p><p>熟悉 Python 源码的同学，肯定知道我要说什么了。但是假如你不熟悉，没关系，我来告诉你。正常来讲，在终端下我们预期当输入上方向键，会显示上一条命令，输入左方向键，可以将光标移动到左侧。但现实和我们的预期不同，什么原因？</p><p>这里涉及到了一点点关于输入设备的历史原因，简单来说就是需要有个模块来对用户的输入进行转义。回到本文的重点，就是我们编译安装的时候缺少了 <code>readline</code> 这个模块。既然已经发现了问题，那解决的办法其实很简单</p><pre><code>➜  yum install readline-devel
+</code></pre><p>安装完成后，重复上面的步骤，编译&amp;&amp;安装即可。</p><ul><li>再检查</li></ul><p>前面只是解决了方向键输入的问题，但是我提到的那两个模块还是 import 不进来，那我们仔细的看看我们的编译过程的输出。其中有这样的一段（依据系统环境的不同，输出可能也是不一致的）</p><pre><code>Python build finished successfully!
 The necessary bits to build these optional modules were not found:
 
 _curses               bz2                   _dbm
@@ -316,13 +41,7 @@ _gdbm                 _lzma                 _sqlite3
 _tkinter              readline
 
 To find the necessary bits, look in setup.py in detect_modules() for the module's name.
-</code></pre>
-
-<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/some_optional_modules_were_not_found.png" alt="some_optional_modules_were_not_found" /></p>
-
-<p>按照上面的提示，很明显，我们缺少了一些（可选的）模块，这些模块假如你觉得自己不会用到，那也可以不理会它。这些模块，我用到的会多一些，甚至是那个一般人都不会碰的 TK 模块 哈哈哈。解决方式就只是装一下对应的模块即可。</p>
-
-<pre><code>➜  # 解决 import bz2 报错
+</code></pre><p><img src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/some_optional_modules_were_not_found.png alt=some_optional_modules_were_not_found></p><p>按照上面的提示，很明显，我们缺少了一些（可选的）模块，这些模块假如你觉得自己不会用到，那也可以不理会它。这些模块，我用到的会多一些，甚至是那个一般人都不会碰的 TK 模块 哈哈哈。解决方式就只是装一下对应的模块即可。</p><pre><code>➜  # 解决 import bz2 报错
 ➜  yum install  bzip2-devel
 
 ➜  # 解决 import curses 报错
@@ -342,209 +61,33 @@ To find the necessary bits, look in setup.py in detect_modules() for the module'
 
 ➜  # 解决 readline 缺失提醒及方向键行为非预期的问题
 ➜  yum install readline-devel
-</code></pre>
-
-<p>当这些模块都装完，重新编译会发现提醒已经消失，安装即可。</p>
-
-<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/all_modules_were_found.png" alt="all_modules_were_found" /></p>
-
-<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/import_successful.png" alt="import_successful" /></p>
-
-<h1 id="使用-rpm-包进行安装">使用 rpm 包进行安装</h1>
-
-<p>先来介绍一下 <a href="https://ius.io/">IUS</a> 这个社区，名字的全写是【Inline with Upstream Stable】取首字母，它主要是一个提供新版本RPM包的社区。具体使用可以查看<a href="https://ius.io/GettingStarted/#install-via-automation">官方文档</a> 简单说来就只要按下面的命令操作即可。</p>
-
-<pre><code>➜  yum -y install https://centos7.iuscommunity.org/ius-release.rpm
-</code></pre>
-
-<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/yum_install_ius.png" alt="yum_install_ius" /></p>
-
-<p>添加 IUS 之后，先创建缓存元数据，再进行安装即可</p>
-
-<pre><code>➜  yum makecache
+</code></pre><p>当这些模块都装完，重新编译会发现提醒已经消失，安装即可。</p><p><img src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/all_modules_were_found.png alt=all_modules_were_found></p><p><img src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/import_successful.png alt=import_successful></p><h1 id=使用-rpm-包进行安装>使用 rpm 包进行安装</h1><p>先来介绍一下 <a href=https://ius.io/>IUS</a> 这个社区，名字的全写是【Inline with Upstream Stable】取首字母，它主要是一个提供新版本RPM包的社区。具体使用可以查看<a href=https://ius.io/GettingStarted/#install-via-automation>官方文档</a> 简单说来就只要按下面的命令操作即可。</p><pre><code>➜  yum -y install https://centos7.iuscommunity.org/ius-release.rpm
+</code></pre><p><img src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/yum_install_ius.png alt=yum_install_ius></p><p>添加 IUS 之后，先创建缓存元数据，再进行安装即可</p><pre><code>➜  yum makecache
 ➜  yum install python36u
 ➜  yum -y install python36u-pip
 ➜  yum -y install python36u-devel
-</code></pre>
-
-<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/yum_install_python36u.png" alt="yum_install_python36u" /></p>
-
-<p>完成后直接终端输入 <code>python3</code> 即可。</p>
-
-<h1 id="环境配置">环境配置</h1>
-
-<p>上面只是写了 Python 的安装，如果是使用 RPM 的方式安装的话，那直接是可用的。但如果是源码编译的，总不至于每次都输入一大串路径吧。所以解决方法很简单，加个链接即可。</p>
-
-<pre><code>➜  ln -s /usr/local/python3.6/bin/python3 /usr/bin/python3
-</code></pre>
-
-<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/ln.png" alt="ln" /></p>
-
-<p>另外，当系统中存在多个 Python 版本的时候，尽量去避免环境污染。我个人比较推荐使用 <code>virtualenv</code> 创建独立的虚拟环境，我日常中也是这样用的。不过，当我们安装完 Python 3.6 后，可以直接执行下面的命令进行虚拟环境的创建。</p>
-
-<pre><code>➜  python3 -m venv py3
+</code></pre><p><img src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/yum_install_python36u.png alt=yum_install_python36u></p><p>完成后直接终端输入 <code>python3</code> 即可。</p><h1 id=环境配置>环境配置</h1><p>上面只是写了 Python 的安装，如果是使用 RPM 的方式安装的话，那直接是可用的。但如果是源码编译的，总不至于每次都输入一大串路径吧。所以解决方法很简单，加个链接即可。</p><pre><code>➜  ln -s /usr/local/python3.6/bin/python3 /usr/bin/python3
+</code></pre><p><img src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/ln.png alt=ln></p><p>另外，当系统中存在多个 Python 版本的时候，尽量去避免环境污染。我个人比较推荐使用 <code>virtualenv</code> 创建独立的虚拟环境，我日常中也是这样用的。不过，当我们安装完 Python 3.6 后，可以直接执行下面的命令进行虚拟环境的创建。</p><pre><code>➜  python3 -m venv py3
 ➜  source py3/bin/activate
 (py3) ➜  python -V
 Python 3.6.1
-</code></pre>
-
-<h1 id="总结">总结</h1>
-
-<p>CentOS 7 上安装Python 3.6 主要有两种方式，源码编译和安装 RPM 包。</p>
-
-<p>对于想快速使用源码配置环境但并不想关心具体原因的读者，可以直接使用我GitHub上提供的这个脚本进行安装 <a href="https://raw.githubusercontent.com/tao12345666333/dotfiles/master/env/install_Python36_on_CentOS7.sh">https://raw.githubusercontent.com/tao12345666333/dotfiles/master/env/install_Python36_on_CentOS7.sh</a></p>
-
-<p>另外Python 3.6 可直接使用 <code>python3 -m venv venv_name</code> 创建虚拟环境。</p>
-
-<hr />
-
-<p>可以通过下面二维码订阅我的文章公众号【MoeLove】</p>
-
-<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/my_qrcode.jpg" alt="TheMoeLove" /></p>
-
-    </div>
-
-    
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">TaoBeier</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">2017-06-30</span>
-  </p>
-  
-  <p class="copyright-item">
-    <span class="item-title">许可协议</span>
-    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a></span>
-  </p>
-</div>
-
-    
-    
-<div class="post-reward">
-  <input type="checkbox" name="reward" id="reward" hidden />
-  <label class="reward-button" for="reward">赞赏支持</label>
-  <div class="qr-code">
-    
-    
-      <label class="qr-code-image" for="reward">
-        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/wx_pay.jpg">
-        <span>微信打赏</span>
-      </label>
-    
-      <label class="qr-code-image" for="reward">
-        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/alipay.jpg">
-        <span>支付宝打赏</span>
-      </label>
-  </div>
-</div>
-
-    <footer class="post-footer">
-      <div class="post-tags">
-          
-          <a href="/tags/python/">Python</a>
-          
-          <a href="/tags/linux/">Linux</a>
-          
-        </div>
-
-      
-      <nav class="post-nav">
-        
-          <a class="prev" href="/2018/08/05/%E5%9F%BA%E4%BA%8E-GitLab-%E7%9A%84-CI-%E5%AE%9E%E8%B7%B5/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">基于 GitLab 的 CI 实践</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
-        
-          <a class="next" href="/2017/03/05/%E7%90%86%E8%A7%A3-Redis-%E7%9A%84-RESP-%E5%8D%8F%E8%AE%AE/">
-            <span class="next-text nav-default">理解 Redis 的 RESP 协议</span>
-            <span class="next-text nav-mobile">下一篇</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-  
-
-  <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
-    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
-  <script type="text/javascript">
-  var gitalk = new Gitalk({
-    id: '2017-06-30 00:13:16 \x2b0000 UTC',
-    title: 'Install-Python3.6-on-CentOS7',
-    clientID: '68312db64e870efbd0a0',
-    clientSecret: 'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',
-    repo: 'tao12345666333.github.io',
-    owner: 'tao12345666333',
-    admin: ['tao12345666333'],
-    body: decodeURI(location.href)
-  });
-  gitalk.render('gitalk-container');
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
-
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:zhangjintao9020@gmail.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://twitter.com/BeierTao" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="https://github.com/tao12345666333" class="iconfont icon-github" title="github"></a>
-      <a href="http://weibo.com/9020taobeier" class="iconfont icon-weibo" title="weibo"></a>
-      <a href="https://www.zhihu.com/people/TaoBeier" class="iconfont icon-zhihu" title="zhihu"></a>
-  <a href="https://moelove.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主题 - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    
-      2013 - 
-    2020
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">TaoBeier</span>
-  </span>
-</div>
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div>
-  
-<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
-
-
-<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
-
-
-
-
-
-
-
-
-</body>
-</html>
+</code></pre><h1 id=总结>总结</h1><p>CentOS 7 上安装Python 3.6 主要有两种方式，源码编译和安装 RPM 包。</p><p>对于想快速使用源码配置环境但并不想关心具体原因的读者，可以直接使用我GitHub上提供的这个脚本进行安装 <a href=https://raw.githubusercontent.com/tao12345666333/dotfiles/master/env/install_Python36_on_CentOS7.sh>https://raw.githubusercontent.com/tao12345666333/dotfiles/master/env/install_Python36_on_CentOS7.sh</a></p><p>另外Python 3.6 可直接使用 <code>python3 -m venv venv_name</code> 创建虚拟环境。</p><hr><p>可以通过下面二维码订阅我的文章公众号【MoeLove】</p><p><img src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/my_qrcode.jpg alt=TheMoeLove></p></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>TaoBeier</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2017-06-30</span></p><p class=copyright-item><span class=item-title>许可协议</span>
+<span class=item-content><a rel="license noopener" href=https://creativecommons.org/licenses/by-sa/4.0/ target=_blank>CC BY-SA 4.0</a></span></p></div><div class=post-reward><input type=checkbox name=reward id=reward hidden>
+<label class=reward-button for=reward>赞赏支持</label><div class=qr-code><label class=qr-code-image for=reward><img class=image src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/wx_pay.jpg>
+<span>微信打赏</span></label>
+<label class=qr-code-image for=reward><img class=image src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/alipay.jpg>
+<span>支付宝打赏</span></label></div></div><footer class=post-footer><div class=post-tags><a href=/tags/python/>Python</a>
+<a href=/tags/linux/>Linux</a></div><nav class=post-nav><a class=prev href=/2018/08/05/%E5%9F%BA%E4%BA%8E-GitLab-%E7%9A%84-CI-%E5%AE%9E%E8%B7%B5/><i class="iconfont icon-left"></i><span class="prev-text nav-default">基于 GitLab 的 CI 实践</span>
+<span class="prev-text nav-mobile">上一篇</span></a>
+<a class=next href=/2017/03/05/%E7%90%86%E8%A7%A3-Redis-%E7%9A%84-RESP-%E5%8D%8F%E8%AE%AE/><span class="next-text nav-default">理解 Redis 的 RESP 协议</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div><div id=gitalk-container></div><link rel=stylesheet href=/lib/gitalk/gitalk-1.2.2.min.css><script src=/lib/gitalk/gitalk-1.2.2.min.js></script><script type=text/javascript>var gitalk=new Gitalk({id:'2017-06-30 00:13:16 \x2b0000 UTC',title:'Install-Python3.6-on-CentOS7',clientID:'68312db64e870efbd0a0',clientSecret:'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',repo:'tao12345666333.github.io',owner:'tao12345666333',admin:['tao12345666333'],body:decodeURI(location.href)});gitalk.render('gitalk-container');</script><noscript>Please enable JavaScript to view the <a href=https://github.com/gitalk/gitalk>comments powered by gitalk.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:zhangjintao9020@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/BeierTao class="iconfont icon-twitter" title=twitter></a><a href=https://github.com/tao12345666333 class="iconfont icon-github" title=github></a><a href=http://weibo.com/9020taobeier class="iconfont icon-weibo" title=weibo></a><a href=https://www.zhihu.com/people/TaoBeier class="iconfont icon-zhihu" title=zhihu></a><a href=https://moelove.info/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动</span>
+<span class=division>|</span>
+<span class=theme-info>主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span>
+<span class=copyright-year>&copy;
+2013 -
+2020
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>TaoBeier</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src="/dist/even.min.js?v=3.2.0"></script></body></html>

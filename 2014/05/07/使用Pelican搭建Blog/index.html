@@ -1,272 +1,37 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>使用Pelican搭建Blog - MoeLove</title>
-  <meta name="renderer" content="webkit" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-<meta name="theme-color" content="#f8f5ec" />
-<meta name="msapplication-navbutton-color" content="#f8f5ec">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
-
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-1876963677156202",
-    enable_page_level_ads: true
-  });
-</script>
-
-
-<meta name="author" content="TaoBeier" />
-  <meta name="description" content="安装配置Pelican 使用环境：  系统 : Linux X86_64 Pelican : 3.3.0  首先说一下安装： 网上有不少建议说使用虚拟环境 virtualenv，以免污染本地的环境。不过，如果不是去更改Python的全局设置的话，也不至于影响本地环境的。我是直接安装的。根据 Pelican 官方的文档，我是使用 pip 安装的，不过pip又是依赖于distribute 安装的。所以，我使用的命令如下：
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>使用Pelican搭建Blog - MoeLove</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><script async src=//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script><script>(adsbygoogle=window.adsbygoogle||[]).push({google_ad_client:"ca-pub-1876963677156202",enable_page_level_ads:true});</script><meta name=author content="TaoBeier"><meta name=description content="安装配置Pelican 使用环境：  系统 : Linux X86_64 Pelican : 3.3.0  首先说一下安装： 网上有不少建议说使用虚拟环境 virtualenv，以免污染本地的环境。不过，如果不是去更改Python的全局设置的话，也不至于影响本地环境的。我是直接安装的。根据 Pelican 官方的文档，我是使用 pip 安装的，不过pip又是依赖于distribute 安装的。所以，我使用的命令如下：
  curl -O http://python-distribute.org/distribute_setup.py sudo python distribute_setup.py curl -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py sudo python get-pip.py sudo pip install pelican  还有，如果要用 Markdown来写文章，也需要执行如下命令：
  pip install markdown  新建一个目录，用来存放你的博客文件（我直接建立了&amp;rdquo;blog&amp;rdquo;文件夹）
  mkdir blog cd blog  新建博客： 使用如下命令：
  pelican-quickstart  按照提示一步步即可完成新建， 这些配置之后可以在pelicanconf.py这个文件中修改
- Where do you want to create your new web site?[.] (你想在哪里创建你的网站，默认为当前目录) What will be the title of this web site?" />
-
-  <meta name="keywords" content="MoeLove, Linux, Docker, Kubernetes, Golang, Python, Container, Vim, 容器, k8s" />
-
-
-<meta name="baidu-site-verification" content="jO2rMlnjJi" />
-<meta name="google-site-verification" content="googlefe3fc086c62f7210.html" />
-
-
-<meta name="generator" content="Hugo 0.55.6" />
-
-
-<link rel="canonical" href="https://moelove.info/2014/05/07/%E4%BD%BF%E7%94%A8Pelican%E6%90%AD%E5%BB%BABlog/" />
-
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-
-
-
-
-
-
-
-<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
-<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
-
-
-
-
-<meta property="og:title" content="使用Pelican搭建Blog" />
-<meta property="og:description" content="安装配置Pelican 使用环境：  系统 : Linux X86_64 Pelican : 3.3.0  首先说一下安装： 网上有不少建议说使用虚拟环境 virtualenv，以免污染本地的环境。不过，如果不是去更改Python的全局设置的话，也不至于影响本地环境的。我是直接安装的。根据 Pelican 官方的文档，我是使用 pip 安装的，不过pip又是依赖于distribute 安装的。所以，我使用的命令如下：
+ Where do you want to create your new web site?[.] (你想在哪里创建你的网站，默认为当前目录) What will be the title of this web site?"><meta name=keywords content="MoeLove,Linux,Docker,Kubernetes,Golang,Python,Container,Vim,容器,k8s"><meta name=baidu-site-verification content="jO2rMlnjJi"><meta name=google-site-verification content="googlefe3fc086c62f7210.html"><meta name=generator content="Hugo 0.55.6"><link rel=canonical href=https://moelove.info/2014/05/07/%E4%BD%BF%E7%94%A8Pelican%E6%90%AD%E5%BB%BABlog/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href="/dist/even.min.css?v=3.2.0" rel=stylesheet><link href=/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><meta property="og:title" content="使用Pelican搭建Blog"><meta property="og:description" content="安装配置Pelican 使用环境：  系统 : Linux X86_64 Pelican : 3.3.0  首先说一下安装： 网上有不少建议说使用虚拟环境 virtualenv，以免污染本地的环境。不过，如果不是去更改Python的全局设置的话，也不至于影响本地环境的。我是直接安装的。根据 Pelican 官方的文档，我是使用 pip 安装的，不过pip又是依赖于distribute 安装的。所以，我使用的命令如下：
  curl -O http://python-distribute.org/distribute_setup.py sudo python distribute_setup.py curl -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py sudo python get-pip.py sudo pip install pelican  还有，如果要用 Markdown来写文章，也需要执行如下命令：
  pip install markdown  新建一个目录，用来存放你的博客文件（我直接建立了&rdquo;blog&rdquo;文件夹）
  mkdir blog cd blog  新建博客： 使用如下命令：
  pelican-quickstart  按照提示一步步即可完成新建， 这些配置之后可以在pelicanconf.py这个文件中修改
- Where do you want to create your new web site?[.] (你想在哪里创建你的网站，默认为当前目录) What will be the title of this web site?" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://moelove.info/2014/05/07/%E4%BD%BF%E7%94%A8Pelican%E6%90%AD%E5%BB%BABlog/" />
-<meta property="article:published_time" content="2014-05-07T21:48:59&#43;00:00"/>
-<meta property="article:modified_time" content="2014-05-07T21:48:59&#43;00:00"/>
-
-<meta itemprop="name" content="使用Pelican搭建Blog">
-<meta itemprop="description" content="安装配置Pelican 使用环境：  系统 : Linux X86_64 Pelican : 3.3.0  首先说一下安装： 网上有不少建议说使用虚拟环境 virtualenv，以免污染本地的环境。不过，如果不是去更改Python的全局设置的话，也不至于影响本地环境的。我是直接安装的。根据 Pelican 官方的文档，我是使用 pip 安装的，不过pip又是依赖于distribute 安装的。所以，我使用的命令如下：
+ Where do you want to create your new web site?[.] (你想在哪里创建你的网站，默认为当前目录) What will be the title of this web site?"><meta property="og:type" content="article"><meta property="og:url" content="https://moelove.info/2014/05/07/%E4%BD%BF%E7%94%A8Pelican%E6%90%AD%E5%BB%BABlog/"><meta property="article:published_time" content="2014-05-07T21:48:59&#43;00:00"><meta property="article:modified_time" content="2014-05-07T21:48:59&#43;00:00"><meta itemprop=name content="使用Pelican搭建Blog"><meta itemprop=description content="安装配置Pelican 使用环境：  系统 : Linux X86_64 Pelican : 3.3.0  首先说一下安装： 网上有不少建议说使用虚拟环境 virtualenv，以免污染本地的环境。不过，如果不是去更改Python的全局设置的话，也不至于影响本地环境的。我是直接安装的。根据 Pelican 官方的文档，我是使用 pip 安装的，不过pip又是依赖于distribute 安装的。所以，我使用的命令如下：
  curl -O http://python-distribute.org/distribute_setup.py sudo python distribute_setup.py curl -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py sudo python get-pip.py sudo pip install pelican  还有，如果要用 Markdown来写文章，也需要执行如下命令：
  pip install markdown  新建一个目录，用来存放你的博客文件（我直接建立了&rdquo;blog&rdquo;文件夹）
  mkdir blog cd blog  新建博客： 使用如下命令：
  pelican-quickstart  按照提示一步步即可完成新建， 这些配置之后可以在pelicanconf.py这个文件中修改
- Where do you want to create your new web site?[.] (你想在哪里创建你的网站，默认为当前目录) What will be the title of this web site?">
-
-
-<meta itemprop="datePublished" content="2014-05-07T21:48:59&#43;00:00" />
-<meta itemprop="dateModified" content="2014-05-07T21:48:59&#43;00:00" />
-<meta itemprop="wordCount" content="402">
-
-
-
-<meta itemprop="keywords" content="Pelican,Blog,Web," />
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="使用Pelican搭建Blog"/>
-<meta name="twitter:description" content="安装配置Pelican 使用环境：  系统 : Linux X86_64 Pelican : 3.3.0  首先说一下安装： 网上有不少建议说使用虚拟环境 virtualenv，以免污染本地的环境。不过，如果不是去更改Python的全局设置的话，也不至于影响本地环境的。我是直接安装的。根据 Pelican 官方的文档，我是使用 pip 安装的，不过pip又是依赖于distribute 安装的。所以，我使用的命令如下：
+ Where do you want to create your new web site?[.] (你想在哪里创建你的网站，默认为当前目录) What will be the title of this web site?"><meta itemprop=datePublished content="2014-05-07T21:48:59&#43;00:00"><meta itemprop=dateModified content="2014-05-07T21:48:59&#43;00:00"><meta itemprop=wordCount content="402"><meta itemprop=keywords content="Pelican,Blog,Web,"><meta name=twitter:card content="summary"><meta name=twitter:title content="使用Pelican搭建Blog"><meta name=twitter:description content="安装配置Pelican 使用环境：  系统 : Linux X86_64 Pelican : 3.3.0  首先说一下安装： 网上有不少建议说使用虚拟环境 virtualenv，以免污染本地的环境。不过，如果不是去更改Python的全局设置的话，也不至于影响本地环境的。我是直接安装的。根据 Pelican 官方的文档，我是使用 pip 安装的，不过pip又是依赖于distribute 安装的。所以，我使用的命令如下：
  curl -O http://python-distribute.org/distribute_setup.py sudo python distribute_setup.py curl -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py sudo python get-pip.py sudo pip install pelican  还有，如果要用 Markdown来写文章，也需要执行如下命令：
  pip install markdown  新建一个目录，用来存放你的博客文件（我直接建立了&rdquo;blog&rdquo;文件夹）
  mkdir blog cd blog  新建博客： 使用如下命令：
  pelican-quickstart  按照提示一步步即可完成新建， 这些配置之后可以在pelicanconf.py这个文件中修改
- Where do you want to create your new web site?[.] (你想在哪里创建你的网站，默认为当前目录) What will be the title of this web site?"/>
-
-<!--[if lte IE 9]>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
-<![endif]-->
-
-<!--[if lt IE 9]>
-  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-<![endif]-->
-
-</head>
-<body>
-  <div id="mobile-navbar" class="mobile-navbar">
-  <div class="mobile-header-logo">
-    <a href="/" class="logo">MoeLove</a>
-  </div>
-  <div class="mobile-navbar-icon">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</div>
-<nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    <a href="/about/">
-        <li class="mobile-menu-item">About</li>
-      </a><a href="/friends/">
-        <li class="mobile-menu-item">Friends</li>
-      </a><a href="/projects/">
-        <li class="mobile-menu-item">Projects</li>
-      </a><a href="/post/">
-        <li class="mobile-menu-item">Archives</li>
-      </a><a href="/tags/">
-        <li class="mobile-menu-item">Tags</li>
-      </a>
-  </ul>
-</nav>
-  <div class="container" id="mobile-panel">
-    <header id="header" class="header">
-        <div class="logo-wrapper">
-  <a href="/" class="logo">MoeLove</a>
-</div>
-
-<nav class="site-navbar">
-  <ul id="menu" class="menu">
-    <li class="menu-item">
-        <a class="menu-item-link" href="/about/">About</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/friends/">Friends</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/projects/">Projects</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/post/">Archives</a>
-      </li><li class="menu-item">
-        <a class="menu-item-link" href="/tags/">Tags</a>
-      </li>
-  </ul>
-</nav>
-    </header>
-
-    <main id="main" class="main">
-      <div class="content-wrapper">
-        <div id="content" class="content">
-          <article class="post">
-    
-    <header class="post-header">
-      <h1 class="post-title">使用Pelican搭建Blog</h1>
-
-      <div class="post-meta">
-        <span class="post-time"> 2014-05-07 </span>
-        <div class="post-category">
-            
-              <a href="/categories/web/"> Web </a>
-            
-          </div>
-        
-        
-      </div>
-    </header>
-
-    
-    
-<div class="post-toc" id="post-toc">
-  <h2 class="post-toc-title">文章目录</h2>
-  
-  <div class="post-toc-content always-active">
-    <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#安装配置pelican">安装配置Pelican</a>
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#使用环境">使用环境：</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-<li><a href="#新建博客">新建博客：</a></li>
-<li><a href="#新建博文">新建博文：</a></li>
-<li><a href="#后续">后续</a>
-<ul>
-<li>
-<ul>
-<li><a href="#接下来说一下修改主题和使用插件的方法">接下来说一下修改主题和使用插件的方法</a></li>
-<li><a href="#为博客使用插件">为博客使用插件</a></li>
-<li><a href="#添加多说评论">添加多说评论</a></li>
-<li><a href="#添加其他功能">添加其他功能</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul>
-</nav>
-  </div>
-</div>
-
-    
-    
-
-    
-    <div class="post-content">
-      
-
-<h2 id="安装配置pelican">安装配置Pelican</h2>
-
-<hr />
-
-<h5 id="使用环境">使用环境：</h5>
-
-<pre><code>    系统  :  Linux X86_64
+ Where do you want to create your new web site?[.] (你想在哪里创建你的网站，默认为当前目录) What will be the title of this web site?"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>MoeLove</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/about/><li class=mobile-menu-item>About</li></a><a href=/friends/><li class=mobile-menu-item>Friends</li></a><a href=/projects/><li class=mobile-menu-item>Projects</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>MoeLove</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/about/>About</a></li><li class=menu-item><a class=menu-item-link href=/friends/>Friends</a></li><li class=menu-item><a class=menu-item-link href=/projects/>Projects</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>使用Pelican搭建Blog</h1><div class=post-meta><span class=post-time>2014-05-07</span><div class=post-category><a href=/categories/web/>Web</a></div></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#安装配置pelican>安装配置Pelican</a><ul><li><ul><li><ul><li><a href=#使用环境>使用环境：</a></li></ul></li></ul></li></ul></li><li><a href=#新建博客>新建博客：</a></li><li><a href=#新建博文>新建博文：</a></li><li><a href=#后续>后续</a><ul><li><ul><li><a href=#接下来说一下修改主题和使用插件的方法>接下来说一下修改主题和使用插件的方法</a></li><li><a href=#为博客使用插件>为博客使用插件</a></li><li><a href=#添加多说评论>添加多说评论</a></li><li><a href=#添加其他功能>添加其他功能</a></li></ul></li></ul></li></ul></li></ul></nav></div></div><div class=post-content><h2 id=安装配置pelican>安装配置Pelican</h2><hr><h5 id=使用环境>使用环境：</h5><pre><code>    系统  :  Linux X86_64
     Pelican : 3.3.0
-</code></pre>
-
-<p>首先说一下安装： 网上有不少建议说使用虚拟环境  <a href="https://virtualenv.pypa.io/en/latest/virtualenv.html">virtualenv</a>，以免污染本地的环境。不过，如果不是去更改<code>Python</code>的全局设置的话，也不至于影响本地环境的。我是直接安装的。根据 Pelican 官方的文档，我是使用 <code>pip</code> 安装的，不过<code>pip</code>又是依赖于<code>distribute</code> 安装的。所以，我使用的命令如下：</p>
-
-<pre><code>    curl -O http://python-distribute.org/distribute_setup.py
+</code></pre><p>首先说一下安装： 网上有不少建议说使用虚拟环境 <a href=https://virtualenv.pypa.io/en/latest/virtualenv.html>virtualenv</a>，以免污染本地的环境。不过，如果不是去更改<code>Python</code>的全局设置的话，也不至于影响本地环境的。我是直接安装的。根据 Pelican 官方的文档，我是使用 <code>pip</code> 安装的，不过<code>pip</code>又是依赖于<code>distribute</code> 安装的。所以，我使用的命令如下：</p><pre><code>    curl -O http://python-distribute.org/distribute_setup.py
     sudo python distribute_setup.py
 
     curl -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py
     sudo python get-pip.py
 
     sudo pip install pelican
-</code></pre>
-
-<p>还有，如果要用 <a href="http://zh.wikipedia.org/zh-cn/Markdown"><code>Markdown</code></a>来写文章，也需要执行如下命令：</p>
-
-<pre><code>    pip install markdown
-</code></pre>
-
-<p>新建一个目录，用来存放你的博客文件（我直接建立了&rdquo;blog&rdquo;文件夹）</p>
-
-<pre><code>    mkdir blog
+</code></pre><p>还有，如果要用 <a href=http://zh.wikipedia.org/zh-cn/Markdown><code>Markdown</code></a>来写文章，也需要执行如下命令：</p><pre><code>    pip install markdown
+</code></pre><p>新建一个目录，用来存放你的博客文件（我直接建立了&rdquo;blog&rdquo;文件夹）</p><pre><code>    mkdir blog
     cd blog
-</code></pre>
-
-<hr />
-
-<h2 id="新建博客">新建博客：</h2>
-
-<p>使用如下命令：</p>
-
-<pre><code>    pelican-quickstart
-</code></pre>
-
-<p>按照提示一步步即可完成新建， 这些配置之后可以在<code>pelicanconf.py</code>这个文件中修改</p>
-
-<pre><code>    Where do you want to create your new web site?[.]  (你想在哪里创建你的网站，默认为当前目录)
+</code></pre><hr><h2 id=新建博客>新建博客：</h2><p>使用如下命令：</p><pre><code>    pelican-quickstart
+</code></pre><p>按照提示一步步即可完成新建， 这些配置之后可以在<code>pelicanconf.py</code>这个文件中修改</p><pre><code>    Where do you want to create your new web site?[.]  (你想在哪里创建你的网站，默认为当前目录)
     What will be the title of this web site?(网站的标题是什么)
     Who will be the author of this web site?(网站的作者是谁)
     What will be the default language of this web site? [en]   (网站的默认语言是),这里我们写'zh'中文
@@ -279,18 +44,8 @@
     Do you want to upload your website using SSH?
     Do you want to upload your website using Dropbox?
     Do you want to upload your website using S3?
-</code></pre>
-
-<hr />
-
-<h2 id="新建博文">新建博文：</h2>
-
-<p>这个时候就可以写博客了。具体的写作方式可以参考 <a href="http://docs.getpelican.com/en/latest/internals.html">Pelican的官方文档</a>
-  我以<a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> 为例说明一下。</p>
-
-<p>在content 目录，新建一个 <code>hello.md</code>文件</p>
-
-<pre><code>    vim content/htllo.md
+</code></pre><hr><h2 id=新建博文>新建博文：</h2><p>这个时候就可以写博客了。具体的写作方式可以参考 <a href=http://docs.getpelican.com/en/latest/internals.html>Pelican的官方文档</a>
+我以<a href=http://daringfireball.net/projects/markdown/syntax>Markdown</a> 为例说明一下。</p><p>在content 目录，新建一个 <code>hello.md</code>文件</p><pre><code>    vim content/htllo.md
 
 
     Date: 2014-04-18 #日期
@@ -298,63 +53,17 @@
     Tags: hello #标签
     Category: test #分类
     Hello World !
-</code></pre>
-
-<p>之后，执行<code>make html</code> 或者 <code>pelican content</code>即可将 md文件转换成html文件。执行 <code>make serve</code>   即可打开本地浏览器，<a href="http://127.0.0.1:8000/">预览</a>。</p>
-
-<blockquote>
-<p><strong>现在一个使用默认主题的博客就建立好了。</strong></p>
-</blockquote>
-
-<hr />
-
-<h2 id="后续">后续</h2>
-
-<h4 id="接下来说一下修改主题和使用插件的方法">接下来说一下修改主题和使用插件的方法</h4>
-
-<p>Pelican 默认提供了很多主题可以 github 上下载，当然也可以自己制作。</p>
-
-<pre><code>    git clone git://github.com/getpelican/pelican-themes.git
-</code></pre>
-
-<p>在里面找到你喜欢的主题，使用</p>
-
-<pre><code>    sudo pelican-theme -i /path/to/your/themes
-</code></pre>
-
-<p>命令进行主题的安装。</p>
-
-<p>随后可以使用<code>pelican-themes -l -v</code> 查看已经安装好的主题。</p>
-
-<pre><code>    /usr/lib/python2.7/site-packages/pelican/themes/simple
+</code></pre><p>之后，执行<code>make html</code> 或者 <code>pelican content</code>即可将 md文件转换成html文件。执行 <code>make serve</code> 即可打开本地浏览器，<a href=http://127.0.0.1:8000/>预览</a>。</p><blockquote><p><strong>现在一个使用默认主题的博客就建立好了。</strong></p></blockquote><hr><h2 id=后续>后续</h2><h4 id=接下来说一下修改主题和使用插件的方法>接下来说一下修改主题和使用插件的方法</h4><p>Pelican 默认提供了很多主题可以 github 上下载，当然也可以自己制作。</p><pre><code>    git clone git://github.com/getpelican/pelican-themes.git
+</code></pre><p>在里面找到你喜欢的主题，使用</p><pre><code>    sudo pelican-theme -i /path/to/your/themes
+</code></pre><p>命令进行主题的安装。</p><p>随后可以使用<code>pelican-themes -l -v</code> 查看已经安装好的主题。</p><pre><code>    /usr/lib/python2.7/site-packages/pelican/themes/simple
     /usr/lib/python2.7/site-packages/pelican/themes/notmyidea
     /usr/lib/python2.7/site-packages/pelican/themes/bootstrap2
 
-</code></pre>
-
-<p>想要开始使用主题的话， 只需要在<code>pelicanconf.py</code>文件中添加 <code>THEME</code>项为主题名,例如：</p>
-
-<pre><code>    THEME = &quot;bootstrap2&quot;
-</code></pre>
-
-<p>重新 <em>make html</em>  即可, 这时候声成的页面就是所要使用的主题了。</p>
-
-<h4 id="为博客使用插件">为博客使用插件</h4>
-
-<p>Pelican 也提供了不少的插件来方便使用， 可以从github 上面下载到博客所在目录：</p>
-
-<pre><code>    git clone git://github.com/getpelican/pelican-plugins.git
-</code></pre>
-
-<p>现在博客目录就新添了一个 pelican-plugins 目录，接下来在 pelicanconf.py 里面添加配置即可(里面是我最开始使用的三个插件):</p>
-
-<pre><code>    PLUGIN_PATH = u&quot;pelican-plugins&quot;
+</code></pre><p>想要开始使用主题的话， 只需要在<code>pelicanconf.py</code>文件中添加 <code>THEME</code>项为主题名,例如：</p><pre><code>    THEME = &quot;bootstrap2&quot;
+</code></pre><p>重新 <em>make html</em> 即可, 这时候声成的页面就是所要使用的主题了。</p><h4 id=为博客使用插件>为博客使用插件</h4><p>Pelican 也提供了不少的插件来方便使用， 可以从github 上面下载到博客所在目录：</p><pre><code>    git clone git://github.com/getpelican/pelican-plugins.git
+</code></pre><p>现在博客目录就新添了一个 pelican-plugins 目录，接下来在 pelicanconf.py 里面添加配置即可(里面是我最开始使用的三个插件):</p><pre><code>    PLUGIN_PATH = u&quot;pelican-plugins&quot;
     PLUGINS = [&quot;sitemap&quot;, &quot;summary&quot;, &quot;neighbors&quot;]
-</code></pre>
-
-<p>再添加 sitemap 的配置</p>
-
-<pre><code>    SITEMAP = {
+</code></pre><p>再添加 sitemap 的配置</p><pre><code>    SITEMAP = {
     'format': 'xml',
     'priorities': {
         'articles': 0.5,
@@ -367,16 +76,8 @@
         'pages': 'monthly'
         }
     }
-</code></pre>
-
-<p>然后执行 <code>*make html*</code> 即可</p>
-
-<h4 id="添加多说评论">添加多说评论</h4>
-
-<p>一开始搭建静态博客的时候，使用的<a href="http://disqus.com/">disqus</a> 并且Pelican 的主题中默认提供了支持，只要在 pelicanconf.py 的里面加入 disqus 的short_name 即可开始使用了。不过，身在天朝，还是尽量本地化一些吧，使用<a href="http://duoshuo.com/">多说</a>评论插件。
-在<a href="http://duoshuo.com/">多说</a>注册一个帐号，<a href="http://duoshuo.com/create-site/">添加一个站点</a>，获取自己的 <em>short_name</em> ，点击工具一栏&ndash;&gt;获取代码</p>
-
-<pre><code>&lt;!-- 多说评论框 start --&gt;
+</code></pre><p>然后执行 <code>*make html*</code> 即可</p><h4 id=添加多说评论>添加多说评论</h4><p>一开始搭建静态博客的时候，使用的<a href=http://disqus.com/>disqus</a> 并且Pelican 的主题中默认提供了支持，只要在 pelicanconf.py 的里面加入 disqus 的short_name 即可开始使用了。不过，身在天朝，还是尽量本地化一些吧，使用<a href=http://duoshuo.com/>多说</a>评论插件。
+在<a href=http://duoshuo.com/>多说</a>注册一个帐号，<a href=http://duoshuo.com/create-site/>添加一个站点</a>，获取自己的 <em>short_name</em> ，点击工具一栏&ndash;&gt;获取代码</p><pre><code>&lt;!-- 多说评论框 start --&gt;
     &lt;div class=&quot;ds-thread&quot; data-thread-key=&quot;请将此处替换成文章在你的站点中的ID&quot; data-title=&quot;请替换成文章的标题&quot; data-url=&quot;请替换成文章的网址&quot;&gt;&lt;/div&gt;
 &lt;!-- 多说评论框 end --&gt;
 &lt;!-- 多说公共JS代码 start (一个网页只需插入一次) --&gt;
@@ -393,166 +94,27 @@ var duoshuoQuery = {short_name:&quot;替换成你自己的&quot;};
     &lt;/script&gt;
 &lt;!-- 多说公共JS代码 end --&gt;
 
-</code></pre>
-
-<p>把这段代码放在你想要显示评论的地方就可以了。建议直接修改放在article.html模板里面。</p>
-
-<h4 id="添加其他功能">添加其他功能</h4>
-
-<p>这里我还加入了<a href="http://share.baidu.com/code">百度分享</a>的功能。直接定制个人想要的代码， 放在你需要出现分享按钮的地方即可，我放在了文章的下面。</p>
-
-<pre><code>&lt;div class=&quot;bdsharebuttonbox&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;bds_more&quot; data-cmd=&quot;more&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#&quot; class=&quot;bds_qzone&quot; data-cmd=&quot;qzone&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#&quot; class=&quot;bds_tsina&quot; data-cmd=&quot;tsina&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#&quot; class=&quot;bds_tqq&quot; data-cmd=&quot;tqq&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#&quot; class=&quot;bds_renren&quot; data-cmd=&quot;renren&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#&quot; class=&quot;bds_weixin&quot; data-cmd=&quot;weixin&quot;&gt;&lt;/a&gt;&lt;/div&gt;
+</code></pre><p>把这段代码放在你想要显示评论的地方就可以了。建议直接修改放在article.html模板里面。</p><h4 id=添加其他功能>添加其他功能</h4><p>这里我还加入了<a href=http://share.baidu.com/code>百度分享</a>的功能。直接定制个人想要的代码， 放在你需要出现分享按钮的地方即可，我放在了文章的下面。</p><pre><code>&lt;div class=&quot;bdsharebuttonbox&quot;&gt;&lt;a href=&quot;#&quot; class=&quot;bds_more&quot; data-cmd=&quot;more&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#&quot; class=&quot;bds_qzone&quot; data-cmd=&quot;qzone&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#&quot; class=&quot;bds_tsina&quot; data-cmd=&quot;tsina&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#&quot; class=&quot;bds_tqq&quot; data-cmd=&quot;tqq&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#&quot; class=&quot;bds_renren&quot; data-cmd=&quot;renren&quot;&gt;&lt;/a&gt;&lt;a href=&quot;#&quot; class=&quot;bds_weixin&quot; data-cmd=&quot;weixin&quot;&gt;&lt;/a&gt;&lt;/div&gt;
 
 &lt;script&gt;window._bd_share_config={&quot;common&quot;:{&quot;bdSnsKey&quot;:{},&quot;bdText&quot;:&quot;&quot;,&quot;bdMini&quot;:&quot;2&quot;,&quot;bdPic&quot;:&quot;&quot;,&quot;bdStyle&quot;:&quot;0&quot;,&quot;bdSize&quot;:&quot;16&quot;},&quot;share&quot;:{},&quot;image&quot;:{&quot;viewList&quot;:[&quot;qzone&quot;,&quot;tsina&quot;,&quot;tqq&quot;,&quot;renren&quot;,&quot;weixin&quot;],&quot;viewText&quot;:&quot;分享到：&quot;,&quot;viewSize&quot;:&quot;16&quot;},&quot;selectShare&quot;:{&quot;bdContainerClass&quot;:null,&quot;bdSelectMiniList&quot;:[&quot;qzone&quot;,&quot;tsina&quot;,&quot;tqq&quot;,&quot;renren&quot;,&quot;weixin&quot;]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];&lt;/script&gt;
-</code></pre>
-
-<p>还有加入了 <a href="http://www.google.com/analytics/">Google Analytics</a> 谷歌站内搜索 以及七牛提供的云存储 等。</p>
-
-    </div>
-
-    
-    <div class="post-copyright">
-  <p class="copyright-item">
-    <span class="item-title">文章作者</span>
-    <span class="item-content">TaoBeier</span>
-  </p>
-  <p class="copyright-item">
-    <span class="item-title">上次更新</span>
-    <span class="item-content">2014-05-07</span>
-  </p>
-  
-  <p class="copyright-item">
-    <span class="item-title">许可协议</span>
-    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a></span>
-  </p>
-</div>
-
-    
-    
-<div class="post-reward">
-  <input type="checkbox" name="reward" id="reward" hidden />
-  <label class="reward-button" for="reward">赞赏支持</label>
-  <div class="qr-code">
-    
-    
-      <label class="qr-code-image" for="reward">
-        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/wx_pay.jpg">
-        <span>微信打赏</span>
-      </label>
-    
-      <label class="qr-code-image" for="reward">
-        <img class="image" src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/alipay.jpg">
-        <span>支付宝打赏</span>
-      </label>
-  </div>
-</div>
-
-    <footer class="post-footer">
-      <div class="post-tags">
-          
-          <a href="/tags/pelican/">Pelican</a>
-          
-          <a href="/tags/blog/">Blog</a>
-          
-          <a href="/tags/web/">Web</a>
-          
-        </div>
-
-      
-      <nav class="post-nav">
-        
-          <a class="prev" href="/2014/05/16/upyun-for-pelican/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">upyun-for-pelican</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
-        
-          <a class="next" href="/2014/04/18/Hello-World/">
-            <span class="next-text nav-default">Hello World !</span>
-            <span class="next-text nav-mobile">下一篇</span>
-            <i class="iconfont icon-right"></i>
-          </a>
-      </nav>
-    </footer>
-  </article>
-        </div>
-        
-  
-
-  <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="/lib/gitalk/gitalk-1.2.2.min.css">
-    <script src="/lib/gitalk/gitalk-1.2.2.min.js"></script>
-  <script type="text/javascript">
-  var gitalk = new Gitalk({
-    id: '2014-05-07 21:48:59 \x2b0000 UTC',
-    title: '使用Pelican搭建Blog',
-    clientID: '68312db64e870efbd0a0',
-    clientSecret: 'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',
-    repo: 'tao12345666333.github.io',
-    owner: 'tao12345666333',
-    admin: ['tao12345666333'],
-    body: decodeURI(location.href)
-  });
-  gitalk.render('gitalk-container');
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
-
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="social-links">
-      <a href="mailto:zhangjintao9020@gmail.com" class="iconfont icon-email" title="email"></a>
-      <a href="https://twitter.com/BeierTao" class="iconfont icon-twitter" title="twitter"></a>
-      <a href="https://github.com/tao12345666333" class="iconfont icon-github" title="github"></a>
-      <a href="http://weibo.com/9020taobeier" class="iconfont icon-weibo" title="weibo"></a>
-      <a href="https://www.zhihu.com/people/TaoBeier" class="iconfont icon-zhihu" title="zhihu"></a>
-  <a href="https://moelove.info/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
-</div>
-
-<div class="copyright">
-  <span class="power-by">
-    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
-  </span>
-  <span class="division">|</span>
-  <span class="theme-info">
-    主题 - 
-    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
-  </span>
-
-  
-
-  <span class="copyright-year">
-    &copy; 
-    
-      2013 - 
-    2020
-    <span class="heart">
-      <i class="iconfont icon-heart"></i>
-    </span>
-    <span class="author">TaoBeier</span>
-  </span>
-</div>
-    </footer>
-
-    <div class="back-to-top" id="back-to-top">
-      <i class="iconfont icon-up"></i>
-    </div>
-  </div>
-  
-<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
-  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
-
-
-<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
-
-
-
-
-
-
-
-
-</body>
-</html>
+</code></pre><p>还有加入了 <a href=http://www.google.com/analytics/>Google Analytics</a> 谷歌站内搜索 以及七牛提供的云存储 等。</p></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>TaoBeier</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2014-05-07</span></p><p class=copyright-item><span class=item-title>许可协议</span>
+<span class=item-content><a rel="license noopener" href=https://creativecommons.org/licenses/by-sa/4.0/ target=_blank>CC BY-SA 4.0</a></span></p></div><div class=post-reward><input type=checkbox name=reward id=reward hidden>
+<label class=reward-button for=reward>赞赏支持</label><div class=qr-code><label class=qr-code-image for=reward><img class=image src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/wx_pay.jpg>
+<span>微信打赏</span></label>
+<label class=qr-code-image for=reward><img class=image src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/alipay.jpg>
+<span>支付宝打赏</span></label></div></div><footer class=post-footer><div class=post-tags><a href=/tags/pelican/>Pelican</a>
+<a href=/tags/blog/>Blog</a>
+<a href=/tags/web/>Web</a></div><nav class=post-nav><a class=prev href=/2014/05/16/upyun-for-pelican/><i class="iconfont icon-left"></i><span class="prev-text nav-default">upyun-for-pelican</span>
+<span class="prev-text nav-mobile">上一篇</span></a>
+<a class=next href=/2014/04/18/Hello-World/><span class="next-text nav-default">Hello World !</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div><div id=gitalk-container></div><link rel=stylesheet href=/lib/gitalk/gitalk-1.2.2.min.css><script src=/lib/gitalk/gitalk-1.2.2.min.js></script><script type=text/javascript>var gitalk=new Gitalk({id:'2014-05-07 21:48:59 \x2b0000 UTC',title:'使用Pelican搭建Blog',clientID:'68312db64e870efbd0a0',clientSecret:'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',repo:'tao12345666333.github.io',owner:'tao12345666333',admin:['tao12345666333'],body:decodeURI(location.href)});gitalk.render('gitalk-container');</script><noscript>Please enable JavaScript to view the <a href=https://github.com/gitalk/gitalk>comments powered by gitalk.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:zhangjintao9020@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/BeierTao class="iconfont icon-twitter" title=twitter></a><a href=https://github.com/tao12345666333 class="iconfont icon-github" title=github></a><a href=http://weibo.com/9020taobeier class="iconfont icon-weibo" title=weibo></a><a href=https://www.zhihu.com/people/TaoBeier class="iconfont icon-zhihu" title=zhihu></a><a href=https://moelove.info/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动</span>
+<span class=division>|</span>
+<span class=theme-info>主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span>
+<span class=copyright-year>&copy;
+2013 -
+2020
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>TaoBeier</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type=text/javascript src=/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src="/dist/even.min.js?v=3.2.0"></script></body></html>
