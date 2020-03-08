@@ -4,7 +4,7 @@
 创建一个版本，并上传PHP代码包
 (BAE有些函数规则发生改变，所以需要使用为BAE环境做过调整的discuz for BAE 版本)
 需要注意的是在上传的代码包里面的 bcs/config.php 中的内容应该修改为
-&amp;lt;?php define(&#39;BAIDU_BCS_BUCKET&#39;, &#39;创建的bucket名称&#39;); define(&#39;BAIDU_BCS_AK&#39;, getenv(&#39;HTTP_BAE_ENV_AK&#39;)); define(&#39;BAIDU_BCS_SK&#39;, getenv(&#39;HTTP_BAE_ENV_SK&#39;)); ?&amp;gt; 同时在数据库中设置为UTF-8,
+&amp;lt;?php define('BAIDU_BCS_BUCKET', '创建的bucket名称'); define('BAIDU_BCS_AK', getenv('HTTP_BAE_ENV_AK')); define('BAIDU_BCS_SK', getenv('HTTP_BAE_ENV_SK')); ?&amp;gt; 同时在数据库中设置为UTF-8,
 注意开启缓存 cache 最少30M(亲测50M完全是OK的)
 安装 之后上线应用，访问http://你的域名.duapp.com/install/index.php
 即可完成安装(需要用到创建的数据库名称)</description></item></channel></rss>

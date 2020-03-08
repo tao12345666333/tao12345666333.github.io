@@ -1,4 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on MoeLove</title><link>https://moelove.info/post/</link><description>Recent content in Posts on MoeLove</description><generator>Hugo -- gohugo.io</generator><language>zh</language><lastBuildDate>Sat, 29 Feb 2020 12:45:36 +0800</lastBuildDate><atom:link href="https://moelove.info/post/index.xml" rel="self" type="application/rss+xml"/><item><title>K8S 生态周报| rkt 项目正式归档并宣布终止</title><link>https://moelove.info/2020/02/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-rkt-%E9%A1%B9%E7%9B%AE%E6%AD%A3%E5%BC%8F%E5%BD%92%E6%A1%A3%E5%B9%B6%E5%AE%A3%E5%B8%83%E7%BB%88%E6%AD%A2/</link><pubDate>Sat, 29 Feb 2020 12:45:36 +0800</pubDate><guid>https://moelove.info/2020/02/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-rkt-%E9%A1%B9%E7%9B%AE%E6%AD%A3%E5%BC%8F%E5%BD%92%E6%A1%A3%E5%B9%B6%E5%AE%A3%E5%B8%83%E7%BB%88%E6%AD%A2/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on MoeLove</title><link>https://moelove.info/post/</link><description>Recent content in Posts on MoeLove</description><generator>Hugo -- gohugo.io</generator><language>zh</language><lastBuildDate>Sun, 08 Mar 2020 22:47:41 +0800</lastBuildDate><atom:link href="https://moelove.info/post/index.xml" rel="self" type="application/rss+xml"/><item><title>K8S 生态周报| Docker v19.03.7 发布</title><link>https://moelove.info/2020/03/08/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v19.03.7-%E5%8F%91%E5%B8%83/</link><pubDate>Sun, 08 Mar 2020 22:47:41 +0800</pubDate><guid>https://moelove.info/2020/03/08/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v19.03.7-%E5%8F%91%E5%B8%83/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Docker v19.03.7 发布 我在之前的两次周报 《K8S 生态周报| Docker CE v19.03.6 正式发布》 和《K8S 生态周报| containerd v1.2.13 发布》 中已经介绍过了 Docker CE v19.03.6 在单核机器上 会由于 containerd 中的一个 bug 导致任务 hang 住。本周发布的 v19.03.7 已经将默认的 containerd 版本升级至 v1.2.13 ，该版本中包含了对此 bug 的修复。
+此外这个版本中还包含了一个小的优化，可以让 docker stats 比之前的启动速度更快一点，直观上的感受目前可能还不是很明显。但如果是针对于某些特殊需求，需要采集使用量分析的时候，那就会比较明显了。
+注意 升级到此版本后, 如果你在使用 overlay2 存储驱动时，可能会有人在执行 docker info 时，Backing Filesystem 那一栏显示会有点问题，这是因为代码里面移除了一些文件系统的检查逻辑，导致赋值也有些问题，之后会做修复。
+你可能会得到类似下面的输出，不用太紧张。
+(MoeLove) ➜ ~ docker info --format '{{ index .DriverStatus 0 }}' [Backing Filesystem &amp;lt;unknown&amp;gt;] 更多信息请参考 ReleaseNote</description></item><item><title>K8S 生态周报| rkt 项目正式归档并宣布终止</title><link>https://moelove.info/2020/02/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-rkt-%E9%A1%B9%E7%9B%AE%E6%AD%A3%E5%BC%8F%E5%BD%92%E6%A1%A3%E5%B9%B6%E5%AE%A3%E5%B8%83%E7%BB%88%E6%AD%A2/</link><pubDate>Sat, 29 Feb 2020 12:45:36 +0800</pubDate><guid>https://moelove.info/2020/02/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-rkt-%E9%A1%B9%E7%9B%AE%E6%AD%A3%E5%BC%8F%E5%BD%92%E6%A1%A3%E5%B9%B6%E5%AE%A3%E5%B8%83%E7%BB%88%E6%AD%A2/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
 rkt 项目正式归档并宣布终止 rkt 项目我在之前的周报《K8S 生态周报| rkt 项目正式被 CNCF 归档》 就已经详细介绍过了，这里不再赘述。
 从去年 rkt 项目正式被 CNCF 归档后，直到现在 rkt 项目的维护者们也终于在 GitHub 上归档该项目，并宣布此项目正式终止。
 公告信息请参考 rkt/rkt@bbd90a1 。
@@ -435,13 +440,13 @@ services: - name: docker:dind command: [&amp;quot;--insecure-registry=myregistry
 Webpack 是什么 它可以将许多松散的模块按照依赖和规则打包成符合生产环境部署的前端资源。还可以将按需加载的模块进行代码分隔，等到实际需要的时候再异步加载。通过 loader 的转换，任何形式的资源都可以视作模块，比如 CommonJs 模块、 AMD 模块、 ES6 模块、CSS、图片、 JSON、Coffeescript、 LESS 等。 &amp;ndash;引自 Webpack 中文指南
 使用举例 我们来看一下官方文档中的最小用例，新建并写入以下内容到这两个文件：
 cats.js
-var cats = [&#39;dave&#39;, &#39;henry&#39;, &#39;martha&#39;]; module.exports = cats; app.js (Entry Point)
-cats = require(&#39;./cats.js&#39;); console.log(cats); 这个时候，就可以使用 webpack 进行打包了：
+var cats = ['dave', 'henry', 'martha']; module.exports = cats; app.js (Entry Point)
+cats = require('./cats.js'); console.log(cats); 这个时候，就可以使用 webpack 进行打包了：
 webpack ./app.js app.bundle.js 我们来看一下发生了什么， 目录下生成了一个打包后的文件 app.bundle.js ，这就是最基础的打包过程。
 提出问题 如何判断打包是否成功？
 通用方案 下面是我们常用的两种判断任务是否执行成功的方案
 通过 return code 通过命令执行后的 return code 来判断（在 shell 中使用 $?</description></item><item><title>Composer 使用技巧简述</title><link>https://moelove.info/2016/12/16/Composer-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%AE%80%E8%BF%B0/</link><pubDate>Fri, 16 Dec 2016 00:49:11 +0000</pubDate><guid>https://moelove.info/2016/12/16/Composer-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%AE%80%E8%BF%B0/</guid><description>最近使用了世界最好的语言 PHP 用来管理依赖关系的工具 Composer. 稍微做点记录, 以做备忘. 如有错误还望指出.
-安装 php -r &amp;quot;copy(&#39;https://getcomposer.org/installer&#39;, &#39;composer-setup.php&#39;);&amp;quot; php -r &amp;quot;if (hash_file(&#39;SHA384&#39;, &#39;composer-setup.php&#39;) === &#39;aa96f26c2b67226a324c27919f1eb05f21c248b987e6195cad9690d5c1ff713d53020a02ac8c217dbf90a7eacc9d141d&#39;) { echo &#39;Installer verified&#39;; } else { echo &#39;Installer corrupt&#39;; unlink(&#39;composer-setup.php&#39;); } echo PHP_EOL;&amp;quot; php composer-setup.php php -r &amp;quot;unlink(&#39;composer-setup.php&#39;);&amp;quot; 上述代码来自官网.
+安装 php -r &amp;quot;copy('https://getcomposer.org/installer', 'composer-setup.php');&amp;quot; php -r &amp;quot;if (hash_file('SHA384', 'composer-setup.php') === 'aa96f26c2b67226a324c27919f1eb05f21c248b987e6195cad9690d5c1ff713d53020a02ac8c217dbf90a7eacc9d141d') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;&amp;quot; php composer-setup.php php -r &amp;quot;unlink('composer-setup.php');&amp;quot; 上述代码来自官网.
 局部安装 上述代码执行完成后, 只是下载到了 composer.phar 文件, 可以通过 php composer.phar 在任意位置执行.
 全局安装 全局安装只是把 composer.phar 安装到 PATH 下即可. 可以像下面这样:
 sudo mv composer.phar /usr/local/bin/composer 国内镜像加速 使用Composer中文网提供的中国全量镜像进行加速.
@@ -540,9 +545,9 @@ UPDATE users SET password=&amp;quot;$2a$10$QecJeBdw2lONRTnHJ0RoVO6DczdJWf4h4QgaU
 再者就是帝都的天气让人确实有点无奈，有天早上刚下楼，我还以为我要迈步进入寂静岭了 TAT ，感觉能幸存下来确实是很不容易啊。
 最后说一下最近在网络弄好之后，挖了一个坑。打算独立开发一个网站的说， 重复造轮子的原因和大多数人是一样的 ，现有的东西没有我想要的 正好把最近学到的东西都拿来练练手
 Try My Best !</description></item><item><title>正则匹配中文及字符编码问题</title><link>https://moelove.info/2014/07/22/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%AD%E6%96%87%E5%8F%8A%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</link><pubDate>Tue, 22 Jul 2014 21:16:34 +0000</pubDate><guid>https://moelove.info/2014/07/22/%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E4%B8%AD%E6%96%87%E5%8F%8A%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</guid><description>匹配中文的正则表达式 窝写了一小段代码（虽然写的不太好，但是基本可以表达意思）
--- import re nickname = raw_input(&#39;Please input your nickname &amp;gt; &#39;) if not re.search(u&#39;^[\u4e00-\u9fa5a-zA-Z0-9]+$&#39;, unicode(nickname,&#39;utf8&#39;)): print &#39;Your nickname format is error, please try again !&#39; else: print &#39;Hello %s&#39;% nickname 如你所见，上面第5行的代码，就是匹配中文和字母，数字的正则表达式了。里面的\u4e00-\u9fa5 就是中文汉字的unicode编码所在位置。
+-- import re nickname = raw_input('Please input your nickname &amp;gt; ') if not re.search(u'^[\u4e00-\u9fa5a-zA-Z0-9]+$', unicode(nickname,'utf8')): print 'Your nickname format is error, please try again !' else: print 'Hello %s'% nickname 如你所见，上面第5行的代码，就是匹配中文和字母，数字的正则表达式了。里面的\u4e00-\u9fa5 就是中文汉字的unicode编码所在位置。
 Python字符串的编码问题 还是以上面那段代码来说。注意看第5行的代码
-if not re.search(u&#39;^[\u4e00-\u9fa5a-zA-Z0-9]+$&#39;, unicode(nickname,&#39;utf8&#39;)): 其实这样的代码并不严谨。因为在Python 中默认是用unicode编码来处理字符串的，因此做编码转换的时候，一般要以unicode作为中间编码，也就是说： 其他编码格式的字符串&amp;mdash;&amp;gt;解码(decode)&amp;mdash;&amp;gt;unicode&amp;mdash;&amp;gt;编码(encode)&amp;mdash;&amp;gt;所需要的编码格式。
+if not re.search(u'^[\u4e00-\u9fa5a-zA-Z0-9]+$', unicode(nickname,'utf8')): 其实这样的代码并不严谨。因为在Python 中默认是用unicode编码来处理字符串的，因此做编码转换的时候，一般要以unicode作为中间编码，也就是说： 其他编码格式的字符串&amp;mdash;&amp;gt;解码(decode)&amp;mdash;&amp;gt;unicode&amp;mdash;&amp;gt;编码(encode)&amp;mdash;&amp;gt;所需要的编码格式。
 因此，处理字符串编码的问题的时候，先要明白需要转换的字符串的编码格式是什么。
 代码中字符串的默认编码格式与代码文件本身的编码格式是一样的 比如： s = &amp;lsquo;涛&amp;rsquo; 在utf8的文件中，那么s就是utf8编码的，但是如果文件是gb2312编码，那么s就是gb2312编码的。此时，如果想要处理s这个字符串就要先decode成unicode编码了。
 不过如果是酱紫 s = u&amp;rsquo;涛&amp;rsquo;，那么s就是unicode编码了，这个时候s的编码方式不会被文件的编码所影响。
@@ -563,7 +568,7 @@ grub2-install 进入系统后执行命令
 $ sudo update-grub $ sudo grub2-install /dev/sda 如果不执行这样的命令的话，重启之后还会回到之前的界面orz</description></item><item><title>Linux中Sublime中文输入</title><link>https://moelove.info/2014/06/19/Linux%E4%B8%ADSublime%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/</link><pubDate>Thu, 19 Jun 2014 23:17:31 +0000</pubDate><guid>https://moelove.info/2014/06/19/Linux%E4%B8%ADSublime%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5/</guid><description>这篇只是为了备忘所以把以前写的东西搬这边了 -.-
 代码源于网络，感谢分享 这里的关键就是以下的代码和编译 /* sublime-imfix.c Use LD_PRELOAD to interpose some function to fix sublime input method support for linux. By Cjacker Huang &amp;lt;jianzhong.huang at i-soft.com.cn&amp;gt; gcc -shared -o libsublime-imfix.so sublime_imfix.c `pkg-config --libs --cflags gtk+-2.0` -fPIC LD_PRELOAD=./libsublime-imfix.so sublime_text */ #include &amp;lt;gtk/gtk.h&amp;gt; #include &amp;lt;gdk/gdkx.h&amp;gt; typedef GdkSegment GdkRegionBox; struct _GdkRegion { long size; long numRects; GdkRegionBox *rects; GdkRegionBox extents; }; GtkIMContext *local_context; void gdk_region_get_clipbox (const GdkRegion *region, GdkRectangle *rectangle) { g_return_if_fail (region !</description></item><item><title>upyun-for-pelican</title><link>https://moelove.info/2014/05/16/upyun-for-pelican/</link><pubDate>Fri, 16 May 2014 21:51:41 +0000</pubDate><guid>https://moelove.info/2014/05/16/upyun-for-pelican/</guid><description>这几天写了一个插件，方便把pelican生成静态博客部署到又拍云上。 整体思路就是：
 先格式化路径，以/为根目录
-def formatPath(path): path = path.replace(os.sep, &#39;/&#39;) return path 定义两个列表来存储文件和目录
+def formatPath(path): path = path.replace(os.sep, '/') return path 定义两个列表来存储文件和目录
 之后就是验证用户，以及bucketname 之类的了。
 简介 pelican 是一款基于python的静态博客生成工具，本程序可以方便的把生成的静态博客部署到又拍云上。演示地址：upyun-for-pelican
 生成网站 make html make serve (进行本地预览) 说明 程序使用了又拍云的官方SDK 需要先安装 upyun
@@ -608,7 +613,7 @@ rake aborted! Could not find a JavaScript runtime.</description></item><item><ti
 创建一个版本，并上传PHP代码包
 (BAE有些函数规则发生改变，所以需要使用为BAE环境做过调整的discuz for BAE 版本)
 需要注意的是在上传的代码包里面的 bcs/config.php 中的内容应该修改为
-&amp;lt;?php define(&#39;BAIDU_BCS_BUCKET&#39;, &#39;创建的bucket名称&#39;); define(&#39;BAIDU_BCS_AK&#39;, getenv(&#39;HTTP_BAE_ENV_AK&#39;)); define(&#39;BAIDU_BCS_SK&#39;, getenv(&#39;HTTP_BAE_ENV_SK&#39;)); ?&amp;gt; 同时在数据库中设置为UTF-8,
+&amp;lt;?php define('BAIDU_BCS_BUCKET', '创建的bucket名称'); define('BAIDU_BCS_AK', getenv('HTTP_BAE_ENV_AK')); define('BAIDU_BCS_SK', getenv('HTTP_BAE_ENV_SK')); ?&amp;gt; 同时在数据库中设置为UTF-8,
 注意开启缓存 cache 最少30M(亲测50M完全是OK的)
 安装 之后上线应用，访问http://你的域名.duapp.com/install/index.php
 即可完成安装(需要用到创建的数据库名称)</description></item><item><title>fedora下安装sublime text 2的方法</title><link>https://moelove.info/2013/08/30/fedora%E4%B8%8B%E5%AE%89%E8%A3%85sublime-text-2%E7%9A%84%E6%96%B9%E6%B3%95/</link><pubDate>Fri, 30 Aug 2013 21:36:09 +0000</pubDate><guid>https://moelove.info/2013/08/30/fedora%E4%B8%8B%E5%AE%89%E8%A3%85sublime-text-2%E7%9A%84%E6%96%B9%E6%B3%95/</guid><description>首先去官网下载最新的压缩包 把文件解压到$HOME/.sublime_text_2文件夹中：

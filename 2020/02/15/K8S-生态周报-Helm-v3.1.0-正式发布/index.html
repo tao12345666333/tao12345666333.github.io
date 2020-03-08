@@ -12,14 +12,14 @@ Helm v3.1.0 正式发布 自 2019 年 11 月 13 日 Helm 正式发布 v3.0.0 至
 比较常见的一个可能出错的地方就是使用 GitLab.com 的共享 runner （单核的 vm），如果你没有将 dind（Docker In Docker）镜像指定为具体的版本号，而是使用类似 docker:dind 这样的 tag 时，你可能已经遇到相关的问题了。推荐当前固定为 docker:19.03.5-dind ，待后续修正。
 containerd v1.2.13 中将会包含此修复（尚未发布），或者临时解决办法可以是暂时降级 containerd 。
 当 container 发布新版本后，可以通过重新安装/升级 containerd 来解决此问题。
-Helm v3.1.0 正式发布 自 2019 年 11 月 13 日 Helm 正式发布 v3.0.0 至今已过了三个月，Helm 终于迎来了新的特性版本， v3."><meta property="og:type" content="article"><meta property="og:url" content="https://moelove.info/2020/02/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.1.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/"><meta property="article:published_time" content="2020-02-15T23:12:46&#43;08:00"><meta property="article:modified_time" content="2020-02-15T23:12:46&#43;08:00"><meta itemprop=name content="K8S 生态周报| Helm v3.1.0 正式发布"><meta itemprop=description content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Helm v3.1.0 正式发布 自 2019 年 11 月 13 日 Helm 正式发布 v3.0.0 至今已过了三个月，Helm 终于迎来了新的特性版本， v3."><meta property="og:type" content="article"><meta property="og:url" content="https://moelove.info/2020/02/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.1.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/"><meta property="article:published_time" content="2020-02-15T23:12:46+08:00"><meta property="article:modified_time" content="2020-02-15T23:12:46+08:00"><meta itemprop=name content="K8S 生态周报| Helm v3.1.0 正式发布"><meta itemprop=description content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
  Docker CE v19.03.6 正式发布 在上次的周报 K8S 生态周报| Docker v19.03.6-rc2 发布 中，我已经介绍了 Docker v19.03.6 中包含的主要更新了。
 这里我要额外增加一点提醒：
 如果你在使用单核的机器/虚拟机，在升级 v19.03.6 后，可能会由于 containerd 中的一个 bug 而导致任务 hang 住
 比较常见的一个可能出错的地方就是使用 GitLab.com 的共享 runner （单核的 vm），如果你没有将 dind（Docker In Docker）镜像指定为具体的版本号，而是使用类似 docker:dind 这样的 tag 时，你可能已经遇到相关的问题了。推荐当前固定为 docker:19.03.5-dind ，待后续修正。
 containerd v1.2.13 中将会包含此修复（尚未发布），或者临时解决办法可以是暂时降级 containerd 。
 当 container 发布新版本后，可以通过重新安装/升级 containerd 来解决此问题。
-Helm v3.1.0 正式发布 自 2019 年 11 月 13 日 Helm 正式发布 v3.0.0 至今已过了三个月，Helm 终于迎来了新的特性版本， v3."><meta itemprop=datePublished content="2020-02-15T23:12:46&#43;08:00"><meta itemprop=dateModified content="2020-02-15T23:12:46&#43;08:00"><meta itemprop=wordCount content="138"><meta itemprop=keywords content="Linux,Weekly,Kubernetes,"><meta name=twitter:card content="summary"><meta name=twitter:title content="K8S 生态周报| Helm v3.1.0 正式发布"><meta name=twitter:description content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+Helm v3.1.0 正式发布 自 2019 年 11 月 13 日 Helm 正式发布 v3.0.0 至今已过了三个月，Helm 终于迎来了新的特性版本， v3."><meta itemprop=datePublished content="2020-02-15T23:12:46+08:00"><meta itemprop=dateModified content="2020-02-15T23:12:46+08:00"><meta itemprop=wordCount content="138"><meta itemprop=keywords content="Linux,Weekly,Kubernetes,"><meta name=twitter:card content="summary"><meta name=twitter:title content="K8S 生态周报| Helm v3.1.0 正式发布"><meta name=twitter:description content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
  Docker CE v19.03.6 正式发布 在上次的周报 K8S 生态周报| Docker v19.03.6-rc2 发布 中，我已经介绍了 Docker v19.03.6 中包含的主要更新了。
 这里我要额外增加一点提醒：
 如果你在使用单核的机器/虚拟机，在升级 v19.03.6 后，可能会由于 containerd 中的一个 bug 而导致任务 hang 住

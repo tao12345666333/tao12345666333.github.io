@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>upyun on MoeLove</title><link>https://moelove.info/tags/upyun/</link><description>Recent content in upyun on MoeLove</description><generator>Hugo -- gohugo.io</generator><language>zh</language><lastBuildDate>Fri, 16 May 2014 21:51:41 +0000</lastBuildDate><atom:link href="https://moelove.info/tags/upyun/index.xml" rel="self" type="application/rss+xml"/><item><title>upyun-for-pelican</title><link>https://moelove.info/2014/05/16/upyun-for-pelican/</link><pubDate>Fri, 16 May 2014 21:51:41 +0000</pubDate><guid>https://moelove.info/2014/05/16/upyun-for-pelican/</guid><description>这几天写了一个插件，方便把pelican生成静态博客部署到又拍云上。 整体思路就是：
 先格式化路径，以/为根目录
-def formatPath(path): path = path.replace(os.sep, &#39;/&#39;) return path 定义两个列表来存储文件和目录
+def formatPath(path): path = path.replace(os.sep, '/') return path 定义两个列表来存储文件和目录
 之后就是验证用户，以及bucketname 之类的了。
 简介 pelican 是一款基于python的静态博客生成工具，本程序可以方便的把生成的静态博客部署到又拍云上。演示地址：upyun-for-pelican
 生成网站 make html make serve (进行本地预览) 说明 程序使用了又拍云的官方SDK 需要先安装 upyun

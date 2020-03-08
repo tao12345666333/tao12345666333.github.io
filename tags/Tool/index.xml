@@ -4,13 +4,13 @@
 Webpack 是什么 它可以将许多松散的模块按照依赖和规则打包成符合生产环境部署的前端资源。还可以将按需加载的模块进行代码分隔，等到实际需要的时候再异步加载。通过 loader 的转换，任何形式的资源都可以视作模块，比如 CommonJs 模块、 AMD 模块、 ES6 模块、CSS、图片、 JSON、Coffeescript、 LESS 等。 &amp;ndash;引自 Webpack 中文指南
 使用举例 我们来看一下官方文档中的最小用例，新建并写入以下内容到这两个文件：
 cats.js
-var cats = [&#39;dave&#39;, &#39;henry&#39;, &#39;martha&#39;]; module.exports = cats; app.js (Entry Point)
-cats = require(&#39;./cats.js&#39;); console.log(cats); 这个时候，就可以使用 webpack 进行打包了：
+var cats = ['dave', 'henry', 'martha']; module.exports = cats; app.js (Entry Point)
+cats = require('./cats.js'); console.log(cats); 这个时候，就可以使用 webpack 进行打包了：
 webpack ./app.js app.bundle.js 我们来看一下发生了什么， 目录下生成了一个打包后的文件 app.bundle.js ，这就是最基础的打包过程。
 提出问题 如何判断打包是否成功？
 通用方案 下面是我们常用的两种判断任务是否执行成功的方案
 通过 return code 通过命令执行后的 return code 来判断（在 shell 中使用 $?</description></item><item><title>Composer 使用技巧简述</title><link>https://moelove.info/2016/12/16/Composer-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%AE%80%E8%BF%B0/</link><pubDate>Fri, 16 Dec 2016 00:49:11 +0000</pubDate><guid>https://moelove.info/2016/12/16/Composer-%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7%E7%AE%80%E8%BF%B0/</guid><description>最近使用了世界最好的语言 PHP 用来管理依赖关系的工具 Composer. 稍微做点记录, 以做备忘. 如有错误还望指出.
-安装 php -r &amp;quot;copy(&#39;https://getcomposer.org/installer&#39;, &#39;composer-setup.php&#39;);&amp;quot; php -r &amp;quot;if (hash_file(&#39;SHA384&#39;, &#39;composer-setup.php&#39;) === &#39;aa96f26c2b67226a324c27919f1eb05f21c248b987e6195cad9690d5c1ff713d53020a02ac8c217dbf90a7eacc9d141d&#39;) { echo &#39;Installer verified&#39;; } else { echo &#39;Installer corrupt&#39;; unlink(&#39;composer-setup.php&#39;); } echo PHP_EOL;&amp;quot; php composer-setup.php php -r &amp;quot;unlink(&#39;composer-setup.php&#39;);&amp;quot; 上述代码来自官网.
+安装 php -r &amp;quot;copy('https://getcomposer.org/installer', 'composer-setup.php');&amp;quot; php -r &amp;quot;if (hash_file('SHA384', 'composer-setup.php') === 'aa96f26c2b67226a324c27919f1eb05f21c248b987e6195cad9690d5c1ff713d53020a02ac8c217dbf90a7eacc9d141d') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;&amp;quot; php composer-setup.php php -r &amp;quot;unlink('composer-setup.php');&amp;quot; 上述代码来自官网.
 局部安装 上述代码执行完成后, 只是下载到了 composer.phar 文件, 可以通过 php composer.phar 在任意位置执行.
 全局安装 全局安装只是把 composer.phar 安装到 PATH 下即可. 可以像下面这样:
 sudo mv composer.phar /usr/local/bin/composer 国内镜像加速 使用Composer中文网提供的中国全量镜像进行加速.
