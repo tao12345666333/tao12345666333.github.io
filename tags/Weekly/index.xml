@@ -1,4 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Weekly on MoeLove</title><link>https://moelove.info/tags/Weekly/</link><description>Recent content in Weekly on MoeLove</description><generator>Hugo -- gohugo.io</generator><language>zh</language><lastBuildDate>Sun, 15 Mar 2020 22:49:12 +0800</lastBuildDate><atom:link href="https://moelove.info/tags/Weekly/index.xml" rel="self" type="application/rss+xml"/><item><title>K8S 生态周报| Helm v3.1.2 发布</title><link>https://moelove.info/2020/03/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.1.2-%E5%8F%91%E5%B8%83/</link><pubDate>Sun, 15 Mar 2020 22:49:12 +0800</pubDate><guid>https://moelove.info/2020/03/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.1.2-%E5%8F%91%E5%B8%83/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Weekly on MoeLove</title><link>https://moelove.info/tags/Weekly/</link><description>Recent content in Weekly on MoeLove</description><generator>Hugo -- gohugo.io</generator><language>zh</language><lastBuildDate>Sat, 21 Mar 2020 08:10:21 +0800</lastBuildDate><atom:link href="https://moelove.info/tags/Weekly/index.xml" rel="self" type="application/rss+xml"/><item><title>「K8S 生态周报」一周年了！</title><link>https://moelove.info/2020/03/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5%E4%B8%80%E5%91%A8%E5%B9%B4%E4%BA%86/</link><pubDate>Sat, 21 Mar 2020 08:10:21 +0800</pubDate><guid>https://moelove.info/2020/03/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5%E4%B8%80%E5%91%A8%E5%B9%B4%E4%BA%86/</guid><description>「K8S 生态周报」已经整整一年啦！感谢大家的关注和支持！
+从 2019 年 3 月 25 日发布第一篇「K8S 生态周报」到今天已正好一年，已经发布了 52 篇内容。在这个特殊的日子里，很想与大家分享下我的感受,以及「K8S 生态周报」的初衷和发展。
+缘起 凡是接触 K8S 生态或者容器生态的小伙伴都不难发现，整个生态中涉及的东西很多，每天有无数的新消息，新变化，稍不留神就会错过很多有价值的内容。
+这是一个信息爆炸的时代，同时大多数人包括我在内应该也都会存在着一定的“焦虑”，所以面对着海量的信息总是希望能更快的筛选出有价值的内容。
+在去年年初，我在做个人总结时发现，虽然我每天接触到的信息很多，但真正有价值的，或者说值得我花很多精力持续去关注的内容并没有那么多。
+并且由于没有归档，光靠自己记忆的话，有些事情可能就忘记了。之后也许还会再次花费时间了解或学习相关的内容，这也是另一种形式的浪费。
+于是「K8S 生态周报」就以这个思路开始发布了第一篇 K8S 生态周报| 2019.03.25~2019.03.31。
+过程改进 第一篇「K8S 生态周报」发布后，我觉得这个事情是值得做的。同时为了能提升效率，简化一些人工操作（自动化才是第一生产力），所以周末抽空写了个工具，把周报加到了我的 TODO 中。
+具体而言，由于多年参与开源项目，我比较习惯使用 GitHub 的 issue 来管理个人的 TODO，加上 GitHub 提供了 Project 管理的功能，所以它现在看起来是这个样子：
+每周有自动执行的任务来帮助我管理这些 issue，并将其加入我的每周计划便于跟踪进度。每周「K8S 生态周报」的草稿也是在 issue 中完成的，到周末时，再将内容筛选整理并发布。
+用于管理这类 issue 的任务，是托管在 GitLab 上的。执行情况如下：
+这组工具已经稳定运行一年了，基本没做过什么调整，还是比较能提升我的效率的。
+发展阶段 「K8S 生态周报」一开始只发布在我的博客，公众号（MoeLove）、知乎专栏和掘金上，后来增加了SegmentFault和微博。也收获了很多小伙伴的支持和反馈。
+上个月考虑到文字版不够详尽，所以在我家小可爱的支持下，增加了 内容更详细的视频版，同步发布在 BiliBili，西瓜视频和微信视频号上。感谢我的小可爱~
+收获 简单的分享下现在的「K8S 生态周报」的数据，基本情况如下：
+可以看到非常符合我周报的更新频率，每周有明显的波动。我一直保持在周一的早上在公众号进行推送。
+这些数据意义不大，只不过看着数据上涨，知道自己写的内容被更多人看到了，也会有些开心，所以我这里也就只是分享个趋势。
+真正的收获有以下几项：
+周报我一直坚持没有断更，所以算是用另一种方式强迫我解决了之前信息没有「归档」的这个问题； 另外，由于要把内容讲清楚明白，所以也更加深了对信息印象和理解； 个人时间比较少，要抽时间写完整的文章会比较麻烦，通过周报的形式，也可以顺便把自己想说的内容稍微加进去，也方便了很多； 去年参加 KubeCon 的时候，还有小伙伴说每周都在坚持看我的「K8S 生态周报」，嘿嘿~； 开了交流群，也有不少小伙伴的加入； 在大量信息中能快速的筛选出有效信息，并对其持续关注，对个人成长有很大好处； 展望 「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。</description></item><item><title>K8S 生态周报| Helm v3.1.2 发布</title><link>https://moelove.info/2020/03/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.1.2-%E5%8F%91%E5%B8%83/</link><pubDate>Sun, 15 Mar 2020 22:49:12 +0800</pubDate><guid>https://moelove.info/2020/03/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.1.2-%E5%8F%91%E5%B8%83/</guid><description>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
 Docker CE v19.03.8 发布 这是一个临时增加的安全更新版本，主要用于改进之前版本中对 CVE-2019-14271 的修复措施。
 在去年 9 月份，我发布的 K8S 生态周报| Harbor v1.9 带来众多新特性 一文中，我曾介绍过 Docker v19.03.1 的发布主要也是为了修复 CVE-2019-14271 漏洞。
 尽管这是一个安全更新版本，但我并不建议你立马升级到此 v19.03.8 版本，除非你并没有用到 Docker 对文件系统识别相关的功能。详情请参考我上周发布的周报 K8S 生态周报| Docker v19.03.7 发布。
