@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Prometheus on MoeLove</title><link>https://moelove.info/tags/Prometheus/</link><description>Recent content in Prometheus on MoeLove</description><generator>Hugo -- gohugo.io</generator><language>zh</language><lastBuildDate>Tue, 26 May 2020 23:21:58 +0800</lastBuildDate><atom:link href="https://moelove.info/tags/Prometheus/index.xml" rel="self" type="application/rss+xml"/><item><title>为 Prometheus Node Exporter 加上认证</title><link>https://moelove.info/2020/05/26/%E4%B8%BA-Prometheus-Node-Exporter-%E5%8A%A0%E4%B8%8A%E8%AE%A4%E8%AF%81/</link><pubDate>Tue, 26 May 2020 23:21:58 +0800</pubDate><guid>https://moelove.info/2020/05/26/%E4%B8%BA-Prometheus-Node-Exporter-%E5%8A%A0%E4%B8%8A%E8%AE%A4%E8%AF%81/</guid><description>这篇文章主要是为了庆祝 Node Exporter 终于迎来了 v1.0.0 版本。
+Prometheus 是最早由 SoundCloud 开源的监控告警解决方案。并已经成长为继 Kubernetes 之后，第二个从 CNCF 毕业的项目。伴随着云原生理念的普及和 Kubernetes 等技术的发展， Prometheus 在监控领域也有了长足的发展。
+其主要组件包括 Prometheus，Alertmanager，Node Exporter，Blackbox Exporter 和 Pushgateway 等。
+本文主要是为了庆祝 Node Exporter 终于迎来了 v1.0.0 版本， 所以重点主要放在一直被人诟病的安全性相关上，具体而言就是利用 TLS 和 Basic Auth 提升其安全性。
+背景 Node Exporter 是 Prometheus 官方发布的，用于采集节点的系统信息，比如 CPU，内存，磁盘和网络等信息。 通常情况下，如果我们在使用 Prometheus 作为监控方案，那 Node Exporter 基本都会用到的。
+在 Promethues 的监控体系中，社区中一直存在的一个观点是，Metrics 不包含过于私密的信息。所以你可以看到，大多数的 /metrics 接口都是直接暴露出来的，没什么特别的安全措施。
+但随着 Prometheus 在生产中的大量应用，安全问题变得更加重要。
+大家最先想到的解决办法就是，为 Prometheus 与监控目标之间的连接启用 TLS。 但由于各类 exporter 并不原生支持 TLS 连接，所以通常情况下我们会选择配合反向代理来完成。</description></item></channel></rss>
