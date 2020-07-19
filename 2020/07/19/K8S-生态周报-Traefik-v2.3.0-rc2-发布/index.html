@@ -1,0 +1,78 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>K8S 生态周报| Traefik v2.3.0-rc2 发布 - MoeLove</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><script async src=//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script><script>(adsbygoogle=window.adsbygoogle||[]).push({google_ad_client:"ca-pub-1876963677156202",enable_page_level_ads:true});</script><meta name=author content="张晋涛"><meta name=description content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Traefik v2.3.0-rc2 发布 关于 Traefik 的系列介绍可以参考之前周报的内容：Traefik v2.2.0-rc1 发布。本周它又发布了 v2.3.0-rc2 版本，我们一起来看看有哪些值得关注的内容吧！
+ #6696 为 Traefik 在 terminating 时，添加自定义的 HTTP 状态码；  具体而言，可通过以下几种方式进行添加：
+配置文件（YAML）
+ping: terminatingStatusCode: 204  命令行参数
+--ping.terminatingStatusCode=204  环境变量
+TRAEFIK_PING_TERMINATINGSTATUSCODE=204  现在默认的状态码是 503
+增加此配置的好处在于，当 Traefik 处于 terminating 状态时，可通过设置自定义的状态码来实现优雅终止。
+ #6875 使用 parser 从文件中取动态配置; 值得注意的是： 如果从之前版本升级至 v2.3 那一定需要注意的是如果动态配置中存在未知的其他字段，则返回错误。
+ #7041 Traefik 提供了 Plugins 特性的支持。可以通过此机制，让 Traefik Pilot 连接到 Traefik ，以此来将其 SaaS 能力暴露给用户。同时 Traefik Pilot 可以监控连接到它的任意 Traefik 实例，并支持发出报警。"><meta name=keywords content="MoeLove,Linux,Docker,Kubernetes,Golang,Python,Container,Vim,容器,k8s"><meta name=baidu-site-verification content="jO2rMlnjJi"><meta name=google-site-verification content="googlefe3fc086c62f7210.html"><meta name=generator content="Hugo 0.59.1 with theme even"><link rel=canonical href=https://moelove.info/2020/07/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Traefik-v2.3.0-rc2-%E5%8F%91%E5%B8%83/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css rel=stylesheet><link href=/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><meta property="og:title" content="K8S 生态周报| Traefik v2.3.0-rc2 发布"><meta property="og:description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Traefik v2.3.0-rc2 发布 关于 Traefik 的系列介绍可以参考之前周报的内容：Traefik v2.2.0-rc1 发布。本周它又发布了 v2.3.0-rc2 版本，我们一起来看看有哪些值得关注的内容吧！
+ #6696 为 Traefik 在 terminating 时，添加自定义的 HTTP 状态码；  具体而言，可通过以下几种方式进行添加：
+配置文件（YAML）
+ping: terminatingStatusCode: 204  命令行参数
+--ping.terminatingStatusCode=204  环境变量
+TRAEFIK_PING_TERMINATINGSTATUSCODE=204  现在默认的状态码是 503
+增加此配置的好处在于，当 Traefik 处于 terminating 状态时，可通过设置自定义的状态码来实现优雅终止。
+ #6875 使用 parser 从文件中取动态配置; 值得注意的是： 如果从之前版本升级至 v2.3 那一定需要注意的是如果动态配置中存在未知的其他字段，则返回错误。
+ #7041 Traefik 提供了 Plugins 特性的支持。可以通过此机制，让 Traefik Pilot 连接到 Traefik ，以此来将其 SaaS 能力暴露给用户。同时 Traefik Pilot 可以监控连接到它的任意 Traefik 实例，并支持发出报警。"><meta property="og:type" content="article"><meta property="og:url" content="https://moelove.info/2020/07/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Traefik-v2.3.0-rc2-%E5%8F%91%E5%B8%83/"><meta property="article:published_time" content="2020-07-19T21:47:13+08:00"><meta property="article:modified_time" content="2020-07-19T21:47:13+08:00"><meta itemprop=name content="K8S 生态周报| Traefik v2.3.0-rc2 发布"><meta itemprop=description content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Traefik v2.3.0-rc2 发布 关于 Traefik 的系列介绍可以参考之前周报的内容：Traefik v2.2.0-rc1 发布。本周它又发布了 v2.3.0-rc2 版本，我们一起来看看有哪些值得关注的内容吧！
+ #6696 为 Traefik 在 terminating 时，添加自定义的 HTTP 状态码；  具体而言，可通过以下几种方式进行添加：
+配置文件（YAML）
+ping: terminatingStatusCode: 204  命令行参数
+--ping.terminatingStatusCode=204  环境变量
+TRAEFIK_PING_TERMINATINGSTATUSCODE=204  现在默认的状态码是 503
+增加此配置的好处在于，当 Traefik 处于 terminating 状态时，可通过设置自定义的状态码来实现优雅终止。
+ #6875 使用 parser 从文件中取动态配置; 值得注意的是： 如果从之前版本升级至 v2.3 那一定需要注意的是如果动态配置中存在未知的其他字段，则返回错误。
+ #7041 Traefik 提供了 Plugins 特性的支持。可以通过此机制，让 Traefik Pilot 连接到 Traefik ，以此来将其 SaaS 能力暴露给用户。同时 Traefik Pilot 可以监控连接到它的任意 Traefik 实例，并支持发出报警。"><meta itemprop=datePublished content="2020-07-19T21:47:13+08:00"><meta itemprop=dateModified content="2020-07-19T21:47:13+08:00"><meta itemprop=wordCount content="198"><meta itemprop=keywords content="Linux,Weekly,Kubernetes,"><meta name=twitter:card content="summary"><meta name=twitter:title content="K8S 生态周报| Traefik v2.3.0-rc2 发布"><meta name=twitter:description content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+ Traefik v2.3.0-rc2 发布 关于 Traefik 的系列介绍可以参考之前周报的内容：Traefik v2.2.0-rc1 发布。本周它又发布了 v2.3.0-rc2 版本，我们一起来看看有哪些值得关注的内容吧！
+ #6696 为 Traefik 在 terminating 时，添加自定义的 HTTP 状态码；  具体而言，可通过以下几种方式进行添加：
+配置文件（YAML）
+ping: terminatingStatusCode: 204  命令行参数
+--ping.terminatingStatusCode=204  环境变量
+TRAEFIK_PING_TERMINATINGSTATUSCODE=204  现在默认的状态码是 503
+增加此配置的好处在于，当 Traefik 处于 terminating 状态时，可通过设置自定义的状态码来实现优雅终止。
+ #6875 使用 parser 从文件中取动态配置; 值得注意的是： 如果从之前版本升级至 v2.3 那一定需要注意的是如果动态配置中存在未知的其他字段，则返回错误。
+ #7041 Traefik 提供了 Plugins 特性的支持。可以通过此机制，让 Traefik Pilot 连接到 Traefik ，以此来将其 SaaS 能力暴露给用户。同时 Traefik Pilot 可以监控连接到它的任意 Traefik 实例，并支持发出报警。"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>MoeLove</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/about/><li class=mobile-menu-item>About</li></a><a href=/friends/><li class=mobile-menu-item>Friends</li></a><a href=/projects/><li class=mobile-menu-item>Projects</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>MoeLove</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/about/>About</a></li><li class=menu-item><a class=menu-item-link href=/friends/>Friends</a></li><li class=menu-item><a class=menu-item-link href=/projects/>Projects</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>K8S 生态周报| Traefik v2.3.0-rc2 发布</h1><div class=post-meta><span class=post-time>2020-07-19</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#traefik-v2-3-0-rc2-发布>Traefik v2.3.0-rc2 发布</a></li><li><a href=#etcd-v3-4-10-发布>etcd v3.4.10 发布</a></li><li><a href=#trivy-v0-9-2-发布>Trivy v0.9.2 发布</a></li><li><a href=#上游进展>上游进展</a></li></ul></li></ul></nav></div></div><div class=post-content><blockquote><p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏<a href=https://zhuanlan.zhihu.com/container>「k8s生态」</a>。</p></blockquote><h2 id=traefik-v2-3-0-rc2-发布>Traefik v2.3.0-rc2 发布</h2><p>关于 Traefik 的系列介绍可以参考之前周报的内容：<a href=https://zhuanlan.zhihu.com/p/111833886>Traefik v2.2.0-rc1 发布</a>。本周它又发布了 v2.3.0-rc2 版本，我们一起来看看有哪些值得关注的内容吧！</p><ul><li><a href=https://github.com/containous/traefik/pull/6696>#6696</a> 为 Traefik 在 terminating 时，添加自定义的 HTTP 状态码；</li></ul><p>具体而言，可通过以下几种方式进行添加：</p><p><strong>配置文件（YAML）</strong></p><pre><code class=language-yaml>ping:
+  terminatingStatusCode: 204
+</code></pre><p><strong>命令行参数</strong></p><pre><code class=language-sh>--ping.terminatingStatusCode=204
+</code></pre><p><strong>环境变量</strong></p><pre><code class=language-sh>TRAEFIK_PING_TERMINATINGSTATUSCODE=204
+</code></pre><p><strong>现在默认的状态码是 503</strong></p><p>增加此配置的好处在于，当 Traefik 处于 terminating 状态时，可通过设置自定义的状态码来实现优雅终止。</p><ul><li><p><a href=https://github.com/containous/traefik/pull/6875>#6875</a> 使用 parser 从文件中取动态配置; 值得注意的是： <strong>如果从之前版本升级至 v2.3 那一定需要注意的是如果动态配置中存在未知的其他字段，则返回错误。</strong></p></li><li><p><a href=https://github.com/containous/traefik/pull/7041>#7041</a> Traefik 提供了 Plugins 特性的支持。可以通过此机制，让 Traefik Pilot 连接到 Traefik ，以此来将其 SaaS 能力暴露给用户。同时 Traefik Pilot 可以监控连接到它的任意 Traefik 实例，并支持发出报警。</p></li></ul><p>更多关于此版本的特性请参阅其 <a href=https://github.com/containous/traefik/releases/tag/v2.3.0-rc2>ReleaseNote</a></p><h2 id=etcd-v3-4-10-发布>etcd v3.4.10 发布</h2><p>etcd 在本周发布了 v3.4.10 版本，我们一起来看看此版本中值得注意的内容：</p><ul><li><a href=https://github.com/etcd-io/etcd/pull/11946>#11946</a> 在之前的 <a href=https://zhuanlan.zhihu.com/p/146554894>K8S 生态周报| 几乎影响所有 k8s 集群的漏洞</a> 中，我就介绍过了，新增了 <code>--unsafe-no-fsync</code> 选项，可以禁止所有的 fsync，这使得将 etcd 用于 CI 环节或本次测试都将非常高效；</li><li><a href=https://github.com/etcd-io/etcd/pull/11980>#11980</a> 添加了 <code>--auth-token-ttl</code> 的选项，用于自定义 <code>simpleTokenTTL</code> 设置；</li></ul><p>更多关于此版本的特性，请参考其 <a href=https://github.com/etcd-io/etcd/releases/tag/v3.4.10>ReleaseNote</a></p><h2 id=trivy-v0-9-2-发布>Trivy v0.9.2 发布</h2><p>Trivy 在之前的周报中已经做了很多介绍。本周它发布了 v0.9.2 版本，我们一起看看有哪些值得关注的内容。</p><p><strong>支持 JUnit XML</strong> 如果你的 CI 服务器支持 JUnit XML 那你就可以在 CI pipeline 中看到 Trivy 对应的检查结果了。</p><p>比如，在 GitLab CI 中使用 Trivy 效果如下：</p><p><img src=/img/trivy-in-gitlab-ci.png alt="Trivy In GitLab CI"></p><p><strong><a href=https://github.com/aquasecurity/trivy/pull/530>#530</a> 在结果中支持 CVSS 评分信息了</strong>， 例如</p><pre><code class=language-json> {
+        &quot;VulnerabilityID&quot;: &quot;CVE-2019-1547&quot;,
+        &quot;PkgName&quot;: &quot;openssl&quot;,
+        &quot;InstalledVersion&quot;: &quot;1.1.1c-r0&quot;,
+        &quot;FixedVersion&quot;: &quot;1.1.1d-r0&quot;,
+        &quot;CVSS&quot;: {
+          &quot;nvd&quot;: {
+            &quot;V2Vector&quot;: &quot;AV:L/AC:M/Au:N/C:P/I:N/A:N&quot;,
+            &quot;V3Vector&quot;: &quot;CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:N/A:N&quot;,
+            &quot;V2Score&quot;: 1.9,
+            &quot;V3Score&quot;: 4.7
+          },
+          &quot;redhat&quot;: {
+            &quot;V3Vector&quot;: &quot;CVSS:3.0/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N&quot;,
+            &quot;V3Score&quot;: 5.5
+          }
+        },
+        ...
+      }
+</code></pre><p>更多关于此版本的信息，请查看其 <a href=https://github.com/aquasecurity/trivy/releases/tag/v0.9.2>ReleaseNote</a></p><h2 id=上游进展>上游进展</h2><ul><li><a href=https://github.com/kubernetes/kubernetes/pull/92310>#92310</a> <code>kubectl alpha debug</code> 现在支持主机级别的 debug 了， 通过启动容器并加入主机的 namespace 中，它会自动将主机的文件系统绑定到 <code>/host</code> 下，以便调试使用。这种模式，有望替代传统的通过 SSH 登录机器 debug 的模式了。</li><li><a href=https://github.com/kubernetes/kubernetes/pull/91946>#91946</a> 还记得 Kubernetes 新增的 <code>.meta.managedFields</code> 吗？当你执行 <code>kubectl edit</code> 的时候，是否觉得它很烦。 现在在 <code>kubectl edit</code> 的时候，将会默认隐藏它 （ <strong>太棒了！</strong> )</li><li><a href=https://github.com/kubernetes/kubernetes/issues/92914>#92914</a> CVE-2020-8559 已经被新发布版本修复；</li></ul><hr><p>欢迎订阅我的文章公众号【MoeLove】</p><p><img src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/my_qrcode.jpg alt=TheMoeLove></p></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>张晋涛</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2020-07-19</span></p><p class=copyright-item><span class=item-title>许可协议</span>
+<span class=item-content><a rel="license noopener" href=https://creativecommons.org/licenses/by-sa/4.0/ target=_blank>CC BY-SA 4.0</a></span></p></div><div class=post-reward><input type=checkbox name=reward id=reward hidden>
+<label class=reward-button for=reward>赞赏支持</label><div class=qr-code><label class=qr-code-image for=reward><img class=image src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/wx_pay.jpg>
+<span>微信打赏</span></label>
+<label class=qr-code-image for=reward><img class=image src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/alipay.jpg>
+<span>支付宝打赏</span></label></div></div><footer class=post-footer><div class=post-tags><a href=/tags/linux/>Linux</a>
+<a href=/tags/weekly/>Weekly</a>
+<a href=/tags/kubernetes/>Kubernetes</a></div><nav class=post-nav><a class=next href=/2020/07/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.3.0-rc.1-%E5%8F%91%E5%B8%83/><span class="next-text nav-default">K8S 生态周报| Helm v3.3.0-rc.1 发布</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div><div id=gitalk-container></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js crossorigin=anonymous></script><script type=text/javascript>var gitalk=new Gitalk({id:'2020-07-19 21:47:13 \x2b0800 CST',title:'K8S 生态周报| Traefik v2.3.0-rc2 发布',clientID:'68312db64e870efbd0a0',clientSecret:'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',repo:'tao12345666333.github.io',owner:'tao12345666333',admin:['tao12345666333'],body:decodeURI(location.href)});gitalk.render('gitalk-container');</script><noscript>Please enable JavaScript to view the <a href=https://github.com/gitalk/gitalk>comments powered by gitalk.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:zhangjintao9020@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/BeierTao class="iconfont icon-twitter" title=twitter></a><a href=https://github.com/tao12345666333 class="iconfont icon-github" title=github></a><a href=http://weibo.com/9020taobeier class="iconfont icon-weibo" title=weibo></a><a href=https://www.zhihu.com/people/TaoBeier class="iconfont icon-zhihu" title=zhihu></a><a href=https://moelove.info/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动</span>
+<span class=division>|</span>
+<span class=theme-info>主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span>
+<span class=copyright-year>&copy;
+2013 -
+2020
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>张晋涛</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script type=text/javascript src=/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js></script></body></html>
