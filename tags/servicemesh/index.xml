@@ -3,4 +3,4 @@
 Open Service Mesh（OSM）是一个轻量级，可扩展的云原生服务网格，它使用户能够统一管理，保护和获得针对高度动态微服务环境的开箱即用的可观察性功能。
 OSM 在 Kubernetes 上运行基于 Envoy 的控制平面，可以使用 SMI API 进行配置。它通过以 sidecar 的形式注入 Envoy 代理来工作。
 控制面负责持续配置代理，以配置策略和路由规则等都保持最新。代理主要负责执行访问控制的规则，路由控制，采集 metrics 等。（这和目前我们常见到的 Service Mesh 方案基本都一样的）
-显著特性 基于 Service Mesh Interface (SMI) 的实现，主要包括 Traffic Access Control， Traffic Specs 和 Traffic Split 。剩下的 Traffic Metrics 正在开发中； 服务间的通信加密使用 mTLS ； 定义和执行服务间的访问控制策略； 通过 Prometheus 和 Grafana 完成器观察性； 可与外部证书管理服务进行集成； Envoy sidecar 自动注入； 上手体验 只做介绍未免太过无趣，而且说实话，这么多 service mesh 实现，不亲自上手试试看，感觉不出来太多差异的。</description></item></channel></rss>
+显著特性 基于 Service Mesh Interface (SMI) 的实现，主要包括 Traffic Access Control， Traffic Specs 和 Traffic Split 。剩下的 Traffic Metrics 正在开发中； 服务间的通信加密使用 mTLS ； 定义和执行服务间的访问控制策略； 通过 Prometheus 和 Grafana 完成其观察性； 可与外部证书管理服务进行集成； Envoy sidecar 自动注入； 上手体验 只做介绍未免太过无趣，而且说实话，这么多 service mesh 实现，不亲自上手试试看，感觉不出来太多差异的。</description></item></channel></rss>
