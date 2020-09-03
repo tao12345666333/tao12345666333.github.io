@@ -1,0 +1,446 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>被 Google 选择的下一代数据面 Cilium 是什么 - MoeLove</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><script async src=//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script><script>(adsbygoogle=window.adsbygoogle||[]).push({google_ad_client:"ca-pub-1876963677156202",enable_page_level_ads:true});</script><meta name=author content="张晋涛"><meta name=description content="背景 在我之前的文章 K8S 生态周报| Google 选择 Cilium 作为 GKE 下一代数据面 一文中，我介绍了 Google 宣布使用 Cilium 作为 GKE 的下一代数据面，及其背后的故事。
+Google 选择 Cilium 主要是为了增加 GKE 平台的容器安全性和可观测性。那么，Cilium 到底是什么，为什么会有这么强的吸引力呢？
+摘一段官网的介绍：
+ Cilium is open source software for transparently securing the network connectivity between application services deployed using Linux container management platforms like Docker and Kubernetes.
+ Cilium 是一个用于透明保护部署在 Linux 容器管理平台（比如 Docker 和 Kubernetes）上的应用服务之间网络连接的开源软件。
+为什么着重强调是 “Linux 容器管理平台” 呢？这就不得不提到 Cilium 的实现了。Cilium 的基础是一种称为 eBPF 的 Linux 内核技术，使用 eBPF 可以在 Linux 自身内部动态的插入一些控制逻辑，从而满足可观察性和安全性相关的需求。"><meta name=keywords content="MoeLove,Linux,Docker,Kubernetes,Golang,Python,Container,Vim,容器,k8s"><meta name=baidu-site-verification content="jO2rMlnjJi"><meta name=google-site-verification content="googlefe3fc086c62f7210.html"><meta name=generator content="Hugo 0.59.1 with theme even"><link rel=canonical href=https://moelove.info/2020/09/02/%E8%A2%AB-Google-%E9%80%89%E6%8B%A9%E7%9A%84%E4%B8%8B%E4%B8%80%E4%BB%A3%E6%95%B0%E6%8D%AE%E9%9D%A2-Cilium-%E6%98%AF%E4%BB%80%E4%B9%88/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css rel=stylesheet><link href=/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><meta property="og:title" content="被 Google 选择的下一代数据面 Cilium 是什么"><meta property="og:description" content="背景 在我之前的文章 K8S 生态周报| Google 选择 Cilium 作为 GKE 下一代数据面 一文中，我介绍了 Google 宣布使用 Cilium 作为 GKE 的下一代数据面，及其背后的故事。
+Google 选择 Cilium 主要是为了增加 GKE 平台的容器安全性和可观测性。那么，Cilium 到底是什么，为什么会有这么强的吸引力呢？
+摘一段官网的介绍：
+ Cilium is open source software for transparently securing the network connectivity between application services deployed using Linux container management platforms like Docker and Kubernetes.
+ Cilium 是一个用于透明保护部署在 Linux 容器管理平台（比如 Docker 和 Kubernetes）上的应用服务之间网络连接的开源软件。
+为什么着重强调是 “Linux 容器管理平台” 呢？这就不得不提到 Cilium 的实现了。Cilium 的基础是一种称为 eBPF 的 Linux 内核技术，使用 eBPF 可以在 Linux 自身内部动态的插入一些控制逻辑，从而满足可观察性和安全性相关的需求。"><meta property="og:type" content="article"><meta property="og:url" content="https://moelove.info/2020/09/02/%E8%A2%AB-Google-%E9%80%89%E6%8B%A9%E7%9A%84%E4%B8%8B%E4%B8%80%E4%BB%A3%E6%95%B0%E6%8D%AE%E9%9D%A2-Cilium-%E6%98%AF%E4%BB%80%E4%B9%88/"><meta property="article:published_time" content="2020-09-02T10:51:21+08:00"><meta property="article:modified_time" content="2020-09-02T10:51:21+08:00"><meta itemprop=name content="被 Google 选择的下一代数据面 Cilium 是什么"><meta itemprop=description content="背景 在我之前的文章 K8S 生态周报| Google 选择 Cilium 作为 GKE 下一代数据面 一文中，我介绍了 Google 宣布使用 Cilium 作为 GKE 的下一代数据面，及其背后的故事。
+Google 选择 Cilium 主要是为了增加 GKE 平台的容器安全性和可观测性。那么，Cilium 到底是什么，为什么会有这么强的吸引力呢？
+摘一段官网的介绍：
+ Cilium is open source software for transparently securing the network connectivity between application services deployed using Linux container management platforms like Docker and Kubernetes.
+ Cilium 是一个用于透明保护部署在 Linux 容器管理平台（比如 Docker 和 Kubernetes）上的应用服务之间网络连接的开源软件。
+为什么着重强调是 “Linux 容器管理平台” 呢？这就不得不提到 Cilium 的实现了。Cilium 的基础是一种称为 eBPF 的 Linux 内核技术，使用 eBPF 可以在 Linux 自身内部动态的插入一些控制逻辑，从而满足可观察性和安全性相关的需求。"><meta itemprop=datePublished content="2020-09-02T10:51:21+08:00"><meta itemprop=dateModified content="2020-09-02T10:51:21+08:00"><meta itemprop=wordCount content="2090"><meta itemprop=keywords content="Linux,Kubernetes,eBPF,cilium,"><meta name=twitter:card content="summary"><meta name=twitter:title content="被 Google 选择的下一代数据面 Cilium 是什么"><meta name=twitter:description content="背景 在我之前的文章 K8S 生态周报| Google 选择 Cilium 作为 GKE 下一代数据面 一文中，我介绍了 Google 宣布使用 Cilium 作为 GKE 的下一代数据面，及其背后的故事。
+Google 选择 Cilium 主要是为了增加 GKE 平台的容器安全性和可观测性。那么，Cilium 到底是什么，为什么会有这么强的吸引力呢？
+摘一段官网的介绍：
+ Cilium is open source software for transparently securing the network connectivity between application services deployed using Linux container management platforms like Docker and Kubernetes.
+ Cilium 是一个用于透明保护部署在 Linux 容器管理平台（比如 Docker 和 Kubernetes）上的应用服务之间网络连接的开源软件。
+为什么着重强调是 “Linux 容器管理平台” 呢？这就不得不提到 Cilium 的实现了。Cilium 的基础是一种称为 eBPF 的 Linux 内核技术，使用 eBPF 可以在 Linux 自身内部动态的插入一些控制逻辑，从而满足可观察性和安全性相关的需求。"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>MoeLove</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/about/><li class=mobile-menu-item>About</li></a><a href=/friends/><li class=mobile-menu-item>Friends</li></a><a href=/projects/><li class=mobile-menu-item>Projects</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>MoeLove</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/about/>About</a></li><li class=menu-item><a class=menu-item-link href=/friends/>Friends</a></li><li class=menu-item><a class=menu-item-link href=/projects/>Projects</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>被 Google 选择的下一代数据面 Cilium 是什么</h1><div class=post-meta><span class=post-time>2020-09-02</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#背景>背景</a></li><li><a href=#准备集群>准备集群</a><ul><li><a href=#写配置文件>写配置文件</a></li><li><a href=#启动集群>启动集群</a></li><li><a href=#查看状态>查看状态</a></li></ul></li><li><a href=#部署-cilium>部署 Cilium</a><ul><li><a href=#添加-helm-仓库>添加 Helm 仓库</a></li><li><a href=#预加载镜像>预加载镜像</a></li><li><a href=#使用-helm-部署-cilium>使用 Helm 部署 Cilium</a></li></ul></li><li><a href=#cilium-功能体验>Cilium 功能体验</a><ul><li><a href=#hubble-介绍>Hubble 介绍</a></li><li><a href=#可观察性>可观察性</a></li><li><a href=#部署测试应用>部署测试应用</a></li><li><a href=#命令行观测>命令行观测</a></li><li><a href=#hubble-ui-观测>Hubble UI 观测</a></li><li><a href=#hubble-metrics-观测>Hubble metrics 观测</a></li><li><a href=#验证-ciliumnetworkpolicy-的效果>验证 CiliumNetworkPolicy 的效果</a></li></ul></li><li><a href=#总结>总结</a></li></ul></li></ul></nav></div></div><div class=post-content><h2 id=背景>背景</h2><p>在我之前的文章 <a href=https://zhuanlan.zhihu.com/p/195759300 title="Google 选择 Cilium 作为 GKE 下一代数据面">K8S 生态周报| Google 选择 Cilium 作为 GKE 下一代数据面</a> 一文中，我介绍了 Google 宣布使用 Cilium 作为 GKE 的下一代数据面，及其背后的故事。</p><p>Google 选择 Cilium 主要是为了增加 GKE 平台的容器安全性和可观测性。那么，Cilium 到底是什么，为什么会有这么强的吸引力呢？</p><p>摘一段官网的介绍：</p><blockquote><p>Cilium is open source software for transparently securing the network connectivity between application services deployed using Linux container management platforms like Docker and Kubernetes.</p></blockquote><p>Cilium 是一个用于透明保护部署在 Linux 容器管理平台（比如 Docker 和 Kubernetes）上的应用服务之间网络连接的开源软件。</p><p>为什么着重强调是 “Linux 容器管理平台” 呢？这就不得不提到 Cilium 的实现了。Cilium 的基础是一种称为 eBPF 的 Linux 内核技术，使用 eBPF 可以在 Linux 自身内部动态的插入一些控制逻辑，从而满足可观察性和安全性相关的需求。</p><p>只谈概念毕竟过于空洞，本节我们直接上手实践一下 Cilium 。</p><h2 id=准备集群>准备集群</h2><p>这里我使用 <a href=https://kind.sigs.k8s.io/ title="Kubernetes IN Docker">KIND</a> 来创建一套多节点的本地集群。</p><h3 id=写配置文件>写配置文件</h3><p>在创建集群时候，通过配置文件来禁用掉 KIND 默认的 CNI 插件。</p><pre><code class=language-yaml>kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+- role: control-plane
+- role: worker
+- role: worker
+- role: worker
+networking:
+  disableDefaultCNI: true
+</code></pre><h3 id=启动集群>启动集群</h3><p>将配置文件命名为 <code>kindconfig</code> ，通过 <code>--config</code> 参数来指定它。 通过 <code>--image</code> 参数可指定创建集群所使用的镜像，这里我使用 <code>kindest/node:v1.19.0@sha256:6a6e4d588db3c2873652f382465eeadc2644562a64659a1da4</code> 来创建一个最新的 Kubernetes v1.19.0 版本的集群。</p><pre><code class=language-sh>(MoeLove) ➜  ~ kind create cluster --config=kindconfig  --image=kindest/node:v1.19.0@sha256:6a6e4d588db3c2873652f382465eeadc2644562a64659a1da4
+db73d3beaa8848  
+Creating cluster &quot;kind&quot; ...
+ ✓ Ensuring node image (kindest/node:v1.19.0) 🖼 
+ ✓ Preparing nodes 📦 📦 📦 📦  
+ ✓ Writing configuration 📜 
+ ✓ Starting control-plane 🕹️ 
+ ✓ Installing StorageClass 💾 
+ ✓ Joining worker nodes 🚜 
+Set kubectl context to &quot;kind-kind&quot;
+You can now use your cluster with:
+
+kubectl cluster-info --context kind-kind
+
+Have a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community 🙂
+</code></pre><h3 id=查看状态>查看状态</h3><p>由于我们已经禁用了 KIND 默认的 CNI ，所以现在集群的 Node 都是 <code>NotReady</code> 的状态，等待 CNI 的初始化。</p><pre><code class=language-sh>(MoeLove) ➜  ~ kubectl get nodes 
+NAME                 STATUS     ROLES    AGE   VERSION
+kind-control-plane   NotReady   master   85s   v1.19.0
+kind-worker          NotReady   &lt;none&gt;   49s   v1.19.0
+kind-worker2         NotReady   &lt;none&gt;   49s   v1.19.0
+kind-worker3         NotReady   &lt;none&gt;   49s   v1.19.0
+</code></pre><h2 id=部署-cilium>部署 Cilium</h2><p>部署 Cilium 可以有多种方式，这里我们选择最简单的，直接使用 Helm 3 进行部署。</p><h3 id=添加-helm-仓库>添加 Helm 仓库</h3><p>Cilium 提供了官方维护的 Helm 仓库，我们先来添加它。</p><p>注意： <strong>请使用 Helm 3</strong>。 在之前的文章 <a href=https://zhuanlan.zhihu.com/p/186265631 title="Helm v2 进入维护期倒计时">K8S 生态周报| Helm v2 进入维护期倒计时</a> 中，我曾介绍过 Helm v2 的维护期已经进入倒计时，三个月后将停止为 Helm v2 提供安全补丁，届时 Helm v2 的维护期就彻底终止了。</p><pre><code class=language-sh>(MoeLove) ➜  ~ helm repo add cilium https://helm.cilium.io/ 
+&quot;cilium&quot; has been added to your repositories
+</code></pre><h3 id=预加载镜像>预加载镜像</h3><p><strong>这一步并非必须</strong>。 只是由于每个在 Node 上都需要下载 <code>cilium/cilium:v1.8.2</code> 的镜像，会很耗时，所以我们可以直接使用 <code>kind load docker-image</code> 将主机 Docker 中的镜像加载到 KIND 创建的集群中。</p><pre><code class=language-sh># 下载镜像
+(MoeLove) ➜  ~ docker pull cilium/cilium:v1.8.2 
+v1.8.2: Pulling from cilium/cilium
+Digest: sha256:9dffe79408025f7523a94a1828ac1691b997a2b1dbd69af338cfbecc8428d326
+Status: Image is up to date for cilium/cilium:v1.8.2
+docker.io/cilium/cilium:v1.8.2
+</code></pre><pre><code class=language-sh># 将镜像加载到 KIND 集群中
+(MoeLove) ➜  ~ kind load docker-image cilium/cilium:v1.8.2  
+Image: &quot;cilium/cilium:v1.8.2&quot; with ID &quot;sha256:009715be68951ab107617f04dc50bcceb3d3f1e0c09db156aacf95e56eb0d5cc&quot; not yet present on node &quot;kind-worker3&quot;, loading...
+Image: &quot;cilium/cilium:v1.8.2&quot; with ID &quot;sha256:009715be68951ab107617f04dc50bcceb3d3f1e0c09db156aacf95e56eb0d5cc&quot; not yet present on node &quot;kind-control-plane&quot;, loading...
+Image: &quot;cilium/cilium:v1.8.2&quot; with ID &quot;sha256:009715be68951ab107617f04dc50bcceb3d3f1e0c09db156aacf95e56eb0d5cc&quot; not yet present on node &quot;kind-worker&quot;, loading...
+Image: &quot;cilium/cilium:v1.8.2&quot; with ID &quot;sha256:009715be68951ab107617f04dc50bcceb3d3f1e0c09db156aacf95e56eb0d5cc&quot; not yet present on node &quot;kind-worker2&quot;, loading...
+</code></pre><p>镜像加载完成后，可使用如下命令进行二次确认：</p><pre><code class=language-sh>for i in `docker ps --filter label=io.x-k8s.kind.cluster=kind -q`
+do
+    docker exec $i ctr -n k8s.io -a /run/containerd/containerd.sock i ls |grep cilium
+done
+</code></pre><h3 id=使用-helm-部署-cilium>使用 Helm 部署 Cilium</h3><pre><code class=language-sh>(MoeLove) ➜  ~ helm install cilium cilium/cilium --version 1.8.2 \
+   --namespace kube-system \
+   --set global.nodeinit.enabled=true \
+   --set global.kubeProxyReplacement=partial \
+   --set global.hostServices.enabled=false \
+   --set global.externalIPs.enabled=true \
+   --set global.nodePort.enabled=true \
+   --set global.hostPort.enabled=true \
+   --set global.pullPolicy=IfNotPresent \
+   --set config.ipam=kubernetes \
+   --set global.hubble.enabled=true \
+   --set global.hubble.relay.enabled=true \
+   --set global.hubble.ui.enabled=true \
+   --set global.hubble.metrics.enabled=&quot;{dns,drop,tcp,flow,port-distribution,icmp,http}&quot;
+NAME: cilium
+LAST DEPLOYED: Wed Sep  2 21:03:23 2020
+NAMESPACE: kube-system
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:
+You have successfully installed Cilium with Hubble Relay and Hubble UI.
+
+Your release version is 1.8.2.
+
+For any further help, visit https://docs.cilium.io/en/v1.8/gettinghelp
+</code></pre><p>这里对几个配置项做下说明：</p><ul><li><code>global.hubble.enabled=true</code> ： 表示启用 Hubble 。</li><li><code>global.hubble.metrics.enabled="{dns,drop,tcp,flow,port-distribution,icmp,http}</code>：表示 Hubble 暴露出的 metrics 中包含哪些内容，如果不指定则表示禁用它。</li><li><code>global.hubble.ui.enabled=true</code> ：表示启用 Hubble UI</li></ul><p>对于 Hubble 是什么，我们稍后再介绍。</p><p>当 Cilium 部署完成后，我们可以查看下部署的 ns 下的 Pod 情况：</p><pre><code class=language-sh>(MoeLove) ➜  ~ kubectl -n kube-system get pods 
+NAME                                         READY   STATUS    RESTARTS   AGE
+cilium-86dbc                                 1/1     Running   0          2m11s
+cilium-cjcps                                 1/1     Running   0          2m11s
+cilium-f8dtm                                 1/1     Running   0          2m11s
+cilium-node-init-9r9cm                       1/1     Running   1          2m11s
+cilium-node-init-bkg28                       1/1     Running   1          2m11s
+cilium-node-init-jgx6r                       1/1     Running   1          2m11s
+cilium-node-init-s7xhx                       1/1     Running   1          2m11s
+cilium-operator-756cc96896-brlrh             1/1     Running   0          2m11s
+cilium-t8kqc                                 1/1     Running   0          2m11s
+coredns-f9fd979d6-7vfnq                      1/1     Running   0          6m16s
+coredns-f9fd979d6-h7rfw                      1/1     Running   0          6m16s
+etcd-kind-control-plane                      1/1     Running   0          6m19s
+hubble-relay-666ddfd69b-2lpsz                1/1     Running   0          2m11s
+hubble-ui-7854cf65dc-ncj89                   1/1     Running   0          2m11s
+kube-apiserver-kind-control-plane            1/1     Running   0          6m19s
+kube-controller-manager-kind-control-plane   1/1     Running   0          6m19s
+kube-proxy-48rwk                             1/1     Running   0          6m16s
+kube-proxy-8mn58                             1/1     Running   0          5m59s
+kube-proxy-jptln                             1/1     Running   0          5m59s
+kube-proxy-pp24h                             1/1     Running   0          5m59s
+kube-scheduler-kind-control-plane            1/1     Running   0          6m19s
+</code></pre><p>查看 Node 的状态：</p><pre><code class=language-sh>(MoeLove) ➜  ~ kubectl get nodes 
+NAME                 STATUS   ROLES    AGE     VERSION
+kind-control-plane   Ready    master   7m1s    v1.19.0
+kind-worker          Ready    &lt;none&gt;   6m26s   v1.19.0
+kind-worker2         Ready    &lt;none&gt;   6m26s   v1.19.0
+kind-worker3         Ready    &lt;none&gt;   6m26s   v1.19.0
+</code></pre><h2 id=cilium-功能体验>Cilium 功能体验</h2><h3 id=hubble-介绍>Hubble 介绍</h3><p>上文中，通过 Helm 部署 Cilium 时，我们指定了一些与 Hubble 有关的参数，但尚未介绍 Hubble 具体是什么。这里简单介绍下。</p><p>Hubble 是一个完全分布式的网络和安全性的可观察性平台，它建立在 Cilium 和 eBPF 之上，以完全透明的方式深入了解服务以及网络基础结构的通信和行为。</p><p>由于它是构建在 Cilium 之上的，Hubble 可以利用 eBPF 获得可见性。通过使用 eBPF ，所有可见性都是可编程的，并且可以最大程度的减少开销，同时根据用户需要提供深入和详尽的可见性。例如：</p><ul><li>了解服务之间的依赖关系。可以观测到服务之间是否有通信，通信频率，以及 HTTP 调用产生的状态码等；</li><li>监控网络和告警。可以观测到网络连接是否异常，是 L4 还是 L7 有问题，DNS 查询是否异常等；</li><li>监控应用程序。可以观测到 HTTP 4xx/5xx 的错误率，HTTP 请求和响应的 95 值，99值等；</li><li>监控安全问题。可以观测到哪些请求是被 Network Policy 所拒绝的，哪些服务解析了特定的域名等；</li></ul><h3 id=可观察性>可观察性</h3><p>我们可以直接使用 <code>hubble observe</code> 观测当前集群中的连接情况：</p><pre><code class=language-sh>(MoeLove) ➜  hubble-ui git:(master) kubectl exec -n kube-system -t ds/cilium -- hubble observe
+TIMESTAMP             SOURCE                                      DESTINATION                                TYPE          VERDICT     SUMMARY
+Sep  2 07:06:41.624   kube-system/coredns-f9fd979d6-h7rfw:8181    10.244.1.50:52404                          to-stack      FORWARDED   TCP Flags: ACK, FIN
+Sep  2 07:06:41.625   10.244.1.50:52404                           kube-system/coredns-f9fd979d6-h7rfw:8181   to-endpoint   FORWARDED   TCP Flags: ACK, FIN
+Sep  2 07:06:42.376   10.244.1.12:4240                            10.244.0.76:45164                          to-overlay    FORWARDED   TCP Flags: ACK
+Sep  2 07:06:42.376   10.244.0.76:45164                           10.244.1.12:4240                           to-endpoint   FORWARDED   TCP Flags: ACK
+Sep  2 07:06:42.778   10.244.1.50:37512                           10.244.1.12:4240                           to-endpoint   FORWARDED   TCP Flags: ACK, PSH
+Sep  2 07:06:42.778   10.244.1.12:4240                            10.244.1.50:37512                          to-stack      FORWARDED   TCP Flags: ACK, PSH
+Sep  2 07:06:44.941   10.244.1.50:59870                           10.244.0.108:4240                          to-overlay    FORWARDED   TCP Flags: ACK
+Sep  2 07:06:44.941   10.244.1.12:4240                            10.244.2.220:47616                         to-overlay    FORWARDED   TCP Fla
+gs: ACK
+Sep  2 07:06:44.941   10.244.1.50:52090                           10.244.3.159:4240                          to-overlay    FORWARDED   TCP Fla
+gs: ACK
+Sep  2 07:06:44.941   10.244.1.50:52958                           10.244.2.81:4240                           to-overlay    FORWARDED   TCP Fla
+gs: ACK
+Sep  2 07:06:44.941   10.244.2.220:47616                          10.244.1.12:4240                           to-endpoint   FORWARDED   TCP Fla
+gs: ACK
+Sep  2 07:06:45.448   10.244.1.12:4240                            10.244.3.111:54012                         to-overlay    FORWARDED   TCP Fla
+gs: ACK
+Sep  2 07:06:45.449   10.244.3.111:54012                          10.244.1.12:4240                           to-endpoint   FORWARDED   TCP Fla
+gs: ACK
+Sep  2 07:06:47.631   kube-system/coredns-f9fd979d6-h7rfw:36120   172.18.0.4:6443                            to-stack      FORWARDED   TCP Fla
+gs: ACK
+Sep  2 07:06:47.822   10.244.1.50:60914                           kube-system/coredns-f9fd979d6-h7rfw:8080   to-endpoint   FORWARDED   TCP Fla
+gs: SYN
+Sep  2 07:06:47.822   kube-system/coredns-f9fd979d6-h7rfw:8080    10.244.1.50:60914                          to-stack      FORWARDED   TCP Fla
+gs: SYN, ACK
+Sep  2 07:06:47.822   10.244.1.50:60914                           kube-system/coredns-f9fd979d6-h7rfw:8080   to-endpoint   FORWARDED   TCP Fla
+gs: ACK
+Sep  2 07:06:47.823   kube-system/coredns-f9fd979d6-h7rfw:8080    10.244.1.50:60914                          to-stack      FORWARDED   TCP Fla
+gs: ACK, PSH
+Sep  2 07:06:47.823   kube-system/coredns-f9fd979d6-h7rfw:8080    10.244.1.50:60914                          to-stack      FORWARDED   TCP Fla
+gs: ACK, FIN
+Sep  2 07:06:47.823   10.244.1.50:60914                           kube-system/coredns-f9fd979d6-h7rfw:8080   to-endpoint   FORWARDED   TCP Fla
+gs: ACK, PSH
+</code></pre><p>可以看到内容很详细，包括通信的两端，以及发的包是 <code>ACK</code> 还是 <code>SYN</code> 等信息均可观测到。</p><h3 id=部署测试应用>部署测试应用</h3><p>这里我们部署一个测试应用来实际体验下 Cilium 提供的强大功能。官方仓库中提供了一个 <a href=https://raw.githubusercontent.com/cilium/cilium/HEAD/examples/kubernetes/connectivity-check/connectivity-check.yaml title=connectivity-check>connectivity-check</a> 的测试用例，这里我对它做了精简和修改，以便理解。</p><p>这里定义的内容如下：</p><ul><li>1 个名为 <code>echo-a</code> 的 svc ，用于暴露 <code>echo-a</code> 这个测试服务；</li><li>4 个 deploy ，分别是 1 个测试服务，以及三个用于测试与 <code>echo-a</code> 联通性的 deploy;</li><li>2 个 CiliumNetworkPolicy，用来控制是否允许与 <code>echo-a</code> 联通；</li></ul><pre><code class=language-yaml>---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echo-a
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+  selector:
+    name: echo-a
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo-a
+spec:
+  selector:
+    matchLabels:
+      name: echo-a
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: echo-a
+    spec:
+      containers:
+      - name: echo-container
+        image: docker.io/cilium/json-mock:1.0
+        imagePullPolicy: IfNotPresent
+        readinessProbe:
+          exec:
+            command: [&quot;curl&quot;, &quot;-sS&quot;, &quot;--fail&quot;, &quot;-o&quot;, &quot;/dev/null&quot;, &quot;localhost&quot;]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-to-a-allowed-cnp
+spec:
+  selector:
+    matchLabels:
+      name: pod-to-a-allowed-cnp
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: pod-to-a-allowed-cnp
+    spec:
+      containers:
+      - name: pod-to-a-allowed-cnp-container
+        image: docker.io/byrnedo/alpine-curl:0.1.8
+        command: [&quot;/bin/ash&quot;, &quot;-c&quot;, &quot;sleep 1000000000&quot;]
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          exec:
+            command: [&quot;curl&quot;, &quot;-sS&quot;, &quot;--fail&quot;, &quot;-o&quot;, &quot;/dev/null&quot;, &quot;echo-a&quot;]
+        readinessProbe:
+          exec:
+            command: [&quot;curl&quot;, &quot;-sS&quot;, &quot;--fail&quot;, &quot;-o&quot;, &quot;/dev/null&quot;, &quot;echo-a&quot;]
+---
+apiVersion: &quot;cilium.io/v2&quot;
+kind: CiliumNetworkPolicy
+metadata:
+  name: &quot;pod-to-a-allowed-cnp&quot;
+spec:
+  endpointSelector:
+    matchLabels:
+      name: pod-to-a-allowed-cnp
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        name: echo-a
+    toPorts:
+    - ports:
+      - port: &quot;80&quot;
+        protocol: TCP
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: kube-system
+        k8s:k8s-app: kube-dns
+    toPorts:
+    - ports:
+      - port: &quot;53&quot;
+        protocol: UDP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-to-a-l3-denied-cnp
+spec:
+  selector:
+    matchLabels:
+      name: pod-to-a-l3-denied-cnp
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: pod-to-a-l3-denied-cnp
+    spec:
+      containers:
+      - name: pod-to-a-l3-denied-cnp-container
+        image: docker.io/byrnedo/alpine-curl:0.1.8
+        command: [&quot;/bin/ash&quot;, &quot;-c&quot;, &quot;sleep 1000000000&quot;]
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          timeoutSeconds: 7
+          exec:
+            command: [&quot;ash&quot;, &quot;-c&quot;, &quot;! curl -sS --fail --connect-timeout 5 -o /dev/null echo-a&quot;]
+        readinessProbe:
+          timeoutSeconds: 7
+          exec:
+            command: [&quot;ash&quot;, &quot;-c&quot;, &quot;! curl -sS --fail --connect-timeout 5 -o /dev/null echo-a&quot;]
+---
+apiVersion: &quot;cilium.io/v2&quot;
+kind: CiliumNetworkPolicy
+metadata:
+  name: &quot;pod-to-a-l3-denied-cnp&quot;
+spec:
+  endpointSelector:
+    matchLabels:
+      name: pod-to-a-l3-denied-cnp
+  egress:
+  - toEndpoints:
+    - matchLabels:
+        k8s:io.kubernetes.pod.namespace: kube-system
+        k8s:k8s-app: kube-dns
+    toPorts:
+    - ports:
+      - port: &quot;53&quot;
+        protocol: UDP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-to-a
+spec:
+  selector:
+    matchLabels:
+      name: pod-to-a
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: pod-to-a
+    spec:
+      containers:
+      - name: pod-to-a-container
+        image: docker.io/byrnedo/alpine-curl:0.1.8
+        command: [&quot;/bin/ash&quot;, &quot;-c&quot;, &quot;sleep 1000000000&quot;]
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          exec:
+            command: [&quot;curl&quot;, &quot;-sS&quot;, &quot;--fail&quot;, &quot;-o&quot;, &quot;/dev/null&quot;, &quot;echo-a&quot;]
+
+</code></pre><p>直接部署即可：</p><pre><code class=language-sh>(MoeLove) ➜  ~ kubectl apply -f cilium-demo.yaml 
+service/echo-a created
+deployment.apps/echo-a created
+deployment.apps/pod-to-a-allowed-cnp created
+ciliumnetworkpolicy.cilium.io/pod-to-a-allowed-cnp created
+deployment.apps/pod-to-a-l3-denied-cnp created
+ciliumnetworkpolicy.cilium.io/pod-to-a-l3-denied-cnp created
+deployment.apps/pod-to-a created
+</code></pre><p>查看 Pod 状态，看看状态是否正常：</p><pre><code class=language-sh>(MoeLove) ➜  ~ kubectl get pods 
+NAME                                      READY   STATUS    RESTARTS   AGE
+echo-a-8b6595b89-w9kt2                    1/1     Running   0          49s
+pod-to-a-5567c85856-xsg5b                 1/1     Running   0          49s
+pod-to-a-allowed-cnp-7b85c8db8-jrjhx      1/1     Running   0          49s
+pod-to-a-l3-denied-cnp-7f64d7b7c4-fsxrm   1/1     Running   0          49s
+</code></pre><h3 id=命令行观测>命令行观测</h3><p>接下来，使用 <code>hubble observe</code> 观察下效果，已经可以看到我们部署的应用产生的连接了。</p><pre><code class=language-sh>(MoeLove) ➜  ~ kubectl exec -n kube-system -t ds/cilium -- hubble observe  
+TIMESTAMP             SOURCE                                               DESTINATION                                             TYPE          VERDICT     SUMMARY
+Sep  3 00:00:13.481   default/pod-to-a-5567c85856-xsg5b:60784              default/echo-a-8b6595b89-w9kt2:80                       to-endpoint   FORWARDED   TCP Flags: ACK, PSH
+Sep  3 00:00:15.429   kube-system/coredns-f9fd979d6-h7rfw:53               default/pod-to-a-allowed-cnp-7b85c8db8-jrjhx:43696      to-endpoint   FORWARDED   UDP
+Sep  3 00:00:16.010   10.244.1.12:4240                                     10.244.2.220:50830                                      to-overlay    FORWARDED   TCP Flags: ACK
+Sep  3 00:00:16.010   10.244.1.12:4240                                     10.244.1.50:40402                                       to-stack      FORWARDED   TCP Flags: ACK
+Sep  3 00:00:16.010   10.244.1.50:40402                                    10.244.1.12:4240                                        to-endpoint   FORWARDED   TCP Flags: ACK
+Sep  3 00:00:16.011   10.244.2.220:50830                                   10.244.1.12:4240                                        to-endpoint   FORWARDED   TCP Flags: ACK
+Sep  3 00:00:16.523   10.244.1.12:4240                                     10.244.3.111:57242                                      to-overlay    FORWARDED   TCP Flags: ACK
+Sep  3 00:00:16.523   10.244.3.111:57242                                   10.244.1.12:4240                                        to-endpoint   FORWARDED   TCP Flags: ACK
+Sep  3 00:00:21.376   kube-system/coredns-f9fd979d6-h7rfw:53               default/pod-to-a-l3-denied-cnp-7f64d7b7c4-fsxrm:44785   to-overlay    FORWARDED   UDP
+Sep  3 00:00:21.377   kube-system/coredns-f9fd979d6-h7rfw:53               default/pod-to-a-l3-denied-cnp-7f64d7b7c4-fsxrm:44785   to-overlay    FORWARDED   UDP
+Sep  3 00:00:23.896   kube-system/coredns-f9fd979d6-h7rfw:36120            172.18.0.4:6443                                         to-stack      FORWARDED   TCP Flags: ACK
+Sep  3 00:00:25.428   default/pod-to-a-allowed-cnp-7b85c8db8-jrjhx:55678   default/echo-a-8b6595b89-w9kt2:80                       L3-L4         FORWARDED   TCP Flags: SYN
+Sep  3 00:00:25.428   default/pod-to-a-allowed-cnp-7b85c8db8-jrjhx:55678   default/echo-a-8b6595b89-w9kt2:80                       to-endpoint   FORWARDED   TCP Flags: SYN
+Sep  3 00:00:25.428   default/echo-a-8b6595b89-w9kt2:80                    default/pod-to-a-allowed-cnp-7b85c8db8-jrjhx:55678      to-endpoint   FORWARDED   TCP Flags: SYN, ACK
+Sep  3 00:00:25.428   default/pod-to-a-allowed-cnp-7b85c8db8-jrjhx:55678   default/echo-a-8b6595b89-w9kt2:80                       to-endpoint   FORWARDED   TCP Flags: ACK
+Sep  3 00:00:25.428   default/pod-to-a-allowed-cnp-7b85c8db8-jrjhx:55678   default/echo-a-8b6595b89-w9kt2:80                       to-endpoint   FORWARDED   TCP Flags: ACK, PSH
+Sep  3 00:00:25.429   default/pod-to-a-allowed-cnp-7b85c8db8-jrjhx:55678   default/echo-a-8b6595b89-w9kt2:80                       to-endpoint   FORWARDED   TCP Flags: ACK, FIN
+Sep  3 00:00:29.546   10.244.1.50:57770                                    kube-system/coredns-f9fd979d6-h7rfw:8080                to-endpoint   FORWARDED   TCP Flags: SYN
+Sep  3 00:00:29.546   kube-system/coredns-f9fd979d6-h7rfw:8080             10.244.1.50:57770                                       to-stack      FORWARDED   TCP Flags: SYN, ACK
+Sep  3 00:00:29.546   10.244.1.50:57770                                    kube-system/coredns-f9fd979d6-h7rfw:8080                to-endpoint   FORWARDED   TCP Flags: ACK
+</code></pre><h3 id=hubble-ui-观测>Hubble UI 观测</h3><p>还记得我们在上文中部署 Cilium 时候配置的几个关于 Hubble 的参数么，现在我们可以使用 Hubble UI 来看看效果。</p><p>先检查下 <code>kube-system</code> ns 下，是否有 <code>hubble-ui</code> 这个 svc 。</p><pre><code class=language-sh>(MoeLove) ➜  kubectl -n kube-system get svc                                                                            
+NAME             TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)                  AGE
+hubble-metrics   ClusterIP   None           &lt;none&gt;        9091/TCP                 4m31s
+hubble-relay     ClusterIP   10.102.90.19   &lt;none&gt;        80/TCP                   4m31s
+hubble-ui        ClusterIP   10.96.69.234   &lt;none&gt;        80/TCP                   4m31s
+kube-dns         ClusterIP   10.96.0.10     &lt;none&gt;        53/UDP,53/TCP,9153/TCP   8m51s
+</code></pre><p>直接使用 <code>kubectl port-forward</code> ，从本地来访问 Hubble UI 。</p><pre><code class=language-sh>(MoeLove) ➜  ~ kubectl -n kube-system port-forward svc/hubble-ui 12000:80
+Forwarding from 127.0.0.1:12000 -&gt; 12000
+Forwarding from [::1]:12000 -&gt; 12000
+</code></pre><p>浏览器中打开 <a href=http://127.0.0.1:12000>http://127.0.0.1:12000</a> 即可。</p><p><img src=/img/hubble-ui.png alt="Hubble UI - https:/moelove.info"></p><p>可以看到我们刚才部署的所有 Pod，以及查看到相应的 CiliumNetworkPolicy 等信息，这里就不赘述了，有兴趣的小伙伴可以自行探索下。</p><h3 id=hubble-metrics-观测>Hubble metrics 观测</h3><p>我们也可以使用 Hubble 暴露出来的 metrics 进行观测：</p><pre><code class=language-sh>(MoeLove) ➜  ~ kubectl port-forward -n kube-system  ds/cilium 19091:9091
+Forwarding from 127.0.0.1:19091 -&gt; 9091
+Forwarding from [::1]:19091 -&gt; 9091
+</code></pre><p>简单看下其中的内容，包含各类请求/响应/丢弃等相关的统计信息，还有包括每个目标端口包的数量统计等。感兴趣的小伙伴可以自行探索下。</p><pre><code class=language-sh>(MoeLove) ➜  ~ curl -s localhost:19091/metrics | head -n 22             
+# HELP hubble_dns_queries_total Number of DNS queries observed
+# TYPE hubble_dns_queries_total counter
+hubble_dns_queries_total{ips_returned=&quot;0&quot;,qtypes=&quot;A&quot;,rcode=&quot;&quot;} 1165
+hubble_dns_queries_total{ips_returned=&quot;0&quot;,qtypes=&quot;AAAA&quot;,rcode=&quot;&quot;} 1165
+# HELP hubble_dns_response_types_total Number of DNS queries observed
+# TYPE hubble_dns_response_types_total counter
+hubble_dns_response_types_total{qtypes=&quot;A&quot;,type=&quot;A&quot;} 233
+hubble_dns_response_types_total{qtypes=&quot;AAAA&quot;,type=&quot;AAAA&quot;} 233
+# HELP hubble_dns_responses_total Number of DNS queries observed
+# TYPE hubble_dns_responses_total counter
+hubble_dns_responses_total{ips_returned=&quot;0&quot;,qtypes=&quot;A&quot;,rcode=&quot;Non-Existent Domain&quot;} 932
+hubble_dns_responses_total{ips_returned=&quot;0&quot;,qtypes=&quot;AAAA&quot;,rcode=&quot;Non-Existent Domain&quot;} 932
+hubble_dns_responses_total{ips_returned=&quot;1&quot;,qtypes=&quot;A&quot;,rcode=&quot;No Error&quot;} 233
+hubble_dns_responses_total{ips_returned=&quot;1&quot;,qtypes=&quot;AAAA&quot;,rcode=&quot;No Error&quot;} 233
+# HELP hubble_drop_total Number of drops
+# TYPE hubble_drop_total counter
+hubble_drop_total{protocol=&quot;ICMPv4&quot;,reason=&quot;Policy denied&quot;} 459
+hubble_drop_total{protocol=&quot;ICMPv4&quot;,reason=&quot;Unsupported protocol for NAT masquerade&quot;} 731
+hubble_drop_total{protocol=&quot;ICMPv6&quot;,reason=&quot;Unsupported L3 protocol&quot;} 213
+hubble_drop_total{protocol=&quot;TCP&quot;,reason=&quot;Policy denied&quot;} 1425
+hubble_drop_total{protocol=&quot;UDP&quot;,reason=&quot;Stale or unroutable IP&quot;} 6
+hubble_drop_total{protocol=&quot;Unknown flow&quot;,reason=&quot;Policy denied&quot;} 1884
+</code></pre><h3 id=验证-ciliumnetworkpolicy-的效果>验证 CiliumNetworkPolicy 的效果</h3><p>说了这么多，我们来验证下刚才部署的 CiliumNetworkPolicy 的实际效果吧。</p><p>以下是刚才部署的测试 Pod， 我们通过这些 Pod 来访问 <code>echo-a</code> 这个 svc 。</p><pre><code class=language-sh>(MoeLove) ➜  ~ kubectl get pods 
+NAME                                      READY   STATUS    RESTARTS   AGE
+echo-a-8b6595b89-w9kt2                    1/1     Running   0          79m
+pod-to-a-5567c85856-xsg5b                 1/1     Running   0          79m
+pod-to-a-allowed-cnp-7b85c8db8-jrjhx      1/1     Running   0          79m
+pod-to-a-l3-denied-cnp-7f64d7b7c4-fsxrm   1/1     Running   0          79m
+</code></pre><ul><li><code>pod-to-a</code> 这是未配置任何 CiliumNetworkPolicy 规则的 Pod</li></ul><pre><code class=language-sh>(MoeLove) ➜  ~ kubectl exec pod-to-a-5567c85856-xsg5b --  curl -sI --connect-timeout 5 echo-a
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Vary: Origin, Accept-Encoding
+Access-Control-Allow-Credentials: true
+Accept-Ranges: bytes
+Cache-Control: public, max-age=0
+Last-Modified: Sat, 26 Oct 1985 08:15:00 GMT
+ETag: W/&quot;83d-7438674ba0&quot;
+Content-Type: text/html; charset=UTF-8
+Content-Length: 2109
+Date: Thu, 03 Sep 2020 00:54:05 GMT
+Connection: keep-alive
+
+</code></pre><ul><li><code>pod-to-a-allowed-cnp</code> 配置了允许通过 <code>TCP</code> 访问 <code>echo-a</code></li></ul><pre><code class=language-sh>(MoeLove) ➜  ~ kubectl exec pod-to-a-allowed-cnp-7b85c8db8-jrjhx --  curl -sI --connect-timeout 5 echo-a
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Vary: Origin, Accept-Encoding
+Access-Control-Allow-Credentials: true
+Accept-Ranges: bytes
+Cache-Control: public, max-age=0
+Last-Modified: Sat, 26 Oct 1985 08:15:00 GMT
+ETag: W/&quot;83d-7438674ba0&quot;
+Content-Type: text/html; charset=UTF-8
+Content-Length: 2109
+Date: Thu, 03 Sep 2020 01:10:27 GMT
+Connection: keep-alive
+
+</code></pre><ul><li><p><code>pod-to-a-l3-denied-cnp</code> 则是只配置了允许访问 DNS，而未配置允许对 <code>echo-a</code> 的访问</p><pre><code>(MoeLove) ➜  ~ kubectl exec pod-to-a-l3-denied-cnp-7f64d7b7c4-fsxrm --  curl -sI --connect-timeout 5 echo-a
+command terminated with exit code 28
+</code></pre></li></ul><p>可以看到，如果对 Pod 应用了 CiliumNetworkPolicy , 但是未配置对应的允许规则的话，则代表不允许访问。</p><p>比如，我们可以使用上面两个配置了 CiliumNetworkPolicy 的 Pod 来访问下公网域名：</p><pre><code class=language-sh>(MoeLove) ➜  ~ kubectl exec pod-to-a-allowed-cnp-7b85c8db8-jrjhx --  curl -sI --connect-timeout 5 moelove.info
+command terminated with exit code 28
+(MoeLove) ➜  ~ kubectl exec pod-to-a-l3-denied-cnp-7f64d7b7c4-fsxrm --  curl -sI --connect-timeout 5 moelove.info
+command terminated with exit code 28
+</code></pre><p>可以看到，均不能正常访问。</p><h2 id=总结>总结</h2><p>本节，主要介绍了 Cilium 和 Hubble 等。</p><p>通过使用 KIND 创建的 Kubernetes 集群，部署了 Cilium 及其相关组件，并通过一个实例，来展示了通过 <code>hubble observe</code>，Hubble UI 及 Hubble metrics 等方式进行观测。</p><p>也通过实际操作，验证了 CiliumNetworkPolicy 的实际效果。</p><p>我主要是在为 Docker 写代码的过程中，会涉及到 <code>LSM</code> 及 <code>seccomp</code> 等部分，所以顺便去研究了 eBPF 及其相关技术（后续再分享这部分内容）。</p><p>而 Cilium 则是我在 2019 年上半年开始学习和研究的，但正如我在去年的文章 <a href=https://zhuanlan.zhihu.com/p/79757835 title="K8S 生态周报| cilium 1.6 发布 100% kube-proxy 的替代品">《K8S 生态周报| cilium 1.6 发布 100% kube-proxy 的替代品》</a> 中写的那样：</p><blockquote><p>这里稍微说几句我关于 Cilium 的看法：
+* 厉不厉害？厉害。
+* 值不值得研究？值得。
+* 会不会放到自己的集群替代 kube-proxy ？不会，最起码目前不会。</p><p>如果你想要通过 cilium 研究 eBPF 或者 XDP 我倒是建议你可以看看，是个很不错的项目，而且通过这个项目能加深很多网络方面的认识。这么说吧，如果把 cilium 的源码及所涉及原理都研究通透了，那就很厉害了。</p><p>至于要不要替换 kube-proxy 在我看来，最起码目前我不会这样去做。解决问题的办法有很多种，而替换掉一个核心组件，却不一定是一个最值得的选择。</p></blockquote><p>Cilium 是一个值得学习和研究的项目/技术，但我目前尚未将它放到生产环境中（这也是我少数花费很多精力研究，但未应用于生产的技术之一）。</p><p>但现在看来， Cilium 也有了一定的市场/发展，是时候重新考量下了。后续我会继续分享 Cilium 及 eBPF 相关的技术文章，欢迎关注。</p><p><img src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/my_qrcode.jpg alt=TheMoeLove></p></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>张晋涛</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2020-09-02</span></p><p class=copyright-item><span class=item-title>许可协议</span>
+<span class=item-content><a rel="license noopener" href=https://creativecommons.org/licenses/by-sa/4.0/ target=_blank>CC BY-SA 4.0</a></span></p></div><div class=post-reward><input type=checkbox name=reward id=reward hidden>
+<label class=reward-button for=reward>赞赏支持</label><div class=qr-code><label class=qr-code-image for=reward><img class=image src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/wx_pay.jpg>
+<span>微信打赏</span></label>
+<label class=qr-code-image for=reward><img class=image src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/alipay.jpg>
+<span>支付宝打赏</span></label></div></div><footer class=post-footer><div class=post-tags><a href=/tags/linux/>Linux</a>
+<a href=/tags/kubernetes/>Kubernetes</a>
+<a href=/tags/ebpf/>eBPF</a>
+<a href=/tags/cilium/>cilium</a></div><nav class=post-nav><a class=next href=/2020/08/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.19-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/><span class="next-text nav-default">K8S 生态周报| Kubernetes v1.19 正式发布</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div><div id=gitalk-container></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js crossorigin=anonymous></script><script type=text/javascript>var gitalk=new Gitalk({id:'2020-09-02 10:51:21 \x2b0800 CST',title:'被 Google 选择的下一代数据面 Cilium 是什么',clientID:'68312db64e870efbd0a0',clientSecret:'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',repo:'tao12345666333.github.io',owner:'tao12345666333',admin:['tao12345666333'],body:decodeURI(location.href)});gitalk.render('gitalk-container');</script><noscript>Please enable JavaScript to view the <a href=https://github.com/gitalk/gitalk>comments powered by gitalk.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:zhangjintao9020@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/BeierTao class="iconfont icon-twitter" title=twitter></a><a href=https://github.com/tao12345666333 class="iconfont icon-github" title=github></a><a href=http://weibo.com/9020taobeier class="iconfont icon-weibo" title=weibo></a><a href=https://www.zhihu.com/people/TaoBeier class="iconfont icon-zhihu" title=zhihu></a><a href=https://moelove.info/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动</span>
+<span class=division>|</span>
+<span class=theme-info>主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span>
+<span class=copyright-year>&copy;
+2013 -
+2020
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>张晋涛</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script type=text/javascript src=/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js></script></body></html>
