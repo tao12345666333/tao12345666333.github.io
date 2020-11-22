@@ -2,39 +2,39 @@
  背景 DockerHub 是全世界最早也是最大的容器镜像仓库，托管着众多操作系统发行版及各类软件的 Docker 镜像。
 在推进业务容器化的过程中，不可避免的，我们会需要使用来自 DockerHub 上的容器镜像。 无论是在个人本地环境中使用，还是用于跑测试服务
 以下是两种主要的解决方案：
- 构建一些公共基础镜像，存放在企业的私有镜像仓库中给业务方使用：
+  构建一些公共基础镜像，存放在企业的私有镜像仓库中给业务方使用：
 这种方案下，如果业务方偶尔需要一些小众的/非基础的镜像，可能只是临时测试使用，那通常情况下是没必要将此类镜像作为基础镜像维护的。
 结果可能是：
- 使用中直接从 DockerHub pull 镜像，网络状况不佳时，就是无尽的等待； 先 pull 镜像，然后 docker tag 重 tag 后， push 到企业的私有镜像仓库中。这种情况下，如果没有较好的镜像管理规则，那么镜像仓库中就会存在各种无意义的镜像，造成存储资源的浪费。  为 docker daemon 配置 Proxy 进行加速：
- 众多国内镜像加速服务，仅提供 Docker 官方镜像的加速服务，个人/组织下的镜像不提供加速服务； 即使在不同节点上，下载相同的镜像，仍然需要通过网络加速，会产生额外的海外带宽成本；   并且近期 DockerHub 修改了其服务价格, 对于免费用户，进行了如下限制：
- 未登录用户，每 6 小时只允许 pull 100 次 已登录用户，每 6 小时只允许 pull 200 次  如果我们继续使用上述两种模式的话，由于出口 IP 是相对固定的，所以很容易触发 DockerHub 的配额限制。 此限制将于 11 月 1 日正式全面实施。"><meta name=keywords content="MoeLove,Linux,Docker,Kubernetes,Golang,Python,Container,Vim,容器,k8s"><meta name=baidu-site-verification content="jO2rMlnjJi"><meta name=google-site-verification content="googlefe3fc086c62f7210.html"><meta name=generator content="Hugo 0.59.1 with theme even"><link rel=canonical href=https://moelove.info/2020/09/20/%E7%AA%81%E7%A0%B4-DockerHub-%E9%99%90%E5%88%B6%E5%85%A8%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F%E6%9C%8D%E5%8A%A1/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css rel=stylesheet><link href=/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><meta property="og:title" content="突破 DockerHub 限制，全镜像加速服务"><meta property="og:description" content="最近 DockerHub 修改了定价，对于免费帐号会限制 200 pulls/6小时，对于匿名帐号则限制 100 pulls/6小时。 本文我来介绍下如何使用 Cache 来应对此问题。
+ 使用中直接从 DockerHub pull 镜像，网络状况不佳时，就是无尽的等待； 先 pull 镜像，然后 docker tag 重 tag 后， push 到企业的私有镜像仓库中。这种情况下，如果没有较好的镜像管理规则，那么镜像仓库中就会存在各种无意义的镜像，造成存储资源的浪费。    为 docker daemon 配置 Proxy 进行加速：
+ 众多国内镜像加速服务，仅提供 Docker 官方镜像的加速服务，个人/组织下的镜像不提供加速服务； 即使在不同节点上，下载相同的镜像，仍然需要通过网络加速，会产生额外的海外带宽成本；    并且近期 DockerHub 修改了其服务价格, 对于免费用户，进行了如下限制：
+ 未登录用户，每 6 小时只允许 pull 100 次 已登录用户，每 6 小时只允许 pull 200 次  如果我们继续使用上述两种模式的话，由于出口 IP 是相对固定的，所以很容易触发 DockerHub 的配额限制。 此限制将于 11 月 1 日正式全面实施。"><meta name=keywords content="MoeLove,Linux,Docker,Kubernetes,Golang,Python,Container,Vim,容器,k8s"><meta name=baidu-site-verification content="jO2rMlnjJi"><meta name=google-site-verification content="googlefe3fc086c62f7210.html"><meta name=generator content="Hugo 0.62.2 with theme even"><link rel=canonical href=https://moelove.info/2020/09/20/%E7%AA%81%E7%A0%B4-DockerHub-%E9%99%90%E5%88%B6%E5%85%A8%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F%E6%9C%8D%E5%8A%A1/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css rel=stylesheet><link href=/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><meta property="og:title" content="突破 DockerHub 限制，全镜像加速服务"><meta property="og:description" content="最近 DockerHub 修改了定价，对于免费帐号会限制 200 pulls/6小时，对于匿名帐号则限制 100 pulls/6小时。 本文我来介绍下如何使用 Cache 来应对此问题。
  背景 DockerHub 是全世界最早也是最大的容器镜像仓库，托管着众多操作系统发行版及各类软件的 Docker 镜像。
 在推进业务容器化的过程中，不可避免的，我们会需要使用来自 DockerHub 上的容器镜像。 无论是在个人本地环境中使用，还是用于跑测试服务
 以下是两种主要的解决方案：
- 构建一些公共基础镜像，存放在企业的私有镜像仓库中给业务方使用：
+  构建一些公共基础镜像，存放在企业的私有镜像仓库中给业务方使用：
 这种方案下，如果业务方偶尔需要一些小众的/非基础的镜像，可能只是临时测试使用，那通常情况下是没必要将此类镜像作为基础镜像维护的。
 结果可能是：
- 使用中直接从 DockerHub pull 镜像，网络状况不佳时，就是无尽的等待； 先 pull 镜像，然后 docker tag 重 tag 后， push 到企业的私有镜像仓库中。这种情况下，如果没有较好的镜像管理规则，那么镜像仓库中就会存在各种无意义的镜像，造成存储资源的浪费。  为 docker daemon 配置 Proxy 进行加速：
- 众多国内镜像加速服务，仅提供 Docker 官方镜像的加速服务，个人/组织下的镜像不提供加速服务； 即使在不同节点上，下载相同的镜像，仍然需要通过网络加速，会产生额外的海外带宽成本；   并且近期 DockerHub 修改了其服务价格, 对于免费用户，进行了如下限制：
+ 使用中直接从 DockerHub pull 镜像，网络状况不佳时，就是无尽的等待； 先 pull 镜像，然后 docker tag 重 tag 后， push 到企业的私有镜像仓库中。这种情况下，如果没有较好的镜像管理规则，那么镜像仓库中就会存在各种无意义的镜像，造成存储资源的浪费。    为 docker daemon 配置 Proxy 进行加速：
+ 众多国内镜像加速服务，仅提供 Docker 官方镜像的加速服务，个人/组织下的镜像不提供加速服务； 即使在不同节点上，下载相同的镜像，仍然需要通过网络加速，会产生额外的海外带宽成本；    并且近期 DockerHub 修改了其服务价格, 对于免费用户，进行了如下限制：
  未登录用户，每 6 小时只允许 pull 100 次 已登录用户，每 6 小时只允许 pull 200 次  如果我们继续使用上述两种模式的话，由于出口 IP 是相对固定的，所以很容易触发 DockerHub 的配额限制。 此限制将于 11 月 1 日正式全面实施。"><meta property="og:type" content="article"><meta property="og:url" content="https://moelove.info/2020/09/20/%E7%AA%81%E7%A0%B4-DockerHub-%E9%99%90%E5%88%B6%E5%85%A8%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F%E6%9C%8D%E5%8A%A1/"><meta property="article:published_time" content="2020-09-20T10:10:48+08:00"><meta property="article:modified_time" content="2020-09-20T10:10:48+08:00"><meta itemprop=name content="突破 DockerHub 限制，全镜像加速服务"><meta itemprop=description content="最近 DockerHub 修改了定价，对于免费帐号会限制 200 pulls/6小时，对于匿名帐号则限制 100 pulls/6小时。 本文我来介绍下如何使用 Cache 来应对此问题。
  背景 DockerHub 是全世界最早也是最大的容器镜像仓库，托管着众多操作系统发行版及各类软件的 Docker 镜像。
 在推进业务容器化的过程中，不可避免的，我们会需要使用来自 DockerHub 上的容器镜像。 无论是在个人本地环境中使用，还是用于跑测试服务
 以下是两种主要的解决方案：
- 构建一些公共基础镜像，存放在企业的私有镜像仓库中给业务方使用：
+  构建一些公共基础镜像，存放在企业的私有镜像仓库中给业务方使用：
 这种方案下，如果业务方偶尔需要一些小众的/非基础的镜像，可能只是临时测试使用，那通常情况下是没必要将此类镜像作为基础镜像维护的。
 结果可能是：
- 使用中直接从 DockerHub pull 镜像，网络状况不佳时，就是无尽的等待； 先 pull 镜像，然后 docker tag 重 tag 后， push 到企业的私有镜像仓库中。这种情况下，如果没有较好的镜像管理规则，那么镜像仓库中就会存在各种无意义的镜像，造成存储资源的浪费。  为 docker daemon 配置 Proxy 进行加速：
- 众多国内镜像加速服务，仅提供 Docker 官方镜像的加速服务，个人/组织下的镜像不提供加速服务； 即使在不同节点上，下载相同的镜像，仍然需要通过网络加速，会产生额外的海外带宽成本；   并且近期 DockerHub 修改了其服务价格, 对于免费用户，进行了如下限制：
+ 使用中直接从 DockerHub pull 镜像，网络状况不佳时，就是无尽的等待； 先 pull 镜像，然后 docker tag 重 tag 后， push 到企业的私有镜像仓库中。这种情况下，如果没有较好的镜像管理规则，那么镜像仓库中就会存在各种无意义的镜像，造成存储资源的浪费。    为 docker daemon 配置 Proxy 进行加速：
+ 众多国内镜像加速服务，仅提供 Docker 官方镜像的加速服务，个人/组织下的镜像不提供加速服务； 即使在不同节点上，下载相同的镜像，仍然需要通过网络加速，会产生额外的海外带宽成本；    并且近期 DockerHub 修改了其服务价格, 对于免费用户，进行了如下限制：
  未登录用户，每 6 小时只允许 pull 100 次 已登录用户，每 6 小时只允许 pull 200 次  如果我们继续使用上述两种模式的话，由于出口 IP 是相对固定的，所以很容易触发 DockerHub 的配额限制。 此限制将于 11 月 1 日正式全面实施。"><meta itemprop=datePublished content="2020-09-20T10:10:48+08:00"><meta itemprop=dateModified content="2020-09-20T10:10:48+08:00"><meta itemprop=wordCount content="536"><meta itemprop=keywords content="Linux,Container,Docker,Kubernetes,"><meta name=twitter:card content="summary"><meta name=twitter:title content="突破 DockerHub 限制，全镜像加速服务"><meta name=twitter:description content="最近 DockerHub 修改了定价，对于免费帐号会限制 200 pulls/6小时，对于匿名帐号则限制 100 pulls/6小时。 本文我来介绍下如何使用 Cache 来应对此问题。
  背景 DockerHub 是全世界最早也是最大的容器镜像仓库，托管着众多操作系统发行版及各类软件的 Docker 镜像。
 在推进业务容器化的过程中，不可避免的，我们会需要使用来自 DockerHub 上的容器镜像。 无论是在个人本地环境中使用，还是用于跑测试服务
 以下是两种主要的解决方案：
- 构建一些公共基础镜像，存放在企业的私有镜像仓库中给业务方使用：
+  构建一些公共基础镜像，存放在企业的私有镜像仓库中给业务方使用：
 这种方案下，如果业务方偶尔需要一些小众的/非基础的镜像，可能只是临时测试使用，那通常情况下是没必要将此类镜像作为基础镜像维护的。
 结果可能是：
- 使用中直接从 DockerHub pull 镜像，网络状况不佳时，就是无尽的等待； 先 pull 镜像，然后 docker tag 重 tag 后， push 到企业的私有镜像仓库中。这种情况下，如果没有较好的镜像管理规则，那么镜像仓库中就会存在各种无意义的镜像，造成存储资源的浪费。  为 docker daemon 配置 Proxy 进行加速：
- 众多国内镜像加速服务，仅提供 Docker 官方镜像的加速服务，个人/组织下的镜像不提供加速服务； 即使在不同节点上，下载相同的镜像，仍然需要通过网络加速，会产生额外的海外带宽成本；   并且近期 DockerHub 修改了其服务价格, 对于免费用户，进行了如下限制：
- 未登录用户，每 6 小时只允许 pull 100 次 已登录用户，每 6 小时只允许 pull 200 次  如果我们继续使用上述两种模式的话，由于出口 IP 是相对固定的，所以很容易触发 DockerHub 的配额限制。 此限制将于 11 月 1 日正式全面实施。"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>MoeLove</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/about/><li class=mobile-menu-item>About</li></a><a href=/friends/><li class=mobile-menu-item>Friends</li></a><a href=/projects/><li class=mobile-menu-item>Projects</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>MoeLove</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/about/>About</a></li><li class=menu-item><a class=menu-item-link href=/friends/>Friends</a></li><li class=menu-item><a class=menu-item-link href=/projects/>Projects</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>突破 DockerHub 限制，全镜像加速服务</h1><div class=post-meta><span class=post-time>2020-09-20</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#背景>背景</a></li><li><a href=#启动服务>启动服务</a></li><li><a href=#验证加速效果>验证加速效果</a></li><li><a href=#使用配置>使用配置</a></li><li><a href=#总结>总结</a></li></ul></li></ul></nav></div></div><div class=post-content><blockquote><p>最近 DockerHub 修改了定价，对于免费帐号会限制 200 pulls/6小时，对于匿名帐号则限制 100 pulls/6小时。 本文我来介绍下如何使用 Cache 来应对此问题。</p></blockquote><h2 id=背景>背景</h2><p>DockerHub 是全世界最早也是最大的容器镜像仓库，托管着众多操作系统发行版及各类软件的 Docker 镜像。</p><p>在推进业务容器化的过程中，不可避免的，我们会需要使用来自 DockerHub 上的容器镜像。 <em>无论是在个人本地环境中使用，还是用于跑测试服务</em></p><p>以下是两种主要的解决方案：</p><ul><li><p>构建一些公共基础镜像，存放在企业的私有镜像仓库中给业务方使用：</p><p>这种方案下，如果业务方偶尔需要一些小众的/非基础的镜像，可能只是临时测试使用，那通常情况下是没必要将此类镜像作为基础镜像维护的。</p><p>结果可能是：</p><ul><li>使用中直接从 DockerHub pull 镜像，网络状况不佳时，就是无尽的等待；</li><li>先 pull 镜像，然后 <code>docker tag</code> 重 tag 后， push 到企业的私有镜像仓库中。这种情况下，如果没有较好的镜像管理规则，那么镜像仓库中就会存在各种无意义的镜像，造成存储资源的浪费。</li></ul></li><li><p>为 docker daemon 配置 Proxy 进行加速：</p><ul><li><strong>众多国内镜像加速服务，仅提供 Docker 官方镜像的加速服务，个人/组织下的镜像不提供加速服务</strong>；</li><li>即使在不同节点上，下载相同的镜像，仍然需要通过网络加速，会产生额外的海外带宽成本；</li></ul></li></ul><p>并且近期 DockerHub 修改了<a href=https://www.docker.com/pricing title="DockerHub 定价">其服务价格</a>, 对于免费用户，进行了如下限制：</p><ul><li><strong>未登录用户，每 6 小时只允许 pull 100 次</strong></li><li><strong>已登录用户，每 6 小时只允许 pull 200 次</strong></li></ul><p>如果我们继续使用上述两种模式的话，由于出口 IP 是相对固定的，所以很容易触发 DockerHub 的配额限制。 此限制将于 11 月 1 日正式全面实施。</p><p>为了能 <strong>提升效率</strong> ，以及 <strong>节约加速带宽成本</strong> ，企业内部/个人就非常需要一个 DockerHub 全镜像加速服务了，也就是我们常说的 <code>pull through cache</code>。</p><p>下面我来介绍下，如何利用 Docker 开源的项目 <code>registry:2</code> 来实现这一需求。</p><h2 id=启动服务>启动服务</h2><p>使用 <code>registry:2</code> 部署镜像缓存服务很简单，这里先执行 <code>docker pull registry:2</code> 下载所需的镜像：</p><pre><code class=language-sh>(MoeLove) ➜  docker pull registry:2
+ 使用中直接从 DockerHub pull 镜像，网络状况不佳时，就是无尽的等待； 先 pull 镜像，然后 docker tag 重 tag 后， push 到企业的私有镜像仓库中。这种情况下，如果没有较好的镜像管理规则，那么镜像仓库中就会存在各种无意义的镜像，造成存储资源的浪费。    为 docker daemon 配置 Proxy 进行加速：
+ 众多国内镜像加速服务，仅提供 Docker 官方镜像的加速服务，个人/组织下的镜像不提供加速服务； 即使在不同节点上，下载相同的镜像，仍然需要通过网络加速，会产生额外的海外带宽成本；    并且近期 DockerHub 修改了其服务价格, 对于免费用户，进行了如下限制：
+ 未登录用户，每 6 小时只允许 pull 100 次 已登录用户，每 6 小时只允许 pull 200 次  如果我们继续使用上述两种模式的话，由于出口 IP 是相对固定的，所以很容易触发 DockerHub 的配额限制。 此限制将于 11 月 1 日正式全面实施。"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>MoeLove</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/about/><li class=mobile-menu-item>About</li></a><a href=/friends/><li class=mobile-menu-item>Friends</li></a><a href=/projects/><li class=mobile-menu-item>Projects</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>MoeLove</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/about/>About</a></li><li class=menu-item><a class=menu-item-link href=/friends/>Friends</a></li><li class=menu-item><a class=menu-item-link href=/projects/>Projects</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>突破 DockerHub 限制，全镜像加速服务</h1><div class=post-meta><span class=post-time>2020-09-20</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#背景>背景</a></li><li><a href=#启动服务>启动服务</a></li><li><a href=#验证加速效果>验证加速效果</a></li><li><a href=#使用配置>使用配置</a></li><li><a href=#总结>总结</a></li></ul></nav></div></div><div class=post-content><blockquote><p>最近 DockerHub 修改了定价，对于免费帐号会限制 200 pulls/6小时，对于匿名帐号则限制 100 pulls/6小时。 本文我来介绍下如何使用 Cache 来应对此问题。</p></blockquote><h2 id=背景>背景</h2><p>DockerHub 是全世界最早也是最大的容器镜像仓库，托管着众多操作系统发行版及各类软件的 Docker 镜像。</p><p>在推进业务容器化的过程中，不可避免的，我们会需要使用来自 DockerHub 上的容器镜像。 <em>无论是在个人本地环境中使用，还是用于跑测试服务</em></p><p>以下是两种主要的解决方案：</p><ul><li><p>构建一些公共基础镜像，存放在企业的私有镜像仓库中给业务方使用：</p><p>这种方案下，如果业务方偶尔需要一些小众的/非基础的镜像，可能只是临时测试使用，那通常情况下是没必要将此类镜像作为基础镜像维护的。</p><p>结果可能是：</p><ul><li>使用中直接从 DockerHub pull 镜像，网络状况不佳时，就是无尽的等待；</li><li>先 pull 镜像，然后 <code>docker tag</code> 重 tag 后， push 到企业的私有镜像仓库中。这种情况下，如果没有较好的镜像管理规则，那么镜像仓库中就会存在各种无意义的镜像，造成存储资源的浪费。</li></ul></li><li><p>为 docker daemon 配置 Proxy 进行加速：</p><ul><li><strong>众多国内镜像加速服务，仅提供 Docker 官方镜像的加速服务，个人/组织下的镜像不提供加速服务</strong>；</li><li>即使在不同节点上，下载相同的镜像，仍然需要通过网络加速，会产生额外的海外带宽成本；</li></ul></li></ul><p>并且近期 DockerHub 修改了<a href=https://www.docker.com/pricing title="DockerHub 定价">其服务价格</a>, 对于免费用户，进行了如下限制：</p><ul><li><strong>未登录用户，每 6 小时只允许 pull 100 次</strong></li><li><strong>已登录用户，每 6 小时只允许 pull 200 次</strong></li></ul><p>如果我们继续使用上述两种模式的话，由于出口 IP 是相对固定的，所以很容易触发 DockerHub 的配额限制。 此限制将于 11 月 1 日正式全面实施。</p><p>为了能 <strong>提升效率</strong> ，以及 <strong>节约加速带宽成本</strong> ，企业内部/个人就非常需要一个 DockerHub 全镜像加速服务了，也就是我们常说的 <code>pull through cache</code>。</p><p>下面我来介绍下，如何利用 Docker 开源的项目 <code>registry:2</code> 来实现这一需求。</p><h2 id=启动服务>启动服务</h2><p>使用 <code>registry:2</code> 部署镜像缓存服务很简单，这里先执行 <code>docker pull registry:2</code> 下载所需的镜像：</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  docker pull registry:2
 2: Pulling from library/registry
 cbdbe7a5bc2a: Pull complete 
 47112e65547d: Pull complete 
@@ -42,25 +42,25 @@ cbdbe7a5bc2a: Pull complete
 c1cc712bcecd: Pull complete 
 3db6272dcbfa: Pull complete 
 Digest: sha256:8be26f81ffea54106bae012c6f349df70f4d5e7e2ec01b143c46e2c03b9e551d
-Status: Downloaded newer image for registry:2
+Status: Downloaded newer image <span style=color:#66d9ef>for</span> registry:2
 docker.io/library/registry:2
-</code></pre><p>最小化配置的 DockerHub 镜像缓存服务，只需要使用一个配置项 <code>REGISTRY_PROXY_REMOTEURL</code> 即可：</p><p>这里我顺便为它单独创建了一个名为 <code>hub-cache</code> 的 network ，以及创建了对应的 volume 。</p><pre><code class=language-sh>(MoeLove) ➜  ~ docker network create hub-cache
+</code></pre></div><p>最小化配置的 DockerHub 镜像缓存服务，只需要使用一个配置项 <code>REGISTRY_PROXY_REMOTEURL</code> 即可：</p><p>这里我顺便为它单独创建了一个名为 <code>hub-cache</code> 的 network ，以及创建了对应的 volume 。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  ~ docker network create hub-cache
 19a39f873a23150d3bdaf021e040ccccb092ee3071884d64d52a92df0397b220
-(MoeLove) ➜  ~ docker volume create hub-cache
+<span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  ~ docker volume create hub-cache
 hub-cache
-(MoeLove) ➜  ~ docker run --name=cache -d --restart=always --network=hub-cache -v hub-cache:/var/lib/registry -p 5000:5000  -e REGISTRY_PROXY_REMOTEURL=https://registry-1.docker.io registry:2 
+<span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  ~ docker run --name<span style=color:#f92672>=</span>cache -d --restart<span style=color:#f92672>=</span>always --network<span style=color:#f92672>=</span>hub-cache -v hub-cache:/var/lib/registry -p 5000:5000  -e REGISTRY_PROXY_REMOTEURL<span style=color:#f92672>=</span>https://registry-1.docker.io registry:2 
 6cbdcbdcc2d62ec781479901c20be43184a48b2d73e06f04bd4693253c0c5a73
-(MoeLove) ➜  ~ docker ps -l
+<span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  ~ docker ps -l
 CONTAINER ID   IMAGE        COMMAND                  CREATED         STATUS         PORTS                    NAMES
-6cbdcbdcc2d6   registry:2   &quot;/entrypoint.sh /etc…&quot;   8 seconds ago   Up 6 seconds   0.0.0.0:5000-&gt;5000/tcp   cache
-</code></pre><h2 id=验证加速效果>验证加速效果</h2><p>启动一个全新的 Docker In Docker 容器进行验证，避免受到本地环境的影响。</p><p>通过传递 <code>--registry-mirror http://cache:5000</code> ，将刚才启动的 registry 设置为 mirror 。</p><pre><code class=language-sh>(MoeLove) ➜  ~ docker run  --network=hub-cache -d --privileged docker:dind --registry-mirror http://cache:5000 
+6cbdcbdcc2d6   registry:2   <span style=color:#e6db74>&#34;/entrypoint.sh /etc…&#34;</span>   <span style=color:#ae81ff>8</span> seconds ago   Up <span style=color:#ae81ff>6</span> seconds   0.0.0.0:5000-&gt;5000/tcp   cache
+</code></pre></div><h2 id=验证加速效果>验证加速效果</h2><p>启动一个全新的 Docker In Docker 容器进行验证，避免受到本地环境的影响。</p><p>通过传递 <code>--registry-mirror http://cache:5000</code> ，将刚才启动的 registry 设置为 mirror 。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  ~ docker run  --network<span style=color:#f92672>=</span>hub-cache -d --privileged docker:dind --registry-mirror http://cache:5000 
 73c56ac25d68927c9f5b0e458f2babc0699cf8595df0d1e86c021fd03d477384
-(MoeLove) ➜  ~ docker exec -it $(docker ps -ql) sh
-/ # 检查配置是否生效
-/ # docker info --format '{{ .RegistryConfig.Mirrors }}' 
-[http://cache:5000/]
+<span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  ~ docker exec -it <span style=color:#66d9ef>$(</span>docker ps -ql<span style=color:#66d9ef>)</span> sh
+/ <span style=color:#75715e># 检查配置是否生效</span>
+/ <span style=color:#75715e># docker info --format &#39;{{ .RegistryConfig.Mirrors }}&#39;</span> 
+<span style=color:#f92672>[</span>http://cache:5000/<span style=color:#f92672>]</span>
 
-/ # time docker pull prom/prometheus
+/ <span style=color:#75715e># time docker pull prom/prometheus</span>
 Using default tag: latest
 latest: Pulling from prom/prometheus
 76df9210b28c: Pull complete 
@@ -76,18 +76,18 @@ b9c749b1af90: Pull complete
 7d20502d5322: Pull complete 
 3e519cce6f63: Pull complete 
 Digest: sha256:d43417c260e516508eed1f1d59c10c49d96bbea93eafb4955b0df3aea5908971
-Status: Downloaded newer image for prom/prometheus:latest
+Status: Downloaded newer image <span style=color:#66d9ef>for</span> prom/prometheus:latest
 docker.io/prom/prometheus:latest
 real    0m 42.71s
 user    0m 0.12s
 sys     0m 0.09s
 
 
-/ # docker image ls
+/ <span style=color:#75715e># docker image ls</span>
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-prom/prometheus     latest              cdfc440228d0        8 days ago          168MB
+prom/prometheus     latest              cdfc440228d0        <span style=color:#ae81ff>8</span> days ago          168MB
 
-/ # docker rmi prom/prometheus                                     
+/ <span style=color:#75715e># docker rmi prom/prometheus</span>                                     
 Untagged: prom/prometheus:latest
 Untagged: prom/prometheus@sha256:d43417c260e516508eed1f1d59c10c49d96bbea93eafb4955b0df3aea5908971
 Deleted: sha256:cdfc440228d01d7a94937d7a047fa6461efc1b1806bb20677043fee032810830
@@ -104,7 +104,7 @@ Deleted: sha256:86d629b358ee70bdb0f0a11c10915b8551e904fe337f9a8bfcad476977329532
 Deleted: sha256:842455c528af7383ba4a0de424fc63664a0248581a191516d6dbf45195c69426
 Deleted: sha256:1be74353c3d0fd55fb5638a52953e6f1bc441e5b1710921db9ec2aa202725569
 
-/ # time docker pull prom/prometheus
+/ <span style=color:#75715e># time docker pull prom/prometheus</span>
 Using default tag: latest
 latest: Pulling from prom/prometheus
 76df9210b28c: Pull complete 
@@ -120,17 +120,17 @@ b9c749b1af90: Pull complete
 7d20502d5322: Pull complete 
 3e519cce6f63: Pull complete 
 Digest: sha256:d43417c260e516508eed1f1d59c10c49d96bbea93eafb4955b0df3aea5908971
-Status: Downloaded newer image for prom/prometheus:latest
+Status: Downloaded newer image <span style=color:#66d9ef>for</span> prom/prometheus:latest
 docker.io/prom/prometheus:latest
 real    0m 5.27s
 user    0m 0.06s
 sys     0m 0.03s
-</code></pre><p><strong>可以看到，在首次 pull <code>prom/prometheus</code> 镜像时，耗费了 42+s 的时间，而删除掉已下载的镜像后，再次 pull， 则只需要耗费 5+s 的时间。速度提升非常的明显。镜像加速效果达成</strong></p><h2 id=使用配置>使用配置</h2><p>对于 Linux 系统而言，仅需要在 <code>/etc/docker/daemon.json</code> 文件（如果没有此文件，直接创建即可）中写入你的镜像加速服务的域名，重启 docker daemon 即可（也可选择 reload 配置）。</p><pre><code class=language-json>{
-        &quot;registry-mirrors&quot;: [
-                &quot;https://hub-cache.moelove.info&quot;
+</code></pre></div><p><strong>可以看到，在首次 pull <code>prom/prometheus</code> 镜像时，耗费了 42+s 的时间，而删除掉已下载的镜像后，再次 pull， 则只需要耗费 5+s 的时间。速度提升非常的明显。镜像加速效果达成</strong></p><h2 id=使用配置>使用配置</h2><p>对于 Linux 系统而言，仅需要在 <code>/etc/docker/daemon.json</code> 文件（如果没有此文件，直接创建即可）中写入你的镜像加速服务的域名，重启 docker daemon 即可（也可选择 reload 配置）。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
+        <span style=color:#f92672>&#34;registry-mirrors&#34;</span>: [
+                <span style=color:#e6db74>&#34;https://hub-cache.moelove.info&#34;</span>
         ]
 }
-</code></pre><p>或者是在 docker daemon 的启动参数中加入 <code>registry-mirror</code> 配置项。</p><p>对于 Mac 和 Windows 用户，直接在 Docker Desktop 系统设置中，配置 registry-mirrors 即可。</p><p><strong>注意</strong> 如果 Docker daemon 中配置了 <code>HTTP_PROXY</code> 或 <code>HTTPS_PROXY</code> ，那么需要将加速域名配置在 <code>NO_PROXY</code> 中，避免被代理。</p><h2 id=总结>总结</h2><p>本文介绍了如何使用 Docker 开源的 <code>registry:2</code> 搭建 DockerHub 的镜像加速服务。这里只介绍了最简单的配置。</p><p>但如果在企业环境中部署的话，需要有更多的配置。比如，可以通过配置 <code>REGISTRY_HTTP_DEBUG_PROMETHEUS_ENABLED</code> 暴露 Prometheus metrics ，用于监控服务可用性及查看 cache 的效果；可以对日志及相关字段进行配置；
+</code></pre></div><p>或者是在 docker daemon 的启动参数中加入 <code>registry-mirror</code> 配置项。</p><p>对于 Mac 和 Windows 用户，直接在 Docker Desktop 系统设置中，配置 registry-mirrors 即可。</p><p><strong>注意</strong> 如果 Docker daemon 中配置了 <code>HTTP_PROXY</code> 或 <code>HTTPS_PROXY</code> ，那么需要将加速域名配置在 <code>NO_PROXY</code> 中，避免被代理。</p><h2 id=总结>总结</h2><p>本文介绍了如何使用 Docker 开源的 <code>registry:2</code> 搭建 DockerHub 的镜像加速服务。这里只介绍了最简单的配置。</p><p>但如果在企业环境中部署的话，需要有更多的配置。比如，可以通过配置 <code>REGISTRY_HTTP_DEBUG_PROMETHEUS_ENABLED</code> 暴露 Prometheus metrics ，用于监控服务可用性及查看 cache 的效果；可以对日志及相关字段进行配置；
 为了避免在 11 月后，触发到 DockerHub 的流量限制，可以横向进行扩容，准备多出口 IP，以及配置账户等。</p><p>最近新发布的 Harbor v2.1 貌似多了一个<a href=https://goharbor.io/docs/2.1.0/administration/configure-proxy-cache/>作为 <code>proxy cache</code> 的特性</a>，但它与本文介绍的 <code>pull through cache</code> 并不相同，使用 Harbor 的 proxy cache 特性，需要将待 pull 的镜像，设置成 <code>&lt;harbor_servername>/&lt;proxy_project_name>/repo/name:tag</code> 的形式，这样子只是省去了本文一开始介绍的那种手动重 tag 的操作，不够方便，但也是个很不错的特性了。</p><hr><p>欢迎订阅我的文章公众号【MoeLove】</p><p><img src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/mp-qrcode.png alt=TheMoeLove></p></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
 <span class=item-content>张晋涛</span></p><p class=copyright-item><span class=item-title>上次更新</span>
 <span class=item-content>2020-09-20</span></p><p class=copyright-item><span class=item-title>许可协议</span>

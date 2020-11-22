@@ -12,4 +12,5 @@ e.g.
 # 下载最新的 0.2.0 版本 wget -O /usr/local/bin/kind https://github.com/kubernetes-sigs/kind/releases/download/0.2.0/kind-linux-amd64 &amp;amp;&amp;amp; chmod +x /usr/local/bin/kind 通过源码安装 如果你本地已经配置好了 Golang 的开发环境，那你可以直接通过源码进行安装。
 e.g.
 go get -u sigs.k8s.io/kind 运行完上述命令后，会将 kind 的可执行文件放到 $(go env GOPATH)/bin 文件夹内，你可能需要将此目录加入到 $PATH 中。
-或者也可以先 clone 源代码再通过 go build 进行构建。</description></item></channel></rss>
+或者也可以先 clone 源代码再通过 go build 进行构建。
+依赖 Kind 的主要功能目前需要有 Docker 环境的支持，可参考 Docker 官方文档进行安装。</description></item></channel></rss>

@@ -5,7 +5,7 @@
 通过此方法获取 Pod 时，Pod 有两种情况可能为空：
  该 endpoint 未关联 Pod，这时 expectpod 为 false； 该 endpoint 已关联 Pod，但未找到 Pod，这时 expectpod 为 true  而这种情况发生的最主要原因可能是由于最终一致性，或者乱序事件等。
 建议如果打算升级 Istio 的读者，直接跳过 1.6.6 版本，以免影响到服务。
-func getPod(c *Controller, ip string, ep *metav1.ObjectMeta, targetRef *v1.ObjectReference, host host.Name) (rpod *v1.Pod, expectPod bool) { pod := c."><meta name=keywords content="MoeLove,Linux,Docker,Kubernetes,Golang,Python,Container,Vim,容器,k8s"><meta name=baidu-site-verification content="jO2rMlnjJi"><meta name=google-site-verification content="googlefe3fc086c62f7210.html"><meta name=generator content="Hugo 0.59.1 with theme even"><link rel=canonical href=https://moelove.info/2020/08/02/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Istio-%E5%B7%B2%E4%BF%AE%E5%A4%8D%E5%AF%BC%E8%87%B4-Pod-%E5%B4%A9%E6%BA%83%E7%9A%84-bug/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css rel=stylesheet><link href=/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><meta property="og:title" content="K8S 生态周报| Istio 已修复导致 Pod 崩溃的 bug"><meta property="og:description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
+func getPod(c *Controller, ip string, ep *metav1.ObjectMeta, targetRef *v1.ObjectReference, host host.Name) (rpod *v1.Pod, expectPod bool) { pod := c."><meta name=keywords content="MoeLove,Linux,Docker,Kubernetes,Golang,Python,Container,Vim,容器,k8s"><meta name=baidu-site-verification content="jO2rMlnjJi"><meta name=google-site-verification content="googlefe3fc086c62f7210.html"><meta name=generator content="Hugo 0.62.2 with theme even"><link rel=canonical href=https://moelove.info/2020/08/02/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Istio-%E5%B7%B2%E4%BF%AE%E5%A4%8D%E5%AF%BC%E8%87%B4-Pod-%E5%B4%A9%E6%BA%83%E7%9A%84-bug/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css rel=stylesheet><link href=/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><meta property="og:title" content="K8S 生态周报| Istio 已修复导致 Pod 崩溃的 bug"><meta property="og:description" content="「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。
  Istio 1.6.7 发布 Istio 1.6.7 是为了解决在 1.6.6 中引入的一个 bug。
 该 bug 可能会导致 在使用 Istio 1.6.6 时，某些 Pod 进入 CrashLoopBackOff 状态，无法正常提供服务。
 修复后的核心代码如下，这里主要是增加另一个返回值 expectpod 。
@@ -26,35 +26,35 @@ func getPod(c *Controller, ip string, ep *metav1.ObjectMeta, targetRef *v1.Objec
 通过此方法获取 Pod 时，Pod 有两种情况可能为空：
  该 endpoint 未关联 Pod，这时 expectpod 为 false； 该 endpoint 已关联 Pod，但未找到 Pod，这时 expectpod 为 true  而这种情况发生的最主要原因可能是由于最终一致性，或者乱序事件等。
 建议如果打算升级 Istio 的读者，直接跳过 1.6.6 版本，以免影响到服务。
-func getPod(c *Controller, ip string, ep *metav1.ObjectMeta, targetRef *v1.ObjectReference, host host.Name) (rpod *v1.Pod, expectPod bool) { pod := c."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>MoeLove</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/about/><li class=mobile-menu-item>About</li></a><a href=/friends/><li class=mobile-menu-item>Friends</li></a><a href=/projects/><li class=mobile-menu-item>Projects</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>MoeLove</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/about/>About</a></li><li class=menu-item><a class=menu-item-link href=/friends/>Friends</a></li><li class=menu-item><a class=menu-item-link href=/projects/>Projects</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>K8S 生态周报| Istio 已修复导致 Pod 崩溃的 bug</h1><div class=post-meta><span class=post-time>2020-08-02</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#istio-1-6-7-发布>Istio 1.6.7 发布</a></li><li><a href=#trivy-v0-10-1-发布>Trivy v0.10.1 发布</a></li><li><a href=#上游进展>上游进展</a></li></ul></li></ul></nav></div></div><div class=post-content><blockquote><p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏<a href=https://zhuanlan.zhihu.com/container>「k8s生态」</a>。</p></blockquote><h2 id=istio-1-6-7-发布>Istio 1.6.7 发布</h2><p>Istio 1.6.7 是为了解决在 1.6.6 中引入的<a href=https://github.com/istio/istio/commit/bae28dde42cf54e213d4c6bcd9c930f8d9ee60c4 title=bug>一个 bug</a>。</p><p>该 bug 可能会导致 <strong>在使用 Istio 1.6.6 时，某些 Pod 进入 <code>CrashLoopBackOff</code> 状态，无法正常提供服务。</strong></p><p>修复后的核心代码如下，这里主要是增加另一个返回值 <code>expectpod</code> 。</p><p>通过此方法获取 Pod 时，Pod 有两种情况可能为空：</p><ul><li>该 endpoint 未关联 Pod，这时 expectpod 为 <code>false</code>；</li><li>该 endpoint 已关联 Pod，但未找到 Pod，这时 expectpod 为 <code>true</code></li></ul><p>而这种情况发生的最主要原因可能是由于最终一致性，或者乱序事件等。</p><p><strong>建议如果打算升级 Istio 的读者，直接跳过 1.6.6 版本，以免影响到服务。</strong></p><pre><code class=language-go>func getPod(c *Controller, ip string, ep *metav1.ObjectMeta, targetRef *v1.ObjectReference, host host.Name) (rpod *v1.Pod, expectPod bool) {
-	pod := c.pods.getPodByIP(ip)
-	if pod != nil {
-		return pod, false
+func getPod(c *Controller, ip string, ep *metav1.ObjectMeta, targetRef *v1.ObjectReference, host host.Name) (rpod *v1.Pod, expectPod bool) { pod := c."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>MoeLove</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/about/><li class=mobile-menu-item>About</li></a><a href=/friends/><li class=mobile-menu-item>Friends</li></a><a href=/projects/><li class=mobile-menu-item>Projects</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>MoeLove</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/about/>About</a></li><li class=menu-item><a class=menu-item-link href=/friends/>Friends</a></li><li class=menu-item><a class=menu-item-link href=/projects/>Projects</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>K8S 生态周报| Istio 已修复导致 Pod 崩溃的 bug</h1><div class=post-meta><span class=post-time>2020-08-02</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#istio-167-发布>Istio 1.6.7 发布</a></li><li><a href=#trivy-v0101-发布>Trivy v0.10.1 发布</a></li><li><a href=#上游进展>上游进展</a></li></ul></nav></div></div><div class=post-content><blockquote><p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏<a href=https://zhuanlan.zhihu.com/container>「k8s生态」</a>。</p></blockquote><h2 id=istio-167-发布>Istio 1.6.7 发布</h2><p>Istio 1.6.7 是为了解决在 1.6.6 中引入的<a href=https://github.com/istio/istio/commit/bae28dde42cf54e213d4c6bcd9c930f8d9ee60c4 title=bug>一个 bug</a>。</p><p>该 bug 可能会导致 <strong>在使用 Istio 1.6.6 时，某些 Pod 进入 <code>CrashLoopBackOff</code> 状态，无法正常提供服务。</strong></p><p>修复后的核心代码如下，这里主要是增加另一个返回值 <code>expectpod</code> 。</p><p>通过此方法获取 Pod 时，Pod 有两种情况可能为空：</p><ul><li>该 endpoint 未关联 Pod，这时 expectpod 为 <code>false</code>；</li><li>该 endpoint 已关联 Pod，但未找到 Pod，这时 expectpod 为 <code>true</code></li></ul><p>而这种情况发生的最主要原因可能是由于最终一致性，或者乱序事件等。</p><p><strong>建议如果打算升级 Istio 的读者，直接跳过 1.6.6 版本，以免影响到服务。</strong></p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=color:#66d9ef>func</span> <span style=color:#a6e22e>getPod</span>(<span style=color:#a6e22e>c</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>Controller</span>, <span style=color:#a6e22e>ip</span> <span style=color:#66d9ef>string</span>, <span style=color:#a6e22e>ep</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>metav1</span>.<span style=color:#a6e22e>ObjectMeta</span>, <span style=color:#a6e22e>targetRef</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>v1</span>.<span style=color:#a6e22e>ObjectReference</span>, <span style=color:#a6e22e>host</span> <span style=color:#a6e22e>host</span>.<span style=color:#a6e22e>Name</span>) (<span style=color:#a6e22e>rpod</span> <span style=color:#f92672>*</span><span style=color:#a6e22e>v1</span>.<span style=color:#a6e22e>Pod</span>, <span style=color:#a6e22e>expectPod</span> <span style=color:#66d9ef>bool</span>) {
+	<span style=color:#a6e22e>pod</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>c</span>.<span style=color:#a6e22e>pods</span>.<span style=color:#a6e22e>getPodByIP</span>(<span style=color:#a6e22e>ip</span>)
+	<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>pod</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+		<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>pod</span>, <span style=color:#66d9ef>false</span>
 	}
-	if targetRef != nil &amp;&amp; targetRef.Kind == &quot;Pod&quot; {
-		key := kube.KeyFunc(targetRef.Name, targetRef.Namespace)
-		podFromInformer, f, err := c.pods.informer.GetStore().GetByKey(key)
-		if err != nil || !f {
-			log.Debugf(&quot;Endpoint without pod %s %s.%s error: %v&quot;, ip, ep.Name, ep.Namespace, err)
-			endpointsWithNoPods.Increment()
-			if c.metrics != nil {
-				c.metrics.AddMetric(model.EndpointNoPod, string(host), nil, ip)
+	<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>targetRef</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> <span style=color:#f92672>&amp;&amp;</span> <span style=color:#a6e22e>targetRef</span>.<span style=color:#a6e22e>Kind</span> <span style=color:#f92672>==</span> <span style=color:#e6db74>&#34;Pod&#34;</span> {
+		<span style=color:#a6e22e>key</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>kube</span>.<span style=color:#a6e22e>KeyFunc</span>(<span style=color:#a6e22e>targetRef</span>.<span style=color:#a6e22e>Name</span>, <span style=color:#a6e22e>targetRef</span>.<span style=color:#a6e22e>Namespace</span>)
+		<span style=color:#a6e22e>podFromInformer</span>, <span style=color:#a6e22e>f</span>, <span style=color:#a6e22e>err</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>c</span>.<span style=color:#a6e22e>pods</span>.<span style=color:#a6e22e>informer</span>.<span style=color:#a6e22e>GetStore</span>().<span style=color:#a6e22e>GetByKey</span>(<span style=color:#a6e22e>key</span>)
+		<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>err</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> <span style=color:#f92672>||</span> !<span style=color:#a6e22e>f</span> {
+			<span style=color:#a6e22e>log</span>.<span style=color:#a6e22e>Debugf</span>(<span style=color:#e6db74>&#34;Endpoint without pod %s %s.%s error: %v&#34;</span>, <span style=color:#a6e22e>ip</span>, <span style=color:#a6e22e>ep</span>.<span style=color:#a6e22e>Name</span>, <span style=color:#a6e22e>ep</span>.<span style=color:#a6e22e>Namespace</span>, <span style=color:#a6e22e>err</span>)
+			<span style=color:#a6e22e>endpointsWithNoPods</span>.<span style=color:#a6e22e>Increment</span>()
+			<span style=color:#66d9ef>if</span> <span style=color:#a6e22e>c</span>.<span style=color:#a6e22e>metrics</span> <span style=color:#f92672>!=</span> <span style=color:#66d9ef>nil</span> {
+				<span style=color:#a6e22e>c</span>.<span style=color:#a6e22e>metrics</span>.<span style=color:#a6e22e>AddMetric</span>(<span style=color:#a6e22e>model</span>.<span style=color:#a6e22e>EndpointNoPod</span>, string(<span style=color:#a6e22e>host</span>), <span style=color:#66d9ef>nil</span>, <span style=color:#a6e22e>ip</span>)
 			}
 
-			epkey := kube.KeyFunc(ep.Name, ep.Namespace)
-			c.pods.queueEndpointEventOnPodArrival(epkey, ip)
-			return nil, true
+			<span style=color:#a6e22e>epkey</span> <span style=color:#f92672>:=</span> <span style=color:#a6e22e>kube</span>.<span style=color:#a6e22e>KeyFunc</span>(<span style=color:#a6e22e>ep</span>.<span style=color:#a6e22e>Name</span>, <span style=color:#a6e22e>ep</span>.<span style=color:#a6e22e>Namespace</span>)
+			<span style=color:#a6e22e>c</span>.<span style=color:#a6e22e>pods</span>.<span style=color:#a6e22e>queueEndpointEventOnPodArrival</span>(<span style=color:#a6e22e>epkey</span>, <span style=color:#a6e22e>ip</span>)
+			<span style=color:#66d9ef>return</span> <span style=color:#66d9ef>nil</span>, <span style=color:#66d9ef>true</span>
 		}
-		pod = podFromInformer.(*v1.Pod)
+		<span style=color:#a6e22e>pod</span> = <span style=color:#a6e22e>podFromInformer</span>.(<span style=color:#f92672>*</span><span style=color:#a6e22e>v1</span>.<span style=color:#a6e22e>Pod</span>)
 	}
-	return pod, false
+	<span style=color:#66d9ef>return</span> <span style=color:#a6e22e>pod</span>, <span style=color:#66d9ef>false</span>
 }
-</code></pre><h2 id=trivy-v0-10-1-发布>Trivy v0.10.1 发布</h2><p>本周 Trivy 相继发布了 v0.10.0 和 v0.10.1 版本，我们一起来看看有哪些值得关注的内容吧：</p><ul><li><a href=https://github.com/aquasecurity/trivy/pull/559>#559</a>允许通过使用 <code>--severity</code> 选项进行过滤，只查看特定级别的漏洞信息</li></ul><pre><code class=language-sh>(MoeLove) ➜  ~ trivy i --severity LOW  alpine:3.10.2   
+</code></pre></div><h2 id=trivy-v0101-发布>Trivy v0.10.1 发布</h2><p>本周 Trivy 相继发布了 v0.10.0 和 v0.10.1 版本，我们一起来看看有哪些值得关注的内容吧：</p><ul><li><a href=https://github.com/aquasecurity/trivy/pull/559>#559</a>允许通过使用 <code>--severity</code> 选项进行过滤，只查看特定级别的漏洞信息</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  ~ trivy i --severity LOW  alpine:3.10.2   
 2020-08-02T23:19:28.060+0800    INFO    Detecting Alpine vulnerabilities...
 
-alpine:3.10.2 (alpine 3.10.2)
-=============================
-Total: 1 (LOW: 1)
+alpine:3.10.2 <span style=color:#f92672>(</span>alpine 3.10.2<span style=color:#f92672>)</span>
+<span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span>
+Total: <span style=color:#ae81ff>1</span> <span style=color:#f92672>(</span>LOW: 1<span style=color:#f92672>)</span>
 
 +---------+------------------+----------+-------------------+---------------+--------------------------------+
 | LIBRARY | VULNERABILITY ID | SEVERITY | INSTALLED VERSION | FIXED VERSION |             TITLE              |
@@ -62,18 +62,18 @@ Total: 1 (LOW: 1)
 | openssl | CVE-2019-1547    | LOW      | 1.1.1c-r0         | 1.1.1d-r0     | openssl: side-channel weak     |
 |         |                  |          |                   |               | encryption vulnerability       |
 +---------+------------------+----------+-------------------+---------------+--------------------------------+
-</code></pre><ul><li><a href=https://github.com/aquasecurity/trivy/pull/562>#562</a>支持通过 Open Policy Agent (OPA) 来进行过滤。</li></ul><p>比方说，我们想要实现和上面使用 <code>--severity LOW</code> 参数相同的效果，那我们可以定义如下 rego 规则文件。注意： <strong>包名必须为 <code>trivy</code></strong> ，同时，它还必须包含一个名为 <code>ignore</code> 的规则。</p><pre><code class=language-go>(MoeLove) ➜  ~ cat test_trivy.rego 
-package trivy
+</code></pre></div><ul><li><a href=https://github.com/aquasecurity/trivy/pull/562>#562</a>支持通过 Open Policy Agent (OPA) 来进行过滤。</li></ul><p>比方说，我们想要实现和上面使用 <code>--severity LOW</code> 参数相同的效果，那我们可以定义如下 rego 规则文件。注意： <strong>包名必须为 <code>trivy</code></strong> ，同时，它还必须包含一个名为 <code>ignore</code> 的规则。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go>(<span style=color:#a6e22e>MoeLove</span>) <span style=color:#960050;background-color:#1e0010>➜</span>  <span style=color:#960050;background-color:#1e0010>~</span> <span style=color:#a6e22e>cat</span> <span style=color:#a6e22e>test_trivy</span>.<span style=color:#a6e22e>rego</span> 
+<span style=color:#f92672>package</span> <span style=color:#a6e22e>trivy</span>
 
-ignore {
-    input.Severity == {&quot;UNKNOWN&quot;, &quot;MEDIUM&quot;, &quot;HIGH&quot;, &quot;CRITICAL&quot;}[_]
+<span style=color:#a6e22e>ignore</span> {
+    <span style=color:#a6e22e>input</span>.<span style=color:#a6e22e>Severity</span> <span style=color:#f92672>==</span> {<span style=color:#e6db74>&#34;UNKNOWN&#34;</span>, <span style=color:#e6db74>&#34;MEDIUM&#34;</span>, <span style=color:#e6db74>&#34;HIGH&#34;</span>, <span style=color:#e6db74>&#34;CRITICAL&#34;</span>}[<span style=color:#a6e22e>_</span>]
 }
-</code></pre><p>通过给 <code>trivy</code> 传递 <code>--ignore-policy</code> 参数即可。（这里一定要注意搞清楚逻辑， <strong>trivy 的参数为忽略掉匹配成功的规则</strong>。）</p><pre><code class=language-sh>(MoeLove) ➜  ~ trivy image  --ignore-policy test_trivy.rego  alpine:3.10.2
+</code></pre></div><p>通过给 <code>trivy</code> 传递 <code>--ignore-policy</code> 参数即可。（这里一定要注意搞清楚逻辑， <strong>trivy 的参数为忽略掉匹配成功的规则</strong>。）</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  ~ trivy image  --ignore-policy test_trivy.rego  alpine:3.10.2
 2020-08-02T23:54:40.843+0800    INFO    Detecting Alpine vulnerabilities...
 
-alpine:3.10.2 (alpine 3.10.2)
-=============================
-Total: 1 (UNKNOWN: 0, LOW: 1, MEDIUM: 0, HIGH: 0, CRITICAL: 0)
+alpine:3.10.2 <span style=color:#f92672>(</span>alpine 3.10.2<span style=color:#f92672>)</span>
+<span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span><span style=color:#f92672>=</span>
+Total: <span style=color:#ae81ff>1</span> <span style=color:#f92672>(</span>UNKNOWN: 0, LOW: 1, MEDIUM: 0, HIGH: 0, CRITICAL: 0<span style=color:#f92672>)</span>
 
 +---------+------------------+----------+-------------------+---------------+--------------------------------+
 | LIBRARY | VULNERABILITY ID | SEVERITY | INSTALLED VERSION | FIXED VERSION |             TITLE              |
@@ -81,26 +81,26 @@ Total: 1 (UNKNOWN: 0, LOW: 1, MEDIUM: 0, HIGH: 0, CRITICAL: 0)
 | openssl | CVE-2019-1547    | LOW      | 1.1.1c-r0         | 1.1.1d-r0     | openssl: side-channel weak     |
 |         |                  |          |                   |               | encryption vulnerability       |
 +---------+------------------+----------+-------------------+---------------+--------------------------------+
-</code></pre><ul><li><a href=https://github.com/aquasecurity/trivy/pull/561>#561</a>在输出内容中新增加了 <code>CweIDs</code> 字段。</li></ul><pre><code class=language-sh>(MoeLove) ➜  ~ trivy image -f json  --ignore-policy test_trivy.rego  alpine:3.10.2
-[
-  {
-    &quot;Target&quot;: &quot;alpine:3.10.2 (alpine 3.10.2)&quot;,
-    &quot;Type&quot;: &quot;alpine&quot;,
-    &quot;Vulnerabilities&quot;: 
-      {
-        &quot;VulnerabilityID&quot;: &quot;CVE-2019-1547&quot;,
-        &quot;PkgName&quot;: &quot;openssl&quot;,
-        &quot;InstalledVersion&quot;: &quot;1.1.1c-r0&quot;,
-        &quot;FixedVersion&quot;: &quot;1.1.1d-r0&quot;,
-        &quot;CweIDs&quot;: [
-          &quot;CWE-311&quot;
-      ],
+</code></pre></div><ul><li><a href=https://github.com/aquasecurity/trivy/pull/561>#561</a>在输出内容中新增加了 <code>CweIDs</code> 字段。</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  ~ trivy image -f json  --ignore-policy test_trivy.rego  alpine:3.10.2
+<span style=color:#f92672>[</span>
+  <span style=color:#f92672>{</span>
+    <span style=color:#e6db74>&#34;Target&#34;</span>: <span style=color:#e6db74>&#34;alpine:3.10.2 (alpine 3.10.2)&#34;</span>,
+    <span style=color:#e6db74>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;alpine&#34;</span>,
+    <span style=color:#e6db74>&#34;Vulnerabilities&#34;</span>: 
+      <span style=color:#f92672>{</span>
+        <span style=color:#e6db74>&#34;VulnerabilityID&#34;</span>: <span style=color:#e6db74>&#34;CVE-2019-1547&#34;</span>,
+        <span style=color:#e6db74>&#34;PkgName&#34;</span>: <span style=color:#e6db74>&#34;openssl&#34;</span>,
+        <span style=color:#e6db74>&#34;InstalledVersion&#34;</span>: <span style=color:#e6db74>&#34;1.1.1c-r0&#34;</span>,
+        <span style=color:#e6db74>&#34;FixedVersion&#34;</span>: <span style=color:#e6db74>&#34;1.1.1d-r0&#34;</span>,
+        <span style=color:#e6db74>&#34;CweIDs&#34;</span>: <span style=color:#f92672>[</span>
+          <span style=color:#e6db74>&#34;CWE-311&#34;</span>
+      <span style=color:#f92672>]</span>,
       ...
-    }
-  }
-]
+    <span style=color:#f92672>}</span>
+  <span style=color:#f92672>}</span>
+<span style=color:#f92672>]</span>
 
-</code></pre><ul><li><a href=https://github.com/aquasecurity/trivy/pull/574>#574</a> 增加了 <code>--list-all-pkgs</code> 选项，允许输出被扫描系统中已经安装的包及其版本等。</li></ul><p>而后续发布的 <strong>v0.10.1 版本主要是为了修正 v0.10.0 中对 Dockerfile 中执行用户的修改，继续使用 root 用户作为容器镜像中的默认用户</strong> 。</p><p>更多关于此版本的信息，请查看 <a href=https://github.com/aquasecurity/trivy/releases/tag/v0.10.1>Trivy ReleaseNote</a>, 欢迎下载使用。</p><h2 id=上游进展>上游进展</h2><ul><li><a href=https://github.com/kubernetes/kubernetes/pull/93248>#93248</a> 修改了 Kubelet 中 CFS shares 相关的逻辑，为其设置最大值为内核允许的最大值，即 2^18=262144 。</li></ul><p>通过此次修改，Kubelet 使用 systemd 作为 cgroups 驱动时，能正常的处理 CPU 核数大于 512 的机器（如果使用 cgroupfs 作为 cgroup 驱动的话，一直都可以，因为内核会直接进行处理）</p><p>有关 Linux 内核 CFS 相关内容，可以参考我之前写的文章 <a href=https://gitbook.cn/gitchat/column/5d70cfdc4dc213091bfca46f>Docker 容器资源管理</a></p><hr><p>欢迎订阅我的文章公众号【MoeLove】</p><p><img src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/my_qrcode.jpg alt=TheMoeLove></p></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+</code></pre></div><ul><li><a href=https://github.com/aquasecurity/trivy/pull/574>#574</a> 增加了 <code>--list-all-pkgs</code> 选项，允许输出被扫描系统中已经安装的包及其版本等。</li></ul><p>而后续发布的 <strong>v0.10.1 版本主要是为了修正 v0.10.0 中对 Dockerfile 中执行用户的修改，继续使用 root 用户作为容器镜像中的默认用户</strong> 。</p><p>更多关于此版本的信息，请查看 <a href=https://github.com/aquasecurity/trivy/releases/tag/v0.10.1>Trivy ReleaseNote</a>, 欢迎下载使用。</p><h2 id=上游进展>上游进展</h2><ul><li><a href=https://github.com/kubernetes/kubernetes/pull/93248>#93248</a> 修改了 Kubelet 中 CFS shares 相关的逻辑，为其设置最大值为内核允许的最大值，即 2^18=262144 。</li></ul><p>通过此次修改，Kubelet 使用 systemd 作为 cgroups 驱动时，能正常的处理 CPU 核数大于 512 的机器（如果使用 cgroupfs 作为 cgroup 驱动的话，一直都可以，因为内核会直接进行处理）</p><p>有关 Linux 内核 CFS 相关内容，可以参考我之前写的文章 <a href=https://gitbook.cn/gitchat/column/5d70cfdc4dc213091bfca46f>Docker 容器资源管理</a></p><hr><p>欢迎订阅我的文章公众号【MoeLove】</p><p><img src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/my_qrcode.jpg alt=TheMoeLove></p></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
 <span class=item-content>张晋涛</span></p><p class=copyright-item><span class=item-title>上次更新</span>
 <span class=item-content>2020-08-02</span></p><p class=copyright-item><span class=item-title>许可协议</span>
 <span class=item-content><a rel="license noopener" href=https://creativecommons.org/licenses/by-sa/4.0/ target=_blank>CC BY-SA 4.0</a></span></p></div><div class=post-reward><input type=checkbox name=reward id=reward hidden>

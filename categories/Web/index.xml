@@ -4,8 +4,8 @@
 Webpack 是什么 它可以将许多松散的模块按照依赖和规则打包成符合生产环境部署的前端资源。还可以将按需加载的模块进行代码分隔，等到实际需要的时候再异步加载。通过 loader 的转换，任何形式的资源都可以视作模块，比如 CommonJs 模块、 AMD 模块、 ES6 模块、CSS、图片、 JSON、Coffeescript、 LESS 等。 &amp;ndash;引自 Webpack 中文指南
 使用举例 我们来看一下官方文档中的最小用例，新建并写入以下内容到这两个文件：
 cats.js
-var cats = ['dave', 'henry', 'martha']; module.exports = cats; app.js (Entry Point)
-cats = require('./cats.js'); console.log(cats); 这个时候，就可以使用 webpack 进行打包了：
+var cats = [&amp;#39;dave&amp;#39;, &amp;#39;henry&amp;#39;, &amp;#39;martha&amp;#39;]; module.exports = cats; app.js (Entry Point)
+cats = require(&amp;#39;./cats.js&amp;#39;); console.log(cats); 这个时候，就可以使用 webpack 进行打包了：
 webpack ./app.js app.bundle.js 我们来看一下发生了什么， 目录下生成了一个打包后的文件 app.bundle.js ，这就是最基础的打包过程。
 提出问题 如何判断打包是否成功？
 通用方案 下面是我们常用的两种判断任务是否执行成功的方案
@@ -17,10 +17,9 @@ ESLint ESLint是由Nicholas C. Zakas在2013年开始开发的，它的初衷就�
 JSLint，JSHint和ESLint的对比 这三个工具各有特色，我只是做一下对比，选择的话，看个人需求就好了。
 JSLint 优点 配置是老道已经定好的，开箱即用。 不足 有限的配置选项，很多规则不能禁用 规范严格，凡是不符合老道所认为的好的风格的，都会有警告(这一项就看你是否完全认同老道了) 扩展性差 无法根据错误定位到对应的规则 JSHint 优点 有了很多参数可以配置 支持配置文件，方便使用 支持了一些常用类库 支持了基本的ES6 不足 不支持自定义规则 无法根据错误定位到对应的规则 ESLint 优点 默认规则里面包含了JSLint和JSHint的规则，易于迁移(这肯定是故意的XD) 可配置为警告和错误两个等级，或者直接禁用掉 支持插件扩展 可以自定义规则 可以根据错误定位到对应的规则 支持ES6 唯一一个支持JSX的工具 不足 需要进行一些自定义配置(因为太灵活了嘛，不过文档是很详细的) 慢 (它比其他两个都要慢) Vim支持 我们都使用Syntastic来配置
 JSLint的Vim配置 有一个jslint.vim当然版本太老了。。我们不用这种方式做。
-安装jslint
-sudo npm install jslint -g 在vimrc中添加如下配置</description></item><item><title>使用Pelican搭建Blog</title><link>https://moelove.info/2014/05/07/%E4%BD%BF%E7%94%A8Pelican%E6%90%AD%E5%BB%BABlog/</link><pubDate>Wed, 07 May 2014 21:48:59 +0000</pubDate><guid>https://moelove.info/2014/05/07/%E4%BD%BF%E7%94%A8Pelican%E6%90%AD%E5%BB%BABlog/</guid><description>安装配置Pelican 使用环境： 系统 : Linux X86_64 Pelican : 3.3.0 首先说一下安装： 网上有不少建议说使用虚拟环境 virtualenv，以免污染本地的环境。不过，如果不是去更改Python的全局设置的话，也不至于影响本地环境的。我是直接安装的。根据 Pelican 官方的文档，我是使用 pip 安装的，不过pip又是依赖于distribute 安装的。所以，我使用的命令如下：
+安装jslint sudo npm install jslint -g 在vimrc中添加如下配置 let g:syntastic_javascript_checkers = ['jslint'] JSHint的Vim配置 安装jshint sudo npm install jshint -g 在vimrc中添加如下配置 let g:syntastic_javascript_checkers = ['jshint'] 也可以使用独立插件jshint.</description></item><item><title>使用Pelican搭建Blog</title><link>https://moelove.info/2014/05/07/%E4%BD%BF%E7%94%A8Pelican%E6%90%AD%E5%BB%BABlog/</link><pubDate>Wed, 07 May 2014 21:48:59 +0000</pubDate><guid>https://moelove.info/2014/05/07/%E4%BD%BF%E7%94%A8Pelican%E6%90%AD%E5%BB%BABlog/</guid><description>安装配置Pelican 使用环境： 系统 : Linux X86_64 Pelican : 3.3.0 首先说一下安装： 网上有不少建议说使用虚拟环境 virtualenv，以免污染本地的环境。不过，如果不是去更改Python的全局设置的话，也不至于影响本地环境的。我是直接安装的。根据 Pelican 官方的文档，我是使用 pip 安装的，不过pip又是依赖于distribute 安装的。所以，我使用的命令如下：
 curl -O http://python-distribute.org/distribute_setup.py sudo python distribute_setup.py curl -O https://raw.github.com/pypa/pip/master/contrib/get-pip.py sudo python get-pip.py sudo pip install pelican 还有，如果要用 Markdown来写文章，也需要执行如下命令：
-pip install markdown 新建一个目录，用来存放你的博客文件（我直接建立了&amp;rdquo;blog&amp;rdquo;文件夹）
+pip install markdown 新建一个目录，用来存放你的博客文件（我直接建立了&amp;quot;blog&amp;quot;文件夹）
 mkdir blog cd blog 新建博客： 使用如下命令：
 pelican-quickstart 按照提示一步步即可完成新建， 这些配置之后可以在pelicanconf.py这个文件中修改
 Where do you want to create your new web site?[.] (你想在哪里创建你的网站，默认为当前目录) What will be the title of this web site?</description></item><item><title>Hello World !</title><link>https://moelove.info/2014/04/18/Hello-World/</link><pubDate>Fri, 18 Apr 2014 21:46:06 +0000</pubDate><guid>https://moelove.info/2014/04/18/Hello-World/</guid><description> 几乎所有的程序猿的第一个演示程序都是Hello World .那我也就一样咯， 也写一个同样的吧。 其实我的博客从很早前就已经开始在写了， 换了很多的平台：

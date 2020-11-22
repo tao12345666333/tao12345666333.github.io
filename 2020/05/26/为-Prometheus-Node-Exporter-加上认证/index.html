@@ -5,7 +5,7 @@
 背景 Node Exporter 是 Prometheus 官方发布的，用于采集节点的系统信息，比如 CPU，内存，磁盘和网络等信息。 通常情况下，如果我们在使用 Prometheus 作为监控方案，那 Node Exporter 基本都会用到的。
 在 Promethues 的监控体系中，社区中一直存在的一个观点是，Metrics 不包含过于私密的信息。所以你可以看到，大多数的 /metrics 接口都是直接暴露出来的，没什么特别的安全措施。
 但随着 Prometheus 在生产中的大量应用，安全问题变得更加重要。
-大家最先想到的解决办法就是，为 Prometheus 与监控目标之间的连接启用 TLS。 但由于各类 exporter 并不原生支持 TLS 连接，所以通常情况下我们会选择配合反向代理来完成。"><meta name=keywords content="MoeLove,Linux,Docker,Kubernetes,Golang,Python,Container,Vim,容器,k8s"><meta name=baidu-site-verification content="jO2rMlnjJi"><meta name=google-site-verification content="googlefe3fc086c62f7210.html"><meta name=generator content="Hugo 0.59.1 with theme even"><link rel=canonical href=https://moelove.info/2020/05/26/%E4%B8%BA-Prometheus-Node-Exporter-%E5%8A%A0%E4%B8%8A%E8%AE%A4%E8%AF%81/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css rel=stylesheet><link href=/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><meta property="og:title" content="为 Prometheus Node Exporter 加上认证"><meta property="og:description" content="这篇文章主要是为了庆祝 Node Exporter 终于迎来了 v1.0.0 版本。
+大家最先想到的解决办法就是，为 Prometheus 与监控目标之间的连接启用 TLS。 但由于各类 exporter 并不原生支持 TLS 连接，所以通常情况下我们会选择配合反向代理来完成。"><meta name=keywords content="MoeLove,Linux,Docker,Kubernetes,Golang,Python,Container,Vim,容器,k8s"><meta name=baidu-site-verification content="jO2rMlnjJi"><meta name=google-site-verification content="googlefe3fc086c62f7210.html"><meta name=generator content="Hugo 0.62.2 with theme even"><link rel=canonical href=https://moelove.info/2020/05/26/%E4%B8%BA-Prometheus-Node-Exporter-%E5%8A%A0%E4%B8%8A%E8%AE%A4%E8%AF%81/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css rel=stylesheet><link href=/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><meta property="og:title" content="为 Prometheus Node Exporter 加上认证"><meta property="og:description" content="这篇文章主要是为了庆祝 Node Exporter 终于迎来了 v1.0.0 版本。
  Prometheus 是最早由 SoundCloud 开源的监控告警解决方案。并已经成长为继 Kubernetes 之后，第二个从 CNCF 毕业的项目。伴随着云原生理念的普及和 Kubernetes 等技术的发展， Prometheus 在监控领域也有了长足的发展。
 其主要组件包括 Prometheus，Alertmanager，Node Exporter，Blackbox Exporter 和 Pushgateway 等。
 本文主要是为了庆祝 Node Exporter 终于迎来了 v1.0.0 版本， 所以重点主要放在一直被人诟病的安全性相关上，具体而言就是利用 TLS 和 Basic Auth 提升其安全性。
@@ -19,25 +19,25 @@
 背景 Node Exporter 是 Prometheus 官方发布的，用于采集节点的系统信息，比如 CPU，内存，磁盘和网络等信息。 通常情况下，如果我们在使用 Prometheus 作为监控方案，那 Node Exporter 基本都会用到的。
 在 Promethues 的监控体系中，社区中一直存在的一个观点是，Metrics 不包含过于私密的信息。所以你可以看到，大多数的 /metrics 接口都是直接暴露出来的，没什么特别的安全措施。
 但随着 Prometheus 在生产中的大量应用，安全问题变得更加重要。
-大家最先想到的解决办法就是，为 Prometheus 与监控目标之间的连接启用 TLS。 但由于各类 exporter 并不原生支持 TLS 连接，所以通常情况下我们会选择配合反向代理来完成。"><meta itemprop=datePublished content="2020-05-26T23:21:58+08:00"><meta itemprop=dateModified content="2020-05-26T23:21:58+08:00"><meta itemprop=wordCount content="728"><meta itemprop=keywords content="Prometheus,Kubernetes,"><meta name=twitter:card content="summary"><meta name=twitter:title content="为 Prometheus Node Exporter 加上认证"><meta name=twitter:description content="这篇文章主要是为了庆祝 Node Exporter 终于迎来了 v1.0.0 版本。
+大家最先想到的解决办法就是，为 Prometheus 与监控目标之间的连接启用 TLS。 但由于各类 exporter 并不原生支持 TLS 连接，所以通常情况下我们会选择配合反向代理来完成。"><meta itemprop=datePublished content="2020-05-26T23:21:58+08:00"><meta itemprop=dateModified content="2020-05-26T23:21:58+08:00"><meta itemprop=wordCount content="730"><meta itemprop=keywords content="Prometheus,Kubernetes,"><meta name=twitter:card content="summary"><meta name=twitter:title content="为 Prometheus Node Exporter 加上认证"><meta name=twitter:description content="这篇文章主要是为了庆祝 Node Exporter 终于迎来了 v1.0.0 版本。
  Prometheus 是最早由 SoundCloud 开源的监控告警解决方案。并已经成长为继 Kubernetes 之后，第二个从 CNCF 毕业的项目。伴随着云原生理念的普及和 Kubernetes 等技术的发展， Prometheus 在监控领域也有了长足的发展。
 其主要组件包括 Prometheus，Alertmanager，Node Exporter，Blackbox Exporter 和 Pushgateway 等。
 本文主要是为了庆祝 Node Exporter 终于迎来了 v1.0.0 版本， 所以重点主要放在一直被人诟病的安全性相关上，具体而言就是利用 TLS 和 Basic Auth 提升其安全性。
 背景 Node Exporter 是 Prometheus 官方发布的，用于采集节点的系统信息，比如 CPU，内存，磁盘和网络等信息。 通常情况下，如果我们在使用 Prometheus 作为监控方案，那 Node Exporter 基本都会用到的。
 在 Promethues 的监控体系中，社区中一直存在的一个观点是，Metrics 不包含过于私密的信息。所以你可以看到，大多数的 /metrics 接口都是直接暴露出来的，没什么特别的安全措施。
 但随着 Prometheus 在生产中的大量应用，安全问题变得更加重要。
-大家最先想到的解决办法就是，为 Prometheus 与监控目标之间的连接启用 TLS。 但由于各类 exporter 并不原生支持 TLS 连接，所以通常情况下我们会选择配合反向代理来完成。"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>MoeLove</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/about/><li class=mobile-menu-item>About</li></a><a href=/friends/><li class=mobile-menu-item>Friends</li></a><a href=/projects/><li class=mobile-menu-item>Projects</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>MoeLove</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/about/>About</a></li><li class=menu-item><a class=menu-item-link href=/friends/>Friends</a></li><li class=menu-item><a class=menu-item-link href=/projects/>Projects</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>为 Prometheus Node Exporter 加上认证</h1><div class=post-meta><span class=post-time>2020-05-26</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#背景>背景</a></li><li><a href=#使用-tls>使用 TLS</a><ul><li><a href=#准备证书>准备证书</a></li><li><a href=#node-exporter-使用-tls>Node Exporter 使用 TLS</a></li><li><a href=#配置-prometheus-使用-tls>配置 Prometheus 使用 TLS</a></li></ul></li><li><a href=#添加-basic-auth>添加 Basic Auth</a><ul><li><a href=#为-node-exporter-配置密码>为 Node Exporter 配置密码</a></li><li><a href=#配置-prometheus-使用-basic-auth>配置 Prometheus 使用 Basic Auth</a></li></ul></li><li><a href=#总结>总结</a></li></ul></li></ul></nav></div></div><div class=post-content><blockquote><p>这篇文章主要是为了庆祝 Node Exporter 终于迎来了 v1.0.0 版本。</p></blockquote><p><a href=https://prometheus.io/>Prometheus</a> 是最早由 SoundCloud 开源的监控告警解决方案。并已经成长为继 Kubernetes 之后，第二个从 CNCF 毕业的项目。伴随着云原生理念的普及和 Kubernetes 等技术的发展， Prometheus 在监控领域也有了长足的发展。</p><p>其主要组件包括 Prometheus，Alertmanager，Node Exporter，Blackbox Exporter 和 Pushgateway 等。</p><p>本文主要是为了庆祝 Node Exporter 终于迎来了 v1.0.0 版本， 所以重点主要放在一直被人诟病的安全性相关上，具体而言就是利用 TLS 和 Basic Auth 提升其安全性。</p><h2 id=背景>背景</h2><p>Node Exporter 是 Prometheus 官方发布的，用于采集节点的系统信息，比如 CPU，内存，磁盘和网络等信息。
-通常情况下，如果我们在使用 Prometheus 作为监控方案，那 Node Exporter 基本都会用到的。</p><p>在 Promethues 的监控体系中，社区中一直存在的一个观点是，Metrics 不包含过于私密的信息。所以你可以看到，大多数的 <code>/metrics</code> 接口都是直接暴露出来的，没什么特别的安全措施。</p><p>但随着 Prometheus 在生产中的大量应用，安全问题变得更加重要。</p><p>大家最先想到的解决办法就是，为 Prometheus 与监控目标之间的连接启用 TLS。 但由于各类 exporter 并不原生支持 TLS 连接，所以通常情况下我们会选择<a href=https://prometheus.io/docs/guides/tls-encryption/>配合反向代理</a>来完成。</p><p>这种方式能满足需求，但未免复杂了些。近期 <strong>Prometheus 对其安全模型做了修改</strong> ， 从 Node Exporter 开始到后续其他的组件，都将支持 TLS 和 basic auth， 同时也列出了最新的安全基准（默认情况下都支持 TLS v1.2 及以上）</p><h2 id=使用-tls>使用 TLS</h2><p>这里我们直接实践下看看如何启用 TLS 。</p><h3 id=准备证书>准备证书</h3><pre><code class=language-sh>(MoeLove) ➜  ~ mkdir -p prometheus-tls
-(MoeLove) ➜  ~ cd prometheus-tls
-(MoeLove) ➜  prometheus-tls openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -keyout node_exporter.key -out node_exporter.crt -subj &quot;/C=CN/ST=Beijing/L=Beijing/O=Moelove.info/CN=localhost&quot;
+大家最先想到的解决办法就是，为 Prometheus 与监控目标之间的连接启用 TLS。 但由于各类 exporter 并不原生支持 TLS 连接，所以通常情况下我们会选择配合反向代理来完成。"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>MoeLove</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/about/><li class=mobile-menu-item>About</li></a><a href=/friends/><li class=mobile-menu-item>Friends</li></a><a href=/projects/><li class=mobile-menu-item>Projects</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>MoeLove</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/about/>About</a></li><li class=menu-item><a class=menu-item-link href=/friends/>Friends</a></li><li class=menu-item><a class=menu-item-link href=/projects/>Projects</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>为 Prometheus Node Exporter 加上认证</h1><div class=post-meta><span class=post-time>2020-05-26</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#背景>背景</a></li><li><a href=#使用-tls>使用 TLS</a><ul><li><a href=#准备证书>准备证书</a></li><li><a href=#node-exporter-使用-tls>Node Exporter 使用 TLS</a></li><li><a href=#配置-prometheus-使用-tls>配置 Prometheus 使用 TLS</a></li></ul></li><li><a href=#添加-basic-auth>添加 Basic Auth</a><ul><li><a href=#为-node-exporter-配置密码>为 Node Exporter 配置密码</a></li><li><a href=#配置-prometheus-使用-basic-auth>配置 Prometheus 使用 Basic Auth</a></li></ul></li><li><a href=#总结>总结</a></li></ul></nav></div></div><div class=post-content><blockquote><p>这篇文章主要是为了庆祝 Node Exporter 终于迎来了 v1.0.0 版本。</p></blockquote><p><a href=https://prometheus.io/>Prometheus</a> 是最早由 SoundCloud 开源的监控告警解决方案。并已经成长为继 Kubernetes 之后，第二个从 CNCF 毕业的项目。伴随着云原生理念的普及和 Kubernetes 等技术的发展， Prometheus 在监控领域也有了长足的发展。</p><p>其主要组件包括 Prometheus，Alertmanager，Node Exporter，Blackbox Exporter 和 Pushgateway 等。</p><p>本文主要是为了庆祝 Node Exporter 终于迎来了 v1.0.0 版本， 所以重点主要放在一直被人诟病的安全性相关上，具体而言就是利用 TLS 和 Basic Auth 提升其安全性。</p><h2 id=背景>背景</h2><p>Node Exporter 是 Prometheus 官方发布的，用于采集节点的系统信息，比如 CPU，内存，磁盘和网络等信息。
+通常情况下，如果我们在使用 Prometheus 作为监控方案，那 Node Exporter 基本都会用到的。</p><p>在 Promethues 的监控体系中，社区中一直存在的一个观点是，Metrics 不包含过于私密的信息。所以你可以看到，大多数的 <code>/metrics</code> 接口都是直接暴露出来的，没什么特别的安全措施。</p><p>但随着 Prometheus 在生产中的大量应用，安全问题变得更加重要。</p><p>大家最先想到的解决办法就是，为 Prometheus 与监控目标之间的连接启用 TLS。 但由于各类 exporter 并不原生支持 TLS 连接，所以通常情况下我们会选择<a href=https://prometheus.io/docs/guides/tls-encryption/>配合反向代理</a>来完成。</p><p>这种方式能满足需求，但未免复杂了些。近期 <strong>Prometheus 对其安全模型做了修改</strong> ， 从 Node Exporter 开始到后续其他的组件，都将支持 TLS 和 basic auth， 同时也列出了最新的安全基准（默认情况下都支持 TLS v1.2 及以上）</p><h2 id=使用-tls>使用 TLS</h2><p>这里我们直接实践下看看如何启用 TLS 。</p><h3 id=准备证书>准备证书</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  ~ mkdir -p prometheus-tls
+<span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  ~ cd prometheus-tls
+<span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  prometheus-tls openssl req -new -newkey rsa:2048 -days <span style=color:#ae81ff>365</span> -nodes -x509 -keyout node_exporter.key -out node_exporter.crt -subj <span style=color:#e6db74>&#34;/C=CN/ST=Beijing/L=Beijing/O=Moelove.info/CN=localhost&#34;</span>
 Generating a RSA private key
 ...........................................+++++
 ..+++++
-writing new private key to 'node_exporter.key'
+writing new private key to <span style=color:#e6db74>&#39;node_exporter.key&#39;</span>
 -----
-(MoeLove) ➜  prometheus-tls ls
+<span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  prometheus-tls ls
 node_exporter.crt  node_exporter.key
-</code></pre><p>通过上面的步骤，我们得到了 <code>node_exporter.crt</code> 和<code>node_exporter.key</code> 这两个文件。</p><h3 id=node-exporter-使用-tls>Node Exporter 使用 TLS</h3><p><a href=https://github.com/prometheus/node_exporter/releases/tag/v1.0.0>下载 v1.0.0 版本的 Node Exporter</a>， 并对其进行解压等操作</p><pre><code>(MoeLove) ➜  /tmp tar -zxvf node_exporter-1.0.0.linux-amd64.tar.gz 
+</code></pre></div><p>通过上面的步骤，我们得到了 <code>node_exporter.crt</code> 和<code> node_exporter.key</code> 这两个文件。</p><h3 id=node-exporter-使用-tls>Node Exporter 使用 TLS</h3><p><a href=https://github.com/prometheus/node_exporter/releases/tag/v1.0.0>下载 v1.0.0 版本的 Node Exporter</a>， 并对其进行解压等操作</p><pre><code>(MoeLove) ➜  /tmp tar -zxvf node_exporter-1.0.0.linux-amd64.tar.gz 
 node_exporter-1.0.0.linux-amd64/
 node_exporter-1.0.0.linux-amd64/node_exporter
 node_exporter-1.0.0.linux-amd64/NOTICE
@@ -45,7 +45,7 @@ node_exporter-1.0.0.linux-amd64/LICENSE
 (MoeLove) ➜  /tmp cd node_exporter-1.0.0.linux-amd64 
 (MoeLove) ➜  node_exporter-1.0.0.linux-amd64 ls
 LICENSE  node_exporter  NOTICE
-</code></pre><p>复制前面生成的 <code>node_exporter.crt</code> 和<code>node_exporter.key</code> 这两个文件到当前目录下。</p><pre><code>(MoeLove) ➜  node_exporter-1.0.0.linux-amd64 cp ~/prometheus-tls/node_exporter.* .
+</code></pre><p>复制前面生成的 <code>node_exporter.crt</code> 和<code> node_exporter.key</code> 这两个文件到当前目录下。</p><pre><code>(MoeLove) ➜  node_exporter-1.0.0.linux-amd64 cp ~/prometheus-tls/node_exporter.* .
 (MoeLove) ➜  node_exporter-1.0.0.linux-amd64 ls
 LICENSE  node_exporter  node_exporter.crt  node_exporter.key  NOTICE
 </code></pre><p>编写配置文件，并保存为 <code>config.yaml</code> （命名随意）：</p><pre><code>tls_server_config:
@@ -57,71 +57,71 @@ level=info ts=2020-05-26T17:50:12.124Z caller=node_exporter.go:178 msg=&quot;Bui
 level=info ts=2020-05-26T17:50:12.130Z caller=node_exporter.go:105 msg=&quot;Enabled collectors&quot;
 ...
 level=info ts=2020-05-26T17:50:12.135Z caller=tls_config.go:200 msg=&quot;TLS is enabled and it cannot be disabled on the fly.&quot; http2=true
-</code></pre><p><strong>当你看到最后这句日志时，就说明你的 Node Exporter 已经启用了 TLS 连接。</strong></p><p>当然，我们也可以选择手动验证下：</p><pre><code class=language-sh># 直接 curl 请求
-(MoeLove) ➜  prometheus-tls curl localhost:9100/metrics
+</code></pre><p><strong>当你看到最后这句日志时，就说明你的 Node Exporter 已经启用了 TLS 连接。</strong></p><p>当然，我们也可以选择手动验证下：</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#75715e># 直接 curl 请求</span>
+<span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  prometheus-tls curl localhost:9100/metrics
 Client sent an HTTP request to an HTTPS server.
 
-(MoeLove) ➜  prometheus-tls curl https://localhost:9100/metrics                 
-curl: (60) SSL certificate problem: self signed certificate
+<span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  prometheus-tls curl https://localhost:9100/metrics                 
+curl: <span style=color:#f92672>(</span>60<span style=color:#f92672>)</span> SSL certificate problem: self signed certificate
 More details here: https://curl.haxx.se/docs/sslcerts.html
 
 curl failed to verify the legitimacy of the server and therefore could not
 establish a secure connection to it. To learn more about this situation and
 how to fix it, please visit the web page mentioned above.
-</code></pre><p>可以看到不能直接 curl 进行请求了，我们可以将证书传递给 curl ，用来验证刚才的配置是否正确。</p><pre><code class=language-sh>(MoeLove) ➜  prometheus-tls curl -s  --cacert node_exporter.crt https://localhost:9100/metrics  |grep node_exporter_build_info
-# HELP node_exporter_build_info A metric with a constant '1' value labeled by version, revision, branch, and goversion from which node_exporter was built.
-# TYPE node_exporter_build_info gauge
-node_exporter_build_info{branch=&quot;HEAD&quot;,goversion=&quot;go1.14.3&quot;,revision=&quot;b9c96706a7425383902b6143d097cf6d7cfd1960&quot;,version=&quot;1.0.0&quot;} 1
-</code></pre><p>当然，除了通过 <code>--cacert</code> 参数将证书传递给 curl 外，也可以通过 <code>-k</code> 参数来忽略证书检查。</p><pre><code class=language-sh>(MoeLove) ➜  prometheus-tls curl -s  -k https://localhost:9100/metrics  |grep node_exporter_build_info        
-# HELP node_exporter_build_info A metric with a constant '1' value labeled by version, revision, branch, and goversion from which node_exporter was built.
-# TYPE node_exporter_build_info gauge
-node_exporter_build_info{branch=&quot;HEAD&quot;,goversion=&quot;go1.14.3&quot;,revision=&quot;b9c96706a7425383902b6143d097cf6d7cfd1960&quot;,version=&quot;1.0.0&quot;} 1
-</code></pre><h3 id=配置-prometheus-使用-tls>配置 Prometheus 使用 TLS</h3><p>接下来，我们就要配置 Prometheus 通过 HTTPS 从 Node Exporter 获取指标了。安装过程很简单，无论直接下载最新的二进制版本，或是直接使用 Docker 镜像均可。</p><p>注意，我这里把上文中签发的证书复制到了当前目录中。</p><pre><code class=language-sh>(MoeLove) ➜  prometheus-2.18.1.linux-amd64 cp ~/prometheus-tls/node_exporter.crt .
-(MoeLove) ➜  prometheus-2.18.1.linux-amd64 ls
+</code></pre></div><p>可以看到不能直接 curl 进行请求了，我们可以将证书传递给 curl ，用来验证刚才的配置是否正确。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  prometheus-tls curl -s  --cacert node_exporter.crt https://localhost:9100/metrics  |grep node_exporter_build_info
+<span style=color:#75715e># HELP node_exporter_build_info A metric with a constant &#39;1&#39; value labeled by version, revision, branch, and goversion from which node_exporter was built.</span>
+<span style=color:#75715e># TYPE node_exporter_build_info gauge</span>
+node_exporter_build_info<span style=color:#f92672>{</span>branch<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;HEAD&#34;</span>,goversion<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;go1.14.3&#34;</span>,revision<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;b9c96706a7425383902b6143d097cf6d7cfd1960&#34;</span>,version<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;1.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#ae81ff>1</span>
+</code></pre></div><p>当然，除了通过 <code>--cacert</code> 参数将证书传递给 curl 外，也可以通过 <code>-k</code> 参数来忽略证书检查。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  prometheus-tls curl -s  -k https://localhost:9100/metrics  |grep node_exporter_build_info        
+<span style=color:#75715e># HELP node_exporter_build_info A metric with a constant &#39;1&#39; value labeled by version, revision, branch, and goversion from which node_exporter was built.</span>
+<span style=color:#75715e># TYPE node_exporter_build_info gauge</span>
+node_exporter_build_info<span style=color:#f92672>{</span>branch<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;HEAD&#34;</span>,goversion<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;go1.14.3&#34;</span>,revision<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;b9c96706a7425383902b6143d097cf6d7cfd1960&#34;</span>,version<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;1.0.0&#34;</span><span style=color:#f92672>}</span> <span style=color:#ae81ff>1</span>
+</code></pre></div><h3 id=配置-prometheus-使用-tls>配置 Prometheus 使用 TLS</h3><p>接下来，我们就要配置 Prometheus 通过 HTTPS 从 Node Exporter 获取指标了。安装过程很简单，无论直接下载最新的二进制版本，或是直接使用 Docker 镜像均可。</p><p>注意，我这里把上文中签发的证书复制到了当前目录中。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  prometheus-2.18.1.linux-amd64 cp ~/prometheus-tls/node_exporter.crt .
+<span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  prometheus-2.18.1.linux-amd64 ls
 console_libraries  consoles  LICENSE  node_exporter.crt  NOTICE  prometheus  prometheus.yml  promtool  tsdb
-</code></pre><p>接下来，需要修改下配置文件，让 Prometheus 可以抓取 Node Exporter 暴露的 metrics 。</p><pre><code class=language-yaml>global:
+</code></pre></div><p>接下来，需要修改下配置文件，让 Prometheus 可以抓取 Node Exporter 暴露的 metrics 。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>global:
   scrape_interval:     15s 
   evaluation_interval: 15s 
 
 scrape_configs:
-  - job_name: 'prometheus'
+  - job_name: <span style=color:#e6db74>&#39;prometheus&#39;</span>
     static_configs:
-    - targets: ['localhost:9090']
+    - targets: [<span style=color:#e6db74>&#39;localhost:9090&#39;</span>]
 
-  - job_name: 'node_exporter'
+  - job_name: <span style=color:#e6db74>&#39;node_exporter&#39;</span>
     scheme: https
     tls_config:
       ca_file: node_exporter.crt
     static_configs:
-    - targets: ['localhost:9100']
-</code></pre><p>这里额外增加了 <code>scheme: https</code> 表示通过 HTTPS 建立连接，<code>tls_config</code> 中指定了所用的证书文件。完整的配置可以参考 <a href=https://prometheus.io/docs/prometheus/latest/configuration/configuration/#tls_config>官方文档中对 tls_config 的说明</a> 。</p><p>最后，启动 Prometheus 并在浏览器中访问 <a href=http://127.0.0.1:9090/targets><code>/targets</code></a> ，如果你在 endpoint 中看到 <code>https://localhost:9100/metrics</code> 了，那么恭喜你，Prometheus 和 Node Exporter 已经通过 TLS 连接了。</p><p><img src=/img/prometheus-tls-target.png alt="Prometheus TLS - https://moelove.info"></p><h2 id=添加-basic-auth>添加 Basic Auth</h2><p>上文中，我已经为你介绍了如何使用让 Prometheus 和 Node Exporter 间使用 TLS 连接了，接下来，我为你介绍如何增加 Basic Auth 。</p><p>这里需要注意的是，Basic Auth 和 TLS 并不是强依赖的。你可以在不开启 TLS 的情况下使用 Basic Auth ，但我个人建议，要做就做彻底点，同时启用好了。</p><h3 id=为-node-exporter-配置密码>为 Node Exporter 配置密码</h3><p>我们直接可以使用 <code>htpasswd</code> 来生成 bcrypt 密码 hash （这个工具想必大家不会太陌生）。</p><pre><code class=language-sh>(MoeLove) ➜  prometheus-tls htpasswd -nBC 12 '' | tr -d ':\n'       
+    - targets: [<span style=color:#e6db74>&#39;localhost:9100&#39;</span>]
+</code></pre></div><p>这里额外增加了 <code>scheme: https</code> 表示通过 HTTPS 建立连接，<code>tls_config</code> 中指定了所用的证书文件。完整的配置可以参考 <a href=https://prometheus.io/docs/prometheus/latest/configuration/configuration/#tls_config>官方文档中对 tls_config 的说明</a> 。</p><p>最后，启动 Prometheus 并在浏览器中访问 <a href=http://127.0.0.1:9090/targets><code>/targets</code></a> ，如果你在 endpoint 中看到 <code>https://localhost:9100/metrics</code> 了，那么恭喜你，Prometheus 和 Node Exporter 已经通过 TLS 连接了。</p><p><img src=/img/prometheus-tls-target.png alt="Prometheus TLS - https://moelove.info"></p><h2 id=添加-basic-auth>添加 Basic Auth</h2><p>上文中，我已经为你介绍了如何使用让 Prometheus 和 Node Exporter 间使用 TLS 连接了，接下来，我为你介绍如何增加 Basic Auth 。</p><p>这里需要注意的是，Basic Auth 和 TLS 并不是强依赖的。你可以在不开启 TLS 的情况下使用 Basic Auth ，但我个人建议，要做就做彻底点，同时启用好了。</p><h3 id=为-node-exporter-配置密码>为 Node Exporter 配置密码</h3><p>我们直接可以使用 <code>htpasswd</code> 来生成 bcrypt 密码 hash （这个工具想必大家不会太陌生）。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  prometheus-tls htpasswd -nBC <span style=color:#ae81ff>12</span> <span style=color:#e6db74>&#39;&#39;</span> | tr -d <span style=color:#e6db74>&#39;:\n&#39;</span>       
 New password:
 Re-type new password:                                              
 $2y$12$WLw2sYa.NYZoBVoCOE84qe3xNm7kbSoKVIBXP.PvqNDna60vnZhEW
-</code></pre><p>这里我只用它来生成了密码 hash ， 没有传递用户名。</p><p>接下来，修改上文中提到的 Node Exporter 所用的配置文件，如下：</p><pre><code class=language-yaml>tls_server_config:
+</code></pre></div><p>这里我只用它来生成了密码 hash ， 没有传递用户名。</p><p>接下来，修改上文中提到的 Node Exporter 所用的配置文件，如下：</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>tls_server_config:
   cert_file: node_exporter.crt
   key_file: node_exporter.key
 basic_auth_users:
-  # 当前设置的用户名为 prometheus ， 可以设置多个
-  prometheus: $2y$12$WLw2sYa.NYZoBVoCOE84qe3xNm7kbSoKVIBXP.PvqNDna60vnZhEW
-</code></pre><p>再次启动 Node Exporter，并使用 curl 请求 metrics 接口，可以看到当前返回 401 。</p><pre><code class=language-sh>(MoeLove) ➜  prometheus-tls curl -Ik https://127.0.0.1:9100/metrics 
-HTTP/1.1 401 Unauthorized
-Content-Type: text/plain; charset=utf-8
+  <span style=color:#75715e># 当前设置的用户名为 prometheus ， 可以设置多个</span>
+  prometheus: $2y$<span style=color:#ae81ff>12</span>$WLw2sYa.NYZoBVoCOE84qe3xNm7kbSoKVIBXP.PvqNDna60vnZhEW
+</code></pre></div><p>再次启动 Node Exporter，并使用 curl 请求 metrics 接口，可以看到当前返回 401 。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  prometheus-tls curl -Ik https://127.0.0.1:9100/metrics 
+HTTP/1.1 <span style=color:#ae81ff>401</span> Unauthorized
+Content-Type: text/plain; charset<span style=color:#f92672>=</span>utf-8
 Www-Authenticate: Basic
 X-Content-Type-Options: nosniff
-Date: Wed, 27 May 2020 11:45:16 GMT
-Content-Length: 13
+Date: Wed, <span style=color:#ae81ff>27</span> May <span style=color:#ae81ff>2020</span> 11:45:16 GMT
+Content-Length: <span style=color:#ae81ff>13</span>
 
-</code></pre><p>打开 Prometheus 的 Targets 页面，也会看到当前提示 401 ，无法抓取 metrics 。</p><p><img src=/img/prometheus-tls-target-401.png alt="Prometheus Basic Auth - https://moelove.info"></p><h3 id=配置-prometheus-使用-basic-auth>配置 Prometheus 使用 Basic Auth</h3><p>接下来，只要修改 Prometheus 的配置文件，为其增加 <code>basic_auth</code> 的配置项即可。</p><pre><code class=language-yaml>global:
+</code></pre></div><p>打开 Prometheus 的 Targets 页面，也会看到当前提示 401 ，无法抓取 metrics 。</p><p><img src=/img/prometheus-tls-target-401.png alt="Prometheus Basic Auth - https://moelove.info"></p><h3 id=配置-prometheus-使用-basic-auth>配置 Prometheus 使用 Basic Auth</h3><p>接下来，只要修改 Prometheus 的配置文件，为其增加 <code>basic_auth</code> 的配置项即可。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml>global:
   scrape_interval:     15s 
   evaluation_interval: 15s 
 
 scrape_configs:
-  - job_name: 'prometheus'
+  - job_name: <span style=color:#e6db74>&#39;prometheus&#39;</span>
     static_configs:
-    - targets: ['localhost:9090']
+    - targets: [<span style=color:#e6db74>&#39;localhost:9090&#39;</span>]
 
-  - job_name: 'node_exporter'
+  - job_name: <span style=color:#e6db74>&#39;node_exporter&#39;</span>
     scheme: https
     tls_config:
       ca_file: node_exporter.crt
@@ -129,8 +129,8 @@ scrape_configs:
       username: prometheus
       password: moelove.info
     static_configs:
-    - targets: ['localhost:9100']
-</code></pre><p>修改配置文件后，只要让 Prometheus 重新加载配置文件即可：</p><pre><code>(MoeLove) ➜  killall -HUP prometheus
+    - targets: [<span style=color:#e6db74>&#39;localhost:9100&#39;</span>]
+</code></pre></div><p>修改配置文件后，只要让 Prometheus 重新加载配置文件即可：</p><pre><code>(MoeLove) ➜  killall -HUP prometheus
 </code></pre><p>现在刷新 Prometheus 的 Targets 页面，就可以看到已经正常抓取 metrics 了。</p><h2 id=总结>总结</h2><p>本文介绍了如何开启 Prometheus 和 Node Exporter 之间的 TLS 连接， 以及开启 Node Exporter 的 Basic Auth 认证。 在此之前，可能有小伙伴是通过加反代来完成的，比如： <a href=https://blog.fleeto.us/post/node_exp_basic_auth/>给 Node Exporter 加上 Basic 认证</a></p><p>在生产中使用时，建议更加规范化操作，比如 CA 的选择，密码的管理等，比如 Node Exporter 的 Basic Auth 其实支持配置多个用户名密码的。</p><p>接下来，在 Prometheus 官方提供的基础组件中，都将逐步推进本文中所提到的这类安全特性的支持，包括 Prometheus，Alertmanager， Pushgateway 和官方 exporter ，后续社区提供的 exporter 大概率也会逐步跟进的。</p><p>最后，再次恭喜 Node Exporter 迎来了 v1.0.0 版本。</p><hr><p>欢迎订阅我的文章公众号【MoeLove】</p><p><img src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/my_qrcode.jpg alt=TheMoeLove></p></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
 <span class=item-content>张晋涛</span></p><p class=copyright-item><span class=item-title>上次更新</span>
 <span class=item-content>2020-05-26</span></p><p class=copyright-item><span class=item-title>许可协议</span>

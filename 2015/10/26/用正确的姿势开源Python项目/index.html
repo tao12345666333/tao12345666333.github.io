@@ -1,16 +1,16 @@
 <!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>用正确的姿势开源Python项目 - MoeLove</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><script async src=//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script><script>(adsbygoogle=window.adsbygoogle||[]).push({google_ad_client:"ca-pub-1876963677156202",enable_page_level_ads:true});</script><meta name=author content="张晋涛"><meta name=description content="做个备忘，也希望可以帮到别人。
  目录结构（初始化） 一般我们都会选择在项目的顶层包含较基础的文件，比如setup.py，requirements，README等文件。 一般情况下，一个预发布的Python项目中应该包含以下几类文件：
  projects (项目的主体文件) setup.py requirements Readme (项目说明) docs (项目文档) test  其中，projects文件夹要以项目命名，存放实际的Python Package. 这里放一个我的项目的目录作为例子。
-➜ httpmultipart git:(master) tree -L 2 . ├── build │ ├── bdist.linux-x86_64 │ └── lib.linux-x86_64-2.7 ├── dist │ ├── httpmultipart-0.1.0-py2.py3-none-any.whl │ └── httpmultipart-0.1.0.tar.gz ├── docs │ ├── _build │ ├── conf.py │ ├── index.rst │ ├── Makefile │ ├── userguide │ └── userguide.rst ├── env │ ├── bin │ ├── include │ ├── lib │ └── local ├── httpmultipart │ ├── __init__."><meta name=keywords content="MoeLove,Linux,Docker,Kubernetes,Golang,Python,Container,Vim,容器,k8s"><meta name=baidu-site-verification content="jO2rMlnjJi"><meta name=google-site-verification content="googlefe3fc086c62f7210.html"><meta name=generator content="Hugo 0.59.1 with theme even"><link rel=canonical href=https://moelove.info/2015/10/26/%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%A7%BF%E5%8A%BF%E5%BC%80%E6%BA%90Python%E9%A1%B9%E7%9B%AE/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css rel=stylesheet><link href=/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><meta property="og:title" content="用正确的姿势开源Python项目"><meta property="og:description" content="做个备忘，也希望可以帮到别人。
+➜ httpmultipart git:(master) tree -L 2 . ├── build │ ├── bdist.linux-x86_64 │ └── lib.linux-x86_64-2.7 ├── dist │ ├── httpmultipart-0.1.0-py2.py3-none-any.whl │ └── httpmultipart-0.1.0.tar.gz ├── docs │ ├── _build │ ├── conf.py │ ├── index.rst │ ├── Makefile │ ├── userguide │ └── userguide.rst ├── env │ ├── bin │ ├── include │ ├── lib │ └── local ├── httpmultipart │ ├── __init__."><meta name=keywords content="MoeLove,Linux,Docker,Kubernetes,Golang,Python,Container,Vim,容器,k8s"><meta name=baidu-site-verification content="jO2rMlnjJi"><meta name=google-site-verification content="googlefe3fc086c62f7210.html"><meta name=generator content="Hugo 0.62.2 with theme even"><link rel=canonical href=https://moelove.info/2015/10/26/%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%A7%BF%E5%8A%BF%E5%BC%80%E6%BA%90Python%E9%A1%B9%E7%9B%AE/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css rel=stylesheet><link href=/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><meta property="og:title" content="用正确的姿势开源Python项目"><meta property="og:description" content="做个备忘，也希望可以帮到别人。
  目录结构（初始化） 一般我们都会选择在项目的顶层包含较基础的文件，比如setup.py，requirements，README等文件。 一般情况下，一个预发布的Python项目中应该包含以下几类文件：
  projects (项目的主体文件) setup.py requirements Readme (项目说明) docs (项目文档) test  其中，projects文件夹要以项目命名，存放实际的Python Package. 这里放一个我的项目的目录作为例子。
 ➜ httpmultipart git:(master) tree -L 2 . ├── build │ ├── bdist.linux-x86_64 │ └── lib.linux-x86_64-2.7 ├── dist │ ├── httpmultipart-0.1.0-py2.py3-none-any.whl │ └── httpmultipart-0.1.0.tar.gz ├── docs │ ├── _build │ ├── conf.py │ ├── index.rst │ ├── Makefile │ ├── userguide │ └── userguide.rst ├── env │ ├── bin │ ├── include │ ├── lib │ └── local ├── httpmultipart │ ├── __init__."><meta property="og:type" content="article"><meta property="og:url" content="https://moelove.info/2015/10/26/%E7%94%A8%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%A7%BF%E5%8A%BF%E5%BC%80%E6%BA%90Python%E9%A1%B9%E7%9B%AE/"><meta property="article:published_time" content="2015-10-26T22:17:36+00:00"><meta property="article:modified_time" content="2015-10-26T22:17:36+00:00"><meta itemprop=name content="用正确的姿势开源Python项目"><meta itemprop=description content="做个备忘，也希望可以帮到别人。
  目录结构（初始化） 一般我们都会选择在项目的顶层包含较基础的文件，比如setup.py，requirements，README等文件。 一般情况下，一个预发布的Python项目中应该包含以下几类文件：
  projects (项目的主体文件) setup.py requirements Readme (项目说明) docs (项目文档) test  其中，projects文件夹要以项目命名，存放实际的Python Package. 这里放一个我的项目的目录作为例子。
-➜ httpmultipart git:(master) tree -L 2 . ├── build │ ├── bdist.linux-x86_64 │ └── lib.linux-x86_64-2.7 ├── dist │ ├── httpmultipart-0.1.0-py2.py3-none-any.whl │ └── httpmultipart-0.1.0.tar.gz ├── docs │ ├── _build │ ├── conf.py │ ├── index.rst │ ├── Makefile │ ├── userguide │ └── userguide.rst ├── env │ ├── bin │ ├── include │ ├── lib │ └── local ├── httpmultipart │ ├── __init__."><meta itemprop=datePublished content="2015-10-26T22:17:36+00:00"><meta itemprop=dateModified content="2015-10-26T22:17:36+00:00"><meta itemprop=wordCount content="485"><meta itemprop=keywords content="pip,Git,"><meta name=twitter:card content="summary"><meta name=twitter:title content="用正确的姿势开源Python项目"><meta name=twitter:description content="做个备忘，也希望可以帮到别人。
+➜ httpmultipart git:(master) tree -L 2 . ├── build │ ├── bdist.linux-x86_64 │ └── lib.linux-x86_64-2.7 ├── dist │ ├── httpmultipart-0.1.0-py2.py3-none-any.whl │ └── httpmultipart-0.1.0.tar.gz ├── docs │ ├── _build │ ├── conf.py │ ├── index.rst │ ├── Makefile │ ├── userguide │ └── userguide.rst ├── env │ ├── bin │ ├── include │ ├── lib │ └── local ├── httpmultipart │ ├── __init__."><meta itemprop=datePublished content="2015-10-26T22:17:36+00:00"><meta itemprop=dateModified content="2015-10-26T22:17:36+00:00"><meta itemprop=wordCount content="486"><meta itemprop=keywords content="pip,Git,"><meta name=twitter:card content="summary"><meta name=twitter:title content="用正确的姿势开源Python项目"><meta name=twitter:description content="做个备忘，也希望可以帮到别人。
  目录结构（初始化） 一般我们都会选择在项目的顶层包含较基础的文件，比如setup.py，requirements，README等文件。 一般情况下，一个预发布的Python项目中应该包含以下几类文件：
  projects (项目的主体文件) setup.py requirements Readme (项目说明) docs (项目文档) test  其中，projects文件夹要以项目命名，存放实际的Python Package. 这里放一个我的项目的目录作为例子。
-➜ httpmultipart git:(master) tree -L 2 . ├── build │ ├── bdist.linux-x86_64 │ └── lib.linux-x86_64-2.7 ├── dist │ ├── httpmultipart-0.1.0-py2.py3-none-any.whl │ └── httpmultipart-0.1.0.tar.gz ├── docs │ ├── _build │ ├── conf.py │ ├── index.rst │ ├── Makefile │ ├── userguide │ └── userguide.rst ├── env │ ├── bin │ ├── include │ ├── lib │ └── local ├── httpmultipart │ ├── __init__."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>MoeLove</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/about/><li class=mobile-menu-item>About</li></a><a href=/friends/><li class=mobile-menu-item>Friends</li></a><a href=/projects/><li class=mobile-menu-item>Projects</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>MoeLove</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/about/>About</a></li><li class=menu-item><a class=menu-item-link href=/friends/>Friends</a></li><li class=menu-item><a class=menu-item-link href=/projects/>Projects</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>用正确的姿势开源Python项目</h1><div class=post-meta><span class=post-time>2015-10-26</span><div class=post-category><a href=/categories/python/>Python</a></div></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#目录结构-初始化>目录结构（初始化）</a></li><li><a href=#文档>文档</a></li><li><a href=#read-the-docs-持续文档集成>Read the Docs 持续文档集成</a></li><li><a href=#travisci-持续集成>TravisCI 持续集成</a></li><li><a href=#测试>测试</a></li><li><a href=#coveralls-测试覆盖率检查>Coveralls 测试覆盖率检查</a></li><li><a href=#发布包到pypi>发布包到PyPI</a></li><li><a href=#项目托管在github上>项目托管在Github上</a></li><li><a href=#开发相关>开发相关</a></li></ul></li></ul></nav></div></div><div class=post-content><blockquote><p>做个备忘，也希望可以帮到别人。</p></blockquote><h2 id=目录结构-初始化>目录结构（初始化）</h2><p>一般我们都会选择在项目的顶层包含较基础的文件，比如<code>setup.py</code>，<code>requirements</code>，<code>README</code>等文件。
+➜ httpmultipart git:(master) tree -L 2 . ├── build │ ├── bdist.linux-x86_64 │ └── lib.linux-x86_64-2.7 ├── dist │ ├── httpmultipart-0.1.0-py2.py3-none-any.whl │ └── httpmultipart-0.1.0.tar.gz ├── docs │ ├── _build │ ├── conf.py │ ├── index.rst │ ├── Makefile │ ├── userguide │ └── userguide.rst ├── env │ ├── bin │ ├── include │ ├── lib │ └── local ├── httpmultipart │ ├── __init__."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>MoeLove</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/about/><li class=mobile-menu-item>About</li></a><a href=/friends/><li class=mobile-menu-item>Friends</li></a><a href=/projects/><li class=mobile-menu-item>Projects</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>MoeLove</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/about/>About</a></li><li class=menu-item><a class=menu-item-link href=/friends/>Friends</a></li><li class=menu-item><a class=menu-item-link href=/projects/>Projects</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>用正确的姿势开源Python项目</h1><div class=post-meta><span class=post-time>2015-10-26</span><div class=post-category><a href=/categories/python/>Python</a></div></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#目录结构初始化>目录结构（初始化）</a></li><li><a href=#文档>文档</a></li><li><a href=#read-the-docs-持续文档集成>Read the Docs 持续文档集成</a></li><li><a href=#travisci-持续集成>TravisCI 持续集成</a></li><li><a href=#测试>测试</a></li><li><a href=#coveralls-测试覆盖率检查>Coveralls 测试覆盖率检查</a></li><li><a href=#发布包到pypi>发布包到PyPI</a></li><li><a href=#项目托管在github上>项目托管在Github上</a></li><li><a href=#开发相关>开发相关</a></li></ul></nav></div></div><div class=post-content><blockquote><p>做个备忘，也希望可以帮到别人。</p></blockquote><h2 id=目录结构初始化>目录结构（初始化）</h2><p>一般我们都会选择在项目的顶层包含较基础的文件，比如<code>setup.py</code>，<code>requirements</code>，<code>README</code>等文件。
 一般情况下，一个预发布的Python项目中应该包含以下几类文件：</p><ul><li>projects (项目的主体文件)</li><li>setup.py</li><li>requirements</li><li>Readme (项目说明)</li><li>docs (项目文档)</li><li>test</li></ul><p>其中，<code>projects</code>文件夹要以项目命名，存放实际的Python Package.
 这里放一个<a href=https://github.com/tao12345666333/httpmultipart>我的项目的目录</a>作为例子。</p><pre><code>➜  httpmultipart git:(master) tree -L 2
 .
@@ -53,135 +53,134 @@
 14 directories, 21 files
 
 </code></pre><p>这个目录中包含了我的<code>virtual enviroment</code> 和打包构建时候生成的文件夹。
-这些东西在下面会提到。</p><h2 id=文档>文档</h2><p>文档的话，并没有严格要求必须使用什么样的工具进行构建，也没有很严格的格式要求。不过我推荐使用<a href=http://sphinx-doc.org/><code>SPHINX</code></a>,它是用Python写的工具，使用了一种叫做<code>reStructuredText</code>的语法编辑，可以对多个文本文件重编，可以输出成HTML或者PDF等格式。</p><p>这里稍微介绍下使用：</p><ul><li><p>安装</p><pre><code class=language-Bash>$ pip install sphinx
-</code></pre><ul><li>初始化
-<code>Bash
-$ cd docs
+这些东西在下面会提到。</p><h2 id=文档>文档</h2><p>文档的话，并没有严格要求必须使用什么样的工具进行构建，也没有很严格的格式要求。不过我推荐使用<a href=http://sphinx-doc.org/><code>SPHINX</code></a>,它是用Python写的工具，使用了一种叫做<code>reStructuredText</code>的语法编辑，可以对多个文本文件重编，可以输出成HTML或者PDF等格式。</p><p>这里稍微介绍下使用：</p><ul><li><p>安装</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-Bash data-lang=Bash>$ pip install sphinx
+</code></pre></div></li><li><p>初始化</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-Bash data-lang=Bash>$ cd docs
 $ sphinx-quickstart
-...#(这里有一系列的提问，进行初始化)</code></li></ul></li><li><p>编译</p><pre><code class=language-Bash>$ make html #(如果按照默认配置生成的Makefile的话，这样就可以编译出html了)
-</code></pre><p>Sphinx的使用还有很多值得说的地方，推荐两个资料：</p><ul><li>英文的<a href=http://sphinx-doc.org/contents.html>Sphinx 的官方文档</a></li><li>中文的<a href="http://www.amazon.cn/%E5%9B%BE%E7%81%B5%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E4%B8%9B%E4%B9%A6-Python%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98-%E6%97%A5%E6%9C%ACBePROUD%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8/dp/B00KGQ4NRO/ref=sr_1_1?s=books&ie=UTF8&qid=1448116359&sr=1-1&keywords=python+%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98">Python 开发实战</a></li></ul><p>官方文档写的非常详细，那本书偏向于实战，是很不错的书。
+...#<span style=color:#f92672>(</span>这里有一系列的提问，进行初始化<span style=color:#f92672>)</span>
+</code></pre></div></li><li><p>编译</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-Bash data-lang=Bash>$ make html <span style=color:#75715e>#(如果按照默认配置生成的Makefile的话，这样就可以编译出html了)</span>
+</code></pre></div></li></ul><p>Sphinx的使用还有很多值得说的地方，推荐两个资料：</p><ul><li>英文的<a href=http://sphinx-doc.org/contents.html>Sphinx 的官方文档</a></li><li>中文的<a href="http://www.amazon.cn/%E5%9B%BE%E7%81%B5%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E4%B8%9B%E4%B9%A6-Python%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98-%E6%97%A5%E6%9C%ACBePROUD%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8/dp/B00KGQ4NRO/ref=sr_1_1?s=books&ie=UTF8&qid=1448116359&sr=1-1&keywords=python+%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98">Python 开发实战</a></li></ul><p>官方文档写的非常详细，那本书偏向于实战，是很不错的书。
 还有很关键的一点是Sphinx有<code>autodoc</code>和<code>automodule</code>的扩展，
-可以从代码中提取出文档，与代码直接进行关联。提供一个<a href=https://tornado-zh.readthedocs.org/zh/latest/ioloop.html#running-an-ioloop>例子</a>可以方便的在文档和源码中进行跳转。</p><h2 id=read-the-docs-持续文档集成>Read the Docs 持续文档集成</h2><p>说完写文档就不得不提到<a href=https://readthedocs.org/><code>Read the Dosc</code></a>了,这是一个第三方的文档托管平台,使用<code>Django</code>开发，它可以很轻松的和Github上的项目进行集成，在每次代码提交的时候会自动进行文档构建，我们可以看看<a href=https://tornado-zh.readthedocs.org/>生成文档的效果</a>。现在有很多开源项目的文档都是托管在这里的，具体的配置可以参考<a href=https://read-the-docs.readthedocs.org/en/latest/getting_started.html>官方文档</a>。</p><h2 id=travisci-持续集成>TravisCI 持续集成</h2><p><a href=https://travis-ci.org/><code>Travisci</code></a>可以与Github非常好的结合，可以手动导入<code>repo</code>，并设置<code>Webhooks & services</code>,在每次提交的时候都会测试运行来发现是否存在异常。在使用之前，我们需要先做一些初始化的操作：</p><ul><li>创建<code>.travis.yml</code>文件</li></ul><p>我们需要告诉它一些基本的信息：</p><ul><li>我们项目使用的语言</li><li>项目使用的语言版本</li><li>环境的依赖</li><li>是否需要<code>sudo</code>权限运行</li><li>使用什么命令来安装</li><li>使用什么命令运行测试</li></ul><p>下面提供一个例子：</p><pre><code>```YML
-language: python
-python:
-    - 2.7
+可以从代码中提取出文档，与代码直接进行关联。提供一个<a href=https://tornado-zh.readthedocs.org/zh/latest/ioloop.html#running-an-ioloop>例子</a>可以方便的在文档和源码中进行跳转。</p><h2 id=read-the-docs-持续文档集成>Read the Docs 持续文档集成</h2><p>说完写文档就不得不提到<a href=https://readthedocs.org/><code>Read the Dosc</code></a>了,这是一个第三方的文档托管平台,使用<code>Django</code>开发，它可以很轻松的和Github上的项目进行集成，在每次代码提交的时候会自动进行文档构建，我们可以看看<a href=https://tornado-zh.readthedocs.org/>生成文档的效果</a>。现在有很多开源项目的文档都是托管在这里的，具体的配置可以参考<a href=https://read-the-docs.readthedocs.org/en/latest/getting_started.html>官方文档</a>。</p><h2 id=travisci-持续集成>TravisCI 持续集成</h2><p><a href=https://travis-ci.org/><code>Travisci</code></a>可以与Github非常好的结合，可以手动导入<code>repo</code>，并设置<code>Webhooks & services</code>,在每次提交的时候都会测试运行来发现是否存在异常。在使用之前，我们需要先做一些初始化的操作：</p><ul><li><p>创建<code>.travis.yml</code>文件</p><p>我们需要告诉它一些基本的信息：</p><ul><li>我们项目使用的语言</li><li>项目使用的语言版本</li><li>环境的依赖</li><li>是否需要<code>sudo</code>权限运行</li><li>使用什么命令来安装</li><li>使用什么命令运行测试</li></ul><p>下面提供一个例子：</p><pre><code>  ```YML
+  language: python
+  python:
+      - 2.7
 
-env:
-    - DEPS=true
-    - DEPS=false
+  env:
+      - DEPS=true
+      - DEPS=false
 
-sudo: false
+  sudo: false
 
-install:
-    - travis_retry python setup.py install
-    - travis_retry pip install coveralls
-    - coverage run test_httpmultipart.py
-    - coverage report
+  install:
+      - travis_retry python setup.py install
+      - travis_retry pip install coveralls
+      - coverage run test_httpmultipart.py
+      - coverage report
 
-script:
-    - python test_httpmultipart.py
+  script:
+      - python test_httpmultipart.py
 
-after_success:
-    coveralls
-```
-</code></pre><p>PS： 在<code>install</code>这一项配置中要注意，如果项目存在依赖，一定要进行安装，还有<code>Travisci</code>提供了多项配置，包括出错重试等，具体配置可以参考<a href=http://docs.travis-ci.com/>官方文档</a>，要特别注意<code>travis_retry</code>等命令的使用，非常容易出现坑。</p><h2 id=测试>测试</h2><p>Python有内置的<code>unittest</code>测试库，支持断言;当然还有其他的一些测试框架，看个人喜好和项目需求。在项目中应该包含测试文件或者测试目录，测试文件一般以<code>test_projects_name.py</code>命名。我选择使用<code>coverage</code>作为测试覆盖率的检查，下面是一个运行示例：</p><pre><code class=language-Bash>➜  httpmultipart git:(master) coverage run test_httpmultipart.py 
+  after_success:
+      coveralls
+  ```
+</code></pre></li></ul><p>PS： 在<code>install</code>这一项配置中要注意，如果项目存在依赖，一定要进行安装，还有<code>Travisci</code>提供了多项配置，包括出错重试等，具体配置可以参考<a href=http://docs.travis-ci.com/>官方文档</a>，要特别注意<code>travis_retry</code>等命令的使用，非常容易出现坑。</p><h2 id=测试>测试</h2><p>Python有内置的<code>unittest</code>测试库，支持断言;当然还有其他的一些测试框架，看个人喜好和项目需求。在项目中应该包含测试文件或者测试目录，测试文件一般以<code>test_projects_name.py</code>命名。我选择使用<code>coverage</code>作为测试覆盖率的检查，下面是一个运行示例：</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-Bash data-lang=Bash>➜  httpmultipart git:<span style=color:#f92672>(</span>master<span style=color:#f92672>)</span> coverage run test_httpmultipart.py 
 ....
 ----------------------------------------------------------------------
-Ran 4 tests in 36.125s
+Ran <span style=color:#ae81ff>4</span> tests in 36.125s
 
 OK
 
 
-➜  httpmultipart git:(master) coverage report
+➜  httpmultipart git:<span style=color:#f92672>(</span>master<span style=color:#f92672>)</span> coverage report
 Name                        Stmts   Miss Branch BrPart  Cover
 -------------------------------------------------------------
-httpmultipart/__init__.py      10      0      0      0   100%
-httpmultipart/main.py          37      0      4      0   100%
+httpmultipart/__init__.py      <span style=color:#ae81ff>10</span>      <span style=color:#ae81ff>0</span>      <span style=color:#ae81ff>0</span>      <span style=color:#ae81ff>0</span>   100%
+httpmultipart/main.py          <span style=color:#ae81ff>37</span>      <span style=color:#ae81ff>0</span>      <span style=color:#ae81ff>4</span>      <span style=color:#ae81ff>0</span>   100%
 -------------------------------------------------------------
-TOTAL                          47      0      4      0   100%
-</code></pre></li></ul><h2 id=coveralls-测试覆盖率检查>Coveralls 测试覆盖率检查</h2><p><a href=https://coveralls.io>Coveralls</a>可以很友好的支持Github和Bitbucket仓库的导入，同时也可以很好的和<code>Travisci</code>集成，在上面我们的<code>.travis.yml</code>文件中，在最后一项<code>after_success</code>中，我们就配置了对<code>Coveralls</code>的支持。</p><h2 id=发布包到pypi>发布包到PyPI</h2><p><a href=https://pypi.python.org/pypi>PyPI - the Python Package Index</a>
+TOTAL                          <span style=color:#ae81ff>47</span>      <span style=color:#ae81ff>0</span>      <span style=color:#ae81ff>4</span>      <span style=color:#ae81ff>0</span>   100%
+</code></pre></div><h2 id=coveralls-测试覆盖率检查>Coveralls 测试覆盖率检查</h2><p><a href=https://coveralls.io>Coveralls</a>可以很友好的支持Github和Bitbucket仓库的导入，同时也可以很好的和<code>Travisci</code>集成，在上面我们的<code>.travis.yml</code>文件中，在最后一项<code>after_success</code>中，我们就配置了对<code>Coveralls</code>的支持。</p><h2 id=发布包到pypi>发布包到PyPI</h2><p><a href=https://pypi.python.org/pypi>PyPI - the Python Package Index</a>
 是Python的包仓库，它允许我们将自己写的包上传上去，这样就可以使用<code>pip</code>和<code>easy_install</code>进行安装了。这里说一个很重要的事情：
 <strong>请在发布自己项目之前做好测试，确认自己上传的是一个可用，无害的包</strong>
-当你已经完成上面的步骤之后，那么你只需要以下几步就可以完成了。以我的项目为例子:</p><ul><li>配置<code>setup.py</code>:</li></ul><pre><code class=language-Python>#!/usr/bin/env python
+当你已经完成上面的步骤之后，那么你只需要以下几步就可以完成了。以我的项目为例子:</p><ul><li>配置<code>setup.py</code>:</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-Python data-lang=Python><span style=color:#75715e>#!/usr/bin/env python</span>
 
-import os
-import re
-import sys
-from codecs import open
+<span style=color:#f92672>import</span> os
+<span style=color:#f92672>import</span> re
+<span style=color:#f92672>import</span> sys
+<span style=color:#f92672>from</span> codecs <span style=color:#f92672>import</span> open
 
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
+<span style=color:#66d9ef>try</span>:
+    <span style=color:#f92672>from</span> setuptools <span style=color:#f92672>import</span> setup
+<span style=color:#66d9ef>except</span> <span style=color:#a6e22e>ImportError</span>:
+    <span style=color:#f92672>from</span> distutils.core <span style=color:#f92672>import</span> setup
 
-if sys.argv[-1] == 'publish':
-    os.system('python setup.py sdist upload')
-    sys.exit()
+<span style=color:#66d9ef>if</span> sys<span style=color:#f92672>.</span>argv[<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>] <span style=color:#f92672>==</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>publish</span><span style=color:#e6db74>&#39;</span>:
+    os<span style=color:#f92672>.</span>system(<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>python setup.py sdist upload</span><span style=color:#e6db74>&#39;</span>)
+    sys<span style=color:#f92672>.</span>exit()
 
-packages = [
-    'httpmultipart',
+packages <span style=color:#f92672>=</span> [
+    <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>httpmultipart</span><span style=color:#e6db74>&#39;</span>,
 ]
 
-requires = []
+requires <span style=color:#f92672>=</span> []
 
-version = ''
-with open('httpmultipart/__init__.py', 'r') as fd:
-    version = re.search(r'^__version__\s*=\s*[\'&quot;]([^\'&quot;]*)[\'&quot;]',
-                        fd.read(), re.MULTILINE).group(1)
+version <span style=color:#f92672>=</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>&#39;</span>
+<span style=color:#66d9ef>with</span> open(<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>httpmultipart/__init__.py</span><span style=color:#e6db74>&#39;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;</span>) <span style=color:#66d9ef>as</span> fd:
+    version <span style=color:#f92672>=</span> re<span style=color:#f92672>.</span>search(<span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>^__version__</span><span style=color:#e6db74>\</span><span style=color:#e6db74>s*=</span><span style=color:#e6db74>\</span><span style=color:#e6db74>s*[</span><span style=color:#ae81ff>\&#39;</span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>]([^</span><span style=color:#ae81ff>\&#39;</span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>]*)[</span><span style=color:#ae81ff>\&#39;</span><span style=color:#e6db74>&#34;</span><span style=color:#e6db74>]</span><span style=color:#e6db74>&#39;</span>,
+                        fd<span style=color:#f92672>.</span>read(), re<span style=color:#f92672>.</span>MULTILINE)<span style=color:#f92672>.</span>group(<span style=color:#ae81ff>1</span>)
 
-if not version:
-    raise RuntimeError('Cannot find version information')
+<span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> version:
+    <span style=color:#66d9ef>raise</span> <span style=color:#a6e22e>RuntimeError</span>(<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>Cannot find version information</span><span style=color:#e6db74>&#39;</span>)
 
-with open('README.rst', 'r', 'utf-8') as f:
-    readme = f.read()
+<span style=color:#66d9ef>with</span> open(<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>README.rst</span><span style=color:#e6db74>&#39;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>r</span><span style=color:#e6db74>&#39;</span>, <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>utf-8</span><span style=color:#e6db74>&#39;</span>) <span style=color:#66d9ef>as</span> f:
+    readme <span style=color:#f92672>=</span> f<span style=color:#f92672>.</span>read()
 
 setup(
-    name='httpmultipart',
-    version=version,
-    description='A httpmultipart post handler',
-    long_description=readme + '\n\n',
-    author='TaoBeier',
-    author_email='zhangjintao9020@gmail.com',
-    url='https://github.com/tao12345666333/httpmultipart',
-    packages=packages,
-    package_data={'': ['LICENSE']},
-    package_dir={'httpmultipart': 'httpmultipart'},
-    include_package_data=True,
-    install_requires=requires,
-    license='MIT',
-    zip_safe=False,
-    platforms='any',
-    classifiers=(
-        'Development Status :: 5 - Production/Stable',
-        'Intended Audience :: Developers',
-        'Natural Language :: English',
-        'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 2.7',
-        'Topic :: Software Development :: Libraries',
-        'Topic :: Software Development :: Libraries :: Python Modules',
+    name<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>httpmultipart</span><span style=color:#e6db74>&#39;</span>,
+    version<span style=color:#f92672>=</span>version,
+    description<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>A httpmultipart post handler</span><span style=color:#e6db74>&#39;</span>,
+    long_description<span style=color:#f92672>=</span>readme <span style=color:#f92672>+</span> <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\n</span><span style=color:#ae81ff>\n</span><span style=color:#e6db74>&#39;</span>,
+    author<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>TaoBeier</span><span style=color:#e6db74>&#39;</span>,
+    author_email<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>zhangjintao9020@gmail.com</span><span style=color:#e6db74>&#39;</span>,
+    url<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>https://github.com/tao12345666333/httpmultipart</span><span style=color:#e6db74>&#39;</span>,
+    packages<span style=color:#f92672>=</span>packages,
+    package_data<span style=color:#f92672>=</span>{<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>&#39;</span>: [<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>LICENSE</span><span style=color:#e6db74>&#39;</span>]},
+    package_dir<span style=color:#f92672>=</span>{<span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>httpmultipart</span><span style=color:#e6db74>&#39;</span>: <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>httpmultipart</span><span style=color:#e6db74>&#39;</span>},
+    include_package_data<span style=color:#f92672>=</span>True,
+    install_requires<span style=color:#f92672>=</span>requires,
+    license<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>MIT</span><span style=color:#e6db74>&#39;</span>,
+    zip_safe<span style=color:#f92672>=</span>False,
+    platforms<span style=color:#f92672>=</span><span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>any</span><span style=color:#e6db74>&#39;</span>,
+    classifiers<span style=color:#f92672>=</span>(
+        <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>Development Status :: 5 - Production/Stable</span><span style=color:#e6db74>&#39;</span>,
+        <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>Intended Audience :: Developers</span><span style=color:#e6db74>&#39;</span>,
+        <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>Natural Language :: English</span><span style=color:#e6db74>&#39;</span>,
+        <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>License :: OSI Approved :: MIT License</span><span style=color:#e6db74>&#39;</span>,
+        <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>Programming Language :: Python</span><span style=color:#e6db74>&#39;</span>,
+        <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>Programming Language :: Python :: 2.7</span><span style=color:#e6db74>&#39;</span>,
+        <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>Topic :: Software Development :: Libraries</span><span style=color:#e6db74>&#39;</span>,
+        <span style=color:#e6db74></span><span style=color:#e6db74>&#39;</span><span style=color:#e6db74>Topic :: Software Development :: Libraries :: Python Modules</span><span style=color:#e6db74>&#39;</span>,
     ),
 )
 
-</code></pre><p>当然大部分时候也不需要这么麻烦，简化的配置可以参考官方的文档。注意最下面那部分<code>classifiers</code>是按照<a href="https://pypi.python.org/pypi?:action=list_classifiers">PyPI官方的列表填写</a>的。还有，如果有些文件想要额外打包进去，那么需要在根目录添加<code>MANIFEST.in</code>文件。</p><ul><li>打包代码<br></li></ul><pre><code class=language-Bash>$ python setup.py sdist # 生成pip支持的安装包
-$ python setup.py bdist_wheel # 生成支持easy_install的安装包
-</code></pre><ul><li><p>发布到PyPI上</p><p>首先在<a href=https://pypi.python.org/pypi>PyPI</a>上<a href="https://pypi.python.org/pypi?%3Aaction=register_form">注册</a>一个帐号，然后进行下面两步：</p><ul><li><p>注册package</p><pre><code class=language-bash>$ python setup.py register
-$ # 在这一步会有一些提示，按照提示选择，输入自己帐号密码相关的信息即可
-$ # 在提示你要不要保存帐号信息的时候，
-$ # 你选择了‘y’，
-$ # 则会在你的用户目录下生成一个 .pypirc 的文件，
-$ # 其中明文保存着你的帐号和密码。
-</code></pre><p>这里稍微再提一点，如果在提示是否保存账户信息的时候，选择了‘n’，想反悔了也没关系，我们可以手动创建一个<code>~/.pypirc</code>文件。格式如下：</p><pre><code>[distutils]
-index-servers=pypi
-
-[pypi]
-repository = https://pypi.python.org/pypi
-username = your username
-password = your password
-</code></pre></li></ul></li><li><p>上传package
-<code>bash
-$ python setup.py sdist bdist_wheel upload</code>
-在上传完成提示<code>200</code>响应的时候，你就上传成功了，去PyPI上看看有没有上传成功的包，并且试着用<code>pip</code>进行安装吧！</p></li></ul><p>这里我省略了一步，就是发布前的测试，你可以使用<a href=https://testpypi.python.org/pypi>PyPI的测试服务器</a>进行测试发布，发布到这里的包并不会对你正式发布有任何影响。</p><h2 id=项目托管在github上>项目托管在Github上</h2><p>开源到Github上后，就是继续维护和开发，这点就不多说了。</p><h2 id=开发相关>开发相关</h2><p>建议使用<code>virtualenv</code>之类的工具构建纯净的环境，重复的动作交给<code>Make</code>之类的工具。</p><p>这篇算是一个小小的总结加备忘吧，经验尚缺，还望指正。</p></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+</code></pre></div><p>当然大部分时候也不需要这么麻烦，简化的配置可以参考官方的文档。注意最下面那部分<code>classifiers</code>是按照<a href="https://pypi.python.org/pypi?:action=list_classifiers">PyPI官方的列表填写</a>的。还有，如果有些文件想要额外打包进去，那么需要在根目录添加<code>MANIFEST.in</code>文件。</p><ul><li>打包代码</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-Bash data-lang=Bash>$ python setup.py sdist <span style=color:#75715e># 生成pip支持的安装包</span>
+$ python setup.py bdist_wheel <span style=color:#75715e># 生成支持easy_install的安装包</span>
+</code></pre></div><ul><li><p>发布到PyPI上</p><p>首先在<a href=https://pypi.python.org/pypi>PyPI</a>上<a href="https://pypi.python.org/pypi?%3Aaction=register_form">注册</a>一个帐号，然后进行下面两步：</p><ul><li>注册package<div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ python setup.py register
+$ <span style=color:#75715e># 在这一步会有一些提示，按照提示选择，输入自己帐号密码相关的信息即可</span>
+$ <span style=color:#75715e># 在提示你要不要保存帐号信息的时候，</span>
+$ <span style=color:#75715e># 你选择了‘y’，</span>
+$ <span style=color:#75715e># 则会在你的用户目录下生成一个 .pypirc 的文件，</span>
+$ <span style=color:#75715e># 其中明文保存着你的帐号和密码。</span>
+</code></pre></div></li></ul></li></ul><p>这里稍微再提一点，如果在提示是否保存账户信息的时候，选择了‘n’，想反悔了也没关系，我们可以手动创建一个<code>~/.pypirc</code>文件。格式如下：
+```
+[distutils]
+index-servers=pypi</p><pre><code>    [pypi]
+    repository = https://pypi.python.org/pypi
+    username = your username
+    password = your password
+    ```
+</code></pre><ul><li>上传package
+<code>bash $ python setup.py sdist bdist_wheel upload</code>
+在上传完成提示<code>200</code>响应的时候，你就上传成功了，去PyPI上看看有没有上传成功的包，并且试着用<code>pip</code>进行安装吧！</li></ul><p>这里我省略了一步，就是发布前的测试，你可以使用<a href=https://testpypi.python.org/pypi>PyPI的测试服务器</a>进行测试发布，发布到这里的包并不会对你正式发布有任何影响。</p><h2 id=项目托管在github上>项目托管在Github上</h2><p>开源到Github上后，就是继续维护和开发，这点就不多说了。</p><h2 id=开发相关>开发相关</h2><p>建议使用<code>virtualenv</code>之类的工具构建纯净的环境，重复的动作交给<code>Make</code>之类的工具。</p><p>这篇算是一个小小的总结加备忘吧，经验尚缺，还望指正。</p></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
 <span class=item-content>张晋涛</span></p><p class=copyright-item><span class=item-title>上次更新</span>
 <span class=item-content>2015-10-26</span></p><p class=copyright-item><span class=item-title>许可协议</span>
 <span class=item-content><a rel="license noopener" href=https://creativecommons.org/licenses/by-sa/4.0/ target=_blank>CC BY-SA 4.0</a></span></p></div><div class=post-reward><input type=checkbox name=reward id=reward hidden>

@@ -5,4 +5,4 @@ $ rails new mysite // 这个是建立一个叫mysite 的rails程式 ，在当前
 development environment开发模式，用在你的开发的时候 test environment测试模式，用在自动测试时 production environment正式上线模式，用在实际的上线运作环境 SQLite配置大致是这样的:
 development: adapter: sqlite3 database: db/development.sqlite3 pool: 5 timeout: 5000 接下来建立自己的数据库
 rake db:create 在这里我遇到一个错误
-rake aborted! Could not find a JavaScript runtime.</description></item></channel></rss>
+rake aborted! Could not find a JavaScript runtime. See https://github.</description></item></channel></rss>

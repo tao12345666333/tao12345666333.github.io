@@ -6,5 +6,4 @@ ESLint ESLint是由Nicholas C. Zakas在2013年开始开发的，它的初衷就�
 JSLint，JSHint和ESLint的对比 这三个工具各有特色，我只是做一下对比，选择的话，看个人需求就好了。
 JSLint 优点 配置是老道已经定好的，开箱即用。 不足 有限的配置选项，很多规则不能禁用 规范严格，凡是不符合老道所认为的好的风格的，都会有警告(这一项就看你是否完全认同老道了) 扩展性差 无法根据错误定位到对应的规则 JSHint 优点 有了很多参数可以配置 支持配置文件，方便使用 支持了一些常用类库 支持了基本的ES6 不足 不支持自定义规则 无法根据错误定位到对应的规则 ESLint 优点 默认规则里面包含了JSLint和JSHint的规则，易于迁移(这肯定是故意的XD) 可配置为警告和错误两个等级，或者直接禁用掉 支持插件扩展 可以自定义规则 可以根据错误定位到对应的规则 支持ES6 唯一一个支持JSX的工具 不足 需要进行一些自定义配置(因为太灵活了嘛，不过文档是很详细的) 慢 (它比其他两个都要慢) Vim支持 我们都使用Syntastic来配置
 JSLint的Vim配置 有一个jslint.vim当然版本太老了。。我们不用这种方式做。
-安装jslint
-sudo npm install jslint -g 在vimrc中添加如下配置</description></item></channel></rss>
+安装jslint sudo npm install jslint -g 在vimrc中添加如下配置 let g:syntastic_javascript_checkers = ['jslint'] JSHint的Vim配置 安装jshint sudo npm install jshint -g 在vimrc中添加如下配置 let g:syntastic_javascript_checkers = ['jshint'] 也可以使用独立插件jshint.</description></item></channel></rss>

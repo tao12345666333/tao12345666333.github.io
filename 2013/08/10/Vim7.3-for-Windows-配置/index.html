@@ -1,40 +1,36 @@
 <!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>Vim7.3 for Windows 配置 - MoeLove</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><script async src=//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script><script>(adsbygoogle=window.adsbygoogle||[]).push({google_ad_client:"ca-pub-1876963677156202",enable_page_level_ads:true});</script><meta name=author content="张晋涛"><meta name=description content="一直是在Linux下用Vim，但是有些时候在别人电脑或者机房又不得不用windows来写代码，所以也就下载了vim for windows。但是今天打开一个朋友写的网页的时候，出现了乱码的问题，所以把解决方法记录一下，也就是和在linux下面一样，修改配置文件就可以了。接下来进入正题。
  选项意义概述 Vim有四个跟字符编码方式有关的选项，分别是:encoding、fileencoding、fileencodings、termencoding (这些选项可能的取值可以参考 Vim 的帮助 :help encoding-names)，它们各自的意义:
- encoding: Vim 内部使用的字符编码方式，包括Vim的buffer(缓冲区)、菜单文本、消息文本等。用户手册上建议只在*.vimrc中改变它的值，事实上似乎也只有在.vimrc* 中改变它的值才有意义。
- fileencoding: Vim 中当前编辑的文件的字符编码方式，Vim 保存文件时也会将文件保存为这种字符编码方式 (不管是否新文件都如此)。
- fileencodings: Vim 启动时会按照它所列出的字符编码方式逐一探测即将打开的文件的字符编码方式，并且将 fileencoding 设置为最终探测到的字符编码方式。因此最好将 Unicode 编码方式放到这个列表的最前面，将拉丁语系编码方式 latin1 放到最后面。
- termencoding: Vim 所工作的终端 (或者 Windows 的 Console 窗口) 的字符编码方式。这个选项在 Windows 下对我们常用的 GUI 模式的 gVim 无效，而对 Console 模式的 Vim 而言就是Windows控制台的代码页，并且通常我们不需要改变它。（我尝试改变了它为UTF-8，但对于console模式的编码方式却没有改变）
-  配置说明 由于 Unicode 能包含几乎所有的语言的字符，Unicode的UTF-8编码方式又是非常具有性价比和通用的编码方式，所以把*encoding*的值设置为utf-8。同时将encoding设置为utf-8时，Vim自动探测文件的编码方式会更准确。在中文Windows里编辑的文件，为了兼顾与其他软件的兼容性，文件编码还是设置为GB2312/GBK比较合适，因此*fileencoding*建议设置为chinese (chinese是个别名，在Unix里表示gb2312，在Windows里表示cp936，也就是GBK的代码页)。
-具体配置 最后对于文件中显示乱码、菜单乱码、右键菜单乱码以及Conlse输出乱码问题的解决方案，修改Vim编辑器所对应的配置文件_vimrc（这个文件在你安装vim 的那个目录下），添加如下配置：
- 关于常规设置：
-&amp;quot;总是显示标签。0：不显示；1：多于1个时显示&amp;quot; set showtabline=2 &amp;quot;开启行号&amp;quot; set number &amp;quot;开启自动缩进, 7."><meta name=keywords content="MoeLove,Linux,Docker,Kubernetes,Golang,Python,Container,Vim,容器,k8s"><meta name=baidu-site-verification content="jO2rMlnjJi"><meta name=google-site-verification content="googlefe3fc086c62f7210.html"><meta name=generator content="Hugo 0.59.1 with theme even"><link rel=canonical href=https://moelove.info/2013/08/10/Vim7.3-for-Windows-%E9%85%8D%E7%BD%AE/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css rel=stylesheet><link href=/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><meta property="og:title" content="Vim7.3 for Windows 配置"><meta property="og:description" content="一直是在Linux下用Vim，但是有些时候在别人电脑或者机房又不得不用windows来写代码，所以也就下载了vim for windows。但是今天打开一个朋友写的网页的时候，出现了乱码的问题，所以把解决方法记录一下，也就是和在linux下面一样，修改配置文件就可以了。接下来进入正题。
+  encoding: Vim 内部使用的字符编码方式，包括Vim的buffer(缓冲区)、菜单文本、消息文本等。用户手册上建议只在*.vimrc*中改变它的值，事实上似乎也只有在*.vimrc* 中改变它的值才有意义。
+  fileencoding: Vim 中当前编辑的文件的字符编码方式，Vim 保存文件时也会将文件保存为这种字符编码方式 (不管是否新文件都如此)。
+  fileencodings: Vim 启动时会按照它所列出的字符编码方式逐一探测即将打开的文件的字符编码方式，并且将 fileencoding 设置为最终探测到的字符编码方式。因此最好将 Unicode 编码方式放到这个列表的最前面，将拉丁语系编码方式 latin1 放到最后面。
+  termencoding: Vim 所工作的终端 (或者 Windows 的 Console 窗口) 的字符编码方式。这个选项在 Windows 下对我们常用的 GUI 模式的 gVim 无效，而对 Console 模式的 Vim 而言就是Windows控制台的代码页，并且通常我们不需要改变它。（我尝试改变了它为UTF-8，但对于console模式的编码方式却没有改变）
+  配置说明 由于 Unicode 能包含几乎所有的语言的字符，Unicode的UTF-8编码方式又是非常具有性价比和通用的编码方式，所以把encoding的值设置为utf-8。同时将encoding设置为utf-8时，Vim自动探测文件的编码方式会更准确。在中文Windows里编辑的文件，为了兼顾与其他软件的兼容性，文件编码还是设置为GB2312/GBK比较合适，因此fileencoding建议设置为chinese (chinese是个别名，在Unix里表示gb2312，在Windows里表示cp936，也就是GBK的代码页)。
+具体配置 最后对于文件中显示乱码、菜单乱码、右键菜单乱码以及Conlse输出乱码问题的解决方案，修改Vim编辑器所对应的配置文件**_vimrc**（这个文件在你安装vim 的那个目录下），添加如下配置：
+ 关于常规设置：  &amp;quot;总是显示标签。0：不显示；1：多于1个时显示&amp;quot; set showtabline=2 &amp;quot;开启行号&amp;quot; set number &amp;quot;开启自动缩进, 7."><meta name=keywords content="MoeLove,Linux,Docker,Kubernetes,Golang,Python,Container,Vim,容器,k8s"><meta name=baidu-site-verification content="jO2rMlnjJi"><meta name=google-site-verification content="googlefe3fc086c62f7210.html"><meta name=generator content="Hugo 0.62.2 with theme even"><link rel=canonical href=https://moelove.info/2013/08/10/Vim7.3-for-Windows-%E9%85%8D%E7%BD%AE/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css rel=stylesheet><link href=/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><meta property="og:title" content="Vim7.3 for Windows 配置"><meta property="og:description" content="一直是在Linux下用Vim，但是有些时候在别人电脑或者机房又不得不用windows来写代码，所以也就下载了vim for windows。但是今天打开一个朋友写的网页的时候，出现了乱码的问题，所以把解决方法记录一下，也就是和在linux下面一样，修改配置文件就可以了。接下来进入正题。
  选项意义概述 Vim有四个跟字符编码方式有关的选项，分别是:encoding、fileencoding、fileencodings、termencoding (这些选项可能的取值可以参考 Vim 的帮助 :help encoding-names)，它们各自的意义:
- encoding: Vim 内部使用的字符编码方式，包括Vim的buffer(缓冲区)、菜单文本、消息文本等。用户手册上建议只在*.vimrc中改变它的值，事实上似乎也只有在.vimrc* 中改变它的值才有意义。
- fileencoding: Vim 中当前编辑的文件的字符编码方式，Vim 保存文件时也会将文件保存为这种字符编码方式 (不管是否新文件都如此)。
- fileencodings: Vim 启动时会按照它所列出的字符编码方式逐一探测即将打开的文件的字符编码方式，并且将 fileencoding 设置为最终探测到的字符编码方式。因此最好将 Unicode 编码方式放到这个列表的最前面，将拉丁语系编码方式 latin1 放到最后面。
- termencoding: Vim 所工作的终端 (或者 Windows 的 Console 窗口) 的字符编码方式。这个选项在 Windows 下对我们常用的 GUI 模式的 gVim 无效，而对 Console 模式的 Vim 而言就是Windows控制台的代码页，并且通常我们不需要改变它。（我尝试改变了它为UTF-8，但对于console模式的编码方式却没有改变）
-  配置说明 由于 Unicode 能包含几乎所有的语言的字符，Unicode的UTF-8编码方式又是非常具有性价比和通用的编码方式，所以把*encoding*的值设置为utf-8。同时将encoding设置为utf-8时，Vim自动探测文件的编码方式会更准确。在中文Windows里编辑的文件，为了兼顾与其他软件的兼容性，文件编码还是设置为GB2312/GBK比较合适，因此*fileencoding*建议设置为chinese (chinese是个别名，在Unix里表示gb2312，在Windows里表示cp936，也就是GBK的代码页)。
-具体配置 最后对于文件中显示乱码、菜单乱码、右键菜单乱码以及Conlse输出乱码问题的解决方案，修改Vim编辑器所对应的配置文件_vimrc（这个文件在你安装vim 的那个目录下），添加如下配置：
- 关于常规设置：
-&#34;总是显示标签。0：不显示；1：多于1个时显示&#34; set showtabline=2 &#34;开启行号&#34; set number &#34;开启自动缩进, 7."><meta property="og:type" content="article"><meta property="og:url" content="https://moelove.info/2013/08/10/Vim7.3-for-Windows-%E9%85%8D%E7%BD%AE/"><meta property="article:published_time" content="2013-08-10T21:34:17+00:00"><meta property="article:modified_time" content="2013-08-10T21:34:17+00:00"><meta itemprop=name content="Vim7.3 for Windows 配置"><meta itemprop=description content="一直是在Linux下用Vim，但是有些时候在别人电脑或者机房又不得不用windows来写代码，所以也就下载了vim for windows。但是今天打开一个朋友写的网页的时候，出现了乱码的问题，所以把解决方法记录一下，也就是和在linux下面一样，修改配置文件就可以了。接下来进入正题。
+  encoding: Vim 内部使用的字符编码方式，包括Vim的buffer(缓冲区)、菜单文本、消息文本等。用户手册上建议只在*.vimrc*中改变它的值，事实上似乎也只有在*.vimrc* 中改变它的值才有意义。
+  fileencoding: Vim 中当前编辑的文件的字符编码方式，Vim 保存文件时也会将文件保存为这种字符编码方式 (不管是否新文件都如此)。
+  fileencodings: Vim 启动时会按照它所列出的字符编码方式逐一探测即将打开的文件的字符编码方式，并且将 fileencoding 设置为最终探测到的字符编码方式。因此最好将 Unicode 编码方式放到这个列表的最前面，将拉丁语系编码方式 latin1 放到最后面。
+  termencoding: Vim 所工作的终端 (或者 Windows 的 Console 窗口) 的字符编码方式。这个选项在 Windows 下对我们常用的 GUI 模式的 gVim 无效，而对 Console 模式的 Vim 而言就是Windows控制台的代码页，并且通常我们不需要改变它。（我尝试改变了它为UTF-8，但对于console模式的编码方式却没有改变）
+  配置说明 由于 Unicode 能包含几乎所有的语言的字符，Unicode的UTF-8编码方式又是非常具有性价比和通用的编码方式，所以把encoding的值设置为utf-8。同时将encoding设置为utf-8时，Vim自动探测文件的编码方式会更准确。在中文Windows里编辑的文件，为了兼顾与其他软件的兼容性，文件编码还是设置为GB2312/GBK比较合适，因此fileencoding建议设置为chinese (chinese是个别名，在Unix里表示gb2312，在Windows里表示cp936，也就是GBK的代码页)。
+具体配置 最后对于文件中显示乱码、菜单乱码、右键菜单乱码以及Conlse输出乱码问题的解决方案，修改Vim编辑器所对应的配置文件**_vimrc**（这个文件在你安装vim 的那个目录下），添加如下配置：
+ 关于常规设置：  &#34;总是显示标签。0：不显示；1：多于1个时显示&#34; set showtabline=2 &#34;开启行号&#34; set number &#34;开启自动缩进, 7."><meta property="og:type" content="article"><meta property="og:url" content="https://moelove.info/2013/08/10/Vim7.3-for-Windows-%E9%85%8D%E7%BD%AE/"><meta property="article:published_time" content="2013-08-10T21:34:17+00:00"><meta property="article:modified_time" content="2013-08-10T21:34:17+00:00"><meta itemprop=name content="Vim7.3 for Windows 配置"><meta itemprop=description content="一直是在Linux下用Vim，但是有些时候在别人电脑或者机房又不得不用windows来写代码，所以也就下载了vim for windows。但是今天打开一个朋友写的网页的时候，出现了乱码的问题，所以把解决方法记录一下，也就是和在linux下面一样，修改配置文件就可以了。接下来进入正题。
  选项意义概述 Vim有四个跟字符编码方式有关的选项，分别是:encoding、fileencoding、fileencodings、termencoding (这些选项可能的取值可以参考 Vim 的帮助 :help encoding-names)，它们各自的意义:
- encoding: Vim 内部使用的字符编码方式，包括Vim的buffer(缓冲区)、菜单文本、消息文本等。用户手册上建议只在*.vimrc中改变它的值，事实上似乎也只有在.vimrc* 中改变它的值才有意义。
- fileencoding: Vim 中当前编辑的文件的字符编码方式，Vim 保存文件时也会将文件保存为这种字符编码方式 (不管是否新文件都如此)。
- fileencodings: Vim 启动时会按照它所列出的字符编码方式逐一探测即将打开的文件的字符编码方式，并且将 fileencoding 设置为最终探测到的字符编码方式。因此最好将 Unicode 编码方式放到这个列表的最前面，将拉丁语系编码方式 latin1 放到最后面。
- termencoding: Vim 所工作的终端 (或者 Windows 的 Console 窗口) 的字符编码方式。这个选项在 Windows 下对我们常用的 GUI 模式的 gVim 无效，而对 Console 模式的 Vim 而言就是Windows控制台的代码页，并且通常我们不需要改变它。（我尝试改变了它为UTF-8，但对于console模式的编码方式却没有改变）
-  配置说明 由于 Unicode 能包含几乎所有的语言的字符，Unicode的UTF-8编码方式又是非常具有性价比和通用的编码方式，所以把*encoding*的值设置为utf-8。同时将encoding设置为utf-8时，Vim自动探测文件的编码方式会更准确。在中文Windows里编辑的文件，为了兼顾与其他软件的兼容性，文件编码还是设置为GB2312/GBK比较合适，因此*fileencoding*建议设置为chinese (chinese是个别名，在Unix里表示gb2312，在Windows里表示cp936，也就是GBK的代码页)。
-具体配置 最后对于文件中显示乱码、菜单乱码、右键菜单乱码以及Conlse输出乱码问题的解决方案，修改Vim编辑器所对应的配置文件_vimrc（这个文件在你安装vim 的那个目录下），添加如下配置：
- 关于常规设置：
-&#34;总是显示标签。0：不显示；1：多于1个时显示&#34; set showtabline=2 &#34;开启行号&#34; set number &#34;开启自动缩进, 7."><meta itemprop=datePublished content="2013-08-10T21:34:17+00:00"><meta itemprop=dateModified content="2013-08-10T21:34:17+00:00"><meta itemprop=wordCount content="300"><meta itemprop=keywords content="Vim,"><meta name=twitter:card content="summary"><meta name=twitter:title content="Vim7.3 for Windows 配置"><meta name=twitter:description content="一直是在Linux下用Vim，但是有些时候在别人电脑或者机房又不得不用windows来写代码，所以也就下载了vim for windows。但是今天打开一个朋友写的网页的时候，出现了乱码的问题，所以把解决方法记录一下，也就是和在linux下面一样，修改配置文件就可以了。接下来进入正题。
+  encoding: Vim 内部使用的字符编码方式，包括Vim的buffer(缓冲区)、菜单文本、消息文本等。用户手册上建议只在*.vimrc*中改变它的值，事实上似乎也只有在*.vimrc* 中改变它的值才有意义。
+  fileencoding: Vim 中当前编辑的文件的字符编码方式，Vim 保存文件时也会将文件保存为这种字符编码方式 (不管是否新文件都如此)。
+  fileencodings: Vim 启动时会按照它所列出的字符编码方式逐一探测即将打开的文件的字符编码方式，并且将 fileencoding 设置为最终探测到的字符编码方式。因此最好将 Unicode 编码方式放到这个列表的最前面，将拉丁语系编码方式 latin1 放到最后面。
+  termencoding: Vim 所工作的终端 (或者 Windows 的 Console 窗口) 的字符编码方式。这个选项在 Windows 下对我们常用的 GUI 模式的 gVim 无效，而对 Console 模式的 Vim 而言就是Windows控制台的代码页，并且通常我们不需要改变它。（我尝试改变了它为UTF-8，但对于console模式的编码方式却没有改变）
+  配置说明 由于 Unicode 能包含几乎所有的语言的字符，Unicode的UTF-8编码方式又是非常具有性价比和通用的编码方式，所以把encoding的值设置为utf-8。同时将encoding设置为utf-8时，Vim自动探测文件的编码方式会更准确。在中文Windows里编辑的文件，为了兼顾与其他软件的兼容性，文件编码还是设置为GB2312/GBK比较合适，因此fileencoding建议设置为chinese (chinese是个别名，在Unix里表示gb2312，在Windows里表示cp936，也就是GBK的代码页)。
+具体配置 最后对于文件中显示乱码、菜单乱码、右键菜单乱码以及Conlse输出乱码问题的解决方案，修改Vim编辑器所对应的配置文件**_vimrc**（这个文件在你安装vim 的那个目录下），添加如下配置：
+ 关于常规设置：  &#34;总是显示标签。0：不显示；1：多于1个时显示&#34; set showtabline=2 &#34;开启行号&#34; set number &#34;开启自动缩进, 7."><meta itemprop=datePublished content="2013-08-10T21:34:17+00:00"><meta itemprop=dateModified content="2013-08-10T21:34:17+00:00"><meta itemprop=wordCount content="300"><meta itemprop=keywords content="Vim,"><meta name=twitter:card content="summary"><meta name=twitter:title content="Vim7.3 for Windows 配置"><meta name=twitter:description content="一直是在Linux下用Vim，但是有些时候在别人电脑或者机房又不得不用windows来写代码，所以也就下载了vim for windows。但是今天打开一个朋友写的网页的时候，出现了乱码的问题，所以把解决方法记录一下，也就是和在linux下面一样，修改配置文件就可以了。接下来进入正题。
  选项意义概述 Vim有四个跟字符编码方式有关的选项，分别是:encoding、fileencoding、fileencodings、termencoding (这些选项可能的取值可以参考 Vim 的帮助 :help encoding-names)，它们各自的意义:
- encoding: Vim 内部使用的字符编码方式，包括Vim的buffer(缓冲区)、菜单文本、消息文本等。用户手册上建议只在*.vimrc中改变它的值，事实上似乎也只有在.vimrc* 中改变它的值才有意义。
- fileencoding: Vim 中当前编辑的文件的字符编码方式，Vim 保存文件时也会将文件保存为这种字符编码方式 (不管是否新文件都如此)。
- fileencodings: Vim 启动时会按照它所列出的字符编码方式逐一探测即将打开的文件的字符编码方式，并且将 fileencoding 设置为最终探测到的字符编码方式。因此最好将 Unicode 编码方式放到这个列表的最前面，将拉丁语系编码方式 latin1 放到最后面。
- termencoding: Vim 所工作的终端 (或者 Windows 的 Console 窗口) 的字符编码方式。这个选项在 Windows 下对我们常用的 GUI 模式的 gVim 无效，而对 Console 模式的 Vim 而言就是Windows控制台的代码页，并且通常我们不需要改变它。（我尝试改变了它为UTF-8，但对于console模式的编码方式却没有改变）
-  配置说明 由于 Unicode 能包含几乎所有的语言的字符，Unicode的UTF-8编码方式又是非常具有性价比和通用的编码方式，所以把*encoding*的值设置为utf-8。同时将encoding设置为utf-8时，Vim自动探测文件的编码方式会更准确。在中文Windows里编辑的文件，为了兼顾与其他软件的兼容性，文件编码还是设置为GB2312/GBK比较合适，因此*fileencoding*建议设置为chinese (chinese是个别名，在Unix里表示gb2312，在Windows里表示cp936，也就是GBK的代码页)。
-具体配置 最后对于文件中显示乱码、菜单乱码、右键菜单乱码以及Conlse输出乱码问题的解决方案，修改Vim编辑器所对应的配置文件_vimrc（这个文件在你安装vim 的那个目录下），添加如下配置：
- 关于常规设置：
-&#34;总是显示标签。0：不显示；1：多于1个时显示&#34; set showtabline=2 &#34;开启行号&#34; set number &#34;开启自动缩进, 7."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>MoeLove</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/about/><li class=mobile-menu-item>About</li></a><a href=/friends/><li class=mobile-menu-item>Friends</li></a><a href=/projects/><li class=mobile-menu-item>Projects</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>MoeLove</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/about/>About</a></li><li class=menu-item><a class=menu-item-link href=/friends/>Friends</a></li><li class=menu-item><a class=menu-item-link href=/projects/>Projects</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>Vim7.3 for Windows 配置</h1><div class=post-meta><span class=post-time>2013-08-10</span><div class=post-category><a href=/categories/linux/>Linux</a></div></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><ul><li><a href=#选项意义概述>选项意义概述</a></li><li><a href=#配置说明>配置说明</a></li><li><a href=#具体配置>具体配置</a></li></ul></li></ul></li></ul></nav></div></div><div class=post-content><blockquote><p>一直是在Linux下用Vim，但是有些时候在别人电脑或者机房又不得不用windows来写代码，所以也就下载了vim for windows。但是今天打开一个朋友写的网页的时候，出现了乱码的问题，所以把解决方法记录一下，也就是和在linux下面一样，修改配置文件就可以了。接下来进入正题。</p></blockquote><h3 id=选项意义概述>选项意义概述</h3><p>Vim有四个跟字符编码方式有关的选项，分别是:<code>encoding</code>、<code>fileencoding</code>、<code>fileencodings</code>、<code>termencoding</code> (这些选项可能的取值可以参考 Vim 的帮助 :<em>help encoding-names</em>)，它们各自的意义:</p><ul><li><p><strong>encoding</strong>: Vim 内部使用的字符编码方式，包括Vim的buffer(缓冲区)、菜单文本、消息文本等。用户手册上建议只在*.vimrc<em>中改变它的值，事实上似乎也只有在</em>.vimrc* 中改变它的值才有意义。</p></li><li><p><strong>fileencoding</strong>: Vim 中当前编辑的文件的字符编码方式，Vim 保存文件时也会将文件保存为这种字符编码方式 (不管是否新文件都如此)。</p></li><li><p><strong>fileencodings</strong>: Vim 启动时会按照它所列出的字符编码方式逐一探测即将打开的文件的字符编码方式，并且将 fileencoding 设置为最终探测到的字符编码方式。因此最好将 Unicode 编码方式放到这个列表的最前面，将拉丁语系编码方式 latin1 放到最后面。</p></li><li><p><strong>termencoding</strong>: Vim 所工作的终端 (或者 Windows 的 Console 窗口) 的字符编码方式。这个选项在 Windows 下对我们常用的 GUI 模式的 gVim 无效，而对 Console 模式的 Vim 而言就是Windows控制台的代码页，并且通常我们不需要改变它。（我尝试改变了它为UTF-8，但对于console模式的编码方式却没有改变）</p></li></ul><h3 id=配置说明>配置说明</h3><p>由于 Unicode 能包含几乎所有的语言的字符，Unicode的UTF-8编码方式又是非常具有性价比和通用的编码方式，所以把*encoding*的值设置为<strong>utf-8</strong>。同时将encoding设置为utf-8时，Vim自动探测文件的编码方式会更准确。在中文Windows里编辑的文件，为了兼顾与其他软件的兼容性，文件编码还是设置为GB2312/GBK比较合适，因此*fileencoding*建议设置为<strong>chinese</strong> (<em>chinese是个别名，在Unix里表示<code>gb2312</code>，在Windows里表示<code>cp936</code>，也就是GBK的代码页</em>)。</p><h3 id=具体配置>具体配置</h3><p>最后对于文件中显示乱码、菜单乱码、右键菜单乱码以及Conlse输出乱码问题的解决方案，修改Vim编辑器所对应的配置文件<strong>_vimrc</strong>（这个文件在你安装vim 的那个目录下），添加如下配置：</p><ul><li><p>关于常规设置：</p><pre><code>&quot;总是显示标签。0：不显示；1：多于1个时显示&quot;
+  encoding: Vim 内部使用的字符编码方式，包括Vim的buffer(缓冲区)、菜单文本、消息文本等。用户手册上建议只在*.vimrc*中改变它的值，事实上似乎也只有在*.vimrc* 中改变它的值才有意义。
+  fileencoding: Vim 中当前编辑的文件的字符编码方式，Vim 保存文件时也会将文件保存为这种字符编码方式 (不管是否新文件都如此)。
+  fileencodings: Vim 启动时会按照它所列出的字符编码方式逐一探测即将打开的文件的字符编码方式，并且将 fileencoding 设置为最终探测到的字符编码方式。因此最好将 Unicode 编码方式放到这个列表的最前面，将拉丁语系编码方式 latin1 放到最后面。
+  termencoding: Vim 所工作的终端 (或者 Windows 的 Console 窗口) 的字符编码方式。这个选项在 Windows 下对我们常用的 GUI 模式的 gVim 无效，而对 Console 模式的 Vim 而言就是Windows控制台的代码页，并且通常我们不需要改变它。（我尝试改变了它为UTF-8，但对于console模式的编码方式却没有改变）
+  配置说明 由于 Unicode 能包含几乎所有的语言的字符，Unicode的UTF-8编码方式又是非常具有性价比和通用的编码方式，所以把encoding的值设置为utf-8。同时将encoding设置为utf-8时，Vim自动探测文件的编码方式会更准确。在中文Windows里编辑的文件，为了兼顾与其他软件的兼容性，文件编码还是设置为GB2312/GBK比较合适，因此fileencoding建议设置为chinese (chinese是个别名，在Unix里表示gb2312，在Windows里表示cp936，也就是GBK的代码页)。
+具体配置 最后对于文件中显示乱码、菜单乱码、右键菜单乱码以及Conlse输出乱码问题的解决方案，修改Vim编辑器所对应的配置文件**_vimrc**（这个文件在你安装vim 的那个目录下），添加如下配置：
+ 关于常规设置：  &#34;总是显示标签。0：不显示；1：多于1个时显示&#34; set showtabline=2 &#34;开启行号&#34; set number &#34;开启自动缩进, 7."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>MoeLove</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/about/><li class=mobile-menu-item>About</li></a><a href=/friends/><li class=mobile-menu-item>Friends</li></a><a href=/projects/><li class=mobile-menu-item>Projects</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>MoeLove</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/about/>About</a></li><li class=menu-item><a class=menu-item-link href=/friends/>Friends</a></li><li class=menu-item><a class=menu-item-link href=/projects/>Projects</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>Vim7.3 for Windows 配置</h1><div class=post-meta><span class=post-time>2013-08-10</span><div class=post-category><a href=/categories/linux/>Linux</a></div></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><a href=#选项意义概述>选项意义概述</a></li><li><a href=#配置说明>配置说明</a></li><li><a href=#具体配置>具体配置</a></li></ul></li></ul></nav></div></div><div class=post-content><blockquote><p>一直是在Linux下用Vim，但是有些时候在别人电脑或者机房又不得不用windows来写代码，所以也就下载了vim for windows。但是今天打开一个朋友写的网页的时候，出现了乱码的问题，所以把解决方法记录一下，也就是和在linux下面一样，修改配置文件就可以了。接下来进入正题。</p></blockquote><h3 id=选项意义概述>选项意义概述</h3><p>Vim有四个跟字符编码方式有关的选项，分别是:<code>encoding</code>、<code>fileencoding</code>、<code>fileencodings</code>、<code>termencoding</code> (这些选项可能的取值可以参考 Vim 的帮助 :<em>help encoding-names</em>)，它们各自的意义:</p><ul><li><p><strong>encoding</strong>: Vim 内部使用的字符编码方式，包括Vim的buffer(缓冲区)、菜单文本、消息文本等。用户手册上建议只在*.vimrc*中改变它的值，事实上似乎也只有在*.vimrc* 中改变它的值才有意义。</p></li><li><p><strong>fileencoding</strong>: Vim 中当前编辑的文件的字符编码方式，Vim 保存文件时也会将文件保存为这种字符编码方式 (不管是否新文件都如此)。</p></li><li><p><strong>fileencodings</strong>: Vim 启动时会按照它所列出的字符编码方式逐一探测即将打开的文件的字符编码方式，并且将 fileencoding 设置为最终探测到的字符编码方式。因此最好将 Unicode 编码方式放到这个列表的最前面，将拉丁语系编码方式 latin1 放到最后面。</p></li><li><p><strong>termencoding</strong>: Vim 所工作的终端 (或者 Windows 的 Console 窗口) 的字符编码方式。这个选项在 Windows 下对我们常用的 GUI 模式的 gVim 无效，而对 Console 模式的 Vim 而言就是Windows控制台的代码页，并且通常我们不需要改变它。（我尝试改变了它为UTF-8，但对于console模式的编码方式却没有改变）</p></li></ul><h3 id=配置说明>配置说明</h3><p>由于 Unicode 能包含几乎所有的语言的字符，Unicode的UTF-8编码方式又是非常具有性价比和通用的编码方式，所以把<em>encoding</em>的值设置为<strong>utf-8</strong>。同时将encoding设置为utf-8时，Vim自动探测文件的编码方式会更准确。在中文Windows里编辑的文件，为了兼顾与其他软件的兼容性，文件编码还是设置为GB2312/GBK比较合适，因此<em>fileencoding</em>建议设置为<strong>chinese</strong> (<em>chinese是个别名，在Unix里表示<code>gb2312</code>，在Windows里表示<code>cp936</code>，也就是GBK的代码页</em>)。</p><h3 id=具体配置>具体配置</h3><p>最后对于文件中显示乱码、菜单乱码、右键菜单乱码以及Conlse输出乱码问题的解决方案，修改Vim编辑器所对应的配置文件**_vimrc**（这个文件在你安装vim 的那个目录下），添加如下配置：</p><ul><li>关于常规设置：</li></ul><pre><code>&quot;总是显示标签。0：不显示；1：多于1个时显示&quot;
 set showtabline=2
 &quot;开启行号&quot;
 set number
@@ -48,7 +44,7 @@ set tabstop=4
 set et
 &quot;按一次Backspace就删除4个空格&quot;
 set smarttab
-</code></pre></li><li><p>关于色彩和字体之类的设置：</p><pre><code>&quot;配色方案（这里可以自选，我比较喜欢这个配色方案）&quot;
+</code></pre><ul><li>关于色彩和字体之类的设置：</li></ul><pre><code>&quot;配色方案（这里可以自选，我比较喜欢这个配色方案）&quot;
 colo desert
 &quot;开启语法高亮, 7.3版本已自动开启&quot;
 syntax on
@@ -62,7 +58,7 @@ source $VIMRUNTIME/mswin.vim
 behave mswin
 &quot;不生成备份文件，下面这句要写在behave mswin下面，否则还是会生成备份，情况不明&quot;
 set nobackup
-</code></pre></li><li><p>关于编码部分的设置：</p><pre><code>&quot;GVIM内部编码&quot;
+</code></pre><ul><li>关于编码部分的设置：</li></ul><pre><code>&quot;GVIM内部编码&quot;
 set encoding=utf-8
 &quot;当前编辑的文件编码&quot;
 set fileencoding=utf-8
@@ -75,31 +71,31 @@ source $VIMRUNTIME/menu.vim
 language messages zh_CN.utf-8
 &quot;防止特殊符号无法正常显示，如五角星等1&quot;
 set ambiwidth=double
-</code></pre></li><li><p>主体设置部分：</p><pre><code>set diffexpr=MyDiff()
+</code></pre><ul><li>主体设置部分：</li></ul><pre><code>set diffexpr=MyDiff()
 function MyDiff()
-let opt = '-a --binary '
-if &amp;diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-if &amp;diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-let arg1 = v:fname_in
-if arg1 =~ ' ' | let arg1 = '&quot;' . arg1 . '&quot;' | endif
-let arg2 = v:fname_new
-if arg2 =~ ' ' | let arg2 = '&quot;' . arg2 . '&quot;' | endif
-let arg3 = v:fname_out
-if arg3 =~ ' ' | let arg3 = '&quot;' . arg3 . '&quot;' | endif
-let eq = ''
-if $VIMRUNTIME =~ ' '
-if &amp;sh =~ '\&lt;cmd'
-  let cmd = '&quot;&quot;' . $VIMRUNTIME . '\diff&quot;'
-  let eq = '&quot;'
-else
-  let cmd = substitute($VIMRUNTIME, ' ', '&quot; ', '') . '\diff&quot;'
-endif
-else
-let cmd = $VIMRUNTIME . '\diff'
-endif
-silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' &gt; ' . arg3 . eq
+  let opt = '-a --binary '
+  if &amp;diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &amp;diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '&quot;' . arg1 . '&quot;' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '&quot;' . arg2 . '&quot;' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '&quot;' . arg3 . '&quot;' | endif
+  let eq = ''
+  if $VIMRUNTIME =~ ' '
+    if &amp;sh =~ '\&lt;cmd'
+      let cmd = '&quot;&quot;' . $VIMRUNTIME . '\diff&quot;'
+      let eq = '&quot;'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '&quot; ', '') . '\diff&quot;'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' &gt; ' . arg3 . eq
 endfunction
-</code></pre></li></ul><p>以上就是我关于windows下VIM的配置修改了。我使用的配置文件可以在<a href=https://github.com/tao12345666333/VimforWindowssetting>Vim for Windows setting</a>下载得到。</p></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+</code></pre><p>以上就是我关于windows下VIM的配置修改了。我使用的配置文件可以在<a href=https://github.com/tao12345666333/VimforWindowssetting>Vim for Windows setting</a>下载得到。</p></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
 <span class=item-content>张晋涛</span></p><p class=copyright-item><span class=item-title>上次更新</span>
 <span class=item-content>2013-08-10</span></p><p class=copyright-item><span class=item-title>许可协议</span>
 <span class=item-content><a rel="license noopener" href=https://creativecommons.org/licenses/by-sa/4.0/ target=_blank>CC BY-SA 4.0</a></span></p></div><div class=post-reward><input type=checkbox name=reward id=reward hidden>
