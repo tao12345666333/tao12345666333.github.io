@@ -1,0 +1,224 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>Docker 新发布的 hub-tool 可直接查看账户配额 - MoeLove</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><script async src=//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script><script>(adsbygoogle=window.adsbygoogle||[]).push({google_ad_client:"ca-pub-1876963677156202",enable_page_level_ads:true});</script><meta name=author content="张晋涛"><meta name=description content="Docker Desktop v3.0 已于前两周正式发布，从这个版本起，Docker 官方承诺每次的更新将以增量更新的方式来提供，以便减少下载包的体积，提升效率。
+除了将 Docker Engine 更新至 v20.10.0 外，也对其他的依赖做了更新，如下图：
+最吸引我的是本次新增的 Docker Hub Tool v0.2.0 ，它是 Docker 官方提供的 Docker Hub CLI 工具，具备管理 DockerHub 上的帐号，镜像等相关资源的能力。
+以下，我来为你介绍下 Hub Tool 的主要功能。
+(MoeLove) ➜ hub-tool -h A tool to manage your Docker Hub images Usage: hub-tool hub-tool [command] Available Commands: account Manage your account help Help about any command login Login to the Hub logout Logout of the Hub org Manage organizations repo Manage repositories tag Manage tags token Manage Personal Access Tokens version Version information about this tool Flags: -h, --help help for hub-tool --verbose Print logs --version Display the version of this tool Use &amp;#34;hub-tool [command] --help&amp;#34; for more information about a command."><meta name=keywords content="MoeLove,Linux,Docker,Kubernetes,Golang,Python,Container,Vim,容器,k8s"><meta name=baidu-site-verification content="jO2rMlnjJi"><meta name=google-site-verification content="googlefe3fc086c62f7210.html"><meta name=generator content="Hugo 0.62.2 with theme even"><link rel=canonical href=https://moelove.info/2020/12/19/Docker-%E6%96%B0%E5%8F%91%E5%B8%83%E7%9A%84-hub-tool-%E5%8F%AF%E7%9B%B4%E6%8E%A5%E6%9F%A5%E7%9C%8B%E8%B4%A6%E6%88%B7%E9%85%8D%E9%A2%9D/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link href=/sass/main.min.8c3cbcb0324c2bb4875ceccba4007cbad4b4ac8377f33af9953c3e7684534a50.css rel=stylesheet><link href=/lib/fancybox/jquery.fancybox-3.1.20.min.css rel=stylesheet><meta property="og:title" content="Docker 新发布的 hub-tool 可直接查看账户配额"><meta property="og:description" content="Docker Desktop v3.0 已于前两周正式发布，从这个版本起，Docker 官方承诺每次的更新将以增量更新的方式来提供，以便减少下载包的体积，提升效率。
+除了将 Docker Engine 更新至 v20.10.0 外，也对其他的依赖做了更新，如下图：
+最吸引我的是本次新增的 Docker Hub Tool v0.2.0 ，它是 Docker 官方提供的 Docker Hub CLI 工具，具备管理 DockerHub 上的帐号，镜像等相关资源的能力。
+以下，我来为你介绍下 Hub Tool 的主要功能。
+(MoeLove) ➜ hub-tool -h A tool to manage your Docker Hub images Usage: hub-tool hub-tool [command] Available Commands: account Manage your account help Help about any command login Login to the Hub logout Logout of the Hub org Manage organizations repo Manage repositories tag Manage tags token Manage Personal Access Tokens version Version information about this tool Flags: -h, --help help for hub-tool --verbose Print logs --version Display the version of this tool Use &#34;hub-tool [command] --help&#34; for more information about a command."><meta property="og:type" content="article"><meta property="og:url" content="https://moelove.info/2020/12/19/Docker-%E6%96%B0%E5%8F%91%E5%B8%83%E7%9A%84-hub-tool-%E5%8F%AF%E7%9B%B4%E6%8E%A5%E6%9F%A5%E7%9C%8B%E8%B4%A6%E6%88%B7%E9%85%8D%E9%A2%9D/"><meta property="article:published_time" content="2020-12-19T23:58:34+08:00"><meta property="article:modified_time" content="2020-12-19T23:58:34+08:00"><meta itemprop=name content="Docker 新发布的 hub-tool 可直接查看账户配额"><meta itemprop=description content="Docker Desktop v3.0 已于前两周正式发布，从这个版本起，Docker 官方承诺每次的更新将以增量更新的方式来提供，以便减少下载包的体积，提升效率。
+除了将 Docker Engine 更新至 v20.10.0 外，也对其他的依赖做了更新，如下图：
+最吸引我的是本次新增的 Docker Hub Tool v0.2.0 ，它是 Docker 官方提供的 Docker Hub CLI 工具，具备管理 DockerHub 上的帐号，镜像等相关资源的能力。
+以下，我来为你介绍下 Hub Tool 的主要功能。
+(MoeLove) ➜ hub-tool -h A tool to manage your Docker Hub images Usage: hub-tool hub-tool [command] Available Commands: account Manage your account help Help about any command login Login to the Hub logout Logout of the Hub org Manage organizations repo Manage repositories tag Manage tags token Manage Personal Access Tokens version Version information about this tool Flags: -h, --help help for hub-tool --verbose Print logs --version Display the version of this tool Use &#34;hub-tool [command] --help&#34; for more information about a command."><meta itemprop=datePublished content="2020-12-19T23:58:34+08:00"><meta itemprop=dateModified content="2020-12-19T23:58:34+08:00"><meta itemprop=wordCount content="768"><meta itemprop=keywords content="Docker,DockerHub,container,"><meta name=twitter:card content="summary"><meta name=twitter:title content="Docker 新发布的 hub-tool 可直接查看账户配额"><meta name=twitter:description content="Docker Desktop v3.0 已于前两周正式发布，从这个版本起，Docker 官方承诺每次的更新将以增量更新的方式来提供，以便减少下载包的体积，提升效率。
+除了将 Docker Engine 更新至 v20.10.0 外，也对其他的依赖做了更新，如下图：
+最吸引我的是本次新增的 Docker Hub Tool v0.2.0 ，它是 Docker 官方提供的 Docker Hub CLI 工具，具备管理 DockerHub 上的帐号，镜像等相关资源的能力。
+以下，我来为你介绍下 Hub Tool 的主要功能。
+(MoeLove) ➜ hub-tool -h A tool to manage your Docker Hub images Usage: hub-tool hub-tool [command] Available Commands: account Manage your account help Help about any command login Login to the Hub logout Logout of the Hub org Manage organizations repo Manage repositories tag Manage tags token Manage Personal Access Tokens version Version information about this tool Flags: -h, --help help for hub-tool --verbose Print logs --version Display the version of this tool Use &#34;hub-tool [command] --help&#34; for more information about a command."><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>MoeLove</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/about/><li class=mobile-menu-item>About</li></a><a href=/friends/><li class=mobile-menu-item>Friends</li></a><a href=/projects/><li class=mobile-menu-item>Projects</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>MoeLove</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/about/>About</a></li><li class=menu-item><a class=menu-item-link href=/friends/>Friends</a></li><li class=menu-item><a class=menu-item-link href=/projects/>Projects</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>Docker 新发布的 hub-tool 可直接查看账户配额</h1><div class=post-meta><span class=post-time>2020-12-19</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>文章目录</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#登录退出>登录/退出</a></li><li><a href=#账户管理>账户管理</a></li><li><a href=#组织管理>组织管理</a></li><li><a href=#仓库和-tag-管理>仓库和 tag 管理</a></li><li><a href=#token-相关管理功能>Token 相关管理功能</a></li><li><a href=#总结>总结</a></li></ul></nav></div></div><div class=post-content><p>Docker Desktop v3.0 已于前两周正式发布，从这个版本起，Docker 官方承诺每次的更新将以增量更新的方式来提供，以便减少下载包的体积，提升效率。</p><p>除了将 Docker Engine 更新至 v20.10.0 外，也对其他的依赖做了更新，如下图：</p><p><img src=/img/docker-desktop-version.png alt="Docker Desktop v3.0"></p><p>最吸引我的是本次新增的 <a href=https://github.com/docker/roadmap/issues/117 title="Docker Hub CLI">Docker Hub Tool v0.2.0</a> ，它是 Docker 官方提供的 Docker Hub CLI 工具，具备管理 DockerHub 上的帐号，镜像等相关资源的能力。</p><p>以下，我来为你介绍下 Hub Tool 的主要功能。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  hub-tool -h
+A tool to manage your Docker Hub images
+
+Usage:
+  hub-tool
+  hub-tool <span style=color:#f92672>[</span>command<span style=color:#f92672>]</span>
+
+Available Commands:
+  account     Manage your account
+  help        Help about any command
+  login       Login to the Hub
+  logout      Logout of the Hub
+  org         Manage organizations
+  repo        Manage repositories
+  tag         Manage tags
+  token       Manage Personal Access Tokens
+  version     Version information about this tool
+
+Flags:
+  -h, --help      help <span style=color:#66d9ef>for</span> hub-tool
+      --verbose   Print logs
+      --version   Display the version of this tool
+
+Use <span style=color:#e6db74>&#34;hub-tool [command] --help&#34;</span> <span style=color:#66d9ef>for</span> more information about a command.
+
+</code></pre></div><p>从一级菜单来看，主要功能包括：</p><ul><li>登录/登出 DockerHub;</li><li>账户相关管理功能；</li><li>组织相关管理功能；</li><li>仓库和 tag 的相关管理功能；</li><li>token 的相关管理功能；</li></ul><p>当前我使用的是最新版本 v0.2.0 。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  hub-tool version
+Version:    v0.2.0
+Git commit: 0edf43ac9091e7cac892cbc4cbc6efbafb665aa4
+</code></pre></div><h2 id=登录退出>登录/退出</h2><p>登录/退出只要执行 <code>hub-tool login</code> 或者 <code>hub-tool logout</code> 即可。</p><p>但这里需要注意的是 <strong>Hub Tool 并没有使用 Docker Desktop 默认的用户凭证</strong>，也就是说，即使你在 Docker Desktop 中已经登录了帐号，你同样还是需要再次在终端下执行 login 操作。</p><p>关于为何没有共用用户凭证的问题，我跟 Docker Inc. 的产品经理聊过，是因为当前 Hub Tool 还是一个独立的 CLI 工具，并没有与 docker CLI 进行集成，也暂时没想好要如何集成。等真正要集成进 docker CLI 的时候，就会直接共用用户凭证了。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  hub-tool login
+Username: moelove
+Password:
+</code></pre></div><h2 id=账户管理>账户管理</h2><p>账户管理的两个功能：</p><ul><li>查看账户信息；</li><li><strong>查看当前账户下的流量限制</strong> , 这是我个人觉得比较有用的一个功能；</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  hub-tool account
+Manage your account
+
+Usage:
+  hub-tool account
+  hub-tool account <span style=color:#f92672>[</span>command<span style=color:#f92672>]</span>
+
+Available Commands:
+  info          Print the account information
+  rate-limiting Print the rate limiting information
+
+Flags:
+  -h, --help   help <span style=color:#66d9ef>for</span> account
+
+Global Flags:
+      --verbose   Print logs
+
+Use <span style=color:#e6db74>&#34;hub-tool account [command] --help&#34;</span> <span style=color:#66d9ef>for</span> more information about a command.
+<span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  hub-tool account rate-limiting
+Limit:     200, <span style=color:#ae81ff>6</span> hours window
+Remaining: 200, <span style=color:#ae81ff>6</span> hours window
+<span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  hub-tool account info
+Username:	moelove.info
+Full name:	Jintao Zhang
+Company:
+Location:
+Joined:		<span style=color:#ae81ff>6</span> years ago
+Plan:		free
+Limits:
+  Seats:		<span style=color:#ae81ff>1</span>
+  Private repositories:	<span style=color:#ae81ff>1</span>
+  Parallel builds:	<span style=color:#ae81ff>1</span>
+  Collaborators:	unlimited
+  Teams:		unlimited
+</code></pre></div><h2 id=组织管理>组织管理</h2><p>可以看到，<code>hub-tool org</code> 的功能就是展示一些相关信息了。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  hub-tool org
+Manage organizations
+
+Usage:
+  hub-tool org
+  hub-tool org <span style=color:#f92672>[</span>command<span style=color:#f92672>]</span>
+
+Available Commands:
+  ls          List all the organizations
+  members     List all the members in an organization
+  teams       List all the teams in an organization
+
+Flags:
+  -h, --help   help <span style=color:#66d9ef>for</span> org
+
+Global Flags:
+      --verbose   Print logs
+
+Use <span style=color:#e6db74>&#34;hub-tool org [command] --help&#34;</span> <span style=color:#66d9ef>for</span> more information about a command.
+<span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  hub-tool org ls
+NAMESPACE    NAME    MY ROLE    TEAMS    MEMBERS
+</code></pre></div><h2 id=仓库和-tag-管理>仓库和 tag 管理</h2><p>由于这两个都和镜像有直接的关系，我就聚合到一起介绍了。</p><ul><li>对 repo 的查询和删除功能：</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  hub-tool repo -h
+Manage repositories
+
+Usage:
+  hub-tool repo
+  hub-tool repo <span style=color:#f92672>[</span>command<span style=color:#f92672>]</span>
+
+Available Commands:
+  ls          List all the repositories from your account or an organization
+  rm          Delete a repository
+
+Flags:
+  -h, --help   help <span style=color:#66d9ef>for</span> repo
+
+Global Flags:
+      --verbose   Print logs
+
+Use <span style=color:#e6db74>&#34;hub-tool repo [command] --help&#34;</span> <span style=color:#66d9ef>for</span> more information about a command.
+<span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  hub-tool repo ls
+REPOSITORY                             DESCRIPTION       LAST UPDATE      PULLS    STARS    PRIVATE
+taobeier/saythx-work                                     <span style=color:#ae81ff>2</span> years ago      <span style=color:#ae81ff>56989</span>    <span style=color:#ae81ff>0</span>        false
+...
+<span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  hub-tool repo ls -h
+List all the repositories from your account or an organization
+
+Usage:
+  hub-tool repo ls <span style=color:#f92672>[</span>ORGANIZATION<span style=color:#f92672>]</span>
+
+Aliases:
+  ls, list
+
+Flags:
+      --all             Fetch all available repositories
+      --format string   Print values using a custom format <span style=color:#f92672>(</span><span style=color:#e6db74>&#34;json&#34;</span><span style=color:#f92672>)</span>
+  -h, --help            help <span style=color:#66d9ef>for</span> ls
+
+Global Flags:
+      --verbose   Print logs
+
+</code></pre></div><ul><li>对 tag 的列表，查询，查看详细等功能。 这里 <strong>可以看到 tag 最近一次的 Push/Pull 操作，如果明年 Docker 开始实行镜像保留策略的话，我建议你关注一下</strong> ；</li></ul><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  hub-tool tag
+Manage tags
+
+Usage:
+  hub-tool tag <span style=color:#f92672>[</span>flags<span style=color:#f92672>]</span>
+  hub-tool tag <span style=color:#f92672>[</span>command<span style=color:#f92672>]</span>
+
+Available Commands:
+  inspect     Show the details of an image in the registry
+  ls          List all the images in a repository
+  rm          Delete a tag in a repository
+
+Flags:
+  -h, --help   help <span style=color:#66d9ef>for</span> tag
+
+Global Flags:
+      --verbose   Print logs
+
+Use <span style=color:#e6db74>&#34;hub-tool tag [command] --help&#34;</span> <span style=color:#66d9ef>for</span> more information about a command.
+See <span style=color:#e6db74>&#39;hub-tool tag ls --help&#39;</span>.
+
+Usage:  hub-tool tag ls <span style=color:#f92672>[</span>OPTION<span style=color:#f92672>]</span> REPOSITORY
+
+List all the images in a repository
+<span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  hub-tool tag ls taobeier/saythx-work
+TAG                            DIGEST                                                                     STATUS    LAST UPDATE    LAST PUSHED    LAST PULLED    SIZE
+taobeier/saythx-work:latest    sha256:3133a607d062dd3a8b46f38c8271099c258f5e59cecd652bebddf6e15789cb32    active    <span style=color:#ae81ff>2</span> years ago    <span style=color:#ae81ff>2</span> years        <span style=color:#ae81ff>6</span> days         52.94MB
+taobeier/saythx-work:1.0       sha256:3133a607d062dd3a8b46f38c8271099c258f5e59cecd652bebddf6e15789cb32    active    <span style=color:#ae81ff>2</span> years ago    <span style=color:#ae81ff>2</span> years        <span style=color:#ae81ff>6</span> days         52.94MB
+</code></pre></div><h2 id=token-相关管理功能>Token 相关管理功能</h2><p>对个人 Token 的创建/删除，激活/失效，列表，查询详细等功能。</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  hub-tool token -h
+Manage Personal Access Tokens
+
+Usage:
+  hub-tool token <span style=color:#f92672>[</span>flags<span style=color:#f92672>]</span>
+  hub-tool token <span style=color:#f92672>[</span>command<span style=color:#f92672>]</span>
+
+Available Commands:
+  activate    Activate a Personal Access Token
+  create      Create a Personal Access Token
+  deactivate  Deactivate a Personal Access Token
+  inspect     Inspect a Personal Access Token
+  ls          List all the Personal Access Tokens
+  rm          Delete a Personal Access Token
+
+Flags:
+  -h, --help   help <span style=color:#66d9ef>for</span> token
+
+Global Flags:
+      --verbose   Print logs
+
+Use <span style=color:#e6db74>&#34;hub-tool token [command] --help&#34;</span> <span style=color:#66d9ef>for</span> more information about a command.
+<span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  hub-tool token ls
+DESCRIPTION               UUID                                    LAST USED       CREATED      ACTIVE
+test-docker-token         xxxxxxxx-xxxx-xxxx-xxxx-moelove.info    <span style=color:#ae81ff>9</span> months ago    <span style=color:#ae81ff>9</span> months     true
+<span style=color:#f92672>(</span>MoeLove<span style=color:#f92672>)</span> ➜  hub-tool token inspect xxxxxxxx-xxxx-xxxx-xxxx-moelove.info
+Token:
+UUID:	xxxxxxxx-xxxx-xxxx-xxxx-moelove.info
+Description:	test-docker-token
+Is Active:	true
+Created:	<span style=color:#ae81ff>9</span> months ago
+Last Used:	<span style=color:#ae81ff>9</span> months ago
+Creator User Agent:	Mozilla/5.0 <span style=color:#f92672>(</span>X11; Fedora; Linux x86_64<span style=color:#f92672>)</span> AppleWebKit/537.36 <span style=color:#f92672>(</span>KHTML, like Gecko<span style=color:#f92672>)</span> Chrome/80.0.4103.116 Safari/537.36
+Creator IP:	100.000.000.00
+Generated:	By user via Web UI
+</code></pre></div><h2 id=总结>总结</h2><p>以上就是关于 Docker 新发布的 Hub Tool 的全部功能介绍了。
+当前它是随着 Docker Desktop 一起发行的，所以 Linux 下暂时没有。但是计划会尽快开源。敬请期待！</p><hr><p>欢迎订阅我的文章公众号【MoeLove】</p><p><img src=https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png alt=TheMoeLove></p></div><div class=post-copyright><p class=copyright-item><span class=item-title>文章作者</span>
+<span class=item-content>张晋涛</span></p><p class=copyright-item><span class=item-title>上次更新</span>
+<span class=item-content>2020-12-19</span></p><p class=copyright-item><span class=item-title>许可协议</span>
+<span class=item-content><a rel="license noopener" href=https://creativecommons.org/licenses/by-sa/4.0/ target=_blank>CC BY-SA 4.0</a></span></p></div><div class=post-reward><input type=checkbox name=reward id=reward hidden>
+<label class=reward-button for=reward>赞赏支持</label><div class=qr-code><label class=qr-code-image for=reward><img class=image src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/wx_pay.jpg>
+<span>微信打赏</span></label>
+<label class=qr-code-image for=reward><img class=image src=https://raw.githubusercontent.com/tao12345666333/collection/master/images/alipay.jpg>
+<span>支付宝打赏</span></label></div></div><footer class=post-footer><div class=post-tags><a href=/tags/docker/>Docker</a>
+<a href=/tags/dockerhub/>DockerHub</a>
+<a href=/tags/container/>container</a></div><nav class=post-nav><a class=next href=/2020/12/19/Go-1.16-%E4%B8%AD%E5%85%B3%E4%BA%8E-go-get-%E5%92%8C-go-install-%E4%BD%A0%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E5%9C%B0%E6%96%B9/><span class="next-text nav-default">Go 1.16 中关于 go get 和 go install 你需要注意的地方</span>
+<span class="next-text nav-mobile">下一篇</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div><div id=gitalk-container></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js crossorigin=anonymous></script><script type=text/javascript>var gitalk=new Gitalk({id:'2020-12-19 23:58:34 \x2b0800 CST',title:'Docker 新发布的 hub-tool 可直接查看账户配额',clientID:'68312db64e870efbd0a0',clientSecret:'a062c51a15de76546aa52351e0dd5b3cfb0cc7d8',repo:'tao12345666333.github.io',owner:'tao12345666333',admin:['tao12345666333'],body:decodeURI(location.href)});gitalk.render('gitalk-container');</script><noscript>Please enable JavaScript to view the <a href=https://github.com/gitalk/gitalk>comments powered by gitalk.</a></noscript></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:zhangjintao9020@gmail.com class="iconfont icon-email" title=email></a><a href=https://twitter.com/BeierTao class="iconfont icon-twitter" title=twitter></a><a href=https://github.com/tao12345666333 class="iconfont icon-github" title=github></a><a href=http://weibo.com/9020taobeier class="iconfont icon-weibo" title=weibo></a><a href=https://www.zhihu.com/people/TaoBeier class="iconfont icon-zhihu" title=zhihu></a><a href=https://moelove.info/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>由 <a class=hexo-link href=https://gohugo.io>Hugo</a> 强力驱动</span>
+<span class=division>|</span>
+<span class=theme-info>主题 -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span>
+<span class=copyright-year>&copy;
+2013 -
+2020
+<span class=heart><i class="iconfont icon-heart"></i></span><span class=author>张晋涛</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script type=text/javascript src=/lib/jquery/jquery-3.2.1.min.js></script><script type=text/javascript src=/lib/slideout/slideout-1.0.1.min.js></script><script type=text/javascript src=/lib/fancybox/jquery.fancybox-3.1.20.min.js></script><script type=text/javascript src=/js/main.min.d7b7ada643c9c1a983026e177f141f7363b4640d619caf01d8831a6718cd44ea.js></script></body></html>
