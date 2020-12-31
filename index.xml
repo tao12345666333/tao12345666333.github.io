@@ -1,4 +1,72 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.69.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Thu, 31 Dec 2020 04:51:23 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>Docker 新发布的 hub-tool 可直接查看账户配额</title><link>https://moelove.info/2020/12/19/Docker-%E6%96%B0%E5%8F%91%E5%B8%83%E7%9A%84-hub-tool-%E5%8F%AF%E7%9B%B4%E6%8E%A5%E6%9F%A5%E7%9C%8B%E8%B4%A6%E6%88%B7%E9%85%8D%E9%A2%9D/</link><guid isPermaLink="true">https://moelove.info/2020/12/19/Docker-%E6%96%B0%E5%8F%91%E5%B8%83%E7%9A%84-hub-tool-%E5%8F%AF%E7%9B%B4%E6%8E%A5%E6%9F%A5%E7%9C%8B%E8%B4%A6%E6%88%B7%E9%85%8D%E9%A2%9D/</guid><pubDate>Sat, 19 Dec 2020 23:58:34 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>Docker Desktop v3.0 已于前两周正式发布，从这个版本起，Docker 官方承诺每次的更新将以增量更新的方式来提供，以便减少下载包的体积，提升效率。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.69.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Fri, 01 Jan 2021 01:07:15 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| 年终大放送！Docker v20.10</title><link>https://moelove.info/2020/12/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E5%B9%B4%E7%BB%88%E5%A4%A7%E6%94%BE%E9%80%81Docker-v20.10/</link><guid isPermaLink="true">https://moelove.info/2020/12/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E5%B9%B4%E7%BB%88%E5%A4%A7%E6%94%BE%E9%80%81Docker-v20.10/</guid><pubDate>Mon, 28 Dec 2020 01:53:25 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="docker-v2010-主要特性一览">Docker v20.10 主要特性一览&lt;/h2>
+&lt;p>在之前的 &lt;a href="https://zhuanlan.zhihu.com/p/268647812" title="K8S 生态周报| Docker v20.10.0-beta1 发布">K8S 生态周报| Docker v20.10.0-beta1 发布&lt;/a> 一文中，我曾为你介绍过 Docker v20.10.0-beta1 发布相关的信息，但是并没有具体介绍 Docker v20.10 版本的具体功能特性等细节。&lt;/p>
+&lt;blockquote>
+&lt;p>Docker v20.10 版本，变化非常的大。提供了 CGroup v2 的支持，增强了 rootless 模式的支持，双栈日志，更灵活的内置 DNS 等，我在这个版本中也花费了很多时间。&lt;/p>
+&lt;p>详细的变更，我会在 v20.10 正式发布后再进行介绍。欢迎大家进行测试和反馈，目前已经收到了一些反馈的建议。我们会尽快修正并发布下个版本。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;strong>正如我当时承诺的那样，作为 2020 年最后一篇周报，我来在本篇周报中详细介绍下 Docker v20.10 版本。&lt;/strong>&lt;/p>
+&lt;h3 id="安装">安装&lt;/h3>
+&lt;p>Docker v20.10 发布于 2020 年 12 月 8 日，是自 Docker v19.03 （2019 年 7 月）后发布的首个大版本。你可以直接通过以下命令来自动化的安装 Docker v20.10。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">➜ ~ curl -fsSL https://get.docker.com &lt;span class="p">|&lt;/span>sh
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="cgroup-v2-支持">cgroup v2 支持&lt;/h3>
+&lt;p>Docker v19.03 是没有 cgroup v2 支持的，但自从 Fedora 31 开始，这成为了 Fedora 上的默认 cgroup 版本。在 Docker v20.10 发布之前，Fedora 31 及以上用户，需要将系统的 cgroup 设置为 v1 才能正常运行 Docker 。&lt;/p>
+&lt;p>其实这里面涉及到了大量的修改，包括 runc， containerd 直到 Docker 都添加了 cgroup v2 的支持，此功能才能真正给用户使用。&lt;/p>
+&lt;p>在此过程中，我也发现了 runc v1.0-rc91 中隐藏的 bug ，会导致 Docker 无法正常通过增加 &lt;code>--privileged&lt;/code> 参数以特权模式运行容器。后来对 runc 进行了修改，发布了 runc v1.0-rc92 ，至此才使得 Docker 中的 cgroup v2 特性得以顺利完成。&lt;/p>
+&lt;p>关于此处更详细的内容，我在 &lt;a href="https://zhuanlan.zhihu.com/p/178227659" title="K8S 生态周报| runc v1.0-rc92 发布">《K8S 生态周报| runc v1.0-rc92 发布》&lt;/a> 中已做了详细介绍，感兴趣的小伙伴可以看看。&lt;/p>
+&lt;h3 id="rootless-mode-ga">rootless mode GA&lt;/h3>
+&lt;p>Docker 有个一直被人诟病的点，就在于 docker daemon 必须是以 root 权限来启动，这样才可以使用它的全部特性。这也就意味着，凡是可以操作 docker daemon 的用户，也就有机会获取操作系统的 root 权限。&lt;/p>
+&lt;p>我们在 Docker v19.03 版本中提供了实验性的 rootless mode 的支持，允许用户无需 root 权限即可运行 docker daemon 。这大大提升了系统的安全性。但当时还处于实验阶段，有部分功能缺失。&lt;/p>
+&lt;p>&lt;strong>我想趁此次 Docker v20.10 发布，正式为你介绍下 Docker 的 rootless mode ，并且，它已经达到 GA 从实验性毕业了，并且也提供了很多功能。&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>rootless mode 是在用户名称空间中运行 docker daemon 和容器，完全不需要 root 权限。&lt;/strong>&lt;/p>
+&lt;p>你可以通过以下命令安装 Docker rootless 模式：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">➜ ~ curl -fsSL https://get.docker.com/rootless &lt;span class="p">|&lt;/span> sh
+&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>或者直接通过 Docker 官方的 RPM/DEB 包进行安装。安装完之后，通过 &lt;code>systemctl&lt;/code> 管理 Docker 服务即可。&lt;/p>
+&lt;pre>&lt;code>➜ ~ systemctl --user start docker
+&lt;/code>&lt;/pre>&lt;p>更多关于 rootless mode 的详细用法及最佳实践，请参考 &lt;a href="https://docs.docker.com/engine/security/rootless/#best-practices" title="Docker 官方文档：以非 root 用户运行 docker daemon">Docker 官方文档：以非 root 用户运行 docker daemon&lt;/a>&lt;/p>
+&lt;h3 id="dockerfile-run---mounttypesshsecretcache-等特性达到-ga">Dockerfile: RUN --mount=type=(ssh|secret|cache) 等特性达到 GA&lt;/h3>
+&lt;p>Docker v18.06 开始实验性的添加了 &lt;code>RUN --mount=type=cache&lt;/code> 该特性可用于在构建过程中，保留包管理器的缓存文件。&lt;/p>
+&lt;p>之后在 v18.09 中又增加了 &lt;code>RUN --mount=type=ssh&lt;/code> 和 &lt;code>RUN --mount=type=secret&lt;/code> 用于在构建过程中，传递密钥或者用户凭证等私密信息，以防止泄漏等。这些高级特性，在我之前的文章 &lt;a href="https://gitbook.cn/books/5cf02802ff33b82ee0eb425d/index.html#-3">《进阶：Dockerfile 高阶使用指南及镜像优化》&lt;/a> 曾详细介绍过。&lt;/p>
+&lt;p>这些特性非常有用，基本涵盖了你构建镜像时关于安全性方面的绝大多数的需求。大家如果感兴趣，欢迎随时与我交流，后续我也可能会再写相关的文章进行介绍。&lt;/p>
+&lt;h3 id="其他">其他&lt;/h3>
+&lt;ul>
+&lt;li>此次还优化了内置 DNS 相关的逻辑，可以提供更好的性能；&lt;/li>
+&lt;li>docker build 可支持直接 ssh 远程构建私有仓库的镜像了；&lt;/li>
+&lt;/ul>
+&lt;p>更多关于此版本的变更，可以参考其 &lt;a href="https://docs.docker.com/engine/release-notes/#20100" title="Docker v20.10 ReleaseNote">ReleaseNote&lt;/a>&lt;/p>
+&lt;h2 id="rook-v154-发布">Rook v1.5.4 发布&lt;/h2>
+&lt;p>关于此版本有两个格外需要注意的信息：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/rook/rook/issues/6849">#6849&lt;/a> 最新版的 Ceph 不支持使用分区的 OSD 了。就我个人经验，我倒是基本没有把 OSD 装到过某个分区中，一般都直接使用整块盘；&lt;/li>
+&lt;li>&lt;a href="https://github.com/rook/rook/pull/6769">#6769&lt;/a> Ceph-CSI 默认更新到了 v3.2.0;&lt;/li>
+&lt;/ul>
+&lt;p>更多关于此版本的信息，请参考其 &lt;a href="https://github.com/rook/rook/releases/tag/v1.5.4" title="Rook v1.5.4 RelaseNote">ReleaseNote&lt;/a> 。&lt;/p>
+&lt;h2 id="etcd-从-cncf-正式毕业">etcd 从 CNCF 正式毕业&lt;/h2>
+&lt;p>etcd 想必大家不会陌生，我在「K8S 生态周报」中也曾多次介绍它，这里就不再赘述了。&lt;/p>
+&lt;p>感兴趣的小伙伴可查看官方公告： &lt;a href="https://www.cncf.io/announcements/2020/11/24/cloud-native-computing-foundation-announces-etcd-graduation/" title="CNCF 宣布 etcd 正式毕业">CNCF 宣布 etcd 正式毕业&lt;/a>&lt;/p>
+&lt;p>再次恭喜 etcd !&lt;/p>
+&lt;h2 id="题外话">题外话&lt;/h2>
+&lt;p>今年是 2020 年阳历的最后一天了， &lt;strong>感谢大家的关注和支持！&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>接下来，我将会发布一份 “2020 年 K8S 生态演进报告” 与你分享在 2020 年 K8S 生态相关不容错误的信息，以及 2021 年 K8S 生态相关的展望及发展方向，敬请期待！&lt;/strong>&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>Docker 新发布的 hub-tool 可直接查看账户配额</title><link>https://moelove.info/2020/12/19/Docker-%E6%96%B0%E5%8F%91%E5%B8%83%E7%9A%84-hub-tool-%E5%8F%AF%E7%9B%B4%E6%8E%A5%E6%9F%A5%E7%9C%8B%E8%B4%A6%E6%88%B7%E9%85%8D%E9%A2%9D/</link><guid isPermaLink="true">https://moelove.info/2020/12/19/Docker-%E6%96%B0%E5%8F%91%E5%B8%83%E7%9A%84-hub-tool-%E5%8F%AF%E7%9B%B4%E6%8E%A5%E6%9F%A5%E7%9C%8B%E8%B4%A6%E6%88%B7%E9%85%8D%E9%A2%9D/</guid><pubDate>Sat, 19 Dec 2020 23:58:34 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>Docker Desktop v3.0 已于前两周正式发布，从这个版本起，Docker 官方承诺每次的更新将以增量更新的方式来提供，以便减少下载包的体积，提升效率。&lt;/p>
 &lt;p>除了将 Docker Engine 更新至 v20.10.0 外，也对其他的依赖做了更新，如下图：&lt;/p>
 &lt;p>&lt;img src="https://moelove.info/img/docker-desktop-version.png" alt="Docker Desktop v3.0">&lt;/p>
 &lt;p>最吸引我的是本次新增的 &lt;a href="https://github.com/docker/roadmap/issues/117" title="Docker Hub CLI">Docker Hub Tool v0.2.0&lt;/a> ，它是 Docker 官方提供的 Docker Hub CLI 工具，具备管理 DockerHub 上的帐号，镜像等相关资源的能力。&lt;/p>
