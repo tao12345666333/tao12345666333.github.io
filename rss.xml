@@ -1,4 +1,77 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.69.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Thu, 07 Jan 2021 09:55:39 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| 年终大放送！Docker v20.10</title><link>https://moelove.info/2020/12/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E5%B9%B4%E7%BB%88%E5%A4%A7%E6%94%BE%E9%80%81Docker-v20.10/</link><guid isPermaLink="true">https://moelove.info/2020/12/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E5%B9%B4%E7%BB%88%E5%A4%A7%E6%94%BE%E9%80%81Docker-v20.10/</guid><pubDate>Mon, 28 Dec 2020 01:53:25 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.69.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Thu, 07 Jan 2021 10:44:03 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>新晋程序员奶爸的云原生之路</title><link>https://moelove.info/2021/01/01/%E6%96%B0%E6%99%8B%E7%A8%8B%E5%BA%8F%E5%91%98%E5%A5%B6%E7%88%B8%E7%9A%84%E4%BA%91%E5%8E%9F%E7%94%9F%E4%B9%8B%E8%B7%AF/</link><guid isPermaLink="true">https://moelove.info/2021/01/01/%E6%96%B0%E6%99%8B%E7%A8%8B%E5%BA%8F%E5%91%98%E5%A5%B6%E7%88%B8%E7%9A%84%E4%BA%91%E5%8E%9F%E7%94%9F%E4%B9%8B%E8%B7%AF/</guid><pubDate>Fri, 01 Jan 2021 08:14:53 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>一眨眼已经 2021 年了，虽然我每年也都会惯例的做个小回顾，但 2020 年对我意义更加不同。我打算换个方式来聊。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="生活">生活&lt;/h2>
+&lt;p>很多人说 2020 年过于魔幻，这一年确实发生了很多事情，疫情、山火、蝗灾、洪水等。&lt;/p>
+&lt;p>而这一年对我来说意义更加非凡。正如我在&lt;a href="https://zhuanlan.zhihu.com/p/100618036" title="2019 小回顾">去年的总结文&lt;/a>分享的那样，我是在 2019 年和我的小可爱结婚的，2020 年我俩的宝宝出生啦！&lt;/p>
+&lt;p>我现在对那天仍记忆犹新。那天晚上我总觉得好像需要做点什么，但其实那种感觉也描述不出来。最终我是打开电脑看了几遍孕妇学校老师给的关于临产前准备工作视频后睡觉的。当时小可爱还笑我是不是太紧张了。凌晨时我们一起去了医院，经过小可爱的一番努力，从此我也就增加了新的角色， 成为了一名奶爸，谢谢我的小可爱！&lt;/p>
+&lt;p>有了孩子之后，生活自然也就不像之前了，很多时候要考虑孩子的情况，比如半夜需要哄他，每天为他洗澡之类的。等稍微大点之后好了不少，也变得更加有趣了。周末会带他去早教中心，其实主要就是带他去玩，能看见其他小朋友，跟其他小朋友打招呼之类的，每次他都很开心。&lt;/p>
+&lt;p>在作为“奶爸”这个角色上，我没有经验，也还在学习和摸索中。（很早以前我和几个好朋友一起聊过，是不是大家应该组群一起聊聊奶爸心得之类的，交流下经验~ 哈哈哈）&lt;/p>
+&lt;p>正如我 7 月份在接受思否社区访谈时说的那样， &lt;a href="https://segmentfault.com/a/1190000023260535">思否有约丨张晋涛：一直在学习，包括更好的工作和如何成为合格的父亲&lt;/a>。对于后者，这里我就不聊太多了，刚刚起步，以后的路还长着呢~&lt;/p>
+&lt;h2 id="个人学习和成长">个人学习和成长&lt;/h2>
+&lt;p>接下来就聊聊个人学习和成长相关的部分吧。&lt;/p>
+&lt;p>今年的主要研究方向仍然专注于容器运行时，Kubernetes 以及 Prometheus 等云原生相关的技术。&lt;/p>
+&lt;p>在容器运行时方面参与开源社区最多，Docker v20.10 也是我花时间精力最多的一个版本， 关于 &lt;a href="https://zhuanlan.zhihu.com/p/341163077">Docker v20.10 相关的介绍请参考我之前的文章&lt;/a>。在此过程中，我对 containerd, runc，firecracker 等技术也都在源码层有了更深的理解以及做了一些相关实践和尝试。&lt;/p>
+&lt;p>对于 Kubernetes 来说，今年代码提交方面表现一般。多数时间花在了理清其某些功能的设计及演进过程等方面，积累了一些奇奇怪怪的知识，如果大家感兴趣的话，以后我可以考虑写一些文章来聊聊，以及对 Kubernetes 一些周边技术进行了探索和实践。&lt;/p>
+&lt;p>至于 Prometheus 的话，有几篇规划中的文章没来得及写。反倒是给 &lt;a href="https://book.douban.com/subject/35239877/">Prometheus云原生监控： 运维与开发实战&lt;/a> 这本书写了个推荐语。
+同时 Prometheus 在我司也正逐步落地推进，但受资源和人力等因素的限制，远没达到我预期的效果，还有很长的路要走。
+2021 年我计划要把它整体架构及周边基础设施完善下，希望能迈入一个新的阶段。&lt;/p>
+&lt;p>除此之外，还有一些值得记录的内容。&lt;/p>
+&lt;p>2020 年年初，更新完了我在 GitChat 上的专栏 &lt;a href="https://gitbook.cn/gitchat/column/5d70cfdc4dc213091bfca46f">Docker 核心知识必知必会&lt;/a> ，按照 GitChat 上的字数统计，这个专栏有将近 10w 字，涉及到了 Docker 原理的方方面面。从开始策划到全部更新完成，这期间一共换了 3 位编辑（前 2 位离职了），耗时半年，感谢各位编辑和读者们的支持！感谢我的小可爱催稿！让我终于能按时完稿。
+更新专栏的那些天，要么是写到凌晨，要么是凌晨起床就开始写，感觉还是蛮辛苦的。但完稿之后，回头来看，好像也还好。果然一个人的上限是需要逼自己一下的。&lt;/p>
+&lt;p>此外，自 2019 年 3 月份开始，我也一直在更新着 &lt;a href="https://zhuanlan.zhihu.com/container" title="K8S生态周报">「K8S 生态周报」&lt;/a> 在 2020 年推送了 44 篇，中间有几篇断更，感谢各位新老读者朋友们的支持！未来会继续保持更新。&lt;/p>
+&lt;p>我的小可爱&lt;a href="https://space.bilibili.com/20831032" title="bilibili: 无尽的胖">在 2020 年也开始了视频版的输出&lt;/a>。小可爱比我要认真，视频版比文字版要详细的多，包括具体的操作演示之类的。此外，视频中也会有些彩蛋，喜欢看视频的小伙伴可以来一波关注~&lt;/p>
+&lt;p>除了&lt;a href="https://zhuanlan.zhihu.com/container">「K8S 生态周报」&lt;/a>外，2020 年我一共写了 15 篇博客，有个别几篇未公开，今年修改润色后会公开发布，此外也把博客重新整理了下，换了个主题，清爽了一些，欢迎大家访问 &lt;a href="https://moelove.info/">https://moelove.info/&lt;/a>&lt;/p>
+&lt;p>&lt;img src="https://moelove.info/img/2020-posts.png" alt="2020 年博客截图">&lt;/p>
+&lt;p>2020 年另外的几件事情：&lt;/p>
+&lt;ul>
+&lt;li>收到了公司第一份非合同制的聘书 TM599&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://moelove.info/img/TM599.jpg" alt="网易TM599聘书">&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>做了 5 次公开的技术分享：&lt;/p>
+&lt;ul>
+&lt;li>7 月初在公司的 Tech Talk Time 分享 Docker 构建优化；&lt;/li>
+&lt;li>7 月底在 Python Meetup 分享 Docker 和 Kubernetes；&lt;/li>
+&lt;li>&lt;a href="https://dbaplus.cn/activity-12-1063-1.html">9 月份在 dbplus 分享 Redis 容器化的技术选型和对比&lt;/a>；&lt;/li>
+&lt;li>&lt;a href="https://segmentfault.com/area/pyconchina-2020">11 月在 PyCon China 分享使用 eBPF 技术调试容器&lt;/a>；&lt;/li>
+&lt;li>&lt;a href="https://shangzhibo.tv/watch/10226294">12 月在 Upyun Open Talk Time 分享 containerd 的上手实践&lt;/a>;&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>上半年其实还有一个 RedHat 的 Open TestCon ，不过受疫情影响取消了。下半年基本保持每月 1 次的节奏。根据主办方数据和参会者的反馈来看，效果还不错，感谢大家的支持！这些分享的 PPT ，可以直接&lt;a href="https://github.com/tao12345666333/slides" title="技术分享的 PPT">在我的 GitHub 仓库中下载&lt;/a>。&lt;/p>
+&lt;p>这几次分享，大家其实也可以看到，每次都是不一样的，有各自不同的侧重，包括容器化/Kubernetes，容器运行时，eBPF 等技术。 &lt;strong>PS: 我坚信，近五年 eBPF 技术会有更大规模的生产实践，它也是一个很好的突破口。&lt;/strong> 除 Cilium 外，我也计划之后分享更多好玩和实用的 eBPF 实践，当然，我也计划在我司的环境中，做一些其他的尝试。&lt;/p>
+&lt;p>既然是年度的总结和回顾，我也来聊一些不那么满意和做的不好的地方吧。&lt;/p>
+&lt;p>就我个人而言，2020 年上半年有过一小段时间的迷茫，或者说“注意力分散”。各类技术层出不穷，更新也很频繁，唯有持续学习和跟进。关注太多东西，虽然能让自己保持敏锐的判断 &amp;amp; 更轻松的解决问题，然而个人精力有限，持续这样会分散很多注意力。&lt;/p>
+&lt;p>所以我主动的屏蔽掉了一些信息 &amp;amp; 对相关内容做了分级，将自己的注意力更好的集中在几个主要的领域内，其他内容周期性的回顾下，也未尝不可。这也就是我在开头提到的主要研究方向。&lt;/p>
+&lt;p>另一方面则是对团队/系统相关的，当前面临较大的问题是信息孤岛（information island），虽说信息孤岛是技术产业发展中不可避免的一个问题，但现在可能出现的早了点，也严重了点。导致了很多孤立的系统 &amp;amp; 信息闭塞。希望明年通过平台建设能改善一些这种问题。&lt;/p>
+&lt;h2 id="flag">flag&lt;/h2>
+&lt;p>2019 年，在 &lt;a href="https://mp.weixin.qq.com/s?__biz=MzIyMjYyMzg3MA==&amp;amp;mid=2247491168&amp;amp;idx=4&amp;amp;sn=99c75223a96c3f0a4ba4802162a7176b&amp;amp;chksm=e82bff71df5c7667eeeabc6a12c1ed5d7e2589dd6d81c015a9fdf4896af0d99019c71182ab27&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=&amp;amp;sharer_sharetime=1577896952072&amp;amp;sharer_shareid=ca2e51094588e06bf753d47ce6ce6894&amp;amp;exportkey=AeBs7IZvP2YDdO0PAERxHsc%3D&amp;amp;pass_ticket=sUqDG7gi77aHI1AzhT8QG4acbC2iGtoHfL5dhjaRgAIB%2BMOsBIpQ8jHnQ671eH1e#rd">GitChat 的访谈中&lt;/a> 让我聊 2020 年容器的技术趋势。我当时的主要观点如下：&lt;/p>
+&lt;blockquote>
+&lt;p>作为云原生技术的基石，Kubernetes 在 2020 年的热度将会持续上升。而各个公司的集群规模，以及对容器技术的推进都将会持续加大。在经历了初步容器化后，更多的公司将面临的问题是稳定性和性能优化问题。与此同时，service mesh，serverless 等技术也都会逐步得到普遍应用。
+从底层次技术的角度来看，cgroups v2 将逐步普及，进而取代 cgroups v1，但这个过程可能需要两三年左右。
+整体而言，稳定性和性能优化将会是未来的主旋律。&lt;/p>
+&lt;/blockquote>
+&lt;p>回过头来看，确实 2020 年 Kubernetes 热度是在持续上升。关于稳定性方面，看看 Chaos Engineering 去年在各公司 Kubernetes 中的相关实践，基本也得到印证。&lt;/p>
+&lt;p>至于性能优化，无论是阿里，腾讯，网易等各家也都对外公开分享了基于 eBPF 等技术的相关优化和实践，这点也没问题。&lt;/p>
+&lt;p>cgroups v2 2020 年无论是 runc, containerd, Docker 等均已经增加了相关的支持，也基本得到了印证。&lt;/p>
+&lt;p>&lt;strong>唯一没有提到的，可能是安全性相关的部分。&lt;/strong> 在 2020 年，Kubernetes/容器化技术方面的安全性，也进一步得到了重视。（这和各种前期没有太在意的安全漏洞被发现也有很大关系）。&lt;/p>
+&lt;p>再来看看年初立的 flag 吧：&lt;/p>
+&lt;ul>
+&lt;li>工作方面希望能推动更多业务的改造和接入，算是个长线计划；&lt;/li>
+&lt;li>社区活动方面，今年希望多参与一些，把一些理念和实践经验 push 到社区，也能从中学习到社区的一些经验；&lt;/li>
+&lt;li>社区贡献方面，会继续投入更多精力来做，但与 2019 年的重点可能会稍有不同；&lt;/li>
+&lt;li>生活方面，希望宝宝健康的出生，和我的小可爱共同经营好我们的家庭。&lt;/li>
+&lt;/ul>
+&lt;p>基本符合预期。工作方面业务方和同事们都比较配合，推进也较为顺利。社区活动方面，谢谢每个参与者！生活方面，谢谢我的小可爱！感谢每个家人！&lt;/p>
+&lt;p>惯例贴一张图:&lt;/p>
+&lt;p>&lt;img src="https://moelove.info/img/2020-oss.png" alt="2020 overview - https://moelove.info">&lt;/p>
+&lt;p>至于 2021 年的小目标，这次就不写了。愿：平安喜乐！&lt;/p>
+&lt;p>还有文章前的你，感谢你的关注和支持，希望我们能各有收获！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Life/">Life</category></item><item><title>K8S 生态周报| 年终大放送！Docker v20.10</title><link>https://moelove.info/2020/12/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E5%B9%B4%E7%BB%88%E5%A4%A7%E6%94%BE%E9%80%81Docker-v20.10/</link><guid isPermaLink="true">https://moelove.info/2020/12/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E5%B9%B4%E7%BB%88%E5%A4%A7%E6%94%BE%E9%80%81Docker-v20.10/</guid><pubDate>Mon, 28 Dec 2020 01:53:25 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;h2 id="docker-v2010-主要特性一览">Docker v20.10 主要特性一览&lt;/h2>
