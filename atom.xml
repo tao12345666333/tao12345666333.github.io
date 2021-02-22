@@ -1,4 +1,79 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-02-19T08:54:03+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.69.0">Hugo</generator><entry><title type="text">从 Go 的二进制文件中获取其依赖的模块信息</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/02/17/%E4%BB%8E-Go-%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6%E4%B8%AD%E8%8E%B7%E5%8F%96%E5%85%B6%E4%BE%9D%E8%B5%96%E7%9A%84%E6%A8%A1%E5%9D%97%E4%BF%A1%E6%81%AF/"/><id>https://moelove.info/2021/02/17/%E4%BB%8E-Go-%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6%E4%B8%AD%E8%8E%B7%E5%8F%96%E5%85%B6%E4%BE%9D%E8%B5%96%E7%9A%84%E6%A8%A1%E5%9D%97%E4%BF%A1%E6%81%AF/</id><updated>2021-02-19T08:04:18+08:00</updated><published>2021-02-17T23:44:41+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 我们用 Go 构建的二进制文件中默认包含了很多有用的信息。例如，可以获取构建用的 Go 版本： (这里我使用我一直参与的一……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-02-22T11:21:41+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.69.0">Hugo</generator><entry><title type="text">K8S 生态周报| Helm v3.5 正式发布，带来完备的 OCI 支持</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/02/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.5-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E5%AE%8C%E5%A4%87%E7%9A%84-OCI-%E6%94%AF%E6%8C%81/"/><id>https://moelove.info/2021/02/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.5-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E5%AE%8C%E5%A4%87%E7%9A%84-OCI-%E6%94%AF%E6%8C%81/</id><updated>2021-02-22T11:21:34+08:00</updated><published>2021-02-21T22:25:43+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 KIND v0.10 正式发布 KIND （K……</summary><content type="html">&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="kind-v010-正式发布">KIND v0.10 正式发布&lt;/h2>
+&lt;p>KIND （Kubernetes In Docker ）是我很喜欢也一直在参与贡献的 Kubernetes SIG 子项目，本周 KIND 发布了 v0.10 版本，距离上次 v0.9 版本已过去了 4 个多月，在此期间，我们做了很多的优化和改进。下面我来具体介绍下：&lt;/p>
+&lt;h3 id="破坏性变更">破坏性变更&lt;/h3>
+&lt;p>这个部分显然是大家最为关心的，这里有三个需要注意的点：&lt;/p>
+&lt;ul>
+&lt;li>默认的 Node 镜像版本已经更新为了 Kubernetes v1.20.2 版本，所以个别有关 Kubernetes 自身特性变更的方面需要注意下；&lt;/li>
+&lt;li>IPv6 Pod 子网默认从 /64 修改成了 /56 ，这里的修改参考了&lt;a href="https://www.ripe.net/publications/docs/ripe-690#4--size-of-end-user-prefix-assignment---48---56-or-something-else-" title="终端用户的 IPv6 子网划分最佳实践"> RIPE 的一篇关于 IPv6 子网规划的最佳实践&lt;/a>，有兴趣的朋友可以了解下；&lt;/li>
+&lt;li>我们目前能保障 KIND 与 v1.14.0+ 的 Kubernetes 完备的兼容，但对于 v1.13.x 版本我们只能尽量做到最好；&lt;/li>
+&lt;/ul>
+&lt;h3 id="新特性">新特性&lt;/h3>
+&lt;ul>
+&lt;li>当构建 v1.19+ 版本的 Kubernetes 镜像时，可以不构建 dockershim 组件，以便减小镜像的体积；&lt;/li>
+&lt;li>通过优化编译参数，显著的减少了 KIND 二进制文件的体积（~7MB）；&lt;/li>
+&lt;li>&lt;code>kind export logs&lt;/code> 导出的 log 中将包含 KIND 的版本信息，以便于更好的定位问题；&lt;/li>
+&lt;li>实验性使用 GitHub Action CI 提供 docker/podman/cgroup v2 等环境的支持；&lt;/li>
+&lt;li>文档内容的优化和完善，包括 WSL2，负载均衡等方面；&lt;/li>
+&lt;/ul>
+&lt;h3 id="修正">修正&lt;/h3>
+&lt;ul>
+&lt;li>优化了 cgroups 相关的处理逻辑；&lt;/li>
+&lt;li>优化了一些错误信息的内容；&lt;/li>
+&lt;/ul>
+&lt;p>大家可以直接在&lt;a href="https://github.com/kubernetes-sigs/kind/releases/tag/v0.10.0" title="KIND v0.10.0 Release"> KIND v0.10.0 版本的 Release 页面&lt;/a>下载预编译好的二进制文件进行体验，有任何问题欢迎随时反馈。&lt;/p>
+&lt;h2 id="helm-v35-正式发布">Helm v3.5 正式发布&lt;/h2>
+&lt;p>Helm v3.5 是 Helm 的一个特性版本，此版本的特性主要集中在 OCI 支持和模板函数，以下是我认为值得关注的一些变更：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/helm/helm/pull/9126">#9126&lt;/a> Helm 的 template 中新增加了超过 20 个的函数支持，具体函数列表可&lt;a href="https://github.com/Masterminds/sprig/releases/tag/v3.2.0" title="Helm v3.5 新增函数说明">参考 sprig 的列表&lt;/a>；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/helm/helm/pull/8843">#8843&lt;/a> 允许在设置了 &lt;code>HELM_EXPERIMENTAL_OCI&lt;/code> 环境变量的前提下，通过 &lt;code>helm pull oci://&lt;/code> 的方式来下载 OCI 仓库中下载 Chart 和更新依赖；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/helm/helm/pull/8886">#8886&lt;/a> 为 &lt;code>helm dep build&lt;/code> 增加了一个 &lt;code>--skip-refresh&lt;/code> 的参数，这样就不会刷新本地仓库中的 cache 了；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/helm/helm/pull/8363">#8363&lt;/a> 添加了一个 &lt;code>wait-for-jobs&lt;/code> 的参数，当同时设置了 &lt;code>--wait&lt;/code> 时候，&lt;code>helm install&lt;/code> 等命令将会等待所有的 Job 都执行完成后，才会认为本次操作完成。当然，它也会受到 &lt;code>--timeout&lt;/code> 参数的影响，最多等待时间不会超过 timeout 设置的时间；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/helm/helm/pull/8958">#8958&lt;/a> 添加了 &lt;code>--kube-cafile&lt;/code> 的参数和等价的 &lt;code>HELM_KUBECAFILE&lt;/code> 环境变量，用来指定连接 Kubernetes 时的 CA 。在此变更之前，如果 Kubernetes 集群的证书未在系统层信任的话，就会出现失败的情况，提示 &lt;code>x509: certificate signed by unknown authority&lt;/code> 之类的。以下是三种可用的解决方案：&lt;/p>
+&lt;ul>
+&lt;li>在系统层信任证书，这个就不多说了；&lt;/li>
+&lt;li>Kubeconfig 增加 certificate-authority：&lt;/li>
+&lt;/ul>
+&lt;pre>&lt;code>KUBECONFIG=~/.mycustomkubeconfig
+kubectl config set-cluster internal.company --server=https://internal.company:443 --certificate-authority=/tmp/ca.crt
+kubectl config set-context some-context --cluster=internal.company --namespace=myns
+kubectl config use-context some-context
+HELM_NAMESPACE=myns HELM_KUBEAPISERVER=https://internal.company:443 helm install --kubeconfig=&amp;quot;${KUBECONFIG}&amp;quot; some-app company/some-app
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>通过此处提供的 &lt;code>HELM_KUBECAFILE&lt;/code> 的环境变量：&lt;/li>
+&lt;/ul>
+&lt;pre>&lt;code>HELM_NAMESPACE=myns HELM_KUBEAPISERVER=https://internal.company:443 HELM_KUBECAFILE=/tmp/ca.crt helm install some-app company/some-app
+&lt;/code>&lt;/pre>&lt;p>可以看到，方便了很多。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/helm/helm/pull/8626">#8626&lt;/a> 用 Artifact Hub 替代了 Helm Hub 。我在去年的 &lt;a href="https://zhuanlan.zhihu.com/p/267670759" title="Helm Hub 迁移到 Artifact Hub">K8S 生态周报| Helm 五周岁啦！&lt;/a> 中曾具体介绍过此事，感兴趣的小伙伴可以看看具体内容；&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>更多关于此版本的变更，请参考其 &lt;a href="https://github.com/helm/helm/releases/tag/v3.5.0" title="Helm v3.5 Release">ReleaseNote&lt;/a>&lt;/p>
+&lt;h2 id="事件">事件&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://www.docker.com/blog/donating-docker-distribution-to-the-cncf/" title="Docker 把 Distribution 捐给了 CNCF">Docker 把 Distribution 捐给了 CNCF&lt;/a>，Docker Distribution 是 Docker Hub 及众多镜像仓库的底层实现，捐给 CNCF 有望为其带来更强大的生命力；&lt;/li>
+&lt;li>&lt;a href="https://github.com/docker/hub-tool">Docker Hub Tool 开源啦&lt;/a> 可以在我之前的&lt;a href="https://zhuanlan.zhihu.com/p/339131328">Docker Hub Tool 文章&lt;/a>中了解其具体特性；&lt;/li>
+&lt;/ul>
+&lt;h2 id="上游进展">上游进展&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/96021">#96021&lt;/a> 当往 CSI 卷上创建卷数据文件期间如果发生异常，不会再自动删除全部数据了，现在仅删除数据文件和卷路径；&lt;/li>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/98678">#98678&lt;/a> TTLAfterFinished 特性将默认启用，并且升级至 beta 。此特性是用于控制 Job 和 Pod 完成后的清理时间，通过 &lt;code>.spec.ttlSecondsAfterFinished&lt;/code> 进行设置，在资源创建或完成后都可以修改这个值，但是一旦超过 TTL，并且 K8S 认为可删除资源的时候，再修改这个 TTL 也没有效果了；&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">从 Go 的二进制文件中获取其依赖的模块信息</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/02/17/%E4%BB%8E-Go-%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6%E4%B8%AD%E8%8E%B7%E5%8F%96%E5%85%B6%E4%BE%9D%E8%B5%96%E7%9A%84%E6%A8%A1%E5%9D%97%E4%BF%A1%E6%81%AF/"/><id>https://moelove.info/2021/02/17/%E4%BB%8E-Go-%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6%E4%B8%AD%E8%8E%B7%E5%8F%96%E5%85%B6%E4%BE%9D%E8%B5%96%E7%9A%84%E6%A8%A1%E5%9D%97%E4%BF%A1%E6%81%AF/</id><updated>2021-02-19T08:04:18+08:00</updated><published>2021-02-17T23:44:41+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 我们用 Go 构建的二进制文件中默认包含了很多有用的信息。例如，可以获取构建用的 Go 版本： (这里我使用我一直参与的一……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>我们用 Go 构建的二进制文件中默认包含了很多有用的信息。例如，可以获取构建用的 Go 版本：&lt;/p>
 &lt;p>(这里我使用我一直参与的一个开源项目 &lt;a href="https://github.com/kubernetes-sigs/kind" title="KIND 项目地址">KIND&lt;/a> 为例)&lt;/p>
 &lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">➜ kind git:&lt;span class="o">(&lt;/span>master&lt;span class="o">)&lt;/span> ✗ go version ./bin/kind
