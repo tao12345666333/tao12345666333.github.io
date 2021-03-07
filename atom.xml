@@ -1,4 +1,89 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-02-22T11:21:41+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.69.0">Hugo</generator><entry><title type="text">K8S 生态周报| Helm v3.5 正式发布，带来完备的 OCI 支持</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/02/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.5-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E5%AE%8C%E5%A4%87%E7%9A%84-OCI-%E6%94%AF%E6%8C%81/"/><id>https://moelove.info/2021/02/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.5-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E5%AE%8C%E5%A4%87%E7%9A%84-OCI-%E6%94%AF%E6%8C%81/</id><updated>2021-02-22T11:21:34+08:00</updated><published>2021-02-21T22:25:43+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 KIND v0.10 正式发布 KIND （K……</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-03-07T12:06:22+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.69.0">Hugo</generator><entry><title type="text">K8S 生态周报| Docker v20.10.5 发布，修复 Bug 及提升稳定性</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/02/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v20.10.5-%E5%8F%91%E5%B8%83%E4%BF%AE%E5%A4%8D-Bug-%E5%8F%8A%E6%8F%90%E5%8D%87%E7%A8%B3%E5%AE%9A%E6%80%A7/"/><id>https://moelove.info/2021/02/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v20.10.5-%E5%8F%91%E5%B8%83%E4%BF%AE%E5%A4%8D-Bug-%E5%8F%8A%E6%8F%90%E5%8D%87%E7%A8%B3%E5%AE%9A%E6%80%A7/</id><updated>2021-03-05T02:36:31+08:00</updated><published>2021-02-28T22:10:50+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 Docker v20.10.5 发布 这里我同时……</summary><content type="html">&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="docker-v20105-发布">Docker v20.10.5 发布&lt;/h2>
+&lt;p>这里我同时介绍下 Docker v20.10.4 和 v20.10.5 中值得注意的变更：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/docker/cli/pull/2959">cli#2959&lt;/a> 修复了一个在 &lt;code>docker login&lt;/code> 时，可能触发的 panic 。这个问题可能会发生在使用 Debian 系统全新安装 Docker v20.10.[0~3] 版本，并且通过 apt 安装了 docker-compose 的场景下。解决办法，要么升级到最新版本，要么就需要手动创建 &lt;code>~/.docker/config.json&lt;/code> 文件。 &lt;strong>对于绝大多数的用户应该都不会受到此问题影响&lt;/strong>；&lt;/li>
+&lt;li>&lt;a href="https://github.com/moby/moby/pull/42049">#42049&lt;/a> 修复了一个仅在 v20.10 版本下，同步 pull 失败的情况。这个问题只有在 v20.10 版本，且启用了 BuildKit ，并且在构建镜像时候存在并发 pull 的情况下才会触发，算是触发概率极低的情况了；&lt;/li>
+&lt;li>&lt;a href="https://github.com/docker/cli/pull/2987">cli#2987&lt;/a> 修复了 &lt;code>docker start -a&lt;/code> 可能 hang 住的问题。说实话，要不是查这个问题，我已经基本忘记了 docker start 有个 &lt;code>-a&lt;/code> 的选项了。我通常会直接用 &lt;code>docker run&lt;/code> 启动当前要用的容器，或者 &lt;code>docker start&lt;/code> 后，再 &lt;code>docker exec&lt;/code> ， &lt;strong>attach&lt;/strong> 相关的命令和参数基本都没有再用了。&lt;/li>
+&lt;/ul>
+&lt;p>更多关于 Docker v20.10 的相关内容，请查看其 &lt;a href="https://github.com/moby/moby/releases" title="Docker ReleaseNote">ReleaseNote&lt;/a>。&lt;/p>
+&lt;h2 id="coredns-v183-发布">CoreDNS v1.8.3 发布&lt;/h2>
+&lt;p>在之前的文章 &lt;a href="https://zhuanlan.zhihu.com/p/278701087">K8S 生态周报| Helm v3.4 发布&lt;/a> 中我介绍了 CoreDNS v1.8.0 版本相关的特性及变更,感兴趣的小伙伴可以复习一下。本次我来介绍下自 CoreDNS v1.8.1 到 v1.8.3 之间有哪些值得关注的变更。&lt;/p>
+&lt;ul>
+&lt;li>新增了一个名为 &lt;a href="https://coredns.io/plugins/local/">local&lt;/a> 的 plugin，用于响应 local 的请求。即：所有 &lt;code>localhost.&amp;lt;domain&amp;gt;&lt;/code> 的请求都会解析为 127.0.0.1 例如：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ ~ dig +short @127.0.0.1 -p &lt;span class="m">9987&lt;/span> localhost.moelove.info
+127.0.0.1
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果 Corefile 中启用了 &lt;code>debug&lt;/code> 和 &lt;code>log&lt;/code> plugin 的话，会看到类似的输出：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="o">[&lt;/span>DEBUG&lt;span class="o">]&lt;/span> plugin/local: Intercepting localhost query &lt;span class="k">for&lt;/span> &lt;span class="s2">&amp;#34;localhost.moelove.info.&amp;#34;&lt;/span> A, from 127.0.0.1
+&lt;span class="o">[&lt;/span>INFO&lt;span class="o">]&lt;/span> 127.0.0.1:37324 - &lt;span class="m">17796&lt;/span> &lt;span class="s2">&amp;#34;A IN localhost.moelove.info. udp 63 false 4096&amp;#34;&lt;/span> NOERROR qr,rd &lt;span class="m">78&lt;/span> 0.000327638s
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>主要是为了解析 localhost 后跟任意的 domain name 的请求。更具体的背景请参考 &lt;a href="https://github.com/coredns/coredns/issues/4260">issue #4260&lt;/a>。&lt;/p>
+&lt;ul>
+&lt;li>修正了 file plugin 中对于链式 CNAME 查询时的返回值。根据 &lt;a href="https://tools.ietf.org/html/rfc6604#section-3" title="RFC 6604">RFC 6604&lt;/a> 中的说明，当遵循链式查询时，返回值应该与最后一次的查询结果相同。也就是说，当出现 &amp;quot;A CNAME B&amp;quot; 但是 B 不存在的情况时，应当返回 &lt;code>NXDOMAIN&lt;/code> 而不是 &lt;code>NOERROR&lt;/code>。&lt;/li>
+&lt;/ul>
+&lt;p>我用下面的配置进行说明，首先写一个 zone 文件，并命名为 test.moelove.info.txt ：&lt;/p>
+&lt;pre>&lt;code>$ORIGIN moelove.info.
+@ 3600 SOA ns1.foo.com. (
+zone-admin.foo.com. ; address of responsible party
+2016072701 ; serial number
+3600 ; refresh period
+600 ; retry period
+604800 ; expire time
+1800 ) ; minimum ttl
+86400 NS ns1.foo.com.
+86400 NS ns2.foo.com.
+3600 MX 10 mail.moelove.info.
+60 A 10.10.10.10
+3600 TXT &amp;quot;v=moe includemoelove.info ~all&amp;quot;
+mail 14400 A 11.11.11.11
+www 43200 CNAME moelove.info.
+b.c 43200 CNAME c.c.moelove.info.
+c.c 43200 CNAME d.c.moelove.info.
+&lt;/code>&lt;/pre>&lt;p>可以看到，这里将 &lt;code>b.c&lt;/code> CNAME 到 &lt;code>c.c&lt;/code> ，&lt;code>c.c&lt;/code> CNAME 到 &lt;code>d.c&lt;/code> ，但是 &lt;code>d.c&lt;/code> 并不存在。&lt;/p>
+&lt;p>CoreDNS 用下面的内容作为配置：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">moelove.info&lt;span class="w"> &lt;/span>{&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>file&lt;span class="w"> &lt;/span>test.moelove.info.txt&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>log&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>debug&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>分别使用 CoreDNS v1.7.1 和 v1.8.3 进行测试：&lt;/p>
+&lt;p>&lt;strong>v1.7.1&lt;/strong>&lt;/p>
+&lt;pre>&lt;code>➜ ~ ./coredns-v1.7 -conf Corefile -dns.port 9987
+&lt;/code>&lt;/pre>&lt;p>使用 dig 进行测试：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">➜ ~ dig @127.0.0.1 -p &lt;span class="m">9987&lt;/span> b.c.moelove.info
+&lt;span class="p">;&lt;/span> &amp;lt;&amp;lt;&amp;gt;&amp;gt; DiG 9.11.27-RedHat-9.11.27-1.fc32 &amp;lt;&amp;lt;&amp;gt;&amp;gt; @127.0.0.1 -p &lt;span class="m">9987&lt;/span> b.c.moelove.info
+&lt;span class="p">;&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="m">1&lt;/span> server found&lt;span class="o">)&lt;/span>
+&lt;span class="p">;;&lt;/span> global options: +cmd
+&lt;span class="p">;;&lt;/span> Got answer:
+&lt;span class="p">;;&lt;/span> -&amp;gt;&amp;gt;HEADER&lt;span class="s">&amp;lt;&amp;lt;- opco&lt;/span>de: QUERY, status: NOERROR, id: &lt;span class="m">14077&lt;/span>
+&lt;span class="p">;;&lt;/span> flags: qr aa rd&lt;span class="p">;&lt;/span> QUERY: 1, ANSWER: 2, AUTHORITY: 2, ADDITIONAL: &lt;span class="m">1&lt;/span>
+&lt;span class="p">;;&lt;/span> WARNING: recursion requested but not available
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以看到返回中 &lt;code>status: NOERROR&lt;/code> 。&lt;/p>
+&lt;p>&lt;strong>v1.8.3&lt;/strong>&lt;/p>
+&lt;pre>&lt;code>➜ ~ ./coredns-v1.8 -conf Corefile -dns.port 9988
+&lt;/code>&lt;/pre>&lt;p>使用 dig 进行测试：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">➜ ~ dig @127.0.0.1 -p &lt;span class="m">9988&lt;/span> b.c.moelove.info
+&lt;span class="p">;&lt;/span> &amp;lt;&amp;lt;&amp;gt;&amp;gt; DiG 9.11.27-RedHat-9.11.27-1.fc32 &amp;lt;&amp;lt;&amp;gt;&amp;gt; @127.0.0.1 -p &lt;span class="m">9988&lt;/span> b.c.moelove.info
+&lt;span class="p">;&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="m">1&lt;/span> server found&lt;span class="o">)&lt;/span>
+&lt;span class="p">;;&lt;/span> global options: +cmd
+&lt;span class="p">;;&lt;/span> Got answer:
+&lt;span class="p">;;&lt;/span> -&amp;gt;&amp;gt;HEADER&lt;span class="s">&amp;lt;&amp;lt;- opco&lt;/span>de: QUERY, status: NXDOMAIN, id: &lt;span class="m">832&lt;/span>
+&lt;span class="p">;;&lt;/span> flags: qr aa rd&lt;span class="p">;&lt;/span> QUERY: 1, ANSWER: 2, AUTHORITY: 2, ADDITIONAL: &lt;span class="m">1&lt;/span>
+&lt;span class="p">;;&lt;/span> WARNING: recursion requested but not available
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以看到返回中是 &lt;code>status: NXDOMAIN&lt;/code> 。&lt;/p>
+&lt;p>这个修正对于我们判断 DNS 记录是否正确/工作是否正常，有很大的帮助。&lt;/p>
+&lt;p>更多关于 CoreDNS v1.8+ 版本的特性变更，请参考其 &lt;a href="https://coredns.io/2021/02/24/coredns-1.8.3-release/" title="CoreDNS ReleaseNote">ReleaseNote&lt;/a>&lt;/p>
+&lt;h2 id="上游进展">上游进展&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/99561">#99561&lt;/a> 正式移除了 Bazel 构建系统！这是一个非常大的变更，涉及到的内容很广，但没什么太需要介绍的，这一天终于来啦，轻松了很多！&lt;/li>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/99158">#99158&lt;/a> 支持为 Pod 设置 Sysctls 的特性现在已经 GA， 这是一个从 K8S v1.4 版本开始的功能，到 v1.11 的时候进入 Beta，如今正式 GA，并将在 v1.21 中公布，且会默认启用此特性；&lt;/li>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/97099">#97099&lt;/a> &lt;strong>用户可以通过 &lt;code>kubectl.kubernetes.io/default-container&lt;/code> 声明 kubectl exec 时的默认容器了&lt;/strong>，这个功能类似于 &lt;code>kubectl.kubernetes.io/default-logs-container&lt;/code> 的声明，我们可以将主体容器作为默认容器，这样 exec 或者 logs 的时候，就不需要再去指定容器名称了，非常实用！ 当然，&lt;code>kubectl cp&lt;/code> 也会遵循此行为。&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">K8S 生态周报| Helm v3.5 正式发布，带来完备的 OCI 支持</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/02/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.5-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E5%AE%8C%E5%A4%87%E7%9A%84-OCI-%E6%94%AF%E6%8C%81/"/><id>https://moelove.info/2021/02/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.5-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E5%AE%8C%E5%A4%87%E7%9A%84-OCI-%E6%94%AF%E6%8C%81/</id><updated>2021-02-22T11:21:34+08:00</updated><published>2021-02-21T22:25:43+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 KIND v0.10 正式发布 KIND （K……</summary><content type="html">&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;h2 id="kind-v010-正式发布">KIND v0.10 正式发布&lt;/h2>
