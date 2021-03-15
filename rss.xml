@@ -1,4 +1,549 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.69.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sun, 07 Mar 2021 12:06:22 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Docker v20.10.5 发布，修复 Bug 及提升稳定性</title><link>https://moelove.info/2021/02/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v20.10.5-%E5%8F%91%E5%B8%83%E4%BF%AE%E5%A4%8D-Bug-%E5%8F%8A%E6%8F%90%E5%8D%87%E7%A8%B3%E5%AE%9A%E6%80%A7/</link><guid isPermaLink="true">https://moelove.info/2021/02/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v20.10.5-%E5%8F%91%E5%B8%83%E4%BF%AE%E5%A4%8D-Bug-%E5%8F%8A%E6%8F%90%E5%8D%87%E7%A8%B3%E5%AE%9A%E6%80%A7/</guid><pubDate>Sun, 28 Feb 2021 22:10:50 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.69.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 15 Mar 2021 10:19:55 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>万字长文：彻底搞懂容器镜像构建</title><link>https://moelove.info/2021/03/14/%E4%B8%87%E5%AD%97%E9%95%BF%E6%96%87%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/</link><guid isPermaLink="true">https://moelove.info/2021/03/14/%E4%B8%87%E5%AD%97%E9%95%BF%E6%96%87%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/</guid><pubDate>Sun, 14 Mar 2021 23:36:58 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>我将在这篇文章中深入 Docker 的源码，与你聊聊镜像构建的原理。&lt;/p>
+&lt;h2 id="docker-架构">Docker 架构&lt;/h2>
+&lt;p>这里我们先从宏观上对 &lt;code>Docker&lt;/code> 有个大概的认识，它整体上是个 C/S 架构；我们平时使用的 &lt;code>docker&lt;/code> 命令就是它的 CLI 客户端，而它的服务端是 &lt;code>dockerd&lt;/code> 在 Linux 系统中，通常我们是使用 &lt;code>systemd&lt;/code> 进行管理，所以我们可以使用 &lt;code>systemctl start docker&lt;/code> 来启动服务。（但是请注意，&lt;code>dockerd&lt;/code> 是否能运行与 &lt;code>systemd&lt;/code> 并无任何关系，你可以像平时执行一个普通的二进制程序一样，直接通过 &lt;code>dockerd&lt;/code> 来启动服务，注意需要 root 权限）&lt;/p>
+&lt;p>实际上也就是&lt;/p>
+&lt;p>&lt;img src="https://docs.docker.com/engine/images/engine-components-flow.png" alt="Docker 架构">&lt;/p>
+&lt;p>(图片来源：docker overview)&lt;/p>
+&lt;p>&lt;code>docker&lt;/code> CLI 与 &lt;code>dockerd&lt;/code> 的交互是通过 REST API 来完成的，当我们执行 &lt;code>docker version&lt;/code> 的时候过滤 API 可以看到如下输出：&lt;/p>
+&lt;pre>&lt;code>➜ ~ docker version |grep API
+API version: 1.41
+API version: 1.41 (minimum version 1.12)
+&lt;/code>&lt;/pre>&lt;p>上面一行是 &lt;code>docker&lt;/code> CLI 的 API 版本，下面则代表了 &lt;code>dockerd&lt;/code> 的 API 版本，它的后面还有个括号，是因为 Docker 具备了很良好的兼容性，这里表示它最小可兼容的 API 版本是 1.12 。&lt;/p>
+&lt;p>对于我们进行 C/S 架构的项目开发而言，一般都是 API 先行, 所以我们先来看下 API 的部分。&lt;/p>
+&lt;p>当然，本文的主体是构建系统相关的，所以我们就直接来看构建相关的 API 即可。&lt;/p>
+&lt;p>接下来会说 CLI，代码以 v20.10.5 为准。最后说服务端 Dockerd 。&lt;/p>
+&lt;h2 id="api">API&lt;/h2>
+&lt;p>Docker 维护团队在每个版本正式发布之后，都会将 API 文档发布出来，可以通过 &lt;a href="https://docs.docker.com/engine/api/v1.41/">Docker Engine API 在线浏览&lt;/a>，也可以自行构建 API 文档。&lt;/p>
+&lt;p>首先 clone Docker 的源代码仓库, 进入项目仓库内执行 &lt;code>make swagger-docs&lt;/code> 即可在启动一个容器同时将端口暴露至本地的 &lt;code>9000&lt;/code> 端口， 你可以直接通过 &lt;a href="http://127.0.0.1:9000">http://127.0.0.1:9000&lt;/a> 访问本地的 API 文档。&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ git clone https://github.com/docker/docker.git docker
+(MoeLove) ➜ cd docker
+(MoeLove) ➜ docker git:(master) git checkout -b v20.10.5 v20.10.5
+(MoeLove) ➜ docker git:(v20.10.5) make swagger-docs
+API docs preview will be running at http://localhost:9000
+&lt;/code>&lt;/pre>&lt;p>打开 &lt;a href="http://127.0.0.1:9000/#operation/ImageBuild">http://127.0.0.1:9000/#operation/ImageBuild&lt;/a> 这个地址就可以看到 1.41 版本的构建镜像所需的 API 了。我们对此 API 进行下分析。&lt;/p>
+&lt;h3 id="请求地址和方法">请求地址和方法&lt;/h3>
+&lt;p>接口地址是 &lt;code>/v1.41/build&lt;/code> 方法是 &lt;code>POST&lt;/code> ，我们可以使用一个较新版本的 &lt;code>curl&lt;/code> 工具来验证下此接口（需要使用 &lt;code>--unix-socket&lt;/code> 连接 Docker 监听的 UNIX Domain Socket ）。&lt;code>dockerd&lt;/code> 默认情况下监听在 &lt;code>/var/run/docker.sock&lt;/code> ，当然你也可以给 &lt;code>dockerd&lt;/code> 传递 &lt;code>--host&lt;/code> 参数用于监听 HTTP 端口或者其他路径的 unix socket .&lt;/p>
+&lt;pre>&lt;code>/ # curl -X POST --unix-socket /var/run/docker.sock localhost/v1.41/build
+{&amp;quot;message&amp;quot;:&amp;quot;Cannot locate specified Dockerfile: Dockerfile&amp;quot;}
+&lt;/code>&lt;/pre>&lt;p>从上面的输出我们可以看到，我们确实访问到了该接口，同时该接口的响应是提示需要 &lt;code>Dockerfile&lt;/code> .&lt;/p>
+&lt;h3 id="请求体">请求体&lt;/h3>
+&lt;blockquote>
+&lt;p>A tar archive compressed with one of the following algorithms: identity (no compression), gzip, bzip2, xz.
+string &lt;binary>&lt;/p>
+&lt;/blockquote>
+&lt;p>请求体是一个 &lt;code>tar&lt;/code> 归档文件，可选择无压缩、&lt;code>gzip&lt;/code>、&lt;code>bzip2&lt;/code>、&lt;code>xz&lt;/code> 压缩等形式。关于这几种压缩格式就不再展开介绍了，但值得注意的是 &lt;strong>如果使用了压缩，则传输体积会变小，即网络消耗会相应减少。但压缩/解压缩需要耗费 CPU 等计算资源&lt;/strong> 这在我们对大规模镜像构建做优化时是个值得权衡的点。&lt;/p>
+&lt;h3 id="请求头">请求头&lt;/h3>
+&lt;p>因为要发送的是个 &lt;code>tar&lt;/code> 归档文件，&lt;code>Content-type&lt;/code> 默认是 &lt;code>application/x-tar&lt;/code> 。另一个会发送的头是 &lt;code>X-Registry-Config&lt;/code>，这是一个由 Base64 编码后的 Docker Registry 的配置信息，内容与 &lt;code>$HOME/.docker/config.json&lt;/code> 中的 &lt;code>auths&lt;/code> 内的信息一致。&lt;/p>
+&lt;p>这些配置信息，在你执行 &lt;code>docker login&lt;/code> 后会自动写入到 &lt;code>$HOME/.docker/config.json&lt;/code> 文件内的。这些信息被传输到 &lt;code>dockerd&lt;/code> 在构建过程中作为拉取镜像的认证信息使用。&lt;/p>
+&lt;h3 id="请求参数">请求参数&lt;/h3>
+&lt;p>最后就是请求参数了，参数有很多，通过 &lt;code>docker build --help&lt;/code> 基本都可以看到对应含义的，这里不再一一展开了，后面会有一些关键参数的介绍。&lt;/p>
+&lt;h3 id="小结">小结&lt;/h3>
+&lt;p>上面我们介绍了 &lt;code>Docker&lt;/code> 构建镜像相关的 API，我们可以直接访问&lt;a href="https://docs.docker.com/engine/api/v1.41/">Docker Engine 的 API 文档&lt;/a>。或者通过源码仓库，自己来构建一个本地的 API 文档服务，使用浏览器进行访问。&lt;/p>
+&lt;p>通过 API 我们也知道了该接口所需的请求体是一个 &lt;code>tar&lt;/code> 归档文件（可选择压缩算法进行压缩），同时它的请求头中会携带用户在镜像仓库中的认证信息。这提醒我们， &lt;strong>如果在使用远程 &lt;code>Dockerd&lt;/code> 构建时，请注意安全，尽量使用 &lt;code>tls&lt;/code> 进行加密，以免数据泄漏。&lt;/strong>&lt;/p>
+&lt;h2 id="cli">CLI&lt;/h2>
+&lt;p>API 已经介绍完了，我们来看下 &lt;code>docker&lt;/code> CLI，我以前的文章中介绍过现在 Docker 中有两个构建系统，一个是 v1 版本的 &lt;code>builder&lt;/code> 另一个是 v2 版本的即 &lt;code>BuildKit&lt;/code> 我们来分别深入源码来看看在构建镜像时，他们各自的行为吧。&lt;/p>
+&lt;h3 id="准备代码">准备代码&lt;/h3>
+&lt;p>CLI 的代码仓库在 &lt;a href="https://github.com/docker/cli">https://github.com/docker/cli&lt;/a> 本文的代码以 &lt;code>v20.10.5&lt;/code> 为准。&lt;/p>
+&lt;p>通过以下步骤使用此版本的代码：&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ git clone https://github.com/docker/cli.git
+(MoeLove) ➜ cd cli
+(MoeLove) ➜ cli git:(master) git checkout -b v20.10.5 v20.10.5
+&lt;/code>&lt;/pre>&lt;h3 id="逐步分解">逐步分解&lt;/h3>
+&lt;p>&lt;code>docker&lt;/code> 是我们所使用的客户端工具，用于与 &lt;code>dockerd&lt;/code> 进行交互。关于构建相关的部分， 我们所熟知的便是 &lt;code>docker build&lt;/code> 或者是 &lt;code>docker image build&lt;/code>，在 19.03 中新增的是 &lt;code>docker builder build&lt;/code> ，但其实他们都是同一个只是做了个 alias 罢了：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="c1">// cmd/docker/docker.go#L237
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="nx">v&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">ok&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">aliasMap&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s">&amp;#34;builder&amp;#34;&lt;/span>&lt;span class="p">];&lt;/span> &lt;span class="nx">ok&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">aliases&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">aliases&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">[&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">][]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{{&lt;/span>&lt;span class="s">&amp;#34;build&amp;#34;&lt;/span>&lt;span class="p">},&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">v&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;build&amp;#34;&lt;/span>&lt;span class="p">}},&lt;/span>
+&lt;span class="p">[&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">][]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{{&lt;/span>&lt;span class="s">&amp;#34;image&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;build&amp;#34;&lt;/span>&lt;span class="p">},&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">v&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;build&amp;#34;&lt;/span>&lt;span class="p">}},&lt;/span>
+&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>真正的入口函数其实在 &lt;code>cli/command/image/build.go&lt;/code>；区分如何调用的逻辑如下：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="nf">runBuild&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">dockerCli&lt;/span> &lt;span class="nx">command&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Cli&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">options&lt;/span> &lt;span class="nx">buildOptions&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="kt">error&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">buildkitEnabled&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">command&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">BuildKitEnabled&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">dockerCli&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ServerInfo&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">buildkitEnabled&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nf">runBuildBuildKit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">dockerCli&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">options&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="c1">// 省略掉了对于 builder 的实际逻辑
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这里就是判断下是否支持 &lt;code>buildkit&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="c1">// cli/command/cli.go#L176
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kd">func&lt;/span> &lt;span class="nf">BuildKitEnabled&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">si&lt;/span> &lt;span class="nx">ServerInfo&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kt">bool&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">error&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">buildkitEnabled&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">si&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">BuildkitVersion&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="nx">types&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">BuilderBuildKit&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">buildkitEnv&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">os&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Getenv&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;DOCKER_BUILDKIT&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="nx">buildkitEnv&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="s">&amp;#34;&amp;#34;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kd">var&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="kt">error&lt;/span>
+&lt;span class="nx">buildkitEnabled&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">strconv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ParseBool&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">buildkitEnv&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">errors&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Wrap&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;DOCKER_BUILDKIT environment variable expects boolean value&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">buildkitEnabled&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>当然，从这里可以得到两个信息：&lt;/p>
+&lt;ul>
+&lt;li>通过 &lt;code>dockerd&lt;/code> 的配置可开启 &lt;code>buildkit&lt;/code> 。在 &lt;code>/etc/docker/daemon.json&lt;/code> 中添加如下内容，并重启 &lt;code>dockerd&lt;/code> 即可：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;features&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;buildkit&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>在 &lt;code>docker&lt;/code> CLI 上也可开启 &lt;code>buildkit&lt;/code> 的支持，并且 CLI 的配置可覆盖服务端配置。通过 &lt;code>export DOCKER_BUILDKIT=1&lt;/code> 即可开启 &lt;code>buildkit&lt;/code> 的支持，设置为 0 则关闭（0/false/f/F 之类的也都是相同的结果）&lt;/li>
+&lt;/ul>
+&lt;p>从上面的介绍也看到了，对于原本默认的 builder 而言， 入口逻辑在 &lt;code>runBuild&lt;/code> 中， 而对于使用 buildkit 的则是 &lt;code>runBuildBuildKit&lt;/code> 接下来，我们对两者进行逐步分解。&lt;/p>
+&lt;h3 id="builder-v1">builder v1&lt;/h3>
+&lt;p>在 &lt;code>runBuild&lt;/code> 函数中，大致经历了以下阶段：&lt;/p>
+&lt;h4 id="参数处理">参数处理&lt;/h4>
+&lt;p>最开始的部分是一些对参数的处理和校验。&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>&lt;code>stream&lt;/code> 和 &lt;code>compress&lt;/code> 不可同时使用。&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>因为如果我们指定了 &lt;code>compress&lt;/code> 的话，则 CLI 会使用 &lt;code>gzip&lt;/code> 将构建上下文进行压缩，这样也就没法很好的通过 &lt;code>stream&lt;/code> 的模式来处理构建的上下文了。&lt;/p>
+&lt;p>当然你也可能会想，从技术上来讲，压缩和流式没有什么必然的冲突，是可实现的。事实的确如此，如果从技术的角度上来讲两者并非完全不能一起存在，无非就是增加解压缩的动作。但是当开启 &lt;code>stream&lt;/code> 模式，对每个文件都进行压缩和解压的操作那将会是很大的资源浪费，同时也增加了其复杂度，所以在 CLI 中便直接进行了限制，不允许同时使用 &lt;code>compress&lt;/code> 和 &lt;code>stream&lt;/code>&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>不可同时使用 &lt;code>stdin&lt;/code> 读取 &lt;code>Dockerfile&lt;/code> 和 &lt;code>build context&lt;/code>。&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>在进行构建时，如果我们将 &lt;code>Dockerfile&lt;/code> 的名字传递为 &lt;code>-&lt;/code> 时，表示从 &lt;code>stdin&lt;/code> 读取其内容。&lt;/p>
+&lt;p>例如，某个目录下有三个文件 &lt;code>foo&lt;/code> &lt;code>bar&lt;/code> 和 &lt;code>Dockerfile&lt;/code>，通过管道将 &lt;code>Dockerfile&lt;/code> 的内容通过 &lt;code>stdin&lt;/code> 传递给 &lt;code>docker build&lt;/code>&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ x ls
+bar Dockerfile foo
+(MoeLove) ➜ x cat Dockerfile | DOCKER_BUILDKIT=0 docker build -f - .
+Sending build context to Docker daemon 15.41kB
+Step 1/3 : FROM scratch
+---&amp;gt;
+Step 2/3 : COPY foo foo
+---&amp;gt; a2af45d66bb5
+Step 3/3 : COPY bar bar
+---&amp;gt; cc803c675dd2
+Successfully built cc803c675dd2
+&lt;/code>&lt;/pre>&lt;p>可以看到通过 &lt;code>stdin&lt;/code> 传递 &lt;code>Dockerfile&lt;/code> 的方式能成功的构建镜像。接下来我们尝试通过 &lt;code>stdin&lt;/code> 将 &lt;code>build context&lt;/code> 传递进去。&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ x tar -cvf x.tar foo bar Dockerfile
+foo
+bar
+Dockerfile
+(MoeLove) ➜ x cat x.tar| DOCKER_BUILDKIT=0 docker build -f Dockerfile -
+Sending build context to Docker daemon 10.24kB
+Step 1/3 : FROM scratch
+---&amp;gt;
+Step 2/3 : COPY foo foo
+---&amp;gt; 09319712e220
+Step 3/3 : COPY bar bar
+---&amp;gt; ce88644a7395
+Successfully built ce88644a7395
+&lt;/code>&lt;/pre>&lt;p>可以看到通过 &lt;code>stdin&lt;/code> 传递 &lt;code>build context&lt;/code> 的方式也可以成功构建镜像。&lt;/p>
+&lt;p>但如果 &lt;code>Dockerfile&lt;/code> 的名称与构建的上下文都指定为 &lt;code>-&lt;/code> 即 &lt;code>docker build -f - -&lt;/code> 时，会发生什么呢？&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ x DOCKER_BUILDKIT=0 docker build -f - -
+invalid argument: can't use stdin for both build context and dockerfile
+&lt;/code>&lt;/pre>&lt;p>就会报错了。所以， &lt;strong>不能同时使用 &lt;code>stdin&lt;/code> 读取 &lt;code>Dockerfile&lt;/code> 和 &lt;code>build context&lt;/code>&lt;/strong> 。&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>&lt;code>build context&lt;/code> 支持四种行为。&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="k">switch&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">case&lt;/span> &lt;span class="nx">options&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">contextFromStdin&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="c1">// 省略
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">case&lt;/span> &lt;span class="nf">isLocalDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">specifiedContext&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="c1">// 省略
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">case&lt;/span> &lt;span class="nx">urlutil&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">IsGitURL&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">specifiedContext&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="c1">// 省略
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">case&lt;/span> &lt;span class="nx">urlutil&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">IsURL&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">specifiedContext&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="c1">// 省略
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">default&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">errors&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Errorf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;unable to prepare context: path %q not found&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">specifiedContext&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>从 &lt;code>stdin&lt;/code> 传入，上文已经演示过了，传递给 &lt;code>stdin&lt;/code> 的是 &lt;code>tar&lt;/code> 归档文件。当然也可以是指定一个具体的 &lt;code>PATH&lt;/code>，我们通常使用的 &lt;code>docker build .&lt;/code> 便是这种用法；&lt;/p>
+&lt;p>或者可以指定一个 &lt;code>git&lt;/code> 仓库的地址，CLI 会调用 &lt;code>git&lt;/code> 命令将仓库 &lt;code>clone&lt;/code> 至一个临时目录，进行使用；&lt;/p>
+&lt;p>最后一种是，给定一个 &lt;code>URL&lt;/code> 地址，该地址可以是 &lt;strong>一个具体的 Dockerfile 文件地址&lt;/strong> 或者是 &lt;strong>一个 &lt;code>tar&lt;/code> 归档文件的下载地址&lt;/strong> 。&lt;/p>
+&lt;p>这几种基本就是字面上的区别，至于 CLI 的行为差异，主要是最后一种，当 &lt;code>URL&lt;/code> 地址是一个具体的 &lt;code>Dockerfile&lt;/code> 文件地址，在这种情况下 &lt;code>build context&lt;/code> 相当于只有 &lt;code>Dockerfile&lt;/code> 自身，所以并不能使用 &lt;code>COPY&lt;/code> 之类的指定，至于 &lt;code>ADD&lt;/code> 也只能使用可访问的外部地址。&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>可使用 &lt;code>.dockerignore&lt;/code> 忽略不需要的文件&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>我在之前的文章中有分享过相关的内容。这里我们看看它的实现逻辑。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="c1">// cli/command/image/build/dockerignore.go#L13
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kd">func&lt;/span> &lt;span class="nf">ReadDockerignore&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">contextDir&lt;/span> &lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">([]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">error&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kd">var&lt;/span> &lt;span class="nx">excludes&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>
+&lt;span class="nx">f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">os&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">filepath&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">contextDir&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;.dockerignore&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="k">switch&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">case&lt;/span> &lt;span class="nx">os&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">IsNotExist&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">excludes&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;span class="k">case&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">defer&lt;/span> &lt;span class="nx">f&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Close&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">dockerignore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ReadAll&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">f&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;code>.dockerignore&lt;/code> 是一个固定的文件名，并且需要放在 &lt;code>build context&lt;/code> 的根目录下。类似前面提到的，使用一个 &lt;code>Dockerfile&lt;/code> 文件的 URL 地址作为 &lt;code>build context&lt;/code> 传入的方式，便无法使用 &lt;code>.dockerignore&lt;/code> 。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>.dockerignore&lt;/code> 文件可以不存在，但在读取的时候如果遇到错误，便会抛出错误。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>通过 &lt;code>.dockerignore&lt;/code> 将会过滤掉不希望加入到镜像内，或者过滤掉与镜像无关的内容。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>最后 CLI 会将 &lt;code>build context&lt;/code> 中的内容经过 &lt;code>.dockerignore&lt;/code> 过滤后，打包成为真正的 &lt;code>build context&lt;/code> 即真正的构建上下文。这也是为什么有时候你发现自己明明在 &lt;code>Dockerfile&lt;/code> 里面写了 &lt;code>COPY xx xx&lt;/code> 但是最后没有发现该文件的情况。 很可能就是被 &lt;code>.dockerignore&lt;/code> 给忽略掉了。 &lt;strong>这样有利于优化 CLI 与 &lt;code>dockerd&lt;/code> 之间的传输压力之类的。&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>docker&lt;/code> CLI 还会去读取 &lt;code>~/.docker/config.json&lt;/code> 中的内容。&lt;/li>
+&lt;/ul>
+&lt;p>这与前面 API 部分所描述的内容基本是一致的。将认证信息通过 &lt;code>X-Registry-Config&lt;/code> 头传递给 &lt;code>dockerd&lt;/code> 用于在需要拉取镜像时进行身份校验。&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>调用 API 进行实际构建任务&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>当一切所需的校验和信息都准备就绪之后，则开始调用 &lt;code>dockerCli.Client&lt;/code> 封装的 API 接口，将请求发送至 &lt;code>dockerd&lt;/code>，进行实际的构建任务。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="nx">response&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">dockerCli&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Client&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nf">ImageBuild&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">body&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">buildOptions&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">options&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">quiet&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Fprintf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">dockerCli&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Err&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="s">&amp;#34;%s&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">progBuff&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nf">cancel&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">defer&lt;/span> &lt;span class="nx">response&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Body&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Close&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>到这里其实一次构建的过程中 CLI 所处理的流程就基本结束了，之后便是按照传递的参数进行进度的输出或是将镜像 ID 写入到文件之类的。 这部分就不进行展开了。&lt;/p>
+&lt;h4 id="小结-1">小结&lt;/h4>
+&lt;p>整个过程大致如下图：&lt;/p>
+&lt;p>&lt;img src="https://images.gitbook.cn/6a69dde0-933a-11e9-8825-e7da71af5ddb" alt="docker builder 处理流程">&lt;/p>
+&lt;p>从入口函数 &lt;code>runBuild&lt;/code> 开始，经过判断是否支持 &lt;code>buildkit&lt;/code> ，如果不支持 &lt;code>buildkit&lt;/code> 则继续使用 v1 的 &lt;code>builder&lt;/code>。接下来读取各类参数，按照不同的参数执行各类不同的处理逻辑。这里需要注意的就是 &lt;code>Dockerfile&lt;/code> 及 &lt;code>build context&lt;/code> 都可支持从文件或者 &lt;code>stdin&lt;/code> 等读入，具体使用时，需要注意。另外 &lt;code>.dockerignore&lt;/code> 文件可过滤掉 &lt;code>build context&lt;/code> 中的一些文件，在使用时，可通过此方法进行构建效率的优化，当然也需要注意，在通过 URL 获取 &lt;code>Dockerfile&lt;/code> 的时候，是不存在 &lt;code>build context&lt;/code> 的，所以类似 &lt;code>COPY&lt;/code> 这样的命令也就无法使用了。当所有的 &lt;code>build context&lt;/code> 和参数都准备就绪后，接下来调用封装好的客户端，将这些请求按照本文开始之初介绍的 API 发送给 &lt;code>dockerd&lt;/code> ，由其进行真正的构建逻辑。&lt;/p>
+&lt;p>最后当构建结束后，CLI 根据参数决定是否要显示构建进度或者结果。&lt;/p>
+&lt;h3 id="buildkit">buildkit&lt;/h3>
+&lt;p>接下来我们来看看 &lt;code>buildkit&lt;/code> 如何来执行构建，方法入口与 &lt;code>builder&lt;/code> 一致，但是在 &lt;code>buildkitEnabled&lt;/code> 处，由于开启了 &lt;code>buildkit&lt;/code> 支持，所以跳转到了 &lt;code>runBuildBuildKit&lt;/code>。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="nf">runBuild&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">dockerCli&lt;/span> &lt;span class="nx">command&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Cli&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">options&lt;/span> &lt;span class="nx">buildOptions&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="kt">error&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">buildkitEnabled&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">command&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">BuildKitEnabled&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">dockerCli&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ServerInfo&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">buildkitEnabled&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nf">runBuildBuildKit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">dockerCli&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">options&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="c1">// 省略掉了对于 builder 的实际逻辑
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="创建会话">创建会话&lt;/h4>
+&lt;p>但是与 &lt;code>builder&lt;/code> 不同的是，这里先执行了一次 &lt;code>trySession&lt;/code> 函数。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="c1">// cli/command/image/build_buildkit.go#L50
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="nx">s&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nf">trySession&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">dockerCli&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">options&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">context&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">s&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">errors&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Errorf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;buildkit not supported by daemon&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这个函数是用来做什么的呢？我们来找到该函数所在的文件 &lt;code>cli/command/image/build_session.go&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="c1">// cli/command/image/build_session.go#L29
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kd">func&lt;/span> &lt;span class="nf">trySession&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">dockerCli&lt;/span> &lt;span class="nx">command&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Cli&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">contextDir&lt;/span> &lt;span class="kt">string&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">forStream&lt;/span> &lt;span class="kt">bool&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="nx">session&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Session&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">error&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="p">!&lt;/span>&lt;span class="nf">isSessionSupported&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">dockerCli&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">forStream&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">sharedKey&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nf">getBuildSharedKey&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">contextDir&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">s&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">session&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewSession&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">context&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Background&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="nx">filepath&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Base&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">contextDir&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="nx">sharedKey&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">errors&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Wrap&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;failed to create session&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">s&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>当然还包括它其中最主要的 &lt;code>isSessionSupported&lt;/code> 函数：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="c1">// cli/command/image/build_session.go#L22
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kd">func&lt;/span> &lt;span class="nf">isSessionSupported&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">dockerCli&lt;/span> &lt;span class="nx">command&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Cli&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">forStream&lt;/span> &lt;span class="kt">bool&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="p">!&lt;/span>&lt;span class="nx">forStream&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">versions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">GreaterThanOrEqualTo&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">dockerCli&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Client&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nf">ClientVersion&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="s">&amp;#34;1.39&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">true&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">dockerCli&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ServerInfo&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nx">HasExperimental&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">versions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">GreaterThanOrEqualTo&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">dockerCli&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Client&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nf">ClientVersion&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="s">&amp;#34;1.31&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>isSessionSupported&lt;/code> 很明显是用于判断是否支持 &lt;code>Session&lt;/code>，这里由于我们会传入 &lt;code>forStream&lt;/code> 为 &lt;code>false&lt;/code> ，而且当前的 API 版本是 1.41 比 1.39 大，所以此函数会返回 &lt;code>true&lt;/code> 。其实在 &lt;code>builder&lt;/code> 中也执行过相同的逻辑，只不过是在传递了 &lt;code>--stream&lt;/code> 参数后，使用 &lt;code>Session&lt;/code> 获取一个长连接以达到 &lt;code>stream&lt;/code> 的处理能力。&lt;/p>
+&lt;p>这也就是为什么会有下面 &lt;code>dockerCli.ServerInfo().HasExperimental &amp;amp;&amp;amp; versions.GreaterThanOrEqualTo(dockerCli.Client().ClientVersion(), &amp;quot;1.31&amp;quot;)&lt;/code> 这个判断存在的原因了。&lt;/p>
+&lt;p>当确认支持 &lt;code>Session&lt;/code> 时，则会调用 &lt;code>session.NewSession&lt;/code> 创建一个新的会话。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="c1">// github.com/moby/buildkit/session/session.go#L47
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kd">func&lt;/span> &lt;span class="nf">NewSession&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span> &lt;span class="nx">context&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Context&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">sharedKey&lt;/span> &lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="nx">Session&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">error&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">id&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">identity&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewID&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="kd">var&lt;/span> &lt;span class="nx">unary&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="nx">grpc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">UnaryServerInterceptor&lt;/span>
+&lt;span class="kd">var&lt;/span> &lt;span class="nx">stream&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="nx">grpc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">StreamServerInterceptor&lt;/span>
+&lt;span class="nx">serverOpts&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="nx">grpc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ServerOption&lt;/span>&lt;span class="p">{}&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">span&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">opentracing&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">SpanFromContext&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="nx">span&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">tracer&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">span&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Tracer&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="nx">unary&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">unary&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">otgrpc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">OpenTracingServerInterceptor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">tracer&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nf">traceFilter&lt;/span>&lt;span class="p">()))&lt;/span>
+&lt;span class="nx">stream&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">stream&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">otgrpc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">OpenTracingStreamServerInterceptor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">span&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Tracer&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="nf">traceFilter&lt;/span>&lt;span class="p">()))&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">unary&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">unary&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">grpcerrors&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">UnaryServerInterceptor&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">stream&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">stream&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">grpcerrors&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">StreamServerInterceptor&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">unary&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">serverOpts&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">serverOpts&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">grpc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">UnaryInterceptor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">unary&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]))&lt;/span>
+&lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">unary&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">&amp;gt;&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">serverOpts&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">serverOpts&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">grpc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">UnaryInterceptor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">grpc_middleware&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ChainUnaryServer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">unary&lt;/span>&lt;span class="o">...&lt;/span>&lt;span class="p">)))&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">stream&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">serverOpts&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">serverOpts&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">grpc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">StreamInterceptor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">stream&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]))&lt;/span>
+&lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">stream&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">&amp;gt;&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">serverOpts&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">serverOpts&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">grpc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">StreamInterceptor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">grpc_middleware&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ChainStreamServer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">stream&lt;/span>&lt;span class="o">...&lt;/span>&lt;span class="p">)))&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">s&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">Session&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">id&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">id&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">name&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">sharedKey&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">sharedKey&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">grpcServer&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">grpc&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewServer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">serverOpts&lt;/span>&lt;span class="o">...&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">grpc_health_v1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">RegisterHealthServer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">s&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">grpcServer&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">health&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewServer&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">s&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>它创建了一个长连接会话，接下来的操作也都会基于这个会话来做。接下来的操作与 &lt;code>builder&lt;/code> 大体一致，先判断 &lt;code>context&lt;/code> 是以哪种形式提供的；当然它也与 &lt;code>builder&lt;/code> 一样，是不允许同时从 &lt;code>stdin&lt;/code> 获取 &lt;code>Dockerfile&lt;/code> 和 &lt;code>build context&lt;/code> 。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="k">switch&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">case&lt;/span> &lt;span class="nx">options&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">contextFromStdin&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;span class="c1">// 省略处理逻辑
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">case&lt;/span> &lt;span class="nf">isLocalDir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">options&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">context&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="c1">// 省略处理逻辑
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">case&lt;/span> &lt;span class="nx">urlutil&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">IsGitURL&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">options&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">context&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="c1">// 省略处理逻辑
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">case&lt;/span> &lt;span class="nx">urlutil&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">IsURL&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">options&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">context&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;span class="c1">// 省略处理逻辑
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="k">default&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">errors&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Errorf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;unable to prepare context: path %q not found&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">options&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">context&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这里的处理逻辑与 v1 &lt;code>builder&lt;/code> 保持一致的原因，主要在于用户体验上，当前的 CLI 的功能已经基本稳定，用户也已经习惯，所以即使是增加了 &lt;code>BuildKit&lt;/code> 也并没有对主体的操作逻辑造成多大改变。&lt;/p>
+&lt;h4 id="选择输出模式">选择输出模式&lt;/h4>
+&lt;p>&lt;code>BuildKit&lt;/code> 支持了三种不同的输出模式 &lt;code>local&lt;/code> &lt;code>tar&lt;/code> 和正常模式（即存储在 &lt;code>dockerd&lt;/code> 中）， 格式为 &lt;code>-o type=local,dest=path&lt;/code> 如果需要将构建的镜像进行分发，或是需要进行镜像内文件浏览的话，使用这个方式也是很方便的。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="nx">outputs&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nf">parseOutputs&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">options&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">outputs&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">errors&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Wrapf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;failed to parse outputs&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">for&lt;/span> &lt;span class="nx">_&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">out&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="k">range&lt;/span> &lt;span class="nx">outputs&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">switch&lt;/span> &lt;span class="nx">out&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Type&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">case&lt;/span> &lt;span class="s">&amp;#34;local&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="c1">// 省略
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">case&lt;/span> &lt;span class="s">&amp;#34;tar&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;span class="c1">// 省略
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>其实它支持的模式还有第 4 种， 名为 &lt;code>cacheonly&lt;/code> 但它并不会像前面提到的三种模式一样，有个很直观的输出，而且用的人可能会很少，所以就没有单独写了。&lt;/strong>&lt;/p>
+&lt;h4 id="读取认证信息">读取认证信息&lt;/h4>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="nx">dockerAuthProvider&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">authprovider&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewDockerAuthProvider&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">os&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Stderr&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">s&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Allow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">dockerAuthProvider&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这里的行为与上面提到的 &lt;code>builder&lt;/code> 的行为基本一致，这里主要有两个需要注意的点：&lt;/p>
+&lt;ul>
+&lt;li>Allow() 函数&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">s&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Session&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">Allow&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span> &lt;span class="nx">Attachable&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">a&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Register&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">s&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">grpcServer&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这个 &lt;code>Allow&lt;/code> 函数就是允许通过上面提到的 grpc 会话访问给定的服务。&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>authprovider&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;code>authprovider&lt;/code> 是 &lt;code>BuildKit&lt;/code> 提供的一组抽象接口集合，通过它们可以访问到机器上的配置文件，进而拿到认证信息，行为与 &lt;code>builder&lt;/code> 基本一致。&lt;/p>
+&lt;h4 id="高阶特性mount-secrets-和-ssh">高阶特性：mount &lt;code>secrets&lt;/code> 和 &lt;code>ssh&lt;/code>&lt;/h4>
+&lt;p>我其他的文章讲过这两种高阶特性的使用了，本篇中就不再多使用进行过多说明了，只来大体看下该部分的原理和逻辑。&lt;/p>
+&lt;p>&lt;code>secretsprovider&lt;/code> 和 &lt;code>sshprovider&lt;/code> 都是 &lt;code>buildkit&lt;/code> 在提供的，利用这两种特性可以在 Docker 镜像进行构建时更加安全，且更加灵活。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="nf">parseSecretSpecs&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">sl&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">session&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Attachable&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">error&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">fs&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nb">make&lt;/span>&lt;span class="p">([]&lt;/span>&lt;span class="nx">secretsprovider&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Source&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">sl&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="k">for&lt;/span> &lt;span class="nx">_&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">v&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="k">range&lt;/span> &lt;span class="nx">sl&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">s&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nf">parseSecret&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">v&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">fs&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">fs&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">s&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">store&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">secretsprovider&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewStore&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">fs&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">secretsprovider&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewSecretProvider&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">store&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>关于 &lt;code>secrets&lt;/code> 方面，最终的 &lt;code>parseSecret&lt;/code> 会完成格式相关的校验之类的；&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="nf">parseSSHSpecs&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">sl&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">session&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Attachable&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">error&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">configs&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nb">make&lt;/span>&lt;span class="p">([]&lt;/span>&lt;span class="nx">sshprovider&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">AgentConfig&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">sl&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="k">for&lt;/span> &lt;span class="nx">_&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">v&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="k">range&lt;/span> &lt;span class="nx">sl&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">c&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nf">parseSSH&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">v&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">configs&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">configs&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">c&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">sshprovider&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewSSHAgentProvider&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">configs&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>而关于 &lt;code>ssh&lt;/code> 方面，则与上方的 &lt;code>secrets&lt;/code> 基本一致，通过 &lt;code>sshprovider&lt;/code> 允许进行 ssh 转发之类的，这里不再深入展开了。&lt;/p>
+&lt;h4 id="调用-api-发送构建请求">调用 API 发送构建请求&lt;/h4>
+&lt;p>这里主要有两种情况。&lt;/p>
+&lt;ul>
+&lt;li>当 &lt;code>build context&lt;/code> 是从 &lt;code>stdin&lt;/code> 读，并且是一个 &lt;code>tar&lt;/code> 文件时&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="nx">buildID&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">stringid&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">GenerateRandomID&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">body&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">eg&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Go&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">func&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="kt">error&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">buildOptions&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">types&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ImageBuildOptions&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">Version&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">types&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">BuilderBuildKit&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">BuildID&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">uploadRequestRemote&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s">&amp;#34;:&amp;#34;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">buildID&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">response&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">dockerCli&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Client&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nf">ImageBuild&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">context&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Background&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="nx">body&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">buildOptions&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">defer&lt;/span> &lt;span class="nx">response&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Body&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Close&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;span class="p">})&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>它会执行上述这部分逻辑，但同时也要注意，这是使用的是 Golang 的 &lt;code>goroutine&lt;/code>，到这里也并不是结束，这部分代码之后的代码也同样会被执行。这就说到了另一种情况了(通常情况)。&lt;/p>
+&lt;ul>
+&lt;li>使用 &lt;code>doBuild&lt;/code> 完成逻辑&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="nx">eg&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Go&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">func&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="kt">error&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">defer&lt;/span> &lt;span class="kd">func&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">s&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Close&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="p">}()&lt;/span>
+&lt;span class="nx">buildOptions&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nf">imageBuildOptions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">dockerCli&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">options&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">buildOptions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Version&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">types&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">BuilderBuildKit&lt;/span>
+&lt;span class="nx">buildOptions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Dockerfile&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">dockerfileName&lt;/span>
+&lt;span class="nx">buildOptions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">RemoteContext&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">remote&lt;/span>
+&lt;span class="nx">buildOptions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">SessionID&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">s&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ID&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="nx">buildOptions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">BuildID&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">buildID&lt;/span>
+&lt;span class="nx">buildOptions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Outputs&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">outputs&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nf">doBuild&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">eg&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">dockerCli&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">stdoutUsed&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">options&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">buildOptions&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">})&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>那 &lt;code>doBuild&lt;/code> 会做些什么呢？它同样也调用了 API 向 &lt;code>dockerd&lt;/code> 发起了构建请求。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="nf">doBuild&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span> &lt;span class="nx">context&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Context&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">eg&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">errgroup&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Group&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">dockerCli&lt;/span> &lt;span class="nx">command&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Cli&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">stdoutUsed&lt;/span> &lt;span class="kt">bool&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">options&lt;/span> &lt;span class="nx">buildOptions&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">buildOptions&lt;/span> &lt;span class="nx">types&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ImageBuildOptions&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">at&lt;/span> &lt;span class="nx">session&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Attachable&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">finalErr&lt;/span> &lt;span class="kt">error&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">response&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">dockerCli&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Client&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nf">ImageBuild&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">context&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Background&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">buildOptions&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">defer&lt;/span> &lt;span class="nx">response&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Body&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Close&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="c1">// 省略
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>从以上的介绍我们可以先做个小的总结。 &lt;strong>当 &lt;code>build context&lt;/code> 从 &lt;code>stdin&lt;/code> 读，并且是个 &lt;code>tar&lt;/code> 归档时，实际会向 &lt;code>dockerd&lt;/code> 发起两次 &lt;code>/build&lt;/code> 请求&lt;/strong> 而一般情况下只会发送一次请求。&lt;/p>
+&lt;p>那这里会有什么差别呢？此处先不展开，我们留到下面讲 &lt;code>dockerd&lt;/code> 服务端的时候再来解释。&lt;/p>
+&lt;h4 id="小结-2">小结&lt;/h4>
+&lt;p>这里我们对开启了 &lt;code>buildkit&lt;/code> 支持的 CLI 构建镜像的过程进行了分析，大致过程如下：&lt;/p>
+&lt;p>从入口函数 &lt;code>runBuild&lt;/code> 开始，判断是否支持 &lt;code>buildkit&lt;/code> ，如果支持 &lt;code>buildkit&lt;/code> 则调用 &lt;code>runBuildBuildKit&lt;/code>。与 v1 的 &lt;code>builder&lt;/code> 不同的是，开启了 &lt;code>buildkit&lt;/code> 后，会首先创建一个长连接的会话，并一直保持。其次，与 &lt;code>builder&lt;/code> 相同，判断 &lt;code>build context&lt;/code> 的来源，格式之类的，校验参数等。当然，&lt;code>buildkit&lt;/code> 支持三种不同的输出格式 &lt;code>tar&lt;/code>, &lt;code>local&lt;/code> 或正常的存储于 Docker 的目录中。另外是在 &lt;code>buildkit&lt;/code> 中新增的高阶特性，可以配置 &lt;code>secrets&lt;/code> 和 &lt;code>ssh&lt;/code> 密钥等功能。最后，再调用 API 与 &lt;code>dockerd&lt;/code> 交互完成镜像的构建。&lt;/p>
+&lt;h2 id="服务端dockerd">服务端：dockerd&lt;/h2>
+&lt;p>上面分别介绍了 API， CLI 的 v1 &lt;code>builder&lt;/code> 和 &lt;code>buildkit&lt;/code> ，接下来我们看看服务端的具体原理和逻辑。&lt;/p>
+&lt;h3 id="client-函数">Client 函数&lt;/h3>
+&lt;p>还记得上面部分中最后通过 API 与服务端交互的 &lt;code>ImageBuild&lt;/code> 函数吗？在开始 &lt;code>dockerd&lt;/code> 的介绍前，我们来看下这个客户端接口的具体内容。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="c1">// github.com/docker/docker/client/image_build.go#L20
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">cli&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Client&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">ImageBuild&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span> &lt;span class="nx">context&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Context&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">buildContext&lt;/span> &lt;span class="nx">io&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Reader&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">options&lt;/span> &lt;span class="nx">types&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ImageBuildOptions&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">types&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ImageBuildResponse&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">error&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">query&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">cli&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">imageBuildOptionsToQuery&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">options&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">types&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ImageBuildResponse&lt;/span>&lt;span class="p">{},&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">headers&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">http&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Header&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">make&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">map&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">][]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="nx">buf&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">json&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Marshal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">options&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">AuthConfigs&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">types&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ImageBuildResponse&lt;/span>&lt;span class="p">{},&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">headers&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;X-Registry-Config&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">base64&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">URLEncoding&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">EncodeToString&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">buf&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="nx">headers&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Content-Type&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;application/x-tar&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">serverResp&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">cli&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">postRaw&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;/build&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">query&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">buildContext&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">headers&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">types&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ImageBuildResponse&lt;/span>&lt;span class="p">{},&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">osType&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nf">getDockerOS&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">serverResp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">header&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Server&amp;#34;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">types&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ImageBuildResponse&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">Body&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">serverResp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">body&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">OSType&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">osType&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">},&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>没有什么太特别的地方，行为与 API 一致。 通过这里我们确认它确实访问的 &lt;code>/build&lt;/code> 接口，所以，我们来看看 &lt;code>dockerd&lt;/code> 的 &lt;code>/build&lt;/code> 接口，看看它在构建镜像的时候做了什么。&lt;/p>
+&lt;h3 id="dockerd">&lt;code>dockerd&lt;/code>&lt;/h3>
+&lt;p>由于本文集中讨论的是构建系统相关的部分，所以也就不再过多赘述与构建无关的内容了，我们直接来看，当 CLI 通过 &lt;code>/build&lt;/code> 接口发送请求后，会发生什么。&lt;/p>
+&lt;p>先来看该 API 的入口：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="c1">// api/server/router/build/build.go#L32
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">r&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">buildRouter&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">initRoutes&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">r&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">routes&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="nx">router&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Route&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">router&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewPostRoute&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;/build&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">r&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">postBuild&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;span class="nx">router&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewPostRoute&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;/build/prune&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">r&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">postPrune&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;span class="nx">router&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewPostRoute&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;/build/cancel&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">r&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">postCancel&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>dockerd&lt;/code> 提供了一套类 RESTful 的后端接口服务，处理逻辑的入口便是上面的 &lt;code>postBuild&lt;/code> 函数。&lt;/p>
+&lt;p>该函数的内容较多，我们来分解下它的主要步骤。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="nx">buildOptions&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nf">newImageBuildOptions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">r&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nf">errf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>&lt;code>newImageBuildOptions&lt;/code> 函数就是构造构建参数的，将通过 API 提交过来的参数转换为构建动作实际需要的参数形式。&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="nx">buildOptions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">AuthConfigs&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nf">getAuthConfigs&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">r&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Header&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>&lt;code>getAuthConfigs&lt;/code> 函数用于从请求头拿到认证信息&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="nx">imgID&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">br&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">backend&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Build&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">backend&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">BuildConfig&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">Source&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">body&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">Options&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">buildOptions&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">ProgressWriter&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nf">buildProgressWriter&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">out&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">wantAux&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">createProgressReader&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;span class="p">})&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nf">errf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这里就需要注意了: 真正的构建过程要开始了。&lt;strong>使用 backend 的 &lt;code>Build&lt;/code> 函数来完成真正的构建过程&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="c1">// api/server/backend/build/backend.go#L53
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">b&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Backend&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">Build&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span> &lt;span class="nx">context&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Context&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">config&lt;/span> &lt;span class="nx">backend&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">BuildConfig&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">error&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">options&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">config&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Options&lt;/span>
+&lt;span class="nx">useBuildKit&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">options&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Version&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="nx">types&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">BuilderBuildKit&lt;/span>
+&lt;span class="nx">tagger&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nf">NewTagger&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">imageComponent&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">config&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ProgressWriter&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">StdoutFormatter&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">options&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Tags&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="s">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kd">var&lt;/span> &lt;span class="nx">build&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">builder&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Result&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">useBuildKit&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">build&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">buildkit&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Build&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">config&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="s">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">build&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">builder&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Build&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">config&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="s">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">build&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="s">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="kd">var&lt;/span> &lt;span class="nx">imageID&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">build&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ImageID&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">options&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Squash&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">imageID&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nf">squashBuild&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">build&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">imageComponent&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="s">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">config&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ProgressWriter&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">AuxFormatter&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">config&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ProgressWriter&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">AuxFormatter&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Emit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;moby.image.id&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">types&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">BuildResult&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="nx">ID&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">imageID&lt;/span>&lt;span class="p">});&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="s">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="p">!&lt;/span>&lt;span class="nx">useBuildKit&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">stdout&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">config&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ProgressWriter&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">StdoutFormatter&lt;/span>
+&lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Fprintf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">stdout&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Successfully built %s\n&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">stringid&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">TruncateID&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">imageID&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">imageID&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="s">&amp;#34;&amp;#34;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">err&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">tagger&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">TagImages&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">image&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ID&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">imageID&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">imageID&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这个函数看着比较长，但主要功能就以下三点：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>NewTagger&lt;/code> 是用于给镜像打标签，也就是我们的 &lt;code>-t&lt;/code> 参数相关的内容，这里不做展开。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>通过判断是否使用了 &lt;code>buildkit&lt;/code> 来调用不同的构建后端。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="nx">useBuildKit&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">options&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Version&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="nx">types&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">BuilderBuildKit&lt;/span>
+&lt;span class="kd">var&lt;/span> &lt;span class="nx">build&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">builder&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Result&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">useBuildKit&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">build&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">buildkit&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Build&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">config&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="s">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">build&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">builder&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Build&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">config&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="s">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>处理构建完成后的动作。&lt;/li>
+&lt;/ul>
+&lt;p>到这个函数之后，就分别是 v1 &lt;code>builder&lt;/code> 与 &lt;code>buildkit&lt;/code> 对 &lt;code>Dockerfile&lt;/code> 的解析，以及对 &lt;code>build context&lt;/code> 的操作了。&lt;/p>
+&lt;p>这里涉及到的内容与我下一篇文章《高效构建 Docker 镜像的最佳实践》的内部关联比较大，此处就不再进行展开了。敬请期待下一篇文章。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>本文首先介绍了 Docker 的 C/S 架构，介绍了构建镜像所用的 API , API 文档可以在线查看或者本地构建。之后深入到 Docker CLI 的源码中，逐步分解 v1 &lt;code>builder&lt;/code> 与 &lt;code>buildkit&lt;/code> 在构建镜像时执行的过程的差异。最后，我们深入到 &lt;code>dockerd&lt;/code> 的源码中，了解到了对不同构建后端的调用。至此，Docker 构建镜像的原理及主体代码就介绍完毕。&lt;/p>
+&lt;p>但这还并不是结束，我会在后续文章中分享镜像构建的相关实践，敬请期待！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Docker/">Docker</category><category domain="https://moelove.info/tags/golang/">golang</category></item><item><title>K8S 生态周报| Docker v20.10.5 发布，修复 Bug 及提升稳定性</title><link>https://moelove.info/2021/02/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v20.10.5-%E5%8F%91%E5%B8%83%E4%BF%AE%E5%A4%8D-Bug-%E5%8F%8A%E6%8F%90%E5%8D%87%E7%A8%B3%E5%AE%9A%E6%80%A7/</link><guid isPermaLink="true">https://moelove.info/2021/02/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v20.10.5-%E5%8F%91%E5%B8%83%E4%BF%AE%E5%A4%8D-Bug-%E5%8F%8A%E6%8F%90%E5%8D%87%E7%A8%B3%E5%AE%9A%E6%80%A7/</guid><pubDate>Sun, 28 Feb 2021 22:10:50 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;h2 id="docker-v20105-发布">Docker v20.10.5 发布&lt;/h2>
