@@ -1,4 +1,66 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.69.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 15 Mar 2021 10:19:55 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>万字长文：彻底搞懂容器镜像构建</title><link>https://moelove.info/2021/03/14/%E4%B8%87%E5%AD%97%E9%95%BF%E6%96%87%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/</link><guid isPermaLink="true">https://moelove.info/2021/03/14/%E4%B8%87%E5%AD%97%E9%95%BF%E6%96%87%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/</guid><pubDate>Sun, 14 Mar 2021 23:36:58 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.69.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Wed, 07 Apr 2021 10:31:09 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Prometheus v2.26 发布, 带来众多实用特性</title><link>https://moelove.info/2021/04/01/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Prometheus-v2.26-%E5%8F%91%E5%B8%83-%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E5%AE%9E%E7%94%A8%E7%89%B9%E6%80%A7/</link><guid isPermaLink="true">https://moelove.info/2021/04/01/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Prometheus-v2.26-%E5%8F%91%E5%B8%83-%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E5%AE%9E%E7%94%A8%E7%89%B9%E6%80%A7/</guid><pubDate>Thu, 01 Apr 2021 08:09:27 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="prometheus-v2260-正式发布">Prometheus v2.26.0 正式发布&lt;/h2>
+&lt;p>Prometheus 本周发布了 v2.26.0 版本，除了 &lt;strong>从此版本开始默认使用 Alertmanager v2 API&lt;/strong> 外，还带来了众多值得关注的更新，我们一起来看看吧：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/prometheus/prometheus/pull/8542">#8542&lt;/a> Prometheus 和 Promtool 现在将把 &lt;code>--help&lt;/code> 信息打印到 stdout 而非原来的 stderr ，这样以后就可以很直接的 grep 搜索了，而不需重定向了；&lt;/li>
+&lt;li>&lt;a href="https://github.com/prometheus/prometheus/pull/8509">#8509&lt;/a> remote write 中添加了对 AWS SigV4 认证方法的支持；&lt;/li>
+&lt;li>&lt;a href="https://github.com/prometheus/prometheus/pull/8487">#8487&lt;/a> 允许使用 &lt;code>--enable-feature=promql-negative-offset&lt;/code> 标志来启用负偏移量，负偏移量的实际含义也就是 “将来”，我暂时还没使用它的需求；&lt;/li>
+&lt;li>&lt;a href="https://github.com/prometheus/prometheus/pull/6635">#6635&lt;/a> 允许使用 &lt;code>--enable-feature=exemplar-storage&lt;/code> 标志来启用内存样本存储。其实深挖这个特性的话，背后包含了一套相对完整的理论，这个技术最初是 2018 年 Google 在&lt;a href="https://www.youtube.com/watch?v=TzFjweKACMY">一次分享中公开的&lt;/a>，主要是为了能更好的度量系统的特定域内的性能指标，简单来说就当作是 metrics 系统与 trace 系统结合的一种方式吧，有兴趣的小伙伴可以深入了解下。就目前而言，还有一些问题需要解决；&lt;/li>
+&lt;li>&lt;a href="https://github.com/prometheus/prometheus/pull/8634">#8634&lt;/a> UI 部分在输入框为 PromQL 增加了高级的自动补全，语法高亮和 lint ，写表达式的时候就更方便啦。注意需要勾选 “Use experimental editor”&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://moelove.info/img/prometheus-226-editor.png" alt="Prometheus New UI - https://moelove.info">&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/prometheus/prometheus/pull/8457">#8457&lt;/a> PromQL 增加了几个有用的新函数：&lt;/p>
+&lt;ul>
+&lt;li>clamp：限定 metrics 的值在确定区间内；&lt;/li>
+&lt;li>last_over_time：它的行为很像是 offset，但其实它只返回指定区间的最后一个值，可以参考 max_over_time 函数；&lt;/li>
+&lt;li>sgn：它是定义了一个向量，如果值为正，则返回 1，如果值为负则返回 -1 ，如果值为 0 则返回 0；&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/prometheus/prometheus/pull/8512">#8512&lt;/a> Prometheus 的 Authorization 头，现在可以直接使用 Bearer Token 了。例如：&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>原先：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">- &lt;span class="k">job_name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;moelove&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">bearer_token&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;5YWs5LyX5Y+3IE1vZUxvdmUK&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">static_configs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="k">targets&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="s1">&amp;#39;localhost:9999&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>现在：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">- &lt;span class="k">job_name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;moelove&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">authorization&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">credentials&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;5YWs5LyX5Y+3IE1vZUxvdmUK&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">static_configs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="k">targets&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="s1">&amp;#39;localhost:9999&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这样可以更灵活点，也方便以后的扩展。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/prometheus/prometheus/pull/8546">#8546&lt;/a> 添加了一个 follow_redirects 的选项，可以用来禁用重定向跟随。&lt;/li>
+&lt;/ul>
+&lt;p>更多关于此版本的其他变更，请参考其 &lt;a href="https://github.com/prometheus/prometheus/releases/tag/v2.26.0" title="Prometheus v2.26.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h2 id="docker-8-周岁啦">Docker 8 周岁啦！&lt;/h2>
+&lt;p>每年 Docker 社区都会为 Docker 的生日准备一次特殊的庆祝活动，今年也不例外。去年我们准备了一次线上的交流，今年则是采用了准备了 8 个有趣的答题环节，有兴趣的小伙伴可以访问 &lt;a href="https://www.docker.com/blog/a-birthday-challenge-as-docker-turns-8/">Docker 8 周年特别地址&lt;/a>参与活动。&lt;/p>
+&lt;p>&lt;img src="https://i0.wp.com/www.docker.com/blog/wp-content/uploads/2021/03/Docker-8-year-Birthday.png?w=1024&amp;amp;ssl=1" alt="Docker 8 - https://moelove.info">&lt;/p>
+&lt;h2 id="podman-v310-正式发布">Podman v3.1.0 正式发布&lt;/h2>
+&lt;p>Podman 的更新频率还是蛮快的，我们来看看这个版本中比较值得关注的一些特性吧！&lt;/p>
+&lt;ul>
+&lt;li>新增了一组 secret 命令。例如 &lt;code>podman secret create&lt;/code> ， &lt;code>podman secret inspect&lt;/code> 等，允许在 &lt;code>podman run&lt;/code> 通过 &lt;code>--secret&lt;/code> 选项进行传递；&lt;/li>
+&lt;li>增加了一个清理网络的命令， &lt;code>podman network prune&lt;/code>；&lt;/li>
+&lt;li>新增 &lt;code>podman network exists&lt;/code>, &lt;code>podman volume exists&lt;/code> 和 &lt;code>podman manifest exists&lt;/code> 等命令，来判断对应资源是否存在；&lt;/li>
+&lt;/ul>
+&lt;p>更多关于此版本的其他变更，请参考其 &lt;a href="https://github.com/containers/podman/releases/tag/v3.1.0" title="Podman v3.1.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h2 id="上游进展">上游进展&lt;/h2>
+&lt;ul>
+&lt;li>Kubernetes v1.21 即将发布，将带来众多有用的更新，敬请期待；&lt;/li>
+&lt;li>PodSecurityPolicy（PSP）在 v1.21 中已弃用，&lt;a href="https://github.com/kubernetes/enhancements/issues/2579">KEP 2579&lt;/a> 是相对应的增强建议，关于 PSP 相关的内容可参考 k8s 官方的博客内容 &lt;a href="https://kubernetes.io/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/" title="PodSecurityPolicy Deprecation: Past, Present, and Future">PodSecurityPolicy Deprecation: Past, Present, and Future | Kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>万字长文：彻底搞懂容器镜像构建</title><link>https://moelove.info/2021/03/14/%E4%B8%87%E5%AD%97%E9%95%BF%E6%96%87%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/</link><guid isPermaLink="true">https://moelove.info/2021/03/14/%E4%B8%87%E5%AD%97%E9%95%BF%E6%96%87%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/</guid><pubDate>Sun, 14 Mar 2021 23:36:58 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>我将在这篇文章中深入 Docker 的源码，与你聊聊镜像构建的原理。&lt;/p>
 &lt;h2 id="docker-架构">Docker 架构&lt;/h2>
 &lt;p>这里我们先从宏观上对 &lt;code>Docker&lt;/code> 有个大概的认识，它整体上是个 C/S 架构；我们平时使用的 &lt;code>docker&lt;/code> 命令就是它的 CLI 客户端，而它的服务端是 &lt;code>dockerd&lt;/code> 在 Linux 系统中，通常我们是使用 &lt;code>systemd&lt;/code> 进行管理，所以我们可以使用 &lt;code>systemctl start docker&lt;/code> 来启动服务。（但是请注意，&lt;code>dockerd&lt;/code> 是否能运行与 &lt;code>systemd&lt;/code> 并无任何关系，你可以像平时执行一个普通的二进制程序一样，直接通过 &lt;code>dockerd&lt;/code> 来启动服务，注意需要 root 权限）&lt;/p>
