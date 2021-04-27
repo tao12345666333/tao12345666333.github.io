@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Android on MoeLove</title><link>https://moelove.info/tags/Android/</link><description>Recent content in Android on MoeLove</description><generator>Hugo -- gohugo.io</generator><language>zh</language><lastBuildDate>Mon, 10 Mar 2014 21:44:06 +0000</lastBuildDate><atom:link href="https://moelove.info/tags/Android/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux 安装Android 驱动</title><link>https://moelove.info/2014/03/10/Linux-%E5%AE%89%E8%A3%85Android-%E9%A9%B1%E5%8A%A8/</link><pubDate>Mon, 10 Mar 2014 21:44:06 +0000</pubDate><guid>https://moelove.info/2014/03/10/Linux-%E5%AE%89%E8%A3%85Android-%E9%A9%B1%E5%8A%A8/</guid><description>在Linux下非常适合做一些对Rom 的定制以及其他的一些操作，甚至是自己制作Rom 或者从源码编译Rom 也是OK的。
-不过最开始的应该就是搭建开发环境了，我先从装驱动开始说（只是做个笔记而已）
-使用数据线连接手机，打开adb调试模式。(在Linux上搭建开发环境， 以及adb 命令之类的， 就自行搜索吧，如果哪天更新了 我会附上链接的)
-输入adb devices 查看设备 如果有机型的话就说明是已经有驱动了 如果没有显示的话， 就是说明需要进行驱动安装了。
-这个时候， lsusb 查看， 会看到下面这样的信息
-[tao@localhost ~]$ lsusb Bus 001 Device 002: ID 8087:0020 Intel Corp. Integrated Rate Matching Hub Bus 002 Device 002: ID 8087:0020 Intel Corp. Integrated Rate Matching Hub Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.</description></item></channel></rss>

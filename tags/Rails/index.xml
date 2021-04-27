@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Rails on MoeLove</title><link>https://moelove.info/tags/Rails/</link><description>Recent content in Rails on MoeLove</description><generator>Hugo -- gohugo.io</generator><language>zh</language><lastBuildDate>Sat, 21 Sep 2013 21:39:55 +0000</lastBuildDate><atom:link href="https://moelove.info/tags/Rails/index.xml" rel="self" type="application/rss+xml"/><item><title>Ruby on Rails 环境</title><link>https://moelove.info/2013/09/21/Ruby-on-Rails-%E7%8E%AF%E5%A2%83/</link><pubDate>Sat, 21 Sep 2013 21:39:55 +0000</pubDate><guid>https://moelove.info/2013/09/21/Ruby-on-Rails-%E7%8E%AF%E5%A2%83/</guid><description>就这次的尝试写一下自己的记录 安装ruby 和 ruby-devel(安装ruby-devel是因为后续的工作如果没有ruby-devel的话，会报错)
-sudo yum install ruby ruby-devel rubygems sqlite -y 需要的环境有了，那么就可以开始正式的工作了
-sudo gem install rails 找到一个合适的目录来放自己的代码.然后执行
-$ rails new mysite // 这个是建立一个叫mysite 的rails程式 ，在当前目录下面 $ cd mysite //进入这个目录 $ bundle install //因为在做测试 所以 也没有必要安装其他的gem 接下来看看它的数据库 配置文件是 config/database.yml 默认的支持是是SQLite3(当然也支持其他的比如mysql之类的)它有三种模式:
-development environment开发模式，用在你的开发的时候 test environment测试模式，用在自动测试时 production environment正式上线模式，用在实际的上线运作环境 SQLite配置大致是这样的:
-development: adapter: sqlite3 database: db/development.sqlite3 pool: 5 timeout: 5000 接下来建立自己的数据库
-rake db:create 在这里我遇到一个错误
-rake aborted! Could not find a JavaScript runtime. See https://github.</description></item></channel></rss>
