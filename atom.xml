@@ -1,4 +1,159 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-05-10T23:38:43+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Docker v20.10.6 发布， 修正了 K8S 中 dind 的异常行为</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/04/18/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v20.10.6-%E5%8F%91%E5%B8%83-%E4%BF%AE%E6%AD%A3%E4%BA%86-K8S-%E4%B8%AD-dind-%E7%9A%84%E5%BC%82%E5%B8%B8%E8%A1%8C%E4%B8%BA/"/><id>https://moelove.info/2021/04/18/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v20.10.6-%E5%8F%91%E5%B8%83-%E4%BF%AE%E6%AD%A3%E4%BA%86-K8S-%E4%B8%AD-dind-%E7%9A%84%E5%BC%82%E5%B8%B8%E8%A1%8C%E4%B8%BA/</id><updated>2021-05-07T06:32:34+08:00</updated><published>2021-04-18T09:20:05+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 Docker v20.10.6 发布 距离上个版……</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-05-29T13:20:14+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Cilium v1.10.0 带来 Egress Gateway 等特性</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/05/24/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Cilium-v1.10.0-%E5%B8%A6%E6%9D%A5-Egress-Gateway-%E7%AD%89%E7%89%B9%E6%80%A7/"/><id>https://moelove.info/2021/05/24/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Cilium-v1.10.0-%E5%B8%A6%E6%9D%A5-Egress-Gateway-%E7%AD%89%E7%89%B9%E6%80%A7/</id><updated>2021-05-29T13:19:55+08:00</updated><published>2021-05-24T06:48:53+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 KIND v0.11.0 正式发布 KIND (Kubernetes In……</summary><content type="html">&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="kind-v0110-正式发布">KIND v0.11.0 正式发布&lt;/h2>
+&lt;p>&lt;a href="https://github.com/kubernetes-sigs/kind" title="KIND 项目">KIND (Kubernetes In Docker)&lt;/a> 关注我的小伙伴想必已经都很熟悉了，这是我一直都在参与也用的非常多的一个项目，它可以很方便的使用 Docker 容器作为 Kubernetes 的 Node ，快速的启动一个/或多个测试集群。自上个版本发布以来已经过了 4 个月，我们一起来看看这个版本中有哪些值得注意的变更吧！&lt;/p>
+&lt;h3 id="破坏性变更">破坏性变更&lt;/h3>
+&lt;ul>
+&lt;li>在这个版本中默认的 k8s 版本为 v1.21.1;&lt;/li>
+&lt;li>移除掉了使用 &lt;code>bazel&lt;/code> 构建镜像的方式，&lt;code>kind build node-image&lt;/code> 的 &lt;code>--type&lt;/code> 参数已废弃；&lt;/li>
+&lt;li>&lt;code>kind build node-image&lt;/code> 的 &lt;code>--kube-root&lt;/code> 参数已废弃，将会按照标准模式寻找 k8s 的代码目录的位置；&lt;/li>
+&lt;/ul>
+&lt;h3 id="新特性">新特性&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>kind build node-image&lt;/code> 新增了一个 &lt;code>--arch&lt;/code> 的参数，可支持构建多架构的镜像了；&lt;/li>
+&lt;li>KIND 当前发布的预构建镜像，已经都是 multi-arch 的了，可运行在 amd64 和 arm64 架构上；&lt;/li>
+&lt;li>当前 KIND 已经可以运行在 rootless 模式下的 Docker 和 rootless 模式下的 Podman 中了，详细指南请参考 &lt;a href="https://kind.sigs.k8s.io/docs/user/rootless/" title="KIND with rootless">KIND 运行在 rootless 模式&lt;/a> ;&lt;/li>
+&lt;li>&lt;strong>KIND 默认的 CNI kindnetd 已经支持了双栈网络, 并在 v1.21 版本的 k8s 中默认启用&lt;/strong> ;&lt;/li>
+&lt;/ul>
+&lt;p>你可以通过以下任意方式安装最新版的 KIND ：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>GO111MODULE=&amp;quot;on&amp;quot; go get sigs.k8s.io/kind@v0.11.0&lt;/code>;&lt;/li>
+&lt;li>&lt;code>wget -O kind https://kind.sigs.k8s.io/dl/v0.11.0/kind-linux-amd64&lt;/code>;&lt;/li>
+&lt;li>clone &lt;a href="https://github.com/kubernetes-sigs/kind">KIND 的代码仓库&lt;/a>后，执行 &lt;code>make build&lt;/code> ;&lt;/li>
+&lt;/ul>
+&lt;p>更多关于 KIND 的使用及说明请参考官方文档：https://kind.sigs.k8s.io/ 欢迎下载使用。&lt;/p>
+&lt;h2 id="apisix-ingress-controller-v060-发布">apisix-ingress-controller v0.6.0 发布&lt;/h2>
+&lt;p>&lt;a href="https://github.com/apache/apisix-ingress-controller/" title="Apache APISIX Ingress controller">Apache APISIX Ingress controller&lt;/a> 是 Apache APISIX 的控制面组件，可以将其自定义资源（CR）及 Kubernetes 中原生的 Ingress 资源发布至 APISIX 中，进而利用 APISIX 作为入口网关管理南北向的流量。 我们一起来看看本次发布的 v0.6.0 版本中带来了哪些值得注意的变更吧：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/apache/apisix-ingress-controller/issues/115">#115&lt;/a> 支持了 TCP 代理；&lt;/li>
+&lt;li>&lt;a href="https://github.com/apache/apisix-ingress-controller/issues/242">#242&lt;/a> 为已经被 ingress controller 推送的资源增加了 label；&lt;/li>
+&lt;li>为 &lt;code>ApisixUpstream&lt;/code> 和 &lt;code>ApisixTls&lt;/code> 增加了 jsonschema 校验；&lt;/li>
+&lt;li>&lt;a href="https://github.com/apache/apisix-ingress-controller/issues/394">#394&lt;/a> 记录了资源处理时的 Kubernetes events;&lt;/li>
+&lt;li>&lt;a href="https://github.com/apache/apisix-ingress-controller/issues/395">#395&lt;/a> 支持上报资源的 status;&lt;/li>
+&lt;li>&lt;a href="https://github.com/apache/apisix-ingress-controller/issues/402">#402&lt;/a> 为 cluster 级别的插件增加 global_rules 配置;&lt;/li>
+&lt;/ul>
+&lt;h2 id="cilium-v1100-正式发布">Cilium v1.10.0 正式发布&lt;/h2>
+&lt;p>&lt;img src="https://cilium.io/static/c7f92a7f0c898d4ccae30eb23c559bfd/a3ebb/intro.png" alt="Cilium v1.10.0 - https://moelove.info">&lt;/p>
+&lt;p>Cilium 我在之前的文章中已经介绍过很多次了，它基于 eBPF 技术，可以为 Kubernetes 中应用程序服务间网络和 API 连接提供透明代理和保护。 想快速了解 Cilium 可以参考我之前写的 &lt;a href="https://zhuanlan.zhihu.com/p/213745089">《Cilium 快速上手》&lt;/a> 想快速了解 eBPF 也可以看看我在 PyCon China 2020 上做的分享。&lt;/p>
+&lt;p>Cilium v1.10 版本是一个比较大的特性版本，在这个版本中带来了众多值得关注的特性，我们一起来看看吧！&lt;/p>
+&lt;h3 id="egress-ip-gateway">Egress IP Gateway&lt;/h3>
+&lt;p>在几乎所有网络组件都在做入口网关的时候， Cilium 发现当把云原生应用和传统应用集成时，传统应用大多通过 IP 白名单的方式进行授权, 加上 Pod IP 的动态性，对 IP 地址的管理就成为了一个痛点。&lt;/p>
+&lt;p>现在 Cilium 新版本中，通过新的 Kubernetes CRD ，可以在数据包离开 Kubernetes 集群时将静态 IP 与流量相关联，这使得外部防火墙会使用此一致的静态 IP 去识别 Pod 流量。&lt;/p>
+&lt;p>其实就是 Cilium 帮忙做了 NAT ，使用起来也很简单：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">cilium.io/v2alpha1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">CiliumEgressNATPolicy&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">egress-sample&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">egress&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">podSelector&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">matchLabels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The following label selects default namespace&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">io.kubernetes.pod.namespace&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">default&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">destinationCIDRs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="m">192.168.33.13&lt;/span>&lt;span class="l">/32&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">egressSourceIP&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;192.168.33.100&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>上述的配置就是说：使用 &lt;code>egressSourceIP&lt;/code> 中配置的 IP 来处理来自于 default 命名空间中 Pod 的出口流量了。&lt;/p>
+&lt;h3 id="bgp-集成的支持">BGP 集成的支持&lt;/h3>
+&lt;p>很多小伙伴放弃 Cilium 的一大原因可能是因为 BGP 的支持，但从这个版本开始就不用担心了！&lt;/p>
+&lt;p>Cilium 通过集成 MetalLB 来进行的，以此来达到 BGP L3 协议支持，这样 Cilium 可以为 LoadBalancer 类型的服务分配 IP ，并通过 BGP 将其通告的路由器，这样外部的流量就可以正常的访问到服务了。&lt;/p>
+&lt;p>配置 BGP 支持的方式也很简单：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ConfigMap&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">bgp-config&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">namespace&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">kube-system&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">config.yaml&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">|&lt;/span>&lt;span class="sd">
+&lt;/span>&lt;span class="sd"> peers:
+&lt;/span>&lt;span class="sd"> - peer-address: 10.0.0.1
+&lt;/span>&lt;span class="sd"> peer-asn: 64512
+&lt;/span>&lt;span class="sd"> my-asn: 64512
+&lt;/span>&lt;span class="sd"> address-pools:
+&lt;/span>&lt;span class="sd"> - name: default
+&lt;/span>&lt;span class="sd"> protocol: bgp
+&lt;/span>&lt;span class="sd"> addresses:
+&lt;/span>&lt;span class="sd"> - 192.0.2.0/24&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>主要就是 &lt;code>peers&lt;/code> 用于和网络中现有的 BGP 路由器互联，&lt;code>address-pools&lt;/code> 则是 Cilium 为 LoadBalancer 分配的 IP 池。&lt;/p>
+&lt;h3 id="基于-xdp-的独立负载均衡">基于 XDP 的独立负载均衡&lt;/h3>
+&lt;p>Cilium 基于 eBPF 的负载均衡器最近增加了对 Maglev 一致性哈希的支持，以及 eXpress(XDP) 层上转发平面的加速，这些特性使得它也可以作为独立的 4 层负载均衡存在。&lt;/p>
+&lt;p>Cilium XDP L4LB 具有完整的 IPv4/IPv6 双栈支持，可以独立于 Kubernetes 集群独立部署，作为一个可编程的 L4 LB 存在。&lt;/p>
+&lt;h3 id="其他">其他&lt;/h3>
+&lt;p>另外就是增加了对 Wireguard 的支持，进行 Pod 间流量的加密；增加了一个新的 Cilium CLI ，用于管理 Cilium 集群；以及 &lt;strong>比以往更加优异的性能！&lt;/strong>&lt;/p>
+&lt;p>更多关于 Cilium 项目的变更，请参考其 &lt;a href="https://github.com/cilium/cilium/releases/tag/v1.10.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h2 id="上游进展">上游进展&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>runc 发布了 v1.0-rc95 版本，大概是 v1.0 前的最后一个版本了；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>CNCF 网络小组定义了一套 &lt;a href="https://smp-spec.io/" title="Service Mesh Performance 的规范">Service Mesh Performance 的规范&lt;/a>，通过此规范来达成一个统一的标准，用来衡量 Service Mesh 的性能情况；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>CNCF 网络小组定义了一套 Service Mesh Performance 的规范，通过此规范来达成一个统一的标准，用来衡量 Service Mesh 的性能情况；&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">K8S 生态周报| Rancher Desktop v0.1.0 抢先一览</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/04/30/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Rancher-Desktop-v0.1.0-%E6%8A%A2%E5%85%88%E4%B8%80%E8%A7%88/"/><id>https://moelove.info/2021/04/30/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Rancher-Desktop-v0.1.0-%E6%8A%A2%E5%85%88%E4%B8%80%E8%A7%88/</id><updated>2021-05-24T06:51:00+08:00</updated><published>2021-04-30T17:01:30+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 Trivy v0.17 正式发布 Trivy 是一……</summary><content type="html">&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="trivy-v017-正式发布">Trivy v0.17 正式发布&lt;/h2>
+&lt;p>&lt;a href="https://github.com/aquasecurity/trivy">Trivy&lt;/a> 是一款由 Aqua Security 开源的镜像漏洞安全扫描程序，在之前的周报中我已经介绍过它很多次了，特别方便使用！（吃我安利！）本周 Trivy 发布了 v0.17 版本，我们一起来看看本次值得关注的变更。&lt;/p>
+&lt;h3 id="破坏性变更">破坏性变更&lt;/h3>
+&lt;p>Trivy 在之前的版本中，允许为 &lt;code>--skip-dirs&lt;/code> 参数通过逗号（,）分割，设定多个目录。自此版本中，将遵循大多数软件的默认行为，通过多次传递&lt;code>--skip-dirs&lt;/code> 来传递多个值，每个参数只处理一个目录。&lt;/p>
+&lt;p>v0.17 版本之前：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">trivy image --skip-dirs &lt;span class="s2">&amp;#34;/usr/lib/ruby/gems,/etc&amp;#34;&lt;/span> fluent/fluentd:edge
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>v0.17 版本及之后：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">trivy image --skip-dirs /usr/lib/ruby/gems --skip-dirs &lt;span class="s2">&amp;#34;/etc&amp;#34;&lt;/span> fluent/fluentd:edge
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果有在使用此特性的小伙伴，在升级时需要格外注意！以免影响到自己的工作流.&lt;/p>
+&lt;h3 id="新增特性">新增特性&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>可以支持 Go 二进制文件扫描了。主要实现方式可以参考我之前写的文章&lt;a href="https://zhuanlan.zhihu.com/p/351354405" title="逆向 Go 二进制文件">《逆向 Go 二进制文件，获取其依赖信息》&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>可以支持 JAVA 相关归档文件的漏洞扫描了，比如 JAR，WAR 和 EAR 等格式。
+但请注意： &lt;strong>此功能目前无法在离线环境中使用&lt;/strong> ，需要发送 HTTP 请求以便拿到更多信息。所以如果网络环境较差，可能此过程会耗时久一些，可以通过增加 &lt;code>--timeout&lt;/code> 参数来控制超时时间。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>新增了 Plugin 机制&lt;/strong>，使用类似 kubectl 和 Helm 的 &lt;a href="https://aquasecurity.github.io/trivy/v0.17.0/plugins/">Plugin 机制&lt;/a>。 &lt;em>提问：如果 trivy 集成了 kubectl 作为 plugin ，而 kubectl 又用 trivy 做了 plugin 那会怎么样呢？&lt;/em> 欢迎留言讨论～&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Sprig 函数可以在 trivy 的自定义模板中使用了。有没有很眼熟？之前的周报中介绍过 Helm 3.5 也支持了同样的内容。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>更多关于此版本的详细信息请参考其 &lt;a href="https://github.com/aquasecurity/trivy/discussions/966">ReleaseNote&lt;/a>&lt;/p>
+&lt;h2 id="alertmanager-v0220-rc0-发布">Alertmanager v0.22.0-rc.0 发布&lt;/h2>
+&lt;p>使用 Prometheus 的小伙伴对 Alertmanager 应该都不陌生，此版本中增加了很多实用的特性：&lt;/p>
+&lt;ul>
+&lt;li>有了新的创建 Silence 的形式，新日历；&lt;/li>
+&lt;li>Routes 可以按时间进行设置了， 这也就可以解决很多“非工作时间，不对测试环境报警”之类的需求了；&lt;/li>
+&lt;li>在界面上筛选的时候，可以支持 “非” 的匹配条件了， 比如我们可以直接做如下操作：“非生产环境，都关闭”；&lt;/li>
+&lt;li>Web 界面原生支持 TLS 和 basic auth ；&lt;/li>
+&lt;li>增加了 OAuth2.0/OIDC 支持；&lt;/li>
+&lt;li>苹果 M1 支持；&lt;/li>
+&lt;/ul>
+&lt;p>更多关于此版本的详细信息，请参考其 &lt;a href="https://github.com/prometheus/alertmanager/releases/tag/v0.22.0-rc.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h2 id="rancher-desktop-v010-发布">Rancher Desktop v0.1.0 发布&lt;/h2>
+&lt;p>Rancher 最近推出了一个基于 electron 构建的桌面工具，用于在 Windows 和 macOS 等桌面环境下管理 Kubernetes 和容器等。它的核心特性如下：&lt;/p>
+&lt;ul>
+&lt;li>支持自选 Kubernetes 版本（通过 k3s 提供支持）；&lt;/li>
+&lt;li>可测试 Kubernetes 版本升级时，应用负载的变化（也通过 k3s 提供）；&lt;/li>
+&lt;li>容器镜像的 build/pull/push 等（通过 &lt;a href="https://github.com/rancher/kim">kim&lt;/a> 和 BuildKit 等实现）；&lt;/li>
+&lt;li>支持本地端口映射（通过 kubectl port-forward 实现）；&lt;/li>
+&lt;/ul>
+&lt;p>这里简单来聊聊我对这个工具的看法吧。从上面的介绍来看，其实很容易就能发现，这是奔着 Docker Desktop 的市场来的。到目前为止，市面上所有工具中，能完全涵盖和替换 Docker Desktop 的还没有。无论说容器&amp;amp;镜像管理，镜像安全扫描，内置 k8s 集群等这些工具都能为开发者提供极大的便利性。这也是 Docker 仍然能在开发者工具中占有大量市场的一个主要原因。&lt;/p>
+&lt;p>其次，我们来看看这个工具推出的时机。最近 Docker Desktop 由于在新版本中将“关闭更新提醒”的功能设置成了付费用户可用，而遭到了大量的批判。这个工具选择在此时发布第一个版本，也许是凑巧，也许就恰好给一些人多了个选择。&lt;/p>
+&lt;p>额外多说一点，Docker Desktop 新版本中那个功能变更的事情，其实在各大社交媒体/论坛上都有过很多讨论了，就我个人而言，我觉得这个决定是合理的，也是 Docker Inc. 必须得做的。这个公司在开源方面已经做了足够多了，如果在自己的闭源产品上，也不做些策略，那就真的危险了。&lt;/p>
+&lt;h2 id="上游进展">上游进展&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/101093">#101093 · kubernetes/kubernetes&lt;/a> 在今年年初的 &lt;a href="https://github.com/kubernetes/kubernetes/pull/98571">#98571&lt;/a>中为了在 Pod 优雅退出时候停止 probe 所以引入了非预期行为。此 PR 中对其进行了修复。该问题的场景是 Pod 在重启后 &lt;code>startupProbe&lt;/code> 不能正常的执行。&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">K8S 生态周报| Docker v20.10.6 发布， 修正了 K8S 中 dind 的异常行为</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/04/18/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v20.10.6-%E5%8F%91%E5%B8%83-%E4%BF%AE%E6%AD%A3%E4%BA%86-K8S-%E4%B8%AD-dind-%E7%9A%84%E5%BC%82%E5%B8%B8%E8%A1%8C%E4%B8%BA/"/><id>https://moelove.info/2021/04/18/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v20.10.6-%E5%8F%91%E5%B8%83-%E4%BF%AE%E6%AD%A3%E4%BA%86-K8S-%E4%B8%AD-dind-%E7%9A%84%E5%BC%82%E5%B8%B8%E8%A1%8C%E4%B8%BA/</id><updated>2021-05-07T06:32:34+08:00</updated><published>2021-04-18T09:20:05+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 Docker v20.10.6 发布 距离上个版……</summary><content type="html">&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;h2 id="docker-v20106-发布">Docker v20.10.6 发布&lt;/h2>
