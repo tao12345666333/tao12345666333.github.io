@@ -1,4 +1,158 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sat, 29 May 2021 13:20:14 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Cilium v1.10.0 带来 Egress Gateway 等特性</title><link>https://moelove.info/2021/05/24/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Cilium-v1.10.0-%E5%B8%A6%E6%9D%A5-Egress-Gateway-%E7%AD%89%E7%89%B9%E6%80%A7/</link><guid isPermaLink="true">https://moelove.info/2021/05/24/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Cilium-v1.10.0-%E5%B8%A6%E6%9D%A5-Egress-Gateway-%E7%AD%89%E7%89%B9%E6%80%A7/</guid><pubDate>Mon, 24 May 2021 06:48:53 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 15 Jun 2021 15:12:41 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Docker v20.10.7 发布，修复了死锁和容器启动失败的问题</title><link>https://moelove.info/2021/06/14/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v20.10.7-%E5%8F%91%E5%B8%83%E4%BF%AE%E5%A4%8D%E4%BA%86%E6%AD%BB%E9%94%81%E5%92%8C%E5%AE%B9%E5%99%A8%E5%90%AF%E5%8A%A8%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%97%AE%E9%A2%98/</link><guid isPermaLink="true">https://moelove.info/2021/06/14/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v20.10.7-%E5%8F%91%E5%B8%83%E4%BF%AE%E5%A4%8D%E4%BA%86%E6%AD%BB%E9%94%81%E5%92%8C%E5%AE%B9%E5%99%A8%E5%90%AF%E5%8A%A8%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%97%AE%E9%A2%98/</guid><pubDate>Mon, 14 Jun 2021 00:37:32 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="docker-v20107-正式发布">Docker v20.10.7 正式发布&lt;/h2>
+&lt;p>Docker 在近期也发布了 v20.10.7 版本，这个版本中主要都是侧重在稳定性和安全性上，我们一起来看看具体有哪些值得关注的内容吧！&lt;/p>
+&lt;h3 id="cli">CLI&lt;/h3>
+&lt;p>CLI 方面主要是移除掉了一直以来存在的 &lt;code>WARNING: No kernel memory limit support&lt;/code> 这个 &lt;em>Warning&lt;/em> 信息，同时在 cgroup v2 下也不会再显示 &lt;code>WARNING: No oom kill disable support&lt;/code> 的 Warning 信息了。&lt;/p>
+&lt;p>为什么呢？&lt;strong>因为 oom kill disable 在 cgroup v2 下不可用&lt;/strong>。 如果你在 cgroup v2 下使用了 &lt;code>--oom-kill-disable&lt;/code> 选项就会看到如下提示：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ ~ docker info &lt;span class="p">|&lt;/span>grep Cgroup
+Cgroup Driver: systemd
+Cgroup Version: &lt;span class="m">2&lt;/span>
+➜ ~ docker run --rm -it --oom-kill-disable -m 6m alpine sh
+WARNING: Your kernel does not support OomKillDisable. OomKillDisable discarded.
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这里如果要介绍 cgroup v2 那内容就太多了，&lt;a href="https://gitchat.csdn.net/columnTopic/5e215c4ee8f01d4213867952">我在 2019 年接受访谈聊容器技术趋势的时候&lt;/a>就做了如下预测：&lt;/p>
+&lt;blockquote>
+&lt;p>从底层次技术的角度来看，cgroup v2 将逐步普及，进而取代 cgroup v1，但这个过程可能需要两三年左右。&lt;/p>
+&lt;p>整体而言，稳定性和性能优化将会是未来的主旋律。&lt;/p>
+&lt;/blockquote>
+&lt;p>现在已经过去了一年多的时间，&lt;strong>完全符合我当时的预测。&lt;/strong> 现在包括 runc、containerd、Docker、Kubernetes 等组件已经全部都支持了 cgroup v2 ，包括 Fedora 等操作系统也已将 cgroup v2 设置成了系统默认选项。各公司也都逐步在往 cgroup v2 上进行了迁移。&lt;/p>
+&lt;h3 id="networking">Networking&lt;/h3>
+&lt;p>在此版本中，主要解决了两个网络相关的问题。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>修复了一个可能导致 Docker DNS 无法解析的 deadlock 问题，&lt;strong>此问题主要是在使用 Swarm 集群时才会遇到&lt;/strong> ，其他直接使用 Docker 或者将 Docker 作为 Kubernetes 容器运行时的用户不受影响。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>由于在 Docker v20.10.6 版本中处理了针对有 IPv6 网络机器上容器端口映射 API 的问题，详情请参考我&lt;a href="https://zhuanlan.zhihu.com/p/368003878">之前的 K8S 生态周报 - Docker v20.10.6 发布一文的内容&lt;/a> 。但是这里没有正确的处理当内核带有 &lt;code>ipv6.disable=1&lt;/code> 选项启动时的问题，这会导致 &lt;strong>当服务器启动时候，如果设置了 ipv6.disable=1 参数且进行了端口映射，则容器无法正常启动&lt;/strong> 。&lt;/p>
+&lt;p>解决办法有 3 种：&lt;/p>
+&lt;ul>
+&lt;li>取消 &lt;code>ipv6.disable=1&lt;/code> 选项的设置（但通常这么设置了应该是有特定原因的）；&lt;/li>
+&lt;li>&lt;strong>升级到 Docker v20.10.7 版本&lt;/strong>；&lt;/li>
+&lt;li>在进行端口映射的时候，手动指定其绑定的 IPv4 地址，例如 &lt;code>docker run -d -p 0.0.0.0:6379:6379 ghcr.io/moelove/redis:alpine&lt;/code> ；&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="其他">其他&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>默认使用 containerd v1.4.6 和 runc v1.0.0-rc95 以便于解决 &lt;a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-30465">CVE-2021-30465&lt;/a> 漏洞；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>docker scan 更新到了 v0.8 ；&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ ~ docker scan --version
+Version: v0.8.0
+Git commit: 35651ca
+Provider: Snyk &lt;span class="o">(&lt;/span>1.563.0 &lt;span class="o">(&lt;/span>standalone&lt;span class="o">))&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ul>
+&lt;p>这个版本我是推荐大家进行更新的，尤其是如果你受到了文中提到的 v20.10.6 版本相关问题影响的话，那更加值得升级了。&lt;/p>
+&lt;h2 id="docker-desktop-340-发布">Docker Desktop 3.4.0 发布&lt;/h2>
+&lt;p>这个版本对大多数用户而言，需要关注的点主要有两个：&lt;/p>
+&lt;ul>
+&lt;li>Docker Inc. 积极听取社区用户的反馈，&lt;strong>跳过更新的功能，不再是付费用户专有了，可以放心选择升级/跳过升级&lt;/strong> ，这个事情的背景可以参考&lt;a href="https://zhuanlan.zhihu.com/p/371258358">我前两期的 K8S 生态周报&lt;/a> ;&lt;/li>
+&lt;li>这个版本中对相关组件都进行了升级，包括 Docker Engine 升级到了 v20.10.7 ，Kubernetes 升级到了 v1.21.1 等；&lt;/li>
+&lt;/ul>
+&lt;h2 id="rook-v165-发布">Rook v1.6.5 发布&lt;/h2>
+&lt;p>这是一个 patch release ，变动不大，但这个版本中有个值得关注的内容：&lt;/p>
+&lt;ul>
+&lt;li>现在可以通过 Helm chart 来配置 CephCluster 这个 CR 了；&lt;/li>
+&lt;/ul>
+&lt;p>你可以使用类似下面的命令来进行配置：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">helm repo add rook-master https://charts.rook.io/master
+helm install --create-namespace --namespace rook-ceph rook-ceph-cluster &lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> --set &lt;span class="nv">operatorNamespace&lt;/span>&lt;span class="o">=&lt;/span>rook-ceph rook-master/rook-ceph-cluster -f values-override.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这种方式相比之前每次都要写个 YAML 要方便多了，另外值得注意的一点是 &lt;strong>当前的 Helm chart 是实验性的，预计在 v1.7 中达到 stable&lt;/strong> 。&lt;/p>
+&lt;h2 id="thanos-v021-发布">Thanos v0.21 发布&lt;/h2>
+&lt;p>Thanos 是一个完整的 Prometheus HA 和持久化存储的方案。我在之前的文章中已经介绍过多次（搜了下从 2019 年 Thanos 成为 CNCF sandbox 项目开始就已经在持续介绍它了）&lt;/p>
+&lt;p>此次更新最主要的特性只有一个：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>为 Thanos API 增加了 TLS 和 basic auth 认证&lt;/strong> 。&lt;/li>
+&lt;/ul>
+&lt;p>这其实也是众多监控项目的一个发展趋势，还记得我之前写的文章《 &lt;a href="https://zhuanlan.zhihu.com/p/144048025">为 Prometheus Node Exporter 加上认证&lt;/a> 》吗？早期解决了有没有及普及度的问题后，就会逐步将注意力往安全性上放了。&lt;/p>
+&lt;h2 id="kubernetes-ingress-nginx-v047-发布">Kubernetes Ingress-NGINX v0.47 发布&lt;/h2>
+&lt;p>这个版本的发布主要是为了解决两个问题：&lt;/p>
+&lt;ul>
+&lt;li>修复 NGINX v1.20 的 CVE 漏洞，将其更新到了 v1.20.1 版本；&lt;/li>
+&lt;li>为后续版本做准备。在后续版本中，我们计划逐步放弃对旧的 Kubernetes 版本的支持；&lt;/li>
+&lt;/ul>
+&lt;p>兼容说明如下：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">Kubernetes 版本&lt;/th>
+&lt;th style="text-align:center">Ingress-NGINX 版本&lt;/th>
+&lt;th style="text-align:center">支持说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">1.22&lt;/td>
+&lt;td style="text-align:center">TBD&lt;/td>
+&lt;td style="text-align:center">进行中&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">1.21&lt;/td>
+&lt;td style="text-align:center">v0.47.0&lt;/td>
+&lt;td style="text-align:center">仅支持 CVE 和 crash 修正&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">1.20&lt;/td>
+&lt;td style="text-align:center">v0.47.0&lt;/td>
+&lt;td style="text-align:center">仅支持 CVE 和 crash 修正&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">1.19&lt;/td>
+&lt;td style="text-align:center">v0.47.0&lt;/td>
+&lt;td style="text-align:center">在 v1.22 发布后 6 个月废弃&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>另外值得一提的是，这个版本是我和另外两个维护者一起发布的。我们三个人耗费了将近 2 个小时才完成了此次版本的发布，跨时区协作其实蛮累的。&lt;/p>
+&lt;h2 id="上游进展">上游进展&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes/kubernetes/pull/102489">#102489 · kubernetes/kubernetes&lt;/a> &lt;strong>在新发布的几个 patch release 中，包含了一项 regression，会导致 kubelet crash，建议大家不要升级！&lt;/strong> 最新的修正版本本周将会发布。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes/kubernetes/pull/100142">#100142 · kubernetes/kubernetes&lt;/a> 在 &lt;code>kubectl get pods&lt;/code> 的输出中添加了 &lt;code>LAST RESTART&lt;/code> 列，例如：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">$ kubectl get pods -A
+NAMESPACE NAME READY STATUS RESTARTS LAST RESTART AGE
+kube-system coredns-74ff55c5b-6qp7j 1/1 Running &lt;span class="m">7&lt;/span> 23h 7d3h
+kube-system coredns-74ff55c5b-z79st 1/1 Running &lt;span class="m">7&lt;/span> 23h 7d3h
+kube-system etcd-jjacobelli-lt 1/1 Running &lt;span class="m">6&lt;/span> 23h 7d3h
+kube-system kube-apiserver-jjacobelli-lt 1/1 Running &lt;span class="m">0&lt;/span> &amp;lt;none&amp;gt; 57s
+kube-system kube-controller-manager-jjacobelli-lt 0/1 Running &lt;span class="m">8&lt;/span> 61s 7d3h
+kube-system kube-flannel-ds-c8d66 1/1 Running &lt;span class="m">7&lt;/span> 8h 7d3h
+kube-system kube-proxy-r9nrx 1/1 Running &lt;span class="m">6&lt;/span> 23h 7d3h
+kube-system kube-scheduler-jjacobelli-lt 0/1 Running &lt;span class="m">8&lt;/span> 62s 7d3h
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这样做的好处在于，用户可以很快的发现 Pod 上次重启/恢复的时间，而不需要去查看日志，方便了很多。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes/kubernetes/pull/102529/files">#102529 · kubernetes/kubernetes&lt;/a> CronJobControllerV2 达到 GA ！我在《&lt;a href="https://zhuanlan.zhihu.com/p/364074085">K8S 生态周报| Kubernetes v1.21 发布, 带来新的内存管理器&lt;/a>》中曾介绍过它，感兴趣的小伙伴可以看看；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>一个有趣的提案 &lt;a href="https://github.com/kubernetes/enhancements/pull/2777">KEP 2775&lt;/a> , 这个提案主要目的是 &lt;strong>为了保护集群资源，以及免受关联删除的影响&lt;/strong> ，提出希望增加交互式删除或者延迟删除的功能，有兴趣的小伙伴可以去这个 KEP 下留言，讨论；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>GKE Dataplane V2 已于日前 GA ， 请参考我之前的两篇文章了解其背景 《&lt;a href="https://zhuanlan.zhihu.com/p/195759300">K8S 生态周报| Google 选择 Cilium 作为 GKE 下一代数据面&lt;/a>》 和 《&lt;a href="https://zhuanlan.zhihu.com/p/213745089">被 Google 选择的下一代数据面 Cilium 是什么&lt;/a>》 。目前它 GA 也标志着 Cilium 的又一大发展！&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Grafana v8.0 正式发布了，在这个版本中增加了 AlertManger 的数据源，在告警方面的一大进步。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="项目推荐">项目推荐&lt;/h2>
+&lt;h3 id="apisix-mesh-agent----将-apache-apisix-用于数据面与-istio-等控制面结合使用的-service-mesh-项目-利益相关我是-api7-团队的一员">apisix-mesh-agent - 将 Apache APISIX 用于数据面，与 Istio 等控制面结合使用的 service mesh 项目。 &lt;em>利益相关：我是 api7 团队的一员&lt;/em>&lt;/h3>
+&lt;p>推荐此项目主要原因如下：&lt;/p>
+&lt;ul>
+&lt;li>Envoy 项目的上手学习成本较大。 Apache APISIX 相比之下更易上手和进行扩展；&lt;/li>
+&lt;li>Apache APISIX 的性能相较 Envoy 来说是极大的优势；&lt;/li>
+&lt;/ul>
+&lt;p>如果你正在使用 Istio 但苦于 Envoy 的上手/二次开发难度大，那么我推荐你可以去了解下此项目。不过此项目当前只发布了 v0.6 版本，还需要持续的打磨，欢迎参与！&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/06/14/7qioUAjnCBl2VLG.png" alt="apisix-mesh-overview">&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>K8S 生态周报| Cilium v1.10.0 带来 Egress Gateway 等特性</title><link>https://moelove.info/2021/05/24/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Cilium-v1.10.0-%E5%B8%A6%E6%9D%A5-Egress-Gateway-%E7%AD%89%E7%89%B9%E6%80%A7/</link><guid isPermaLink="true">https://moelove.info/2021/05/24/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Cilium-v1.10.0-%E5%B8%A6%E6%9D%A5-Egress-Gateway-%E7%AD%89%E7%89%B9%E6%80%A7/</guid><pubDate>Mon, 24 May 2021 06:48:53 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;h2 id="kind-v0110-正式发布">KIND v0.11.0 正式发布&lt;/h2>
