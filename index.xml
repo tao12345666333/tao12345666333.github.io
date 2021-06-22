@@ -1,4 +1,81 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 15 Jun 2021 15:12:41 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Docker v20.10.7 发布，修复了死锁和容器启动失败的问题</title><link>https://moelove.info/2021/06/14/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v20.10.7-%E5%8F%91%E5%B8%83%E4%BF%AE%E5%A4%8D%E4%BA%86%E6%AD%BB%E9%94%81%E5%92%8C%E5%AE%B9%E5%99%A8%E5%90%AF%E5%8A%A8%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%97%AE%E9%A2%98/</link><guid isPermaLink="true">https://moelove.info/2021/06/14/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v20.10.7-%E5%8F%91%E5%B8%83%E4%BF%AE%E5%A4%8D%E4%BA%86%E6%AD%BB%E9%94%81%E5%92%8C%E5%AE%B9%E5%99%A8%E5%90%AF%E5%8A%A8%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%97%AE%E9%A2%98/</guid><pubDate>Mon, 14 Jun 2021 00:37:32 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 22 Jun 2021 15:09:17 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>为什么我们需要一个容器镜像的包管理器</title><link>https://moelove.info/2021/06/17/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/</link><guid isPermaLink="true">https://moelove.info/2021/06/17/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/</guid><pubDate>Thu, 17 Jun 2021 23:55:43 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="tldr">TL;DR&lt;/h2>
+&lt;ul>
+&lt;li>我们需要对 container 供应链进行更好的元数据管理，以便更好地进行分析;&lt;/li>
+&lt;li>OCI 规范目前没有办法打包容器镜像工件或一组容器镜像。但他们会慢慢做到这一点；&lt;/li>
+&lt;li>同时，我们需要一个用于容器镜像的包管理器；&lt;/li>
+&lt;/ul>
+&lt;h2 id="一些背景">一些背景&lt;/h2>
+&lt;p>我维护着一个叫做 &lt;a href="https://github.com/vmware/tern" title="Tern">Tern&lt;/a> 的开源项目，这个项目是为容器镜像生成一个软件材料清单（SBOM）。很多安装在容器镜像中的组件都是独立安装的，而非通过包管理器。这使得我们很难弄清楚创建这个容器镜像的作者的意图。它也没有提供更多关于容器镜像贡献者的信息。大多数容器镜像都是基于之前已有的容器镜像，通过客户端工具或者镜像仓库都很难看到这些信息。&lt;/p>
+&lt;p>我想如果有一个“容器镜像”的包管理器，应该能解决这个问题。因此，我早在 &lt;a href="https://youtu.be/WY3s_cG9ia8" title="KubeCon 2018">KubeCon 2018&lt;/a> 的时候就提出了 &amp;quot;打包&amp;quot; 的想法，我问容器镜像的 manifest 是否可以保存这些信息，以便工具可以根据容器镜像的供应链来进行分析。&lt;/p>
+&lt;p>事实证明，社区已经在考虑如何管理 helm chart、OPA 策略、文件系统和签名等事情了。这就是我参与 &lt;a href="https://opencontainers.org/">开放容器计划（OCI）组织 &lt;/a> 的原因（我还欠 @vbatts 一个介绍我的人情）。当时的理解是，容器镜像除了需要通过摘要来进行识别外，不需要进行其他管理。也不需要管理依赖，因为所有的依赖都被打包进了容器镜像中。通过再次重建容器和保持一个下游消费者可以 pull 的滚动标签来处理更新。&lt;/p>
+&lt;p>然而，容器生态除了可移植性外，并没有提供太多东西。和容器镜像一起管理容器元数据可以为使用者和贡献者提供更多关于供应链的宝贵信息。经过了两年时间和几次供应链攻击之后，我们仍然在讨论，如何最好的做到这一点。在这里，我试图将一些提议的概念归纳起来，看看它们如何满足我们对元数据管理的要求。&lt;/p>
+&lt;h2 id="回到起点">回到起点&lt;/h2>
+&lt;p>我们写一个包管理器主要有以下三个原因：&lt;/p>
+&lt;ol>
+&lt;li>标识 - 为你的新文件或者包提供一个名字和其他唯一可识别的特征；&lt;/li>
+&lt;li>上下文 - 了解你的包和其他包的关系（即，依赖性管理）；&lt;/li>
+&lt;li>新鲜度 - 确保你的包在其生态系统中可维护并保持更新；&lt;/li>
+&lt;/ol>
+&lt;p>实际上还有第4个原因，“构建的可重复性” - 我认为它属于“上下文”，但在这里，它确实值得一提，因为了解你的包在特定时间的状态是很必要的。这样你才能分析出过去的“好”状态，和现在“不那么好”的状态，即：使用二等分的方法分析构建。&lt;/p>
+&lt;p>由于一些（善意的）假设，容器镜像生态并没有这些功能。一个容器可以通过它的摘要（digest）被标识。你不需要管理生态，因为整个生态已经存在于一个单元中了。你不需要更新容器 - 只需要构建一个新的镜像，所有需要更新的内容都将被更新。只要你的应用程序没问题，那它便可以正常工作。然而，如果你打算长期维护你的应用程序，你必须准备好处理堆栈更新和重大版本。我们当前除了“下载最新版本”外没有其他好的办法来管理堆栈更新（一个值得注意的例外是 Cloud Native Buildpacks ，但我们此处将专注于通用案例）。堆栈的破坏性变更可能会阻塞你重新构建镜像，这迫使你需要保留一个旧版本的镜像，因为你已经知道这个镜像可以工作。你可以想象到，维护一组容器镜像将变得更加费力。如果维护一组容器镜像所需的信息是内置的，并在需要时可用，那就真的太好了。&lt;/p>
+&lt;h2 id="用于管理元数据的镜像仓库">用于管理元数据的镜像仓库&lt;/h2>
+&lt;p>我们可以建立一个单独的元数据存储解决方案，但现在我们已经有镜像仓库了。通过一些改进，它们可以被用来和容器镜像一起存储补充元数据。组织已经对包含源 tarball 的源镜像和签名 payload（正如 cosign 所做的那样） 执行此操作。&lt;/p>
+&lt;p>使用镜像仓库的好处在于元数据可以和目标镜像一起存储。对 OCI 规范的建议主要涉及结构化和引用这些数据。这基本上是服务端的包管理，让这些建议被合并是很困难的，因为目前存在的客户端-服务端关系是很紧密的，对服务端的任何改变都会影响到客户端，对客户端打包机制的任何变更也都会影响到服务端。因此，目前的 OCI 规范除了扩展与当前 Docker 客户端和 Docker registry 工作方式保持同步的规范外，还不能包括增强功能。&lt;/p>
+&lt;p>这篇文章并不是要批评当前的生态，而是想要把对话引到一个社区可以更可持续的维护它们的容器镜像的位置。就我个人而言，我也想证明在容器镜像领域是需要一个包管理器的，尽管镜像仓库可以支持相关 artifacts 和容器镜像的链接，也可以支持在容器镜像之间进行链接。&lt;/p>
+&lt;p>其他生态系统中的包管理器也有客户端和服务端的关系，所以在客户端和服务端之间分摊压力的架构并不新鲜。只不过在当前场景下，这种关系略有不同。&lt;/p>
+&lt;h2 id="identification-识别">Identification （识别）&lt;/h2>
+&lt;p>容器镜像的工作方式有点像 &lt;a href="https://en.wikipedia.org/wiki/Merkle_tree" title="Merkle Tree">Merkle Tree&lt;/a> 有一个&lt;a href="https://github.com/opencontainers/image-spec/blob/master/config.md">镜像配置&lt;/a>的数据块，以及代表容器文件系统的一个或多个数据块。每个数据块都经过了哈希处理，并且放在了经过哈希处理过的 &lt;a href="https://github.com/opencontainers/image-spec/blob/master/manifest.md">Image Manifest&lt;/a> 中。&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/06/19/41Hgwj56GamYzC3.png" alt="img">&lt;/p>
+&lt;p>现在可以很好的专门识别这个包，但它缺少其他可识别的特征，最明显的是名称和版本。在容器世界里，名字通常是一个镜像仓库的名称，而版本则通常是一个 tag 。&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/06/19/zPdF2feEk3HJXiu.png" alt="img">&lt;/p>
+&lt;p>就像 Git 一样，所有对文件集的引用都是哈希值，其他引用可以指向它们，例如 &lt;code>HEAD&lt;/code>，&lt;code>FETCH_HEAD&lt;/code> 或 tag。tag 可以遵循语义版本控制，可以被移到另一个提交中。在开源的世界里没有人这样做，因为这会破坏项目维护者和社区其他成员间的固有契约。容器镜像的 tag 并没有需要遵循语义版本控制的规则，但很多语言包管理器都依赖它，因此使用语义化版本控制容器镜像是有一定的希望的。&lt;/p>
+&lt;p>无论如何，哈希值对容器镜像而言是相当好的一个标识符。&lt;/p>
+&lt;p>那么其他可识别的特征呢？以下是一些其他包管理器使用的特征：&lt;/p>
+&lt;ul>
+&lt;li>许可证和版权信息&lt;/li>
+&lt;li>作者/供应商&lt;/li>
+&lt;li>发布日期&lt;/li>
+&lt;li>指向源代码的链接&lt;/li>
+&lt;li>第三方组件的列表（使用的操作系统，需要预安装的包等）&lt;/li>
+&lt;/ul>
+&lt;p>最后一项可能会变得相当长，因为创建一个容器镜像实际需要的第三方组件可能达到数百个。最近我一直主张将这些信息跟随容器镜像放入一个 SBOM（软件材料清单）中，容器镜像签名是另一个可以和容器镜像一起传播的工件，例如镜像清单的分离式前面，或者一个签名荷载。&lt;/p>
+&lt;p>我们现在有多个容器镜像的识别工件，我们希望将它们与容器镜像联系起来。当前的 OCI 建议使用 &lt;em>references&lt;/em> (引用)，一个引用是包含了 blob 哈希和其引用清单的哈希组成的清单。在我们的例子中，引用是图像清单的哈希值。&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/06/21/FMaW6LcVEhb84xi.png" alt="img">&lt;/p>
+&lt;p>这种布局还存在一些问题：&lt;/p>
+&lt;ol>
+&lt;li>registry 可能只识别被标记的工件，因此会删除任何没有被标记的东西；&lt;/li>
+&lt;li>删除镜像会导致空引用；&lt;/li>
+&lt;/ol>
+&lt;p>一个快速的解决方案可能是标记所有的清单。&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/06/21/4d61DjGVgEasOcw.png" alt="img">&lt;/p>
+&lt;p>这意味着需要有东西能够跟踪标签和它们之间的关系，同时跟踪所有工件的版本。&lt;/p>
+&lt;p>一个长期的解决方案可能是定义一个规范的工件清单，registry 将识别并将其视为特殊的存在。如果是这样的话，那就需要计算或者跟踪与每个清单关联的引用数量了。&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/06/21/vS1MjlQ4GhEC9OA.png" alt="img">&lt;/p>
+&lt;p>registry 实现者可以按照他们想要的任何方式来跟踪图中的链接。例如，在这个图中，对每个清单的引用数量都会被跟踪（减去哈希），但镜像清单被删除时，操作将会沿着树向下走到每个引用的末端，并按照一定的顺序去删除它们，直到引用数为 0。&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/06/21/nPazC5dcS6H4prI.png" alt="">&lt;/p>
+&lt;p>但在这里，我们为了追踪所有的相关对象，正在进入一些复杂的追踪系统。这是在 registry 端完成的包管理。可以提出一个论点，实现一个中立的垃圾收集器，它可以被 registry 或客户端使用，但我们现在讲的有点超前了。&lt;/p>
+&lt;p>我希望这足以说明有必要对工件的集合进行追踪，无论是在客户端还是服务端，或是两者都有。&lt;/p>
+&lt;h2 id="context">Context&lt;/h2>
+&lt;p>据了解，一个容器在运行时没有外部依赖性。但是在构建时，最终的容器镜像确实取决于初始容器镜像的状态，通常是 Dockerfile 中的 &lt;code>FROM&lt;/code> 语句所定义的镜像。由于 Merkle Trees 的魔力，衍生的镜像与之前的镜像之间没有任何联系。因此，所有对旧镜像的引用都需要为新镜像创建一次，同时需要添加一些额外的工件。&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/06/21/TPSYrqUw64eaxnW.png" alt="img">&lt;/p>
+&lt;p>与普通的引用机制相比，工件清单机制可能有一个优势，因为在工件元数据被更新的同时，引用的数量被保持在最低水平。&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/06/21/cTY7PR5A4ohjNUw.png" alt="img">&lt;/p>
+&lt;p>这两种机制都支持供应链安全，监管链和系谱检查等要求。这两种机制都需要&lt;strong>引用管理&lt;/strong> 。 在前者中，客户端将会拷贝原始镜像的 SBOM 和签名清单，更新它的引用，和增加新的清单。在后者中，客户端必须下载工件清单，对其进行补充，并与新的容器镜像一起推送。无论哪种方式，客户端都需要理解一些语法，无论是 tag 名称，工件结构或者工件类型，更不用说对工件来自的生态系统的一些理解。（SBOMs 和签名只是其中两种常见的工作类型，可以包括在内）。&lt;/p>
+&lt;p>我一直在考虑的一个用例是如何将一系列的镜像链接到一起，来描述一个云原生应用。例如，jaeger 应用程序实际上是有自己依赖关系图的容器集合，&lt;/p>
+&lt;p>如果能以一种可以上传到 registry 的格式来描述这些链接，这样整个镜像就可以和它的补充工件，一起在 registry 之间进行转移。&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/06/21/xFzrKSBLMwt8GmN.png" alt="img">&lt;/p>
+&lt;p>这是处于我想象力边缘的部分（我的图太复杂了），但我希望这些用例能说明，如果现在不需要包管理器，那么很快就需要它来管理这些高层次的关系。&lt;/p>
+&lt;h2 id="更新">更新&lt;/h2>
+&lt;p>这是我希望语义版本控制能够得到更认真对待的一个地方。软件包管理器使用语义版本控制来允许一系列在整个堆栈中兼容的版本。这使得下游消费者能以最小的干扰来适应更新。目前，由于容器镜像只能通过其摘要进行识别，tag 是标识容器镜像处于什么版本的唯一办法，这就是包管理器真正有用的地方。&lt;/p>
+&lt;p>通常情况下，客户端查询服务器，看看它们应用程序所需的任何包是否有更新。然后客户端告诉用户它们想下载的更新是可用的，如果用户有一个他们的应用程序兼容的版本范围，客户端就会在这个范围内下载新版本。&lt;/p>
+&lt;p>当前的 distribution SPEC 支持列出 tags 。除此之外，registry 没有提供任何管理更新的方式，也许这就是 registry 端所需要的一切。这也意味着，检查和更新的工作，主要落在了客户端。&lt;/p>
+&lt;h2 id="下一步">下一步&lt;/h2>
+&lt;p>社区一致认为，这些提议对于当前的 SPEC 项目而言，要接受的话是过于大了 。然而（希望）能有一场公开的对话，试图将这些变化分解为可吸纳的部分，从而允许向后兼容当前的状态，并推动规范向前发展。&lt;/p>
+&lt;p>可能在将来，并不需要有一个包管理器，因为 registry ，镜像和 artifacts 格式，将负责提供推理供应链所需的所有信息。但那是一个遥远的未来，在此期间，我们需要一个东西来填补空白，也就是一个包管理器。&lt;/p>
+&lt;p>&lt;em>本文原作者 nishakm 原文地址：https://nishakm.github.io/code/metadata/ 经授权翻译&lt;/em>&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Docker/">Docker</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>K8S 生态周报| Docker v20.10.7 发布，修复了死锁和容器启动失败的问题</title><link>https://moelove.info/2021/06/14/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v20.10.7-%E5%8F%91%E5%B8%83%E4%BF%AE%E5%A4%8D%E4%BA%86%E6%AD%BB%E9%94%81%E5%92%8C%E5%AE%B9%E5%99%A8%E5%90%AF%E5%8A%A8%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%97%AE%E9%A2%98/</link><guid isPermaLink="true">https://moelove.info/2021/06/14/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v20.10.7-%E5%8F%91%E5%B8%83%E4%BF%AE%E5%A4%8D%E4%BA%86%E6%AD%BB%E9%94%81%E5%92%8C%E5%AE%B9%E5%99%A8%E5%90%AF%E5%8A%A8%E5%A4%B1%E8%B4%A5%E7%9A%84%E9%97%AE%E9%A2%98/</guid><pubDate>Mon, 14 Jun 2021 00:37:32 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;h2 id="docker-v20107-正式发布">Docker v20.10.7 正式发布&lt;/h2>
