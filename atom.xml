@@ -1,4 +1,168 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-06-22T15:09:17+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">为什么我们需要一个容器镜像的包管理器</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/06/17/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/"/><id>https://moelove.info/2021/06/17/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/</id><updated>2021-06-22T15:09:08+08:00</updated><published>2021-06-17T23:55:43+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">TL;DR 我们需要对 container 供应链进行更好的元数据管理，以便更好地进行分析; OCI 规范目前没有办法打包容器镜像工件或一组容器镜像。但他们会慢慢做到……</summary><content type="html">&lt;h2 id="tldr">TL;DR&lt;/h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-06-23T10:43:32+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">开源项目的 5 年长跑，runc v1.0 终于正式发布！</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/06/23/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE%E7%9A%84-5-%E5%B9%B4%E9%95%BF%E8%B7%91runc-v1.0-%E7%BB%88%E4%BA%8E%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/"/><id>https://moelove.info/2021/06/23/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE%E7%9A%84-5-%E5%B9%B4%E9%95%BF%E8%B7%91runc-v1.0-%E7%BB%88%E4%BA%8E%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</id><updated>2021-06-23T10:43:24+08:00</updated><published>2021-06-23T02:08:20+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">本文我来分享下与我们（搞容器化/K8S 从业者）息息相关的一个基础项目 runc 是如何自 2016 年发布了 v1.0.0-rc1 到现在历经 5 年长跑，从 rc1 一直到 rc95 ，如今……</summary><content type="html">&lt;blockquote>
+&lt;p>本文我来分享下与我们（搞容器化/K8S 从业者）息息相关的一个基础项目 &lt;a href="https://github.com/opencontainers/runc" title="runc">runc&lt;/a> 是如何自 2016 年发布了 v1.0.0-rc1 到现在历经 5 年长跑，从 rc1 一直到 rc95 ，如今终于正式发布 v1.0 版本的过程，及这中间的故事。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>在 2018 年 11 月底时，我写了一篇文章 &lt;a href="https://zhuanlan.zhihu.com/p/50923312" title="runc-1.0-rc6-发布之际">《runc 1.0-rc6 发布之际》&lt;/a> , 那应该是我第一次公开介绍 runc。如果你还不了解 runc 是什么，以及如何使用它，请参考我那篇文章。本文中不再对其概念和用法等进行说明。&lt;/p>
+&lt;p>在 2019 年 3 月底时，我写了另一篇文章 &lt;a href="https://zhuanlan.zhihu.com/p/60981504" title="runc 1.0-rc7 发布之际">《runc 1.0-rc7 发布之际》&lt;/a>，介绍 runc 1.0-rc7 发布的原因，及那个版本中最主要的修复 &lt;strong>&lt;a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-5736">&lt;code>CVE-2019-5736&lt;/code>&lt;/a>&lt;/strong> 。其中也介绍了关于 runc/Docker 等对于 Linux 内核兼容性的问题，感兴趣的小伙伴可以看看。&lt;/p>
+&lt;p>关注我的朋友们，应该也在 &lt;a href="https://zhuanlan.zhihu.com/container" title="K8S 生态">K8S 生态周报&lt;/a> 中多次看到过我对 runc 的介绍，包括其特性及安全漏洞等方面。&lt;/p>
+&lt;p>在 2015 年 6 月， Docker ，CoreOS 和其他一些公司共同成立了 &lt;a href="https://opencontainers.org/">OCI （开放容器计划）&lt;/a> 组织，其最主要的内容有两个：&lt;/p>
+&lt;ul>
+&lt;li>容器运行时规范&lt;/li>
+&lt;li>容器镜像规范&lt;/li>
+&lt;/ul>
+&lt;p>Docker 将其运行时捐赠给了 OCI ，作为容器运行时规范的基础实现，托管在了 &lt;a href="https://github.com/opencontainers/runc">https://github.com/opencontainers/runc&lt;/a> 也就是现在大家看到的 runc 了。&lt;/p>
+&lt;h2 id="发布历程">发布历程&lt;/h2>
+&lt;p>我们来看看 runc 版本发布的历程，以便了解它为何长跑 5 年。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">runc version&lt;/th>
+&lt;th style="text-align:center">release time&lt;/th>
+&lt;th style="text-align:center">runtime-spec version&lt;/th>
+&lt;th style="text-align:center">备注&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">runc v1.0-rc1&lt;/td>
+&lt;td style="text-align:center">2016.06.04&lt;/td>
+&lt;td style="text-align:center">v1.0.0-rc1&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">runc v1.0-rc2&lt;/td>
+&lt;td style="text-align:center">2016.10.01&lt;/td>
+&lt;td style="text-align:center">v1.0.0-rc2-38-g1c7c27d&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">runc v1.0-rc3&lt;/td>
+&lt;td style="text-align:center">2017.03.22&lt;/td>
+&lt;td style="text-align:center">&lt;a href="https://github.com/opencontainers/runc/pull/1370">v1.0.0-rc5&lt;/a>&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">runc v1.0-rc4&lt;/td>
+&lt;td style="text-align:center">2017.08.09&lt;/td>
+&lt;td style="text-align:center">v1.0.0&lt;/td>
+&lt;td style="text-align:center">runtime-spec 首次发布 v1.0&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">runc v1.0-rc5&lt;/td>
+&lt;td style="text-align:center">2018.02.27&lt;/td>
+&lt;td style="text-align:center">v1.0.0&lt;/td>
+&lt;td style="text-align:center">首次计划作为最后一个 rc 版本&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">runc v1.0-rc6&lt;/td>
+&lt;td style="text-align:center">2018.11.21&lt;/td>
+&lt;td style="text-align:center">v1.0.1-49-g5684b8a&lt;/td>
+&lt;td style="text-align:center">计划是 1.0 之前的最后一个功能版本，包含了一些规范合规性的修正&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">runc v1.0-rc7&lt;/td>
+&lt;td style="text-align:center">2019.03.28&lt;/td>
+&lt;td style="text-align:center">v1.0.1-59-g29686db&lt;/td>
+&lt;td style="text-align:center">修复 CVE-2019-5736&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">runc v1.0-rc8&lt;/td>
+&lt;td style="text-align:center">2019.04.26&lt;/td>
+&lt;td style="text-align:center">v1.0.1-59-g29686db&lt;/td>
+&lt;td style="text-align:center">修复 v1.0.0-rc7&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">runc v1.0-rc9&lt;/td>
+&lt;td style="text-align:center">2019.10.05&lt;/td>
+&lt;td style="text-align:center">v1.0.1-59-g29686db&lt;/td>
+&lt;td style="text-align:center">修复 CVE-2019-16884&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">runc v1.0-rc10&lt;/td>
+&lt;td style="text-align:center">2020.01.23&lt;/td>
+&lt;td style="text-align:center">v1.0.1-59-g29686db&lt;/td>
+&lt;td style="text-align:center">修复 CVE-2019-19921&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">runc v1.0-rc90&lt;/td>
+&lt;td style="text-align:center">2020.05.12&lt;/td>
+&lt;td style="text-align:center">v1.0.1-59-g29686db&lt;/td>
+&lt;td style="text-align:center">与 runc v1.0-rc10 相同，是为了修正 version scheme&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">runc v1.0-rc91&lt;/td>
+&lt;td style="text-align:center">2020.07.02&lt;/td>
+&lt;td style="text-align:center">v1.0.2-8-g237cc4f&lt;/td>
+&lt;td style="text-align:center">开始支持 cgroup v2 ；一些规范性的问题得到解决&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">runc v1.0-rc92&lt;/td>
+&lt;td style="text-align:center">2020.08.06&lt;/td>
+&lt;td style="text-align:center">v1.0.2-23-g4d89ac9&lt;/td>
+&lt;td style="text-align:center">修复我在 runc v1.0-rc91 中发现的 bug&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">runc v1.0-rc93&lt;/td>
+&lt;td style="text-align:center">2021.02.04&lt;/td>
+&lt;td style="text-align:center">v1.0.2-35-ge6143ca&lt;/td>
+&lt;td style="text-align:center">cgroup v2 得到稳定支持，&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">runc v1.0-rc94&lt;/td>
+&lt;td style="text-align:center">2021.05.10&lt;/td>
+&lt;td style="text-align:center">v1.0.2-57-g1c3f411&lt;/td>
+&lt;td style="text-align:center">修复 runc v1.0-rc93 中的 regressions&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">runc v1.0-rc95&lt;/td>
+&lt;td style="text-align:center">2021.05.19&lt;/td>
+&lt;td style="text-align:center">v1.0.2-57-g1c3f411&lt;/td>
+&lt;td style="text-align:center">修复 &lt;a href="https://github.com/opencontainers/runc/security/advisories/GHSA-c3xm-pvg7-gh7r">CVE-2021-30465&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">runc v1.0&lt;/td>
+&lt;td style="text-align:center">2021.06.22&lt;/td>
+&lt;td style="text-align:center">v1.0.2-57-g1c3f411&lt;/td>
+&lt;td style="text-align:center">&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>我在上面的表格中，专门增加了一列 &lt;strong>runtime-spec version&lt;/strong> ，表示 OCI 组织中的容器运行时规范的版本。我们来总结下这个发布进程：&lt;/p>
+&lt;ul>
+&lt;li>在 runc v1.0-rc5 之前，runc 其实也没打算发布正式版，毕竟标准还没正式完成呢，实现也不可能先出稳定版；&lt;/li>
+&lt;li>runc v1.0-rc7 , rc 9 ~ rc 10 均是为了修正严重的安全问题；&lt;/li>
+&lt;li>runc v1.0-rc90 纯粹是解决 version scheme 的问题；&lt;/li>
+&lt;li>runc v1.0-rc91~rc93 主要功能点是在 cgroup v2 的支持，以及一些跟规范集成的问题；&lt;/li>
+&lt;li>runc v1.0-93 之后，其实就基本控制代码冻结了，直到 runc v1.0-rc95 修复了一个安全漏洞；&lt;/li>
+&lt;li>目前主要的几个仓库也都已经测试了跟 runc 代码仓库中最新代码的集成，相关的问题也已经修复。&lt;/li>
+&lt;/ul>
+&lt;p>从这里看到的三个主要耗时的点如下：&lt;/p>
+&lt;ul>
+&lt;li>runtime-spec 尚未正式发布 v1.0 版本；&lt;/li>
+&lt;li>修复安全漏洞和自身的 bug ；&lt;/li>
+&lt;li>完成新特性的耗时；&lt;/li>
+&lt;/ul>
+&lt;p>规范未发布 v1.0 耗时的部分这里就不多说了，这也是个依赖项，对于大多数的项目/软件开发都会有类似的情况，只能去推动规范的发布了；&lt;/p>
+&lt;p>至于特性，bug 和安全漏洞等的耗时，这其实跟 runc 项目的功能和其定位有关。runc 偏底层了一些，这就需要有更多相关领域的知识来支撑。就拿我在 runc v1.0-rc 91 中发现的那个bug 来说，对 Linux 内核源码不太了解的人，确实会花费比较多时间的。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="gd">- switch {
+&lt;/span>&lt;span class="gd">- case mode&amp;amp;unix.S_IFBLK == unix.S_IFBLK:
+&lt;/span>&lt;span class="gd">&lt;/span>&lt;span class="gi">+ switch mode &amp;amp; unix.S_IFMT {
+&lt;/span>&lt;span class="gi">+ case unix.S_IFBLK:
+&lt;/span>&lt;span class="gi">&lt;/span> devType = configs.BlockDevice
+&lt;span class="gd">- case mode&amp;amp;unix.S_IFCHR == unix.S_IFCHR:
+&lt;/span>&lt;span class="gd">&lt;/span>&lt;span class="gi">+ case unix.S_IFCHR:
+&lt;/span>&lt;span class="gi">&lt;/span> devType = configs.CharDevice
+&lt;span class="gd">- case mode&amp;amp;unix.S_IFIFO == unix.S_IFIFO:
+&lt;/span>&lt;span class="gd">&lt;/span>&lt;span class="gi">+ case unix.S_IFIFO:
+&lt;/span>&lt;span class="gi">&lt;/span> devType = configs.FifoDevice
+default:
+return nil, ErrNotADevice
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>有趣的是 runc v1.0 版本 Release 的标题是 &lt;strong>&amp;quot;A wizard is never late, nor is he early, he arrives precisely when he means to.&amp;quot;&lt;/strong> 这大概也很符合 runc 的发布历程了吧 :)&lt;/p>
+&lt;p>&lt;strong>但无论如何，runc 经过 5 年长跑，终于发布了 v1.0 版本！感谢每一个为之付出过的小伙伴！&lt;/strong>&lt;/p>
+&lt;p>欢迎大家下载更新！ &lt;a href="https://github.com/opencontainers/runc/releases/tag/v1.0.0">https://github.com/opencontainers/runc/releases/tag/v1.0.0&lt;/a>&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Docker/" term="Docker" label="Docker"/><category scheme="https://moelove.info/tags/Container/" term="Container" label="Container"/><category scheme="https://moelove.info/tags/runc/" term="runc" label="runc"/></entry><entry><title type="text">为什么我们需要一个容器镜像的包管理器</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/06/17/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/"/><id>https://moelove.info/2021/06/17/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E7%9A%84%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/</id><updated>2021-06-22T15:09:08+08:00</updated><published>2021-06-17T23:55:43+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">TL;DR 我们需要对 container 供应链进行更好的元数据管理，以便更好地进行分析; OCI 规范目前没有办法打包容器镜像工件或一组容器镜像。但他们会慢慢做到……</summary><content type="html">&lt;h2 id="tldr">TL;DR&lt;/h2>
 &lt;ul>
 &lt;li>我们需要对 container 供应链进行更好的元数据管理，以便更好地进行分析;&lt;/li>
 &lt;li>OCI 规范目前没有办法打包容器镜像工件或一组容器镜像。但他们会慢慢做到这一点；&lt;/li>
