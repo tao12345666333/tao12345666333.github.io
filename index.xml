@@ -1,4 +1,113 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Wed, 23 Jun 2021 16:17:58 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>开源项目的 5 年长跑，runc v1.0 终于正式发布！</title><link>https://moelove.info/2021/06/23/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE%E7%9A%84-5-%E5%B9%B4%E9%95%BF%E8%B7%91runc-v1.0-%E7%BB%88%E4%BA%8E%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</link><guid isPermaLink="true">https://moelove.info/2021/06/23/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE%E7%9A%84-5-%E5%B9%B4%E9%95%BF%E8%B7%91runc-v1.0-%E7%BB%88%E4%BA%8E%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</guid><pubDate>Wed, 23 Jun 2021 02:08:20 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Fri, 25 Jun 2021 14:14:41 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>更优雅的 Kubernetes 集群事件度量方案</title><link>https://moelove.info/2021/06/25/%E6%9B%B4%E4%BC%98%E9%9B%85%E7%9A%84-Kubernetes-%E9%9B%86%E7%BE%A4%E4%BA%8B%E4%BB%B6%E5%BA%A6%E9%87%8F%E6%96%B9%E6%A1%88/</link><guid isPermaLink="true">https://moelove.info/2021/06/25/%E6%9B%B4%E4%BC%98%E9%9B%85%E7%9A%84-Kubernetes-%E9%9B%86%E7%BE%A4%E4%BA%8B%E4%BB%B6%E5%BA%A6%E9%87%8F%E6%96%B9%E6%A1%88/</guid><pubDate>Fri, 25 Jun 2021 05:53:03 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/06/25/294ohZRewN7c8qI.jpg" alt="">&lt;/p>
+&lt;p>群里有个小伙伴问了我上图中这个问题，如何度量滚动升级这个过程的时间。&lt;/p>
+&lt;p>这个问题可以抽象为一种通用需求，适用于多种场景。&lt;/p>
+&lt;ul>
+&lt;li>比如你是 Kubernetes 集群的管理员，你想度量这个过程中的耗时，以便发现优化点；&lt;/li>
+&lt;li>比如你是在做 CI/CD ，你想通过度量这个过程的耗时，来给出 CI/CD 过程的耗时；&lt;/li>
+&lt;/ul>
+&lt;h2 id="现有方案">现有方案&lt;/h2>
+&lt;p>Kubernetes 已经提供了很方便的办法来解决此问题，也就是我回复中谈到的，通过 event 来度量即可。&lt;/p>
+&lt;p>比如，我们在 K8S 中，创建一个 deployment，看看这个过程中的 event 信息：&lt;/p>
+&lt;pre>&lt;code>➜ ~ kubectl create ns moelove
+namespace/moelove created
+➜ ~ kubectl -n moelove create deployment redis --image=ghcr.io/moelove/redis:alpine
+deployment.apps/redis created
+➜ ~ kubectl -n moelove get deploy
+NAME READY UP-TO-DATE AVAILABLE AGE
+redis 1/1 1 1 16s
+➜ ~ kubectl -n moelove get events
+LAST SEEN TYPE REASON OBJECT MESSAGE
+27s Normal Scheduled pod/redis-687967dbc5-gsz5n Successfully assigned moelove/redis-687967dbc5-gsz5n to kind-control-plane
+27s Normal Pulled pod/redis-687967dbc5-gsz5n Container image &amp;quot;ghcr.io/moelove/redis:alpine&amp;quot; already present on machine
+27s Normal Created pod/redis-687967dbc5-gsz5n Created container redis
+27s Normal Started pod/redis-687967dbc5-gsz5n Started container redis
+27s Normal SuccessfulCreate replicaset/redis-687967dbc5 Created pod: redis-687967dbc5-gsz5n
+27s Normal ScalingReplicaSet deployment/redis Scaled up replica set redis-687967dbc5 to 1
+&lt;/code>&lt;/pre>&lt;p>可以看到我们主要关注的一些事件均已经有记录了。但是总不能每次都通过 kubectl 这么来看吧，有点浪费时间。&lt;/p>
+&lt;p>我之前的一种做法是在 K8S 中写了一个程序，持续的监听&amp;amp;收集 K8S 集群中的 event ，并将它写入到我另外开发的一套系统中进行存储和可视化。但这种方法需要做额外的开发也并不普适。这里我来介绍另一个更优的解决方案。&lt;/p>
+&lt;h2 id="更优雅的方案">更优雅的方案&lt;/h2>
+&lt;p>K8S 中的这些事件，都对应着我们的一个操作，比如上文中是创建了一个 deployment ，它产生了几个 event ， 包括 &lt;code>Scheduled&lt;/code> , &lt;code>Pulled&lt;/code> ，&lt;code>Created&lt;/code> 等。我们将其进行抽象，是不是和我们做的链路追踪（tracing）很像呢？&lt;/p>
+&lt;p>这里我们会用到一个 CNCF 的毕业项目 &lt;a href="https://www.jaegertracing.io/" title="Jaeger">Jaeger&lt;/a> ，在之前的 &lt;a href="https://zhuanlan.zhihu.com/container">K8S生态周报&lt;/a> 中我有多次介绍它，Jaeger 是一款开源的，端对端的分布式 tracing 系统。不过本文重点不是介绍它，所以我们&lt;a href="https://www.jaegertracing.io/docs/1.23/getting-started/">查看其文档&lt;/a>，快速的部署一个 Jaeger 即可。另一个 CNCF 的 sandbox 级别的项目是 &lt;a href="https://opentelemetry.io/" title="OpenTelemetry">OpenTelemetry&lt;/a> 是一个云原生软件的可观测框架，我们可以把它跟 Jaeger 结合起来使用。不过本文的重点不是介绍这俩项目，这里暂且略过。&lt;/p>
+&lt;p>接下来介绍我们这篇文章的用到的主要项目，是来自 Weaveworks 开源的一个项目，名叫 &lt;a href="https://github.com/weaveworks-experiments/kspan">kspan&lt;/a> ，它的主要做法就是将 K8S 中的 event 作为 trace 系统中的 span 进行组织。&lt;/p>
+&lt;h3 id="部署-kspan">部署 kspan&lt;/h3>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ServiceAccount&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">kspan&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">rbac.authorization.k8s.io/v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ClusterRoleBinding&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">creationTimestamp&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">null&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">kspan-admin&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">roleRef&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">apiGroup&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">rbac.authorization.k8s.io&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ClusterRole&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">cluster-admin&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">subjects&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>- &lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ServiceAccount&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">kspan&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">namespace&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">default&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Pod&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">kspan&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">kspan&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">containers&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">docker.io/weaveworks/kspan:v0.0&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">kspan&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">resources&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{}&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">dnsPolicy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ClusterFirst&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">restartPolicy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Always&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">serviceAccountName&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">kspan&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以直接使用我这里提供的 YAML 进行部署测试，&lt;strong>但注意上述配置文件别用在生产环境下， RBAC 权限需要修改&lt;/strong> 。&lt;/p>
+&lt;p>它默认会使用 &lt;code>otlp-collector.default:55680&lt;/code> 传递 span ，所有你需要确保有这个 svc 存在。以上所有内容部署完成后你大概会是这样：&lt;/p>
+&lt;pre>&lt;code>➜ ~ kubectl get all
+NAME READY STATUS RESTARTS AGE
+pod/jaeger-76c84457fb-89s5v 1/1 Running 0 64m
+pod/kspan 1/1 Running 0 35m
+pod/otel-agent-sqlk6 1/1 Running 0 59m
+pod/otel-collector-69985cc444-bjb92 1/1 Running 0 56m
+NAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) AGE
+service/jaeger-collector ClusterIP 10.96.47.12 &amp;lt;none&amp;gt; 14250/TCP 60m
+service/kubernetes ClusterIP 10.96.0.1 &amp;lt;none&amp;gt; 443/TCP 39h
+service/otel-collector ClusterIP 10.96.231.43 &amp;lt;none&amp;gt; 4317/TCP,14250/TCP,14268/TCP,9411/TCP,8888/TCP 59m
+service/otlp-collector ClusterIP 10.96.79.181 &amp;lt;none&amp;gt; 55680/TCP 52m
+NAME DESIRED CURRENT READY UP-TO-DATE AVAILABLE NODE SELECTOR AGE
+daemonset.apps/otel-agent 1 1 1 1 1 &amp;lt;none&amp;gt; 59m
+NAME READY UP-TO-DATE AVAILABLE AGE
+deployment.apps/jaeger 1/1 1 1 73m
+deployment.apps/otel-collector 1/1 1 1 59m
+NAME DESIRED CURRENT READY AGE
+replicaset.apps/jaeger-6f77c67c44 0 0 0 73m
+replicaset.apps/jaeger-76c84457fb 1 1 1 64m
+replicaset.apps/otel-collector-69985cc444 1 1 1 59m
+&lt;/code>&lt;/pre>&lt;h3 id="上手实践">上手实践&lt;/h3>
+&lt;p>这里我们先创建一个 namespace 用于测试：&lt;/p>
+&lt;pre>&lt;code>➜ ~ kubectl create ns moelove
+namespace/moelove created
+&lt;/code>&lt;/pre>&lt;p>创建一个 Deployment&lt;/p>
+&lt;pre>&lt;code>➜ ~ kubectl -n moelove create deployment redis --image=ghcr.io/moelove/redis:alpine
+deployment.apps/redis created
+➜ ~ kubectl -n moelove get pods
+NAME READY STATUS RESTARTS AGE
+redis-687967dbc5-xj2zs 1/1 Running 0 10s
+&lt;/code>&lt;/pre>&lt;p>在 Jaeger 上进行查看：&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/06/25/FhyKx2c3wpSjqMl.png" alt="">&lt;/p>
+&lt;p>点开看详细内容&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/06/25/cIyzN5Himdb6GEW.png" alt="">&lt;/p>
+&lt;p>可以看到，和此创建 deploy 有关的 event 均被归到了一起，在时间线上可以看到其耗时等详细信息。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>本文介绍了如何结合 Jaeger 利用 tracing 的方式来采集 K8S 中的 events ，以便更好的掌握 K8S 集群中所有事件的耗时点，更易于找到优化的方向及度量结果。&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Jaeger/">Jaeger</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>开源项目的 5 年长跑，runc v1.0 终于正式发布！</title><link>https://moelove.info/2021/06/23/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE%E7%9A%84-5-%E5%B9%B4%E9%95%BF%E8%B7%91runc-v1.0-%E7%BB%88%E4%BA%8E%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</link><guid isPermaLink="true">https://moelove.info/2021/06/23/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE%E7%9A%84-5-%E5%B9%B4%E9%95%BF%E8%B7%91runc-v1.0-%E7%BB%88%E4%BA%8E%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83/</guid><pubDate>Wed, 23 Jun 2021 02:08:20 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>本文我来分享下与我们（搞容器化/K8S 从业者）息息相关的一个基础项目 &lt;a href="https://github.com/opencontainers/runc" title="runc">runc&lt;/a> 是如何自 2016 年发布了 v1.0.0-rc1 到现在历经 5 年长跑，从 rc1 一直到 rc95 ，如今终于正式发布 v1.0 版本的过程，及这中间的故事。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
