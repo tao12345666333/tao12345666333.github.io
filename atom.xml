@@ -1,4 +1,79 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-06-25T14:14:41+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">更优雅的 Kubernetes 集群事件度量方案</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/06/25/%E6%9B%B4%E4%BC%98%E9%9B%85%E7%9A%84-Kubernetes-%E9%9B%86%E7%BE%A4%E4%BA%8B%E4%BB%B6%E5%BA%A6%E9%87%8F%E6%96%B9%E6%A1%88/"/><id>https://moelove.info/2021/06/25/%E6%9B%B4%E4%BC%98%E9%9B%85%E7%9A%84-Kubernetes-%E9%9B%86%E7%BE%A4%E4%BA%8B%E4%BB%B6%E5%BA%A6%E9%87%8F%E6%96%B9%E6%A1%88/</id><updated>2021-06-25T14:14:36+08:00</updated><published>2021-06-25T05:53:03+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 群里有个小伙伴问了我上图中这个问题，如何度量滚动升级这个过程的时间。 这个问题可以抽象为一种通用需求，适用于多……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-06-28T10:03:50+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Kubernetes v1.22.0-beta.0 发布</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/06/27/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.22.0-beta.0-%E5%8F%91%E5%B8%83/"/><id>https://moelove.info/2021/06/27/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.22.0-beta.0-%E5%8F%91%E5%B8%83/</id><updated>2021-06-28T10:03:34+08:00</updated><published>2021-06-27T05:52:12+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 runc v1.0 正式发布 从 2016 年……</summary><content type="html">&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="runc-v10-正式发布">runc v1.0 正式发布&lt;/h2>
+&lt;p>从 2016 年 6 月发布 v1.0-rc1 版本开始，至今已整整 5 年时间，runc 历经多个 rc 版本终于发布了 v1.0 版本。整个过程及其思考请参考我之前的文章 &lt;a href="https://zhuanlan.zhihu.com/p/383133561">《开源项目的 5 年长跑，runc v1.0 终于正式发布！》&lt;/a> 。这里我们来看看 v1.0 新版本中带来了哪些值得注意的变更。&lt;/p>
+&lt;h3 id="破化性变更">破化性变更&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/opencontainers/runc/pull/2999">#2999&lt;/a> 删除了 &lt;code>libcontainer/configs.Device*&lt;/code> 标识，请使用 &lt;code>libcontainer/devices.*&lt;/code> 来替代（是自 v1.0-rc94 开始废弃的）；&lt;/li>
+&lt;li>&lt;a href="https://github.com/opencontainers/runc/pull/2999">#2999&lt;/a> 删除了 &lt;code>libcontainer/system.RunningInUserNS&lt;/code> 函数，请使用 &lt;code>libcontainer/userns.RunningInUserNS&lt;/code> 函数代替（同样是自 v1.0-rc94 开始废弃的）；&lt;/li>
+&lt;/ul>
+&lt;h3 id="改进">改进&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/opencontainers/runc/pull/2994">#2994&lt;/a> 在 &lt;code>runc update&lt;/code> 的时候设置了 &lt;code>SkipDevices&lt;/code> ，所以在此期间我们就不会更新 cgroups 了；&lt;/li>
+&lt;li>&lt;a href="https://github.com/opencontainers/runc/pull/3010">#3010&lt;/a> cgroup1 相关的 blkio 支持 BFQ weight 了，这里需要注意的是 &lt;strong>2018 年 CFQ 已经从 Linux 删除，22019 年发布的 RHEL 8.0 和 Ubuntu 19.01 等发行版中也均使用 BFQ 替代了 CFQ&lt;/strong> 。关于 Linux 内核的 BFQ 和 CFQ 这里就不再展开了，只需要知道 BFQ 相比 CFQ 做到了低延迟和吞吐即可；&lt;/li>
+&lt;/ul>
+&lt;p>更多关于此版本的变更，请参考其 &lt;a href="https://github.com/opencontainers/runc/releases/tag/v1.0.0">ReleaseNote&lt;/a> ，现在 Docker/containerd 等项目已将 runc 依赖升级到了 v1.0 ，K8S 项目尚未合并。&lt;/p>
+&lt;h2 id="prometheus-v228-正式发布">Prometheus v2.28 正式发布&lt;/h2>
+&lt;p>Prometheus v2.28 在使用体验上有了重大提升，我们来看看有哪些值得关注的内容：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>PromQL 编辑器默认将会开启， 这个编辑器我在之前的 k8s生态中介绍过了，这里贴个图，看看它的自动补齐, 除此之外还有高亮和 linting 的能力。&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/06/27/imhyDQjLgdO4uYq.png" alt="">&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>还有 metrics 的浏览窗口，为什么会再次提这个功能呢？因为我觉得它很实用。在之前的版本，我要么是需要提前记住有哪些 metrics，要么就是直接去 curl 请求下 metrics 接口，看看有哪些 metrics 可用。现在的话，直接浏览即可。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://i.loli.net/2021/06/27/NuVM7F9dYZcEjJR.png" alt="">&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>可以展示 trace exemplar 了，效果如下：&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/06/28/ykStjmwAJGKN9zP.jpg" alt="">&lt;/p>
+&lt;p>这个功能还是蛮方便的，有空了我可以详细介绍下。（flag+1）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>新增了一个基于 HTTP 的 service discovery ，这个功能比较实用，不再要求非要特定于使用某个组件，只要 HTTP 接口返回的内容符合其要求的格式，即可注册到 Prometheus 中。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>在 Kubernetes SD 中，增加了一个 ingress class name 的字段，比如你在使用 Apache APISIX Ingress controller 的时候，通过新版的 Prometheus 采集，就会看到一个 &lt;code>{__meta_kubernetes_ingress_class_name: apisix}&lt;/code> 的字段了；&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>更多关于此版本的变更，请查看其 &lt;a href="https://github.com/prometheus/prometheus/releases/tag/v2.28.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h2 id="kubernetes-v1220-beta0httpsgithubcomkuberneteskubernetesreleasestagv1220-beta0-发布">&lt;a href="https://github.com/kubernetes/kubernetes/releases/tag/v1.22.0-beta.0">Kubernetes v1.22.0-beta.0&lt;/a> 发布&lt;/h2>
+&lt;p>Kubernetes v1.22 正在持续的进行迭代和发布，我们来看看 v1.22.0-beta.0 中有哪些值得关注的变更吧！&lt;/p>
+&lt;h3 id="废弃">废弃&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>--hard-pod-affinity-symmetric-weight&lt;/code> 和 &lt;code>--scheduler-name&lt;/code> 已经从 kube-scheduler 中移除（自 v1.18 废弃）；&lt;/li>
+&lt;/ul>
+&lt;h3 id="api-变更">API 变更&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/99597">#99597&lt;/a> kube-scheduler component config 现在开始用 v1beta2 API ，这意味着三个插件被废弃，分别是 NodeLabel, ServiceAffinity, NodePreferAvoidPods；&lt;/li>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/102834">#102834&lt;/a> Network Policy EndPort 已达到 beta 级别，并将默认开启使用；&lt;/li>
+&lt;/ul>
+&lt;h3 id="特性">特性&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/101316">#101316&lt;/a> &lt;strong>为 StatefulSet 增加了一个 minReadySeconds 参数&lt;/strong>，通过此参数可以设置 sts 的最小就绪时间，不会过早的在 Pod 就绪前就把流量引入；&lt;/li>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/102722">#102722&lt;/a> 为 kubeadm 在 &lt;code>kubeadm init&lt;/code> 增加了 &lt;code>--dry-run&lt;/code> 的选项；&lt;/li>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/102466">#102466&lt;/a> 将 kubeadm 部署用的 CoreDNS 升级到了 v1.8.4 同时也授予了其 &lt;code>EndpointSlice&lt;/code> 的 list 和 watch 权限；&lt;/li>
+&lt;/ul>
+&lt;h3 id="bugfix">bugfix&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes/kubernetes/pull/102840">102840&lt;/a> 更改了 Graceful Node Shutdown Pod 的 Reason 和 Message，变更如下：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="gd">- nodeShutdownReason = &amp;#34;Shutdown&amp;#34;
+&lt;/span>&lt;span class="gd">- nodeShutdownMessage = &amp;#34;Node is shutting, evicting pods&amp;#34;
+&lt;/span>&lt;span class="gd">- nodeShutdownNotAdmitMessage = &amp;#34;Node is in progress of shutting down, not admitting any new pods&amp;#34;
+&lt;/span>&lt;span class="gd">&lt;/span>&lt;span class="gi">+ nodeShutdownReason = &amp;#34;Terminated&amp;#34;
+&lt;/span>&lt;span class="gi">+ nodeShutdownMessage = &amp;#34;Pod was terminated in response to imminent node shutdown.&amp;#34;
+&lt;/span>&lt;span class="gi">+ nodeShutdownNotAdmittedReason = &amp;#34;NodeShutdown&amp;#34;
+&lt;/span>&lt;span class="gi">+ nodeShutdownNotAdmittedMessage = &amp;#34;Pod was rejected as the node is shutting down.&amp;#34;
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ul>
+&lt;p>更多关于此版本的变更请参考其 &lt;a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.22.md#changelog-since-v1220-alpha3">ReleaseNote&lt;/a>&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">更优雅的 Kubernetes 集群事件度量方案</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/06/25/%E6%9B%B4%E4%BC%98%E9%9B%85%E7%9A%84-Kubernetes-%E9%9B%86%E7%BE%A4%E4%BA%8B%E4%BB%B6%E5%BA%A6%E9%87%8F%E6%96%B9%E6%A1%88/"/><id>https://moelove.info/2021/06/25/%E6%9B%B4%E4%BC%98%E9%9B%85%E7%9A%84-Kubernetes-%E9%9B%86%E7%BE%A4%E4%BA%8B%E4%BB%B6%E5%BA%A6%E9%87%8F%E6%96%B9%E6%A1%88/</id><updated>2021-06-25T14:14:36+08:00</updated><published>2021-06-25T05:53:03+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 群里有个小伙伴问了我上图中这个问题，如何度量滚动升级这个过程的时间。 这个问题可以抽象为一种通用需求，适用于多……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>&lt;img src="https://i.loli.net/2021/06/25/294ohZRewN7c8qI.jpg" alt="">&lt;/p>
 &lt;p>群里有个小伙伴问了我上图中这个问题，如何度量滚动升级这个过程的时间。&lt;/p>
 &lt;p>这个问题可以抽象为一种通用需求，适用于多种场景。&lt;/p>
