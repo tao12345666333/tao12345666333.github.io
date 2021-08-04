@@ -1,4 +1,93 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sun, 04 Jul 2021 11:49:42 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>Redis 容器化技术选型，K8S 并非唯一</title><link>https://moelove.info/2021/07/02/Redis-%E5%AE%B9%E5%99%A8%E5%8C%96%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8BK8S-%E5%B9%B6%E9%9D%9E%E5%94%AF%E4%B8%80/</link><guid isPermaLink="true">https://moelove.info/2021/07/02/Redis-%E5%AE%B9%E5%99%A8%E5%8C%96%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8BK8S-%E5%B9%B6%E9%9D%9E%E5%94%AF%E4%B8%80/</guid><pubDate>Fri, 02 Jul 2021 12:39:40 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>&lt;strong>本文根据我在〖deeplus直播第247期〗线上分享演讲内容整理而成。&lt;/strong>&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Thu, 05 Aug 2021 07:21:09 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Kubernetes v1.22.0 正式发布，新特性一览！</title><link>https://moelove.info/2021/08/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.22.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</link><guid isPermaLink="true">https://moelove.info/2021/08/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.22.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</guid><pubDate>Thu, 05 Aug 2021 05:23:50 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>Kubernetes v1.22 已经在今天正式发布了，这是 2021 年的第二个正式发布的版本。此版本中共包含 53 项增强更新，其中 13 项达到 stable，24 项达到 beta 还有 16 项为 alpha。当然，也有 3 项特性被标记为废弃。&lt;/p>
+&lt;p>从今年的 4 月份，Kubernetes 的发布节奏由原来的每 3 个月一个版本修改成了每 4 个月一个版本，这也是第一个应用了此节奏的长周期版本。我们一起来看看有哪些值得注意的变更吧！&lt;/p>
+&lt;h3 id="server-side-apply-特性达到-ga">Server-side Apply 特性达到 GA&lt;/h3>
+&lt;p>&lt;a href="https://kubernetes.io/docs/reference/using-api/server-side-apply/">Server-side Apply&lt;/a> 这个特性主要目标是把逻辑从 &lt;code>kubectl apply&lt;/code> 移动到 kube-apiserver 中，这可以修复当前遇到的很多有关所有权冲突的问题。&lt;/p>
+&lt;p>还记得在之前的『K8S生态周报』中我曾为你介绍过 Kubernetes 新增的 &lt;code>.meta.managedFields&lt;/code> 吗？Server-side Apply 当前就是通过此特性来跟踪对象字段的更改的。&lt;/p>
+&lt;p>同时此特性的好处在与你可以直接通过 API 完成声明式配置的操作，而无需依赖于特定的 &lt;code>kubectl apply&lt;/code> 命令，比如直接通过 &lt;code>curl&lt;/code> 即可完成。&lt;/p>
+&lt;p>此功能的用法如下：&lt;/p>
+&lt;pre>&lt;code>kubectl apply --server-side [--dry-run=server]
+&lt;/code>&lt;/pre>&lt;h3 id="pod-security-policy-的替代品">Pod Security Policy 的替代品&lt;/h3>
+&lt;p>&lt;a href="https://github.com/kubernetes/website/blob/dev-1.22/content/en/docs/concepts/security/pod-security-admission.md">PodSecurity admission controller&lt;/a> 是&lt;a href="https://sysdig.com/blog/kubernetes-1-21-whats-new/#5">在 Kubernets v1.21 中被废弃的 Pod Security Policies &lt;/a> 的替代品。&lt;/p>
+&lt;p>这个 admission controller 可以按 namespace 级别启用 &lt;a href="https://kubernetes.io/docs/concepts/security/pod-security-standards/">Pod Security Standards&lt;/a> ，可以有以下三种模式：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>enforce&lt;/strong>: 违反策略的 Pod 将被拒绝；&lt;/li>
+&lt;li>&lt;strong>audit&lt;/strong>：违反策略的 Pod 将会添加审计注释，但其他情况下都允许；&lt;/li>
+&lt;li>&lt;strong>warn&lt;/strong>：违反策略的 Pod 将会触发面向用户的警告；&lt;/li>
+&lt;/ul>
+&lt;p>可通过如下配置文件进行控制：&lt;/p>
+&lt;pre>&lt;code>apiVersion: apiserver.config.k8s.io/v1
+kind: AdmissionConfiguration
+plugins:
+- name: PodSecurity
+configuration:
+defaults: # Defaults applied when a mode label is not set.
+enforce: &amp;lt;default enforce policy level&amp;gt;
+enforce-version: &amp;lt;default enforce policy version&amp;gt;
+audit: &amp;lt;default audit policy level&amp;gt;
+audit-version: &amp;lt;default audit policy version&amp;gt;
+warn: &amp;lt;default warn policy level&amp;gt;
+warn-version: &amp;lt;default warn policy version&amp;gt;
+exemptions:
+usernames: [ &amp;lt;array of authenticated usernames to exempt&amp;gt; ]
+runtimeClassNames: [ &amp;lt;array of runtime class names to exempt&amp;gt; ]
+namespaces: [ &amp;lt;array of namespaces to exempt&amp;gt; ]
+&lt;/code>&lt;/pre>&lt;h3 id="node-swap-支持">Node swap 支持&lt;/h3>
+&lt;p>此特性现在是 Alpha 阶段。&lt;/p>
+&lt;p>虽然 swap 并不够快，但是现在有很多场景都是需要用到它的，尤其是一些 Java 和 Node 应用。&lt;/p>
+&lt;p>在 Kubernetes 的 issue 列表中有一个存在了 5 年左右的讨论，就是针对于能否开启 swap 支持的。当前这个特性一旦开启就是针对于整个 Node 的，并不能精确到某个 Pod 中。&lt;/p>
+&lt;p>你可以通过如下步骤启用此特性：&lt;/p>
+&lt;ul>
+&lt;li>在 Node 中启用 swap；&lt;/li>
+&lt;li>开启 kubelet 的 &lt;code>NodeMemorySwap&lt;/code> 特性；&lt;/li>
+&lt;li>设置 &lt;code>--fail-on-swap=false&lt;/code>&lt;/li>
+&lt;li>可选在 Kubelet 的配置中增加 &lt;code>MemorySwap.SwapBehavior=UnlimitedSwap&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>更多内容可参考：https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2400-node-swap&lt;/p>
+&lt;h3 id="外部客户端凭证提供工具">外部客户端凭证提供工具&lt;/h3>
+&lt;p>这个功能允许 client-go 使用外部工具进行身份验证，比如 LDAP、Kerberos、OAuth2、SAML 等。这个特性是从 v1.10 开始引入的。&lt;/p>
+&lt;p>使用此特性的话，需要你在 kubeconfig 配置文件中作为 user 字段下的字段进行配置。比如：&lt;/p>
+&lt;pre>&lt;code>apiVersion: v1
+kind: Config
+users:
+- name: my-user
+user:
+exec:
+command: &amp;quot;example-client-go-exec-plugin&amp;quot;
+apiVersion: &amp;quot;client.authentication.k8s.io/v1beta1&amp;quot;
+env:
+- name: &amp;quot;FOO&amp;quot;
+value: &amp;quot;bar&amp;quot;
+args:
+- &amp;quot;arg1&amp;quot;
+- &amp;quot;arg2&amp;quot;
+provideClusterInfo: true
+clusters:
+...
+&lt;/code>&lt;/pre>&lt;p>在 &lt;code>user.exec&lt;/code>字段下配置可用的 client-go-exec plugin 即可。现在也有一个示例项目可供参考 &lt;a href="https://github.com/ankeesler/sample-exec-plugin">https://github.com/ankeesler/sample-exec-plugin&lt;/a>&lt;/p>
+&lt;h3 id="可索引的-job-api">可索引的 Job API&lt;/h3>
+&lt;p>在 Kubernetes v1.21 中新增的可索引 Job API 可以更加方便的调度并行化的 Job。你可以使用如下的方式通过环境变量让 Job 中的 Pod 知道自己的索引：&lt;/p>
+&lt;pre>&lt;code>[...]
+spec:
+subdomain: my-job-svc
+containers:
+- name: task
+image: registry.example.com/processing-image
+command: [&amp;quot;./process&amp;quot;, &amp;quot;--index&amp;quot;, &amp;quot;$JOB_COMPLETION_INDEX&amp;quot;, &amp;quot;--hosts-pattern&amp;quot;, &amp;quot;my-job-{{.id}}.my-job-svc&amp;quot;]
+&lt;/code>&lt;/pre>&lt;h3 id="为-job-api-增加-suspend-字段">为 Job API 增加 suspend 字段&lt;/h3>
+&lt;p>自 v1.21 起，Job 可以通过设置 &lt;code>.spec.suspend=true&lt;/code> 字段来临时的挂起。可以比较方便的去进行控制，类似 Argo workflow 中，也可以对某个 workflow 进行挂起操作。&lt;/p>
+&lt;h3 id="csr-的有效期">CSR 的有效期&lt;/h3>
+&lt;p>通过在 &lt;code>CertificateSigningRequestSpec&lt;/code> 中增加的 &lt;code>ExpirationSeconds&lt;/code> 可以接受的最小值是 600（10分钟），这样就可以很好的控制其有效期了。现在默认的是 1 年。&lt;/p>
+&lt;h3 id="内存资源的-qos">内存资源的 QoS&lt;/h3>
+&lt;p>之前 Kubernetes 在使用 cgroups v1 ，对于 Pod 的 QoS 其实只适用于 CPU 资源。Kubernetes v1.22 中通过引入 cgroups v2 来提供了一个 alpha 特性，允许对内存资源也提供 QoS。（如果没记错，貌似是腾讯云团队提交的 KEP 吧）&lt;/p>
+&lt;p>其他值得注意的变更，请参考之前发布的每期『K8S生态周报』及 &lt;a href="https://zhuanlan.zhihu.com/p/384599279">《K8S 生态周报| Kubernetes v1.22.0-beta.0 发布》&lt;/a>&lt;/p>
+&lt;p>当然，你也可以通过KIND 使用如下命令来快速的体验 Kubernetes v1.22 ：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">kind create cluster --image&lt;span class="o">=&lt;/span>kindest/node:v1.22.0@sha256:b8bda84bb3a190e6e028b1760d277454a72267a5454b57db34437c34a588d047
+&lt;/code>&lt;/pre>&lt;/div>&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>Redis 容器化技术选型，K8S 并非唯一</title><link>https://moelove.info/2021/07/02/Redis-%E5%AE%B9%E5%99%A8%E5%8C%96%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8BK8S-%E5%B9%B6%E9%9D%9E%E5%94%AF%E4%B8%80/</link><guid isPermaLink="true">https://moelove.info/2021/07/02/Redis-%E5%AE%B9%E5%99%A8%E5%8C%96%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8BK8S-%E5%B9%B6%E9%9D%9E%E5%94%AF%E4%B8%80/</guid><pubDate>Fri, 02 Jul 2021 12:39:40 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>&lt;strong>本文根据我在〖deeplus直播第247期〗线上分享演讲内容整理而成。&lt;/strong>&lt;/p>
 &lt;p>今天将分享的内容分为以下4个方面：&lt;/p>
 &lt;ul>
 &lt;li>一、缘起&lt;/li>
