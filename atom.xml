@@ -1,4 +1,72 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-08-27T12:53:47+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">开源浪潮下程序员的职业规划和成长</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/08/27/%E5%BC%80%E6%BA%90%E6%B5%AA%E6%BD%AE%E4%B8%8B%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92%E5%92%8C%E6%88%90%E9%95%BF/"/><id>https://moelove.info/2021/08/27/%E5%BC%80%E6%BA%90%E6%B5%AA%E6%BD%AE%E4%B8%8B%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92%E5%92%8C%E6%88%90%E9%95%BF/</id><updated>2021-08-27T12:35:28+08:00</updated><published>2021-08-27T12:39:40+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 无论从年初开源社发布的《2020 中国开源年度报告》还是整体的大环境，不难看到中国的开源正在崛起，越来越多的来……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-09-06T08:47:06+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">【译】Lima：Docker Desktop for Mac 的免费开源且自由的替代品</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/09/05/%E8%AF%91LimaDocker-Desktop-for-Mac-%E7%9A%84%E5%85%8D%E8%B4%B9%E5%BC%80%E6%BA%90%E4%B8%94%E8%87%AA%E7%94%B1%E7%9A%84%E6%9B%BF%E4%BB%A3%E5%93%81/"/><id>https://moelove.info/2021/09/05/%E8%AF%91LimaDocker-Desktop-for-Mac-%E7%9A%84%E5%85%8D%E8%B4%B9%E5%BC%80%E6%BA%90%E4%B8%94%E8%87%AA%E7%94%B1%E7%9A%84%E6%9B%BF%E4%BB%A3%E5%93%81/</id><updated>2021-09-06T08:46:30+08:00</updated><published>2021-09-05T10:39:13+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">近期，Docker Inc. 公司突然修改了其产品定价和策略，Docker Desktop for Mac/Win 不再 免费 供大型企业内个人使用。 关于此新闻中涉及的条款，这里……</summary><content type="html">&lt;p>近期，Docker Inc. 公司突然修改了&lt;a href="https://www.docker.com/blog/updating-product-subscriptions/" title="Docker 新的产品定价策略公告">其产品定价和策略&lt;/a>，Docker Desktop for Mac/Win 不再 &lt;strong>免费&lt;/strong> 供大型企业内个人使用。&lt;/p>
+&lt;p>关于此新闻中涉及的条款，这里就不再展开介绍了。我来为大家介绍 &lt;strong>一款免费、自由、开源的 Docker for Mac 替代品，&lt;a href="https://github.com/containerd/containerd" title="containerd">containerd&lt;/a> &amp;amp; &lt;a href="https://github.com/lima-vm/lima" title="Lima">Lima&lt;/a>&lt;/strong> 。&lt;/p>
+&lt;p>你只需要执行以下命令即可快速体验：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">$ brew install lima
+$ limactl start
+$ lima nerdctl run -it --rm alpine
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>注意：如果是 Arm 版的 Mac 则需要安装一个额外的 QEMU 的 patch ，请参考 &lt;a href="https://github.com/lima-vm/lima#getting-started">Lima 的文档&lt;/a>。&lt;/p>
+&lt;h2 id="什么是-containerd--什么是-nerdctl-">什么是 containerd ? 什么是 nerdctl ?&lt;/h2>
+&lt;p>&lt;a href="https://github.com/containerd/containerd">containerd&lt;/a> 是一个开源的容器运行时，被很多项目所使用，包括 Docker，和很多云厂商默认配置的 Kubernetes 集群，例如 AKS， EKS 和 GKE。&lt;/p>
+&lt;p>由于 &lt;a href="https://containerd.io/scope/" title="containerd 项目的核心目标">containerd 项目的核心范围仅限于非面向用户的区域&lt;/a>，因此用户很难直接与 containerd 进行交互。所以我们近期贡献了一个人性化的 CLI 作为 containerd 的非核心子项目：&lt;a href="https://github.com/containerd/nerdctl" title="nerdctl">nerdctl&lt;/a> 。&lt;/p>
+&lt;p>nerdctl 的功能和用法几乎与 Docker CLI 相同，但是 nerdctl 还支持 Docker 中不存在的几个 containerd 的前沿功能。此类功能包括但不限于 &lt;a href="https://github.com/containerd/nerdctl/blob/master/docs/stargz.md">延迟拉取(stargz)&lt;/a> 和 &lt;a href="https://github.com/containerd/nerdctl/blob/master/docs/ocicrypt.md">运行加密镜像（ocicrypt）&lt;/a>。&lt;/p>
+&lt;p>有关更多输 nerdctl 的内容可参考之前的文章：&lt;a href="https://medium.com/nttlabs/nerdctl-359311b32d0e">nerdctl: Docker-compatible CLI for contaiNERD&lt;/a>&lt;/p>
+&lt;h2 id="什么是-lima">什么是 Lima？&lt;/h2>
+&lt;p>&lt;a href="https://github.com/lima-vm/lima">Lima（Linux MAchines）&lt;/a>可以启动具有自动文件共享、端口转发和使用 containerd 的 Linux 虚拟机。&lt;/p>
+&lt;p>Lima 截至到 2021 年 9 月 1 日时已经在 GitHub 上获得了 3k star 。&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/09/05/MGQxt31A6vDo8sb.png" alt="img">&lt;/p>
+&lt;p>我们最初创建 Lima 是为了向 Mac 用户推广 containerd 和 nerdctl ，但是 Lima 也可以用于其他的容器引擎，例如 Podman 甚至是非容器化的应用程序。&lt;/p>
+&lt;p>Lima 的设计和 WSL2 类似，但 Lima 使用 MacOS 作为其主要的目标主机。Lima 目前不支持 Windows 主机，如果有需求，我们也可以考虑支持 Windows 系统。&lt;/p>
+&lt;h3 id="lima-的技术细节">Lima 的技术细节&lt;/h3>
+&lt;p>以下是 Lima 的技术细节，感谢的小伙伴可以看看：&lt;/p>
+&lt;ul>
+&lt;li>管理程序： QEMU， 带 &lt;code>hvf&lt;/code> （Hypervisor.framework）加速器；&lt;/li>
+&lt;li>支持的 Guest 操作系统：Ubuntu (默认), Debian, Fedora, Alpine, Arch, and openSUSE；&lt;/li>
+&lt;li>文件共享（host-&amp;gt;guset）：当前版本中使用的是 “Reverse SSHFS”，在将来可能会改变，可能会切换到 Samba；&lt;/li>
+&lt;li>文件共享（guset-&amp;gt;host）：WebDAV over SSH（在 &lt;a href="https://github.com/lima-vm/sshwebdav">https://github.com/lima-vm/sshwebdav&lt;/a> 中实验）；&lt;/li>
+&lt;li>端口转发： &lt;code>ssh -L&lt;/code> 有一个 agent 进程在 guest 中监听 &lt;code>/proc/net/tcp*&lt;/code> ；&lt;/li>
+&lt;li>网络：默认在用户空间使用 “slirp”。同时也支持通过 sudo 和 VDE 使用 &lt;code>vmnet.framework&lt;/code> 的高级网络配置，参考 &lt;a href="https://github.com/lima-vm/vde_vmnet">https://github.com/lima-vm/vde_vmnet&lt;/a> ；&lt;/li>
+&lt;li>安全：在设计上不需要使用宿主机上的 root 权限，除了可选的 &lt;code>vmnet.framework&lt;/code> 支持；&lt;/li>
+&lt;/ul>
+&lt;h2 id="快速开始">快速开始&lt;/h2>
+&lt;h3 id="安装-lima">安装 Lima&lt;/h3>
+&lt;p>如果你使用的是 Intel Mac，只要运行如下 &lt;code>brew&lt;/code> 命令即可完成：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">$ brew install lima
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果你使用的 Arm Mac（M1），当前你需要安装&lt;a href="https://lore.kernel.org/qemu-devel/20210519202253.76782-1-agraf@csgraf.de/">一个 QUME 的 path 版本&lt;/a>才能启用 &lt;code>hvf&lt;/code> 加速，该补丁可能在不久之后会合并到 QUME 上游。请参考 &lt;a href="https://github.com/lima-vm/lima#getting-started">Lima 的文档&lt;/a>&lt;/p>
+&lt;h3 id="启动-lima">启动 Lima&lt;/h3>
+&lt;p>执行 &lt;code>limactl start&lt;/code> 并按下回车选择 &lt;code>Proceed with the default configuration&lt;/code> ，稍等几分钟，Lima 会自动完成下载 VM 镜像和启动虚拟机。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">$ limactl start
+? Creating an instance &lt;span class="s2">&amp;#34;default&amp;#34;&lt;/span> &lt;span class="o">[&lt;/span>Use arrows to move, &lt;span class="nb">type&lt;/span> to filter&lt;span class="o">]&lt;/span>
+&amp;gt; Proceed with the default configuration
+Open an editor to override the configuration
+Exit
+...
+INFO&lt;span class="o">[&lt;/span>0111&lt;span class="o">]&lt;/span> READY. Run &lt;span class="sb">`&lt;/span>lima&lt;span class="sb">`&lt;/span> to open the shell.
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在看到 &lt;code>READY&lt;/code> 输出后，执行 &lt;code>lima uname -a&lt;/code> 来确认虚拟机已经在运行了。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">$ lima uname -a
+Linux lima-default 5.11.0-31-generic &lt;span class="c1">#33-Ubuntu SMP Wed Aug 11 13:19:04 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="使用-lima-nerdctl-构建和运行一个容器">使用 &lt;code>lima nerdctl&lt;/code> 构建和运行一个容器&lt;/h3>
+&lt;p>在宿主机上创建一个文件 &lt;code>~/lima-test/Dockerfile&lt;/code> 并写入以下内容：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-dockerfile" data-lang="dockerfile">&lt;span class="k">FROM&lt;/span>&lt;span class="s"> nginx&lt;/span>&lt;span class="err">
+&lt;/span>&lt;span class="err">&lt;/span>&lt;span class="k">RUN&lt;/span> &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;hello lima&amp;#34;&lt;/span> &amp;gt; /usr/share/nginx/html/index.html&lt;span class="err">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后使用如下命令构建一个名为 &lt;code>lima-test&lt;/code> 的容器镜像：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">$ lima nerdctl build -t lima-test ~/lima-test
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Lima 将主机的家目录挂载到 guest 文件系统，所以 guest 中的 &lt;code>nerdctl&lt;/code> 可以无缝的访问主机上的 &lt;code>~/lima-test&lt;/code> 目录。为了安全起见，家目录默认被挂载为只读，但是也可以通过在执行 &lt;code>limactl start&lt;/code> 时，通过修改配置来实现可读写模式的挂载。&lt;/p>
+&lt;p>刚才构建好的 &lt;code>lima-test&lt;/code> 镜像可通过如下命令进行启动：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">$ lima nerdctl run -d -p 127.0.0.1:8080:80 lima-test
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Lima 将 guest VM 上已经映射了容器中 80 端口的地址 &lt;code>127.0.0.1:8080&lt;/code> 映射到宿主机上的 &lt;code>127.0.0.1:8080&lt;/code> ，所以你可以直接在 Safari 中打开 &lt;a href="http://127.0.0.1:8080/">http://127.0.0.1:8080/&lt;/a> 进而访问到 &lt;code>lima-test&lt;/code> 容器。&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/09/05/exTksJN1ZCfXoEt.png" alt="通过 Safari 访问到 guest VM">&lt;/p>
+&lt;h2 id="rancher-desktop--gui">Rancher Desktop &amp;amp; GUI&lt;/h2>
+&lt;p>&lt;a href="https://github.com/rancher-sandbox/rancher-desktop">Rancher Desktop&lt;/a> 已经适配了 Lima ，以便在 macOS 上运行 k3s 。(我在之前的 『K8S生态周报』中曾为大家介绍过此项目)&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/09/05/z6evkARfEjGOI1D.png" alt="安装 Rancher Desktop">&lt;/p>
+&lt;p>尽管 Lima 和 nerdctl 它们目前不包含 GUI 控制面，但是 Rancher Desktop 已经使用 Electron 提供了一个很酷的 GUI 。&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/09/05/OWpytz4SrDIV6ws.png" alt="Rancher Desktop v0.4.1">&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/09/05/EqbpuNJ31lw4Pem.png" alt="Rancher Desktop 在后台运行 Lima ">&lt;/p>
+&lt;p>未来，上游的 Lima 和 nerdctl 可能也会有自己的 GUI ，这取决于来自社区的需求（和贡献）。&lt;/p>
+&lt;p>&lt;em>原文地址：https://medium.com/nttlabs/containerd-and-lima-39e0b64d2a59&lt;/em>
+&lt;em>经原作者 Akihiro Suda 授权翻译&lt;/em>&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Docker/" term="Docker" label="Docker"/><category scheme="https://moelove.info/tags/containerd/" term="containerd" label="containerd"/></entry><entry><title type="text">开源浪潮下程序员的职业规划和成长</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/08/27/%E5%BC%80%E6%BA%90%E6%B5%AA%E6%BD%AE%E4%B8%8B%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92%E5%92%8C%E6%88%90%E9%95%BF/"/><id>https://moelove.info/2021/08/27/%E5%BC%80%E6%BA%90%E6%B5%AA%E6%BD%AE%E4%B8%8B%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92%E5%92%8C%E6%88%90%E9%95%BF/</id><updated>2021-08-27T12:35:28+08:00</updated><published>2021-08-27T12:39:40+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 无论从年初开源社发布的《2020 中国开源年度报告》还是整体的大环境，不难看到中国的开源正在崛起，越来越多的来……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>无论从年初开源社发布的《2020 中国开源年度报告》还是整体的大环境，不难看到中国的开源正在崛起，越来越多的来自中国的开源项目和开发者们正在走入大家的视野。在开源浪潮的大趋势下，程序员又该如何规划自己的职业以及个人成长呢？不如听听正在全职做开源的工程师张晋涛怎么说。&lt;/p>
 &lt;blockquote>
 &lt;p>本文根据张晋涛在又拍云 Open Talk 技术沙龙北京站主题演讲《开源浪潮下程序员的职业规划和成长》整理而成，现场视频及 PPT 可下拉文末点击阅读原文查看。&lt;/p>
