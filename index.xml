@@ -1,4 +1,145 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Wed, 03 Nov 2021 13:57:36 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Helm 新版本发布增强对 OCI 的支持</title><link>https://moelove.info/2021/10/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-%E6%96%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E5%A2%9E%E5%BC%BA%E5%AF%B9-OCI-%E7%9A%84%E6%94%AF%E6%8C%81/</link><guid isPermaLink="true">https://moelove.info/2021/10/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-%E6%96%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E5%A2%9E%E5%BC%BA%E5%AF%B9-OCI-%E7%9A%84%E6%94%AF%E6%8C%81/</guid><pubDate>Sun, 31 Oct 2021 01:15:34 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Thu, 04 Nov 2021 18:59:02 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>OCI 与下一代镜像构建工具</title><link>https://moelove.info/2021/11/03/OCI-%E4%B8%8E%E4%B8%8B%E4%B8%80%E4%BB%A3%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/</link><guid isPermaLink="true">https://moelove.info/2021/11/03/OCI-%E4%B8%8E%E4%B8%8B%E4%B8%80%E4%BB%A3%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/</guid><pubDate>Wed, 03 Nov 2021 23:16:42 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>这篇文章中我将介绍 OCI 及 Docker 镜像相关的内容，欢迎留言讨论。&lt;/p>
+&lt;h2 id="oci-的前世今生">OCI 的前世今生&lt;/h2>
+&lt;p>2013 年 3 月 dotCloud 公司在 PyCon 上进行了 Docker 的首次展示，随后宣布开源。自此 Docker 开始被众人知晓，随后掀起了一股容器化的热潮。&lt;/p>
+&lt;p>在 2014 年 6 月 Docker 1.0 正式发布，有近 460 位贡献者和超过 8700 次提交，这也标志着 Docker 达到了生产可用的状态。&lt;/p>
+&lt;p>在当时，提到容器化第一想法就是用 Docker 。而当时 Docker 的实现或者说发展方向主要是由 Docker Inc. 公司控制的，并没有一个统一的工业标准。这对于一些头部公司而言，显然是不能接受的，没有统一的工业标准意味着如果选择了使用 Docker 的容器化技术，便会被 Docker Inc. 公司所绑定；加上随着 Docker 软件的升级，某些功能或者特性必然会进行变动，没人能保证不发生破坏性变更。&lt;/p>
+&lt;p>所以，为了推进容器化技术的工业标准化，2015 年 6 月在 DockerCon 上 Linux 基金会与 Google，华为，惠普，IBM，Docker，Red Hat，VMware 等公司共同宣布成立开放容器项目(OCP)，后更名为 OCI。它的主要目标便是 &lt;strong>建立容器格式和运行时的工业开放通用标准&lt;/strong>。&lt;/p>
+&lt;p>发展至今， OCI 制定的主要标准有三个分别是 &lt;code>runtime-spec&lt;/code> 、&lt;code>image-spec&lt;/code> 和 &lt;code>distribution-spec&lt;/code> 这三个标准分别定义了容器运行时，容器镜像还有分发的规范，后面会展开介绍。&lt;/p>
+&lt;p>为了支持 OCI 容器运行时标准的推进，Docker 公司起草了镜像格式和运行时规范的草案，并将 Docker 项目的相关实现捐献给了 OCI 作为容器运行时的基础实现，现在项目名为 &lt;a href="https://github.com/opencontainers/runc">&lt;code>runc&lt;/code>&lt;/a> 。&lt;/p>
+&lt;p>后来 Docker 将其容器运行时独立成了一个项目，名为 &lt;code>containerd&lt;/code> 并将此项目捐献给了 CNCF ，现在已经是 CNCF 毕业项目了。&lt;/p>
+&lt;h2 id="oci-image-vs-docker-image">OCI image vs Docker image&lt;/h2>
+&lt;p>OCI 的建立推动了容器技术的工业标准化，但是否此标准就是唯一呢？其实不然。在成立 OCI 并制定 &lt;code>image-spec&lt;/code> 标准的时候 Docker 已经空前繁荣，并得到了广泛的应用。&lt;/p>
+&lt;p>由于标准只定义了最基本的内容，想要将 Docker 的实现全部按照标准进行改造的话，会对 Docker 造成破坏性变更，也不利于 Docker 功能的迭代。&lt;/p>
+&lt;p>所以，Docker 为了支持 OCI 标准的普及，已经推进了 registry 对 OCI 镜像的支持，现在也正在给 Docker 自身增加适配中，目标是让 Docker 支持两种镜像格式，分别是符合 Docker 标准的镜像和符合 OCI 标准的镜像。&lt;/p>
+&lt;p>那这两者有什么异同呢？ 我们来逐步看下。&lt;/p>
+&lt;h3 id="docker-image-和-oci-image-的区别和联系">Docker Image 和 OCI Image 的区别和联系&lt;/h3>
+&lt;p>在我以前的文章中我们已经详细的从根本上介绍了 Docker image 是什么，这里我们就快速的介绍下。&lt;/p>
+&lt;p>每个 Docker 镜像都是由一系列的配置清单和相应的层进行组织的。每个层一般都是 tar 格式的归档，配置清单中描述了对应的层应该按何种顺序进行组织，以及镜像的一些元属性。比如镜像所支持的架构，例如 &lt;code>amd64&lt;/code> 之类的，还有 ENV 等提前配置好的一些参数等。&lt;/p>
+&lt;p>当然，在 Docker Image 中也包含着构建镜像时候所用的 Docker 版本 &lt;code>docker_version&lt;/code> 以及构建镜像的历史记录 &lt;code>history&lt;/code> 等信息。所以你在 &lt;code>DockerHub&lt;/code> 或者其他的镜像仓库上可以看到构建镜像所用的 Docker 版本， 或者可通过 &lt;code>docker history &amp;lt;IMAGE&amp;gt;&lt;/code> 的方式来查看构建历史。&lt;/p>
+&lt;p>那么 OCI Image 是什么呢？ 首先我们需要有一个 OCI Image 才好探究它到底是什么。&lt;/p>
+&lt;p>这里介绍一个工具 &lt;a href="https://github.com/projectatomic/skopeo">skopeo&lt;/a> 可以很方便的从镜像仓库或者本地 Docker daemon 甚至是通过 &lt;code>docker save&lt;/code> 保存的 Docker Image tar 文件转换为 OCI Image 。&lt;/p>
+&lt;p>关于 &lt;a href="https://github.com/projectatomic/skopeo">skopeo&lt;/a> 的安装过程就不再赘述了，参考项目主页的文档说明即可。这里直接开始使用。&lt;/p>
+&lt;p>我们使用 &lt;code>debian&lt;/code> 的镜像为例。&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ skopeo copy docker://debian:stretch oci:debian:stretch
+Getting image source signatures
+Copying blob a4d8138d0f6b done
+Copying config 45f82268e3 done
+Writing manifest to image destination
+Storing signatures
+&lt;/code>&lt;/pre>&lt;p>通过上面的命令便会得到一个 OCI Image 了， 我们看下它的目录结构。&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ tree debian
+debian
+├── blobs
+│   └── sha256
+│   ├── 0043cd2a654fe86258f43f5b1dbbb4e6c582cc4bb6e505e9c5171c124150d155
+│   ├── 45f82268e32180cb1839f90467d9b8a8258953d68b7221199976653308d92ef5
+│   └── a4d8138d0f6b5a441aaa533faf5fe0c3996a6ca42643c46f4402c7e8bda53742
+├── index.json
+└── oci-layout
+2 directories, 5 files
+&lt;/code>&lt;/pre>&lt;p>是不是有种似曾相识的感觉？没错 OCI Image 的规范是在 Docker Image 的基础上建立的，所以大致看起来差异不是特别大。我们看看其中具体的内容。&lt;/p>
+&lt;h4 id="oci-layout">&lt;code>oci-layout&lt;/code>&lt;/h4>
+&lt;p>这个文件是 OCI Image 的布局文件，也是用于说明它所使用或者遵循的镜像规范。&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ debian cat oci-layout| jq
+{
+&amp;quot;imageLayoutVersion&amp;quot;: &amp;quot;1.0.0&amp;quot;
+}
+&lt;/code>&lt;/pre>&lt;p>可以看到此处的内容写的是 &lt;code>1.0.0&lt;/code> 这便说明该镜像遵循 OCI 1.0.0 版本的布局规范。&lt;/p>
+&lt;h4 id="indexjson">&lt;code>index.json&lt;/code>&lt;/h4>
+&lt;p>&lt;code>index.json&lt;/code> 文件中的 &lt;code>manifest&lt;/code> 字段类似于 Docker Image 中的 &lt;code>manifest.json&lt;/code> 作为 OCI Image 的顶级配置, 也是镜像的一个入口配置。&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ debian cat index.json | jq
+{
+&amp;quot;schemaVersion&amp;quot;: 2,
+&amp;quot;manifests&amp;quot;: [
+{
+&amp;quot;mediaType&amp;quot;: &amp;quot;application/vnd.oci.image.manifest.v1+json&amp;quot;,
+&amp;quot;digest&amp;quot;: &amp;quot;sha256:0043cd2a654fe86258f43f5b1dbbb4e6c582cc4bb6e505e9c5171c124150d155&amp;quot;,
+&amp;quot;size&amp;quot;: 349,
+&amp;quot;annotations&amp;quot;: {
+&amp;quot;org.opencontainers.image.ref.name&amp;quot;: &amp;quot;stretch&amp;quot;
+},
+&amp;quot;platform&amp;quot;: {
+&amp;quot;architecture&amp;quot;: &amp;quot;amd64&amp;quot;,
+&amp;quot;os&amp;quot;: &amp;quot;linux&amp;quot;
+}
+}
+]
+}
+&lt;/code>&lt;/pre>&lt;p>从它的内容可以看到它其中的 &lt;code>mediaType&lt;/code> 字段与 Docker Image 中的类型形式相同，但是将 &lt;code>docker&lt;/code> 都换成了 &lt;code>oci&lt;/code>。从这个配置文件，我们可以找到第一个 blob 是 &lt;code>sha256:0043cd2a654fe86258f43f5b1dbbb4e6c582cc4bb6e505e9c5171c124150d155&lt;/code> 我们看看它的内容。&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ debian cat blobs/sha256/0043cd2a654fe86258f43f5b1dbbb4e6c582cc4bb6e505e9c5171c124150d155 | jq
+{
+&amp;quot;schemaVersion&amp;quot;: 2,
+&amp;quot;config&amp;quot;: {
+&amp;quot;mediaType&amp;quot;: &amp;quot;application/vnd.oci.image.config.v1+json&amp;quot;,
+&amp;quot;digest&amp;quot;: &amp;quot;sha256:45f82268e32180cb1839f90467d9b8a8258953d68b7221199976653308d92ef5&amp;quot;,
+&amp;quot;size&amp;quot;: 579
+},
+&amp;quot;layers&amp;quot;: [
+{
+&amp;quot;mediaType&amp;quot;: &amp;quot;application/vnd.oci.image.layer.v1.tar+gzip&amp;quot;,
+&amp;quot;digest&amp;quot;: &amp;quot;sha256:a4d8138d0f6b5a441aaa533faf5fe0c3996a6ca42643c46f4402c7e8bda53742&amp;quot;,
+&amp;quot;size&amp;quot;: 45337510
+}
+]
+}
+&lt;/code>&lt;/pre>&lt;p>这个入口文件描述了 OCI 镜像的实际配置和其中的 Layer 配置。如果有多层那 &lt;code>layers&lt;/code> 也会相应增加。&lt;/p>
+&lt;p>&lt;strong>注意：layers 中 &lt;code>mediaType&lt;/code> 使用了 &lt;code>application/vnd.oci.image.layer.v1.tar+gzip&lt;/code> 说明数据内容是经过 gzip 压缩的&lt;/strong> 如果有兴趣你可以将它用 tar 解压一下，你会发现很有趣的内容。&lt;/p>
+&lt;blockquote>
+&lt;p>这里先将结果说出来，解压后你会得到一个 &lt;code>rootfs&lt;/code> 这与 Docker Image 是类似的。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="小结">小结&lt;/h3>
+&lt;p>我们通过 &lt;a href="https://github.com/projectatomic/skopeo">skopeo&lt;/a> 工具，从本地的 Docker daemon 中由 debian 的 Docker Image 得到了 OCI Image，并分析了它其中的内容。&lt;/p>
+&lt;p>最主要的区别在于它们的目录结构不完全相同，配置信息尤其是 &lt;code>mediaType&lt;/code> 的规范是不相同的。&lt;/p>
+&lt;p>而它们的联系也在于此，OCI Image 的规范是由 Docker Image 的规范修改而来的，所以类似它们的 blob 的组织形式大致是相同的，配置文件中很多的参数也相似。&lt;/p>
+&lt;p>另外，我们也可以很容易的得到另一个结论，那便是我们可以很方便的将 Docker Image 转换为 OCI Image 。&lt;/p>
+&lt;h3 id="oci-image-和-docker-image-的转换">OCI image 和 Docker image 的转换&lt;/h3>
+&lt;p>上面我们已经看到，使用 &lt;a href="https://github.com/projectatomic/skopeo">skopeo&lt;/a> 工具，可以将 Docker Image 转换为 OCI Image ，当然它也可以将 OCI Image 转换为 Docker Image 。下面给出了方法：&lt;/p>
+&lt;pre>&lt;code># 从 DockerHub 将 debian 的 Docker Image 拉取并转换为 OCI Image
+(MoeLove) ➜ skopeo copy docker://debian:stretch oci:debian:stretch
+Getting image source signatures
+Copying blob a4d8138d0f6b done
+Copying config 45f82268e3 done
+Writing manifest to image destination
+Storing signatures
+# 将当前目录下的 debian 的 OCI Image 转换为 Docker Image 并存储到本地 docker daemon 中
+(MoeLove) ➜ skopeo copy oci:debian:stretch docker-daemon:local/debian:oci
+Getting image source signatures
+Copying blob 0e350e141713 done
+Copying config aae58a37cf done
+Writing manifest to image destination
+Storing signatures
+# 验证
+(MoeLove) ➜ oci docker images local/debian
+REPOSITORY TAG IMAGE ID CREATED SIZE
+local/debian oci ac6bcf605d82 6 months ago 101MB
+&lt;/code>&lt;/pre>&lt;h3 id="镜像构建工具">镜像构建工具&lt;/h3>
+&lt;p>在 CI/CD 环境中，虽然我们可以使用 DinD (Docker in Docker) 的方式启动一个 docker daemon 或者使用挂载的方式，将外部的 &lt;code>/var/run/docker.sock&lt;/code> 挂载进容器内部，亦或者将 Docker API 使用 HTTP 的方式暴露出来，直接使用该地址进行构建。&lt;/p>
+&lt;p>但这些方式你是否会觉得比较重？是否有考虑安全问题，或者压力及负载的问题？&lt;/p>
+&lt;p>这里的压力及负载主要是指当所有的任务都共用同一个 docker daemon 提供服务的话，对该 docker daemon 造成的压力。&lt;/p>
+&lt;p>这里我们来介绍一些其他的镜像构建工具，使用这些工具可以让你在无 Docker 的环境下构建出镜像并上传至 Docker 镜像仓库中。&lt;/p>
+&lt;p>到目前为止，我们可以有很多种选择：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/moby/buildkit">BuildKit&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/genuinetools/img">img&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/cyphar/orca-build">orca-build&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/openSUSE/umoci">umoci&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/containers/buildah">buildah&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/GoogleContainerTools/kaniko">kaniko&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/GoogleCloudPlatform/runtimes-common/tree/master/ftl">FTL&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/bazelbuild/rules_docker">Bazel rules_docker&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>这些工具侧重点各有不同，当然也不仅有上面列到的这些工具，只是这些工具比较典型罢了。&lt;/p>
+&lt;p>通常情况下，在网络上比较容易见到宣传为下一代镜像构建工具的是 &lt;code>buildah&lt;/code> ，最主要原因是因为它可以直接构建 OCI 标准的镜像或 Docker 镜像，也可以直接使用 &lt;code>Dockerfile&lt;/code> 。并且它还可以 &lt;code>pull&lt;/code>/&lt;code>push&lt;/code> 镜像，可以说在镜像构建方面与 Docker 是完全兼容，甚至可以说它在构建镜像方面可以作为 Docker 的替代品了。&lt;/p>
+&lt;p>并且 &lt;code>buildah&lt;/code> 构建镜像的时候不需要任何 &lt;code>root&lt;/code> 权限，也不依赖 Docker， 它使用了简单的 &lt;code>fork-exec&lt;/code> 模型，同时它也可以作为一个库包含在其他的工具中。它的最终目标便是提供一个更低层次的核心工具集，来完成构建镜像相关的事情。&lt;/p>
+&lt;p>说完这个典型的替代品，我们再来说下 &lt;code>BuildKit&lt;/code> 和 &lt;code>img&lt;/code> , &lt;code>img&lt;/code> 这个工具是构建在 &lt;code>BuildKit&lt;/code> 之上的，所以有很多相似性。它们使用非 root 用户来构建镜像。当然 &lt;code>BuildKit&lt;/code> 我在之前的文章中详细介绍过了，它是 Docker 内置的下一代构建工具，独立使用也是可以的。称它为“下一代镜像构建工具” 也并不为过。&lt;/p>
+&lt;p>&lt;code>kaniko&lt;/code> 是 Google 推出的，它主要的宣传语为 “在 Kubernetes 中构建容器镜像” 实际上无论是在 K8S 集群中或者在容器中它都是可以工作的。它也可以使用 &lt;code>Dockerfile&lt;/code> 构建镜像。当然还有很重要的一点，它所有的构建命令都是运行在用户态的，并且也可以很好的与 Kubernetes 结合，在云原生时代下，它也占据了一定的优势。&lt;/p>
+&lt;p>以上工具都只是大致介绍了下，如果对它们感兴趣，可直接进入项目主页查看 &lt;code>README.md&lt;/code> 基础使用都有比较详细的说明，这里不再进行赘述了。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>本篇为大家介绍了 OCI 的前世今生，以及 OCI Image 的规范和特点，另外也介绍了一个可用于在 OCI Image 和 Docker Image 之间镜像转换的工具 &lt;code>skopeo&lt;/code> 。另外介绍了一些可用于在 CI 环境或其他有特定场景环境下替代 Docker build 的工具，请大家按实际需求进行选择。&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Docker/">Docker</category></item><item><title>K8S 生态周报| Helm 新版本发布增强对 OCI 的支持</title><link>https://moelove.info/2021/10/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-%E6%96%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E5%A2%9E%E5%BC%BA%E5%AF%B9-OCI-%E7%9A%84%E6%94%AF%E6%8C%81/</link><guid isPermaLink="true">https://moelove.info/2021/10/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-%E6%96%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E5%A2%9E%E5%BC%BA%E5%AF%B9-OCI-%E7%9A%84%E6%94%AF%E6%8C%81/</guid><pubDate>Sun, 31 Oct 2021 01:15:34 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;h1 id="docker-v201010-发布">Docker v20.10.10 发布&lt;/h1>
