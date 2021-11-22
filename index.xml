@@ -1,4 +1,251 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Thu, 18 Nov 2021 12:36:20 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>一篇搞懂容器技术的基石： cgroup</title><link>https://moelove.info/2021/11/17/%E4%B8%80%E7%AF%87%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-cgroup/</link><guid isPermaLink="true">https://moelove.info/2021/11/17/%E4%B8%80%E7%AF%87%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-cgroup/</guid><pubDate>Wed, 17 Nov 2021 23:16:42 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 22 Nov 2021 22:56:51 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>Shell 脚本避坑指南（一）</title><link>https://moelove.info/2021/11/21/Shell-%E8%84%9A%E6%9C%AC%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97%E4%B8%80/</link><guid isPermaLink="true">https://moelove.info/2021/11/21/Shell-%E8%84%9A%E6%9C%AC%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97%E4%B8%80/</guid><pubDate>Sun, 21 Nov 2021 22:41:02 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>提到 Shell 大家想必不会太陌生，我们通常认为 Shell 是我们和系统交互的接口，执行命令返回输出，比如 bash 、zsh 等。偶尔也会有人把 Shell 和 Terminal（终端）混淆，但这和本文关系不大，暂且略过。&lt;/p>
+&lt;p>作为一名程序员，我们可能天天都会用到 Shell ，偶尔也会把一些命令组织到一起，写个 Shell 脚本之类的，以便提升我们的工作效率。&lt;/p>
+&lt;p>然而在看似简单的 Shell 脚本中，可能隐藏着很深的坑。这里我先给出两段简单且相似的 Shell 脚本，大家不妨来看看这两段代码的输出是什么：&lt;/p>
+&lt;pre>&lt;code>#!/bin/bash
+set -e -u
+i=0
+while [ $i -lt 6 ]; do
+echo $i
+((i++))
+done
+&lt;/code>&lt;/pre>&lt;p>&lt;strong>答案是只会输出一个 0 。&lt;/strong>&lt;/p>
+&lt;pre>&lt;code>#!/bin/bash
+set -e -u
+let i=0
+while [ $i -lt 6 ]; do
+echo $i
+((i++))
+done
+&lt;/code>&lt;/pre>&lt;p>&lt;strong>答案是没有任何输出，直接退出。&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>如果你能解释清楚上面两段代码输出结果的话， 那大概你可以跳过这篇文章后续的内容了。&lt;/strong>&lt;/p>
+&lt;p>我先来分解下这段代码中涉及到的主要知识点。&lt;/p>
+&lt;h2 id="变量声明">变量声明&lt;/h2>
+&lt;p>变量声明有很多种办法， 但是其行为却各有不同。&lt;/p>
+&lt;p>我们必须先有个基础认识： &lt;strong>Bash 没有类型系统，所有变量都是 string 。&lt;/strong> 基于这个原因，如果是让变量进行算术运算时，不能像在其他的编程语言中那样直接写算术运算符。这会让 bash 解释为对 string 的操作，而不是对数字的操作。&lt;/p>
+&lt;h3 id="直接声明">直接声明&lt;/h3>
+&lt;pre>&lt;code>(MoeLove)➜ ~ foo=1+1
+(MoeLove)➜ ~ echo $foo
+1+1
+&lt;/code>&lt;/pre>&lt;p>直接声明最简单，但正如前面提到的，直接声明会默认当作 string 进行处理，不能在声明时进行算术运算。&lt;/p>
+&lt;h3 id="declare-声明">declare 声明&lt;/h3>
+&lt;pre>&lt;code>(MoeLove)➜ ~ declare foo=1+1
+(MoeLove)➜ ~ echo $foo
+1+1
+&lt;/code>&lt;/pre>&lt;p>除去直接声明变量外，比较常用的方法是用 &lt;code>declare&lt;/code> 来声明变量，但默认情况下，其声明的变量都是按 string 处理的，无法进行正常的算术运算。&lt;/p>
+&lt;p>&lt;strong>declare 整数属性&lt;/strong>&lt;/p>
+&lt;p>declare 在声明变量的时候，可以通过 &lt;code>-i&lt;/code> 参数增加整数属性，当变量被赋值时，将进行算术运算。&lt;/p>
+&lt;pre>&lt;code>(MoeLove)➜ ~ declare -i bar=1+1
+(MoeLove)➜ ~ echo $bar
+2
+&lt;/code>&lt;/pre>&lt;p>但要注意的是，增加整数属性后，如果将字符串赋值给它，则会出现解析失败的情况，即：将值设置为 0：&lt;/p>
+&lt;pre>&lt;code>(MoeLove)➜ ~ bar=test
+(MoeLove)➜ ~ echo $bar
+0
+&lt;/code>&lt;/pre>&lt;h3 id="let-声明">let 声明&lt;/h3>
+&lt;p>另一种办法，我们可以通过 &lt;code>let&lt;/code> 命令进行变量的声明，这种方式允许在声明时进行算术运算，同时也支持将其他值赋值给此变量。&lt;/p>
+&lt;pre>&lt;code>(MoeLove)➜ ~ let baz=1+1
+(MoeLove)➜ ~ echo $baz
+2
+(MoeLove)➜ ~ baz=moelove.info
+(MoeLove)➜ ~ echo $baz
+moelove.info
+&lt;/code>&lt;/pre>&lt;h2 id="while-循环">while 循环&lt;/h2>
+&lt;pre>&lt;code>while list-1; do list-2; done
+&lt;/code>&lt;/pre>&lt;p>Bash 中 while 语法就是这样，在 while 关键字后是一个序列（list），可以是一个或多个表达式/语句，&lt;/p>
+&lt;p>需要注意的是，当 list-1 返回值为 0 时， list-2 总是会被执行，并且 while 语句最后的返回值是 list-2 最后一次执行的返回值，或者，如果没执行任何语句的话，则返回 0 。&lt;/p>
+&lt;h2 id="bash-中的算数计算">bash 中的算数计算&lt;/h2>
+&lt;p>这部分的内容大家想必常会用到。我来介绍几种常用的方法：&lt;/p>
+&lt;h3 id="算术扩展">算术扩展&lt;/h3>
+&lt;p>Bash 中的扩展一共有 7 种，算术扩展只是其中之一。具体而言就是通过类似 &lt;code>$((expression))&lt;/code> 这样的形式，来计算表达式的值。例如：&lt;/p>
+&lt;pre>&lt;code>(MoeLove)➜ ~ echo $((3+7))
+10
+(MoeLove)➜ ~ x=3;y=7
+(MoeLove)➜ ~ echo $((x+y))
+10
+&lt;/code>&lt;/pre>&lt;h3 id="expr-命令">expr 命令&lt;/h3>
+&lt;p>expr 是 coreutils 软件包提供的一个命令，可对表达式进行计算，或者比较大小之类的。&lt;/p>
+&lt;pre>&lt;code>(MoeLove)➜ ~ x=3;y=7
+(MoeLove)➜ ~ expr $x + $y
+10
+## 比较大小
+(MoeLove)➜ ~ expr 2 \&amp;lt; 3
+1
+(MoeLove)➜ ~ expr 2 \&amp;lt; 1
+0
+&lt;/code>&lt;/pre>&lt;h3 id="bc-命令">bc 命令&lt;/h3>
+&lt;p>按定义来说，bc 其实是一种支持任意精度和可交互执行的计算语言。它比上述提到的 &lt;code>expr&lt;/code> 要强大的多，尤其是它还支持浮点数运算。例如：&lt;/p>
+&lt;h4 id="一般浮点数计算">一般浮点数计算&lt;/h4>
+&lt;pre>&lt;code>(MoeLove)➜ ~ echo &amp;quot;scale=2;7/3&amp;quot;|bc
+2.33
+(MoeLove)➜ ~ echo &amp;quot;7/3&amp;quot;|bc
+2
+&lt;/code>&lt;/pre>&lt;p>注意： &lt;code>scale&lt;/code> 需要手动指定，它表示小数点后的位数。默认情况下 &lt;code>scale&lt;/code> 的值为 0 。&lt;/p>
+&lt;h4 id="内置函数">内置函数&lt;/h4>
+&lt;p>bc 还有一些内置函数，可以方便我们进行一些快速的计算，比如可以利用 &lt;code>sqrt()&lt;/code> 快速的计算平方根。&lt;/p>
+&lt;pre>&lt;code>(MoeLove)➜ ~ echo &amp;quot;scale=2;sqrt(9)&amp;quot; |bc
+3.00
+(MoeLove)➜ ~ echo &amp;quot;scale=2;sqrt(6)&amp;quot; |bc
+2.44
+&lt;/code>&lt;/pre>&lt;h4 id="脚本">脚本&lt;/h4>
+&lt;p>此外， bc 还支持一种简单的语法，可以支持声明变量，编写循环和判断语句等。例如：我们可以打印20 以内可以被 3 整除的数：&lt;/p>
+&lt;pre>&lt;code>(MoeLove)➜ ~ echo &amp;quot;for(i=1; i&amp;lt;=20; i++) {if (i % 3 == 0) i;}&amp;quot; |bc
+3
+6
+9
+12
+15
+18
+&lt;/code>&lt;/pre>&lt;h2 id="bash-的调试">bash 的调试&lt;/h2>
+&lt;p>其实 bash shell 中并没有内置调试器。很多情况下，都是采用重复运行加打印来进行调试。但这种方式不够高效。&lt;/p>
+&lt;p>这里介绍一种比较直观的，也比较方便的用来调试 shell 代码的办法。以下是一段示例 shell 代码。&lt;/p>
+&lt;pre>&lt;code>(MoeLove)➜ ~ cat compare.sh
+#!/bin/bash
+read -p &amp;quot;请输入任意数字: &amp;quot; val
+real_val=66
+if [ &amp;quot;$val&amp;quot; -gt &amp;quot;$real_val&amp;quot; ]
+then
+echo &amp;quot;输入值大于等于预设值&amp;quot;
+else
+echo &amp;quot;输入值比预设值小&amp;quot;
+fi
+&lt;/code>&lt;/pre>&lt;p>为其增加执行权限，或者使用 bash 执行：&lt;/p>
+&lt;pre>&lt;code>(MoeLove)➜ ~ bash compare.sh
+请输入任意数字: 33
+输入值比预设值小
+&lt;/code>&lt;/pre>&lt;h3 id="详细模式">详细模式&lt;/h3>
+&lt;p>通过增加 &lt;code>-v&lt;/code> 选项，即可开启详细模式，用于查看所执行的命令。当然，我们也可以通过在 shebang 上直接增加 &lt;code>-v&lt;/code> 选项， 或者增加 &lt;code>set -v&lt;/code> 来开启此模式&lt;/p>
+&lt;pre>&lt;code>(MoeLove)➜ ~ bash -v compare.sh
+which () { ( alias;
+eval ${which_declare} ) | /usr/bin/which --tty-only --read-alias --read-functions --show-tilde --show-dot &amp;quot;$@&amp;quot;
+}
+#!/bin/bash
+read -p &amp;quot;请输入任意数字: &amp;quot; val
+请输入任意数字: 33
+real_val=66
+if [ &amp;quot;$val&amp;quot; -gt &amp;quot;$real_val&amp;quot; ]
+then
+echo &amp;quot;输入值大于等于预设值&amp;quot;
+else
+echo &amp;quot;输入值比预设值小&amp;quot;
+fi
+输入值比预设值小
+&lt;/code>&lt;/pre>&lt;h3 id="使用-xtrace-模式">使用 xtrace 模式&lt;/h3>
+&lt;p>我们可以通过增加 &lt;code>-x&lt;/code> 参数来进入 xtrace 模式，用于调试执行阶段的变量值。&lt;/p>
+&lt;pre>&lt;code>(MoeLove)➜ ~ bash -x compare.sh
++ read -p '请输入任意数字: ' val
+请输入任意数字: 33
++ real_val=66
++ '[' 33 -gt 66 ']'
++ echo 输入值比预设值小
+输入值比预设值小
+&lt;/code>&lt;/pre>&lt;h3 id="识别未定义变量">识别未定义变量&lt;/h3>
+&lt;p>以下示例中，我故意写错一个字符。执行脚本后，你会发现没有任何报错，但结果并不是我们预期的。这类可能是手误居多，所以我们需要检查是否存在未绑定的变量。&lt;/p>
+&lt;pre>&lt;code>(MoeLove)➜ ~ cat add.sh
+#!/bin/bash
+five=5
+ten=10
+total=$((five+tne))
+echo $total
+(MoeLove)➜ ~ bash add.sh
+5
+(MoeLove)➜ ~ bash -u add.sh
+add.sh: line 4: tne: unbound variable
+&lt;/code>&lt;/pre>&lt;p>增加 &lt;code>-u&lt;/code> 选项， 可以检查变量是否未定义/绑定。&lt;/p>
+&lt;h3 id="组合使用">组合使用&lt;/h3>
+&lt;p>以上是几种比较常见的使用方式，当然，也可以把它进行组合使用。比如上面的变量未定义的问题， 组合使用 &lt;code>-vu&lt;/code> 就可以直接看到具体出现问题的代码是什么内容了。&lt;/p>
+&lt;pre>&lt;code>(MoeLove)➜ ~ bash -vu add.sh
+which () { ( alias;
+eval ${which_declare} ) | /usr/bin/which --tty-only --read-alias --read-functions --show-tilde --show-dot &amp;quot;$@&amp;quot;
+}
+#!/bin/bash
+five=5
+ten=10
+total=$((five+tne))
+add.sh: line 4: tne: unbound variable
+&lt;/code>&lt;/pre>&lt;h3 id="将调试信息输出到指定文件">将调试信息输出到指定文件&lt;/h3>
+&lt;p>这里我打开了一个特定 FD 上的 &lt;code>debug.log&lt;/code> 文件，注意这个 FD 需要与 &lt;code>BASH_XTRACEFD&lt;/code> 配置的一致，另外我修改了 &lt;code>PS4&lt;/code> 的变量内容，它的默认值是 &lt;code>+&lt;/code> 看起来会比较乱，而且没有有效信息，我通过设置 &lt;code>PS4='$LINENO: ' &lt;/code> 让它显示行号。&lt;/p>
+&lt;p>然后在需要调试的位置设置 &lt;code>set -x&lt;/code> ，在结束的位置设置 &lt;code>set +x&lt;/code> ，这样调试日志中就只会记录我需要调试部分的日志了。&lt;/p>
+&lt;pre>&lt;code>(MoeLove)➜ ~ cat compare.sh
+#!/bin/bash
+exec 6&amp;gt; debug.log
+PS4='$LINENO: '
+BASH_XTRACEFD=&amp;quot;6&amp;quot;
+read -p &amp;quot;请输入任意数字: &amp;quot; val
+real_val=66
+set -x
+if [ &amp;quot;$val&amp;quot; -gt &amp;quot;$real_val&amp;quot; ]
+then
+echo &amp;quot;输入值大于等于预设值&amp;quot;
+else
+echo &amp;quot;输入值比预设值小&amp;quot;
+fi
+set +x
+echo &amp;quot;End&amp;quot;
+(MoeLove)➜ ~ bash compare.sh
+请输入任意数字: 88
+输入值大于等于预设值
+End
+(MoeLove)➜ ~ cat debug.log
+8: '[' 88 -gt 66 ']'
+10: echo $'\350\276\223\345\205\245\345\200\274\345\244\247\344\272\216\347\255\211\344\272\216\351\242\204\350\256\276\345\200\274'
+14: set +x
+&lt;/code>&lt;/pre>&lt;p>这里介绍了&lt;strong>通过 set 设置选项&lt;/strong> 的方式较简单，其他的比如使用 trap 加调试的方式也推荐大家去尝试下，这里就不展开了。&lt;/p>
+&lt;h2 id="回到开始的问题">回到开始的问题&lt;/h2>
+&lt;p>那我们用刚才介绍的调试方法来执行下开头的两个脚本，并且进行问题的解答。&lt;/p>
+&lt;h3 id="第一个">第一个&lt;/h3>
+&lt;pre>&lt;code>(MoeLove)➜ ~ bash -xv demo1.sh
+#!/bin/bash
+set -e -u
++ set -e -u
+i=0
++ i=0
+while [ $i -lt 6 ]; do
+echo $i
+((i++))
+done
++ '[' 0 -lt 6 ']'
++ echo 0
+0
++ (( i++ ))
+&lt;/code>&lt;/pre>&lt;p>从上述调试结果可以看到，这个脚本在输出 &lt;code>0&lt;/code> 然后执行完 &lt;code>((i++))&lt;/code> 后退出。为什么呢？ 主要是由于在脚本顶部增加的 &lt;code>set -e&lt;/code> 选项。&lt;/p>
+&lt;p>&lt;strong>该选项在遇到首个非 0 值的时候会直接退出。&lt;/strong> 我们来解释下：&lt;/p>
+&lt;pre>&lt;code>(MoeLove)➜ ~ i=0
+(MoeLove)➜ ~ ((i++))
+(MoeLove)➜ ~ echo $?
+1
+&lt;/code>&lt;/pre>&lt;p>可以看到，执行 &lt;code>((i++))&lt;/code> 后，返回值其实是 1 ，所以触发了 &lt;code>set -e&lt;/code> 的退出条件，脚本便退出了。&lt;/p>
+&lt;h3 id="第二个">第二个&lt;/h3>
+&lt;pre>&lt;code>(MoeLove)➜ ~ bash -xv demo2.sh
+#!/bin/bash
+set -e -u
++ set -e -u
+let i=0
++ let i=0
+&lt;/code>&lt;/pre>&lt;p>第二个和第一个的最主要区别在于变量的赋值上， &lt;code>let i=0&lt;/code> 的返回值是 1 ，所以也就会触发 &lt;code>set -e&lt;/code> 的退出条件了。我们尝试将第二个脚本修改下，再次执行：&lt;/p>
+&lt;pre>&lt;code>[tao@moelove ~]$ cat demo2-1.sh
+#!/bin/bash
+set -e -u
+let i=1
+while [ $i -lt 6 ]; do
+echo $i
+((i++))
+done
+[tao@moelove ~]$ bash demo2-1.sh
+1
+2
+3
+4
+5
+&lt;/code>&lt;/pre>&lt;p>将 &lt;code>let i=0&lt;/code> 修改成 &lt;code>let i=1&lt;/code> 即可按预期执行成功。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>本篇中，我们主要聊了 bash shell 中的变量声明，循环，数学运算以及 bash shell 的调试。是否对你有所启发呢？ 欢迎留言进行交流。&lt;/p>
+&lt;ul>
+&lt;li>注：本文仅讨论 Bash Shell&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Shell/">Shell</category></item><item><title>一篇搞懂容器技术的基石： cgroup</title><link>https://moelove.info/2021/11/17/%E4%B8%80%E7%AF%87%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-cgroup/</link><guid isPermaLink="true">https://moelove.info/2021/11/17/%E4%B8%80%E7%AF%87%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-cgroup/</guid><pubDate>Wed, 17 Nov 2021 23:16:42 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>目前我们所提到的容器技术、虚拟化技术（不论何种抽象层次下的虚拟化技术）都能做到资源层面上的隔离和限制。&lt;/p>
 &lt;p>对于容器技术而言，它实现资源层面上的限制和隔离，依赖于 Linux 内核所提供的 cgroup 和 namespace 技术。&lt;/p>
 &lt;p>我们先对这两项技术的作用做个概括：&lt;/p>
