@@ -1,4 +1,216 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Wed, 24 Nov 2021 00:58:05 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>Shell 脚本避坑指南（一）</title><link>https://moelove.info/2021/11/21/Shell-%E8%84%9A%E6%9C%AC%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97%E4%B8%80/</link><guid isPermaLink="true">https://moelove.info/2021/11/21/Shell-%E8%84%9A%E6%9C%AC%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97%E4%B8%80/</guid><pubDate>Sun, 21 Nov 2021 22:41:02 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Wed, 24 Nov 2021 16:53:06 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>云原生时代下的容器镜像安全（上）</title><link>https://moelove.info/2021/11/23/%E4%BA%91%E5%8E%9F%E7%94%9F%E6%97%B6%E4%BB%A3%E4%B8%8B%E7%9A%84%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E5%AE%89%E5%85%A8%E4%B8%8A/</link><guid isPermaLink="true">https://moelove.info/2021/11/23/%E4%BA%91%E5%8E%9F%E7%94%9F%E6%97%B6%E4%BB%A3%E4%B8%8B%E7%9A%84%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E5%AE%89%E5%85%A8%E4%B8%8A/</guid><pubDate>Tue, 23 Nov 2021 23:16:42 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>Kubernetes 作为云原生的基石，为我们带来了极大的便利性，越来越多的公司也都将 Kubernetes 应用到了生产环境中。然而，在享受其带来的便利性的同时，我们也需要关注其中的一些安全隐患。&lt;/p>
+&lt;p>本篇，我将为你重点介绍&lt;strong>容器镜像安全&lt;/strong>相关的内容。&lt;/p>
+&lt;p>通常情况下，我们提到&lt;strong>容器镜像安全&lt;/strong>，主要是指以下两个方面：&lt;/p>
+&lt;ul>
+&lt;li>镜像自身内容的安全；&lt;/li>
+&lt;li>镜像分发过程的安全；&lt;/li>
+&lt;/ul>
+&lt;h2 id="镜像自身内容的安全">镜像自身内容的安全&lt;/h2>
+&lt;p>要聊镜像自身内容的安全，那我们就需要知道镜像到底是什么，以及它其中的内容是什么。&lt;/p>
+&lt;h3 id="镜像是什么">镜像是什么&lt;/h3>
+&lt;p>我们以 &lt;code>debian&lt;/code>镜像为例，pull 最新的镜像，并将其保存为 tar 文件，之后进行解压：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ ~ mkdir -p debian-image
+➜ ~ docker pull debian
+Using default tag: latest
+latest: Pulling from library/debian
+647acf3d48c2: Pull &lt;span class="nb">complete&lt;/span>
+Digest: sha256:e8c184b56a94db0947a9d51ec68f42ef5584442f20547fa3bd8cbd00203b2e7a
+Status: Downloaded newer image &lt;span class="k">for&lt;/span> debian:latest
+docker.io/library/debian:latest
+➜ ~ docker image save -o debian-image/debian.tar debian
+➜ ~ ls debian-image
+debian.tar
+➜ ~ tar -C debian-image -xf debian-image/debian.tar
+➜ ~ tree -I debian.tar debian-image
+debian-image
+├── 827e5611389abf13dad1057e92f163b771febc0bcdb19fa2d634a7eb0641e0cc.json
+├── b331057b5d32f835ac4b051f6a08af6e9beedb99ec9aba5c029105abe360bbda
+│ ├── json
+│ ├── layer.tar
+│ └── VERSION
+├── manifest.json
+└── repositories
+&lt;span class="m">1&lt;/span> directory, &lt;span class="m">6&lt;/span> files
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>解压完成后，我们看到它是一堆 json 文件和 &lt;code>layer.tar&lt;/code>文件的组合，我们再次对其中的 &lt;code>layer.tar&lt;/code>进行解压：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ ~ tar -C debian-image/b331057b5d32f835ac4b051f6a08af6e9beedb99ec9aba5c029105abe360bbda -xf debian-image/b331057b5d32f835ac4b051f6a08af6e9beedb99ec9aba5c029105abe360bbda/layer.tar
+➜ ~ tree -I &lt;span class="s1">&amp;#39;layer.tar|json|VERSION&amp;#39;&lt;/span> -L &lt;span class="m">1&lt;/span> debian-image/b331057b5d32f835ac4b051f6a08af6e9beedb99ec9aba5c029105abe360bbda
+debian-image/b331057b5d32f835ac4b051f6a08af6e9beedb99ec9aba5c029105abe360bbda
+├── bin
+├── boot
+├── dev
+├── etc
+├── home
+├── lib
+├── lib64
+├── media
+├── mnt
+├── opt
+├── proc
+├── root
+├── run
+├── sbin
+├── srv
+├── sys
+├── tmp
+├── usr
+└── var
+&lt;span class="m">19&lt;/span> directories, &lt;span class="m">0&lt;/span> files
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>解压后的目录结构想必你已经很熟悉了，是的，这是 &lt;code>rootfs&lt;/code>的目录结构。&lt;/p>
+&lt;p>如果我们使用的是自己构建的一些应用镜像的话，经过几次解压，你也会在其中找到应用程序相对应的文件。&lt;/p>
+&lt;h3 id="镜像自身内容安全如何保证">镜像自身内容安全如何保证&lt;/h3>
+&lt;p>前面我们已经看到了容器镜像就是 &lt;code>rootfs&lt;/code>和应用程序，以及一些配置文件的组合。所以要保证它自身内容的安全性，主要从以下几个方面来考虑：&lt;/p>
+&lt;h4 id="rootfs安全">&lt;code>rootfs&lt;/code>安全&lt;/h4>
+&lt;p>对应到我们的实际情况，&lt;code>rootfs&lt;/code>通常是由我们使用的基础（系统）镜像提供的，或者也可以认为是我们构建镜像时，&lt;code>Dockerfile&lt;/code>的 &lt;code>FROM&lt;/code>字段所配置的镜像提供的。&lt;/p>
+&lt;p>在这个方面想要做到安全性就需要我们：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>使用可信来源的镜像，比如 Docker 官方维护的镜像；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>对基础镜像持续的进行漏洞扫描和升级；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>也可以考虑使用 &lt;code>Distroless&lt;/code>镜像，这样也可以一定程度上免受攻击；&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h4 id="应用程序">应用程序&lt;/h4>
+&lt;p>应用程序其实是我们自己提供的，在这方面想要做到安全性，那么就需要我们：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>持续的进行软件的漏洞扫描；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>对依赖及时的进行更新；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>可以考虑从 SDL（Security Development Lifecycle）过渡到 DevSecOps ；&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h4 id="配置文件">配置文件&lt;/h4>
+&lt;p>镜像中所包含的那些配置文件是由镜像构建工具所提供的，一般情况下，只要我们保证使用的镜像构建工具未被篡改或者留下什么漏洞，那么这里基本上不会有什么大的问题。&lt;/p>
+&lt;p>综合来看，我们可以直接使用类似 &lt;a href="https://github.com/aquasecurity/trivy">Trivy&lt;/a> 或者 &lt;a href="https://github.com/anchore/anchore-engine">Anchore Engine&lt;/a> 等镜像漏洞扫描工具来帮助我们保障镜像内容的安全。此外，一些镜像仓库，比如 Harbor 等都已经内置了镜像安全的扫描工具，或者可以使用 &lt;code>docker scan&lt;/code>命令进行镜像的安全扫描。&lt;/p>
+&lt;h2 id="镜像分发安全">镜像分发安全&lt;/h2>
+&lt;h3 id="镜像如何分发">镜像如何分发&lt;/h3>
+&lt;p>我们首先来看看，容器镜像是怎么样从构建到部署到我们的 Kubernetes 环境中的。&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/11/24/KnehEd4PD6H5YB3.png" alt="img">&lt;/p>
+&lt;p>&lt;strong>图 1 ，容器镜像自创建到发布部署的简要过程示意图&lt;/strong>&lt;/p>
+&lt;p>开发者在编写完代码后，推送代码到代码仓库。由此来触发 CI 进行构建，在此过程中会进行镜像的构建，以及将镜像推送至镜像仓库中。&lt;/p>
+&lt;p>在 CD 的环节中，则会使用镜像仓库中的镜像，部署至目标 Kubernetes 集群中。&lt;/p>
+&lt;p>那么在此过程中，攻击者如何进行攻击呢？&lt;/p>
+&lt;h3 id="镜像分发中的安全问题">镜像分发中的安全问题&lt;/h3>
+&lt;p>&lt;img src="https://i.loli.net/2021/11/24/ZjrvqNodKxU9AXY.png" alt="img">&lt;/p>
+&lt;p>&lt;strong>图 2 ，镜像分发部署安全示例&lt;/strong>&lt;/p>
+&lt;p>如图，在镜像分发部署的环节中其上游是镜像仓库，下游是 Kubernetes 集群。对于镜像仓库而言，即使是内网的自建环境，由于我们的观念已从基于边界的安全转变为零信任安全，所以，我们统一以公共仓库为例来讲解。&lt;/p>
+&lt;p>攻击者可以通过一些手段进行劫持、替换成恶意的镜像，包括直接攻击镜像仓库等。&lt;/p>
+&lt;p>要保证部署到 Kubernetes 集群中镜像的安全性来源以及完整性，其实是需要在两个主要的环节上进行：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>构建镜像时进行镜像的签名；&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>镜像分发部署时进行签名的校验；（下一篇内容继续）&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>我们来分别看一下。&lt;/p>
+&lt;h3 id="镜像的标签和摘要">镜像的标签和摘要&lt;/h3>
+&lt;p>我们通常在使用容器镜像时有两种选择：&lt;/p>
+&lt;ul>
+&lt;li>标签，比如 &lt;code>alpine:3.14.3&lt;/code>&lt;/li>
+&lt;li>摘要，比如 &lt;code>alpine@sha256:635f0aa53d99017b38d1a0aa5b2082f7812b03e3cdb299103fe77b5c8a07f1d2&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>大多数场景下，我们会直接使用标签，因为它的可读性更好。但是镜像内容可能会随着时间的推移而变化，因为我们可能会为不同内容的镜像使用相同的标签，最常见的就是 &lt;code>:latest&lt;/code>标签，每次新版本发布的时候，新版本的镜像都会继续沿用 &lt;code>:latest&lt;/code>标签，但其中的应用程序版本已经升级到了最新。&lt;/p>
+&lt;p>使用摘要的主要弊端是它的可读性不好，但是，每个镜像的摘要都是唯一的，摘要是镜像内容的 SHA256 的哈希值。所以我们可以通过摘要来保证镜像的唯一性。&lt;/p>
+&lt;p>通过以下示例可以直接看到标签和摘要信息：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-plain" data-lang="plain">➜ ~ docker pull alpine:3.14.3
+3.14.3: Pulling from library/alpine
+Digest: sha256:635f0aa53d99017b38d1a0aa5b2082f7812b03e3cdb299103fe77b5c8a07f1d2
+Status: Image is up to date for alpine:3.14.3
+docker.io/library/alpine:3.14.3
+➜ ~ docker image inspect alpine:3.14.3 | jq -r &amp;#39;.[] | {RepoTags: .RepoTags, RepoDigests: .RepoDigests}&amp;#39;
+{
+&amp;#34;RepoTags&amp;#34;: [
+&amp;#34;alpine:3.14.3&amp;#34;
+],
+&amp;#34;RepoDigests&amp;#34;: [
+&amp;#34;alpine@sha256:635f0aa53d99017b38d1a0aa5b2082f7812b03e3cdb299103fe77b5c8a07f1d2&amp;#34;
+]
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>那么如何来保证镜像的正确性/安全性呢？这就是镜像签名解决的主要问题了。&lt;/p>
+&lt;h3 id="镜像签名解决方案">镜像签名解决方案&lt;/h3>
+&lt;p>数字签名是一种众所周知的方法，用于维护在网络上传输的任何数据的完整性。对于容器镜像签名，我们有几种比较通用的方案。&lt;/p>
+&lt;h4 id="docker-content-trust-dct">Docker Content Trust (DCT)&lt;/h4>
+&lt;p>在传输一般文件时，可能有过类似的经历，比如因为网络原因导致下载的文件不完整；或是遭遇中间人的攻击导致文件被篡改、替换等。&lt;/p>
+&lt;p>镜像在分发过程中其实也可能会遇到类似的问题，这就是此处我们要讨论的重点，也就是 Docker Content Trust（DCT）主要解决的问题。&lt;/p>
+&lt;p>Docker Content Trust 使用数字签名，并且允许客户端或运行时验证特定镜像标签的完整性和发布者。对于使用而言也就是 &lt;code>docker trust&lt;/code> 命令所提供的相关功能。注意：这需要 Docker CE 17.12 及以上版本。&lt;/p>
+&lt;p>前面我们提到了，镜像记录可以有一些标签，格式如下：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-plain" data-lang="plain">[REGISTRY_HOST[:REGISTRY_PORT]/]REPOSITORY[:TAG]
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>以标签为例，DCT 会与标签的一部分相关联。每个镜像仓库都有一组密钥，镜像发布者使用这些密钥对镜像标签进行签名。（镜像发布者可以自行决定要签署哪些标签）镜像仓库可以同时包含多个带有已签名标签和未签名标签的镜像。&lt;/p>
+&lt;p>这里需要说明下，如果镜像发布者先推送签名的 latest 镜像，再推送未签名的 latest 镜像，那么后一个镜像不会影响前一个镜像的内容（区别于上文中标签覆盖的地方）。&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/11/24/m94jihT7XgCftod.png" alt="img">&lt;/p>
+&lt;p>&lt;strong>图 4 ，DCT 镜像签名示例（图中简略了登录镜像仓库的认证过程）&lt;/strong>&lt;/p>
+&lt;p>在生产中，我们可以启用 DCT 确保使用的镜像都已签名。如果启用了 DCT，那么只能对受信任的镜像（已签名并可验证的镜像）进行拉取、运行或构建。&lt;/p>
+&lt;p>启用 DCT 有点像对镜像仓库应用“过滤器”，即，只能看到已签名的镜像标签，看不到未签名的镜像标签。如果客户端没有启用 DCT ，那么它可以看到所有的镜像。&lt;/p>
+&lt;p>&lt;strong>这里我们来快速的看一下 DCT 的工作过程&lt;/strong>&lt;/p>
+&lt;p>它对镜像标签的信任是通过使用签名密钥来管理的。在我们首次开启 DCT 并使用的时候会创建密钥集。一个密钥集由以下几类密钥组成：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>一个离线密钥 offline key ，它是镜像标签 DCT 的根 （&lt;strong>丢失根密钥很难恢复&lt;/strong>）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>对标签进行签名的存储库或标记密钥 tag key&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>服务器管理的密钥，例如时间戳密钥&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://i.loli.net/2021/11/24/r6TeNFBLQOu9Unm.png" alt="img">&lt;/p>
+&lt;p>&lt;strong>图 5 ， 镜像签名密钥示例&lt;/strong>&lt;/p>
+&lt;p>刚从我们提到客户端使用 DCT 也就是我们的 &lt;code>docker trust&lt;/code>命令，它是建立在 Notary v1 上的。默认情况下，Docker 客户端中禁用 DCT 。要启用需要设置 &lt;code>DOCKER_CONTENT_TRUST=1&lt;/code> 环境变量 。&lt;/p>
+&lt;p>效果如下：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-plain" data-lang="plain">➜ ~ DOCKER_CONTENT_TRUST=1 docker pull alpine:3.12
+Pull (1 of 1): alpine:3.12@sha256:c0e9560cda118f9ec63ddefb4a173a2b2a0347082d7dff7dc14272e7841a5b5a
+docker.io/library/alpine@sha256:c0e9560cda118f9ec63ddefb4a173a2b2a0347082d7dff7dc14272e7841a5b5a: Pulling from library/alpine
+188c0c94c7c5: Already exists
+Digest: sha256:c0e9560cda118f9ec63ddefb4a173a2b2a0347082d7dff7dc14272e7841a5b5a
+Status: Downloaded newer image for alpine@sha256:c0e9560cda118f9ec63ddefb4a173a2b2a0347082d7dff7dc14272e7841a5b5a
+Tagging alpine@sha256:c0e9560cda118f9ec63ddefb4a173a2b2a0347082d7dff7dc14272e7841a5b5a as alpine:3.12
+docker.io/library/alpine:3.12
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="notary-v1">Notary v1&lt;/h4>
+&lt;p>前面我们提到 DCT 是基于 Notary v1 实现的，不过这不是我们本篇的重点，所以这里仅对 Notary v1 做个简单的介绍。Notary 项目地址： &lt;a href="https://github.com/notaryproject/notary">https://github.com/notaryproject/notary&lt;/a>&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/11/24/rLne1joJQNXhRkp.png" alt="img">&lt;/p>
+&lt;p>&lt;strong>图 6 ，Notary 客户端、服务器和签名相关的交互流程&lt;/strong>&lt;/p>
+&lt;p>过程1 - 身份认证，任何没有令牌的连接将被重定向到授权服务器（Docker Registry v2 身份认证）；&lt;/p>
+&lt;p>过程2 - 客户端将通过 HTTPS 上的身份验证登录到授权服务器，获取令牌；&lt;/p>
+&lt;p>过程3 - 当客户端上传新的元数据文件时，服务器会根据以前的版本检查它们是否存在冲突，并验证上传的元数据的签名、校验和和有效性；&lt;/p>
+&lt;p>过程4 - 一旦所有上传的元数据都经过验证，服务器会生成时间戳（可能还有快照），然后将它们发送给 sign 进行签名；&lt;/p>
+&lt;p>过程5 - sign 从其数据库中检索加密私钥，解密密钥，并使用它们进行签名，并发送回服务器；&lt;/p>
+&lt;p>过程6 - 服务器将客户端上传和服务器生成的元数据存储在 TUF 库中。生成的时间戳和快照元数据证明客户端上传的元数据是该可信集合的最新版本。之后，服务器会通知客户端--上传成功；&lt;/p>
+&lt;p>过程7 - 客户端现在可以立即从服务器下载最新的元数据了。在时间戳过期的情况下，服务器将遍历整个序列，生成新的时间戳，请求 sign 签名，将新签名的时间戳存储在数据库中。然后，它将这个新的时间戳连同其他存储的元数据一起发送给请求客户端；&lt;/p>
+&lt;p>这个项目由于是一个安全项目，虽然用途很大，但整体并不活跃。现在正在进行 v2 版本的开发，有兴趣的小伙伴欢迎加入。&lt;/p>
+&lt;h4 id="sigstore-和-cosign">sigstore 和 Cosign&lt;/h4>
+&lt;p>这里介绍另一个来自 Linux 基金会的项目，叫做 sigstore 它主要是为了提供一些标准的库/工具，便于更好的进行签名和校验。当然，目前 sigstore 已经汇聚了包括 Cosign，Fulcio 和 Rekor 等开源项目，涉及到镜像镜像签名校验和供应链等方面。&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/11/24/RIQ7Vvbd2aJ4BAh.png" alt="img">&lt;/p>
+&lt;p>&lt;strong>图 7 ，sigstore 简介&lt;/strong>&lt;/p>
+&lt;p>Cosign 是 sigstore 的工具之一，用于 OCI registry 中创建、存储和验证容器镜像签名。Cosign v1.0 已于今年下半年发布，是否能稳定用于生产环境，还有待考验。 截止目前，Cosign 已经发布了 v1.3.1 版本，详细变更请参考其 ReleaseNote： &lt;a href="https://github.com/sigstore/cosign/releases/tag/v1.3.1">https://github.com/sigstore/cosign/releases/tag/v1.3.1&lt;/a>&lt;/p>
+&lt;p>我们这里看下它如何进行镜像的签名&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-plain" data-lang="plain">➜ cosign cosign generate-key-pair
+Enter password for private key:
+Enter password for private key again:
+Private key written to cosign.key
+Public key written to cosign.pub
+➜ cosign cosign sign --key cosign.key ghcr.io/tao12345666333/argo-cd-demo/argo-cd-demo:fa5714f419b3d11dee6ac795e38356e9c3c439cb
+Enter password for private key: %
+➜ cosign cosign verify --key cosign.pub ghcr.io/tao12345666333/argo-cd-demo/argo-cd-demo:fa5714f419b3d11dee6ac795e38356e9c3c439cb
+Verification for ghcr.io/tao12345666333/argo-cd-demo/argo-cd-demo:fa5714f419b3d11dee6ac795e38356e9c3c439cb --
+The following checks were performed on each of these signatures:
+- The cosign claims were validated
+- The signatures were verified against the specified public key
+- Any certificates were verified against the Fulcio roots.
+[{&amp;#34;critical&amp;#34;:{&amp;#34;identity&amp;#34;:{&amp;#34;docker-reference&amp;#34;:&amp;#34;ghcr.io/tao12345666333/argo-cd-demo/argo-cd-demo&amp;#34;},&amp;#34;image&amp;#34;:{&amp;#34;docker-manifest-digest&amp;#34;:&amp;#34;sha256:768845efa2a32bc5c5d83a6f7ec668b98f5db46585dd1918afc9695a9e653d2d&amp;#34;},&amp;#34;type&amp;#34;:&amp;#34;cosign container image signature&amp;#34;},&amp;#34;optional&amp;#34;:null}]
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>看起来还是比较简单的。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>以上就是关于镜像自身内容安全，以及镜像分发安全中的镜像签名校验部分的内容。&lt;/p>
+&lt;p>下一篇我将为大家介绍如何在镜像分发及部署时进行签名的校验，以及如何保护 Kubernetes 集群免受未签名或不可信来源镜像的攻击，敬请期待！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Docker/">Docker</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>Shell 脚本避坑指南（一）</title><link>https://moelove.info/2021/11/21/Shell-%E8%84%9A%E6%9C%AC%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97%E4%B8%80/</link><guid isPermaLink="true">https://moelove.info/2021/11/21/Shell-%E8%84%9A%E6%9C%AC%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97%E4%B8%80/</guid><pubDate>Sun, 21 Nov 2021 22:41:02 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>提到 Shell 大家想必不会太陌生，我们通常认为 Shell 是我们和系统交互的接口，执行命令返回输出，比如 bash 、zsh 等。偶尔也会有人把 Shell 和 Terminal（终端）混淆，但这和本文关系不大，暂且略过。&lt;/p>
 &lt;p>作为一名程序员，我们可能天天都会用到 Shell ，偶尔也会把一些命令组织到一起，写个 Shell 脚本之类的，以便提升我们的工作效率。&lt;/p>
 &lt;p>然而在看似简单的 Shell 脚本中，可能隐藏着很深的坑。这里我先给出两段简单且相似的 Shell 脚本，大家不妨来看看这两段代码的输出是什么：&lt;/p>
@@ -10827,7 +11039,7 @@ Python 3.6.1
 &lt;p>以 &amp;quot;+&amp;quot; 开头，以 &amp;quot;\r\n&amp;quot; 结尾的字符串形式。e.g.&lt;/p>
 &lt;pre>&lt;code>+OK\r\n
 &lt;/code>&lt;/pre>&lt;p>响应的客户端库，应该返回除 &amp;quot;+&amp;quot; 和 CRLF 以外的内容，例如上面的内容，则返回 &amp;quot;OK&amp;quot;. e.g.&lt;/p>
-&lt;pre>&lt;code>127.0.0.1:6379&amp;gt; set name TaoBeier
+&lt;pre>&lt;code>127.0.0.1:6379&amp;gt; set name JintaoZhang
 +OK\r\n # 服务端实际返回
 ---
 OK # redis-cli 客户端显示
@@ -10835,17 +11047,17 @@ OK # redis-cli 客户端显示
 &lt;p>错误信息和单行回复很像，不过是把 &amp;quot;+&amp;quot; 替换成了 &amp;quot;-&amp;quot;。而这两者之间真正的区别是，错误信息会被客户端视为异常，并且组成错误类型的是错误消息本身。e.g.&lt;/p>
 &lt;pre>&lt;code>-Error message\r\n
 &lt;/code>&lt;/pre>&lt;p>错误信息只在有错误发生的时候才会发送，比如数据类型错误，语法错误，或者命令不存在之类的。而当接收到错误信息的时候，客户端库应该抛出一个异常。e.g.&lt;/p>
-&lt;pre>&lt;code>127.0.0.1:6379&amp;gt; TaoBeier
--ERR unknown command 'TaoBeier'\r\n # 服务端实际返回, 下同
+&lt;pre>&lt;code>127.0.0.1:6379&amp;gt; JintaoZhang
+-ERR unknown command 'JintaoZhang'\r\n # 服务端实际返回, 下同
 ---
-(error) ERR unknown command 'TaoBeier' # redis-cli 客户端显示, 下同
-127.0.0.1:6379&amp;gt; set name TaoBeier moelove
+(error) ERR unknown command 'JintaoZhang' # redis-cli 客户端显示, 下同
+127.0.0.1:6379&amp;gt; set name JintaoZhang moelove
 -ERR syntax error\r\n
 ---
 (error) ERR syntax error
 &lt;/code>&lt;/pre>&lt;h2 id="整数">整数&lt;/h2>
 &lt;p>这种类型只是只是使用以 &amp;quot;:&amp;quot; 作为前缀，以CRLF作为结尾的字符串来表示整数。e.g. &amp;quot;:666\r\n&amp;quot; 或者 &amp;quot;:999\r\n&amp;quot; 这种的都是整数回复。很多命令都会返回整数回复，例如 &lt;code>INCR&lt;/code> &lt;code>LLEN&lt;/code> &lt;code>LPUSH&lt;/code> 之类的命令。但是多数情况下，返回的整数回复并没有过多实际含义，例如 &lt;code>LPUSH&lt;/code> 就只是为了表示插入了几个值，但也有例如 &lt;code>EXISTS&lt;/code> 命令是当结果为 true 的时候返回 1，false 返回 0 . e.g.&lt;/p>
-&lt;pre>&lt;code>127.0.0.1:6379&amp;gt; LPUSH info TaoBeier MoeLove
+&lt;pre>&lt;code>127.0.0.1:6379&amp;gt; LPUSH info JintaoZhang MoeLove
 :2\r\n # 服务端实际返回, 下同
 ---
 (integer) 2 # redis-cli 客户端显示, 下同
@@ -10893,23 +11105,23 @@ $0\r\n\r\n
 &amp;quot;&amp;quot;
 &lt;/code>&lt;/pre>&lt;h2 id="数组">数组&lt;/h2>
 &lt;p>数组类型可用于客户端向服务端发送命令，同样的当某些命令将元素结合返回给客户端的时候，也是使用数组类型作为回复类型的。它以 &amp;quot;*&amp;quot; 开头，后面跟着返回元素的个数，随后是 CRLF, 再然后就是数组中各元素自己的类型了。最典型的是 &lt;code>LRRANGE&lt;/code> 命令，返回一个列表中的元素。e.g.&lt;/p>
-&lt;pre>&lt;code>127.0.0.1:6379&amp;gt; LPUSH info TaoBeier moelove.info
+&lt;pre>&lt;code>127.0.0.1:6379&amp;gt; LPUSH info JintaoZhang moelove.info
 :2\r\n # 服务端实际返回, 下同
 ---
 (integer) 2 # redis-cli 客户端显示, 下同
 127.0.0.1:6379&amp;gt; LRANGE info 0 -1
-*2\r\n$12\r\nmoelove.info\r\n$8\r\nTaoBeier\r\n
+*2\r\n$12\r\nmoelove.info\r\n$8\r\nJintaoZhang\r\n
 ---
 1) &amp;quot;moelove.info&amp;quot;
-2) &amp;quot;TaoBeier&amp;quot;
+2) &amp;quot;JintaoZhang&amp;quot;
 127.0.0.1:6379&amp;gt; LPOP info
 $12\r\nmoelove.info\r\n
 ---
 &amp;quot;moelove.info&amp;quot;
 127.0.0.1:6379&amp;gt; LPOP info
-$8\r\nTaoBeier\r\n
+$8\r\nJintaoZhang\r\n
 ---
-&amp;quot;TaoBeier&amp;quot;
+&amp;quot;JintaoZhang&amp;quot;
 127.0.0.1:6379&amp;gt; LRANGE info 0 -1
 *0\r\n
 ---
@@ -11247,7 +11459,7 @@ To /Users/tao/repo.git
 &lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">git clone https://github.com/vim/vim.git
 &lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="编译">编译&lt;/h1>
 &lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="nb">cd&lt;/span> vim/src
-./configure --with-compiledby&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;TaoBeier&amp;#34;&lt;/span> --with-features&lt;span class="o">=&lt;/span>huge --enable-pythoninterp&lt;span class="o">=&lt;/span>yes --with-python-config-dir&lt;span class="o">=&lt;/span>/usr/lib/python2.7/config-x86_64-linux-gnu --enable-cscope --enable-perlinterp&lt;span class="o">=&lt;/span>yes --enable-rubyinterp&lt;span class="o">=&lt;/span>yes --with-luajit --enable-luainterp&lt;span class="o">=&lt;/span>yes --with-lua-prefix&lt;span class="o">=&lt;/span>/usr/include/lua5.1 --enable-multibyte --with-x --enable-fail-if-missing
+./configure --with-compiledby&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;Jintao Zhang&amp;#34;&lt;/span> --with-features&lt;span class="o">=&lt;/span>huge --enable-pythoninterp&lt;span class="o">=&lt;/span>yes --with-python-config-dir&lt;span class="o">=&lt;/span>/usr/lib/python2.7/config-x86_64-linux-gnu --enable-cscope --enable-perlinterp&lt;span class="o">=&lt;/span>yes --enable-rubyinterp&lt;span class="o">=&lt;/span>yes --with-luajit --enable-luainterp&lt;span class="o">=&lt;/span>yes --with-lua-prefix&lt;span class="o">=&lt;/span>/usr/include/lua5.1 --enable-multibyte --with-x --enable-fail-if-missing
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>上面的参数使用 &lt;code>./configure --help&lt;/code> 都可以看到对应用途. 上面使用的参数是增加了对 Python, Ruby, Perl, 以及X window的支持.&lt;/p>
 &lt;p>建议加上 &lt;code>--enable-fail-if-missing&lt;/code> 参数, 以方便定位到哪里依赖缺失.&lt;/p>
 &lt;h1 id="依赖">依赖&lt;/h1>
@@ -12094,7 +12306,7 @@ TOTAL &lt;span class="m">47&lt;/span> &lt;span class="m">0&lt;/span> &lt;span cl
 &lt;span class="n">version&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">version&lt;/span>&lt;span class="p">,&lt;/span>
 &lt;span class="n">description&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;A httpmultipart post handler&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
 &lt;span class="n">long_description&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">readme&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="se">\n\n&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;span class="n">author&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;TaoBeier&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="n">author&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;Jintao Zhang&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
 &lt;span class="n">author_email&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;zhangjintao9020@gmail.com&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
 &lt;span class="n">url&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;https://github.com/tao12345666333/httpmultipart&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
 &lt;span class="n">packages&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">packages&lt;/span>&lt;span class="p">,&lt;/span>
