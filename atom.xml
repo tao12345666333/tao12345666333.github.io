@@ -1,4 +1,126 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-11-24T18:25:34+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">云原生时代下的容器镜像安全（上）</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/11/23/%E4%BA%91%E5%8E%9F%E7%94%9F%E6%97%B6%E4%BB%A3%E4%B8%8B%E7%9A%84%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E5%AE%89%E5%85%A8%E4%B8%8A/"/><id>https://moelove.info/2021/11/23/%E4%BA%91%E5%8E%9F%E7%94%9F%E6%97%B6%E4%BB%A3%E4%B8%8B%E7%9A%84%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E5%AE%89%E5%85%A8%E4%B8%8A/</id><updated>2021-11-24T16:25:33+08:00</updated><published>2021-11-23T23:16:42+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 Kubernetes 作为云原生的基石，为我们带来了极大的便利性，越来越多的公司也都将 Kubernetes 应用到了生产环境中。然而，在享受其带来的……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-11-26T11:34:14+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">用 Go 调用 Rust</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/11/26/%E7%94%A8-Go-%E8%B0%83%E7%94%A8-Rust/"/><id>https://moelove.info/2021/11/26/%E7%94%A8-Go-%E8%B0%83%E7%94%A8-Rust/</id><updated>2021-11-26T11:33:52+08:00</updated><published>2021-11-26T03:04:22+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 近期 Rust 社区/团队有些变动，所以再一次将 Rust 拉到大多数人眼前。 我最近看到很多小伙伴说的话： Rust 还值得学吗？社区是不……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>近期 Rust 社区/团队有些变动，所以再一次将 Rust 拉到大多数人眼前。&lt;/p>
+&lt;p>我最近看到很多小伙伴说的话：&lt;/p>
+&lt;blockquote>
+&lt;p>Rust 还值得学吗？社区是不是不稳定呀&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>Rust 和 Go 哪个好？&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>Rust 还值得学吗？&lt;/p>
+&lt;/blockquote>
+&lt;p>这些问题如果有人来问我，那我的回答是：&lt;/p>
+&lt;p>&lt;strong>小孩子才做选择，我都要！&lt;/strong>&lt;/p>
+&lt;p>当然，关于 Rust 和 Go 的问题也不算新，比如之前的一条推文：&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/11/26/JsdQwfOImrvek2K.png" alt="">&lt;/p>
+&lt;p>我在本篇中就来介绍下如何用 Go 调用 Rust。&lt;/p>
+&lt;p>&lt;strong>当然，这篇中我基本上不会去比较 Go 和 Rust 的功能，或者这种方式的性能之类的，Just for Fun&lt;/strong>&lt;/p>
+&lt;h1 id="ffi-和-binding">FFI 和 Binding&lt;/h1>
+&lt;p>FFI (Foreign Function Interface) 翻译过来叫做外部函数接口（为了比较简单，下文中都将使用 FFI 指代）。最早来自于 Common Lisp 的规范，这是在 wiki 上写的，我并没有去考证。
+不过我所使用过的绝大多数语言中都有 FFI 的概念/术语存在，比如：Python、Ruby, Haskell、Go、Rust、LuaJIT 等。&lt;/p>
+&lt;p>FFI 的作用简单来说就是允许一种语言去调用另一种语言，有时候我们也会用 Binding 来表示类似的能力。&lt;/p>
+&lt;p>在不同的语言中会有不同的实现，比如在 Go 中的 cgo , Python 中的 ctypes ， Haskell 中的 CAPI （之前还有一个 ccall）等。
+我个人感觉 Haskell 中用 FFI 相比其他语言要更简单&amp;amp;方便的多，不过这不是本篇的重点就不展开了。&lt;/p>
+&lt;p>在本文中，对于 Go 和 Rust 而言，它们的 FFI 需要与 C 语言对象进行通信，而这部分其实是由操作系统根据 API 中的调用约定来完成的。&lt;/p>
+&lt;p>我们来进入正题。&lt;/p>
+&lt;h1 id="准备-rust-示例程序">准备 Rust 示例程序&lt;/h1>
+&lt;p>Rust 的安装和 Cargo 工具的基本使用，这里就不介绍了。大家可以去 Rust 的官网进行了解。&lt;/p>
+&lt;h2 id="用-cargo-创建项目">用 Cargo 创建项目&lt;/h2>
+&lt;p>我们先准备一个目录用来放本次示例的代码。（我创建的目录叫做 &lt;code>go-rust&lt;/code> ）&lt;/p>
+&lt;p>然后使用 Rust 的 Cargo 工具创建一个名叫 &lt;code>rustdemo&lt;/code> 的项目，这里由于我增加了 &lt;code>--lib&lt;/code> 的选项，使用其内置的 library 模板。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ go-rust git:&lt;span class="o">(&lt;/span>master&lt;span class="o">)&lt;/span> ✗ mkdir lib &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nb">cd&lt;/span> lib
+➜ go-rust git:&lt;span class="o">(&lt;/span>master&lt;span class="o">)&lt;/span> ✗ cargo new --lib rustdemo
+Created library &lt;span class="sb">`&lt;/span>rustdemo&lt;span class="sb">`&lt;/span> package
+➜ go-rust git:&lt;span class="o">(&lt;/span>master&lt;span class="o">)&lt;/span> ✗ tree rustdemo
+rustdemo
+├── Cargo.toml
+└── src
+└── lib.rs
+&lt;span class="m">1&lt;/span> directory, &lt;span class="m">2&lt;/span> files
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="准备-rust-代码">准备 Rust 代码&lt;/h2>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-rust" data-lang="rust">&lt;span class="k">extern&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">crate&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">libc&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="k">use&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">std&lt;/span>::&lt;span class="n">ffi&lt;/span>::&lt;span class="p">{&lt;/span>&lt;span class="n">CStr&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">CString&lt;/span>&lt;span class="p">};&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="cp">#[no_mangle]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="k">pub&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">extern&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s">&amp;#34;C&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">fn&lt;/span> &lt;span class="nf">rustdemo&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">name&lt;/span>: &lt;span class="o">*&lt;/span>&lt;span class="k">const&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">libc&lt;/span>::&lt;span class="n">c_char&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>-&amp;gt; &lt;span class="o">*&lt;/span>&lt;span class="k">const&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">libc&lt;/span>::&lt;span class="n">c_char&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">let&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">cstr_name&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">unsafe&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">CStr&lt;/span>::&lt;span class="n">from_ptr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">};&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">let&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">mut&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">str_name&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">cstr_name&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">to_str&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="n">unwrap&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="n">to_string&lt;/span>&lt;span class="p">();&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">println&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Rust get Input: \&amp;#34;{}\&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">str_name&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kd">let&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">r_string&lt;/span>: &lt;span class="kp">&amp;amp;&lt;/span>&lt;span class="kt">str&lt;/span> &lt;span class="o">=&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s">&amp;#34; Rust say: Hello Go &amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">str_name&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">push_str&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">r_string&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">CString&lt;/span>::&lt;span class="n">new&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">str_name&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="n">unwrap&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="n">into_raw&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>代码比较简单，Rust 暴露出来的函数名叫做 &lt;code>rustdemo&lt;/code> ，接收一个外部的参数，并将其打印出来。之后从 Rust 这边再设置一个字符串。&lt;/p>
+&lt;p>&lt;code>CString::new(str_name).unwrap().into_raw()&lt;/code> 被转换为原始指针，以便之后由 C 语言处理。&lt;/p>
+&lt;h2 id="编译-rust-代码">编译 Rust 代码&lt;/h2>
+&lt;p>我们需要修改下 &lt;code>Cargo.toml&lt;/code> 文件以便进行编译。注意，这里我们增加了 &lt;code>crate-type = [&amp;quot;cdylib&amp;quot;]&lt;/code> 和 &lt;code>libc&lt;/code> 。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-toml" data-lang="toml">&lt;span class="p">[&lt;/span>&lt;span class="nx">package&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;span class="nx">name&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;rustdemo&amp;#34;&lt;/span>
+&lt;span class="nx">version&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;0.1.0&amp;#34;&lt;/span>
+&lt;span class="nx">edition&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;2021&amp;#34;&lt;/span>
+&lt;span class="p">[&lt;/span>&lt;span class="nx">lib&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;span class="nx">crate&lt;/span>&lt;span class="err">-&lt;/span>&lt;span class="nx">type&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;cdylib&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;span class="p">[&lt;/span>&lt;span class="nx">dependencies&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;span class="nx">libc&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;0.2&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后进行编译&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ rustdemo git:&lt;span class="o">(&lt;/span>master&lt;span class="o">)&lt;/span> ✗ cargo build --release
+Compiling rustdemo v0.1.0 &lt;span class="o">(&lt;/span>/home/tao/go/src/github.com/tao12345666333/go-rust/lib/rustdemo&lt;span class="o">)&lt;/span>
+Finished release &lt;span class="o">[&lt;/span>optimized&lt;span class="o">]&lt;/span> target&lt;span class="o">(&lt;/span>s&lt;span class="o">)&lt;/span> in 0.22s
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>查看生成的文件，这是一个 &lt;code>.so&lt;/code> 文件（这是因为我在 Linux 环境下，你如果在其他系统环境下会不同)&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ rustdemo git:&lt;span class="o">(&lt;/span>master&lt;span class="o">)&lt;/span> ✗ ls target/release/librustdemo.so
+target/release/librustdemo.so
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="准备-go-代码">准备 Go 代码&lt;/h1>
+&lt;p>Go 环境的安装之类的这里也不再赘述了，继续在我们的 go-rust 目录操作即可。&lt;/p>
+&lt;h2 id="编写-maingo">编写 main.go&lt;/h2>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kn">package&lt;/span> &lt;span class="nx">main&lt;/span>
+&lt;span class="cm">/*
+&lt;/span>&lt;span class="cm">#cgo LDFLAGS: -L./lib -lrustdemo
+&lt;/span>&lt;span class="cm">#include &amp;lt;stdlib.h&amp;gt;
+&lt;/span>&lt;span class="cm">#include &amp;#34;./lib/rustdemo.h&amp;#34;
+&lt;/span>&lt;span class="cm">*/&lt;/span>
+&lt;span class="kn">import&lt;/span> &lt;span class="s">&amp;#34;C&amp;#34;&lt;/span>
+&lt;span class="kn">import&lt;/span> &lt;span class="p">(&lt;/span>
+&lt;span class="s">&amp;#34;fmt&amp;#34;&lt;/span>
+&lt;span class="s">&amp;#34;unsafe&amp;#34;&lt;/span>
+&lt;span class="p">)&lt;/span>
+&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">s&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="s">&amp;#34;Go say: Hello Rust&amp;#34;&lt;/span>
+&lt;span class="nx">input&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">C&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">CString&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">s&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">defer&lt;/span> &lt;span class="nx">C&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">free&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">unsafe&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Pointer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">input&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="nx">o&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">C&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">rustdemo&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">input&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">output&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">C&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">GoString&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">o&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Printf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;%s\n&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">output&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在这里我们使用了 cgo ，在 &lt;code>import &amp;quot;C&amp;quot;&lt;/code> 之前的注释内容是一种特殊的语法，这里是正常的 C 代码，其中需要声明使用到的头文件之类的。&lt;/p>
+&lt;p>下面的代码很简单，定义了一个字符串，传递给 rustdemo 函数，然后打印 C 处理后的字符串。&lt;/p>
+&lt;p>同时，为了能够让 Go 程序能正常调用 Rust 函数，这里我们还需要声明其头文件，在 &lt;code>lib/rustdemo.h&lt;/code> 中写入如下内容：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="kt">char&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="nf">rustdemo&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">char&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="n">name&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="编译代码">编译代码&lt;/h2>
+&lt;p>在 Go 编译的时候，我们需要开启 CGO （默认都是开启的），同时需要链接到 Rust 构建出来的 &lt;code>rustdemo.so&lt;/code> 文件，所以我们将该文件和它的头文件放到 &lt;code>lib&lt;/code> 目录下。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ go-rust git:&lt;span class="o">(&lt;/span>master&lt;span class="o">)&lt;/span> ✗ cp lib/rustdemo/target/release/librustdemo.so lib
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>所以完整的目录结构就是：&lt;/p>
+&lt;pre>&lt;code>➜ go-rust git:(master) ✗ tree -L 2 .
+.
+├── go.mod
+├── lib
+│   ├── librustdemo.so
+│   ├── rustdemo
+│   └── rustdemo.h
+└── main.go
+2 directories, 5 files
+&lt;/code>&lt;/pre>&lt;p>编译：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ go-rust git:&lt;span class="o">(&lt;/span>master&lt;span class="o">)&lt;/span> ✗ go build -o go-rust -ldflags&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;-r ./lib&amp;#34;&lt;/span> main.go
+➜ go-rust git:&lt;span class="o">(&lt;/span>master&lt;span class="o">)&lt;/span> ✗ ./go-rust
+Rust get Input: &lt;span class="s2">&amp;#34;Go say: Hello Rust&amp;#34;&lt;/span>
+Go say: Hello Rust Rust say: Hello Go
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以看到，第一行的输出是由 Go 传入了 Rust ， 第二行中则是从 Rust 再传回 Go 的了。符合我们的预期。&lt;/p>
+&lt;h1 id="总结">总结&lt;/h1>
+&lt;p>本篇介绍了如何使用 Go 与 Rust 进行结合，介绍了其前置关于 FFI 相关的知识，后续通过一个小的实践演示了其完整过程。
+感兴趣的小伙伴可以自行实践下。&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Go/" term="Go" label="Go"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Rust/" term="Rust" label="Rust"/></entry><entry><title type="text">云原生时代下的容器镜像安全（上）</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/11/23/%E4%BA%91%E5%8E%9F%E7%94%9F%E6%97%B6%E4%BB%A3%E4%B8%8B%E7%9A%84%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E5%AE%89%E5%85%A8%E4%B8%8A/"/><id>https://moelove.info/2021/11/23/%E4%BA%91%E5%8E%9F%E7%94%9F%E6%97%B6%E4%BB%A3%E4%B8%8B%E7%9A%84%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E5%AE%89%E5%85%A8%E4%B8%8A/</id><updated>2021-11-24T16:25:33+08:00</updated><published>2021-11-23T23:16:42+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 Kubernetes 作为云原生的基石，为我们带来了极大的便利性，越来越多的公司也都将 Kubernetes 应用到了生产环境中。然而，在享受其带来的……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>Kubernetes 作为云原生的基石，为我们带来了极大的便利性，越来越多的公司也都将 Kubernetes 应用到了生产环境中。然而，在享受其带来的便利性的同时，我们也需要关注其中的一些安全隐患。&lt;/p>
 &lt;p>本篇，我将为你重点介绍&lt;strong>容器镜像安全&lt;/strong>相关的内容。&lt;/p>
 &lt;p>通常情况下，我们提到&lt;strong>容器镜像安全&lt;/strong>，主要是指以下两个方面：&lt;/p>
