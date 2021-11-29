@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sun, 28 Nov 2021 17:10:05 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>新功能：Prometheus Agent 模式上手体验</title><link>https://moelove.info/2021/11/28/%E6%96%B0%E5%8A%9F%E8%83%BDPrometheus-Agent-%E6%A8%A1%E5%BC%8F%E4%B8%8A%E6%89%8B%E4%BD%93%E9%AA%8C/</link><guid isPermaLink="true">https://moelove.info/2021/11/28/%E6%96%B0%E5%8A%9F%E8%83%BDPrometheus-Agent-%E6%A8%A1%E5%BC%8F%E4%B8%8A%E6%89%8B%E4%BD%93%E9%AA%8C/</guid><pubDate>Sun, 28 Nov 2021 00:26:44 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 29 Nov 2021 10:22:37 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>新功能：Prometheus Agent 模式上手体验</title><link>https://moelove.info/2021/11/28/%E6%96%B0%E5%8A%9F%E8%83%BDPrometheus-Agent-%E6%A8%A1%E5%BC%8F%E4%B8%8A%E6%89%8B%E4%BD%93%E9%AA%8C/</link><guid isPermaLink="true">https://moelove.info/2021/11/28/%E6%96%B0%E5%8A%9F%E8%83%BDPrometheus-Agent-%E6%A8%A1%E5%BC%8F%E4%B8%8A%E6%89%8B%E4%BD%93%E9%AA%8C/</guid><pubDate>Sun, 28 Nov 2021 00:26:44 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>Prometheus 几乎已经成为了云原生时代下监控选型的事实标准，它也是第二个从 CNCF 毕业的项目。&lt;/p>
 &lt;p>当前，Prometheus 几乎可以满足各种场景/服务的监控需求。我之前有写过一些文章介绍过 Prometheus 及其生态，本篇我们将聚焦于 Prometheus 最新版本中发布的 Agent 模式，对于与此主题无关的一些概念或者用法，我会粗略带过。&lt;/p>
-&lt;h1 id="拉模式pull和-推模式push">拉模式（Pull）和 推模式（Push）&lt;/h1>
+&lt;h2 id="拉模式pull和-推模式push">拉模式（Pull）和 推模式（Push）&lt;/h2>
 &lt;p>众所周知，Prometheus 是一种拉模式（Pull）的监控系统，这不同于传统的基于推模式（Push）的监控系统。&lt;/p>
 &lt;p>什么是拉模式（Pull）呢？&lt;/p>
 &lt;p>&lt;img src="https://i.loli.net/2021/11/28/yAYWuiLRdks7BgZ.png" alt="Prometheus Pull model">&lt;/p>
@@ -11,7 +11,7 @@
 &lt;p>由应用程序主动将自身的一些 metrics 指标进行上报，监控系统再进行相对应的处理。如果对于某些应用程序的监控想要使用推模式（Push），比如：不易实现 metrics 接口等原因，可以考虑使用 Pushgateway 来完成。&lt;/p>
 &lt;p>对于拉模式（Pull）和推模式（Push）到底哪种更好的讨论一直都在继续，有兴趣的小伙伴可以自行搜索下。&lt;/p>
 &lt;p>这里主要是聚焦于单个 Prometheus 和应用服务之间交互的手方式。本篇我们从更上层的角度或者全局角度来看看当前 Prometheus 是如何做 HA、 持久化和集群的。&lt;/p>
-&lt;h1 id="prometheus-ha持久化集群的方案">Prometheus HA/持久化/集群的方案&lt;/h1>
+&lt;h2 id="prometheus-ha持久化集群的方案">Prometheus HA/持久化/集群的方案&lt;/h2>
 &lt;p>在大规模生产环境中使用时，很少有系统中仅有一个单实例 Prometheus 存在的情况出现。无论从高可用、数据持久化还是从为用户提供更易用的全局视图来考虑，运行多个 Prometheus 实例的情况就很常见了。&lt;/p>
 &lt;p>目前 Prometheus 主要有三种办法来将多个 Prometheus 实例的数据进行聚合，并给用户提供一个统一的全局视图。&lt;/p>
 &lt;p>&lt;img src="https://i.loli.net/2021/11/28/Vu61jXHeR2i5zsp.png" alt="">&lt;/p>
@@ -20,11 +20,11 @@
 &lt;li>Prometheus Remote Read（远程读）：可以支持从远程的存储中读取原始 metrics，注意：这里的远程存储可以有多种选择。当读取完数据后，便可对它们进行聚合，并展现给用户了；&lt;/li>
 &lt;li>Prometheus Remote Write（远程写）：可以支持将 Prometheus 采集到 metrics 等写到远程存储中。用户在使用的时候，直接从远端存储中读取数据，并提供全局视图等；&lt;/li>
 &lt;/ul>
-&lt;h1 id="prometheus-agent-模式">Prometheus Agent 模式&lt;/h1>
+&lt;h2 id="prometheus-agent-模式">Prometheus Agent 模式&lt;/h2>
 &lt;p>Prometheus Agent 是自 Prometheus v2.32.0 开始将会提供的一项功能，它主要是采用上文中提到的 &lt;strong>Prometheus Remote Write&lt;/strong> 的方式，将启用了 Agent 模式的 Prometheus 实例的数据写入到远程存储中。并借助远程存储来提供一个全局视图。&lt;/p>
-&lt;h2 id="前置依赖">前置依赖&lt;/h2>
+&lt;h3 id="前置依赖">前置依赖&lt;/h3>
 &lt;p>由于它使用了 &lt;strong>Prometheus Remote Write&lt;/strong> 的方式，所以我们需要先准备一个 &amp;quot;远程存储&amp;quot; 用于 metrcis 的中心化存储。这里我们使用 &lt;a href="https://github.com/thanos-io/thanos">Thanos&lt;/a> 来提供此能力。当然，如果你想要使用其他的方案，比如： Cortex、influxDB 等也都是可以的。&lt;/p>
-&lt;h3 id="准备远程存储">准备远程存储&lt;/h3>
+&lt;h4 id="准备远程存储">准备远程存储&lt;/h4>
 &lt;p>这里我们直接使用 Thanos 最新版本的容器镜像来进行部署。这里我们使用了 &lt;code>host&lt;/code> 网络比较方便进行测试。&lt;/p>
 &lt;p>执行完这些命令后，Thanos receive 将会监听在 &lt;code>http://127.0.0.1:10908/api/v1/receive&lt;/code> 用于接收&amp;quot;远程写入&amp;quot;。&lt;/p>
 &lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ &lt;span class="nb">cd&lt;/span> prometheus
@@ -44,7 +44,7 @@
 ➜ prometheus docker ps -l
 CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
 59498d43291b quay.io/thanos/thanos:v0.23.1 &lt;span class="s2">&amp;#34;/bin/thanos receive…&amp;#34;&lt;/span> &lt;span class="m">21&lt;/span> seconds ago Up &lt;span class="m">20&lt;/span> seconds receive
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="准备查询组件">准备查询组件&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="准备查询组件">准备查询组件&lt;/h4>
 &lt;p>接下来我们启动一个 Thanos 的 query 组件，跟 receive 组件连接，用于查询写入的数据。&lt;/p>
 &lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ prometheus docker run -d --rm &lt;span class="se">\
 &lt;/span>&lt;span class="se">&lt;/span>--net&lt;span class="o">=&lt;/span>host &lt;span class="se">\
@@ -60,10 +60,10 @@ CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>注意：这里我们配置了 &lt;code>--store&lt;/code> 字段，指向了前面的 receive 组件。&lt;/p>
 &lt;p>&lt;img src="https://i.loli.net/2021/11/28/Iq15lebL8UHFvWY.png" alt="">&lt;/p>
 &lt;p>打开浏览器访问 http://127.0.0.1:39090/stores ，如果一起顺利，你应该可以看到 receive 已经注册到了 store 中。&lt;/p>
-&lt;h2 id="部署-prometheus-agent-模式">部署 Prometheus Agent 模式&lt;/h2>
+&lt;h3 id="部署-prometheus-agent-模式">部署 Prometheus Agent 模式&lt;/h3>
 &lt;p>这里我直接从 Prometheus 的 &lt;a href="https://github.com/prometheus/prometheus/releases/tag/v2.32.0-beta.0">Release 页面&lt;/a> 下载了它最新版本 v2.32.0 的二进制文件。解压后，你会发现目录中的内容和之前版本中是一致的。&lt;/p>
 &lt;p>这是因为 &lt;strong>Prometheus Agent 模式现在是内置在 Prometheus 二进制文件中的，增加 &lt;code>--enable-feature=agent&lt;/code> 选项即可启用。&lt;/strong>&lt;/p>
-&lt;h3 id="准备配置文件">准备配置文件&lt;/h3>
+&lt;h4 id="准备配置文件">准备配置文件&lt;/h4>
 &lt;p>我们需要为它准备一份配置文件，注意， &lt;strong>需要配置 remote_write ，且不能有 alerting 之类的配置&lt;/strong>&lt;/p>
 &lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">global&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">scrape_interval&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">15s&lt;/span>&lt;span class="w">
@@ -79,7 +79,7 @@ CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
 &lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">remote_write&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
 &lt;/span>&lt;span class="w">&lt;/span>- &lt;span class="nt">url&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;http://127.0.0.1:10908/api/v1/receive&amp;#39;&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>配置文件另存为 &lt;code>prometheus.yml&lt;/code>&lt;/p>
-&lt;h3 id="启动">启动&lt;/h3>
+&lt;h4 id="启动">启动&lt;/h4>
 &lt;p>我们将它的日志级别设置成 debug 方便查看它的一些细节&lt;/p>
 &lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ ./prometheus --enable-feature&lt;span class="o">=&lt;/span>agent --log.level&lt;span class="o">=&lt;/span>debug --config.file&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;prometheus.yml&amp;#34;&lt;/span>
 &lt;span class="nv">ts&lt;/span>&lt;span class="o">=&lt;/span>2021-11-27T19:03:15.861Z &lt;span class="nv">caller&lt;/span>&lt;span class="o">=&lt;/span>main.go:195 &lt;span class="nv">level&lt;/span>&lt;span class="o">=&lt;/span>info &lt;span class="nv">msg&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;Experimental agent mode enabled.&amp;#34;&lt;/span>
@@ -114,11 +114,11 @@ CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
 &lt;span class="nv">ts&lt;/span>&lt;span class="o">=&lt;/span>2021-11-27T19:03:45.866Z &lt;span class="nv">caller&lt;/span>&lt;span class="o">=&lt;/span>dedupe.go:112 &lt;span class="nv">component&lt;/span>&lt;span class="o">=&lt;/span>remote &lt;span class="nv">level&lt;/span>&lt;span class="o">=&lt;/span>debug &lt;span class="nv">remote_name&lt;/span>&lt;span class="o">=&lt;/span>e6fa2a &lt;span class="nv">url&lt;/span>&lt;span class="o">=&lt;/span>http://127.0.0.1:10908/api/v1/receive &lt;span class="nv">msg&lt;/span>&lt;span class="o">=&lt;/span>QueueManager.updateShardsLoop &lt;span class="nv">lowerBound&lt;/span>&lt;span class="o">=&lt;/span>0.7 &lt;span class="nv">desiredShards&lt;/span>&lt;span class="o">=&lt;/span>0.00037940358300000006 &lt;span class="nv">upperBound&lt;/span>&lt;span class="o">=&lt;/span>1.3
 &lt;span class="nv">ts&lt;/span>&lt;span class="o">=&lt;/span>2021-11-27T19:03:45.871Z &lt;span class="nv">caller&lt;/span>&lt;span class="o">=&lt;/span>dedupe.go:112 &lt;span class="nv">component&lt;/span>&lt;span class="o">=&lt;/span>remote &lt;span class="nv">level&lt;/span>&lt;span class="o">=&lt;/span>debug &lt;span class="nv">remote_name&lt;/span>&lt;span class="o">=&lt;/span>e6fa2a &lt;span class="nv">url&lt;/span>&lt;span class="o">=&lt;/span>http://127.0.0.1:10908/api/v1/receive &lt;span class="nv">msg&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;runShard timer ticked, sending buffered data&amp;#34;&lt;/span> &lt;span class="nv">samples&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">265&lt;/span> &lt;span class="nv">exemplars&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">0&lt;/span> &lt;span class="nv">shard&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">0&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>从日志中可以看到，它会去向 &lt;code>http://127.0.0.1:10908/api/v1/receive&lt;/code> 也就是我们一开始部署的 Thanos receive 发送数据。&lt;/p>
-&lt;h3 id="查询数据">查询数据&lt;/h3>
+&lt;h4 id="查询数据">查询数据&lt;/h4>
 &lt;p>打开我们一开始部署好的 Thanos query， 输入任意 metrics 进行查询，可以查询到预期的结果。&lt;/p>
 &lt;p>&lt;img src="https://i.loli.net/2021/11/28/Sa1pjykYWIA8lQE.png" alt="">&lt;/p>
 &lt;p>但是如果我们直接访问开启了 Agent 模式的 Prometheus 的 UI 地址的时候，会直接报错，无法进行查询。这是由于 &lt;strong>如果已开启 Agent 模式的 Prometheus 将会默认关闭其 UI 查询能力，报警以及本地存储等能力&lt;/strong>。&lt;/p>
-&lt;h1 id="总结">总结&lt;/h1>
+&lt;h2 id="总结">总结&lt;/h2>
 &lt;p>本篇主要进行了 Prometheus Agent 的上手实践，通过 Thanos receive 接收来自 Prometheus Agent 的 metrics 上报，然后通过 Thanos query 进行结果的查询。&lt;/p>
 &lt;p>&lt;img src="https://i.loli.net/2021/11/28/pYPXM5KC3VF8yTr.png" alt="">&lt;/p>
 &lt;p>Prometheus Agent 并没有本质上改变 Prometheus 指标采集的方式，仍然还是继续使用拉模式（Pull）。&lt;/p>
