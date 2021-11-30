@@ -1,4 +1,206 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 29 Nov 2021 10:22:37 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>新功能：Prometheus Agent 模式上手体验</title><link>https://moelove.info/2021/11/28/%E6%96%B0%E5%8A%9F%E8%83%BDPrometheus-Agent-%E6%A8%A1%E5%BC%8F%E4%B8%8A%E6%89%8B%E4%BD%93%E9%AA%8C/</link><guid isPermaLink="true">https://moelove.info/2021/11/28/%E6%96%B0%E5%8A%9F%E8%83%BDPrometheus-Agent-%E6%A8%A1%E5%BC%8F%E4%B8%8A%E6%89%8B%E4%BD%93%E9%AA%8C/</guid><pubDate>Sun, 28 Nov 2021 00:26:44 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 30 Nov 2021 12:49:27 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>理清 Kubernetes 中的准入控制（Admission Controller)</title><link>https://moelove.info/2021/11/30/%E7%90%86%E6%B8%85-Kubernetes-%E4%B8%AD%E7%9A%84%E5%87%86%E5%85%A5%E6%8E%A7%E5%88%B6Admission-Controller/</link><guid isPermaLink="true">https://moelove.info/2021/11/30/%E7%90%86%E6%B8%85-Kubernetes-%E4%B8%AD%E7%9A%84%E5%87%86%E5%85%A5%E6%8E%A7%E5%88%B6Admission-Controller/</guid><pubDate>Tue, 30 Nov 2021 03:04:22 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>在我之前发布的文章 《云原生时代下的容器镜像安全》（系列）中，我提到过 Kubernetes 集群的核心组件 -- kube-apiserver，它允许来自终端用户或集群的各组件与之进行通信（例如，查询、创建、修改或删除 Kubernetes 资源）。&lt;/p>
+&lt;p>本篇我们将聚焦于 kube-apiserver 请求处理过程中一个很重要的部分 -- 准入控制器（Admission Controller）&lt;/p>
+&lt;h2 id="k8s-的准入控制器是什么">K8s 的准入控制器是什么&lt;/h2>
+&lt;h3 id="k8s-中的请求处理流程">K8s 中的请求处理流程&lt;/h3>
+&lt;p>在聊 K8s 准入控制器是什么之前，让我们先来回顾一下 Kubernetes API 的处理具体请求的过程。&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/11/30/PrlCtD3dvUAoRni.png" alt="img">&lt;/p>
+&lt;p>&lt;strong>图 1 ，Kubernetes API 处理请求的过程 （从 API Handler 到 etcd 持久化的过程）&lt;/strong>&lt;/p>
+&lt;p>如上图所示，每个 API 的请求从开始被 kube-apiserver 接收到最终持久化到 ETCD 的过程，即为 Kubernetes API 的请求处理流程。&lt;/p>
+&lt;p>它主要包含了以下几个部分：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>API Handler&lt;/strong> -- 主要负责提供服务，接收请求。&lt;/li>
+&lt;/ul>
+&lt;p>对于其内部实现而言，请求会先到 &lt;code>FullHandlerChain&lt;/code> （它是由 &lt;code>DefaultBuildHandlerChain&lt;/code> 构建出来的）是一个 &lt;code>director&lt;/code> 对象&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">type&lt;/span> &lt;span class="nx">director&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">name&lt;/span> &lt;span class="kt">string&lt;/span>
+&lt;span class="nx">goRestfulContainer&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">restful&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Container&lt;/span>
+&lt;span class="nx">nonGoRestfulMux&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">mux&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">PathRecorderMux&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>director&lt;/code>根据配置进行初始化，如果 &lt;code>goRestfulContainer&lt;/code>的 WebServices 的 RootPath 是 &lt;code>/apis&lt;/code>，或者请求前缀与 RootPath 匹配，则进入 Restful 处理链路。&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Authentication&lt;/strong> -- 认证的流程。&lt;/li>
+&lt;/ul>
+&lt;p>在TLS 连接建立后，会进行认证处理，如果请求认证失败，会拒绝该请求并返回 401 错误码；如果认证成功，将进行到鉴权的部分。目前支持的客户端认证方式有很多，例如：x509 客户端证书、Bearer Token、基于用户名密码的认证、OpenID 认证等。由于这些内容不是本篇的重点我们暂且跳过，感兴趣的小伙伴可以在评论区留言讨论。&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Authorization&lt;/strong> -- 鉴权的流程。&lt;/li>
+&lt;/ul>
+&lt;p>对于 Kubernetes 而言，支持多种的鉴权模式，例如，ABAC 模式，RBAC 模式和 Webhook 模式等。我们在创建集群时，可以直接为 kube-apiserver 传递参数进行配置，这里也不赘述了。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Mutating Admission&lt;/strong> -- 指执行可用于变更操作的准入控制器，下文中会详细介绍。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Object Schema Validation&lt;/strong> -- 对资源对象的 schema 校验。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Validating Admission&lt;/strong> -- 指执行可用于验证操作的准入控制器，下文中会详细介绍。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>ETCD&lt;/strong> -- ETCD 实现资源的持久化存储。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>上面便是一个请求的处理流程，其中 Mutating Admission 和 Validating Admission 便是我们今天的主角。我们来详细的看一看。&lt;/p>
+&lt;h3 id="什么是准入控制器admission-controller">什么是准入控制器（Admission Controller）&lt;/h3>
+&lt;p>准入控制器是指在&lt;strong>请求通过认证和授权之后&lt;/strong>，可用于对其进行变更操作或验证操作的一些代码或功能。&lt;/p>
+&lt;p>准入控制的过程分为两个阶段：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>第一阶段，运行变更准入控制器（Mutating Admission）。它可以修改被它接受的对象，这就引出了它的另一个作用，将相关资源作为请求处理的一部分进行变更；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>第二阶段，运行验证准入控制器（Validating Admission）。它只能进行验证，不能进行任何资源数据的修改操作；&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>需要注意的是，某些控制器可以既是变更准入控制器又是验证准入控制器。如果任一个阶段的准入控制器拒绝了该请求，则整个请求将立即被拒绝，并向终端用户返回错误。&lt;/p>
+&lt;h2 id="为什么需要准入控制器-admission-controller">为什么需要准入控制器 Admission Controller&lt;/h2>
+&lt;p>我们主要从两个角度来理解为什么我们需要准入控制器：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>从安全的角度&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;ul>
+&lt;li>我们需要明确在 Kubernetes 集群中部署的镜像来源是否可信，以免遭受攻击；&lt;/li>
+&lt;li>一般情况下，在 Pod 内尽量不使用 root 用户，或者尽量不开启特权容器等；&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>从治理的角度&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;ul>
+&lt;li>比如通过 label 对业务/服务进行区分，那么可以通过 admission controller 校验服务是否已经有对应的 label 存在之类的；&lt;/li>
+&lt;li>比如添加资源配额限制 ，以免出现资源超卖之类的情况；&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="准入控制器">准入控制器&lt;/h2>
+&lt;p>考虑到这些需求比较有用 &amp;amp; 确实也比较需要，所以 Kubernetes 目前已经实现了很多内置的 Admission Controller 。 可以参考官方文档来获取详细列表： &lt;a href="https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#what-does-each-admission-controller-do">https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#what-does-each-admission-controller-do&lt;/a>&lt;/p>
+&lt;p>这些内置的 Admission Controller 都是以插件的方式与 kube-apiserver 构建到一起的，你可以对其进行启用和关停。比如用如下参数进行控制：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ bin ./kube-apiserver --help &lt;span class="p">|&lt;/span>grep admission-plugins
+--admission-control strings Admission is divided into two phases. In the first phase, only mutating admission plugins run. In the second phase, only validating admission plugins run. The names in the below list may represent a validating plugin, a mutating plugin, or both. The order of plugins in which they are passed to this flag does not matter. Comma-delimited list of: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, DenyServiceExternalIPs, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PersistentVolumeLabel, PodNodeSelector, PodSecurity, PodSecurityPolicy, PodTolerationRestriction, Priority, ResourceQuota, RuntimeClass, SecurityContextDeny, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionWebhook. &lt;span class="o">(&lt;/span>DEPRECATED: Use --enable-admission-plugins or --disable-admission-plugins instead. Will be removed in a future version.&lt;span class="o">)&lt;/span>
+--disable-admission-plugins strings admission plugins that should be disabled although they are in the default enabled plugins list &lt;span class="o">(&lt;/span>NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, PodSecurity, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PersistentVolumeClaimResize, RuntimeClass, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, MutatingAdmissionWebhook, ValidatingAdmissionWebhook, ResourceQuota&lt;span class="o">)&lt;/span>. Comma-delimited list of admission plugins: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, DenyServiceExternalIPs, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PersistentVolumeLabel, PodNodeSelector, PodSecurity, PodSecurityPolicy, PodTolerationRestriction, Priority, ResourceQuota, RuntimeClass, SecurityContextDeny, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionWebhook. The order of plugins in this flag does not matter.
+--enable-admission-plugins strings admission plugins that should be enabled in addition to default enabled ones &lt;span class="o">(&lt;/span>NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, PodSecurity, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PersistentVolumeClaimResize, RuntimeClass, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, MutatingAdmissionWebhook, ValidatingAdmissionWebhook, ResourceQuota&lt;span class="o">)&lt;/span>. Comma-delimited list of admission plugins: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, DenyServiceExternalIPs, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PersistentVolumeLabel, PodNodeSelector, PodSecurity, PodSecurityPolicy, PodTolerationRestriction, Priority, ResourceQuota, RuntimeClass, SecurityContextDeny, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionWebhook. The order of plugins in this flag does not matter.
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这么多的准入控制器中有两个比较特别，分别是 &lt;code>MutatingAdmissionWebhook&lt;/code> 和 &lt;code>ValidatingAdmissionWebhook&lt;/code>。它们并没有真正执行相应的策略，而是为 kube-apiserver 提供了一种可扩展的方式， 用户可以通过配置 &lt;code>MutatingAdmissionWebhook&lt;/code> 和 &lt;code>ValidatingAdmissionWebhook&lt;/code> 来使用自构建的服务， 而且这种方式是无需对 kube-spiserver 执行编译或者重启，完全是动态的，非常的方便。&lt;/p>
+&lt;p>我们来具体看一下。&lt;/p>
+&lt;h2 id="动态准入控制器">动态准入控制器&lt;/h2>
+&lt;p>利用上文中提到的 &lt;code>MutatingAdmissionWebhook&lt;/code> 和 &lt;code>ValidatingAdmissionWebhook&lt;/code> 进行运行时配置的，以 Webhook 形式调用的 Admission Controller 即为动态准入控制器。&lt;/p>
+&lt;p>它是一种用于接收准入请求并对其进行处理的 HTTP 回调机制，就是一个 Web 服务。当前的两种类型的准入 webhook：&lt;/p>
+&lt;ul>
+&lt;li>validating admission webhook&lt;/li>
+&lt;li>mutating admission webhook&lt;/li>
+&lt;/ul>
+&lt;p>mutating admission webhook 会优先被调用，这个过程中可以对资源进行修改。&lt;/p>
+&lt;p>如果我们需要确保对象的最终状态以执行某些操作应该考虑使用 validating admission webhook *，*因为到达这个阶段的请求不会再被修改。&lt;/p>
+&lt;h3 id="使用条件">使用条件&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>确保 Kubernetes 集群版本至少为 v1.16（以便使用 &lt;code>admissionregistration.k8s.io/v1&lt;/code> API） 或者 v1.9 （以便使用 &lt;code>admissionregistration.k8s.io/v1beta1&lt;/code> API）；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>确保已经启用 &lt;code>MutatingAdmissionWebhook&lt;/code> 和 &lt;code>ValidatingAdmissionWebhook&lt;/code> 准入控制器；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>确保启用了 &lt;code>admissionregistration.k8s.io/v1beta1&lt;/code> 或者 &lt;code>admissionregistration.k8s.io/v1&lt;/code> API;&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="admission-webhook-是什么">Admission Webhook 是什么&lt;/h3>
+&lt;p>它其实就是一个普通的 HTTP Server，需要处理的就是 &lt;code>AdmissionReview&lt;/code> 类型的资源，我们来看个示例，比如说要对 &lt;code>Ingress&lt;/code>资源进行准入校验：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">ia&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">IngressAdmission&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">HandleAdmission&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">obj&lt;/span> &lt;span class="nx">runtime&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Object&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">runtime&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Object&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">error&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">review&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">isV1&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">obj&lt;/span>&lt;span class="p">.(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="nx">admissionv1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">AdmissionReview&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="p">!&lt;/span>&lt;span class="nx">isV1&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Errorf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;request is not of type AdmissionReview v1&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="p">!&lt;/span>&lt;span class="nx">apiequality&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Semantic&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">DeepEqual&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">review&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Request&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Kind&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">ingressResource&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Errorf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;rejecting admission review because the request does not contain an Ingress resource but %s with name %s in namespace %s&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">review&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Request&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Kind&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">String&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="nx">review&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Request&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Name&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">review&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Request&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Namespace&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">status&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">admissionv1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">AdmissionResponse&lt;/span>&lt;span class="p">{}&lt;/span>
+&lt;span class="nx">status&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">UID&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">review&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Request&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">UID&lt;/span>
+&lt;span class="nx">ingress&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">networking&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Ingress&lt;/span>&lt;span class="p">{}&lt;/span>
+&lt;span class="nx">codec&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">json&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewSerializerWithOptions&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">json&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">DefaultMetaFactory&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">scheme&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">scheme&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">json&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">SerializerOptions&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">Pretty&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">})&lt;/span>
+&lt;span class="nx">codec&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Decode&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">review&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Request&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Object&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Raw&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">_&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">_&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">codec&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Decode&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">review&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Request&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Object&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Raw&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">ingress&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">klog&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ErrorS&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;failed to decode ingress&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">status&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Allowed&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">false&lt;/span>
+&lt;span class="nx">status&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Result&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">metav1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Status&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">Status&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">metav1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">StatusFailure&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Code&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">http&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">StatusBadRequest&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Reason&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">metav1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">StatusReasonBadRequest&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">Message&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">err&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Error&lt;/span>&lt;span class="p">(),&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">review&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Response&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">status&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">review&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">ia&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Checker&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">CheckIngress&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">ingress&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">klog&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ErrorS&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;invalid ingress configuration&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;ingress&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Sprintf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;%v/%v&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">review&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Request&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Name&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">review&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Request&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Namespace&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="nx">status&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Allowed&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">false&lt;/span>
+&lt;span class="nx">status&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Result&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">metav1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Status&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">Status&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">metav1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">StatusFailure&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Code&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">http&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">StatusBadRequest&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Reason&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">metav1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">StatusReasonBadRequest&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">Message&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">err&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Error&lt;/span>&lt;span class="p">(),&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">review&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Response&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">status&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">review&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">klog&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">InfoS&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;successfully validated configuration, accepting&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;ingress&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Sprintf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;%v/%v&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">review&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Request&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Name&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">review&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Request&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Namespace&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="nx">status&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Allowed&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="kc">true&lt;/span>
+&lt;span class="nx">review&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Response&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">status&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">review&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>核心处理逻辑其实就是处理请求 Webhook 时候发送的 &lt;code>AdmissionReview&lt;/code> ，它会包含着我们待校验的资源对象。然后我们就按照实际的需要对资源对象进行校验或者修改了。&lt;/p>
+&lt;p>这里需要注意几个点：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Mutating Webhook 的处理是串行的，而 Validating Webhook 是并行处理的；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Mutating Webhook 虽然处理是串行的，但是并不保证顺序；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>注意对 Mutating Webhook 的处理做到幂等性，以免结果不符合预期；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>请求处理时，注意要处理资源对象的所有 API 版本；&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="如何部署-admission-webhook">如何部署 Admission Webhook&lt;/h3>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">admissionregistration.k8s.io/v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ValidatingWebhookConfiguration&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">app.kubernetes.io/name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ingress-nginx&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ingress-nginx-admission&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">webhooks&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">validate.nginx.ingress.kubernetes.io&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">matchPolicy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Equivalent&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">apiGroups&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">networking.k8s.io&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">apiVersions&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">operations&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">CREATE&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">UPDATE&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">resources&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">ingresses&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">failurePolicy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Fail&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">sideEffects&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">None&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">admissionReviewVersions&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">clientConfig&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">service&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">namespace&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ingress-nginx&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ingress-nginx-controller-admission&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/networking/v1/ingresses&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在 &lt;code>webhooks&lt;/code> 中配置 webhook 的具体连接信息，以及触发规则。&lt;code>rules&lt;/code>中可指定对哪些资源的具体行为生效。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>本篇主要介绍了 Kubernetes 中的 Admission Controller ，默认情况下有一些已经以插件形式与 kube-apiserver 编译到了一起，另外我们也可以通过自己编写动态准入控制器来完成相关的需求。&lt;/p>
+&lt;p>当然，目前在 K8s 生态中已经有很多现成的工具可以帮我们完成对应的这些事情了，很多情况下不需要再自行开发对应的服务了。后续我来为大家分享当前一些比较主流的，可用于进行 Mutating 和 Validating 准入控制的工具， 欢迎关注。&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category><category domain="https://moelove.info/tags/Linux/">Linux</category></item><item><title>新功能：Prometheus Agent 模式上手体验</title><link>https://moelove.info/2021/11/28/%E6%96%B0%E5%8A%9F%E8%83%BDPrometheus-Agent-%E6%A8%A1%E5%BC%8F%E4%B8%8A%E6%89%8B%E4%BD%93%E9%AA%8C/</link><guid isPermaLink="true">https://moelove.info/2021/11/28/%E6%96%B0%E5%8A%9F%E8%83%BDPrometheus-Agent-%E6%A8%A1%E5%BC%8F%E4%B8%8A%E6%89%8B%E4%BD%93%E9%AA%8C/</guid><pubDate>Sun, 28 Nov 2021 00:26:44 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>Prometheus 几乎已经成为了云原生时代下监控选型的事实标准，它也是第二个从 CNCF 毕业的项目。&lt;/p>
 &lt;p>当前，Prometheus 几乎可以满足各种场景/服务的监控需求。我之前有写过一些文章介绍过 Prometheus 及其生态，本篇我们将聚焦于 Prometheus 最新版本中发布的 Agent 模式，对于与此主题无关的一些概念或者用法，我会粗略带过。&lt;/p>
 &lt;h2 id="拉模式pull和-推模式push">拉模式（Pull）和 推模式（Push）&lt;/h2>
