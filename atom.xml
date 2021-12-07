@@ -1,4 +1,229 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-11-30T12:49:27+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">理清 Kubernetes 中的准入控制（Admission Controller)</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/11/30/%E7%90%86%E6%B8%85-Kubernetes-%E4%B8%AD%E7%9A%84%E5%87%86%E5%85%A5%E6%8E%A7%E5%88%B6Admission-Controller/"/><id>https://moelove.info/2021/11/30/%E7%90%86%E6%B8%85-Kubernetes-%E4%B8%AD%E7%9A%84%E5%87%86%E5%85%A5%E6%8E%A7%E5%88%B6Admission-Controller/</id><updated>2021-11-30T12:48:00+08:00</updated><published>2021-11-30T03:04:22+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 在我之前发布的文章 《云原生时代下的容器镜像安全》（系列）中，我提到过 Kubernetes 集群的核心组件 -- kube-apiser……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-12-07T13:06:44+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">Open Policy Agent (OPA) 入门实践</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/06/Open-Policy-Agent-OPA-%E5%85%A5%E9%97%A8%E5%AE%9E%E8%B7%B5/"/><id>https://moelove.info/2021/12/06/Open-Policy-Agent-OPA-%E5%85%A5%E9%97%A8%E5%AE%9E%E8%B7%B5/</id><updated>2021-12-07T13:06:20+08:00</updated><published>2021-12-06T19:50:29+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 本篇我来为你介绍一个我个人很喜欢的，通用策略引擎，名叫 OPA，全称是 Open Policy Agent。 在具体聊 OPA 之前，我们先来……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>本篇我来为你介绍一个我个人很喜欢的，通用策略引擎，名叫 OPA，全称是 Open Policy Agent。&lt;/p>
+&lt;p>在具体聊 OPA 之前，我们先来聊一下为什么需要一个通用策略引擎，以及 OPA 解决了什么问题。&lt;/p>
+&lt;h1 id="opa-解决了什么问题">OPA 解决了什么问题&lt;/h1>
+&lt;p>在实际的生产环境中很多场景中都需要策略控制，比如：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>需要策略控制用户是否可登陆服务器或者做一些操作；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>需要策略控制哪些项目/哪些组件可进行部署；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>需要策略控制如何访问数据库；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>需要策略控制哪些资源可部署到 Kubernetes 中；&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/07/paN9tjO46QM3RbT.png" alt="img">&lt;/p>
+&lt;p>但是对于这些场景或者软件来说，配置它们的策略是需要与该软件进行耦合的，彼此是不统一，不通用的。管理起来也会比较混乱，带来了不小的维护成本。&lt;/p>
+&lt;p>OPA 的出现可以将各处配置的策略进行统一，极大的&lt;strong>降低了维护成本&lt;/strong>。以及将策略与对应的软件/服务进行解耦，方便进行移植/复用。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/07/dPrM4sqaeXIT1Q8.png" alt="img">&lt;/p>
+&lt;h1 id="opa-的发展过程">OPA 的发展过程&lt;/h1>
+&lt;p>OPA 最初是由 Styra 公司在 2016 年创建并开源的项目，目前该公司的主要产品就是提供可视化策略控制及策略执行的可视化 Dashboard 服务的。&lt;/p>
+&lt;p>OPA 首次进入 CNCF 并成为 sandbox 级别的项目是在 2018 年， 在 2021 年的 2 月份便已经从 CNCF 毕业，这个过程相对来说还是比较快的，由此也可以看出 OPA 是一个比较活跃且应用广泛的项目。&lt;/p>
+&lt;h1 id="opa-是什么">OPA 是什么&lt;/h1>
+&lt;p>前面我们已经介绍过 Open Policy Agent (OPA) 是一种开源的通用策略引擎，可在整个堆栈中实现统一、上下文感知的策略控制。&lt;/p>
+&lt;p>OPA 可将策略决策与应用程序的业务逻辑分离（解耦），&lt;strong>透过现象看本质，策略就是一组规则，请求发送到引擎，引擎根据规则来进行决策。&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/07/6bqX3GINMmUVg2k.png" alt="img">&lt;/p>
+&lt;p>图 3 ，OPA 的策略解耦示例&lt;/p>
+&lt;p>&lt;strong>OPA 并不负责具体任务的执行，它仅负责决策&lt;/strong>，需要决策的请求通过 JSON 的方式传递给 OPA ，在 OPA 决策后，也会将结果以 JSON 的形式返回。&lt;/p>
+&lt;h1 id="rego">Rego&lt;/h1>
+&lt;p>OPA 中的策略是以 Rego 这种 DSL(Domain Specific Language) 来表示的。&lt;/p>
+&lt;p>Rego 受 Datalog（https://en.wikipedia.org/wiki/Datalog） 的启发，并且扩展了 Datalog 对于结构化文档模型的支持，方便以 JSON 的方式对数据进行处理。&lt;/p>
+&lt;p>Rego 允许策略制定者可以专注于返回内容的查询而不是如何执行查询。同时 OPA 中也内置了执行规则时的优化，用户可以默认使用。&lt;/p>
+&lt;p>Rego 允许我们使用规则（if-then）封装和重用逻辑，规则可以是完整的或者是部分的。&lt;/p>
+&lt;p>每个规则都是由头部和主体组成。在 Rego 中，如果规则主体对于某些变量赋值为真，那么我们说规则头为真。可以通过绝对路径引用任何加载到 OPA 中的规则来查询它的值。规则的路径总是： data.&lt;package-path>.&lt;rule-name> （规则生成的所有值都可以通过全局 data 变量进行查询。 例如，下方示例中的 &lt;code>data.example.rules.any_public_networks&lt;/code>&lt;/p>
+&lt;ul>
+&lt;li>完整规则是将单个值分配给变量的 if-then 语句。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/07/bQDisFJrBPAyk6h.png" alt="img">&lt;/p>
+&lt;p>图 4 ，Rego 完整规则示例&lt;/p>
+&lt;ul>
+&lt;li>部分规则是生成一组值并将该组分配给变量的 if-then 语句。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/07/hKIamVtH5AzMbYr.png" alt="img">&lt;/p>
+&lt;p>图 5 ，Rego 部分规则示例&lt;/p>
+&lt;ul>
+&lt;li>逻辑或是要在 Rego 中定义多个具有相同名称的规则。（查询中将多个表达式连接在一起时，表示的是逻辑 AND）&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/07/PJjwpmZtBNk4yHh.png" alt="img">&lt;/p>
+&lt;p>图 6 ，Rego 规则或的完全规则和部分规则示例图&lt;/p>
+&lt;h1 id="opa-的使用">OPA 的使用&lt;/h1>
+&lt;p>OPA 的使用还是比较简单的，我们来看一下。&lt;/p>
+&lt;h2 id="安装-opa">安装 OPA&lt;/h2>
+&lt;h3 id="二进制方式">二进制方式&lt;/h3>
+&lt;p>我们可以直接从 OPA 的 release 页面下载其二进制进行使用&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-plain" data-lang="plain">➜ ~ wget -q -O ~/bin/opa https://github.com/open-policy-agent/opa/releases/download/v0.35.0/opa_linux_amd64_static
+➜ ~ chmod +x ~/bin/opa
+➜ ~ opa version
+Version: 0.35.0
+Build Commit: a54537a
+Build Timestamp: 2021-12-01T02:11:47Z
+Build Hostname: 9e4cf671a460
+Go Version: go1.17.3
+WebAssembly: unavailable
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="容器">容器&lt;/h3>
+&lt;p>我们可以使用其官方镜像&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-plain" data-lang="plain">➜ ~ docker run --rm openpolicyagent/opa:0.35.0 version
+Version: 0.35.0
+Build Commit: a54537a
+Build Timestamp: 2021-12-01T02:10:31Z
+Build Hostname: 4ee9b086e5de
+Go Version: go1.17.3
+WebAssembly: available
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="heading">&lt;/h2>
+&lt;h2 id="opa-交互">OPA 交互&lt;/h2>
+&lt;h3 id="opa-eval">opa eval&lt;/h3>
+&lt;p>最简单的命令是 &lt;code>opa eval&lt;/code> ，当然我们除了能使用它进行策略的执行外，还可以用来做表达式计算。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/07/Ql5Lhwt1Knr7O3D.png" alt="img">&lt;/p>
+&lt;p>图 7 ， opa eval 的使用帮助&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-plain" data-lang="plain">➜ ~ opa eval &amp;#34;6+6&amp;#34;
+{
+&amp;#34;result&amp;#34;: [
+{
+&amp;#34;expressions&amp;#34;: [
+{
+&amp;#34;value&amp;#34;: 12,
+&amp;#34;text&amp;#34;: &amp;#34;6+6&amp;#34;,
+&amp;#34;location&amp;#34;: {
+&amp;#34;row&amp;#34;: 1,
+&amp;#34;col&amp;#34;: 1
+}
+}
+]
+}
+]
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="heading-1">&lt;/h3>
+&lt;h3 id="opa-run">opa run&lt;/h3>
+&lt;p>&lt;code>opa run&lt;/code> 会启动一个交互式 shell （ REPL） 。我们可以使用 REPL 来试验策略并构建新的原型。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ ~ opa run
+OPA 0.35.0 &lt;span class="o">(&lt;/span>commit a54537a, built at 2021-12-01T02:11:47Z&lt;span class="o">)&lt;/span>
+Run &lt;span class="s1">&amp;#39;help&amp;#39;&lt;/span> to see a list of commands and check &lt;span class="k">for&lt;/span> updates.
+&amp;gt; &lt;span class="nb">true&lt;/span>
+&lt;span class="nb">true&lt;/span>
+&amp;gt; &lt;span class="o">[&lt;/span>&lt;span class="s2">&amp;#34;Hello&amp;#34;&lt;/span>, &lt;span class="s2">&amp;#34;OPA&amp;#34;&lt;/span>&lt;span class="o">]&lt;/span>
+&lt;span class="o">[&lt;/span>
+&lt;span class="s2">&amp;#34;Hello&amp;#34;&lt;/span>,
+&lt;span class="s2">&amp;#34;OPA&amp;#34;&lt;/span>
+&lt;span class="o">]&lt;/span>
+&amp;gt; pi :&lt;span class="o">=&lt;/span> 3.14
+Rule &lt;span class="s1">&amp;#39;pi&amp;#39;&lt;/span> defined in package repl. Type &lt;span class="s1">&amp;#39;show&amp;#39;&lt;/span> to see rules.
+&amp;gt; show
+package repl
+pi :&lt;span class="o">=&lt;/span> 3.14
+&amp;gt; pi &amp;gt; &lt;span class="m">1&lt;/span>
+&lt;span class="nb">true&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>我们也可以将策略直接加载进去，或者 将 OPA 作为一个服务运行并通过 HTTP 执行查询。默认情况下，OPA 监会监听在 8181 端口。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-plain" data-lang="plain">➜ ~ opa run --server
+{&amp;#34;addrs&amp;#34;:[&amp;#34;:8181&amp;#34;],&amp;#34;diagnostic-addrs&amp;#34;:[],&amp;#34;level&amp;#34;:&amp;#34;info&amp;#34;,&amp;#34;msg&amp;#34;:&amp;#34;Initializing server.&amp;#34;,&amp;#34;time&amp;#34;:&amp;#34;2021-12-07T01:12:47+08:00&amp;#34;}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>打开浏览器也可以看到一个简单的查询窗口&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/07/nbe45kwZFJWgiKL.png" alt="img">&lt;/p>
+&lt;h4 id="heading-2">&lt;/h4>
+&lt;h3 id="opa-作为-go-的库使用">opa 作为 go 的库使用&lt;/h3>
+&lt;p>OPA 可以作为库嵌入到 Go 程序中。将 OPA 嵌入为库的最简单方法是导入 &lt;code>github.com/open-policy-agent/opa/rego&lt;/code> 包。通过 &lt;code>rego.New&lt;/code> 函数用来创建一个可以准备或评估的对象, &lt;code>PrepareForEval()&lt;/code> 以获取可执行查询。&lt;/p>
+&lt;p>以下是一个简单的示例：&lt;/p>
+&lt;ul>
+&lt;li>目录结构&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ opa tree
+.
+├── data
+├── go.mod
+├── go.sum
+├── input.json
+├── k8s-label.rego
+└── main.go
+&lt;span class="m">1&lt;/span> directory, &lt;span class="m">5&lt;/span> files
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>策略文件&lt;/li>
+&lt;/ul>
+&lt;p>这里的策略文件是来校验 INPUT 中是否包含名为 domain 的 label ， 以及该 label 是否以 &lt;code>moelove-&lt;/code>开头。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kn">package&lt;/span> &lt;span class="nx">kubernetes&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">validating&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">existence&lt;/span>
+&lt;span class="nx">deny&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">msg&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">not&lt;/span> &lt;span class="nx">input&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">request&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">object&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">metadata&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">labels&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">domain&lt;/span>
+&lt;span class="nx">msg&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="s">&amp;#34;Every resource must have a domain label&amp;#34;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">deny&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">msg&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">value&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">input&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">request&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">object&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">metadata&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">labels&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">domain&lt;/span>
+&lt;span class="nx">not&lt;/span> &lt;span class="nf">startswith&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;moelove-&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">msg&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nf">sprintf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;domain label must start with `moelove-`; found `%v`&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>INPUT 文件， 以 Kubernetes 的 AdmissionReview 为例&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;kind&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;AdmissionReview&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;request&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;kind&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;kind&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Pod&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;version&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;v1&amp;#34;&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="nt">&amp;#34;object&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;metadata&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;name&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;myapp&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;labels&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;domain&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;opa&amp;#34;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="nt">&amp;#34;spec&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;containers&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;span class="p">{&lt;/span>
+&lt;span class="nt">&amp;#34;image&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;alpine&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nt">&amp;#34;name&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;alpine&amp;#34;&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">]&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>main.go 文件&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kn">package&lt;/span> &lt;span class="nx">main&lt;/span>
+&lt;span class="kn">import&lt;/span> &lt;span class="p">(&lt;/span>
+&lt;span class="s">&amp;#34;context&amp;#34;&lt;/span>
+&lt;span class="s">&amp;#34;encoding/json&amp;#34;&lt;/span>
+&lt;span class="s">&amp;#34;fmt&amp;#34;&lt;/span>
+&lt;span class="s">&amp;#34;log&amp;#34;&lt;/span>
+&lt;span class="s">&amp;#34;os&amp;#34;&lt;/span>
+&lt;span class="s">&amp;#34;github.com/open-policy-agent/opa/rego&amp;#34;&lt;/span>
+&lt;span class="p">)&lt;/span>
+&lt;span class="kd">func&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">ctx&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">context&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Background&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="c1">// Construct a Rego object that can be prepared or evaluated.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">r&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">rego&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">New&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;span class="nx">rego&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Query&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">os&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Args&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">]),&lt;/span>
+&lt;span class="nx">rego&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Load&lt;/span>&lt;span class="p">([]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="nx">os&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Args&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]},&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="c1">// Create a prepared query that can be evaluated.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">query&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">r&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">PrepareForEval&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">log&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Fatal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="c1">// Load the input document from stdin.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="kd">var&lt;/span> &lt;span class="nx">input&lt;/span> &lt;span class="kd">interface&lt;/span>&lt;span class="p">{}&lt;/span>
+&lt;span class="nx">dec&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">json&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewDecoder&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">os&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Stdin&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">dec&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">UseNumber&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">dec&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Decode&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">input&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">log&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Fatal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">rs&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">query&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Eval&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">rego&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">EvalInput&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">input&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">log&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Fatal&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Println&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">rs&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>执行结果如下：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ opa go run main.go k8s-label.rego &lt;span class="s2">&amp;#34;data&amp;#34;&lt;/span> &amp;lt; input.json
+&lt;span class="o">[{[&lt;/span>map&lt;span class="o">[&lt;/span>kubernetes:map&lt;span class="o">[&lt;/span>validating:map&lt;span class="o">[&lt;/span>existence:map&lt;span class="o">[&lt;/span>deny:&lt;span class="o">[&lt;/span>domain label must start with &lt;span class="sb">`&lt;/span>moelove-&lt;span class="sb">`&lt;/span>&lt;span class="p">;&lt;/span> found &lt;span class="sb">`&lt;/span>opa&lt;span class="sb">`&lt;/span>&lt;span class="o">]]]]]]&lt;/span> map&lt;span class="o">[]}]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="总结">总结&lt;/h1>
+&lt;p>以上便是对于 OPA 的一个大致介绍，OPA 的应用场景有很多，后续文章中将为大家分享 OPA 在 Kubernetes 中的应用，和将 OPA 应用与 CI/CD pipeline 的场景。敬请期待。&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/><category scheme="https://moelove.info/tags/OPA/" term="OPA" label="OPA"/></entry><entry><title type="text">理清 Kubernetes 中的准入控制（Admission Controller)</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/11/30/%E7%90%86%E6%B8%85-Kubernetes-%E4%B8%AD%E7%9A%84%E5%87%86%E5%85%A5%E6%8E%A7%E5%88%B6Admission-Controller/"/><id>https://moelove.info/2021/11/30/%E7%90%86%E6%B8%85-Kubernetes-%E4%B8%AD%E7%9A%84%E5%87%86%E5%85%A5%E6%8E%A7%E5%88%B6Admission-Controller/</id><updated>2021-11-30T12:48:00+08:00</updated><published>2021-11-30T03:04:22+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 在我之前发布的文章 《云原生时代下的容器镜像安全》（系列）中，我提到过 Kubernetes 集群的核心组件 -- kube-apiser……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>在我之前发布的文章 《云原生时代下的容器镜像安全》（系列）中，我提到过 Kubernetes 集群的核心组件 -- kube-apiserver，它允许来自终端用户或集群的各组件与之进行通信（例如，查询、创建、修改或删除 Kubernetes 资源）。&lt;/p>
 &lt;p>本篇我们将聚焦于 kube-apiserver 请求处理过程中一个很重要的部分 -- 准入控制器（Admission Controller）&lt;/p>
 &lt;h2 id="k8s-的准入控制器是什么">K8s 的准入控制器是什么&lt;/h2>
