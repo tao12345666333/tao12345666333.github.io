@@ -1,4 +1,121 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 07 Dec 2021 13:06:44 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>Open Policy Agent (OPA) 入门实践</title><link>https://moelove.info/2021/12/06/Open-Policy-Agent-OPA-%E5%85%A5%E9%97%A8%E5%AE%9E%E8%B7%B5/</link><guid isPermaLink="true">https://moelove.info/2021/12/06/Open-Policy-Agent-OPA-%E5%85%A5%E9%97%A8%E5%AE%9E%E8%B7%B5/</guid><pubDate>Mon, 06 Dec 2021 19:50:29 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Wed, 08 Dec 2021 08:26:29 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Kubernetes v1.23.0 正式发布，新特性一览</title><link>https://moelove.info/2021/12/08/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.23.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</link><guid isPermaLink="true">https://moelove.info/2021/12/08/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.23.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</guid><pubDate>Wed, 08 Dec 2021 03:50:29 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>Kubernetes v1.23 即将发布，这是 2021 年发布的第三个版本，也是今年最后一个正式发布的版本。&lt;/p>
+&lt;p>此版本中主要包括 47 项增强更新，其中 11 项达到 stable, 17 项达到 beta 还有 19 项达到 alpha 。 当然，也有 1 项被标记为废弃。相比于 v1.22 从数量上来说是少了一点（v1.22 有 53 项增强更新），但这并不影响这是一个很棒的版本！&lt;/p>
+&lt;p>在 Kubernetes 的发布周期变更为 &lt;strong>每4个月一个版本&lt;/strong> 后，很明显的感觉就是不用在升级上面花费太多时间了，毕竟 Kubernetes 的升级操作是个体力活，大家觉得呢？&lt;/p>
+&lt;p>我们一起来看看这个版本中有哪些值得关注的变更吧！&lt;/p>
+&lt;h1 id="新增-kubectl-alpha-events-命令">新增 kubectl alpha events 命令&lt;/h1>
+&lt;p>在之前的 《K8S 生态周报| Helm 新版本发布增强对 OCI 的支持》 文章的上游进展中我曾为大家介绍了该功能。它是按照 &lt;a href="https://github.com/kubernetes/enhancements/issues/1440">KEP #1440&lt;/a> 实施的。&lt;/p>
+&lt;blockquote>
+&lt;p>增加此命令主要是由于在不修改 &lt;code>kubectl get&lt;/code> 的前提下，查看 &lt;code>event&lt;/code> 有一些限制，所以直接增加 &lt;code>kubectl events&lt;/code> 命令可以更方便的去获取到需要的信息，尤其是 event 是在 Kubernetes 中经常需要查看的一个信息。&lt;code>kubectl get events&lt;/code> 比较典型的一些问题, 比如排序（虽然可以通过加参数解决）， watch，以及无法按照时间线方式去查看 events 等。&lt;/p>
+&lt;/blockquote>
+&lt;p>我们来看看这个命令具体如何使用。&lt;/p>
+&lt;p>我们先来创建两个 Pod，分别叫 &lt;code>redis&lt;/code> 和 &lt;code>redis2&lt;/code> 。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl run redis --image&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;ghcr.io/tao12345666333/redis:alpine&amp;#34;&lt;/span>
+pod/redis created
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl run redis2 --image&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;ghcr.io/tao12345666333/redis:alpine&amp;#34;&lt;/span>
+pod/redis2 created
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl get pods
+NAME READY STATUS RESTARTS AGE
+redis 1/1 Running &lt;span class="m">0&lt;/span> 12m
+redis2 1/1 Running &lt;span class="m">0&lt;/span> 2m23s
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>执行 &lt;code>kubectl alpha events&lt;/code> 可以看到当前 namespace 下的所有 events 。如果增加 &lt;code>--for&lt;/code> 条件可以用来筛选只展示特定资源相关的 events 。同时 &lt;strong>默认情况下就是按时间排序的&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl alpha events
+LAST SEEN TYPE REASON OBJECT MESSAGE
+12m Normal Scheduled Pod/redis Successfully assigned default/redis to kind-control-plane
+12m Normal Pulling Pod/redis Pulling image &lt;span class="s2">&amp;#34;ghcr.io/tao12345666333/redis:alpine&amp;#34;&lt;/span>
+12m Normal Pulled Pod/redis Successfully pulled image &lt;span class="s2">&amp;#34;ghcr.io/tao12345666333/redis:alpine&amp;#34;&lt;/span> in 4.028873745s
+12m Normal Created Pod/redis Created container redis
+12m Normal Started Pod/redis Started container redis
+3m5s Normal Scheduled Pod/redis2 Successfully assigned default/redis2 to kind-control-plane
+3m5s Normal Pulled Pod/redis2 Container image &lt;span class="s2">&amp;#34;ghcr.io/tao12345666333/redis:alpine&amp;#34;&lt;/span> already present on machine
+3m4s Normal Created Pod/redis2 Created container redis2
+3m4s Normal Started Pod/redis2 Started container redis2
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl alpha events --for pod/redis2
+LAST SEEN TYPE REASON OBJECT MESSAGE
+3m23s Normal Scheduled Pod/redis2 Successfully assigned default/redis2 to kind-control-plane
+3m23s Normal Pulled Pod/redis2 Container image &lt;span class="s2">&amp;#34;ghcr.io/tao12345666333/redis:alpine&amp;#34;&lt;/span> already present on machine
+3m22s Normal Created Pod/redis2 Created container redis2
+3m22s Normal Started Pod/redis2 Started container redis2
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="ipv4ipv6-双栈支持达到-ga">IPv4/IPv6 双栈支持达到 GA&lt;/h1>
+&lt;p>在配置双栈网络的 Kubernetes 时，需要同时指定 &lt;code>--node-cidr-mask-size-ipv4&lt;/code> 和 &lt;code>--node-cidr-mask-size-ipv6&lt;/code> 以便于设置每个 Node 上的子网大小。在此之前我们都是直接使用 &lt;code> --node-cidr-mask-size&lt;/code> 进行设置即可。&lt;/p>
+&lt;p>如果我们仍然使用单栈 Kubernetes 集群的话，正常来说不需要做什么调整，当然我们也可以使用上面提到的选项，来单独设置集群的 IPv4/IPv6 子网。&lt;/p>
+&lt;h1 id="podsecurity-admission-达到-beta">PodSecurity Admission 达到 Beta&lt;/h1>
+&lt;p>PodSecurity Admission 是之前的 PSP 的代替，关于 Kubernetes Admission 可以参考我之前的文章 《理清 Kubernetes 中 Admission 机制》，这里就不展开了。&lt;/p>
+&lt;h1 id="ingressclass-支持-namespace-级别的参数">IngressClass 支持 namespace 级别的参数&lt;/h1>
+&lt;p>&lt;code>IngressClass.Spec.Parameters.Namespace&lt;/code> 字段当前达到 GA ，这样我们就可以为 IngressClass 设置参数为 namespace 级别了。比如：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">networking.k8s.io/v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">IngressClass&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">external-lb&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">controller&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">example.com/ingress-controller&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">parameters&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">apiGroup&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">k8s.example.com&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">IngressParameters&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">external-lb&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">namespace&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">external-configuration&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">scope&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Namespace&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="probe-中增加-grpc-协议的支持">Probe 中增加 gRPC 协议的支持&lt;/h1>
+&lt;p>通过 KEP #2727 ，在此版本中为 Pod.Spec.Container.{Liveness,Readiness,Startup} 的 Probe 添加了 gRPC 协议的支持。 例如：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">readinessProbe&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">grpc&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">port&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">9090&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">service&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">moelove-service&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">initialDelaySeconds&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">5&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">periodSeconds&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">10&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>可通过 &lt;code>GRPCContainerProbe&lt;/code> feature gate 开启此特性。具体细节可参考 &lt;a href="https://github.com/kubernetes/kubernetes/pull/106463">#106463&lt;/a>&lt;/p>
+&lt;h1 id="新增-openapi-v3">新增 OpenAPI V3&lt;/h1>
+&lt;p>这个特性是 Alpha 级别，可通过 &lt;code>OpenApiv3&lt;/code> feature gate 进行开启。&lt;/p>
+&lt;p>增加此特性主要是由于 CRD 目前可通过 OpenApi V3 进行定义，但是 api-server 目前还不支持。当从 OpenApi V3 转换为 V2 时，部分信息将会丢失。&lt;/p>
+&lt;p>更多详细信息可参考 &lt;a href="https://github.com/kubernetes/enhancements/issues/2896">KEP #2896&lt;/a>&lt;/p>
+&lt;h1 id="crd-validation-表达式语言">CRD Validation 表达式语言&lt;/h1>
+&lt;p>这是一项 Alpha 级别的特性，默认是不开启的。可通过增加 &lt;code>CustomResourceValidationExpressions&lt;/code> feature gate 来进行开启。单独介绍此 Alpha 级别的特性是因为目前基于 Custom Resource Definitions (CRDs) 的方式对 Kubernetes 进行扩展已经成为主流，但是在 CRD 中目前能添加的校验规则有限，更多的场景都需要通过额外的 Admission 来完成。&lt;/p>
+&lt;p>此功能使用一种叫做 Common Expression Language (CEL) 的语言进行规则定义，通过 &lt;code>x-kubernetes-validation-rules&lt;/code> 字段进行规则的添加。&lt;/p>
+&lt;p>例如，某个 CRDs 的内容如下，其中定义了 &lt;code>minReplicas&lt;/code> 小于 &lt;code>replicas&lt;/code> 并且 &lt;code>replicas&lt;/code> 小于 &lt;code>maxReplicas&lt;/code> 。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nn">...&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">openAPIV3Schema&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">object&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">properties&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">object&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">x-kubernetes-validation-rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">rule&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;self.minReplicas &amp;lt;= self.replicas&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">message&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;replicas should be greater than or equal to minReplicas.&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">rule&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;self.replicas &amp;lt;= self.maxReplicas&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">message&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;replicas should be smaller than or equal to maxReplicas.&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">properties&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">...&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">minReplicas&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">integer&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">replicas&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">integer&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">maxReplicas&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">integer&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">required&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">minReplicas&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">replicas&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">maxReplicas &lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>那么，当有如下的自定义资源创建时，Kubernetes 将会拒绝其请求。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;stable.example.com/v1&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">CustomDeployment&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">my-new-deploy-object&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">minReplicas&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">0&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">replicas&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">20&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">maxReplicas&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">10&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>并且返回如下错误：&lt;/p>
+&lt;pre>&lt;code>The CustomDeployment &amp;quot;my-new-deploy-object&amp;quot; is invalid:
+* spec: Invalid value: map[string]interface {}{&amp;quot;maxReplicas&amp;quot;:10, &amp;quot;minReplicas&amp;quot;:0, &amp;quot;replicas&amp;quot;:20}: replicas should be smaller than or equal to maxReplicas.
+&lt;/code>&lt;/pre>&lt;p>这样相比原来我们通过 Admission 的方式来进行校验就会方便的多。关于 Kubernetes Admission 可以参考我之前的文章 《理清 Kubernetes 中 Admission 机制》。&lt;/p>
+&lt;h1 id="hpa-v2-api-达到-ga">HPA v2 API 达到 GA&lt;/h1>
+&lt;p>HPA v2 大约是在 5 年前首次提出，经过这 5 年的发展，终于在现在它达到了 GA 级别。&lt;/p>
+&lt;p>以上就是关于 Kubernetes v1.23 中我认为值得关注的一些主要特性，更多信息可参阅其 &lt;a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.23.md">ReleaseNote&lt;/a>&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>Open Policy Agent (OPA) 入门实践</title><link>https://moelove.info/2021/12/06/Open-Policy-Agent-OPA-%E5%85%A5%E9%97%A8%E5%AE%9E%E8%B7%B5/</link><guid isPermaLink="true">https://moelove.info/2021/12/06/Open-Policy-Agent-OPA-%E5%85%A5%E9%97%A8%E5%AE%9E%E8%B7%B5/</guid><pubDate>Mon, 06 Dec 2021 19:50:29 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>本篇我来为你介绍一个我个人很喜欢的，通用策略引擎，名叫 OPA，全称是 Open Policy Agent。&lt;/p>
 &lt;p>在具体聊 OPA 之前，我们先来聊一下为什么需要一个通用策略引擎，以及 OPA 解决了什么问题。&lt;/p>
 &lt;h1 id="opa-解决了什么问题">OPA 解决了什么问题&lt;/h1>
