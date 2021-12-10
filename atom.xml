@@ -1,4 +1,286 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-12-08T08:26:29+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Kubernetes v1.23.0 正式发布，新特性一览</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/08/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.23.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/"/><id>https://moelove.info/2021/12/08/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.23.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</id><updated>2021-12-08T08:26:16+08:00</updated><published>2021-12-08T03:50:29+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 Kubernetes v1.23 即将发布，这是……</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-12-10T12:02:20+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">搞懂容器技术的基石： namespace （上）</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/10/%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-namespace-%E4%B8%8A/"/><id>https://moelove.info/2021/12/10/%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-namespace-%E4%B8%8A/</id><updated>2021-12-10T12:01:59+08:00</updated><published>2021-12-10T03:50:29+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 目前我们所提到的容器技术、虚拟化技术（不论何种抽象层次下的虚拟化技术）都能做到资源层面上的隔离和限制。 对于容……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>目前我们所提到的容器技术、虚拟化技术（不论何种抽象层次下的虚拟化技术）都能做到资源层面上的隔离和限制。&lt;/p>
+&lt;p>对于容器技术而言，它实现资源层面上的限制和隔离，依赖于 Linux 内核所提供的 cgroup 和 namespace 技术。&lt;/p>
+&lt;p>我们先对这两项技术的作用做个概括：&lt;/p>
+&lt;ul>
+&lt;li>cgroup 的主要作用：管理资源的分配、限制；&lt;/li>
+&lt;li>namespace 的主要作用：封装抽象，限制，隔离，使命名空间内的进程看起来拥有他们自己的全局资源；&lt;/li>
+&lt;/ul>
+&lt;p>在上一篇文章中，我们重点聊了 cgroup 。本篇，我们重点来聊 namespace 。&lt;/p>
+&lt;h1 id="namespace-是什么">Namespace 是什么？&lt;/h1>
+&lt;p>我们引用 &lt;a href="https://en.wikipedia.org/wiki/Linux_namespaces">wiki&lt;/a> 上对 namespace 的定义：&lt;/p>
+&lt;p>Namespaces are a feature of the Linux kernel that partitions kernel resources such that one set of processes sees one set of resources while another set of processes sees a different set of resources. The feature works by having the same namespace for a set of resources and processes, but those namespaces refer to distinct resources.&lt;/p>
+&lt;p>namespace 是 Linux 内核的一项特性，它可以对内核资源进行分区，使得一组进程可以看到一组资源；而另一组进程可以看到另一组不同的资源。该功能的原理是为一组资源和进程使用相同的 namespace，但是这些 namespace 实际上引用的是不同的资源。&lt;/p>
+&lt;p>这样的说法未免太绕了些，简单来说 namespace 是由 Linux 内核提供的，用于进程间资源隔离的一种技术。将全局的系统资源包装在一个抽象里，让进程（看起来）拥有独立的全局资源实例。同时 Linux 也默认提供了多种 namespace，用于对多种不同资源进行隔离。&lt;/p>
+&lt;p>在之前，我们单独使用 namespace 的场景比较有限，但 namespace 却是容器化技术的基石。&lt;/p>
+&lt;p>我们先来看看它的发展历程。&lt;/p>
+&lt;h1 id="namespace-的发展历程">Namespace 的发展历程&lt;/h1>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/10/rRA1dQx69butYTZ.jpg" alt="img">&lt;/p>
+&lt;p>&lt;strong>图 1 ，namespace 的历史过程&lt;/strong>&lt;/p>
+&lt;h2 id="最早期---plan-9">最早期 - Plan 9&lt;/h2>
+&lt;p>namespace 的早期提出及使用要追溯到 Plan 9 from Bell Labs ，贝尔实验室的 Plan 9。这是一个分布式操作系统，由贝尔实验室的计算科学研究中心在八几年至02年开发的（02年发布了稳定的第四版，距离92年发布的第一个公开版本已10年打磨），现在仍然被操作系统的研究者和爱好者开发使用。在 Plan 9 的设计与实现中，我们着重提以下3点内容：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>文件系统：所有系统资源都列在文件系统中，以 Node 标识。所有的接口也作为文件系统的一部分呈现。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Namespace：能更好的应用及展示文件系统的层次结构，它实现了所谓的 “分离”和“独立”。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>标准通信协议：9P协议（Styx/9P2000）。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/10/ye5wSuNMnJoc6TU.jpg" alt="img">&lt;/p>
+&lt;p>&lt;strong>图 2 ，Plan 9 from Bell Labs 图标&lt;/strong>&lt;/p>
+&lt;h2 id="heading">&lt;/h2>
+&lt;h2 id="开始加入-linux-kernel">开始加入 Linux Kernel&lt;/h2>
+&lt;p>Namespace 开始进入 Linux Kernel 的版本是在 2.4.X，最初始于 2.4.19 版本。但是，自 2.4.2 版本才开始实现每个进程的 namespace。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/10/KeakXfEFsMjoLPz.jpg" alt="img">&lt;/p>
+&lt;p>&lt;strong>图 3 ，Linux Kernel Note&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/10/YlNU6uBeWdEJhgG.png" alt="img">&lt;/p>
+&lt;p>&lt;strong>图 4 ，Linux Kernel 对应的各操作系统版本&lt;/strong>&lt;/p>
+&lt;h2 id="linux-38-基本实现">Linux 3.8 基本实现&lt;/h2>
+&lt;p>Linux 3.8 中终于完全实现了 &lt;code>User&lt;/code> Namespace 的相关功能集成到内核。这样 Docker 及其他容器技术所用到的 namespace 相关的能力就基本都实现了。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/10/5HBV3ylXepPijvD.png" alt="img">&lt;/p>
+&lt;p>&lt;strong>图 5 ，Linux Kernel 从 2001 到2013 逐步演变，完成了 namespace 的实现&lt;/strong>&lt;/p>
+&lt;h1 id="namespace-类型">Namespace 类型&lt;/h1>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>namespace名称&lt;/th>
+&lt;th>使用的标识 - Flag&lt;/th>
+&lt;th>控制内容&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Cgroup&lt;/td>
+&lt;td>CLONE_NEWCGROUP&lt;/td>
+&lt;td>Cgroup root directory cgroup 根目录&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IPC&lt;/td>
+&lt;td>CLONE_NEWIPC&lt;/td>
+&lt;td>System V IPC, POSIX message queues信号量，消息队列&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Network&lt;/td>
+&lt;td>CLONE_NEWNET&lt;/td>
+&lt;td>Network devices, stacks, ports, etc.网络设备，协议栈，端口等等&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Mount&lt;/td>
+&lt;td>CLONE_NEWNS&lt;/td>
+&lt;td>Mount points挂载点&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PID&lt;/td>
+&lt;td>CLONE_NEWPID&lt;/td>
+&lt;td>Process IDs进程号&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Time&lt;/td>
+&lt;td>CLONE_NEWTIME&lt;/td>
+&lt;td>时钟&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>User&lt;/td>
+&lt;td>CLONE_NEWUSER&lt;/td>
+&lt;td>用户和组 ID&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>UTS&lt;/td>
+&lt;td>CLONE_NEWUTS&lt;/td>
+&lt;td>系统主机名和 NIS(Network Information Service) 主机名（有时称为域名）&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="cgroup-namespaces">Cgroup namespaces&lt;/h2>
+&lt;p>Cgroup namespace 是进程的 cgroups 的虚拟化视图，通过 &lt;code>/proc/[pid]/cgroup&lt;/code> 和 &lt;code>/proc/[pid]/mountinfo&lt;/code> 展示。&lt;/p>
+&lt;p>使用 cgroup namespace 需要内核开启 &lt;code>CONFIG_CGROUPS&lt;/code> 选项。可通过以下方式验证：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="p">(&lt;/span>&lt;span class="nx">MoeLove&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="err">➜&lt;/span> &lt;span class="nx">grep&lt;/span> &lt;span class="nx">CONFIG_CGROUPS&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="nx">boot&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="nx">config&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="err">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">uname&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="nx">r&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">CONFIG_CGROUPS&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="nx">y&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>cgroup namespace 提供的了一系列的隔离支持：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>防止信息泄漏（容器不应该看到容器外的任何信息）。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>简化了容器迁移。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>限制容器进程资源，因为它会把 cgroup 文件系统进行挂载，使得容器进程无法获取上层的访问权限。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>每个 cgroup namespace 都有自己的一组 cgroup 根目录。这些 cgroup 的根目录是在 &lt;code>/proc/[pid]/cgroup&lt;/code> 文件中对应记录的相对位置的基点。当一个进程用 &lt;code>CLONE_NEWCGROUP&lt;/code>（clone(2) 或者 unshare(2)） 创建一个新的 cgroup namespace时，它当前的 cgroups 的目录就变成了新 namespace 的 cgroup 根目录。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ cat /proc/self/cgroup
+0::/user.slice/user-1000.slice/session-2.scope
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>当一个目标进程从 &lt;code>/proc/[pid]/cgroup&lt;/code> 中读取 cgroup 关系时，每个记录的路径名会在第三字段中展示，会关联到正在读取的进程的相关 cgroup 分层结构的根目录。如果目标进程的 cgroup 目录位于正在读取的进程的 cgroup namespace 根目录之外时，那么，路径名称将会对每个 cgroup 层次中的上层节点显示 &lt;code>../&lt;/code> 。&lt;/p>
+&lt;p>我们来看看下面的示例（这里以 cgroup v1 为例，如果你想看 v2 版本的示例，请在留言中告诉我）：&lt;/p>
+&lt;ol>
+&lt;li>在初始的 cgroup namespace 中，我们使用 root （或者有 root 权限的用户），在 freezer 层下创建一个子 cgroup 名为 &lt;code>moelove-sub&lt;/code>，同时，将进程放入该 cgroup 进行限制。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-plain" data-lang="plain">(MoeLove) ➜ mkdir -p /sys/fs/cgroup/freezer/moelove-sub
+(MoeLove) ➜ sleep 6666666 &amp;amp;
+[1] 1489125
+(MoeLove) ➜ echo 1489125 &amp;gt; /sys/fs/cgroup/freezer/moelove-sub/cgroup.procs
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="2">
+&lt;li>我们在 freezer 层下创建另外一个子 cgroup，名为 &lt;code>moelove-sub2&lt;/code>， 并且再放入执行进程号。可以看到当前的进程已经纳入到 &lt;code>moelove-sub2&lt;/code>的 cgroup 下管理了。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-plain" data-lang="plain">(MoeLove) ➜ mkdir -p /sys/fs/cgroup/freezer/moelove-sub2
+(MoeLove) ➜ echo $$
+1488899
+(MoeLove) ➜ echo 1488899 &amp;gt; /sys/fs/cgroup/freezer/moelove-sub2/cgroup.procs
+(MoeLove) ➜ cat /proc/self/cgroup |grep freezer
+7:freezer:/moelove-sub2
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="3">
+&lt;li>我们使用 &lt;code>unshare(1)&lt;/code> 创建一个进程，这里使用了 &lt;code>-C&lt;/code>参数表示是新的 cgroup namespace， 使用了 &lt;code>-m&lt;/code>参数表示是新的 mount namespace。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-plain" data-lang="plain">(MoeLove) ➜ unshare -Cm bash
+root@moelove:~#
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="4">
+&lt;li>从用 unshare(1) 启动的新 shell 中，我们可以在 &lt;code>/proc/[pid]/cgroup&lt;/code> 文件中看到，新 shell 和以上示例中的进程：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-plain" data-lang="plain">root@moelove:~# cat /proc/self/cgroup | grep freezer
+7:freezer:/
+root@moelove:~# cat /proc/1/cgroup | grep freezer
+7:freezer:/..
+# 第一个示例进程
+root@moelove:~# cat /proc/1489125/cgroup | grep freezer
+7:freezer:/../moelove-sub
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="5">
+&lt;li>从上面的示例中，我们可以看到新 shell 的 freezer cgroup 关系中，当新的 cgroup namespace 创建时，freezer cgroup 的根目录与它的关系也就建立了。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-plain" data-lang="plain">root@moelove:~# cat /proc/self/mountinfo | grep freezer
+1238 1230 0:37 /.. /sys/fs/cgroup/freezer rw,nosuid,nodev,noexec,relatime - cgroup cgroup rw,freezer
+&lt;/code>&lt;/pre>&lt;/div>&lt;ol start="6">
+&lt;li>第四个字段 ( &lt;code>/..&lt;/code>) 显示了在 cgroup 文件系统中的挂载目录。从 cgroup namespaces 的定义中，我们可以知道，进程当前的 freezer cgroup 目录变成了它的根目录，所以这个字段显示 &lt;code>/..&lt;/code> 。我们可以重新挂载来处理它。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-plain" data-lang="plain">root@moelove:~# mount --make-rslave /
+root@moelove:~# umount /sys/fs/cgroup/freezer
+root@moelove:~# mount -t cgroup -o freezer freezer /sys/fs/cgroup/freezer
+root@moelove:~# cat /proc/self/mountinfo | grep freezer
+1238 1230 0:37 / /sys/fs/cgroup/freezer rw,relatime - cgroup freezer rw,freezer
+root@moelove:~# mount |grep freezer
+freezer on /sys/fs/cgroup/freezer type cgroup (rw,relatime,freezer)
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="ipc-namespaces">IPC namespaces&lt;/h2>
+&lt;p>IPC namespaces 隔离了 IPC 资源，如 System V IPC objects、 POSIX message queues。每个 IPC namespace 都有着自己的一组 System V IPC 标识符，以及 POSIX 消息队列系统。在一个 IPC namespace 中创建的对象，对所有该 namespace 下的成员均可见（对其他 namespace 下的成员均不可见）。&lt;/p>
+&lt;p>使用 IPC namespace 需要内核支持 CONFIG_IPC_NS 选项。如下：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="p">(&lt;/span>&lt;span class="nx">MoeLove&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="err">➜&lt;/span> &lt;span class="nx">grep&lt;/span> &lt;span class="nx">CONFIG_IPC_NS&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="nx">boot&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="nx">config&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="err">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">uname&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="nx">r&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">CONFIG_IPC_NS&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="nx">y&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以在 IPC namespace 中设置以下 &lt;code>/proc&lt;/code> 接口：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>/proc/sys/fs/mqueue&lt;/code> - POSIX 消息队列接口&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>/proc/sys/kernel&lt;/code> - System V IPC 接口 （msgmax, msgmnb, msgmni, sem, shmall, shmmax, shmmni, shm_rmid_forced）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>/proc/sysvipc&lt;/code> - System V IPC 接口&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>当 IPC namespace 被销毁时（空间里的最后一个进程都被停止删除时），在 IPC namespace 中创建的 object 也会被销毁。&lt;/p>
+&lt;h2 id="network-namepaces">Network namepaces&lt;/h2>
+&lt;p>Network namespaces 隔离了与网络相关的系统资源（这里罗列一些）：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>network devices - 网络设备&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>IPv4 and IPv6 protocol stacks - IPv4、IPv6 的协议栈&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>IP routing tables - IP 路由表&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>firewall rules - 防火墙规则&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>/proc/net （即 /proc/PID/net）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>/sys/class/net&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>/proc/sys/net 目录下的文件&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>端口、socket&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>UNIX domain abstract socket namespace&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>使用 Network namespaces 需要内核支持 CONFIG_NET_NS 选项。如下：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ grep CONFIG_NET_NS /boot/config-&lt;span class="k">$(&lt;/span>uname -r&lt;span class="k">)&lt;/span>
+&lt;span class="nv">CONFIG_NET_NS&lt;/span>&lt;span class="o">=&lt;/span>y
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>一个物理网络设备只能存在于一个 Network namespace 中。当一个 Network namespace 被释放时（空间里的最后一个进程都被停止删除时），物理网络设备将被移动到初始的 Network namespace 而不是上层的 Network namespace。&lt;/p>
+&lt;p>一个虚拟的网络设备(veth(4)) ，在 Network namespace 间通过一个类似管道的方式进行连接。这使得它能存在于多个 Network namespace，但是，当 Network namespace 被摧毁时，该空间下包含的 veth(4) 设备可能被破坏。&lt;/p>
+&lt;h2 id="mount-namespaces">Mount namespaces&lt;/h2>
+&lt;p>Mount namespaces 最早出现在 Linux 2.4.19 版本。Mount namespaces 隔离了各空间中挂载的进程实例。每个 mount namespace 的实例下的进程会看到不同的目录层次结构。&lt;/p>
+&lt;p>每个进程在 mount namespace 中的描述可以在下面的文件视图中看到：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>/proc/[pid]/mounts&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>/proc/[pid]/mountinfo&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>/proc/[pid]/mountstats&lt;/code>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>一个新的 Mount namespace 的创建标识是 CLONE_NEWNS ，使用了 clone(2) 或者 unshare(2) 。&lt;/p>
+&lt;ul>
+&lt;li>如果 Mount namespace 用 clone(2) 创建，子 namespace 的挂载列表是从父进程的 mount namespace 拷贝的。&lt;/li>
+&lt;li>如果 Mount namespace 用 unshare(2) 创建，新 namespace 的挂载列表是从调用者之前的 moun namespace 拷贝的。&lt;/li>
+&lt;/ul>
+&lt;p>如果 mount namespace 发生了修改，会引起什么样的连锁反应？下面，我们就在 &lt;strong>共享子树&lt;/strong>中谈谈。&lt;/p>
+&lt;p>每个 mount 都被可以有如下标记 ：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>MS_SHARED - 与组内每个成员分享 events 。也就是说相同的 mount 或者 unmount 将自动发生在组内其他的 mounts 中。反之，mount 或者 unmount 事件 也会影响这次的 event 动作。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>MS_PRIVATE - 这个 mount 是私有的。mount 或者 unmount events 都不会影响这次的 event 动作。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>MS_SLAVE - mount 或者 unmount events 会从 master 节点传入影响该节点。但是这个节点下的 mount 或者 unmount events 不会影响组内的其他节点。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>MS_UNBINDABLE - 这也是个私有的 mount 。任何尝试绑定的 mount 在这个设置下都将失败。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>在文件 &lt;code>/proc/[pid]/mountinfo&lt;/code> 中可以看到 &lt;code>propagation&lt;/code> 类型的字段。每个对等组都会由内核生成唯一的 ID ，同一对等组的 mount 都是这个 ID（即，下文中的 X ）。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ cat /proc/self/mountinfo &lt;span class="p">|&lt;/span>grep root
+&lt;span class="m">65&lt;/span> &lt;span class="m">1&lt;/span> 0:33 /root / rw,relatime shared:1 - btrfs /dev/nvme0n1p6 rw,seclabel,compress&lt;span class="o">=&lt;/span>zstd:1,ssd,space_cache,subvolid&lt;span class="o">=&lt;/span>256,subvol&lt;span class="o">=&lt;/span>/root
+&lt;span class="m">1210&lt;/span> &lt;span class="m">65&lt;/span> 0:33 /root/var/lib/docker/btrfs /var/lib/docker/btrfs rw,relatime shared:1 - btrfs /dev/nvme0n1p6 rw,seclabel,compress&lt;span class="o">=&lt;/span>zstd:1,ssd,space_cache,subvolid&lt;span class="o">=&lt;/span>256,subvol&lt;span class="o">=&lt;/span>/root
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>shared:X - 在组 X 中共享。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>master:X - 对于组 X 而言是 slave，即，从属于 ID 为 X 的主。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>propagate_from:X - 接收从组 X 发出的共享 mount。这个标签总是个 master:X 一同出现。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>unbindable - 表示不能被绑定，即，不与其他关联从属。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>新 mount namespace 的传播类型取决于它的父节点。如果父节点的传播类型是 MS_SHARED ，那么新 mount namespace 的传播类型是 MS_SHARED ，不然会默认为 MS_PRIVATE。&lt;/p>
+&lt;p>关于 mount namespaces 我们还需要注意以下几点：&lt;/p>
+&lt;p>（1）每个 mount namespace 都有一个 owner user namespace。如果新的 mount namespace 和拷贝的 mount namespace 分属于不同的 user namespace ，那么，新的 mount namespace 优先级低。&lt;/p>
+&lt;p>（2）当创建的 mount namespace 优先级低时，那么，slave 的 mount events 会优先于 shared 的 mount events。&lt;/p>
+&lt;p>（3）高优先级和低优先级的 mount namespace 有关联被锁定在一起时，他们都不能被单独卸载。&lt;/p>
+&lt;p>（4）mount(2) 标识和 atime 标识会被锁定，即，不能被传播影响而修改。&lt;/p>
+&lt;h1 id="小结">小结&lt;/h1>
+&lt;p>以上就是关于 Linux 内核中 namespace 的一些介绍了，篇幅原因，剩余部分以及 namespace 在容器中的应用我们放在下一篇中介绍，敬请期待！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">K8S 生态周报| Kubernetes v1.23.0 正式发布，新特性一览</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/08/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.23.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/"/><id>https://moelove.info/2021/12/08/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.23.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</id><updated>2021-12-08T08:26:16+08:00</updated><published>2021-12-08T03:50:29+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 Kubernetes v1.23 即将发布，这是……</summary><content type="html">&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>Kubernetes v1.23 即将发布，这是 2021 年发布的第三个版本，也是今年最后一个正式发布的版本。&lt;/p>
