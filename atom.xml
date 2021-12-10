@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-12-10T12:02:20+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">搞懂容器技术的基石： namespace （上）</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/10/%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-namespace-%E4%B8%8A/"/><id>https://moelove.info/2021/12/10/%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-namespace-%E4%B8%8A/</id><updated>2021-12-10T12:01:59+08:00</updated><published>2021-12-10T03:50:29+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 目前我们所提到的容器技术、虚拟化技术（不论何种抽象层次下的虚拟化技术）都能做到资源层面上的隔离和限制。 对于容……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-12-10T12:05:48+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">搞懂容器技术的基石： namespace （上）</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/10/%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-namespace-%E4%B8%8A/"/><id>https://moelove.info/2021/12/10/%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-namespace-%E4%B8%8A/</id><updated>2021-12-10T12:05:32+08:00</updated><published>2021-12-10T03:50:29+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 目前我们所提到的容器技术、虚拟化技术（不论何种抽象层次下的虚拟化技术）都能做到资源层面上的隔离和限制。 对于容……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>目前我们所提到的容器技术、虚拟化技术（不论何种抽象层次下的虚拟化技术）都能做到资源层面上的隔离和限制。&lt;/p>
 &lt;p>对于容器技术而言，它实现资源层面上的限制和隔离，依赖于 Linux 内核所提供的 cgroup 和 namespace 技术。&lt;/p>
 &lt;p>我们先对这两项技术的作用做个概括：&lt;/p>
@@ -6,18 +6,20 @@
 &lt;li>cgroup 的主要作用：管理资源的分配、限制；&lt;/li>
 &lt;li>namespace 的主要作用：封装抽象，限制，隔离，使命名空间内的进程看起来拥有他们自己的全局资源；&lt;/li>
 &lt;/ul>
-&lt;p>在上一篇文章中，我们重点聊了 cgroup 。本篇，我们重点来聊 namespace 。&lt;/p>
-&lt;h1 id="namespace-是什么">Namespace 是什么？&lt;/h1>
+&lt;p>&lt;a href="https://zhuanlan.zhihu.com/p/434731896">在上一篇文章中，我们重点聊了 cgroup &lt;/a>。本篇，我们重点来聊 namespace 。&lt;/p>
+&lt;h2 id="namespace-是什么">Namespace 是什么？&lt;/h2>
 &lt;p>我们引用 &lt;a href="https://en.wikipedia.org/wiki/Linux_namespaces">wiki&lt;/a> 上对 namespace 的定义：&lt;/p>
+&lt;blockquote>
 &lt;p>Namespaces are a feature of the Linux kernel that partitions kernel resources such that one set of processes sees one set of resources while another set of processes sees a different set of resources. The feature works by having the same namespace for a set of resources and processes, but those namespaces refer to distinct resources.&lt;/p>
+&lt;/blockquote>
 &lt;p>namespace 是 Linux 内核的一项特性，它可以对内核资源进行分区，使得一组进程可以看到一组资源；而另一组进程可以看到另一组不同的资源。该功能的原理是为一组资源和进程使用相同的 namespace，但是这些 namespace 实际上引用的是不同的资源。&lt;/p>
 &lt;p>这样的说法未免太绕了些，简单来说 namespace 是由 Linux 内核提供的，用于进程间资源隔离的一种技术。将全局的系统资源包装在一个抽象里，让进程（看起来）拥有独立的全局资源实例。同时 Linux 也默认提供了多种 namespace，用于对多种不同资源进行隔离。&lt;/p>
 &lt;p>在之前，我们单独使用 namespace 的场景比较有限，但 namespace 却是容器化技术的基石。&lt;/p>
 &lt;p>我们先来看看它的发展历程。&lt;/p>
-&lt;h1 id="namespace-的发展历程">Namespace 的发展历程&lt;/h1>
+&lt;h2 id="namespace-的发展历程">Namespace 的发展历程&lt;/h2>
 &lt;p>&lt;img src="https://s2.loli.net/2021/12/10/rRA1dQx69butYTZ.jpg" alt="img">&lt;/p>
 &lt;p>&lt;strong>图 1 ，namespace 的历史过程&lt;/strong>&lt;/p>
-&lt;h2 id="最早期---plan-9">最早期 - Plan 9&lt;/h2>
+&lt;h3 id="最早期---plan-9">最早期 - Plan 9&lt;/h3>
 &lt;p>namespace 的早期提出及使用要追溯到 Plan 9 from Bell Labs ，贝尔实验室的 Plan 9。这是一个分布式操作系统，由贝尔实验室的计算科学研究中心在八几年至02年开发的（02年发布了稳定的第四版，距离92年发布的第一个公开版本已10年打磨），现在仍然被操作系统的研究者和爱好者开发使用。在 Plan 9 的设计与实现中，我们着重提以下3点内容：&lt;/p>
 &lt;ul>
 &lt;li>
@@ -32,18 +34,17 @@
 &lt;/ul>
 &lt;p>&lt;img src="https://s2.loli.net/2021/12/10/ye5wSuNMnJoc6TU.jpg" alt="img">&lt;/p>
 &lt;p>&lt;strong>图 2 ，Plan 9 from Bell Labs 图标&lt;/strong>&lt;/p>
-&lt;h2 id="heading">&lt;/h2>
-&lt;h2 id="开始加入-linux-kernel">开始加入 Linux Kernel&lt;/h2>
+&lt;h3 id="开始加入-linux-kernel">开始加入 Linux Kernel&lt;/h3>
 &lt;p>Namespace 开始进入 Linux Kernel 的版本是在 2.4.X，最初始于 2.4.19 版本。但是，自 2.4.2 版本才开始实现每个进程的 namespace。&lt;/p>
 &lt;p>&lt;img src="https://s2.loli.net/2021/12/10/KeakXfEFsMjoLPz.jpg" alt="img">&lt;/p>
 &lt;p>&lt;strong>图 3 ，Linux Kernel Note&lt;/strong>&lt;/p>
 &lt;p>&lt;img src="https://s2.loli.net/2021/12/10/YlNU6uBeWdEJhgG.png" alt="img">&lt;/p>
 &lt;p>&lt;strong>图 4 ，Linux Kernel 对应的各操作系统版本&lt;/strong>&lt;/p>
-&lt;h2 id="linux-38-基本实现">Linux 3.8 基本实现&lt;/h2>
+&lt;h3 id="linux-38-基本实现">Linux 3.8 基本实现&lt;/h3>
 &lt;p>Linux 3.8 中终于完全实现了 &lt;code>User&lt;/code> Namespace 的相关功能集成到内核。这样 Docker 及其他容器技术所用到的 namespace 相关的能力就基本都实现了。&lt;/p>
 &lt;p>&lt;img src="https://s2.loli.net/2021/12/10/5HBV3ylXepPijvD.png" alt="img">&lt;/p>
 &lt;p>&lt;strong>图 5 ，Linux Kernel 从 2001 到2013 逐步演变，完成了 namespace 的实现&lt;/strong>&lt;/p>
-&lt;h1 id="namespace-类型">Namespace 类型&lt;/h1>
+&lt;h2 id="namespace-类型">Namespace 类型&lt;/h2>
 &lt;table>
 &lt;thead>
 &lt;tr>
@@ -95,7 +96,7 @@
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;h2 id="cgroup-namespaces">Cgroup namespaces&lt;/h2>
+&lt;h3 id="cgroup-namespaces">Cgroup namespaces&lt;/h3>
 &lt;p>Cgroup namespace 是进程的 cgroups 的虚拟化视图，通过 &lt;code>/proc/[pid]/cgroup&lt;/code> 和 &lt;code>/proc/[pid]/mountinfo&lt;/code> 展示。&lt;/p>
 &lt;p>使用 cgroup namespace 需要内核开启 &lt;code>CONFIG_CGROUPS&lt;/code> 选项。可通过以下方式验证：&lt;/p>
 &lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="p">(&lt;/span>&lt;span class="nx">MoeLove&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="err">➜&lt;/span> &lt;span class="nx">grep&lt;/span> &lt;span class="nx">CONFIG_CGROUPS&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="nx">boot&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="nx">config&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="err">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">uname&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="nx">r&lt;/span>&lt;span class="p">)&lt;/span>
@@ -163,7 +164,7 @@ root@moelove:~# cat /proc/self/mountinfo | grep freezer
 1238 1230 0:37 / /sys/fs/cgroup/freezer rw,relatime - cgroup freezer rw,freezer
 root@moelove:~# mount |grep freezer
 freezer on /sys/fs/cgroup/freezer type cgroup (rw,relatime,freezer)
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="ipc-namespaces">IPC namespaces&lt;/h2>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="ipc-namespaces">IPC namespaces&lt;/h3>
 &lt;p>IPC namespaces 隔离了 IPC 资源，如 System V IPC objects、 POSIX message queues。每个 IPC namespace 都有着自己的一组 System V IPC 标识符，以及 POSIX 消息队列系统。在一个 IPC namespace 中创建的对象，对所有该 namespace 下的成员均可见（对其他 namespace 下的成员均不可见）。&lt;/p>
 &lt;p>使用 IPC namespace 需要内核支持 CONFIG_IPC_NS 选项。如下：&lt;/p>
 &lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="p">(&lt;/span>&lt;span class="nx">MoeLove&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="err">➜&lt;/span> &lt;span class="nx">grep&lt;/span> &lt;span class="nx">CONFIG_IPC_NS&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="nx">boot&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="nx">config&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="err">$&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">uname&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="nx">r&lt;/span>&lt;span class="p">)&lt;/span>
@@ -181,7 +182,7 @@ freezer on /sys/fs/cgroup/freezer type cgroup (rw,relatime,freezer)
 &lt;/li>
 &lt;/ul>
 &lt;p>当 IPC namespace 被销毁时（空间里的最后一个进程都被停止删除时），在 IPC namespace 中创建的 object 也会被销毁。&lt;/p>
-&lt;h2 id="network-namepaces">Network namepaces&lt;/h2>
+&lt;h3 id="network-namepaces">Network namepaces&lt;/h3>
 &lt;p>Network namespaces 隔离了与网络相关的系统资源（这里罗列一些）：&lt;/p>
 &lt;ul>
 &lt;li>
@@ -217,7 +218,7 @@ freezer on /sys/fs/cgroup/freezer type cgroup (rw,relatime,freezer)
 &lt;span class="nv">CONFIG_NET_NS&lt;/span>&lt;span class="o">=&lt;/span>y
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>一个物理网络设备只能存在于一个 Network namespace 中。当一个 Network namespace 被释放时（空间里的最后一个进程都被停止删除时），物理网络设备将被移动到初始的 Network namespace 而不是上层的 Network namespace。&lt;/p>
 &lt;p>一个虚拟的网络设备(veth(4)) ，在 Network namespace 间通过一个类似管道的方式进行连接。这使得它能存在于多个 Network namespace，但是，当 Network namespace 被摧毁时，该空间下包含的 veth(4) 设备可能被破坏。&lt;/p>
-&lt;h2 id="mount-namespaces">Mount namespaces&lt;/h2>
+&lt;h3 id="mount-namespaces">Mount namespaces&lt;/h3>
 &lt;p>Mount namespaces 最早出现在 Linux 2.4.19 版本。Mount namespaces 隔离了各空间中挂载的进程实例。每个 mount namespace 的实例下的进程会看到不同的目录层次结构。&lt;/p>
 &lt;p>每个进程在 mount namespace 中的描述可以在下面的文件视图中看到：&lt;/p>
 &lt;ul>
@@ -276,7 +277,7 @@ freezer on /sys/fs/cgroup/freezer type cgroup (rw,relatime,freezer)
 &lt;p>（2）当创建的 mount namespace 优先级低时，那么，slave 的 mount events 会优先于 shared 的 mount events。&lt;/p>
 &lt;p>（3）高优先级和低优先级的 mount namespace 有关联被锁定在一起时，他们都不能被单独卸载。&lt;/p>
 &lt;p>（4）mount(2) 标识和 atime 标识会被锁定，即，不能被传播影响而修改。&lt;/p>
-&lt;h1 id="小结">小结&lt;/h1>
+&lt;h2 id="小结">小结&lt;/h2>
 &lt;p>以上就是关于 Linux 内核中 namespace 的一些介绍了，篇幅原因，剩余部分以及 namespace 在容器中的应用我们放在下一篇中介绍，敬请期待！&lt;/p>
 &lt;hr>
 &lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
