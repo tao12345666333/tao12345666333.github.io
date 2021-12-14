@@ -1,4 +1,342 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Fri, 10 Dec 2021 12:05:48 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>搞懂容器技术的基石： namespace （上）</title><link>https://moelove.info/2021/12/10/%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-namespace-%E4%B8%8A/</link><guid isPermaLink="true">https://moelove.info/2021/12/10/%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-namespace-%E4%B8%8A/</guid><pubDate>Fri, 10 Dec 2021 03:50:29 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 14 Dec 2021 12:11:15 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>搞懂容器技术的基石： namespace （下）</title><link>https://moelove.info/2021/12/13/%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-namespace-%E4%B8%8B/</link><guid isPermaLink="true">https://moelove.info/2021/12/13/%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-namespace-%E4%B8%8B/</guid><pubDate>Mon, 13 Dec 2021 03:50:29 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>目前我们所提到的容器技术、虚拟化技术（不论何种抽象层次下的虚拟化技术）都能做到资源层面上的隔离和限制。&lt;/p>
+&lt;p>对于容器技术而言，它实现资源层面上的限制和隔离，依赖于 Linux 内核所提供的 cgroup 和 namespace 技术。&lt;/p>
+&lt;p>我们先对这两项技术的作用做个概括：&lt;/p>
+&lt;ul>
+&lt;li>cgroup 的主要作用：管理资源的分配、限制；&lt;/li>
+&lt;li>namespace 的主要作用：封装抽象，限制，隔离，使命名空间内的进程看起来拥有他们自己的全局资源；&lt;/li>
+&lt;/ul>
+&lt;p>这是一个系列文章，对此系列感兴趣的小伙伴可以查看：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://zhuanlan.zhihu.com/p/434731896">彻底搞懂容器技术的基石：cgroup&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://zhuanlan.zhihu.com/p/443605569">彻底搞懂容器技术的基石：namespace（上）&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>本篇我们将继续聊 namespace。&lt;/p>
+&lt;h2 id="namespace-类型">Namespace 类型&lt;/h2>
+&lt;p>我们先来总览一下 namespace 的类型，上篇中已经为大家介绍过 &lt;code>Cgroup&lt;/code> , &lt;code>IPC&lt;/code>, &lt;code>Network&lt;/code> 和 &lt;code>Mount&lt;/code> 等 4 种类型的 namespace。我们继续聊剩余的部分。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>namespace名称&lt;/th>
+&lt;th>使用的标识 - Flag&lt;/th>
+&lt;th>控制内容&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Cgroup&lt;/td>
+&lt;td>CLONE_NEWCGROUP&lt;/td>
+&lt;td>Cgroup root directory cgroup 根目录&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IPC&lt;/td>
+&lt;td>CLONE_NEWIPC&lt;/td>
+&lt;td>System V IPC, POSIX message queues信号量，消息队列&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Network&lt;/td>
+&lt;td>CLONE_NEWNET&lt;/td>
+&lt;td>Network devices, stacks, ports, etc.网络设备，协议栈，端口等等&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Mount&lt;/td>
+&lt;td>CLONE_NEWNS&lt;/td>
+&lt;td>Mount points挂载点&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>PID&lt;/td>
+&lt;td>CLONE_NEWPID&lt;/td>
+&lt;td>Process IDs进程号&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Time&lt;/td>
+&lt;td>CLONE_NEWTIME&lt;/td>
+&lt;td>Boot and monotonic clocks启动和单调时钟&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>User&lt;/td>
+&lt;td>CLONE_NEWUSER&lt;/td>
+&lt;td>User and group IDs用户和用户组&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>UTS&lt;/td>
+&lt;td>CLONE_NEWUTS&lt;/td>
+&lt;td>Hostname and NIS domain name主机名与 NIS 域名&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="pid-namespaces">PID namespaces&lt;/h3>
+&lt;p>我们知道在 Linux 系统中，每个进程都会有自己的独立的 PID，而 PID namespace 主要是用于隔离进程号。即，在不同的 PID namespace 中可以包含相同的进程号。&lt;/p>
+&lt;p>每个 PID namespace 中进程号都是从 1 开始的，在此 PID namespace 中可通过调用 &lt;code>fork(2)&lt;/code>, &lt;code>vfork(2)&lt;/code>和 &lt;code>clone(2)&lt;/code> 等系统调用来创建其他拥有独立 PID 的进程。&lt;/p>
+&lt;p>要使用 PID namespace 需要内核支持 &lt;code>CONFIG_PID_NS&lt;/code> 选项。如下：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ grep CONFIG_PID_NS /boot/config-&lt;span class="k">$(&lt;/span>uname -r&lt;span class="k">)&lt;/span>
+&lt;span class="nv">CONFIG_PID_NS&lt;/span>&lt;span class="o">=&lt;/span>y
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="init-进程">init 进程&lt;/h4>
+&lt;p>我们都知道在 Linux 系统中有一个进程比较特殊，所谓的 init 进程，也就是 PID 为 1 的进程。&lt;/p>
+&lt;p>前面我们已经说了每个 PID namespace 中进程号都是从 1 开始的，那么它有什么特点呢？&lt;/p>
+&lt;p>首先，PID namespace 中的 1 号进程是所有孤立进程的父进程。&lt;/p>
+&lt;p>其次，如果这个进程被终止，内核将调用 &lt;code>SIGKILL&lt;/code> 发出终止此 namespace 中的所有进程的信号。 &lt;strong>这部分内容与 Kubernetes 中应用的优雅关闭/平滑升级等都有一定的联系。&lt;/strong>（对此部分感兴趣的小伙伴可以留言交流，如果对这些内容感兴趣的话，我可以专门写一篇展开来聊）&lt;/p>
+&lt;p>最后，从 Linux v3.4 内核版本开始，如果在一个 PID namespace 中发生 &lt;code>reboot()&lt;/code> 的系统调用，则 PID namespace 中的 init 进程会立即退出。&lt;strong>这算是一个比较特殊的技巧，可用于处理高负载机器上容器退出的问题。&lt;/strong>&lt;/p>
+&lt;h4 id="pid-namespace-的层次结构">PID namespace 的层次结构&lt;/h4>
+&lt;p>PID namespace 支持嵌套，除了初始的 PID namespace外，其余的 PID namespace 都拥有其父节点的 PID namespace。&lt;/p>
+&lt;p>也就是说 PID namespace 也是树形结构的，此结构内的所有 PID namespace 我们都可以追踪到祖先 PID namespace。当然，这个深度也不是无限的，从 Linux v3.7 内核版本开始，树的最大深度被限制成 32 。&lt;/p>
+&lt;p>如果达到此最大深度，将会抛出 &lt;code>No space left on device&lt;/code>的错误。&lt;em>（我之前尝试嵌套容器的时候遇到过）&lt;/em>&lt;/p>
+&lt;p>&lt;strong>在同一个（且同级） PID namespace 中，进程间彼此可见。&lt;/strong>&lt;/p>
+&lt;p>但如果某个进程位于子 PID namespace 的话，那么该进程是看不到上一层（即，父 PID namespace）中的进程的。&lt;/p>
+&lt;p>进程间是否可见，决定了进程间能否存在一定的关联和调用关系，小伙伴们对这个应该比较熟悉，这里我就不赘述了。&lt;/p>
+&lt;p>那么，进程是否可以调度到不同层级的 PID namespace 呢？&lt;/p>
+&lt;p>我们先来说结论，&lt;strong>进程在 PID namespace 中的调度只能是单向调度（从高 -&amp;gt; 低）&lt;/strong>。即：&lt;/p>
+&lt;ul>
+&lt;li>进程只能从父 PID namespace 调度到 子 PID namespace 中；&lt;/li>
+&lt;li>进程不能从子 PID namespace 调度到 父 PID namespace 中；&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/14/aoe3DC2TLA47xBZ.png" alt="img">&lt;/p>
+&lt;p>&lt;strong>图 1 ，通过 setns(2) 调度进程说明&lt;/strong>&lt;/p>
+&lt;p>PID namespace 的层级关系其实是由 &lt;code>ioctl_ns(2)&lt;/code> 系统调用进行发现和维护的（NS_GET_PARENT），这里先不展开。那么，上述内容中的调度是如何实现的呢？&lt;/p>
+&lt;p>要解答这个问题，就必须先意识到在 PID namespace 创建之初，哪些进程具备该 namespace 的权限就已经确定了。至于调度，我们可以简单地将其理解成关系映射或者符号链接。&lt;/p>
+&lt;p>线程必须在同一个PID namespace 中，以便保证进程中的线程间可以彼此互传信号。这就导致了&lt;code>CLONE_NEWPID&lt;/code> 不能与 &lt;code>CLONE_THREAD&lt;/code> 同时使用。但如果分布在不同 PID namespace 的多个进程互相有信号传递的需求要怎么办呢？ 用共享的信号队列即可解决。&lt;/p>
+&lt;p>此外，我们常接触到的 &lt;code>/proc&lt;/code> 目录下有很多 &lt;code>/proc/${PID}&lt;/code>的目录，在其中可看到 PID namespace 中的进程情况。 同时此目录也是可直接通过挂载方式进行操作的。比如：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-plain" data-lang="plain">(MoeLove) ➜ mount |grep proc
+proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>有没有办法知道当前最大的 PID 数呢？&lt;/p>
+&lt;p>这也是可以的，自从 Linux v3.3 版本的内核开始新增了一个 &lt;code>/proc/sys/kernel/ns_last_pid&lt;/code>的文件，用于记录最后一个进程的 ID 。&lt;/p>
+&lt;p>当需要分配下一个进程 ID 的时候，内核会去搜索最大的未使用 ID 进行分配，随后会更新此文件中 PID 的信息。&lt;/p>
+&lt;h3 id="time-namespaces">Time namespaces&lt;/h3>
+&lt;p>在聊 time namespace 之前，我们需要先聊下&lt;strong>单调时间&lt;/strong>。首先，我们通常提到的系统时间，指的是 clock realtime，即，机器对当前时间的展示。它可以向前或者向后调整（结合 NTP 服务来理解）。而 clock monotonic 表示在某一时刻之后的时间记录，它是单向向后的绝对时间，不受系统时间的变化所影响。&lt;/p>
+&lt;p>使用 time namespace 需要内核支持 &lt;code>CONFIG_TIME_NS&lt;/code> 选项。如：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ grep CONFIG_TIME_NS /boot/config-&lt;span class="k">$(&lt;/span>uname -r&lt;span class="k">)&lt;/span>
+&lt;span class="nv">CONFIG_TIME_NS&lt;/span>&lt;span class="o">=&lt;/span>y
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>time namespace 不会虚拟化 CLOCK_REALTIME 时钟。你可能会好奇，为什么内核支持 time namespace 呢？主要是为了一些特殊的场景。&lt;/p>
+&lt;p>time namespace 中的所有进程共享由 time namespace 提供的以下两个参数：&lt;/p>
+&lt;ul>
+&lt;li>CLOCK_MONOTONIC - 单调时间，一个不可设置的时钟；&lt;/li>
+&lt;li>CLOCK_BOOTTIME（可参考 CLOCK_BOOTTIME_ALARM 内核参数）- 不可设置的时钟，包括系统暂停的时间。&lt;/li>
+&lt;/ul>
+&lt;p>time namespace 目前只能使用 CLONE_NEWTIME 标识，通过调用 &lt;code>unshare(2)&lt;/code> 系统调用进行创建。创建 time namespace 的进程是独立于新建的 time namespace 之外的，而该进程后续的子进程将会被放置到新建的 time namespace 之内。同一个 time namespace 中的进程们会共享 CLOCK_MONOTONIC 和 CLOCK_BOOTTIME。&lt;/p>
+&lt;p>当父进程创建子进程时，子进程的 time namespace 归属将在文件 /proc/[pid]/ns/time_for_children 中显示。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ ls -al /proc/self/ns/time_for_children
+lrwxrwxrwx. &lt;span class="m">1&lt;/span> tao tao &lt;span class="m">0&lt;/span> 12月 &lt;span class="m">14&lt;/span> 02:06 /proc/self/ns/time_for_children -&amp;gt; &lt;span class="s1">&amp;#39;time:[4026531834]&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>文件 /proc/PID/timens_offsets 定义了初始 time namespace 的单调时钟和启动时钟，并记录了偏移量。（如果一个新的 time namespace 还没有进程入驻时，是可以进行修改的。这里暂不展开，感兴趣的小伙伴可讨论区留言交流讨论。）&lt;/p>
+&lt;p>需要注意的是：在初始的 time namespace 中，/proc/self/timens_offsets 显示的偏移量都为 0。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ cat /proc/self/timens_offsets
+monotonic &lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span>
+boottime &lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中第二列和第三列的含义如下：&lt;/p>
+&lt;ul>
+&lt;li>&lt;offset-secs> 可以为负值，单位 ：秒（s）&lt;/li>
+&lt;li>&lt;offset-nanosecs> 是个无符号值，单位 ：纳秒（ns）&lt;/li>
+&lt;/ul>
+&lt;p>以下的时钟接口都与此 namespace 有所关联：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>clock_gettime(2)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>clock_nanosleep(2)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>nanosleep(2)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>timer_settime(2)&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>timerfd_settime(2)&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>整体而言， time namespace 在一些特殊场景下还是很有用的。&lt;/p>
+&lt;h3 id="user-namespaces">User namespaces&lt;/h3>
+&lt;p>User namespaces 顾名思义是隔离了用户 id、组 id 等。&lt;/p>
+&lt;p>使用 user namespaces 需要内核支持 CONFIG_USER_NS 选项。如：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ local_time grep CONFIG_USER_NS /boot/config-&lt;span class="k">$(&lt;/span>uname -r&lt;span class="k">)&lt;/span>
+&lt;span class="nv">CONFIG_USER_NS&lt;/span>&lt;span class="o">=&lt;/span>y
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>进程的用户 id 和组 id 在一个 user namespace 内和外有可能是不同的。&lt;/p>
+&lt;p>比如，一个进程在 user namespace 中的用户和组可以是特权用户（root），但在该 user namespace 之外，可能只是一个普通的非特权用户。这就涉及到用户、组映射（uid_map 、gid_map）等相关的内容了。&lt;/p>
+&lt;p>自 Linux v3.5 版本的内核开始，在 &lt;code>/proc/[pid]/uid_map&lt;/code> 和 &lt;code>/proc/[pid]/gid_map&lt;/code> 文件中，我们可以查看到映射内容。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ cat /proc/self/uid_map
+&lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="m">4294967295&lt;/span>
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ cat /proc/self/gid_map
+&lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="m">4294967295&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>user namespace 也支持嵌套，使用 CLONE_NEWUSER 标识，使用 unshare(2) 或者 clone(2) 等系统调用来创建，最大的嵌套层级深度也是 32。&lt;/p>
+&lt;p>如果是通过 fork(2) 或者 clone(2) 创建的子进程没带有 CLONE_NEWUSER 标识，也是一样的，子进程跟父进程同在一个 user namespace 中。树状的关联关系同样通过 ioctl(2) 系统调用接口维护。&lt;/p>
+&lt;p>一个单线程进程可以通过 setns(2) 系统调用来调整其归属的 user namespace。&lt;/p>
+&lt;p>此外， user namespace 还有个很重要的规则，那就是关于 Linux capability 的继承关系。关于 Linux capability 我就不展开了，这里简单记录一下：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>当进程所在的 user namespace 拥有 effective capability set 中的 capability 时，该进程具有该 capability。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>当进程在该 user namespace 中拥有 capability 时，该进程在此 user namespace 的所有子 user namespace 中都拥有该 capability。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>创建该 user namespace 的用户会被内核记录为 owner ，即，拥有该 user namespace 中的全部 capabilities。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>对于 Docker 而言，它可以原生的支持此能力，进而达到对容器环境的一种保护。&lt;/p>
+&lt;h3 id="uts-namespaces">UTS namespaces&lt;/h3>
+&lt;p>UTS namespaces 隔离了主机名和 NIS 域名。&lt;/p>
+&lt;p>使用 UTS namespaces 需要内核支持 CONFIG_UTS_NS 选项。如：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ grep CONFIG_UTS_NS /boot/config-&lt;span class="k">$(&lt;/span>uname -r&lt;span class="k">)&lt;/span>
+&lt;span class="nv">CONFIG_UTS_NS&lt;/span>&lt;span class="o">=&lt;/span>y
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在同一个 UTS namespace 中，通过 sethostname(2) 和 and setdomainname(2) 系统调用进行的设置和修改是所有进程共享查看的，但是对于不同 UTS namespaces 而言，则彼此隔离不可见。&lt;/p>
+&lt;h2 id="namespaces-主要的-api">Namespaces 主要的 API&lt;/h2>
+&lt;p>前面内容中提到了很多的系统调用，这里我们来挑几个重要的介绍一下。&lt;/p>
+&lt;h3 id="clone2">clone(2)&lt;/h3>
+&lt;p>系统调用 clone(2) 创建一个新的进程，它会根据参数中的 CLONE_NEW* 设置，逐个实现对应的配置功能。当然这个系统调用也实现了一些与 namespace 无关的功能。对低于 Linux 3.8 版本内核的系统而言，大多数情况下， 需要具备 CAP_SYS_ADMIN 的 capability。&lt;/p>
+&lt;h3 id="unshare2">unshare(2)&lt;/h3>
+&lt;p>系统调用 unshare(2) 将进程分配至新的 namespace ，同样，它也会根据参数中的 CLONE_NEW* 设置来调整实现对应的配置功能。对低于 Linux 3.8 的系统而言，大多数情况，需要具备 CAP_SYS_ADMIN 的 capability。&lt;/p>
+&lt;h3 id="setns2">setns(2)&lt;/h3>
+&lt;p>系统调用 setns(2) 将进程移动到某一已存在的 namespace，这会导致 /proc/[pid]/ns 对应的目录中内容的变更。进程创建的子进程可以通过调用 unshare(2) 和 setns(2) 来调整所属的 namespace。这通常是需要具备 CAP_SYS_ADMIN 的 capability 的。&lt;/p>
+&lt;h2 id="一些关键目录说明">一些关键目录说明&lt;/h2>
+&lt;h3 id="procpidns-目录">/proc/[pid]/ns/ 目录&lt;/h3>
+&lt;p>每个进程都有一个 /proc/[pid]/ns/ 子目录，目录中的内容会受到 setns(2) 系统调用的影响。只要目录中的文件被打开，对应的 namespace 就不能被销毁。系统可以通过调用 setns(2) 来变更这些文件内容。&lt;/p>
+&lt;ul>
+&lt;li>Linux 3.7 及更早期的版本 - 文件是以硬链接方式存在的；&lt;/li>
+&lt;li>Linux 3.8 开始 - 文件以软连接的方式存在；&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ ls -l --time-style&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;+&amp;#39;&lt;/span> /proc/&lt;span class="nv">$$&lt;/span>/ns
+总用量 &lt;span class="m">0&lt;/span>
+lrwxrwxrwx. &lt;span class="m">1&lt;/span> tao tao &lt;span class="m">0&lt;/span> cgroup -&amp;gt; &lt;span class="s1">&amp;#39;cgroup:[4026531835]&amp;#39;&lt;/span>
+lrwxrwxrwx. &lt;span class="m">1&lt;/span> tao tao &lt;span class="m">0&lt;/span> ipc -&amp;gt; &lt;span class="s1">&amp;#39;ipc:[4026531839]&amp;#39;&lt;/span>
+lrwxrwxrwx. &lt;span class="m">1&lt;/span> tao tao &lt;span class="m">0&lt;/span> mnt -&amp;gt; &lt;span class="s1">&amp;#39;mnt:[4026531840]&amp;#39;&lt;/span>
+lrwxrwxrwx. &lt;span class="m">1&lt;/span> tao tao &lt;span class="m">0&lt;/span> net -&amp;gt; &lt;span class="s1">&amp;#39;net:[4026532008]&amp;#39;&lt;/span>
+lrwxrwxrwx. &lt;span class="m">1&lt;/span> tao tao &lt;span class="m">0&lt;/span> pid -&amp;gt; &lt;span class="s1">&amp;#39;pid:[4026531836]&amp;#39;&lt;/span>
+lrwxrwxrwx. &lt;span class="m">1&lt;/span> tao tao &lt;span class="m">0&lt;/span> pid_for_children -&amp;gt; &lt;span class="s1">&amp;#39;pid:[4026531836]&amp;#39;&lt;/span>
+lrwxrwxrwx. &lt;span class="m">1&lt;/span> tao tao &lt;span class="m">0&lt;/span> &lt;span class="nb">time&lt;/span> -&amp;gt; &lt;span class="s1">&amp;#39;time:[4026531834]&amp;#39;&lt;/span>
+lrwxrwxrwx. &lt;span class="m">1&lt;/span> tao tao &lt;span class="m">0&lt;/span> time_for_children -&amp;gt; &lt;span class="s1">&amp;#39;time:[4026531834]&amp;#39;&lt;/span>
+lrwxrwxrwx. &lt;span class="m">1&lt;/span> tao tao &lt;span class="m">0&lt;/span> user -&amp;gt; &lt;span class="s1">&amp;#39;user:[4026531837]&amp;#39;&lt;/span>
+lrwxrwxrwx. &lt;span class="m">1&lt;/span> tao tao &lt;span class="m">0&lt;/span> uts -&amp;gt; &lt;span class="s1">&amp;#39;uts:[4026531838]&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果两个进程的 namespace 相同，那么它们这个目录内的内容应该是一样的。&lt;/p>
+&lt;p>以下是该目录下文件的详细说明：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>文件名称&lt;/th>
+&lt;th>起始版本&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>/proc/[pid]/ns/cgroup&lt;/td>
+&lt;td>Linux 4.6&lt;/td>
+&lt;td>进程的 cgroup namespace&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>/proc/[pid]/ns/ipc&lt;/td>
+&lt;td>Linux 3.0&lt;/td>
+&lt;td>进程的 IPC namespace&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>/proc/[pid]/ns/mnt&lt;/td>
+&lt;td>Linux 3.8&lt;/td>
+&lt;td>进程的 mount namespace&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>/proc/[pid]/ns/net&lt;/td>
+&lt;td>Linux 3.0&lt;/td>
+&lt;td>进程的 network namespace&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>/proc/[pid]/ns/pid&lt;/td>
+&lt;td>Linux 3.8&lt;/td>
+&lt;td>进程的 PID namespace在进程的整个生命周期里是不变的&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>/proc/[pid]/ns/pid_for_children&lt;/td>
+&lt;td>Linux 4.12&lt;/td>
+&lt;td>进程创建子进程的 PID namespace这个文件与 /proc/[pid]/ns/pid 不一定一致。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>/proc/[pid]/ns/time&lt;/td>
+&lt;td>Linux 5.6&lt;/td>
+&lt;td>进程的 time namespace&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>/proc/[pid]/ns/time_for_children&lt;/td>
+&lt;td>Linux 5.6&lt;/td>
+&lt;td>进程创建子进程的 time namespace&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>/proc/[pid]/ns/user&lt;/td>
+&lt;td>Linux 3.8&lt;/td>
+&lt;td>进程的 user namespace&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>/proc/[pid]/ns/uts&lt;/td>
+&lt;td>Linux 3.0&lt;/td>
+&lt;td>进程的 UTS namespace&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="procsysuser-目录">/proc/sys/user 目录&lt;/h3>
+&lt;p>/proc/sys/user 目录下的文件记录了各 namespace 的相关限制。当达到限制，相关调用会报错 error ENOSPC 。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>文件名称&lt;/th>
+&lt;th>限制内容说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>max_cgroup_namespaces&lt;/td>
+&lt;td>在 user namespace 中的每个用户可以创建的最大 cgroup namespaces 数&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>max_ipc_namespaces&lt;/td>
+&lt;td>在 user namespace 中的每个用户可以创建的最大 ipc namespaces 数&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>max_mnt_namespaces&lt;/td>
+&lt;td>在 user namespace 中的每个用户可以创建的最大 mount namespaces 数&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>max_net_namespaces&lt;/td>
+&lt;td>在 user namespace 中的每个用户可以创建的最大 network namespaces 数&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>max_pid_namespaces&lt;/td>
+&lt;td>在 user namespace 中的每个用户可以创建的最大 PID namespaces 数&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>max_time_namespaces&lt;/td>
+&lt;td>Linux 5.7在 user namespace 中的每个用户可以创建的最大 time namespaces 数&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>max_user_namespaces&lt;/td>
+&lt;td>在 user namespace 中的每个用户可以创建的最大 user namespaces 数&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>max_uts_namespaces&lt;/td>
+&lt;td>在 user namespace 中的每个用户可以创建的最大 uts namespaces 数&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h2 id="namespace-的生命周期">Namespace 的生命周期&lt;/h2>
+&lt;p>正常的 namespace 的生命周期与最后一个进程的终止和离开相关。&lt;/p>
+&lt;p>但有一些情况，即使最后一个进程已经退出了，namespace 仍不能被销毁。这里来稍微聊下这些特殊的情况：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>/proc/[pid]/ns/*&lt;/code> 中的文件被打开或者 mount ，即使最后一个进程退出，也不能被销毁；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>namespace 存在分层，子 namespace 仍存在 ，即使最后一个进程退出，也不能被销毁；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>一个 user namespace 拥有一些非 user namespace （比如拥有 PID namespace 等其他的 namespace 存在），即使最后一个进程退出，也不能被销毁；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>对于 PID namespace 而言，如果与 &lt;code>/proc/[pid]/ns/pid_for_children&lt;/code> 存在关联关系时，即使最后一个进程退出，也不能被销毁;&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>当然还有一些其他的情况，有空再补充。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>通过之前的一篇，和本篇，主要为大家介绍了 Linux namespace 的发展历程，基本类型，主要 API 以及一些使用场景和用途。&lt;/p>
+&lt;p>namespace 对于容器技术而言，是非常核心的部分。后续本系列中还将继续为大家分享关于容器和 Kubernetes 等技术的内容，敬请期待。&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>搞懂容器技术的基石： namespace （上）</title><link>https://moelove.info/2021/12/10/%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-namespace-%E4%B8%8A/</link><guid isPermaLink="true">https://moelove.info/2021/12/10/%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-namespace-%E4%B8%8A/</guid><pubDate>Fri, 10 Dec 2021 03:50:29 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>目前我们所提到的容器技术、虚拟化技术（不论何种抽象层次下的虚拟化技术）都能做到资源层面上的隔离和限制。&lt;/p>
 &lt;p>对于容器技术而言，它实现资源层面上的限制和隔离，依赖于 Linux 内核所提供的 cgroup 和 namespace 技术。&lt;/p>
 &lt;p>我们先对这两项技术的作用做个概括：&lt;/p>
