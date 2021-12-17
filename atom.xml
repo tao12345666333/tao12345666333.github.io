@@ -1,4 +1,196 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-12-14T12:11:15+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">搞懂容器技术的基石： namespace （下）</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/13/%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-namespace-%E4%B8%8B/"/><id>https://moelove.info/2021/12/13/%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-namespace-%E4%B8%8B/</id><updated>2021-12-14T11:57:53+08:00</updated><published>2021-12-13T03:50:29+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 目前我们所提到的容器技术、虚拟化技术（不论何种抽象层次下的虚拟化技术）都能做到资源层面上的隔离和限制。 对于容……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-12-17T09:29:50+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">Grafana k6 的上手实践</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/17/Grafana-k6-%E7%9A%84%E4%B8%8A%E6%89%8B%E5%AE%9E%E8%B7%B5/"/><id>https://moelove.info/2021/12/17/Grafana-k6-%E7%9A%84%E4%B8%8A%E6%89%8B%E5%AE%9E%E8%B7%B5/</id><updated>2021-12-17T09:29:06+08:00</updated><published>2021-12-17T03:50:29+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 本篇我将为你介绍一个工具 - k6 ，它和 K8s 并没有什么直接的关系，它是一款开源的性能压测工具。 k6 背后的故事 2016 年 8 月，……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>本篇我将为你介绍一个工具 - k6 ，它和 K8s 并没有什么直接的关系，它是一款开源的性能压测工具。&lt;/p>
+&lt;h1 id="k6-背后的故事">k6 背后的故事&lt;/h1>
+&lt;p>2016 年 8 月，k6 在 GitHub 上发布了第一个版本，至此，一个出色的开源负载压测工具进入了人们的视野。&lt;/p>
+&lt;p>2021 年的 6 月，对于 Grafana 和 k6 来讲是个大日子，Grafana Labs 收购了 k6 。&lt;/p>
+&lt;p>而事实上， Grafana 与 k6 的缘分还要追溯到更早的 2 年前。&lt;/p>
+&lt;p>2019 年，在进行 Grafana 6.0 的短期令牌刷新行为的压测时，Grafana Labs 进行了一系列的技术选型。&lt;/p>
+&lt;p>由于 Grafana Labs 的大部分后端软件是使用 Go 来实现的，恰巧 k6 满足 OSS 和 Go 需求，并且负载测试是使用 JS 编写（Grafana 前端框架及 UI 都在使用）。这使得 k6 自 Grafana 6.0 版本开始，不断地为 Grafana 开发者及测试者完成追踪 bug 的使命。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/17/FkHjMApXsSuZcwe.png" alt="img">&lt;/p>
+&lt;p>图 1 ，k6 加入 Grafana Labs&lt;/p>
+&lt;h2 id="多样的压测工具">多样的压测工具&lt;/h2>
+&lt;p>一个称心应手的自动化负载压测工具会极大的提升程序开发人员的代码质量及效率。&lt;/p>
+&lt;p>下图中是一些比较常见的用于负载压测的工具，我们可以在 GitHub 上看到，目前，更新比较频繁、活跃的项目主要有：Gatling, Jmeter 和 k6 。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/17/C1tJIe7BEGRKgV6.png" alt="img">&lt;/p>
+&lt;p>图 2 ，压测工具们&lt;/p>
+&lt;p>如何从中选择，简单的讲就是工具效率的比拼。主要从以下两个方面来考量：&lt;/p>
+&lt;ul>
+&lt;li>工具性能&lt;/li>
+&lt;li>工具使用体验&lt;/li>
+&lt;/ul>
+&lt;p>下图对以上工具进行了一些简单的对比。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/17/TxGyYpRtMKza4fE.png" alt="img">&lt;/p>
+&lt;p>这里我主要对比下其中较为活跃的 3 个项目。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>JMeter - 熟悉 Java 的小伙伴可能比较了解这个工具。由于存在时间久，JMeter 的功能是这之中最全面的，并且集成、附加组件做的较好。基于它构建的 SaaS 服务 Blazemeter，相信大家也都熟识。这也导致了一个极大的问题，使用的复杂性高及不够轻量级；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Gatling - Gatling 也有着 SaaS 产品 Gatling Frontline。就使用门槛来讲，JS 要比 Scala 要低很多；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>k6 - k6 最初是由 SaaS 服务 Load Impact 的几名员工开发维护。使用门槛低（JS），参数化更简单，并且 “负载测试即代码” 的理念也让他的维护成本更低。未来可期。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/17/IYNDA5FEQLWZz4b.png" alt="img">&lt;/p>
+&lt;p>图 3 ，3 种热门工具比一比&lt;/p>
+&lt;h1 id="执行效果">执行效果&lt;/h1>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/17/YLoJZqdn5QrTeB6.png" alt="img">&lt;/p>
+&lt;p>或者这样：&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/17/CNA91tqRhGwTYcm.png" alt="img">&lt;/p>
+&lt;h1 id="安装-k6">安装 k6&lt;/h1>
+&lt;p>k6 是用 Go 语言开发的，要安装 k6 步骤很简单，只要直接在其 GitHub 的 Release 页面下载二进制文件即可。比如：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ wget -q https://github.com/grafana/k6/releases/download/v0.35.0/k6-v0.35.0-linux-amd64.tar.gz
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ tar -xzf k6-v0.35.0-linux-amd64.tar.gz
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ ls
+k6-v0.35.0-linux-amd64 k6-v0.35.0-linux-amd64.tar.gz
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ mv ./k6-v0.35.0-linux-amd64/k6 ~/bin/k6
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ k6 version
+k6 v0.35.0 &lt;span class="o">(&lt;/span>2021-11-17T09:53:18+0000/1c44b2d, go1.17.3, linux/amd64&lt;span class="o">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>或者也可以直接使用它的 Docker 镜像：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ ~ docker run --rm loadimpact/k6 version
+k6 v0.35.0 &lt;span class="o">(&lt;/span>2021-11-17T09:53:03+0000/1c44b2d, go1.17.3, linux/amd64&lt;span class="o">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="核心概念">核心概念&lt;/h1>
+&lt;p>在 k6 中并没有太多的概念。其中最主要的就是用来执行测试的 &lt;strong>virtual users (VUs)&lt;/strong> ，它的本质就是并发执行任务的次数。&lt;/p>
+&lt;p>在使用 k6 执行测试的时候，可以通过 &lt;code>--vus&lt;/code>或者 &lt;code>-u&lt;/code>进行指定，默认是 1 。&lt;/p>
+&lt;h1 id="上手实践">上手实践&lt;/h1>
+&lt;p>我个人感觉 k6 在目前的这些主流压测工具中算用户体验比较好的一个。它使用 JS（ES6）作为配置语言，还是比较方便的，我们来做一些示例。&lt;/p>
+&lt;h2 id="简单请求">简单请求&lt;/h2>
+&lt;p>如果对于进行 HTTP 请求的时候，我们只需要从 &lt;code>k6/http&lt;/code> 导入 &lt;code>http&lt;/code>即可。&lt;/p>
+&lt;p>注意在 k6 中，默认情况下必须得有个作为入口的 &lt;code>default&lt;/code>函数，这类似我们常用的 &lt;code>main&lt;/code>函数。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="kr">import&lt;/span> &lt;span class="nx">http&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s2">&amp;#34;k6/http&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kr">export&lt;/span> &lt;span class="k">default&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;span class="nx">http&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;https://test-api.k6.io/public/crocodiles/&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>执行后效果如下：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ k6 run simple_http_get.js
+/&lt;span class="se">\ &lt;/span> &lt;span class="p">|&lt;/span>‾‾&lt;span class="p">|&lt;/span> /‾‾/ /‾‾/
+/&lt;span class="se">\ &lt;/span> / &lt;span class="se">\ &lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>/ / / /
+/ &lt;span class="se">\/&lt;/span> &lt;span class="se">\ &lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="o">(&lt;/span> / ‾‾&lt;span class="se">\ &lt;/span>
+/ &lt;span class="se">\ &lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>&lt;span class="se">\ &lt;/span> &lt;span class="se">\ &lt;/span>&lt;span class="p">|&lt;/span> &lt;span class="o">(&lt;/span>‾&lt;span class="o">)&lt;/span> &lt;span class="p">|&lt;/span>
+/ __________ &lt;span class="se">\ &lt;/span> &lt;span class="p">|&lt;/span>__&lt;span class="p">|&lt;/span> &lt;span class="se">\_&lt;/span>_&lt;span class="se">\ \_&lt;/span>____/ .io
+execution: &lt;span class="nb">local&lt;/span>
+script: simple_http_get.js
+output: -
+scenarios: &lt;span class="o">(&lt;/span>100.00%&lt;span class="o">)&lt;/span> &lt;span class="m">1&lt;/span> scenario, &lt;span class="m">1&lt;/span> max VUs, 10m30s max duration &lt;span class="o">(&lt;/span>incl. graceful stop&lt;span class="o">)&lt;/span>:
+* default: &lt;span class="m">1&lt;/span> iterations &lt;span class="k">for&lt;/span> each of &lt;span class="m">1&lt;/span> VUs &lt;span class="o">(&lt;/span>maxDuration: 10m0s, gracefulStop: 30s&lt;span class="o">)&lt;/span>
+running &lt;span class="o">(&lt;/span>00m01.1s&lt;span class="o">)&lt;/span>, 0/1 VUs, &lt;span class="m">1&lt;/span> &lt;span class="nb">complete&lt;/span> and &lt;span class="m">0&lt;/span> interrupted iterations
+default ✓ &lt;span class="o">[======================================]&lt;/span> &lt;span class="m">1&lt;/span> VUs 00m01.1s/10m0s 1/1 iters, &lt;span class="m">1&lt;/span> per VU
+data_received..................: 6.3 kB 5.7 kB/s
+data_sent......................: &lt;span class="m">634&lt;/span> B &lt;span class="m">578&lt;/span> B/s
+http_req_blocked...............: &lt;span class="nv">avg&lt;/span>&lt;span class="o">=&lt;/span>848.34ms &lt;span class="nv">min&lt;/span>&lt;span class="o">=&lt;/span>848.34ms &lt;span class="nv">med&lt;/span>&lt;span class="o">=&lt;/span>848.34ms &lt;span class="nv">max&lt;/span>&lt;span class="o">=&lt;/span>848.34ms p&lt;span class="o">(&lt;/span>90&lt;span class="o">)=&lt;/span>848.34ms p&lt;span class="o">(&lt;/span>95&lt;span class="o">)=&lt;/span>848.34ms
+http_req_connecting............: &lt;span class="nv">avg&lt;/span>&lt;span class="o">=&lt;/span>75.59µs &lt;span class="nv">min&lt;/span>&lt;span class="o">=&lt;/span>75.59µs &lt;span class="nv">med&lt;/span>&lt;span class="o">=&lt;/span>75.59µs &lt;span class="nv">max&lt;/span>&lt;span class="o">=&lt;/span>75.59µs p&lt;span class="o">(&lt;/span>90&lt;span class="o">)=&lt;/span>75.59µs p&lt;span class="o">(&lt;/span>95&lt;span class="o">)=&lt;/span>75.59µs
+http_req_duration..............: &lt;span class="nv">avg&lt;/span>&lt;span class="o">=&lt;/span>247.46ms &lt;span class="nv">min&lt;/span>&lt;span class="o">=&lt;/span>247.46ms &lt;span class="nv">med&lt;/span>&lt;span class="o">=&lt;/span>247.46ms &lt;span class="nv">max&lt;/span>&lt;span class="o">=&lt;/span>247.46ms p&lt;span class="o">(&lt;/span>90&lt;span class="o">)=&lt;/span>247.46ms p&lt;span class="o">(&lt;/span>95&lt;span class="o">)=&lt;/span>247.46ms
+&lt;span class="o">{&lt;/span> expected_response:true &lt;span class="o">}&lt;/span>...: &lt;span class="nv">avg&lt;/span>&lt;span class="o">=&lt;/span>247.46ms &lt;span class="nv">min&lt;/span>&lt;span class="o">=&lt;/span>247.46ms &lt;span class="nv">med&lt;/span>&lt;span class="o">=&lt;/span>247.46ms &lt;span class="nv">max&lt;/span>&lt;span class="o">=&lt;/span>247.46ms p&lt;span class="o">(&lt;/span>90&lt;span class="o">)=&lt;/span>247.46ms p&lt;span class="o">(&lt;/span>95&lt;span class="o">)=&lt;/span>247.46ms
+http_req_failed................: 0.00% ✓ &lt;span class="m">0&lt;/span> ✗ &lt;span class="m">1&lt;/span>
+http_req_receiving.............: &lt;span class="nv">avg&lt;/span>&lt;span class="o">=&lt;/span>455.24µs &lt;span class="nv">min&lt;/span>&lt;span class="o">=&lt;/span>455.24µs &lt;span class="nv">med&lt;/span>&lt;span class="o">=&lt;/span>455.24µs &lt;span class="nv">max&lt;/span>&lt;span class="o">=&lt;/span>455.24µs p&lt;span class="o">(&lt;/span>90&lt;span class="o">)=&lt;/span>455.24µs p&lt;span class="o">(&lt;/span>95&lt;span class="o">)=&lt;/span>455.24µs
+http_req_sending...............: &lt;span class="nv">avg&lt;/span>&lt;span class="o">=&lt;/span>103.77µs &lt;span class="nv">min&lt;/span>&lt;span class="o">=&lt;/span>103.77µs &lt;span class="nv">med&lt;/span>&lt;span class="o">=&lt;/span>103.77µs &lt;span class="nv">max&lt;/span>&lt;span class="o">=&lt;/span>103.77µs p&lt;span class="o">(&lt;/span>90&lt;span class="o">)=&lt;/span>103.77µs p&lt;span class="o">(&lt;/span>95&lt;span class="o">)=&lt;/span>103.77µs
+http_req_tls_handshaking.......: &lt;span class="nv">avg&lt;/span>&lt;span class="o">=&lt;/span>848.07ms &lt;span class="nv">min&lt;/span>&lt;span class="o">=&lt;/span>848.07ms &lt;span class="nv">med&lt;/span>&lt;span class="o">=&lt;/span>848.07ms &lt;span class="nv">max&lt;/span>&lt;span class="o">=&lt;/span>848.07ms p&lt;span class="o">(&lt;/span>90&lt;span class="o">)=&lt;/span>848.07ms p&lt;span class="o">(&lt;/span>95&lt;span class="o">)=&lt;/span>848.07ms
+http_req_waiting...............: &lt;span class="nv">avg&lt;/span>&lt;span class="o">=&lt;/span>246.9ms &lt;span class="nv">min&lt;/span>&lt;span class="o">=&lt;/span>246.9ms &lt;span class="nv">med&lt;/span>&lt;span class="o">=&lt;/span>246.9ms &lt;span class="nv">max&lt;/span>&lt;span class="o">=&lt;/span>246.9ms p&lt;span class="o">(&lt;/span>90&lt;span class="o">)=&lt;/span>246.9ms p&lt;span class="o">(&lt;/span>95&lt;span class="o">)=&lt;/span>246.9ms
+http_reqs......................: &lt;span class="m">1&lt;/span> 0.911502/s
+iteration_duration.............: &lt;span class="nv">avg&lt;/span>&lt;span class="o">=&lt;/span>1.09s &lt;span class="nv">min&lt;/span>&lt;span class="o">=&lt;/span>1.09s &lt;span class="nv">med&lt;/span>&lt;span class="o">=&lt;/span>1.09s &lt;span class="nv">max&lt;/span>&lt;span class="o">=&lt;/span>1.09s p&lt;span class="o">(&lt;/span>90&lt;span class="o">)=&lt;/span>1.09s p&lt;span class="o">(&lt;/span>95&lt;span class="o">)=&lt;/span>1.09s
+iterations.....................: &lt;span class="m">1&lt;/span> 0.911502/s
+vus............................: &lt;span class="m">1&lt;/span> &lt;span class="nv">min&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">1&lt;/span> &lt;span class="nv">max&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">1&lt;/span>
+vus_max........................: &lt;span class="m">1&lt;/span> &lt;span class="nv">min&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">1&lt;/span> &lt;span class="nv">max&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">1&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>k6 默认会将执行后的结果输出到终端。同时它自带了一些指标会同时输出。&lt;/p>
+&lt;p>这些指标基本上都是语义化的，看名字就可以理解其含义，这里就不一一介绍了。&lt;/p>
+&lt;h2 id="带检查的请求">带检查的请求&lt;/h2>
+&lt;p>我们可以在请求中同时增加一些测试，判断接口的响应值是否符合我们的预期。如下：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="kr">import&lt;/span> &lt;span class="nx">http&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s2">&amp;#34;k6/http&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">check&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">group&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s2">&amp;#34;k6&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kr">export&lt;/span> &lt;span class="k">default&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">group&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;GET&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kd">let&lt;/span> &lt;span class="nx">res&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">http&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;http://httpbin.org/get?verb=get&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="nx">check&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">res&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="s2">&amp;#34;status is 200&amp;#34;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">r&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">r&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">status&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="mi">200&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="s2">&amp;#34;is verb correct&amp;#34;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">r&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">r&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">json&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nx">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">verb&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s2">&amp;#34;get&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">});&lt;/span>
+&lt;span class="p">});&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>通过引入了 &lt;code>check&lt;/code>函数，来执行一些判断的逻辑，当然上述的 &lt;code>==&amp;gt;&lt;/code> 其实是 ES6 中的一种简写，将其展开为正常的函数也可以。比如：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="kr">import&lt;/span> &lt;span class="nx">http&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s2">&amp;#34;k6/http&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">check&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">group&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s2">&amp;#34;k6&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kr">export&lt;/span> &lt;span class="k">default&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">group&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;GET&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kd">let&lt;/span> &lt;span class="nx">res&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">http&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;http://httpbin.org/get?verb=get&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="nx">check&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">res&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="s2">&amp;#34;status is 200&amp;#34;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">r&lt;/span>&lt;span class="p">){&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">r&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">status&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="mi">200&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="s2">&amp;#34;is verb correct&amp;#34;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">r&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">r&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">json&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nx">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">verb&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s2">&amp;#34;get&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">});&lt;/span>
+&lt;span class="p">});&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>使用 k6 执行此脚本后，得到的输出相比之前的多了如下内容：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash"> █ GET
+✓ status is &lt;span class="m">200&lt;/span>
+✓ is verb correct
+checks.........................: 100.00% ✓ &lt;span class="m">2&lt;/span> ✗ &lt;span class="m">0&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>从这里可以看到我们当前请求接口的测试是否通过（也可以用来判断当前接口是否能正常提供服务）。&lt;/p>
+&lt;h2 id="自定义指标输出">自定义指标输出&lt;/h2>
+&lt;p>接下来我们尝试下在压测过程中定义一些自己定的指标。只需要从 &lt;code>k6/metrics&lt;/code>中导入一些不同类型的指标即可。这和在 Prometheus 中的类型基本一致。&lt;/p>
+&lt;p>这里我增加了两个 metric。一个 &lt;code>testCounter&lt;/code>用于统计一共执行了多少次测试， &lt;code>passedRate&lt;/code>计算通过率。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="kr">import&lt;/span> &lt;span class="nx">http&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s2">&amp;#34;k6/http&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">Counter&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Rate&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s2">&amp;#34;k6/metrics&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">check&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">group&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s2">&amp;#34;k6&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;span class="kd">let&lt;/span> &lt;span class="nx">testCounter&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">Counter&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;test_counter&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="kd">let&lt;/span> &lt;span class="nx">passedRate&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">Rate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;passed_rate&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="kr">export&lt;/span> &lt;span class="k">default&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">group&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;GET&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="kd">let&lt;/span> &lt;span class="nx">res&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">http&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;http://httpbin.org/get?verb=get&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="kd">let&lt;/span> &lt;span class="nx">passed&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">check&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">res&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="s2">&amp;#34;status is 200&amp;#34;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">r&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">r&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">status&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="mi">200&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="s2">&amp;#34;is verb correct&amp;#34;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">r&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">r&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">json&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nx">args&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">verb&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s2">&amp;#34;get&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">});&lt;/span>
+&lt;span class="nx">testCounter&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="nx">passedRate&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">passed&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;span class="p">});&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这里我们设置了 2 个 VU， 以及设置了执行过程为 &lt;code>10s&lt;/code> 执行后的输出如下：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ k6 run -u &lt;span class="m">2&lt;/span> -d 10s simple_custom_metrics.js
+...
+execution: &lt;span class="nb">local&lt;/span>
+script: simple_custom_metrics.js
+output: -
+scenarios: &lt;span class="o">(&lt;/span>100.00%&lt;span class="o">)&lt;/span> &lt;span class="m">1&lt;/span> scenario, &lt;span class="m">2&lt;/span> max VUs, 40s max duration &lt;span class="o">(&lt;/span>incl. graceful stop&lt;span class="o">)&lt;/span>:
+* default: &lt;span class="m">2&lt;/span> looping VUs &lt;span class="k">for&lt;/span> 10s &lt;span class="o">(&lt;/span>gracefulStop: 30s&lt;span class="o">)&lt;/span>
+running &lt;span class="o">(&lt;/span>10.4s&lt;span class="o">)&lt;/span>, 0/2 VUs, &lt;span class="m">36&lt;/span> &lt;span class="nb">complete&lt;/span> and &lt;span class="m">0&lt;/span> interrupted iterations
+default ✓ &lt;span class="o">[======================================]&lt;/span> &lt;span class="m">2&lt;/span> VUs 10s
+█ GET
+✓ status is &lt;span class="m">200&lt;/span>
+✓ is verb correct
+checks.........................: 100.00% ✓ &lt;span class="m">72&lt;/span> ✗ &lt;span class="m">0&lt;/span>
+data_received..................: &lt;span class="m">18&lt;/span> kB 1.7 kB/s
+data_sent......................: 3.9 kB &lt;span class="m">372&lt;/span> B/s
+group_duration.................: &lt;span class="nv">avg&lt;/span>&lt;span class="o">=&lt;/span>567.35ms &lt;span class="nv">min&lt;/span>&lt;span class="o">=&lt;/span>440.56ms &lt;span class="nv">med&lt;/span>&lt;span class="o">=&lt;/span>600.52ms &lt;span class="nv">max&lt;/span>&lt;span class="o">=&lt;/span>738.73ms p&lt;span class="o">(&lt;/span>90&lt;span class="o">)=&lt;/span>620.88ms p&lt;span class="o">(&lt;/span>95&lt;span class="o">)=&lt;/span>655.17ms
+http_req_blocked...............: &lt;span class="nv">avg&lt;/span>&lt;span class="o">=&lt;/span>266.72µs &lt;span class="nv">min&lt;/span>&lt;span class="o">=&lt;/span>72.33µs &lt;span class="nv">med&lt;/span>&lt;span class="o">=&lt;/span>135.14µs &lt;span class="nv">max&lt;/span>&lt;span class="o">=&lt;/span>776.66µs p&lt;span class="o">(&lt;/span>90&lt;span class="o">)=&lt;/span>644.4µs p&lt;span class="o">(&lt;/span>95&lt;span class="o">)=&lt;/span>719.96µs
+http_req_connecting............: &lt;span class="nv">avg&lt;/span>&lt;span class="o">=&lt;/span>170.04µs &lt;span class="nv">min&lt;/span>&lt;span class="o">=&lt;/span>45.51µs &lt;span class="nv">med&lt;/span>&lt;span class="o">=&lt;/span>79.9µs &lt;span class="nv">max&lt;/span>&lt;span class="o">=&lt;/span>520.69µs p&lt;span class="o">(&lt;/span>90&lt;span class="o">)=&lt;/span>399.41µs p&lt;span class="o">(&lt;/span>95&lt;span class="o">)=&lt;/span>463.55µs
+http_req_duration..............: &lt;span class="nv">avg&lt;/span>&lt;span class="o">=&lt;/span>566.82ms &lt;span class="nv">min&lt;/span>&lt;span class="o">=&lt;/span>439.69ms &lt;span class="nv">med&lt;/span>&lt;span class="o">=&lt;/span>600.31ms &lt;span class="nv">max&lt;/span>&lt;span class="o">=&lt;/span>738.16ms p&lt;span class="o">(&lt;/span>90&lt;span class="o">)=&lt;/span>620.52ms p&lt;span class="o">(&lt;/span>95&lt;span class="o">)=&lt;/span>654.61ms
+&lt;span class="o">{&lt;/span> expected_response:true &lt;span class="o">}&lt;/span>...: &lt;span class="nv">avg&lt;/span>&lt;span class="o">=&lt;/span>566.82ms &lt;span class="nv">min&lt;/span>&lt;span class="o">=&lt;/span>439.69ms &lt;span class="nv">med&lt;/span>&lt;span class="o">=&lt;/span>600.31ms &lt;span class="nv">max&lt;/span>&lt;span class="o">=&lt;/span>738.16ms p&lt;span class="o">(&lt;/span>90&lt;span class="o">)=&lt;/span>620.52ms p&lt;span class="o">(&lt;/span>95&lt;span class="o">)=&lt;/span>654.61ms
+http_req_failed................: 0.00% ✓ &lt;span class="m">0&lt;/span> ✗ &lt;span class="m">36&lt;/span>
+http_req_receiving.............: &lt;span class="nv">avg&lt;/span>&lt;span class="o">=&lt;/span>309.13µs &lt;span class="nv">min&lt;/span>&lt;span class="o">=&lt;/span>122.4µs &lt;span class="nv">med&lt;/span>&lt;span class="o">=&lt;/span>231.72µs &lt;span class="nv">max&lt;/span>&lt;span class="o">=&lt;/span>755.3µs p&lt;span class="o">(&lt;/span>90&lt;span class="o">)=&lt;/span>597.95µs p&lt;span class="o">(&lt;/span>95&lt;span class="o">)=&lt;/span>641.92µs
+http_req_sending...............: &lt;span class="nv">avg&lt;/span>&lt;span class="o">=&lt;/span>80.69µs &lt;span class="nv">min&lt;/span>&lt;span class="o">=&lt;/span>20.47µs &lt;span class="nv">med&lt;/span>&lt;span class="o">=&lt;/span>38.91µs &lt;span class="nv">max&lt;/span>&lt;span class="o">=&lt;/span>235.1µs p&lt;span class="o">(&lt;/span>90&lt;span class="o">)=&lt;/span>197.87µs p&lt;span class="o">(&lt;/span>95&lt;span class="o">)=&lt;/span>214.79µs
+http_req_tls_handshaking.......: &lt;span class="nv">avg&lt;/span>&lt;span class="o">=&lt;/span>0s &lt;span class="nv">min&lt;/span>&lt;span class="o">=&lt;/span>0s &lt;span class="nv">med&lt;/span>&lt;span class="o">=&lt;/span>0s &lt;span class="nv">max&lt;/span>&lt;span class="o">=&lt;/span>0s p&lt;span class="o">(&lt;/span>90&lt;span class="o">)=&lt;/span>0s p&lt;span class="o">(&lt;/span>95&lt;span class="o">)=&lt;/span>0s
+http_req_waiting...............: &lt;span class="nv">avg&lt;/span>&lt;span class="o">=&lt;/span>566.43ms &lt;span class="nv">min&lt;/span>&lt;span class="o">=&lt;/span>439.31ms &lt;span class="nv">med&lt;/span>&lt;span class="o">=&lt;/span>600.16ms &lt;span class="nv">max&lt;/span>&lt;span class="o">=&lt;/span>737.8ms p&lt;span class="o">(&lt;/span>90&lt;span class="o">)=&lt;/span>620.19ms p&lt;span class="o">(&lt;/span>95&lt;span class="o">)=&lt;/span>654.18ms
+http_reqs......................: &lt;span class="m">36&lt;/span> 3.472534/s
+iteration_duration.............: &lt;span class="nv">avg&lt;/span>&lt;span class="o">=&lt;/span>567.38ms &lt;span class="nv">min&lt;/span>&lt;span class="o">=&lt;/span>440.62ms &lt;span class="nv">med&lt;/span>&lt;span class="o">=&lt;/span>600.53ms &lt;span class="nv">max&lt;/span>&lt;span class="o">=&lt;/span>738.75ms p&lt;span class="o">(&lt;/span>90&lt;span class="o">)=&lt;/span>620.89ms p&lt;span class="o">(&lt;/span>95&lt;span class="o">)=&lt;/span>655.2ms
+iterations.....................: &lt;span class="m">36&lt;/span> 3.472534/s
+passed_rate....................: 100.00% ✓ &lt;span class="m">36&lt;/span> ✗ &lt;span class="m">0&lt;/span>
+test_counter...................: &lt;span class="m">36&lt;/span> 3.472534/s
+vus............................: &lt;span class="m">2&lt;/span> &lt;span class="nv">min&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">2&lt;/span> &lt;span class="nv">max&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">2&lt;/span>
+vus_max........................: &lt;span class="m">2&lt;/span> &lt;span class="nv">min&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">2&lt;/span> &lt;span class="nv">max&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">2&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以看到在输出中多了两行：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash"> passed_rate....................: 100.00% ✓ &lt;span class="m">36&lt;/span> ✗ &lt;span class="m">0&lt;/span>
+test_counter...................: &lt;span class="m">36&lt;/span> 3.472534/s
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>与我们的预期相符。&lt;/p>
+&lt;p>不过这样看起来不够直观，我们可以尝试使用 k6 Cloud 来展示结果。登陆后，只要在执行 k6 时，通过 &lt;code>-o cloud&lt;/code>的方式将输出指定到 cloud 就可以在 cloud 上看到所有的指标了&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/17/YkoIXDai59Crbct.png" alt="img">&lt;/p>
+&lt;h1 id="总结">总结&lt;/h1>
+&lt;p>本篇主要是在介绍一个现代化的用户体验相对较好的压测工具 k6 。我目前正在计划将其引入到我们项目的 CI 中，以便了解每次核心部分的变更对项目性能的影响。&lt;/p>
+&lt;p>后续推进顺利的话，会再分享 k6 如何应用到 CI 环境中，敬请期待。&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/><category scheme="https://moelove.info/tags/Grafana/" term="Grafana" label="Grafana"/></entry><entry><title type="text">搞懂容器技术的基石： namespace （下）</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/13/%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-namespace-%E4%B8%8B/"/><id>https://moelove.info/2021/12/13/%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-namespace-%E4%B8%8B/</id><updated>2021-12-14T11:57:53+08:00</updated><published>2021-12-13T03:50:29+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 目前我们所提到的容器技术、虚拟化技术（不论何种抽象层次下的虚拟化技术）都能做到资源层面上的隔离和限制。 对于容……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>目前我们所提到的容器技术、虚拟化技术（不论何种抽象层次下的虚拟化技术）都能做到资源层面上的隔离和限制。&lt;/p>
 &lt;p>对于容器技术而言，它实现资源层面上的限制和隔离，依赖于 Linux 内核所提供的 cgroup 和 namespace 技术。&lt;/p>
 &lt;p>我们先对这两项技术的作用做个概括：&lt;/p>
