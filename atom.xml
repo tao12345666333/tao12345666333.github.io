@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-12-19T15:04:48+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">GitOps 应用实践系列 - Flux CD 及其核心组件</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/18/GitOps-%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5%E7%B3%BB%E5%88%97-Flux-CD-%E5%8F%8A%E5%85%B6%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/"/><id>https://moelove.info/2021/12/18/GitOps-%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5%E7%B3%BB%E5%88%97-Flux-CD-%E5%8F%8A%E5%85%B6%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/</id><updated>2021-12-19T15:03:42+08:00</updated><published>2021-12-18T20:56:29+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 经过前面三篇文章，不仅为大家介绍了什么是 GitOps 也介绍了如何利用 Argo CD 来实施 GitOps。本篇我来为你介绍另一个可用……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-12-19T16:48:55+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">GitOps 应用实践系列 - Flux CD 及其核心组件</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/18/GitOps-%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5%E7%B3%BB%E5%88%97-Flux-CD-%E5%8F%8A%E5%85%B6%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/"/><id>https://moelove.info/2021/12/18/GitOps-%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5%E7%B3%BB%E5%88%97-Flux-CD-%E5%8F%8A%E5%85%B6%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/</id><updated>2021-12-19T15:03:42+08:00</updated><published>2021-12-18T20:56:29+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 经过前面三篇文章，不仅为大家介绍了什么是 GitOps 也介绍了如何利用 Argo CD 来实施 GitOps。本篇我来为你介绍另一个可用……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>经过前面三篇文章，不仅为大家介绍了什么是 GitOps 也介绍了如何利用 Argo CD 来实施 GitOps。本篇我来为你介绍另一个可用于实施 GitOps 的工具：Flux CD 。&lt;/p>
 &lt;h2 id="flux-cd">Flux CD&lt;/h2>
 &lt;p>&lt;img src="https://i.loli.net/2021/10/31/zFRTjgr18Z7XIfM.png" alt="img">&lt;/p>
@@ -2880,7 +2880,244 @@ GLOBAL OPTIONS:
 &lt;/ul>
 &lt;hr>
 &lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
-&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">GitOps 应用实践系列 - 综述</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/10/19/GitOps-%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5%E7%B3%BB%E5%88%97-%E7%BB%BC%E8%BF%B0/"/><id>https://moelove.info/2021/10/19/GitOps-%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5%E7%B3%BB%E5%88%97-%E7%BB%BC%E8%BF%B0/</id><updated>2021-11-02T16:57:46+08:00</updated><published>2021-10-19T20:56:29+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 接下来会为大家带来一个 GitOps 的应用实践系列文章，这是第一篇。 什么是 GitOps 首先我们来了解下 GitOps： GitOps 最早是在20……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">GitOps 应用实践系列 - Argo CD 的基本介绍</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/10/21/GitOps-%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5%E7%B3%BB%E5%88%97-Argo-CD-%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D/"/><id>https://moelove.info/2021/10/21/GitOps-%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5%E7%B3%BB%E5%88%97-Argo-CD-%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D/</id><updated>2021-12-19T15:11:11+08:00</updated><published>2021-10-21T20:56:29+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 在上一篇『GitOps 应用实践系列 - 综述（一）』中，我介绍了 GitOps 的概念、如何工作以及基于 Pull 和 Push 的模型等内容。本……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>在上一篇&lt;a href="https://mp.weixin.qq.com/s?__biz=MzI2ODAwMzUwNA==&amp;amp;mid=2649296484&amp;amp;idx=1&amp;amp;sn=03e9d37f5919bf6702f3463644b3291c&amp;amp;chksm=f2eb9fbbc59c16ad41151faeacdccf5d9e9d52bde12e77d48234c87a837e07b90240153f4701&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=1021yuHEEAO2EHfV21mv0iU4&amp;amp;sharer_sharetime=1634745866724&amp;amp;sharer_shareid=ca2e51094588e06bf753d47ce6ce6894&amp;amp;exportkey=AV3eqjRIBjJyEyLC5rFwQiA%3D&amp;amp;pass_ticket=dKcOVN1krZPAqOSsYDQNdfDP5pZPyajrfnBNwCPn53J8GD0ry7ubzn6xT7tDLhOz&amp;amp;wx_header=0#rd">『GitOps 应用实践系列 - 综述（一）』&lt;/a>中，我介绍了 GitOps 的概念、如何工作以及基于 Pull 和 Push 的模型等内容。本篇，我们重点介绍用于实施 GitOps 的工具 &lt;a href="https://argoproj.github.io/argo-cd/">ArgoCD&lt;/a> 。&lt;/p>
+&lt;h2 id="argo-cd-概览">Argo CD 概览&lt;/h2>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/19/XLMzJdCmGK12sWg.png" alt="img">&lt;/p>
+&lt;p>2020 年 4 月 7 日，CNCF Technical Oversight Committee (TOC) 投票通过 Argo 项目进入 CNCF 孵化。&lt;/p>
+&lt;p>其实 Argo 是在 2017 年由 &lt;a href="https://www.applatix.com/">Applatix&lt;/a> 公司创建的（这家公司的主要产品和服务目前主要与 AWS 进行深度融合，当然也包括一些多云的服务），2018 年初被 Intuit 收购。 之后，BlackRock 为 Argo 项目贡献了 Argo Events 子项目。两家公司都积极参与项目和社区的开发和培育中。&lt;/p>
+&lt;p>Argo 及其子项目提供了一种简单的方法管理 Workflow，事件和应用程序。所有 Argo 工具都通过 CRD 的方式实现。他们可以使用或集成其他 CNCF 项目，如 gRPC、Prometheus、NATS、Helm 和 CloudEvents。&lt;/p>
+&lt;p>Argo 生态目前主要由四个子项目组成，包括：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Argo Workflows&lt;/strong> -- 第一个 Argo 项目，是 Kubernetes 的原生&lt;strong>工作流引擎&lt;/strong>，支持 DAG 和 step-based 的工作流；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Argo Events&lt;/strong> -- Kubernetes 上的基于事件的依赖管理器，用于触发 Kubernetes 中的 Argo 工作流和其他操作。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Argo CD&lt;/strong> -- 是 Argo 社区和 Intuit 带来的开源项目，支持基于 GitOps 的声明性部署 Kubernetes 资源。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Argo Rollouts&lt;/strong> -- 支持声明式渐进式交付策略，例如 canary 、blue-green 和更多形式。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>Argo CD 旨在提供一个&lt;strong>声明式持续交付 (CD) 工具。&lt;strong>Argo CD 支持多种配置管理工具，包括 ksonnet /jsonnet，kustomize 和 &lt;a href="https://github.com/helm/helm">Helm&lt;/a> 等&lt;/strong>。&lt;strong>Argo CD 扩展了声明式和基于 Git 的配置管理的优势，以在&lt;/strong>不影响安全性和合规性的情况下加速应用程序的部署和生命周期管理。&lt;/strong>&lt;/p>
+&lt;h2 id="argo-cd-的适用场景">Argo CD 的适用场景&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>应用程序及其部署环境的配置是声明性的，并且是版本可控的；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>应用程序部署和生命周期管理简单、可自动和可审计（企业友好）；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>应用程序部署快速、可靠和幂等；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>需要检测并纠正与版本控制配置的任何偏差；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>回滚简单；&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="argo-cd-的主要功能">Argo CD 的主要功能&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>可搭配使用各种配置管理工具（如 ksonnet/jsonnet、Helm 和 kustomize）使应用程序与 Git 中定义的保持一致；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>将应用程序自动部署到指定的目标环境；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>持续监控已部署的应用程序；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>基于 Web 和 CLI 的操作，以及应用程序可视化；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>部署或回滚到 Git 仓库中提交的应用程序的任何状态（这也是使用 Git 进行版本管理的一大好处）；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>PreSync、Sync、PostSync hooks 以支持复杂的应用程序部署策略（例如：blue/green 、canary upgrades）；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>SSO 集成（OIDC、LDAP、SAML 2.0、GitLab、Microsoft、LinkedIn），这些是企业比较需要的功能；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Webhook 集成（GitHub、BitBucket、GitLab）。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>可以独立使用，也可以作为现有 Pipeline 的一部分使用，例如与 Argo Workflow、Jenkins 以及 GitLab CI 等配合使用；&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="argo-cd-架构">Argo CD 架构&lt;/h2>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/19/jql6DZiAV92XWGT.png" alt="img">&lt;/p>
+&lt;p>从整体上看，Argo CD 有三个主要的组成部分：API Server 、Repository Server 、Application Controller。&lt;/p>
+&lt;h3 id="api-server">API Server&lt;/h3>
+&lt;p>Argo CD 的 API Server 是一个 gRPC/REST server，它公开 Web UI、CLI 以及一些其他场景需要用到的 API。&lt;/p>
+&lt;p>它主要进行以下几个内容：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>应用程序管理和状态报告；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>调用应用程序操作（例如：同步、回滚、用户定义的操作）；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>repository 和集群 credential 管理（存 K8s secrets）；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>身份验证和授权委托给外部身份认证组件；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>RBAC（&lt;strong>Role-based access control&lt;/strong> 基于角色的访问控制）；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Git webhook 事件的 listener/forwarder；&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="repository-server">Repository Server&lt;/h3>
+&lt;p>Repository Server 是一个内部服务，它负责保存应用程序 Git 仓库的本地缓存，并负责生成和返回可供 Kubernetes 使用的 manifests，它接受的输入信息主要有以下内容：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>仓库地址（URL）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>revision（commit, tag, branch）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>应用程序路径&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>模板的特定设置：比如 helm values.yaml 等&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="application-controller">Application Controller&lt;/h3>
+&lt;p>Application Controller 是一个 Kubernetes controller，它持续监听正在运行的应用程序并将当前的实时状态与所需的目标状态（如 repo 中指定的）进行比较。它检测 OutOfSync 应用程序状态并有选择地采取纠正措施。它负责为生命周期事件（PreSync、Sync、PostSync）调用任何用户定义的 hooks。&lt;/p>
+&lt;h2 id="argo-cd-的主要特性">Argo CD 的主要特性&lt;/h2>
+&lt;p>自2019年3月17号发布了 &lt;a href="https://github.com/argoproj/argo-cd/releases/tag/v1.0.0">v1.0.0&lt;/a> 版本开始，到现在，Argo CD已经全面进入了 v2.x 时代，当前最新的版本是 v2.1.5。&lt;/p>
+&lt;p>在 2.0 中引入了Pods View功能、重写了日志可视化、新增了通知横幅功能、还有很多后台操作及自定义操作，并且致力于打造 Argo CD Core （轻量级 Argo CD 发行版，仅打包核心 GitOps 功能，依赖Kubernetes API/RBAC 为 UI 和 CLI 提供支持）。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Pods View ：对于拥有数百个 Pod 的应用程序特别有用。它没有可视化应用程序的所有 Kubernetes 资源，而是仅显示 Kubernetes pod 和密切相关的资源。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>新日志可视化：支持分页、过滤、禁用/启用日志流的能力，甚至为终端爱好者提供暗模式。支持查看多个部署 Pod 的聚合日志，Argo CD CLI 也支持日志流。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>UI通知横幅功能：使用ConfigMap 中的ui.bannercontent和ui.bannerurl属性指定通知消息和可选 URL argocd-cm。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>后台操作：资源的deletion/pruning、仅同步更改的资源、Prune Last、引入了对 &lt;a href="https://github.com/external-secrets/kubernetes-external-secrets">Sealed-&lt;/a>&lt;a href="https://github.com/bitnami-labs/sealed-secrets">secrets&lt;/a>、&lt;a href="https://github.com/external-secrets/kubernetes-external-secrets">kubernetes-external-secrets&lt;/a> 和 &lt;a href="https://github.com/strimzi">strimzi&lt;/a> CRD 的健康检查。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="部署-argo-cd">部署 Argo CD&lt;/h2>
+&lt;p>Argo CD 有四种安装方式：多租户（multi-tenant）、 core 、自定义 、Helm。&lt;/p>
+&lt;h3 id="多租户multi-tenant">多租户（multi-tenant）&lt;/h3>
+&lt;p>多租户是 Argo CD 使用最多的部署方式。用户可以使用 Web UI 或 argocd CLI 通过 API Server访问 Argo CD 。&lt;/p>
+&lt;p>该 argocd CLI 必须先执行 &lt;code>argocd login &amp;lt;server-host&amp;gt;&lt;/code>命令。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-plain" data-lang="plain">argocd login SERVER [flags]
+## Login to Argo CD using a username and password
+argocd login cd.argoproj.io
+## Login to Argo CD using SSO
+argocd login cd.argoproj.io --sso
+## Configure direct access using Kubernetes API server
+argocd login cd.argoproj.io --core
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在项目的 GitHub 仓库中默认提供了两种部署方式（manifests）：&lt;/p>
+&lt;h4 id="非高可用">非高可用&lt;/h4>
+&lt;p>这种类型的安装通常用于演示和测试。（不推荐用于生产）&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/argoproj/argo-cd/blob/master/manifests/install.yaml">install.yaml&lt;/a> - 具有集群管理员权限的标准 Argo CD 安装。可使用 Argo CD 在其运行的同一集群中部署应用程序，当然也可以使用输入的 credentials 部署到外部集群。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/argoproj/argo-cd/blob/master/manifests/namespace-install.yaml">namespace-install.yaml&lt;/a> - 只需要命名空间级别的权限（不需要集群管理员权限）。但这种安装的话 Argo CD 不能在其所运行的同一集群中部署应用程序，并且将仅依赖于输入的外部集群 credentials 。&lt;/p>
+&lt;p>注意：Argo CD CRD 不包含在 &lt;a href="https://github.com/argoproj/argo-cd/blob/master/manifests/namespace-install.yaml">namespace-install.yaml 中&lt;/a> 必须单独安装。CRD manifests 位于&lt;a href="https://github.com/argoproj/argo-cd/blob/master/manifests/crds">manifests/crds&lt;/a>目录中。使用以下命令安装它们：&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">kubectl apply -k https://github.com/argoproj/argo-cd/manifests/crds&lt;span class="se">\?&lt;/span>ref&lt;span class="se">\=&lt;/span>stable
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="高可用">高可用&lt;/h4>
+&lt;p>强烈建议生产环境使用高可用方式安装。&lt;/p>
+&lt;p>bundle 包含相同的组件，但针对高可用性和弹性进行了调整。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/argoproj/argo-cd/blob/master/manifests/ha/install.yaml">ha/install.yaml&lt;/a> - 与上文中提到的 install.yaml 相同，但配置了相关组件的多个副本；&lt;/li>
+&lt;li>&lt;a href="https://github.com/argoproj/argo-cd/blob/master/manifests/ha/namespace-install.yaml">ha/namespace-install.yaml&lt;/a> - 与上文提到的 namespace-install.yaml 相同，但配置了相关组件的多个副本；&lt;/li>
+&lt;/ul>
+&lt;h3 id="core">core&lt;/h3>
+&lt;p>core 安装最适合独立使用 Argo CD 且不需要多租户功能的集群管理员。&lt;/p>
+&lt;p>此安装包括较少的组件，并且更易于设置。bundle 不包括 API Server或 UI，并只安装每个组件的轻量级（非 HA）版本。&lt;/p>
+&lt;p>用户需要 Kubernetes 访问权限来管理 Argo CD。该 argocd CLI 必须使用下面的命令进行配置：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-plain" data-lang="plain">kubectl config set-context --current --namespace=argocd
+argocd login --core
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>Web UI 也可以使用，可以使用以下命令启动。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-plain" data-lang="plain">argocd admin dashboard
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>具体的 manifests 对应于仓库中的 &lt;a href="https://github.com/argoproj/argo-cd/blob/master/manifests/core-install.yaml">core-install.yaml&lt;/a> 。&lt;/p>
+&lt;h3 id="自定义安装">自定义安装&lt;/h3>
+&lt;p>Argo CD manifests 也可以使用自定义安装。建议将 manifests 作为远程资源包含在内，并使用 Kustomize 补丁应用其他自定义。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-plain" data-lang="plain">apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: argocd
+resources:
+- https://raw.githubusercontent.com/argoproj/argo-cd/v2.0.4/manifests/ha/install.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="helm">Helm&lt;/h3>
+&lt;p>Argo CD 可以使用&lt;a href="https://helm.sh/">Helm&lt;/a>安装。Helm chart 目前由社区维护，访问 &lt;a href="https://github.com/argoproj/argo-helm/tree/master/charts/argo-cd">https://github.com/argoproj/argo-helm/tree/master/charts/argo-cd&lt;/a> 获取即可，此处不再添加示例。&lt;/p>
+&lt;h2 id="argo-cd-的-secret-管理">Argo CD 的 Secret 管理&lt;/h2>
+&lt;p>Argo CD 没有明确限制 Secret 管理的方式。这里罗列些 GitOps 的管理 Secret 的方式，对其他场景也适用：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://www.vaultproject.io/">Hashicorp Vault&lt;/a> 推荐，这是一种比较通用的方案，并且应用场景很广泛。（https://www.vaultproject.io/）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/bitnami-labs/sealed-secrets">Bitnami Sealed Secrets&lt;/a> 将 Secret 加密为可安全存储的 SealedSecret，甚至可以存储到公共库中；SealedSecret 只能由运行在目标集群中的控制器解密，其他人（甚至原作者）都无法从 SealedSecret 中获取原始 Secret。（https://github.com/bitnami-labs/sealed-secrets）；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/banzaicloud/bank-vaults">Banzai Cloud Bank-Vaults&lt;/a> 为 Vault 提供各种工具，使 Hashicorp Vault 的使用和操作更容易。它是官方 Vault 客户端的封装，具有自动令牌更新和内置 Kubernetes 支持、基于Golang 的客户端的动态数据库凭据提供程序。它有一个 CLI 工具来自动初始化、解封和配置 Vault。它还提供了一个用于配置的 Kubernetes operator，以及一个用于注入机密的 mutating webhook。（https://github.com/banzaicloud/bank-vaults）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/jkroepke/helm-secrets">Helm Secrets&lt;/a> 与Argo CD的集成是从 helm-secrets v3.9.0 开始可用;&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/IBM/argocd-vault-plugin">argocd-vault-plugin&lt;/a> 从各种 secrets 管理工具（HashiCorp Vault、IBM Cloud Secrets Manager、AWS Secrets Manager 等）中检索 secrets 并将它们注入到 Kubernetes 资源中（https://github.com/IBM/argocd-vault-plugin）；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes-sigs/kustomize/blob/fd7a353df6cece4629b8e8ad56b71e30636f38fc/examples/kvSourceGoPlugin.md#secret-values-from-anywhere">Kustomize secret generator plugins&lt;/a> Kubernetes &lt;a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/#configmap-v1-core">ConfigMaps&lt;/a>和&lt;a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/#secret-v1-core">Secrets&lt;/a>都是 key:value (KV) 映射。kustomize 有三种不同的方法来从本地文件生成 secrets，详细可查看链接 。（https://github.com/kubernetes-sigs/kustomize/blob/fd7a353df6cece4629b8e8ad56b71e30636f38fc/examples/kvSourceGoPlugin.md#secret-values-from-anywhere）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/mumoshu/aws-secret-operator">aws-secret-operator&lt;/a> 一个 Kubernetes operator，可根据 AWS Secrets Manager 中存储的内容自动创建和更新 Kubernetes secrets。aws-secret-operator 自定义资源将 AWS secrets映射到 Kubernetes 。（https://github.com/mumoshu/aws-secret-operator）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes-sigs/secrets-store-csi-driver">secrets-store-csi-driver&lt;/a> 是一个利用 CSI 接口，将密钥信息挂载进 Pod 的工具。支持多种密钥存储方式，比如 Vault，GCP，AWS，Azure 等；&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="资源健康评估">资源健康评估&lt;/h2>
+&lt;p>Argo CD 为几种标准的 Kubernetes 资源提供了内置的健康评估，然后将这些评估作为一个整体呈现在整体应用程序健康状态中。&lt;/p>
+&lt;p>对以下几种类型的 Kubernetes 资源进行检查：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Deployment，ReplicaSet，StatefulSet，DaemonSet&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Service&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Ingress&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>PersistentVolumeClaim&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Argocd App&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>也可以添加自定义的健康检查，Argo CD 支持用 &lt;a href="https://www.lua.org/">Lua&lt;/a> 编写自定义健康检查，支持两种配置方式：&lt;/p>
+&lt;p>1） 在argocd-cm 这个 ConfigMap 中定义自定义健康检查&lt;/p>
+&lt;p>可以在 &lt;code>argocd-cm&lt;/code> 的 &lt;code>resource.customizations.health.&amp;lt;group_kind&amp;gt;&lt;/code>字段中定义自定义健康检查。&lt;/p>
+&lt;p>2） 捆绑到 Argo CD 中。自定义健康检查脚本位于 &lt;a href="https://github.com/argoproj/argo-cd/tree/master/resource_customizations">https://github.com/argoproj/argo-cd/tree/master/resource_customizations&lt;/a> 目录中。&lt;/p>
+&lt;p>以上就是关于 Argo CD 的核心内容了，下一篇我们将进行 Argo CD 的实践。欢迎大家继续关注和反馈！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/><category scheme="https://moelove.info/tags/GitOps/" term="GitOps" label="GitOps"/></entry><entry><title type="text">GitOps 应用实践系列 - 综述</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/10/19/GitOps-%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5%E7%B3%BB%E5%88%97-%E7%BB%BC%E8%BF%B0/"/><id>https://moelove.info/2021/10/19/GitOps-%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5%E7%B3%BB%E5%88%97-%E7%BB%BC%E8%BF%B0/</id><updated>2021-11-02T16:57:46+08:00</updated><published>2021-10-19T20:56:29+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 接下来会为大家带来一个 GitOps 的应用实践系列文章，这是第一篇。 什么是 GitOps 首先我们来了解下 GitOps： GitOps 最早是在20……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>接下来会为大家带来一个 GitOps 的应用实践系列文章，这是第一篇。&lt;/p>
 &lt;h1 id="什么是-gitops">什么是 GitOps&lt;/h1>
 &lt;p>首先我们来了解下 GitOps：&lt;/p>
