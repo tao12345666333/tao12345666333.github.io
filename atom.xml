@@ -1,4 +1,241 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-12-17T09:29:50+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">Grafana k6 的上手实践</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/17/Grafana-k6-%E7%9A%84%E4%B8%8A%E6%89%8B%E5%AE%9E%E8%B7%B5/"/><id>https://moelove.info/2021/12/17/Grafana-k6-%E7%9A%84%E4%B8%8A%E6%89%8B%E5%AE%9E%E8%B7%B5/</id><updated>2021-12-17T09:29:06+08:00</updated><published>2021-12-17T03:50:29+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 本篇我将为你介绍一个工具 - k6 ，它和 K8s 并没有什么直接的关系，它是一款开源的性能压测工具。 k6 背后的故事 2016 年 8 月，……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-12-19T15:04:48+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">GitOps 应用实践系列 - Flux CD 及其核心组件</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/18/GitOps-%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5%E7%B3%BB%E5%88%97-Flux-CD-%E5%8F%8A%E5%85%B6%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/"/><id>https://moelove.info/2021/12/18/GitOps-%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5%E7%B3%BB%E5%88%97-Flux-CD-%E5%8F%8A%E5%85%B6%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/</id><updated>2021-12-19T15:03:42+08:00</updated><published>2021-12-18T20:56:29+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 经过前面三篇文章，不仅为大家介绍了什么是 GitOps 也介绍了如何利用 Argo CD 来实施 GitOps。本篇我来为你介绍另一个可用……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>经过前面三篇文章，不仅为大家介绍了什么是 GitOps 也介绍了如何利用 Argo CD 来实施 GitOps。本篇我来为你介绍另一个可用于实施 GitOps 的工具：Flux CD 。&lt;/p>
+&lt;h2 id="flux-cd">Flux CD&lt;/h2>
+&lt;p>&lt;img src="https://i.loli.net/2021/10/31/zFRTjgr18Z7XIfM.png" alt="img">&lt;/p>
+&lt;p>Flux 是一组可支持实现 GitOps 的工具，用于使 &lt;a href="https://kubernetes.io/">Kubernetes&lt;/a> 集群与配置源（如 Git 仓库）保持同步，并在有代码更新后自动同步配置，面向 Kubernetes 的&lt;strong>持续渐进式交付解决方案&lt;/strong>。&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/10/31/EPI7DHZQkWxySvp.png" alt="img">&lt;/p>
+&lt;h2 id="flux-cd-的发展历史">Flux CD 的发展历史&lt;/h2>
+&lt;ul>
+&lt;li>2016 年 10 月 28 日，&lt;a href="https://github.com/fluxcd/flux/releases/tag/pre-split">Flux single-user service&lt;/a> 版本发布。&lt;/li>
+&lt;/ul>
+&lt;p>它奠定了 flux 的两个基调：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;ul>
+&lt;li>集中式运行的服务&lt;/li>
+&lt;li>以守护进程的方式，在自动模式下运行在 k8s 集群中&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>2016 年 12 月 15 日，发布《使用 Weave Flux 持续交付》，构建了将 CI 与持续部署 (CD) 联系起来的 Flux。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>​ &lt;img src="https://i.loli.net/2021/10/31/jAcoFS2ulXNH5ia.png" alt="img">&lt;/p>
+&lt;ul>
+&lt;li>2017 年 8 月 22 日，v1.0.0 版本正式发布。&lt;/li>
+&lt;/ul>
+&lt;p>自 v1.0.0 开始，Flux 致力于将集群与存储在 Git 中的配置同步，并在新版本准备好部署时自动升级镜像。（提出了：Configuration as code）&lt;/p>
+&lt;p>​ &lt;img src="https://i.loli.net/2021/10/31/cvXCry2oRlkmUZI.png" alt="img">&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>2018 年 5 月 1 日，发布的 alpha 版本中，集成了 Helm Operator 。这是 Flux Helm Operator 的第一个 alpha 标签的版本。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>2019 年 8 月 15 日，Flux 宣布加入 CNCF Sandbox。随着各开发者及企业开始落地 GitOps ，Flux 的用户数量不断增长。 彼时已超过 2500 个 GitHub star，也在不断地集成：Helm Operator 、 Kustomize 、 Weave Flagger 、 OpenFaaS 、 Fluxcloud 、 Flux Web UI 等。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>2019 年 10 月 2 日发布的版本，正式支持 kustomize 。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>2019 年 11 月 14 日，《Argo Flux 简介 - Weaveworks-Intuit-AWS 协作》中，Weaveworks 宣布与 Intuit 合作创建了 Argo Flux。该项目被称为 &lt;a href="https://github.com/argoproj/gitops-engine">GitOps-Engine&lt;/a> ，现在位于 Argo 项目组织中，由 Intuit、Red Hat 和 GitLab 驱动。（具体可参考：https://www.weave.works/blog/argo-flux-join-forces）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>2020 年 10 月 5 日，Flux v1（和 Helm Operator v1）宣布处于维护模式（仅提供 6 个月支持），并宣布将致力于 Flux v2 的开发。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;ul>
+&lt;li>Flux v1 is in maintenance mode #3320 &lt;a href="https://github.com/fluxcd/flux/issues/3320">https://github.com/fluxcd/flux/issues/3320&lt;/a>&lt;/li>
+&lt;li>Helm Operator (v1) is in maintenance mode #546 &lt;a href="https://github.com/fluxcd/helm-operator/issues/546">https://github.com/fluxcd/helm-operator/issues/546&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;ul>
+&lt;li>V1 in maintenance #25 &lt;a href="https://github.com/fluxcd/website/pull/25">https://github.com/fluxcd/website/pull/25&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>2021 年 2 月 17日新版本发布，正式将 issue、PR 指向 v2。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>2021 年 3 月 11 日，CNCF 技术监督委员会（TOC） 投票将 Flux 从 Sandbox 提升为孵化项目（Incubation）。自加入 CNCF Sandbox 以来，Flux 的最终用户群增加了 2.75 倍，并将其社区扩大了 2 至 4 倍，包括 Slack 用户、邮件列表订阅者和贡献者。 80 多个组织在生产中使用它，包括 Babylon Health、Fidelity Investments、MyFitnessPal、Starbucks 等等。 CNCF End User Community 将 Flux 纳入持续交付的 Technology Radar。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>​ &lt;img src="https://i.loli.net/2021/10/31/ThMWO3VmNrIb7Q4.png" alt="img">&lt;/p>
+&lt;ul>
+&lt;li>2021 年 8 月 13 日，正式发布了《Flux v2 助力 GitOps 变得更好》，宣告了从 Flux 到 Flux v2 的交替。Flux v2 在 Flux 已有功能的基础上，更适于 Kubernetes 的操作和&lt;strong>可观测性&lt;/strong>，并且功能更强大。Flux v2 的基础是 GitOps Toolkit，这是一组用于构建基于 GitOps 的交付和自动化组件。（也实现了重要组件的解耦，具体可参考：https://www.weave.works/blog/gitops-with-flux-v2）&lt;/li>
+&lt;/ul>
+&lt;p>​ &lt;img src="https://i.loli.net/2021/10/31/rzXIFQh9UcNKlTv.png" alt="img">&lt;/p>
+&lt;p>​ 注：Flux 团队决定在不使用 GitOps Engine 的情况下继续前进，并构建了&lt;a href="https://fluxcd.io/docs/">GitOps Toolkit&lt;/a>。Flux v2 参考了 GitOps Engine ，但它不使用 GitOps Engine。&lt;/p>
+&lt;ul>
+&lt;li>自 2018 年 10 月开始的 Flagger 项目也于 2021 年集成入 Flux v2。&lt;/li>
+&lt;/ul>
+&lt;p>​ &lt;img src="https://i.loli.net/2021/10/31/ePZqo5dO7LCJzvX.png" alt="img">&lt;/p>
+&lt;p>​ &lt;img src="https://i.loli.net/2021/10/31/davhq8DzFbyGj16.png" alt="img">&lt;/p>
+&lt;h2 id="flux-cd-v2-和-gitops-toolkit">Flux CD v2 和 GitOps Toolkit&lt;/h2>
+&lt;h3 id="gitops-toolkit">GitOps Toolkit&lt;/h3>
+&lt;p>GitOps Toolkit 是构成 Flux 运行时的一组 APIs 和 controllers 。可以通过 GitOps Toolkit 来扩展 Flux，并构建所需 CD 系统。&lt;/p>
+&lt;h3 id="source-controller">Source Controller&lt;/h3>
+&lt;p>Source Controller 主要作用是为工件获取提供通用接口。Source API 定义了一组 Kubernetes 对象，cluster admin 和各种自动化 operator 可以与之交互，以将 Source（如 Git 和 Helm repo）注册、身份验证、验证和资源获取卸载到专用的 controller 。&lt;/p>
+&lt;p>每个 Flux 和 Helm 的 operator 都以相同的方式使用 Git repositories 中的代码（镜像），但是其他组件可能需要访问到不同的镜像。Flux 和 Helm operator 就可以使用标准的 Kubernetes 机制来构建 Source （通常是 Git repo，但也有 Helm chart 等） 作为 Kubernetes 资源，独立于使用它们的组件进行管理。&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/10/31/7JR9PlXLhqUatfT.png" alt="img">&lt;/p>
+&lt;h4 id="git-repository">Git Repository&lt;/h4>
+&lt;p>它为来自 Git 的 artifact 定义了一个源，将来自 Git 的最新状态作为 artifact 公开为 gzip 压缩的 TAR 文件 ( &lt;commit hash>.tar.gz) 。&lt;/p>
+&lt;p>默认情况会排除，Git 文件 ( .git/ ,.gitignore, .gitmodules, .gitattributes)；文件扩展名 ( .jpg, .jpeg, .gif, .png, .wmv, .flv, .tar.gz, .zip)；CI 配置 ( .github/, .circleci/, .travis.yml, .gitlab-ci.yml, appveyor.yml, .drone.yml, cloudbuild.yaml, codeship-services.yml, codeship-steps.yml)；CLI 配置 ( .goreleaser.yml, .sops.yaml)；Flux v1 配置 ( .flux.yaml)。&lt;/p>
+&lt;p>如果想要自定义排除可以考虑以下两种办法：&lt;/p>
+&lt;ul>
+&lt;li>通过 &lt;code>.sourceignore&lt;/code> 在 repository 的根目录中添加文件 。（遵循 .gitignore 格式，详见 &lt;a href="https://git-scm.com/docs/gitignore#_pattern_format">https://git-scm.com/docs/gitignore#_pattern_format&lt;/a> ）&lt;/li>
+&lt;li>使用 spec.ignore 字段。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">source.toolkit.fluxcd.io/v1beta1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">GitRepository&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">podinfo&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">namespace&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">default&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">interval&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">5m&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">url&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">https://github.com/stefanprodan/podinfo&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">ignore&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">|&lt;/span>&lt;span class="sd">
+&lt;/span>&lt;span class="sd"> ## exclude all
+&lt;/span>&lt;span class="sd"> /*
+&lt;/span>&lt;span class="sd"> ## include deploy dir
+&lt;/span>&lt;span class="sd"> !/deploy
+&lt;/span>&lt;span class="sd"> ## exclude file extensions from deploy dir
+&lt;/span>&lt;span class="sd"> /deploy/**/*.md
+&lt;/span>&lt;span class="sd"> /deploy/**/*.txt &lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="helm-charts">Helm Charts&lt;/h4>
+&lt;p>它为来自 Helm 源 的 Helm chart artifacts 定义了一个源，将作为 artifact 的最新拉取或打包的 chart 公开。&lt;/p>
+&lt;h4 id="helm-repositories">Helm Repositories&lt;/h4>
+&lt;p>它为 Helm repositories 定义了一个源，将作为 artifact 的最新同步的 repository 索引公开。&lt;/p>
+&lt;h4 id="object-storage-buckets">Object storage buckets&lt;/h4>
+&lt;p>它为来自 S3 兼容的存储（Minio, Amazon S3, Google Cloud Storage, Alibaba Cloud OSS 等等）定义了一个源，将来自 S3 的最新同步状态作为 artifact 公开为 gzip 压缩的 TAR 文件 ( &lt;bucket checksum>.tar.gz) 。&lt;/p>
+&lt;p>默认及自定义排除文件，可参考 Git Repositories 中的排除文件相关内容。&lt;/p>
+&lt;h3 id="kustomize-controller">Kustomize Controller&lt;/h3>
+&lt;p>kustomize-controller 是一个专门用于运行通过使用 Kustomize 组装 Kubernetes 清单和工作负载定义的持续交付pipeline 的 Kubernetes operator。它提供一个自动化的 operator ，可以引导并持续协调来自多个 sources（例如基础设施和应用程序 repositories ）的集群状态。&lt;/p>
+&lt;p>配置新集群时，可以按照特定顺序安装工作负载。当多个团队同时操作集群时，集群管理员可以为每个团队分配角色和服务帐户。团队拥有的 manifests 将使用团队帐户应用于集群，从而确保团队之间的隔离。&lt;/p>
+&lt;p>处理事件时，可以选择不停止协调器影响整个集群，采用暂停某些工作负载的协调并将其他工作负载的协调固定到指定的 Git 版本的方式进行。&lt;/p>
+&lt;p>操作集群时，不同的团队可以收到与之相关的 CD pipeline 状态通知。&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/10/31/ZMfAKIuLxH9BE4S.png" alt="img">&lt;/p>
+&lt;p>Kustomization API 定义了一个可以获取，解密，构建，验证和应用 Kubernetes manifests 的 pipeline 。&lt;/p>
+&lt;p>&lt;code>spec.sourceRef&lt;/code> 是对 Source Controller 管理的对象的引用 。当 Source （支持类型：GitRepository、Bucket）版本变更时，它会生成一个 Kubernetes 事件，触发 kustomize 的构建和应用。&lt;/p>
+&lt;p>如果 repository 包含原始的 Kubernetes manifest，会为 &lt;code>spec.path&lt;/code> 和子目录中的所有 Kubernetes manifest 自动生成 &lt;code>kustomization.yaml&lt;/code>。（建议 kustomization.yaml 自行生成并存储在 Git 仓库中）&lt;/p>
+&lt;p>&lt;code>spec.interval&lt;/code> 告诉 Controller 在哪个时间间隔为 Source 获取 Kubernetes manifest，构建 Kustomization 并将其应用于集群。间隔时间单位是 s（最小值应超过 60 秒，interval: 60s）。&lt;/p>
+&lt;p>&lt;code>spec.healthChecks&lt;/code> 、&lt;code>spec.wait&lt;/code> 和 &lt;code>spec.timeout&lt;/code> 可以设置一系列运行状况检查。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Kubernetes 内置（Deployment、DaemonSet、StatefulSet、PersistentVolumeClaim、Pod、PodDisruptionBudget、Job、CronJob、Service、Secret、ConfigMap、CustomResourceDefinition）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Toolkit （HelmRelease、HelmRepository、GitRepository等）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>与 kstatus 兼容的自定义资源 （https://github.com/kubernetes-sigs/cli-utils/tree/master/pkg/kstatus）&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;code>spec.dependsOn&lt;/code> 可以自定义依赖。多个 Kustomizations 的情况下，可以指定先后顺序及依赖。这就引入了两个必须注意的地方：&lt;/p>
+&lt;ul>
+&lt;li>避免循环。&lt;/li>
+&lt;li>与健康检查结合使用时，将在其所有依赖项健康检查通过后运行 Kustomization。&lt;/li>
+&lt;/ul>
+&lt;p>Kustomization 在覆盖自定义配置、变量替换、加解密等也有这很多灵活的设置，感兴趣的小伙伴可以自行阅读官方文档了解。&lt;/p>
+&lt;h3 id="helm-controller">Helm Controller&lt;/h3>
+&lt;p>Helm Controller 是一个 Kubernetes operator，允许使用 Kubernetes manifests 以声明方式管理 Helm chart Release。它提供一个自动化的 operator ，可以执行 Helm 操作（例如安装、升级、卸载、回滚、测试）并持续协调 Helm Release的状态。&lt;/p>
+&lt;p>配置新集群时，可以指定顺序安装 Helm Release。处理事件时，可以不必停止协调器影响整个集群，采用暂停一些 Helm Release 的协调即可。操作集群时，不同的团队可以收到与其有关的 Helm Release 状态的通知。
+&lt;img src="https://i.loli.net/2021/10/31/rLByzJExwYhHkj1.png" alt="img">&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/10/31/TLDrP41nQtigNkv.png" alt="img">&lt;/p>
+&lt;p>HelmRelease 对象定义了一个控制器资源通过 Helm 操作（例如安装、升级、测试、卸载和回滚）驱动的 Helm Release 协调。包括发布位置（namespace/name）、发布内容（chart/values overrides）、操作触发器配置、个别操作配置和状态。&lt;/p>
+&lt;p>可以分别通过 &lt;code>spec.targetNamespace&lt;/code>、&lt;code>spec.storageNamespace&lt;/code> 和 &lt;code>spec.releaseName&lt;/code> 覆盖默认部署和存储 Helm Release 的namespace/name。&lt;/p>
+&lt;p>&lt;code>spec.chart.spec&lt;/code> 是创建具有指定 spec 的新 HelmChart 资源的模板。&lt;code>spec.chart.spec.sourceRef&lt;/code> 是对 Source Controller 管理的对象的引用。 当 source（支持类型：HelmRepository、GitRepository、Bucket） 版本变更时，会生成触发新版本的 Kubernetes 事件。&lt;/p>
+&lt;p>如果没有找到具有匹配 namespace/name 的 Helm Release，将安装配置中的 Helm Release 。&lt;/p>
+&lt;p>当出现以下状态更新时，Helm Release 将升级：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>spec （以及 metadata.generation ）&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>最新的 HelmChart 修订版可用&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>ConfigMap 和 Secret 值覆盖（为了避免在更新多个资源时发生大量升级，不会立即进行，会在spec.interval 间隔后进行）&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>Helm 支持安装 CRD，由于存在数据丢失的风险，目前暂不支持使用 Helm 升级或删除 CRD。&lt;/p>
+&lt;p>更多 Helm Controller 的详细内容欢迎参考官方文档。&lt;/p>
+&lt;h3 id="notification-controller">Notification Controller&lt;/h3>
+&lt;p>Notification Controller 是一个 Kubernetes operator，专门处理出入口事件。&lt;/p>
+&lt;p>它提供一个通知服务，可以通过 HTTP 接收事件并根据事件严重性和涉及的对象将它们分派到外部系统（Slack、Microsoft Teams、Discord、Rocker）。&lt;/p>
+&lt;p>GitOps Controller 本质上是基于拉取的，为了通知 Controllers 有关 Git 或 Helm 库中的变更，可以支持设置 webhooks 在每次源更改时触发集群协调。&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/10/31/LAOYlxyZBibmgdj.png" alt="img">&lt;/p>
+&lt;h3 id="image-reflector-and-automation-controllers">Image reflector and automation controllers&lt;/h3>
+&lt;p>image-reflector-controller 和 image-automation-controller 协同工作，在新的容器镜像可用时更新 Git repository。&lt;/p>
+&lt;ul>
+&lt;li>image-reflector-controller 扫描镜像仓库，并与 K8S 资源中的元数据进行对比。&lt;/li>
+&lt;li>image-automation-controller 根据扫描到的最新镜像，更新 YAML 文件 并且提交变更到指定的 Git repository。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://i.loli.net/2021/10/31/Z1klTnrbuKH6Dae.png" alt="img">&lt;/p>
+&lt;h2 id="flux-cd-使用要求">Flux CD 使用要求&lt;/h2>
+&lt;h3 id="kubernetes-版本">Kubernetes 版本&lt;/h3>
+&lt;p>使用 Flux CD，最好 Kubernetes 集群版本在 v&lt;strong>1.19&lt;/strong> 或更高版本。旧版本也支持，但官方不建议在生产中运行 EOL Kubernetes 版本。&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/10/31/BJhqdksWc5Mue6K.png" alt="img">&lt;/p>
+&lt;p>注：如果你正在使用 APIService（例如 &lt;a href="https://github.com/kubernetes-sigs/metrics-server">metrics-server&lt;/a>），Kubernetes 集群版本至少需要 v1.18.18，v1.19.10，v1.20.6 或 v1.21.0 。&lt;/p>
+&lt;h3 id="git-repo-权限">Git Repo 权限&lt;/h3>
+&lt;p>通过设置 SSH 部署密钥或使用基于令牌的身份验证，将目标集群配置为与 Git 库进行同步。&lt;/p>
+&lt;ul>
+&lt;li>GitLab 使用示例&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-plain" data-lang="plain">//将 GitLab personal access token 导出为环境变量：
+export GITLAB_TOKEN=&amp;lt;your-token&amp;gt;
+//在 GitLab 账号上运行 git 库的引导程序：
+flux bootstrap gitlab \
+--owner=my-gitlab-username \
+--repository=my-repository \
+--branch=master \
+--path=clusters/my-cluster \
+--token-auth \
+--personal
+//使用部署密钥进行身份验证运行 git 库的引导程序，必须指定 SSH hostname：
+flux bootstrap gitlab \
+--ssh-hostname=gitlab.com \
+--owner=my-gitlab-username \
+--repository=my-repository \
+--branch=master \
+--path=clusters/my-cluster
+//为 GitLab 团队的 git 库运行引导程序：
+flux bootstrap gitlab \
+--owner=my-gitlab-group/my-gitlab-subgroup \
+--repository=my-repository \
+--branch=master \
+--path=clusters/my-cluster
+//为托管在本地或企业 GitLab 上的 git 库运行引导程序，必须指定 GitLab hostname：
+flux bootstrap gitlab \
+--hostname=my-gitlab.com \
+--token-auth \
+--owner=my-gitlab-group \
+--repository=my-repository \
+--branch=master \
+--path=clusters/my-cluster
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>GitHub 使用示例&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-plain" data-lang="plain">//将 GitHub personal access token 导出为环境变量：
+export GITHUB_TOKEN=&amp;lt;your-token&amp;gt;
+//flux bootstrap 命令会创建一个 SSH 密钥，并存储在 Kubernetes 集群中。
+//该密钥还用于在 GitHub 库中创建部署密钥。
+//在 GitHub 账号上运行 git 库的引导程序：
+flux bootstrap github \
+--owner=my-github-username \
+--repository=my-repository \
+--path=clusters/my-cluster \
+--personal
+//当指定团队列表时，这些团队将被授予对 git 库的维护者访问权限。
+//为 GitHub 中团队拥有的 git 库运行引导程序：
+flux bootstrap github \
+--owner=my-github-organization \
+--repository=my-repository \
+--team=team1-slug \
+--team=team2-slug \
+--path=clusters/my-cluster
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>本篇主要介绍了 Flux CD 的发展历史和其核心组件及其功能，后续文章中将陆续介绍如何使用 Flux CD 来实践 GitOps，敬请期待。&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/><category scheme="https://moelove.info/tags/GitOps/" term="GitOps" label="GitOps"/></entry><entry><title type="text">Grafana k6 的上手实践</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/17/Grafana-k6-%E7%9A%84%E4%B8%8A%E6%89%8B%E5%AE%9E%E8%B7%B5/"/><id>https://moelove.info/2021/12/17/Grafana-k6-%E7%9A%84%E4%B8%8A%E6%89%8B%E5%AE%9E%E8%B7%B5/</id><updated>2021-12-17T09:29:06+08:00</updated><published>2021-12-17T03:50:29+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 本篇我将为你介绍一个工具 - k6 ，它和 K8s 并没有什么直接的关系，它是一款开源的性能压测工具。 k6 背后的故事 2016 年 8 月，……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>本篇我将为你介绍一个工具 - k6 ，它和 K8s 并没有什么直接的关系，它是一款开源的性能压测工具。&lt;/p>
 &lt;h1 id="k6-背后的故事">k6 背后的故事&lt;/h1>
 &lt;p>2016 年 8 月，k6 在 GitHub 上发布了第一个版本，至此，一个出色的开源负载压测工具进入了人们的视野。&lt;/p>
@@ -928,10 +1165,10 @@ LAST SEEN TYPE REASON OBJECT MESSAGE
 &lt;p>以上就是关于 Kubernetes v1.23 中我认为值得关注的一些主要特性，更多信息可参阅其 &lt;a href="https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.23.md">ReleaseNote&lt;/a>&lt;/p>
 &lt;hr>
 &lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
-&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">Open Policy Agent (OPA) 入门实践</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/06/Open-Policy-Agent-OPA-%E5%85%A5%E9%97%A8%E5%AE%9E%E8%B7%B5/"/><id>https://moelove.info/2021/12/06/Open-Policy-Agent-OPA-%E5%85%A5%E9%97%A8%E5%AE%9E%E8%B7%B5/</id><updated>2021-12-07T13:06:20+08:00</updated><published>2021-12-06T19:50:29+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 本篇我来为你介绍一个我个人很喜欢的，通用策略引擎，名叫 OPA，全称是 Open Policy Agent。 在具体聊 OPA 之前，我们先来……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">Open Policy Agent (OPA) 入门实践</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/06/Open-Policy-Agent-OPA-%E5%85%A5%E9%97%A8%E5%AE%9E%E8%B7%B5/"/><id>https://moelove.info/2021/12/06/Open-Policy-Agent-OPA-%E5%85%A5%E9%97%A8%E5%AE%9E%E8%B7%B5/</id><updated>2021-12-19T15:01:20+08:00</updated><published>2021-12-06T19:50:29+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 本篇我来为你介绍一个我个人很喜欢的，通用策略引擎，名叫 OPA，全称是 Open Policy Agent。 在具体聊 OPA 之前，我们先来……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>本篇我来为你介绍一个我个人很喜欢的，通用策略引擎，名叫 OPA，全称是 Open Policy Agent。&lt;/p>
 &lt;p>在具体聊 OPA 之前，我们先来聊一下为什么需要一个通用策略引擎，以及 OPA 解决了什么问题。&lt;/p>
-&lt;h1 id="opa-解决了什么问题">OPA 解决了什么问题&lt;/h1>
+&lt;h2 id="opa-解决了什么问题">OPA 解决了什么问题&lt;/h2>
 &lt;p>在实际的生产环境中很多场景中都需要策略控制，比如：&lt;/p>
 &lt;ul>
 &lt;li>
@@ -951,16 +1188,16 @@ LAST SEEN TYPE REASON OBJECT MESSAGE
 &lt;p>但是对于这些场景或者软件来说，配置它们的策略是需要与该软件进行耦合的，彼此是不统一，不通用的。管理起来也会比较混乱，带来了不小的维护成本。&lt;/p>
 &lt;p>OPA 的出现可以将各处配置的策略进行统一，极大的&lt;strong>降低了维护成本&lt;/strong>。以及将策略与对应的软件/服务进行解耦，方便进行移植/复用。&lt;/p>
 &lt;p>&lt;img src="https://s2.loli.net/2021/12/07/dPrM4sqaeXIT1Q8.png" alt="img">&lt;/p>
-&lt;h1 id="opa-的发展过程">OPA 的发展过程&lt;/h1>
+&lt;h2 id="opa-的发展过程">OPA 的发展过程&lt;/h2>
 &lt;p>OPA 最初是由 Styra 公司在 2016 年创建并开源的项目，目前该公司的主要产品就是提供可视化策略控制及策略执行的可视化 Dashboard 服务的。&lt;/p>
 &lt;p>OPA 首次进入 CNCF 并成为 sandbox 级别的项目是在 2018 年， 在 2021 年的 2 月份便已经从 CNCF 毕业，这个过程相对来说还是比较快的，由此也可以看出 OPA 是一个比较活跃且应用广泛的项目。&lt;/p>
-&lt;h1 id="opa-是什么">OPA 是什么&lt;/h1>
+&lt;h2 id="opa-是什么">OPA 是什么&lt;/h2>
 &lt;p>前面我们已经介绍过 Open Policy Agent (OPA) 是一种开源的通用策略引擎，可在整个堆栈中实现统一、上下文感知的策略控制。&lt;/p>
 &lt;p>OPA 可将策略决策与应用程序的业务逻辑分离（解耦），&lt;strong>透过现象看本质，策略就是一组规则，请求发送到引擎，引擎根据规则来进行决策。&lt;/strong>&lt;/p>
 &lt;p>&lt;img src="https://s2.loli.net/2021/12/07/6bqX3GINMmUVg2k.png" alt="img">&lt;/p>
 &lt;p>图 3 ，OPA 的策略解耦示例&lt;/p>
 &lt;p>&lt;strong>OPA 并不负责具体任务的执行，它仅负责决策&lt;/strong>，需要决策的请求通过 JSON 的方式传递给 OPA ，在 OPA 决策后，也会将结果以 JSON 的形式返回。&lt;/p>
-&lt;h1 id="rego">Rego&lt;/h1>
+&lt;h2 id="rego">Rego&lt;/h2>
 &lt;p>OPA 中的策略是以 Rego 这种 DSL(Domain Specific Language) 来表示的。&lt;/p>
 &lt;p>Rego 受 Datalog（https://en.wikipedia.org/wiki/Datalog） 的启发，并且扩展了 Datalog 对于结构化文档模型的支持，方便以 JSON 的方式对数据进行处理。&lt;/p>
 &lt;p>Rego 允许策略制定者可以专注于返回内容的查询而不是如何执行查询。同时 OPA 中也内置了执行规则时的优化，用户可以默认使用。&lt;/p>
@@ -981,10 +1218,10 @@ LAST SEEN TYPE REASON OBJECT MESSAGE
 &lt;/ul>
 &lt;p>&lt;img src="https://s2.loli.net/2021/12/07/PJjwpmZtBNk4yHh.png" alt="img">&lt;/p>
 &lt;p>图 6 ，Rego 规则或的完全规则和部分规则示例图&lt;/p>
-&lt;h1 id="opa-的使用">OPA 的使用&lt;/h1>
+&lt;h2 id="opa-的使用">OPA 的使用&lt;/h2>
 &lt;p>OPA 的使用还是比较简单的，我们来看一下。&lt;/p>
-&lt;h2 id="安装-opa">安装 OPA&lt;/h2>
-&lt;h3 id="二进制方式">二进制方式&lt;/h3>
+&lt;h3 id="安装-opa">安装 OPA&lt;/h3>
+&lt;h4 id="二进制方式">二进制方式&lt;/h4>
 &lt;p>我们可以直接从 OPA 的 release 页面下载其二进制进行使用&lt;/p>
 &lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-plain" data-lang="plain">➜ ~ wget -q -O ~/bin/opa https://github.com/open-policy-agent/opa/releases/download/v0.35.0/opa_linux_amd64_static
 ➜ ~ chmod +x ~/bin/opa
@@ -995,7 +1232,7 @@ Build Timestamp: 2021-12-01T02:11:47Z
 Build Hostname: 9e4cf671a460
 Go Version: go1.17.3
 WebAssembly: unavailable
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="容器">容器&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="容器">容器&lt;/h4>
 &lt;p>我们可以使用其官方镜像&lt;/p>
 &lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-plain" data-lang="plain">➜ ~ docker run --rm openpolicyagent/opa:0.35.0 version
 Version: 0.35.0
@@ -1004,9 +1241,8 @@ Build Timestamp: 2021-12-01T02:10:31Z
 Build Hostname: 4ee9b086e5de
 Go Version: go1.17.3
 WebAssembly: available
-&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="heading">&lt;/h2>
-&lt;h2 id="opa-交互">OPA 交互&lt;/h2>
-&lt;h3 id="opa-eval">opa eval&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="opa-交互">OPA 交互&lt;/h3>
+&lt;h4 id="opa-eval">opa eval&lt;/h4>
 &lt;p>最简单的命令是 &lt;code>opa eval&lt;/code> ，当然我们除了能使用它进行策略的执行外，还可以用来做表达式计算。&lt;/p>
 &lt;p>&lt;img src="https://s2.loli.net/2021/12/07/Ql5Lhwt1Knr7O3D.png" alt="img">&lt;/p>
 &lt;p>图 7 ， opa eval 的使用帮助&lt;/p>
@@ -1027,8 +1263,7 @@ WebAssembly: available
 }
 ]
 }
-&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="heading-1">&lt;/h3>
-&lt;h3 id="opa-run">opa run&lt;/h3>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="opa-run">opa run&lt;/h4>
 &lt;p>&lt;code>opa run&lt;/code> 会启动一个交互式 shell （ REPL） 。我们可以使用 REPL 来试验策略并构建新的原型。&lt;/p>
 &lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ ~ opa run
 OPA 0.35.0 &lt;span class="o">(&lt;/span>commit a54537a, built at 2021-12-01T02:11:47Z&lt;span class="o">)&lt;/span>
@@ -1052,8 +1287,7 @@ pi :&lt;span class="o">=&lt;/span> 3.14
 {&amp;#34;addrs&amp;#34;:[&amp;#34;:8181&amp;#34;],&amp;#34;diagnostic-addrs&amp;#34;:[],&amp;#34;level&amp;#34;:&amp;#34;info&amp;#34;,&amp;#34;msg&amp;#34;:&amp;#34;Initializing server.&amp;#34;,&amp;#34;time&amp;#34;:&amp;#34;2021-12-07T01:12:47+08:00&amp;#34;}
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>打开浏览器也可以看到一个简单的查询窗口&lt;/p>
 &lt;p>&lt;img src="https://s2.loli.net/2021/12/07/nbe45kwZFJWgiKL.png" alt="img">&lt;/p>
-&lt;h4 id="heading-2">&lt;/h4>
-&lt;h3 id="opa-作为-go-的库使用">opa 作为 go 的库使用&lt;/h3>
+&lt;h4 id="opa-作为-go-的库使用">opa 作为 go 的库使用&lt;/h4>
 &lt;p>OPA 可以作为库嵌入到 Go 程序中。将 OPA 嵌入为库的最简单方法是导入 &lt;code>github.com/open-policy-agent/opa/rego&lt;/code> 包。通过 &lt;code>rego.New&lt;/code> 函数用来创建一个可以准备或评估的对象, &lt;code>PrepareForEval()&lt;/code> 以获取可执行查询。&lt;/p>
 &lt;p>以下是一个简单的示例：&lt;/p>
 &lt;ul>
@@ -1149,7 +1383,7 @@ pi :&lt;span class="o">=&lt;/span> 3.14
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>执行结果如下：&lt;/p>
 &lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ opa go run main.go k8s-label.rego &lt;span class="s2">&amp;#34;data&amp;#34;&lt;/span> &amp;lt; input.json
 &lt;span class="o">[{[&lt;/span>map&lt;span class="o">[&lt;/span>kubernetes:map&lt;span class="o">[&lt;/span>validating:map&lt;span class="o">[&lt;/span>existence:map&lt;span class="o">[&lt;/span>deny:&lt;span class="o">[&lt;/span>domain label must start with &lt;span class="sb">`&lt;/span>moelove-&lt;span class="sb">`&lt;/span>&lt;span class="p">;&lt;/span> found &lt;span class="sb">`&lt;/span>opa&lt;span class="sb">`&lt;/span>&lt;span class="o">]]]]]]&lt;/span> map&lt;span class="o">[]}]&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="总结">总结&lt;/h1>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="总结">总结&lt;/h2>
 &lt;p>以上便是对于 OPA 的一个大致介绍，OPA 的应用场景有很多，后续文章中将为大家分享 OPA 在 Kubernetes 中的应用，和将 OPA 应用与 CI/CD pipeline 的场景。敬请期待。&lt;/p>
 &lt;hr>
 &lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
