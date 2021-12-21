@@ -1,4 +1,695 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-12-19T16:48:55+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">GitOps 应用实践系列 - Flux CD 及其核心组件</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/18/GitOps-%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5%E7%B3%BB%E5%88%97-Flux-CD-%E5%8F%8A%E5%85%B6%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/"/><id>https://moelove.info/2021/12/18/GitOps-%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5%E7%B3%BB%E5%88%97-Flux-CD-%E5%8F%8A%E5%85%B6%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/</id><updated>2021-12-19T15:03:42+08:00</updated><published>2021-12-18T20:56:29+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 经过前面三篇文章，不仅为大家介绍了什么是 GitOps 也介绍了如何利用 Argo CD 来实施 GitOps。本篇我来为你介绍另一个可用……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-12-21T11:04:16+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">倍受关注的 Cilium Service Mesh 到底怎么玩？ - 上手实践</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/21/%E5%80%8D%E5%8F%97%E5%85%B3%E6%B3%A8%E7%9A%84-Cilium-Service-Mesh-%E5%88%B0%E5%BA%95%E6%80%8E%E4%B9%88%E7%8E%A9-%E4%B8%8A%E6%89%8B%E5%AE%9E%E8%B7%B5/"/><id>https://moelove.info/2021/12/21/%E5%80%8D%E5%8F%97%E5%85%B3%E6%B3%A8%E7%9A%84-Cilium-Service-Mesh-%E5%88%B0%E5%BA%95%E6%80%8E%E4%B9%88%E7%8E%A9-%E4%B8%8A%E6%89%8B%E5%AE%9E%E8%B7%B5/</id><updated>2021-12-21T10:36:50+08:00</updated><published>2021-12-21T02:30:17+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 Cilium 是一个基于 eBPF 技术，用于为容器工作负载间提供安全且具备可观测性的网络连接的开源软件。 如果你对 Cilium 还不太了解，可……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>Cilium 是一个基于 eBPF 技术，用于为容器工作负载间提供安全且具备可观测性的网络连接的开源软件。&lt;/p>
+&lt;p>如果你对 Cilium 还不太了解，可以参考我之前的两篇文章：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://zhuanlan.zhihu.com/p/195759300">K8S生态周报| Google 选择 Cilium 作为 GKE 下一代数据面&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://zhuanlan.zhihu.com/p/213745089">Cilium 上手实践&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>最近&lt;a href="https://github.com/cilium/cilium/releases/tag/v1.11.0"> Cilium v1.11.0 正式发布了&lt;/a>，增加 Open Telemetry 的支持以及其他一些增强特性。同时，也宣布了 Cilium Service Mesh 的计划。当前 Cilium Service Mesh 正处于测试阶段，预期在 2022 年会合并到 Cilium v1.12 版本中。&lt;/p>
+&lt;p>Cilium Service Mesh 也带来了一个全新的模式。&lt;/p>
+&lt;p>Cilium 直接通过 eBPF 技术实现的 Service Mesh 相比我们常规的 Istio/Linkerd 等方案，最显著的特点就是将 Sidecar proxy 模型替换成了 Kernel 模型， 如下图：&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/21/IkKCZvgOA5priP2.png" alt="img">&lt;/p>
+&lt;p>不再需要每个应用程序旁边都放置一个 Sidecar 了，直接在每台 Node 上提供支持。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/21/3gwSD2GXdcuBNKH.png" alt="img">&lt;/p>
+&lt;p>我在几个月前就已经知道了这个消息并且进行了一些讨论，最近随着 isovalent 的一篇文章 &lt;a href="https://isovalent.com/blog/post/2021-12-08-ebpf-servicemesh">How eBPF will solve Service Mesh - Goodbye Sidecars&lt;/a> ，Cilium Service Mesh 也成为了大家关注的焦点。&lt;/p>
+&lt;p>本篇我带你实际体验下 Cilium Service Mesh。&lt;/p>
+&lt;h2 id="安装部署">安装部署&lt;/h2>
+&lt;p>这里我使用 KIND 作为测试环境，我的内核版本是 5.15.8 。&lt;/p>
+&lt;h3 id="准备-kind-集群">准备 KIND 集群&lt;/h3>
+&lt;p>关于 KIND 命令行工具的安装这里就不再赘述了，感兴趣的小伙伴可以参考我之前的文章 《使用KIND搭建自己的本地 Kubernetes 测试环境》。&lt;/p>
+&lt;p>以下是我创建集群使用的配置文件：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">kind.x-k8s.io/v1alpha4&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Cluster&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">nodes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>- &lt;span class="nt">role&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">control-plane&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>- &lt;span class="nt">role&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">worker&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>- &lt;span class="nt">role&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">worker&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>- &lt;span class="nt">role&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">worker&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">networking&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">disableDefaultCNI&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>创建集群：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ cilium-mesh kind create cluster --config kind-config.yaml
+Creating cluster &lt;span class="s2">&amp;#34;kind&amp;#34;&lt;/span> ...
+✓ Ensuring node image &lt;span class="o">(&lt;/span>kindest/node:v1.22.4&lt;span class="o">)&lt;/span> 🖼
+✓ Preparing nodes 📦 📦 📦 📦
+✓ Writing configuration 📜
+✓ Starting control-plane 🕹️
+✓ Installing StorageClass 💾
+✓ Joining worker nodes 🚜
+Set kubectl context to &lt;span class="s2">&amp;#34;kind-kind&amp;#34;&lt;/span>
+You can now use your cluster with:
+kubectl cluster-info --context kind-kind
+Not sure what to &lt;span class="k">do&lt;/span> next? 😅 Check out https://kind.sigs.k8s.io/docs/user/quick-start/
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="安装-cilium-cli">安装 Cilium CLI&lt;/h3>
+&lt;p>这里我们使用 Cilium CLI 工具进行 Cilium 的部署。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ cilium-mesh curl -L --remote-name-all https://github.com/cilium/cilium-cli/releases/latest/download/cilium-linux-amd64.tar.gz&lt;span class="se">\{&lt;/span>,.sha256sum&lt;span class="se">\}&lt;/span>
+&lt;span class="o">[&lt;/span>1/2&lt;span class="o">]&lt;/span>: https://github.com/cilium/cilium-cli/releases/latest/download/cilium-linux-amd64.tar.gz --&amp;gt; cilium-linux-amd64.tar.gz
+--_curl_--https://github.com/cilium/cilium-cli/releases/latest/download/cilium-linux-amd64.tar.gz
+% Total % Received % Xferd Average Speed Time Time Time Current
+Dload Upload Total Spent Left Speed
+&lt;span class="m">100&lt;/span> &lt;span class="m">154&lt;/span> &lt;span class="m">100&lt;/span> &lt;span class="m">154&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="m">243&lt;/span> &lt;span class="m">0&lt;/span> --:--:-- --:--:-- --:--:-- &lt;span class="m">242&lt;/span>
+&lt;span class="m">100&lt;/span> &lt;span class="m">664&lt;/span> &lt;span class="m">100&lt;/span> &lt;span class="m">664&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="m">579&lt;/span> &lt;span class="m">0&lt;/span> 0:00:01 0:00:01 --:--:-- &lt;span class="m">579&lt;/span>
+&lt;span class="m">100&lt;/span> 14.6M &lt;span class="m">100&lt;/span> 14.6M &lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span> 2928k &lt;span class="m">0&lt;/span> 0:00:05 0:00:05 --:--:-- 3910k
+&lt;span class="o">[&lt;/span>2/2&lt;span class="o">]&lt;/span>: https://github.com/cilium/cilium-cli/releases/latest/download/cilium-linux-amd64.tar.gz.sha256sum --&amp;gt; cilium-linux-amd64.tar.gz.sha256sum
+--_curl_--https://github.com/cilium/cilium-cli/releases/latest/download/cilium-linux-amd64.tar.gz.sha256sum
+% Total % Received % Xferd Average Speed Time Time Time Current
+Dload Upload Total Spent Left Speed
+&lt;span class="m">100&lt;/span> &lt;span class="m">164&lt;/span> &lt;span class="m">100&lt;/span> &lt;span class="m">164&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="m">419&lt;/span> &lt;span class="m">0&lt;/span> --:--:-- --:--:-- --:--:-- &lt;span class="m">418&lt;/span>
+&lt;span class="m">100&lt;/span> &lt;span class="m">674&lt;/span> &lt;span class="m">100&lt;/span> &lt;span class="m">674&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="m">861&lt;/span> &lt;span class="m">0&lt;/span> --:--:-- --:--:-- --:--:-- &lt;span class="m">861&lt;/span>
+&lt;span class="m">100&lt;/span> &lt;span class="m">92&lt;/span> &lt;span class="m">100&lt;/span> &lt;span class="m">92&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="m">67&lt;/span> &lt;span class="m">0&lt;/span> 0:00:01 0:00:01 --:--:-- &lt;span class="m">0&lt;/span>
+➜ cilium-mesh ls
+cilium-linux-amd64.tar.gz cilium-linux-amd64.tar.gz.sha256sum kind-config.yaml
+➜ cilium-mesh tar -zxvf cilium-linux-amd64.tar.gz
+cilium
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="加载镜像">加载镜像&lt;/h3>
+&lt;p>在部署 Cilium 的过程中需要一些镜像，我们可以提前下载后加载到 KIND 的 Node 节点中。如果你的网络比较顺畅， 那这一步可以跳过。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ cilium-mesh &lt;span class="nv">ciliumMeshImage&lt;/span>&lt;span class="o">=(&lt;/span>&lt;span class="s2">&amp;#34;quay.io/cilium/cilium-service-mesh:v1.11.0-beta.1&amp;#34;&lt;/span> &lt;span class="s2">&amp;#34;quay.io/cilium/operator-generic-service-mesh:v1.11.0-beta.1&amp;#34;&lt;/span> &lt;span class="s2">&amp;#34;quay.io/cilium/hubble-relay-service-mesh:v1.11.0-beta.1&amp;#34;&lt;/span>&lt;span class="o">)&lt;/span>
+➜ cilium-mesh &lt;span class="k">for&lt;/span> i in &lt;span class="si">${&lt;/span>&lt;span class="nv">ciliumMeshImage&lt;/span>&lt;span class="p">[@]&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;span class="k">do&lt;/span>
+docker pull &lt;span class="nv">$i&lt;/span>
+kind load docker-image &lt;span class="nv">$i&lt;/span>
+&lt;span class="k">done&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="部署-cilium">部署 cilium&lt;/h3>
+&lt;p>接下来我们直接使用 Cilium CLI 完成部署。注意这里的参数。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ cilium-mesh cilium install --version -service-mesh:v1.11.0-beta.1 --config enable-envoy-config&lt;span class="o">=&lt;/span>&lt;span class="nb">true&lt;/span> --kube-proxy-replacement&lt;span class="o">=&lt;/span>probe --agent-image&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;quay.io/cilium/cilium-service-mesh:v1.11.0-beta.1&amp;#39;&lt;/span> --operator-image&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;quay.io/cilium/operator-generic-service-mesh:v1.11.0-beta.1&amp;#39;&lt;/span> --datapath-mode&lt;span class="o">=&lt;/span>vxlan
+🔮 Auto-detected Kubernetes kind: kind
+✨ Running &lt;span class="s2">&amp;#34;kind&amp;#34;&lt;/span> validation checks
+✅ Detected kind version &lt;span class="s2">&amp;#34;0.12.0&amp;#34;&lt;/span>
+ℹ️ using Cilium version &lt;span class="s2">&amp;#34;-service-mesh:v1.11.0-beta.1&amp;#34;&lt;/span>
+🔮 Auto-detected cluster name: kind-kind
+🔮 Auto-detected IPAM mode: kubernetes
+🔮 Custom datapath mode: vxlan
+🔑 Found CA in secret cilium-ca
+🔑 Generating certificates &lt;span class="k">for&lt;/span> Hubble...
+🚀 Creating Service accounts...
+🚀 Creating Cluster roles...
+🚀 Creating ConfigMap &lt;span class="k">for&lt;/span> Cilium version 1.11.0...
+ℹ️ Manual overwrite in ConfigMap: enable-envoy-config&lt;span class="o">=&lt;/span>&lt;span class="nb">true&lt;/span>
+🚀 Creating Agent DaemonSet...
+🚀 Creating Operator Deployment...
+⌛ Waiting &lt;span class="k">for&lt;/span> Cilium to be installed and ready...
+✅ Cilium was successfully installed! Run &lt;span class="s1">&amp;#39;cilium status&amp;#39;&lt;/span> to view installation health
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="查看状态">查看状态&lt;/h3>
+&lt;p>在安装成功后， 可以通过 &lt;code>cilium status&lt;/code>命令来查看当前 Cilium 的部署情况。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ cilium-mesh cilium status
+/¯¯&lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> /¯¯&lt;span class="se">\_&lt;/span>_/¯¯&lt;span class="se">\ &lt;/span> Cilium: OK
+&lt;span class="se">\_&lt;/span>_/¯¯&lt;span class="se">\_&lt;/span>_/ Operator: OK
+/¯¯&lt;span class="se">\_&lt;/span>_/¯¯&lt;span class="se">\ &lt;/span> Hubble: disabled
+&lt;span class="se">\_&lt;/span>_/¯¯&lt;span class="se">\_&lt;/span>_/ ClusterMesh: disabled
+&lt;span class="se">\_&lt;/span>_/
+Deployment cilium-operator Desired: 1, Ready: 1/1, Available: 1/1
+DaemonSet cilium Desired: 4, Ready: 4/4, Available: 4/4
+Containers: cilium Running: &lt;span class="m">4&lt;/span>
+cilium-operator Running: &lt;span class="m">1&lt;/span>
+Cluster Pods: 3/3 managed by Cilium
+Image versions cilium quay.io/cilium/cilium-service-mesh:v1.11.0-beta.1: &lt;span class="m">4&lt;/span>
+cilium-operator quay.io/cilium/operator-generic-service-mesh:v1.11.0-beta.1: &lt;span class="m">1&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>​&lt;/p>
+&lt;h3 id="启用-hubble">启用 Hubble&lt;/h3>
+&lt;p>Hubble 主要是用来提供可观测能力的。在启用它之前，需要先加载一个镜像，如果网络畅通可以跳过。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">docker.io/envoyproxy/envoy:v1.18.2@sha256:e8b37c1d75787dd1e712ff389b0d37337dc8a174a63bed9c34ba73359dc67da7
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后使用 Cilium CLI 开启 Hubble ：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ cilium-mesh cilium hubble &lt;span class="nb">enable&lt;/span> --relay-image&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;quay.io/cilium/hubble-relay-service-mesh:v1.11.0-beta.1&amp;#39;&lt;/span> --ui
+🔑 Found CA in secret cilium-ca
+✨ Patching ConfigMap cilium-config to &lt;span class="nb">enable&lt;/span> Hubble...
+♻️ Restarted Cilium pods
+⌛ Waiting &lt;span class="k">for&lt;/span> Cilium to become ready before deploying other Hubble component&lt;span class="o">(&lt;/span>s&lt;span class="o">)&lt;/span>...
+🔑 Generating certificates &lt;span class="k">for&lt;/span> Relay...
+✨ Deploying Relay from quay.io/cilium/hubble-relay-service-mesh:v1.11.0-beta.1...
+✨ Deploying Hubble UI from quay.io/cilium/hubble-ui:v0.8.3 and Hubble UI Backend from quay.io/cilium/hubble-ui-backend:v0.8.3...
+⌛ Waiting &lt;span class="k">for&lt;/span> Hubble to be installed...
+/¯¯&lt;span class="se">\ &lt;/span>
+/¯¯&lt;span class="se">\_&lt;/span>_/¯¯&lt;span class="se">\ &lt;/span> Cilium: OK
+&lt;span class="se">\_&lt;/span>_/¯¯&lt;span class="se">\_&lt;/span>_/ Operator: OK
+/¯¯&lt;span class="se">\_&lt;/span>_/¯¯&lt;span class="se">\ &lt;/span> Hubble: OK
+&lt;span class="se">\_&lt;/span>_/¯¯&lt;span class="se">\_&lt;/span>_/ ClusterMesh: disabled
+&lt;span class="se">\_&lt;/span>_/
+DaemonSet cilium Desired: 4, Ready: 4/4, Available: 4/4
+Deployment cilium-operator Desired: 1, Ready: 1/1, Available: 1/1
+Deployment hubble-relay Desired: 1, Ready: 1/1, Available: 1/1
+Deployment hubble-ui Desired: 1, Unavailable: 1/1
+Containers: cilium Running: &lt;span class="m">4&lt;/span>
+cilium-operator Running: &lt;span class="m">1&lt;/span>
+hubble-relay Running: &lt;span class="m">1&lt;/span>
+hubble-ui Running: &lt;span class="m">1&lt;/span>
+Cluster Pods: 5/5 managed by Cilium
+Image versions cilium quay.io/cilium/cilium-service-mesh:v1.11.0-beta.1: &lt;span class="m">4&lt;/span>
+cilium-operator quay.io/cilium/operator-generic-service-mesh:v1.11.0-beta.1: &lt;span class="m">1&lt;/span>
+hubble-relay quay.io/cilium/hubble-relay-service-mesh:v1.11.0-beta.1: &lt;span class="m">1&lt;/span>
+hubble-ui quay.io/cilium/hubble-ui:v0.8.3: &lt;span class="m">1&lt;/span>
+hubble-ui quay.io/cilium/hubble-ui-backend:v0.8.3: &lt;span class="m">1&lt;/span>
+hubble-ui docker.io/envoyproxy/envoy:v1.18.2@sha256:e8b37c1d75787dd1e712ff389b0d37337dc8a174a63bed9c34ba73359dc67da7: &lt;span class="m">1&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="测试-7-层-ingress-流量管理">测试 7 层 Ingress 流量管理&lt;/h2>
+&lt;h3 id="安装lb">安装LB&lt;/h3>
+&lt;p>这里我们可以给 KIND 集群中安装 MetaLB ，以便于我们可以使用 LoadBalancer 类型的 svc 资源（Cilium 会默认创建一个 LoadBalancer 类型的 svc）。如果不安装 MetaLB ，那也可以使用 NodePort 的方式来进行替代。&lt;/p>
+&lt;p>具体过程就不一一介绍了，直接按下述操作步骤执行即可。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ cilium-mesh kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/master/manifests/namespace.yaml
+namespace/metallb-system created
+➜ cilium-mesh kubectl create secret generic -n metallb-system memberlist --from-literal&lt;span class="o">=&lt;/span>&lt;span class="nv">secretkey&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="k">$(&lt;/span>openssl rand -base64 128&lt;span class="k">)&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+secret/memberlist created
+➜ cilium-mesh kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/master/manifests/metallb.yaml
+Warning: policy/v1beta1 PodSecurityPolicy is deprecated in v1.21+, unavailable in v1.25+
+podsecuritypolicy.policy/controller created
+podsecuritypolicy.policy/speaker created
+serviceaccount/controller created
+serviceaccount/speaker created
+clusterrole.rbac.authorization.k8s.io/metallb-system:controller created
+clusterrole.rbac.authorization.k8s.io/metallb-system:speaker created
+role.rbac.authorization.k8s.io/config-watcher created
+role.rbac.authorization.k8s.io/pod-lister created
+role.rbac.authorization.k8s.io/controller created
+clusterrolebinding.rbac.authorization.k8s.io/metallb-system:controller created
+clusterrolebinding.rbac.authorization.k8s.io/metallb-system:speaker created
+rolebinding.rbac.authorization.k8s.io/config-watcher created
+rolebinding.rbac.authorization.k8s.io/pod-lister created
+rolebinding.rbac.authorization.k8s.io/controller created
+daemonset.apps/speaker created
+deployment.apps/controller created
+➜ cilium-mesh docker network inspect -f &lt;span class="s1">&amp;#39;{{.IPAM.Config}}&amp;#39;&lt;/span> kind
+&lt;span class="o">[{&lt;/span>172.18.0.0/16 172.18.0.1 map&lt;span class="o">[]}&lt;/span> &lt;span class="o">{&lt;/span>fc00:f853:ccd:e793::/64 fc00:f853:ccd:e793::1 map&lt;span class="o">[]}]&lt;/span>
+➜ cilium-mesh vim kind-lb-cm.yaml
+➜ cilium-mesh cat kind-lb-cm.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+namespace: metallb-system
+name: config
+data:
+config: &lt;span class="p">|&lt;/span>
+address-pools:
+- name: default
+protocol: layer2
+addresses:
+- 172.18.255.200-172.18.255.250
+➜ cilium-mesh kubectl apply -f kind-lb-cm.yaml
+configmap/config created
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="加载镜像-1">加载镜像&lt;/h3>
+&lt;p>这里我们使用 &lt;code>hashicorp/http-echo:0.2.3&lt;/code>作为示例程序，它们可以按照启动参数的不同响应不同的内容。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ cilium-mesh docker pull hashicorp/http-echo:0.2.3
+0.2.3: Pulling from hashicorp/http-echo
+86399148984b: Pull &lt;span class="nb">complete&lt;/span>
+Digest: sha256:ba27d460cd1f22a1a4331bdf74f4fccbc025552357e8a3249c40ae216275de96
+Status: Downloaded newer image &lt;span class="k">for&lt;/span> hashicorp/http-echo:0.2.3
+docker.io/hashicorp/http-echo:0.2.3
+➜ cilium-mesh kind load docker-image hashicorp/http-echo:0.2.3
+Image: &lt;span class="s2">&amp;#34;hashicorp/http-echo:0.2.3&amp;#34;&lt;/span> with ID &lt;span class="s2">&amp;#34;sha256:a6838e9a6ff6ab3624720a7bd36152dda540ce3987714398003e14780e61478a&amp;#34;&lt;/span> not yet present on node &lt;span class="s2">&amp;#34;kind-worker&amp;#34;&lt;/span>, loading...
+Image: &lt;span class="s2">&amp;#34;hashicorp/http-echo:0.2.3&amp;#34;&lt;/span> with ID &lt;span class="s2">&amp;#34;sha256:a6838e9a6ff6ab3624720a7bd36152dda540ce3987714398003e14780e61478a&amp;#34;&lt;/span> not yet present on node &lt;span class="s2">&amp;#34;kind-worker2&amp;#34;&lt;/span>, loading...
+Image: &lt;span class="s2">&amp;#34;hashicorp/http-echo:0.2.3&amp;#34;&lt;/span> with ID &lt;span class="s2">&amp;#34;sha256:a6838e9a6ff6ab3624720a7bd36152dda540ce3987714398003e14780e61478a&amp;#34;&lt;/span> not yet present on node &lt;span class="s2">&amp;#34;kind-control-plane&amp;#34;&lt;/span>, loading...
+Image: &lt;span class="s2">&amp;#34;hashicorp/http-echo:0.2.3&amp;#34;&lt;/span> with ID &lt;span class="s2">&amp;#34;sha256:a6838e9a6ff6ab3624720a7bd36152dda540ce3987714398003e14780e61478a&amp;#34;&lt;/span> not yet present on node &lt;span class="s2">&amp;#34;kind-worker3&amp;#34;&lt;/span>, loading...
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="部署测试服务">部署测试服务&lt;/h3>
+&lt;p>&lt;strong>本文中的所有配置文件均可在 &lt;a href="https://github.com/tao12345666333/practical-kubernetes/tree/main/cilium-mesh">https://github.com/tao12345666333/practical-kubernetes/tree/main/cilium-mesh&lt;/a> 代码仓库中获取。&lt;/strong>&lt;/p>
+&lt;p>我们使用如下配置进行测试服务的部署：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Pod&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">foo-app&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">foo-app&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">containers&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">hashicorp/http-echo:0.2.3&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">args&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="s2">&amp;#34;-text=foo&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">foo-app&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">ports&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">containerPort&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">5678&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">resources&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{}&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">dnsPolicy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ClusterFirst&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">restartPolicy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Always&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">status&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{}&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Service&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">foo-app&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">foo-app&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">ports&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">port&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">5678&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">protocol&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">TCP&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">targetPort&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">5678&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">selector&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">foo-app&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Pod&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">bar-app&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">bar-app&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">containers&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">hashicorp/http-echo:0.2.3&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">args&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="s2">&amp;#34;-text=bar&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">bar-app&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">ports&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">containerPort&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">5678&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">resources&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{}&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">dnsPolicy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ClusterFirst&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">restartPolicy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Always&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Service&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">bar-app&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">bar-app&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">ports&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">port&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">5678&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">protocol&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">TCP&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">targetPort&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">5678&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">selector&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">bar-app&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>新建如下的 Ingress 资源文件：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">networking.k8s.io/v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Ingress&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">cilium-ingress&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">namespace&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">default&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">ingressClassName&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">cilium&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">http&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">paths&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">backend&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">service&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">foo-app&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">port&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">number&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">5678&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/foo&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">pathType&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Prefix&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">backend&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">service&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">bar-app&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">port&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">number&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">5678&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/bar&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">pathType&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Prefix&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>创建 Ingress 资源，然后可以看到产生了一个新的 LoadBalancer 类型的 svc 。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ cilium-mesh kubectl apply -f cilium-ingress.yaml
+ingress.networking.k8s.io/cilium-ingress created
+➜ cilium-mesh kubectl get svc
+NAME TYPE CLUSTER-IP EXTERNAL-IP PORT&lt;span class="o">(&lt;/span>S&lt;span class="o">)&lt;/span> AGE
+bar-app ClusterIP 10.96.229.141 &amp;lt;none&amp;gt; 5678/TCP 106s
+cilium-ingress-cilium-ingress LoadBalancer 10.96.161.128 172.18.255.200 80:31643/TCP 4s
+foo-app ClusterIP 10.96.166.212 &amp;lt;none&amp;gt; 5678/TCP 106s
+kubernetes ClusterIP 10.96.0.1 &amp;lt;none&amp;gt; 443/TCP 81m
+➜ cilium-mesh kubectl get ing
+NAME CLASS HOSTS ADDRESS PORTS AGE
+cilium-ingress cilium * 172.18.255.200 &lt;span class="m">80&lt;/span> 1m
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="测试">测试&lt;/h3>
+&lt;p>使用 curl 命令进行测试访问，发现可以按照 Ingress 资源中的配置得到正确的响应。查看响应头，我们会发现这里的代理实际上还是使用的 Envoy 来完成的。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ cilium-mesh curl 172.18.255.200
+➜ cilium-mesh curl 172.18.255.200/foo
+foo
+➜ cilium-mesh curl 172.18.255.200/bar
+bar
+➜ cilium-mesh curl -I 172.18.255.200/bar
+HTTP/1.1 &lt;span class="m">200&lt;/span> OK
+Content-Length: &lt;span class="m">4&lt;/span>
+Connection: keep-alive
+Content-Type: text/plain&lt;span class="p">;&lt;/span> &lt;span class="nv">charset&lt;/span>&lt;span class="o">=&lt;/span>utf-8
+Date: Sat, &lt;span class="m">18&lt;/span> Dec &lt;span class="m">2021&lt;/span> 06:02:56 GMT
+Keep-Alive: &lt;span class="nv">timeout&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">4&lt;/span>
+Proxy-Connection: keep-alive
+Server: envoy
+X-App-Name: http-echo
+X-App-Version: 0.2.3
+X-Envoy-Upstream-Service-Time: &lt;span class="m">0&lt;/span>
+➜ cilium-mesh curl -I 172.18.255.200/foo
+HTTP/1.1 &lt;span class="m">200&lt;/span> OK
+Content-Length: &lt;span class="m">4&lt;/span>
+Connection: keep-alive
+Content-Type: text/plain&lt;span class="p">;&lt;/span> &lt;span class="nv">charset&lt;/span>&lt;span class="o">=&lt;/span>utf-8
+Date: Sat, &lt;span class="m">18&lt;/span> Dec &lt;span class="m">2021&lt;/span> 06:03:01 GMT
+Keep-Alive: &lt;span class="nv">timeout&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">4&lt;/span>
+Proxy-Connection: keep-alive
+Server: envoy
+X-App-Name: http-echo
+X-App-Version: 0.2.3
+X-Envoy-Upstream-Service-Time: &lt;span class="m">0&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="测试-ciliumenvoyconfig">测试 CiliumEnvoyConfig&lt;/h2>
+&lt;p>在使用上述方式部署 CIlium 后， 它其实还安装了一些 CRD 资源。其中有一个是 &lt;code>CiliumEnvoyConfig&lt;/code>用于配置服务之间代理的。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ cilium-mesh kubectl api-resources &lt;span class="p">|&lt;/span>grep cilium.io
+ciliumclusterwidenetworkpolicies ccnp cilium.io/v2 &lt;span class="nb">false&lt;/span> CiliumClusterwideNetworkPolicy
+ciliumendpoints cep,ciliumep cilium.io/v2 &lt;span class="nb">true&lt;/span> CiliumEndpoint
+ciliumenvoyconfigs cec cilium.io/v2alpha1 &lt;span class="nb">false&lt;/span> CiliumEnvoyConfig
+ciliumexternalworkloads cew cilium.io/v2 &lt;span class="nb">false&lt;/span> CiliumExternalWorkload
+ciliumidentities ciliumid cilium.io/v2 &lt;span class="nb">false&lt;/span> CiliumIdentity
+ciliumnetworkpolicies cnp,ciliumnp cilium.io/v2 &lt;span class="nb">true&lt;/span> CiliumNetworkPolicy
+ciliumnodes cn,ciliumn cilium.io/v2 &lt;span class="nb">false&lt;/span> CiliumNode
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="部署测试服务-1">部署测试服务&lt;/h3>
+&lt;p>可以先进行 Hubble 的 port-forward&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ cilium-mesh cilium hubble port-forward
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>默认会监听到 4245 端口上，如果不提前执行此操作就会出现下述内容&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">🔭 Enabling Hubble telescope...
+⚠️ Unable to contact Hubble Relay, disabling Hubble telescope and flow validation: rpc error: &lt;span class="nv">code&lt;/span> &lt;span class="o">=&lt;/span> Unavailable &lt;span class="nv">desc&lt;/span> &lt;span class="o">=&lt;/span> connection error: &lt;span class="nv">desc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;transport: Error while dialing dial tcp [::1]:4245: connect: connection refused&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果已经开启 Hubble 的 port-forward ，正常情况下会得到如下输出：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ cilium-mesh cilium connectivity &lt;span class="nb">test&lt;/span> --test egress-l7
+ℹ️ Monitor aggregation detected, will skip some flow validation steps
+⌛ &lt;span class="o">[&lt;/span>kind-kind&lt;span class="o">]&lt;/span> Waiting &lt;span class="k">for&lt;/span> deployments &lt;span class="o">[&lt;/span>client client2 echo-same-node&lt;span class="o">]&lt;/span> to become ready...
+⌛ &lt;span class="o">[&lt;/span>kind-kind&lt;span class="o">]&lt;/span> Waiting &lt;span class="k">for&lt;/span> deployments &lt;span class="o">[&lt;/span>echo-other-node&lt;span class="o">]&lt;/span> to become ready...
+⌛ &lt;span class="o">[&lt;/span>kind-kind&lt;span class="o">]&lt;/span> Waiting &lt;span class="k">for&lt;/span> CiliumEndpoint &lt;span class="k">for&lt;/span> pod cilium-test/client-6488dcf5d4-pk6w9 to appear...
+⌛ &lt;span class="o">[&lt;/span>kind-kind&lt;span class="o">]&lt;/span> Waiting &lt;span class="k">for&lt;/span> CiliumEndpoint &lt;span class="k">for&lt;/span> pod cilium-test/client2-5998d566b4-hrhrb to appear...
+⌛ &lt;span class="o">[&lt;/span>kind-kind&lt;span class="o">]&lt;/span> Waiting &lt;span class="k">for&lt;/span> CiliumEndpoint &lt;span class="k">for&lt;/span> pod cilium-test/echo-other-node-f4d46f75b-bqpcb to appear...
+⌛ &lt;span class="o">[&lt;/span>kind-kind&lt;span class="o">]&lt;/span> Waiting &lt;span class="k">for&lt;/span> CiliumEndpoint &lt;span class="k">for&lt;/span> pod cilium-test/echo-same-node-745bd5c77-zpzdn to appear...
+⌛ &lt;span class="o">[&lt;/span>kind-kind&lt;span class="o">]&lt;/span> Waiting &lt;span class="k">for&lt;/span> Service cilium-test/echo-other-node to become ready...
+⌛ &lt;span class="o">[&lt;/span>kind-kind&lt;span class="o">]&lt;/span> Waiting &lt;span class="k">for&lt;/span> Service cilium-test/echo-same-node to become ready...
+⌛ &lt;span class="o">[&lt;/span>kind-kind&lt;span class="o">]&lt;/span> Waiting &lt;span class="k">for&lt;/span> NodePort 172.18.0.5:32751 &lt;span class="o">(&lt;/span>cilium-test/echo-other-node&lt;span class="o">)&lt;/span> to become ready...
+⌛ &lt;span class="o">[&lt;/span>kind-kind&lt;span class="o">]&lt;/span> Waiting &lt;span class="k">for&lt;/span> NodePort 172.18.0.5:32133 &lt;span class="o">(&lt;/span>cilium-test/echo-same-node&lt;span class="o">)&lt;/span> to become ready...
+⌛ &lt;span class="o">[&lt;/span>kind-kind&lt;span class="o">]&lt;/span> Waiting &lt;span class="k">for&lt;/span> NodePort 172.18.0.3:32133 &lt;span class="o">(&lt;/span>cilium-test/echo-same-node&lt;span class="o">)&lt;/span> to become ready...
+⌛ &lt;span class="o">[&lt;/span>kind-kind&lt;span class="o">]&lt;/span> Waiting &lt;span class="k">for&lt;/span> NodePort 172.18.0.3:32751 &lt;span class="o">(&lt;/span>cilium-test/echo-other-node&lt;span class="o">)&lt;/span> to become ready...
+⌛ &lt;span class="o">[&lt;/span>kind-kind&lt;span class="o">]&lt;/span> Waiting &lt;span class="k">for&lt;/span> NodePort 172.18.0.2:32751 &lt;span class="o">(&lt;/span>cilium-test/echo-other-node&lt;span class="o">)&lt;/span> to become ready...
+⌛ &lt;span class="o">[&lt;/span>kind-kind&lt;span class="o">]&lt;/span> Waiting &lt;span class="k">for&lt;/span> NodePort 172.18.0.2:32133 &lt;span class="o">(&lt;/span>cilium-test/echo-same-node&lt;span class="o">)&lt;/span> to become ready...
+⌛ &lt;span class="o">[&lt;/span>kind-kind&lt;span class="o">]&lt;/span> Waiting &lt;span class="k">for&lt;/span> NodePort 172.18.0.4:32751 &lt;span class="o">(&lt;/span>cilium-test/echo-other-node&lt;span class="o">)&lt;/span> to become ready...
+⌛ &lt;span class="o">[&lt;/span>kind-kind&lt;span class="o">]&lt;/span> Waiting &lt;span class="k">for&lt;/span> NodePort 172.18.0.4:32133 &lt;span class="o">(&lt;/span>cilium-test/echo-same-node&lt;span class="o">)&lt;/span> to become ready...
+ℹ️ Skipping IPCache check
+⌛ &lt;span class="o">[&lt;/span>kind-kind&lt;span class="o">]&lt;/span> Waiting &lt;span class="k">for&lt;/span> pod cilium-test/client-6488dcf5d4-pk6w9 to reach default/kubernetes service...
+⌛ &lt;span class="o">[&lt;/span>kind-kind&lt;span class="o">]&lt;/span> Waiting &lt;span class="k">for&lt;/span> pod cilium-test/client2-5998d566b4-hrhrb to reach default/kubernetes service...
+🔭 Enabling Hubble telescope...
+ℹ️ Hubble is OK, flows: 16380/16380
+🏃 Running tests...
+&lt;span class="o">[=]&lt;/span> Skipping Test &lt;span class="o">[&lt;/span>no-policies&lt;span class="o">]&lt;/span>
+&lt;span class="o">[=]&lt;/span> Skipping Test &lt;span class="o">[&lt;/span>allow-all&lt;span class="o">]&lt;/span>
+&lt;span class="o">[=]&lt;/span> Skipping Test &lt;span class="o">[&lt;/span>client-ingress&lt;span class="o">]&lt;/span>
+&lt;span class="o">[=]&lt;/span> Skipping Test &lt;span class="o">[&lt;/span>echo-ingress&lt;span class="o">]&lt;/span>
+&lt;span class="o">[=]&lt;/span> Skipping Test &lt;span class="o">[&lt;/span>client-egress&lt;span class="o">]&lt;/span>
+&lt;span class="o">[=]&lt;/span> Skipping Test &lt;span class="o">[&lt;/span>to-entities-world&lt;span class="o">]&lt;/span>
+&lt;span class="o">[=]&lt;/span> Skipping Test &lt;span class="o">[&lt;/span>to-cidr-1111&lt;span class="o">]&lt;/span>
+&lt;span class="o">[=]&lt;/span> Skipping Test &lt;span class="o">[&lt;/span>echo-ingress-l7&lt;span class="o">]&lt;/span>
+&lt;span class="o">[=]&lt;/span> Test &lt;span class="o">[&lt;/span>client-egress-l7&lt;span class="o">]&lt;/span>
+..........
+&lt;span class="o">[=]&lt;/span> Skipping Test &lt;span class="o">[&lt;/span>dns-only&lt;span class="o">]&lt;/span>
+&lt;span class="o">[=]&lt;/span> Skipping Test &lt;span class="o">[&lt;/span>to-fqdns&lt;span class="o">]&lt;/span>
+✅ All &lt;span class="m">1&lt;/span> tests &lt;span class="o">(&lt;/span>&lt;span class="m">10&lt;/span> actions&lt;span class="o">)&lt;/span> successful, &lt;span class="m">10&lt;/span> tests skipped, &lt;span class="m">0&lt;/span> scenarios skipped.
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>我们也可以同时打开UI看看：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ cilium-mesh cilium hubble ui
+ℹ️ Opening &lt;span class="s2">&amp;#34;http://localhost:12000&amp;#34;&lt;/span> in your browser...
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>效果图如下：&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/21/OcJRdFrhsWVG76w.png" alt="img">&lt;/p>
+&lt;p>这个操作实际上会进行如下部署：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ cilium-mesh kubectl -n cilium-test get all
+NAME READY STATUS RESTARTS AGE
+pod/client-6488dcf5d4-pk6w9 1/1 Running &lt;span class="m">0&lt;/span> 66m
+pod/client2-5998d566b4-hrhrb 1/1 Running &lt;span class="m">0&lt;/span> 66m
+pod/echo-other-node-f4d46f75b-bqpcb 1/1 Running &lt;span class="m">0&lt;/span> 66m
+pod/echo-same-node-745bd5c77-zpzdn 1/1 Running &lt;span class="m">0&lt;/span> 66m
+NAME TYPE CLUSTER-IP EXTERNAL-IP PORT&lt;span class="o">(&lt;/span>S&lt;span class="o">)&lt;/span> AGE
+service/echo-other-node NodePort 10.96.124.211 &amp;lt;none&amp;gt; 8080:32751/TCP 66m
+service/echo-same-node NodePort 10.96.136.252 &amp;lt;none&amp;gt; 8080:32133/TCP 66m
+NAME READY UP-TO-DATE AVAILABLE AGE
+deployment.apps/client 1/1 &lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span> 66m
+deployment.apps/client2 1/1 &lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span> 66m
+deployment.apps/echo-other-node 1/1 &lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span> 66m
+deployment.apps/echo-same-node 1/1 &lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span> 66m
+NAME DESIRED CURRENT READY AGE
+replicaset.apps/client-6488dcf5d4 &lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span> 66m
+replicaset.apps/client2-5998d566b4 &lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span> 66m
+replicaset.apps/echo-other-node-f4d46f75b &lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span> 66m
+replicaset.apps/echo-same-node-745bd5c77 &lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span> 66m
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>我们也可以看看它的 label：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ cilium-mesh kubectl get pods -n cilium-test --show-labels -o wide
+NAME READY STATUS RESTARTS AGE IP NODE NOMINATED NODE READINESS GATES LABELS
+client-6488dcf5d4-pk6w9 1/1 Running &lt;span class="m">0&lt;/span> 67m 10.244.3.7 kind-worker3 &amp;lt;none&amp;gt; &amp;lt;none&amp;gt; &lt;span class="nv">kind&lt;/span>&lt;span class="o">=&lt;/span>client,name&lt;span class="o">=&lt;/span>client,pod-template-hash&lt;span class="o">=&lt;/span>6488dcf5d4
+client2-5998d566b4-hrhrb 1/1 Running &lt;span class="m">0&lt;/span> 67m 10.244.3.18 kind-worker3 &amp;lt;none&amp;gt; &amp;lt;none&amp;gt; &lt;span class="nv">kind&lt;/span>&lt;span class="o">=&lt;/span>client,name&lt;span class="o">=&lt;/span>client2,other&lt;span class="o">=&lt;/span>client,pod-template-hash&lt;span class="o">=&lt;/span>5998d566b4
+echo-other-node-f4d46f75b-bqpcb 1/1 Running &lt;span class="m">0&lt;/span> 67m 10.244.1.146 kind-worker2 &amp;lt;none&amp;gt; &amp;lt;none&amp;gt; &lt;span class="nv">kind&lt;/span>&lt;span class="o">=&lt;/span>echo,name&lt;span class="o">=&lt;/span>echo-other-node,pod-template-hash&lt;span class="o">=&lt;/span>f4d46f75b
+echo-same-node-745bd5c77-zpzdn 1/1 Running &lt;span class="m">0&lt;/span> 67m 10.244.3.164 kind-worker3 &amp;lt;none&amp;gt; &amp;lt;none&amp;gt; &lt;span class="nv">kind&lt;/span>&lt;span class="o">=&lt;/span>echo,name&lt;span class="o">=&lt;/span>echo-same-node,other&lt;span class="o">=&lt;/span>echo,pod-template-hash&lt;span class="o">=&lt;/span>745bd5c77
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="测试-1">测试&lt;/h3>
+&lt;p>这里我们在主机上进行操作下， 先拿到 client2 的 Pod 名称，然后通过 Hubble 命令观察所有访问此 Pod 的流量。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ cilium-mesh &lt;span class="nb">export&lt;/span> &lt;span class="nv">CLIENT2&lt;/span>&lt;span class="o">=&lt;/span>client2-5998d566b4-hrhrb
+➜ cilium-mesh hubble observe --from-pod cilium-test/&lt;span class="nv">$CLIENT2&lt;/span> -f
+Dec &lt;span class="m">18&lt;/span> 14:07:37.200: cilium-test/client2-5998d566b4-hrhrb:44805 &amp;lt;&amp;gt; kube-system/coredns-78fcd69978-7lbwh:53 to-overlay FORWARDED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:07:37.200: cilium-test/client2-5998d566b4-hrhrb:44805 -&amp;gt; kube-system/coredns-78fcd69978-7lbwh:53 to-endpoint FORWARDED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:07:37.200: cilium-test/client2-5998d566b4-hrhrb:44805 &amp;lt;&amp;gt; kube-system/coredns-78fcd69978-7lbwh:53 to-overlay FORWARDED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:07:37.200: cilium-test/client2-5998d566b4-hrhrb:44805 -&amp;gt; kube-system/coredns-78fcd69978-7lbwh:53 to-endpoint FORWARDED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:07:37.200: cilium-test/client2-5998d566b4-hrhrb:42260 -&amp;gt; cilium-test/echo-same-node-745bd5c77-zpzdn:8080 to-endpoint FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: SYN&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:07:37.201: cilium-test/client2-5998d566b4-hrhrb:42260 -&amp;gt; cilium-test/echo-same-node-745bd5c77-zpzdn:8080 to-endpoint FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:07:37.201: cilium-test/client2-5998d566b4-hrhrb:42260 -&amp;gt; cilium-test/echo-same-node-745bd5c77-zpzdn:8080 to-endpoint FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK, PSH&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:07:37.202: cilium-test/client2-5998d566b4-hrhrb:42260 -&amp;gt; cilium-test/echo-same-node-745bd5c77-zpzdn:8080 to-endpoint FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK, FIN&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:07:37.203: cilium-test/client2-5998d566b4-hrhrb:42260 -&amp;gt; cilium-test/echo-same-node-745bd5c77-zpzdn:8080 to-endpoint FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:07:50.769: cilium-test/client2-5998d566b4-hrhrb:36768 &amp;lt;&amp;gt; kube-system/coredns-78fcd69978-7lbwh:53 to-overlay FORWARDED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:07:50.769: cilium-test/client2-5998d566b4-hrhrb:36768 &amp;lt;&amp;gt; kube-system/coredns-78fcd69978-7lbwh:53 to-overlay FORWARDED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:07:50.769: cilium-test/client2-5998d566b4-hrhrb:36768 -&amp;gt; kube-system/coredns-78fcd69978-7lbwh:53 to-endpoint FORWARDED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:07:50.769: cilium-test/client2-5998d566b4-hrhrb:36768 -&amp;gt; kube-system/coredns-78fcd69978-7lbwh:53 to-endpoint FORWARDED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:07:50.770: cilium-test/client2-5998d566b4-hrhrb:42068 &amp;lt;&amp;gt; cilium-test/echo-other-node-f4d46f75b-bqpcb:8080 to-overlay FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: SYN&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:07:50.770: cilium-test/client2-5998d566b4-hrhrb:42068 -&amp;gt; cilium-test/echo-other-node-f4d46f75b-bqpcb:8080 to-endpoint FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: SYN&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:07:50.770: cilium-test/client2-5998d566b4-hrhrb:42068 &amp;lt;&amp;gt; cilium-test/echo-other-node-f4d46f75b-bqpcb:8080 to-overlay FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:07:50.770: cilium-test/client2-5998d566b4-hrhrb:42068 -&amp;gt; cilium-test/echo-other-node-f4d46f75b-bqpcb:8080 to-endpoint FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:07:50.770: cilium-test/client2-5998d566b4-hrhrb:42068 &amp;lt;&amp;gt; cilium-test/echo-other-node-f4d46f75b-bqpcb:8080 to-overlay FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK, PSH&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:07:50.770: cilium-test/client2-5998d566b4-hrhrb:42068 -&amp;gt; cilium-test/echo-other-node-f4d46f75b-bqpcb:8080 to-endpoint FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK, PSH&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:07:50.771: cilium-test/client2-5998d566b4-hrhrb:42068 &amp;lt;&amp;gt; cilium-test/echo-other-node-f4d46f75b-bqpcb:8080 to-overlay FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK, FIN&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:07:50.771: cilium-test/client2-5998d566b4-hrhrb:42068 -&amp;gt; cilium-test/echo-other-node-f4d46f75b-bqpcb:8080 to-endpoint FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK, FIN&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:07:50.772: cilium-test/client2-5998d566b4-hrhrb:42068 &amp;lt;&amp;gt; cilium-test/echo-other-node-f4d46f75b-bqpcb:8080 to-overlay FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:07:50.772: cilium-test/client2-5998d566b4-hrhrb:42068 -&amp;gt; cilium-test/echo-other-node-f4d46f75b-bqpcb:8080 to-endpoint FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK&lt;span class="o">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>以上输出是由于我们执行了下面的操作：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">kubectl &lt;span class="nb">exec&lt;/span> -it -n cilium-test &lt;span class="nv">$CLIENT2&lt;/span> -- curl -v echo-same-node:8080/
+kubectl &lt;span class="nb">exec&lt;/span> -it -n cilium-test &lt;span class="nv">$CLIENT2&lt;/span> -- curl -v echo-other-node:8080/
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>日志中基本上都是 &lt;code>to-endpoint&lt;/code> 或者 &lt;code>to-overlay&lt;/code>的。&lt;/p>
+&lt;h3 id="测试使用-proxy">测试使用 proxy&lt;/h3>
+&lt;p>需要先安装 networkpolicy ， 我们可以直接从 Cilium CLI 的仓库中拿到。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">kubectl apply -f https://raw.githubusercontent.com/cilium/cilium-cli/master/connectivity/manifests/client-egress-l7-http.yaml
+kubectl apply -f https://raw.githubusercontent.com/cilium/cilium-cli/master/connectivity/manifests/client-egress-only-dns.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后重复上面的请求：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">Dec &lt;span class="m">18&lt;/span> 14:33:40.570: cilium-test/client2-5998d566b4-hrhrb:44344 -&amp;gt; kube-system/coredns-78fcd69978-2ww28:53 L3-L4 REDIRECTED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:33:40.570: cilium-test/client2-5998d566b4-hrhrb:44344 -&amp;gt; kube-system/coredns-78fcd69978-2ww28:53 to-proxy FORWARDED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:33:40.570: cilium-test/client2-5998d566b4-hrhrb:44344 -&amp;gt; kube-system/coredns-78fcd69978-2ww28:53 to-proxy FORWARDED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:33:40.570: cilium-test/client2-5998d566b4-hrhrb:44344 -&amp;gt; kube-system/coredns-78fcd69978-2ww28:53 dns-request FORWARDED &lt;span class="o">(&lt;/span>DNS Query echo-other-node.cilium-test.svc.cluster.local. A&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:33:40.570: cilium-test/client2-5998d566b4-hrhrb:44344 -&amp;gt; kube-system/coredns-78fcd69978-2ww28:53 dns-request FORWARDED &lt;span class="o">(&lt;/span>DNS Query echo-other-node.cilium-test.svc.cluster.local. AAAA&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:33:40.571: cilium-test/client2-5998d566b4-hrhrb:42074 -&amp;gt; cilium-test/echo-other-node-f4d46f75b-bqpcb:8080 L3-L4 REDIRECTED &lt;span class="o">(&lt;/span>TCP Flags: SYN&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:33:40.571: cilium-test/client2-5998d566b4-hrhrb:42074 -&amp;gt; cilium-test/echo-other-node-f4d46f75b-bqpcb:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: SYN&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:33:40.571: cilium-test/client2-5998d566b4-hrhrb:42074 -&amp;gt; cilium-test/echo-other-node-f4d46f75b-bqpcb:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:33:40.571: cilium-test/client2-5998d566b4-hrhrb:42074 -&amp;gt; cilium-test/echo-other-node-f4d46f75b-bqpcb:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK, PSH&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:33:40.572: cilium-test/client2-5998d566b4-hrhrb:42074 -&amp;gt; cilium-test/echo-other-node-f4d46f75b-bqpcb:8080 http-request FORWARDED &lt;span class="o">(&lt;/span>HTTP/1.1 GET http://echo-other-node:8080/&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:33:40.573: cilium-test/client2-5998d566b4-hrhrb:42074 -&amp;gt; cilium-test/echo-other-node-f4d46f75b-bqpcb:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK, FIN&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:33:40.573: cilium-test/client2-5998d566b4-hrhrb:42074 -&amp;gt; cilium-test/echo-other-node-f4d46f75b-bqpcb:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK&lt;span class="o">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>执行另一个请求：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ cilium-mesh kubectl &lt;span class="nb">exec&lt;/span> -it -n cilium-test &lt;span class="nv">$CLIENT2&lt;/span> -- curl -v echo-same-node:8080/
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>也可以看到如下输出，其中有 &lt;code>to-proxy&lt;/code>的字样。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">Dec &lt;span class="m">18&lt;/span> 14:45:18.857: cilium-test/client2-5998d566b4-hrhrb:58895 -&amp;gt; kube-system/coredns-78fcd69978-2ww28:53 L3-L4 REDIRECTED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:45:18.857: cilium-test/client2-5998d566b4-hrhrb:58895 -&amp;gt; kube-system/coredns-78fcd69978-2ww28:53 to-proxy FORWARDED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:45:18.857: cilium-test/client2-5998d566b4-hrhrb:58895 -&amp;gt; kube-system/coredns-78fcd69978-2ww28:53 to-proxy FORWARDED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:45:18.857: cilium-test/client2-5998d566b4-hrhrb:58895 -&amp;gt; kube-system/coredns-78fcd69978-2ww28:53 dns-request FORWARDED &lt;span class="o">(&lt;/span>DNS Query echo-same-node.cilium-test.svc.cluster.local. AAAA&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:45:18.857: cilium-test/client2-5998d566b4-hrhrb:58895 -&amp;gt; kube-system/coredns-78fcd69978-2ww28:53 dns-request FORWARDED &lt;span class="o">(&lt;/span>DNS Query echo-same-node.cilium-test.svc.cluster.local. A&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:45:18.858: cilium-test/client2-5998d566b4-hrhrb:42266 -&amp;gt; cilium-test/echo-same-node-745bd5c77-zpzdn:8080 L3-L4 REDIRECTED &lt;span class="o">(&lt;/span>TCP Flags: SYN&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:45:18.858: cilium-test/client2-5998d566b4-hrhrb:42266 -&amp;gt; cilium-test/echo-same-node-745bd5c77-zpzdn:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: SYN&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:45:18.858: cilium-test/client2-5998d566b4-hrhrb:42266 -&amp;gt; cilium-test/echo-same-node-745bd5c77-zpzdn:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:45:18.858: cilium-test/client2-5998d566b4-hrhrb:42266 -&amp;gt; cilium-test/echo-same-node-745bd5c77-zpzdn:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK, PSH&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:45:18.858: cilium-test/client2-5998d566b4-hrhrb:42266 -&amp;gt; cilium-test/echo-same-node-745bd5c77-zpzdn:8080 http-request FORWARDED &lt;span class="o">(&lt;/span>HTTP/1.1 GET http://echo-same-node:8080/&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:45:18.859: cilium-test/client2-5998d566b4-hrhrb:42266 -&amp;gt; cilium-test/echo-same-node-745bd5c77-zpzdn:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK, FIN&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:45:18.859: cilium-test/client2-5998d566b4-hrhrb:42266 -&amp;gt; cilium-test/echo-same-node-745bd5c77-zpzdn:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK&lt;span class="o">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>其实看请求头更加方便：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ cilium-mesh kubectl &lt;span class="nb">exec&lt;/span> -it -n cilium-test &lt;span class="nv">$CLIENT2&lt;/span> -- curl -I echo-same-node:8080/
+HTTP/1.1 &lt;span class="m">403&lt;/span> Forbidden
+content-length: &lt;span class="m">15&lt;/span>
+content-type: text/plain
+date: Sat, &lt;span class="m">18&lt;/span> Dec &lt;span class="m">2021&lt;/span> 14:47:39 GMT
+server: envoy
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>之前都是如下：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="c1">## 没有 proxy&lt;/span>
+➜ cilium-mesh kubectl &lt;span class="nb">exec&lt;/span> -it -n cilium-test &lt;span class="nv">$CLIENT2&lt;/span> -- curl -v echo-same-node:8080/
+* Trying 10.96.136.252:8080...
+* Connected to echo-same-node &lt;span class="o">(&lt;/span>10.96.136.252&lt;span class="o">)&lt;/span> port &lt;span class="m">8080&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="c1">#0) &lt;/span>
+&amp;gt; GET / HTTP/1.1
+&amp;gt; Host: echo-same-node:8080
+&amp;gt; User-Agent: curl/7.78.0
+&amp;gt; Accept: */*
+&amp;gt;
+* Mark bundle as not supporting multiuse
+&amp;lt; HTTP/1.1 &lt;span class="m">200&lt;/span> OK
+&amp;lt; X-Powered-By: Express
+&amp;lt; Vary: Origin, Accept-Encoding
+&amp;lt; Access-Control-Allow-Credentials: &lt;span class="nb">true&lt;/span>
+&amp;lt; Accept-Ranges: bytes
+&amp;lt; Cache-Control: public, max-age&lt;span class="o">=&lt;/span>&lt;span class="m">0&lt;/span>
+&amp;lt; Last-Modified: Sat, &lt;span class="m">26&lt;/span> Oct &lt;span class="m">1985&lt;/span> 08:15:00 GMT
+&amp;lt; ETag: W/&lt;span class="s2">&amp;#34;809-7438674ba0&amp;#34;&lt;/span>
+&amp;lt; Content-Type: text/html&lt;span class="p">;&lt;/span> &lt;span class="nv">charset&lt;/span>&lt;span class="o">=&lt;/span>UTF-8
+&amp;lt; Content-Length: &lt;span class="m">2057&lt;/span>
+&amp;lt; Date: Sat, &lt;span class="m">18&lt;/span> Dec &lt;span class="m">2021&lt;/span> 14:07:37 GMT
+&amp;lt; Connection: keep-alive
+&amp;lt; Keep-Alive: &lt;span class="nv">timeout&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">5&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="请求一个不存在的地址">请求一个不存在的地址：&lt;/h3>
+&lt;p>以前请求响应是 404 ，现在是 403 ,并得到如下内容&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ cilium-mesh kubectl &lt;span class="nb">exec&lt;/span> -it -n cilium-test &lt;span class="nv">$CLIENT2&lt;/span> -- curl -v echo-same-node:8080/foo
+* Trying 10.96.136.252:8080...
+* Connected to echo-same-node &lt;span class="o">(&lt;/span>10.96.136.252&lt;span class="o">)&lt;/span> port &lt;span class="m">8080&lt;/span> &lt;span class="o">(&lt;/span>&lt;span class="c1">#0)&lt;/span>
+&amp;gt; GET /foo HTTP/1.1
+&amp;gt; Host: echo-same-node:8080
+&amp;gt; User-Agent: curl/7.78.0
+&amp;gt; Accept: */*
+&amp;gt;
+* Mark bundle as not supporting multiuse
+&amp;lt; HTTP/1.1 &lt;span class="m">403&lt;/span> Forbidden
+&amp;lt; content-length: &lt;span class="m">15&lt;/span>
+&amp;lt; content-type: text/plain
+&amp;lt; date: Sat, &lt;span class="m">18&lt;/span> Dec &lt;span class="m">2021&lt;/span> 14:50:38 GMT
+&amp;lt; server: envoy
+&amp;lt;
+Access denied
+* Connection &lt;span class="c1">#0 to host echo-same-node left intact&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>日志中也都是 &lt;code>to-proxy&lt;/code>的字样。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">Dec &lt;span class="m">18&lt;/span> 14:50:39.185: cilium-test/client2-5998d566b4-hrhrb:37683 -&amp;gt; kube-system/coredns-78fcd69978-7lbwh:53 L3-L4 REDIRECTED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:50:39.185: cilium-test/client2-5998d566b4-hrhrb:37683 -&amp;gt; kube-system/coredns-78fcd69978-7lbwh:53 to-proxy FORWARDED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:50:39.185: cilium-test/client2-5998d566b4-hrhrb:37683 -&amp;gt; kube-system/coredns-78fcd69978-7lbwh:53 to-proxy FORWARDED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:50:39.185: cilium-test/client2-5998d566b4-hrhrb:37683 -&amp;gt; kube-system/coredns-78fcd69978-7lbwh:53 dns-request FORWARDED &lt;span class="o">(&lt;/span>DNS Query echo-same-node.cilium-test.svc.cluster.local. AAAA&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:50:39.185: cilium-test/client2-5998d566b4-hrhrb:37683 -&amp;gt; kube-system/coredns-78fcd69978-7lbwh:53 dns-request FORWARDED &lt;span class="o">(&lt;/span>DNS Query echo-same-node.cilium-test.svc.cluster.local. A&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:50:39.186: cilium-test/client2-5998d566b4-hrhrb:42274 -&amp;gt; cilium-test/echo-same-node-745bd5c77-zpzdn:8080 L3-L4 REDIRECTED &lt;span class="o">(&lt;/span>TCP Flags: SYN&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:50:39.186: cilium-test/client2-5998d566b4-hrhrb:42274 -&amp;gt; cilium-test/echo-same-node-745bd5c77-zpzdn:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: SYN&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:50:39.186: cilium-test/client2-5998d566b4-hrhrb:42274 -&amp;gt; cilium-test/echo-same-node-745bd5c77-zpzdn:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:50:39.186: cilium-test/client2-5998d566b4-hrhrb:42274 -&amp;gt; cilium-test/echo-same-node-745bd5c77-zpzdn:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK, PSH&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:50:39.186: cilium-test/client2-5998d566b4-hrhrb:42274 -&amp;gt; cilium-test/echo-same-node-745bd5c77-zpzdn:8080 http-request DROPPED &lt;span class="o">(&lt;/span>HTTP/1.1 GET http://echo-same-node:8080/foo&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:50:39.186: cilium-test/client2-5998d566b4-hrhrb:42274 -&amp;gt; cilium-test/echo-same-node-745bd5c77-zpzdn:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK, FIN&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 14:50:39.187: cilium-test/client2-5998d566b4-hrhrb:42274 -&amp;gt; cilium-test/echo-same-node-745bd5c77-zpzdn:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK&lt;span class="o">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>我们使用如下内容作为 Envoy 的配置文件，其中包含 rewrite 策略。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">cilium.io/v2alpha1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">CiliumEnvoyConfig&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">envoy-lb-listener&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">services&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">echo-other-node&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">namespace&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">cilium-test&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">echo-same-node&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">namespace&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">cilium-test&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">resources&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">&amp;#34;@type&amp;#34;: &lt;/span>&lt;span class="l">type.googleapis.com/envoy.config.listener.v3.Listener&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">envoy-lb-listener&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">filter_chains&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">filters&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">envoy.filters.network.http_connection_manager&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">typed_config&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">&amp;#34;@type&amp;#34;: &lt;/span>&lt;span class="l">type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">stat_prefix&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">envoy-lb-listener&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">rds&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">route_config_name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">lb_route&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">http_filters&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">envoy.filters.http.router&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">&amp;#34;@type&amp;#34;: &lt;/span>&lt;span class="l">type.googleapis.com/envoy.config.route.v3.RouteConfiguration&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">lb_route&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">virtual_hosts&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;lb_route&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">domains&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;*&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">routes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">match&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">prefix&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;/&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">route&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">weighted_clusters&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">clusters&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;cilium-test/echo-same-node&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">weight&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">50&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;cilium-test/echo-other-node&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">weight&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">50&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">retry_policy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">retry_on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">5xx&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">num_retries&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">3&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">per_try_timeout&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">1s&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">regex_rewrite&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">pattern&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">google_re2&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{}&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">regex&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;^/foo.*$&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">substitution&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;/&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">&amp;#34;@type&amp;#34;: &lt;/span>&lt;span class="l">type.googleapis.com/envoy.config.cluster.v3.Cluster&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;cilium-test/echo-same-node&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">connect_timeout&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">5s&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">lb_policy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ROUND_ROBIN&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">EDS&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">outlier_detection&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">split_external_local_origin_errors&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">consecutive_local_origin_failure&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">2&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">&amp;#34;@type&amp;#34;: &lt;/span>&lt;span class="l">type.googleapis.com/envoy.config.cluster.v3.Cluster&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;cilium-test/echo-other-node&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">connect_timeout&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">3s&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">lb_policy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ROUND_ROBIN&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">EDS&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">outlier_detection&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">split_external_local_origin_errors&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">consecutive_local_origin_failure&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">2&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>测试请求时，发现可以正确的得到响应了。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ cilium-mesh kubectl &lt;span class="nb">exec&lt;/span> -it -n cilium-test &lt;span class="nv">$CLIENT2&lt;/span> -- curl -X GET -I echo-same-node:8080/
+HTTP/1.1 &lt;span class="m">200&lt;/span> OK
+x-powered-by: Express
+vary: Origin, Accept-Encoding
+access-control-allow-credentials: &lt;span class="nb">true&lt;/span>
+accept-ranges: bytes
+cache-control: public, max-age&lt;span class="o">=&lt;/span>&lt;span class="m">0&lt;/span>
+last-modified: Sat, &lt;span class="m">26&lt;/span> Oct &lt;span class="m">1985&lt;/span> 08:15:00 GMT
+etag: W/&lt;span class="s2">&amp;#34;809-7438674ba0&amp;#34;&lt;/span>
+content-type: text/html&lt;span class="p">;&lt;/span> &lt;span class="nv">charset&lt;/span>&lt;span class="o">=&lt;/span>UTF-8
+content-length: &lt;span class="m">2057&lt;/span>
+date: Sat, &lt;span class="m">18&lt;/span> Dec &lt;span class="m">2021&lt;/span> 15:00:01 GMT
+x-envoy-upstream-service-time: &lt;span class="m">1&lt;/span>
+server: envoy
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>并且请求 &lt;code>/foo&lt;/code>地址时，也可以正确的得到响应了。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ cilium-mesh kubectl &lt;span class="nb">exec&lt;/span> -it -n cilium-test &lt;span class="nv">$CLIENT2&lt;/span> -- curl -X GET -I echo-same-node:8080/foo
+HTTP/1.1 &lt;span class="m">200&lt;/span> OK
+x-powered-by: Express
+vary: Origin, Accept-Encoding
+access-control-allow-credentials: &lt;span class="nb">true&lt;/span>
+accept-ranges: bytes
+cache-control: public, max-age&lt;span class="o">=&lt;/span>&lt;span class="m">0&lt;/span>
+last-modified: Sat, &lt;span class="m">26&lt;/span> Oct &lt;span class="m">1985&lt;/span> 08:15:00 GMT
+etag: W/&lt;span class="s2">&amp;#34;809-7438674ba0&amp;#34;&lt;/span>
+content-type: text/html&lt;span class="p">;&lt;/span> &lt;span class="nv">charset&lt;/span>&lt;span class="o">=&lt;/span>UTF-8
+content-length: &lt;span class="m">2057&lt;/span>
+date: Sat, &lt;span class="m">18&lt;/span> Dec &lt;span class="m">2021&lt;/span> 15:01:40 GMT
+x-envoy-upstream-service-time: &lt;span class="m">2&lt;/span>
+server: envoy
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>同时：请求 &lt;code>/foo&lt;/code> 的时候，流量如下: 直接转换成功了对/的访问&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">Dec &lt;span class="m">18&lt;/span> 15:02:22.541: cilium-test/client2-5998d566b4-hrhrb:38860 -&amp;gt; kube-system/coredns-78fcd69978-2ww28:53 L3-L4 REDIRECTED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:02:22.541: cilium-test/client2-5998d566b4-hrhrb:38860 -&amp;gt; kube-system/coredns-78fcd69978-2ww28:53 to-proxy FORWARDED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:02:22.541: cilium-test/client2-5998d566b4-hrhrb:38860 -&amp;gt; kube-system/coredns-78fcd69978-2ww28:53 to-proxy FORWARDED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:02:22.541: cilium-test/client2-5998d566b4-hrhrb:38860 -&amp;gt; kube-system/coredns-78fcd69978-2ww28:53 dns-request FORWARDED &lt;span class="o">(&lt;/span>DNS Query echo-same-node.cilium-test.svc.cluster.local. AAAA&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:02:22.541: cilium-test/client2-5998d566b4-hrhrb:38860 -&amp;gt; kube-system/coredns-78fcd69978-2ww28:53 dns-request FORWARDED &lt;span class="o">(&lt;/span>DNS Query echo-same-node.cilium-test.svc.cluster.local. A&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:02:22.542: cilium-test/client2-5998d566b4-hrhrb:53062 -&amp;gt; cilium-test/echo-same-node:8080 none REDIRECTED &lt;span class="o">(&lt;/span>TCP Flags: SYN&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:02:22.542: cilium-test/client2-5998d566b4-hrhrb:53062 -&amp;gt; cilium-test/echo-same-node:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: SYN&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:02:22.542: cilium-test/client2-5998d566b4-hrhrb:53062 -&amp;gt; cilium-test/echo-same-node:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:02:22.542: cilium-test/client2-5998d566b4-hrhrb:53062 -&amp;gt; cilium-test/echo-same-node:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK, PSH&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:02:22.542: cilium-test/client2-5998d566b4-hrhrb:53048 -&amp;gt; cilium-test/echo-same-node-745bd5c77-zpzdn:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK, PSH&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:02:22.542: cilium-test/client2-5998d566b4-hrhrb:53048 -&amp;gt; cilium-test/echo-same-node-745bd5c77-zpzdn:8080 http-request FORWARDED &lt;span class="o">(&lt;/span>HTTP/1.1 GET http://echo-same-node:8080/&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:02:22.543: cilium-test/client2-5998d566b4-hrhrb:53062 -&amp;gt; cilium-test/echo-same-node:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK, FIN&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:02:22.544: cilium-test/client2-5998d566b4-hrhrb:53062 -&amp;gt; cilium-test/echo-same-node:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK&lt;span class="o">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>多次请求看日志：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">Dec &lt;span class="m">18&lt;/span> 15:07:20.883: cilium-test/client2-5998d566b4-hrhrb:49656 -&amp;gt; kube-system/coredns-78fcd69978-2ww28:53 L3-L4 REDIRECTED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:20.883: cilium-test/client2-5998d566b4-hrhrb:49656 -&amp;gt; kube-system/coredns-78fcd69978-2ww28:53 to-proxy FORWARDED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:20.883: cilium-test/client2-5998d566b4-hrhrb:49656 -&amp;gt; kube-system/coredns-78fcd69978-2ww28:53 to-proxy FORWARDED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:20.883: cilium-test/client2-5998d566b4-hrhrb:49656 -&amp;gt; kube-system/coredns-78fcd69978-2ww28:53 dns-request FORWARDED &lt;span class="o">(&lt;/span>DNS Query echo-same-node.cilium-test.svc.cluster.local. A&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:20.884: cilium-test/client2-5998d566b4-hrhrb:49656 -&amp;gt; kube-system/coredns-78fcd69978-2ww28:53 dns-request FORWARDED &lt;span class="o">(&lt;/span>DNS Query echo-same-node.cilium-test.svc.cluster.local. AAAA&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:20.885: cilium-test/client2-5998d566b4-hrhrb:53070 -&amp;gt; cilium-test/echo-same-node:8080 none REDIRECTED &lt;span class="o">(&lt;/span>TCP Flags: SYN&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:20.885: cilium-test/client2-5998d566b4-hrhrb:53070 -&amp;gt; cilium-test/echo-same-node:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: SYN&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:20.885: cilium-test/client2-5998d566b4-hrhrb:53070 -&amp;gt; cilium-test/echo-same-node:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:20.885: cilium-test/client2-5998d566b4-hrhrb:53070 -&amp;gt; cilium-test/echo-same-node:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK, PSH&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:20.885: cilium-test/client2-5998d566b4-hrhrb:53064 -&amp;gt; cilium-test/echo-same-node-745bd5c77-zpzdn:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK, PSH&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:20.885: cilium-test/client2-5998d566b4-hrhrb:53064 -&amp;gt; cilium-test/echo-same-node-745bd5c77-zpzdn:8080 http-request FORWARDED &lt;span class="o">(&lt;/span>HTTP/1.1 GET http://echo-same-node:8080/&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:20.886: cilium-test/client2-5998d566b4-hrhrb:53070 -&amp;gt; cilium-test/echo-same-node:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK, FIN&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:20.886: cilium-test/client2-5998d566b4-hrhrb:53070 -&amp;gt; cilium-test/echo-same-node:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:26.086: cilium-test/client2-5998d566b4-hrhrb:53048 -&amp;gt; cilium-test/echo-same-node-745bd5c77-zpzdn:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:44.739: cilium-test/client2-5998d566b4-hrhrb:39057 -&amp;gt; kube-system/coredns-78fcd69978-7lbwh:53 L3-L4 REDIRECTED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:44.739: cilium-test/client2-5998d566b4-hrhrb:39057 -&amp;gt; kube-system/coredns-78fcd69978-7lbwh:53 to-proxy FORWARDED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:44.740: cilium-test/client2-5998d566b4-hrhrb:39057 -&amp;gt; kube-system/coredns-78fcd69978-7lbwh:53 to-proxy FORWARDED &lt;span class="o">(&lt;/span>UDP&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:44.740: cilium-test/client2-5998d566b4-hrhrb:39057 -&amp;gt; kube-system/coredns-78fcd69978-7lbwh:53 dns-request FORWARDED &lt;span class="o">(&lt;/span>DNS Query echo-same-node.cilium-test.svc.cluster.local. AAAA&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:44.740: cilium-test/client2-5998d566b4-hrhrb:39057 -&amp;gt; kube-system/coredns-78fcd69978-7lbwh:53 dns-request FORWARDED &lt;span class="o">(&lt;/span>DNS Query echo-same-node.cilium-test.svc.cluster.local. A&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:44.741: cilium-test/client2-5998d566b4-hrhrb:53072 -&amp;gt; cilium-test/echo-same-node:8080 none REDIRECTED &lt;span class="o">(&lt;/span>TCP Flags: SYN&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:44.741: cilium-test/client2-5998d566b4-hrhrb:53072 -&amp;gt; cilium-test/echo-same-node:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: SYN&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:44.741: cilium-test/client2-5998d566b4-hrhrb:53072 -&amp;gt; cilium-test/echo-same-node:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:44.741: cilium-test/client2-5998d566b4-hrhrb:53072 -&amp;gt; cilium-test/echo-same-node:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK, PSH&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:44.742: cilium-test/client2-5998d566b4-hrhrb:53068 -&amp;gt; cilium-test/echo-other-node-f4d46f75b-bqpcb:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK, PSH&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:44.742: cilium-test/client2-5998d566b4-hrhrb:53068 -&amp;gt; cilium-test/echo-other-node-f4d46f75b-bqpcb:8080 http-request FORWARDED &lt;span class="o">(&lt;/span>HTTP/1.1 GET http://echo-same-node:8080/&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:44.744: cilium-test/client2-5998d566b4-hrhrb:53072 -&amp;gt; cilium-test/echo-same-node:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK, FIN&lt;span class="o">)&lt;/span>
+Dec &lt;span class="m">18&lt;/span> 15:07:44.744: cilium-test/client2-5998d566b4-hrhrb:53072 -&amp;gt; cilium-test/echo-same-node:8080 to-proxy FORWARDED &lt;span class="o">(&lt;/span>TCP Flags: ACK&lt;span class="o">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以看到它真的成功的进行了负载均衡。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>本文我带你部署了 Cilium Service Mesh，并通过两个示例，带你体验了 Cilium Service Mesh 的工作情况。&lt;/p>
+&lt;p>整体而言， 这种方式能带来一定的便利性，但它的服务间流量配置主要依靠于 CiliumEnvoyConfig ，不算太方便。&lt;/p>
+&lt;p>一起来期待它后续的演进！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/><category scheme="https://moelove.info/tags/cilium/" term="cilium" label="cilium"/></entry><entry><title type="text">GitOps 应用实践系列 - Flux CD 及其核心组件</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/18/GitOps-%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5%E7%B3%BB%E5%88%97-Flux-CD-%E5%8F%8A%E5%85%B6%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/"/><id>https://moelove.info/2021/12/18/GitOps-%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5%E7%B3%BB%E5%88%97-Flux-CD-%E5%8F%8A%E5%85%B6%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/</id><updated>2021-12-19T15:03:42+08:00</updated><published>2021-12-18T20:56:29+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 经过前面三篇文章，不仅为大家介绍了什么是 GitOps 也介绍了如何利用 Argo CD 来实施 GitOps。本篇我来为你介绍另一个可用……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>经过前面三篇文章，不仅为大家介绍了什么是 GitOps 也介绍了如何利用 Argo CD 来实施 GitOps。本篇我来为你介绍另一个可用于实施 GitOps 的工具：Flux CD 。&lt;/p>
 &lt;h2 id="flux-cd">Flux CD&lt;/h2>
 &lt;p>&lt;img src="https://i.loli.net/2021/10/31/zFRTjgr18Z7XIfM.png" alt="img">&lt;/p>
@@ -235,9 +926,9 @@ flux bootstrap github \
 --team=team2-slug \
 --path=clusters/my-cluster
 &lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="总结">总结&lt;/h2>
-&lt;p>本篇主要介绍了 Flux CD 的发展历史和其核心组件及其功能，后续文章中将陆续介绍如何使用 Flux CD 来实践 GitOps，敬请期待。&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/><category scheme="https://moelove.info/tags/GitOps/" term="GitOps" label="GitOps"/></entry><entry><title type="text">Grafana k6 的上手实践</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/17/Grafana-k6-%E7%9A%84%E4%B8%8A%E6%89%8B%E5%AE%9E%E8%B7%B5/"/><id>https://moelove.info/2021/12/17/Grafana-k6-%E7%9A%84%E4%B8%8A%E6%89%8B%E5%AE%9E%E8%B7%B5/</id><updated>2021-12-17T09:29:06+08:00</updated><published>2021-12-17T03:50:29+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 本篇我将为你介绍一个工具 - k6 ，它和 K8s 并没有什么直接的关系，它是一款开源的性能压测工具。 k6 背后的故事 2016 年 8 月，……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>本篇主要介绍了 Flux CD 的发展历史和其核心组件及其功能，后续文章中将陆续介绍如何使用 Flux CD 来实践 GitOps，敬请期待。&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/><category scheme="https://moelove.info/tags/GitOps/" term="GitOps" label="GitOps"/></entry><entry><title type="text">Grafana k6 的上手实践</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/17/Grafana-k6-%E7%9A%84%E4%B8%8A%E6%89%8B%E5%AE%9E%E8%B7%B5/"/><id>https://moelove.info/2021/12/17/Grafana-k6-%E7%9A%84%E4%B8%8A%E6%89%8B%E5%AE%9E%E8%B7%B5/</id><updated>2021-12-19T22:19:54+08:00</updated><published>2021-12-17T03:50:29+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 本篇我将为你介绍一个工具 - k6 ，它和 K8s 并没有什么直接的关系，它是一款开源的性能压测工具。 k6 背后的故事 2016 年 8 月，……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>本篇我将为你介绍一个工具 - k6 ，它和 K8s 并没有什么直接的关系，它是一款开源的性能压测工具。&lt;/p>
-&lt;h1 id="k6-背后的故事">k6 背后的故事&lt;/h1>
+&lt;h2 id="k6-背后的故事">k6 背后的故事&lt;/h2>
 &lt;p>2016 年 8 月，k6 在 GitHub 上发布了第一个版本，至此，一个出色的开源负载压测工具进入了人们的视野。&lt;/p>
 &lt;p>2021 年的 6 月，对于 Grafana 和 k6 来讲是个大日子，Grafana Labs 收购了 k6 。&lt;/p>
 &lt;p>而事实上， Grafana 与 k6 的缘分还要追溯到更早的 2 年前。&lt;/p>
@@ -245,7 +936,7 @@ flux bootstrap github \
 &lt;p>由于 Grafana Labs 的大部分后端软件是使用 Go 来实现的，恰巧 k6 满足 OSS 和 Go 需求，并且负载测试是使用 JS 编写（Grafana 前端框架及 UI 都在使用）。这使得 k6 自 Grafana 6.0 版本开始，不断地为 Grafana 开发者及测试者完成追踪 bug 的使命。&lt;/p>
 &lt;p>&lt;img src="https://s2.loli.net/2021/12/17/FkHjMApXsSuZcwe.png" alt="img">&lt;/p>
 &lt;p>图 1 ，k6 加入 Grafana Labs&lt;/p>
-&lt;h2 id="多样的压测工具">多样的压测工具&lt;/h2>
+&lt;h3 id="多样的压测工具">多样的压测工具&lt;/h3>
 &lt;p>一个称心应手的自动化负载压测工具会极大的提升程序开发人员的代码质量及效率。&lt;/p>
 &lt;p>下图中是一些比较常见的用于负载压测的工具，我们可以在 GitHub 上看到，目前，更新比较频繁、活跃的项目主要有：Gatling, Jmeter 和 k6 。&lt;/p>
 &lt;p>&lt;img src="https://s2.loli.net/2021/12/17/C1tJIe7BEGRKgV6.png" alt="img">&lt;/p>
@@ -271,11 +962,11 @@ flux bootstrap github \
 &lt;/ul>
 &lt;p>&lt;img src="https://s2.loli.net/2021/12/17/IYNDA5FEQLWZz4b.png" alt="img">&lt;/p>
 &lt;p>图 3 ，3 种热门工具比一比&lt;/p>
-&lt;h1 id="执行效果">执行效果&lt;/h1>
+&lt;h2 id="执行效果">执行效果&lt;/h2>
 &lt;p>&lt;img src="https://s2.loli.net/2021/12/17/YLoJZqdn5QrTeB6.png" alt="img">&lt;/p>
 &lt;p>或者这样：&lt;/p>
 &lt;p>&lt;img src="https://s2.loli.net/2021/12/17/CNA91tqRhGwTYcm.png" alt="img">&lt;/p>
-&lt;h1 id="安装-k6">安装 k6&lt;/h1>
+&lt;h2 id="安装-k6">安装 k6&lt;/h2>
 &lt;p>k6 是用 Go 语言开发的，要安装 k6 步骤很简单，只要直接在其 GitHub 的 Release 页面下载二进制文件即可。比如：&lt;/p>
 &lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ wget -q https://github.com/grafana/k6/releases/download/v0.35.0/k6-v0.35.0-linux-amd64.tar.gz
 &lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ tar -xzf k6-v0.35.0-linux-amd64.tar.gz
@@ -287,12 +978,12 @@ k6 v0.35.0 &lt;span class="o">(&lt;/span>2021-11-17T09:53:18+0000/1c44b2d, go1.1
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>或者也可以直接使用它的 Docker 镜像：&lt;/p>
 &lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ ~ docker run --rm loadimpact/k6 version
 k6 v0.35.0 &lt;span class="o">(&lt;/span>2021-11-17T09:53:03+0000/1c44b2d, go1.17.3, linux/amd64&lt;span class="o">)&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="核心概念">核心概念&lt;/h1>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="核心概念">核心概念&lt;/h2>
 &lt;p>在 k6 中并没有太多的概念。其中最主要的就是用来执行测试的 &lt;strong>virtual users (VUs)&lt;/strong> ，它的本质就是并发执行任务的次数。&lt;/p>
 &lt;p>在使用 k6 执行测试的时候，可以通过 &lt;code>--vus&lt;/code>或者 &lt;code>-u&lt;/code>进行指定，默认是 1 。&lt;/p>
-&lt;h1 id="上手实践">上手实践&lt;/h1>
+&lt;h2 id="上手实践">上手实践&lt;/h2>
 &lt;p>我个人感觉 k6 在目前的这些主流压测工具中算用户体验比较好的一个。它使用 JS（ES6）作为配置语言，还是比较方便的，我们来做一些示例。&lt;/p>
-&lt;h2 id="简单请求">简单请求&lt;/h2>
+&lt;h3 id="简单请求">简单请求&lt;/h3>
 &lt;p>如果对于进行 HTTP 请求的时候，我们只需要从 &lt;code>k6/http&lt;/code> 导入 &lt;code>http&lt;/code>即可。&lt;/p>
 &lt;p>注意在 k6 中，默认情况下必须得有个作为入口的 &lt;code>default&lt;/code>函数，这类似我们常用的 &lt;code>main&lt;/code>函数。&lt;/p>
 &lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="kr">import&lt;/span> &lt;span class="nx">http&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s2">&amp;#34;k6/http&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
@@ -331,7 +1022,7 @@ vus............................: &lt;span class="m">1&lt;/span> &lt;span class="
 vus_max........................: &lt;span class="m">1&lt;/span> &lt;span class="nv">min&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">1&lt;/span> &lt;span class="nv">max&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">1&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>k6 默认会将执行后的结果输出到终端。同时它自带了一些指标会同时输出。&lt;/p>
 &lt;p>这些指标基本上都是语义化的，看名字就可以理解其含义，这里就不一一介绍了。&lt;/p>
-&lt;h2 id="带检查的请求">带检查的请求&lt;/h2>
+&lt;h3 id="带检查的请求">带检查的请求&lt;/h3>
 &lt;p>我们可以在请求中同时增加一些测试，判断接口的响应值是否符合我们的预期。如下：&lt;/p>
 &lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="kr">import&lt;/span> &lt;span class="nx">http&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s2">&amp;#34;k6/http&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">check&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">group&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s2">&amp;#34;k6&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
@@ -364,7 +1055,7 @@ vus_max........................: &lt;span class="m">1&lt;/span> &lt;span class="
 ✓ is verb correct
 checks.........................: 100.00% ✓ &lt;span class="m">2&lt;/span> ✗ &lt;span class="m">0&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>从这里可以看到我们当前请求接口的测试是否通过（也可以用来判断当前接口是否能正常提供服务）。&lt;/p>
-&lt;h2 id="自定义指标输出">自定义指标输出&lt;/h2>
+&lt;h3 id="自定义指标输出">自定义指标输出&lt;/h3>
 &lt;p>接下来我们尝试下在压测过程中定义一些自己定的指标。只需要从 &lt;code>k6/metrics&lt;/code>中导入一些不同类型的指标即可。这和在 Prometheus 中的类型基本一致。&lt;/p>
 &lt;p>这里我增加了两个 metric。一个 &lt;code>testCounter&lt;/code>用于统计一共执行了多少次测试， &lt;code>passedRate&lt;/code>计算通过率。&lt;/p>
 &lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="kr">import&lt;/span> &lt;span class="nx">http&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s2">&amp;#34;k6/http&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
@@ -422,7 +1113,7 @@ test_counter...................: &lt;span class="m">36&lt;/span> 3.472534/s
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>与我们的预期相符。&lt;/p>
 &lt;p>不过这样看起来不够直观，我们可以尝试使用 k6 Cloud 来展示结果。登陆后，只要在执行 k6 时，通过 &lt;code>-o cloud&lt;/code>的方式将输出指定到 cloud 就可以在 cloud 上看到所有的指标了&lt;/p>
 &lt;p>&lt;img src="https://s2.loli.net/2021/12/17/YkoIXDai59Crbct.png" alt="img">&lt;/p>
-&lt;h1 id="总结">总结&lt;/h1>
+&lt;h2 id="总结">总结&lt;/h2>
 &lt;p>本篇主要是在介绍一个现代化的用户体验相对较好的压测工具 k6 。我目前正在计划将其引入到我们项目的 CI 中，以便了解每次核心部分的变更对项目性能的影响。&lt;/p>
 &lt;p>后续推进顺利的话，会再分享 k6 如何应用到 CI 环境中，敬请期待。&lt;/p>
 &lt;hr>
