@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 21 Dec 2021 11:04:16 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>倍受关注的 Cilium Service Mesh 到底怎么玩？ - 上手实践</title><link>https://moelove.info/2021/12/21/%E5%80%8D%E5%8F%97%E5%85%B3%E6%B3%A8%E7%9A%84-Cilium-Service-Mesh-%E5%88%B0%E5%BA%95%E6%80%8E%E4%B9%88%E7%8E%A9-%E4%B8%8A%E6%89%8B%E5%AE%9E%E8%B7%B5/</link><guid isPermaLink="true">https://moelove.info/2021/12/21/%E5%80%8D%E5%8F%97%E5%85%B3%E6%B3%A8%E7%9A%84-Cilium-Service-Mesh-%E5%88%B0%E5%BA%95%E6%80%8E%E4%B9%88%E7%8E%A9-%E4%B8%8A%E6%89%8B%E5%AE%9E%E8%B7%B5/</guid><pubDate>Tue, 21 Dec 2021 02:30:17 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 27 Dec 2021 09:43:59 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>倍受关注的 Cilium Service Mesh 到底怎么玩？ - 上手实践</title><link>https://moelove.info/2021/12/21/%E5%80%8D%E5%8F%97%E5%85%B3%E6%B3%A8%E7%9A%84-Cilium-Service-Mesh-%E5%88%B0%E5%BA%95%E6%80%8E%E4%B9%88%E7%8E%A9-%E4%B8%8A%E6%89%8B%E5%AE%9E%E8%B7%B5/</link><guid isPermaLink="true">https://moelove.info/2021/12/21/%E5%80%8D%E5%8F%97%E5%85%B3%E6%B3%A8%E7%9A%84-Cilium-Service-Mesh-%E5%88%B0%E5%BA%95%E6%80%8E%E4%B9%88%E7%8E%A9-%E4%B8%8A%E6%89%8B%E5%AE%9E%E8%B7%B5/</guid><pubDate>Tue, 21 Dec 2021 02:30:17 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>Cilium 是一个基于 eBPF 技术，用于为容器工作负载间提供安全且具备可观测性的网络连接的开源软件。&lt;/p>
 &lt;p>如果你对 Cilium 还不太了解，可以参考我之前的两篇文章：&lt;/p>
 &lt;ul>
@@ -4001,7 +4001,75 @@ Linux lima-default 5.11.0-31-generic &lt;span class="c1">#33-Ubuntu SMP Wed Aug 
 &lt;p>视频回放：https://www.upyun.com/opentalk/463.html&lt;/p>
 &lt;hr>
 &lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
-&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category><category domain="https://moelove.info/tags/OpenSource/">OpenSource</category></item><item><title>K8S 生态周报| Kubernetes v1.22.0 正式发布，新特性一览！</title><link>https://moelove.info/2021/08/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.22.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</link><guid isPermaLink="true">https://moelove.info/2021/08/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.22.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</guid><pubDate>Thu, 05 Aug 2021 05:23:50 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category><category domain="https://moelove.info/tags/OpenSource/">OpenSource</category></item><item><title>K8S 生态周报| Helm 新版本发布，解决了内存泄漏的问题</title><link>https://moelove.info/2021/08/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-%E6%96%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E8%A7%A3%E5%86%B3%E4%BA%86%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98/</link><guid isPermaLink="true">https://moelove.info/2021/08/22/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-%E6%96%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E8%A7%A3%E5%86%B3%E4%BA%86%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98/</guid><pubDate>Sun, 22 Aug 2021 23:57:25 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;h1 id="trivy-v0220-正式发布">Trivy v0.22.0 正式发布&lt;/h1>
+&lt;p>Trivy 是一款轻量级的漏洞扫描工具，支持包括容器镜像，文件系统，IaC 配置文件等。在我之前的 『K8s生态周报』文章中已经介绍过多次，此处就不再展开了。我们一起来看看这个版本中有哪些值得关注的变更。&lt;/p>
+&lt;ul>
+&lt;li>新增了一个 &lt;code>--offline-scan&lt;/code> 的选项，在对 &lt;code>pom.xml&lt;/code> 和 &lt;code>JAR&lt;/code> 文件进行扫描的时候，可以通过同时指定 &lt;code>--skip-update&lt;/code> 和 &lt;code>--offline-scan&lt;/code> 参数来避免 Trivy 去发起更新漏洞库的请求。在离线环境或者网络不好的场景下会比较有用；&lt;/li>
+&lt;li>&lt;strong>优化了内存的使用&lt;/strong>，在之前版本的逻辑中，如果对于大文件也会直接进行读取，有可能会造成 OOM 。本次修正了该问题，加入了一定的缓存。如果你正在使用 Trivy ，我建议你进行更新；&lt;/li>
+&lt;li>再对 rpm 包扫描的时候， &lt;strong>支持了 NDB 格式&lt;/strong> ， 对此格式感兴趣的小伙伴可以去看看 rpm 项目的发版说明。&lt;/li>
+&lt;/ul>
+&lt;p>你可以直接去它的 Release 页面下载最新的二进制，也可以直接使用其容器镜像。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ docker pull aquasec/trivy:0.22.0
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>对于此版本的其他变更，可&lt;a href="https://github.com/aquasecurity/trivy/releases/tag/v0.22.0">参考其 ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="helm-v372-发布">Helm v3.7.2 发布&lt;/h1>
+&lt;p>Helm 最新一个大版本是 v3.7.0，但如果你去关注这个项目实际的变更，你会发现即使是大版本更新，也没有携带特别值得有价值的内容。反倒是这个小版本中还带来了一些值得注意的内容：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>修复了一个 Helm upgrade 时，内存泄漏的问题&lt;/strong>，感兴趣的小伙伴可以去围观下 &lt;a href="https://github.com/helm/helm/issues/10439">https://github.com/helm/helm/issues/10439&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>至于之前版本中的变更，感兴趣的小伙伴可以自行去看看其 &lt;a href="https://github.com/helm/helm/releases">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="rook-发布-v18-版本">Rook 发布 v1.8 版本&lt;/h1>
+&lt;p>Rook 是一个开源的，专用于 Kubernetes 平台上存储编排的组件。目前是 CNCF 毕业项目。在之前的 『K8s生态周报』中我也一直都有介绍，这里就不展开了，大家有兴趣的可以看看历史文章。现在我们一起来看它的新版本中有哪些值得关注的内容吧。&lt;/p>
+&lt;p>首先是一些 Breaking Change：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Rook 可以与 Kubernetes v1.16 或更高版本兼容&lt;/strong>。这主要是由于其使用 CRD 的方式进行实现，而 Kubernetes 在 v1.22 版本中将旧的 API 已经移除，所以 Rook 将它使用的 API version 也已经升级到了 v1。在进 rook 升级操作的时候，如果当前的 Kubernetes 版本较低，则建议先升级 Kubernetes 集群再升级 Rook。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>在 v1.8 中对于 Ceph Nautilus 版本的支持已经移除，如果你之前有通过 Rook 部署的 Ceph Nautilus 版本的集群，那么建议先升级到 Octopus 或者 Pacific 版本，以便保证 Rook 可以正常的处理其版本。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>现在已经完全使用 CSI 接口进行存储管理了，之前 Rook 支持的 Flex 驱动已经彻底废弃，如果想要进行迁移的小伙伴，可以参考 &lt;a href="https://rook.github.io/docs/rook/v1.7/flex-to-csi-migration.html">https://rook.github.io/docs/rook/v1.7/flex-to-csi-migration.html&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>此外还带来了很多新的功能：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>支持使用 HashiCorp Vault 时进行 Kubernetes 身份验证；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>为了提供更好的安全性，当前的 Rook operator 和 toolbox 容器都运行在 &lt;code>rook&lt;/code> 用户下，而非原先的 &lt;code>root&lt;/code> 用户下；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Rook 镜像中默认安装了 &lt;code>s5cmd&lt;/code> 工具，这是一个可以提供快速 S3 操作的工具，你可以在 &lt;a href="https://github.com/peak/s5cmd">https://github.com/peak/s5cmd&lt;/a> 找到它。默认提供的 &lt;code>s5cmd&lt;/code> 可以方便我们在 toolbox 中快速的验证 S3 gateway 的功能；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Rook 当前添加了一个 &lt;code>ceph.rook.io/disaster-protection&lt;/code> finalizer 可用于阻止重要资源被意外删除，如果想要删除这些重要资源的话，需要如下步骤：&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">kubectl -n rook-ceph patch configmap rook-ceph-mon-endpoints --type merge -p &lt;span class="s1">&amp;#39;{&amp;#34;metadata&amp;#34;:{&amp;#34;finalizers&amp;#34;: [null]}}&amp;#39;&lt;/span>
+kubectl -n rook-ceph patch secrets rook-ceph-mon --type merge -p &lt;span class="s1">&amp;#39;{&amp;#34;metadata&amp;#34;:{&amp;#34;finalizers&amp;#34;: [null]}}&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>以上就是关于 Rook v1.8 版本中值得关注的内容了，如果对其他变更感兴趣，可以查看其 &lt;a href="https://github.com/rook/rook/releases/tag/v1.8.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes/kubernetes/pull/97252">Completely remove in-tree dockershim from kubelet by dims · #97252&lt;/a> 这个 PR 中彻底移除了 kubelet 中 in-tree 的 dockershim，关于这个内容可以参考我之前的文章；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes/kubernetes/pull/105164">Introduce new prune parameter into diff command by ardaguclu · #105164&lt;/a> 这个 PR 中为 &lt;code>kubectl diff&lt;/code> 增加了一个 &lt;code>--prune&lt;/code> 参数，其行为类似于 &lt;code>kubectl apply --prune&lt;/code>，会清理掉一些 managedFields 等内容，更容易观察到真正的变更；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes/kubernetes/pull/105566">Enable setting proxyurl in kubeconfig via kubectl config by ardaguclu · #105566&lt;/a> 可以通过 &lt;code>kubectl config&lt;/code> 设置 &lt;code>proxy-url&lt;/code>, 这样会比较方便一些部署在代理之后的集群；&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="题外话">题外话&lt;/h1>
+&lt;p>整体而言，近两周没有特别大的变更，一方面是由于已经到年底了，社区中大多数海外贡献者基本已经休假。另一方面是由于基本上今年的目标已经完成，接下来的迭代重点会放在年后。&lt;/p>
+&lt;p>近期我会发布一篇内容，基于 2021 年 K8s 生态中值得关注的内容，以及整体的一些技术趋势，进行 2021 年 K8s 生态的总结，以及对 2022 年 K8s 生态发展的预测，敬请期待！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>K8S 生态周报| Kubernetes v1.22.0 正式发布，新特性一览！</title><link>https://moelove.info/2021/08/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.22.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</link><guid isPermaLink="true">https://moelove.info/2021/08/05/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.22.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</guid><pubDate>Thu, 05 Aug 2021 05:23:50 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>Kubernetes v1.22 已经在今天正式发布了，这是 2021 年的第二个正式发布的版本。此版本中共包含 53 项增强更新，其中 13 项达到 stable，24 项达到 beta 还有 16 项为 alpha。当然，也有 3 项特性被标记为废弃。&lt;/p>
