@@ -1,4 +1,244 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-12-27T14:48:04+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Helm 新版本发布，解决了内存泄漏的问题</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/26/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-%E6%96%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E8%A7%A3%E5%86%B3%E4%BA%86%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98/"/><id>https://moelove.info/2021/12/26/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-%E6%96%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E8%A7%A3%E5%86%B3%E4%BA%86%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98/</id><updated>2021-12-27T14:47:52+08:00</updated><published>2021-12-26T23:57:25+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 Trivy v0.22.0 正式发布 Trivy 是一……</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-12-29T13:02:44+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">彻底搞懂 Kubernetes 中的 Events</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/28/%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82-Kubernetes-%E4%B8%AD%E7%9A%84-Events/"/><id>https://moelove.info/2021/12/28/%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82-Kubernetes-%E4%B8%AD%E7%9A%84-Events/</id><updated>2021-12-29T13:02:20+08:00</updated><published>2021-12-28T22:12:37+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 之前我写了一篇《更优雅的 Kubernetes 集群事件度量方案》，利用 Jaeger 利用 tracing 的方式来采集 Kubernetes 集群中的 events 并进行展示。最终效果如下：……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>之前我写了一篇&lt;a href="https://zhuanlan.zhihu.com/p/383795254">《更优雅的 Kubernetes 集群事件度量方案》&lt;/a>，利用 Jaeger 利用 tracing 的方式来采集 Kubernetes 集群中的 events 并进行展示。最终效果如下：&lt;/p>
+&lt;p>&lt;img src="https://i.loli.net/2021/06/25/cIyzN5Himdb6GEW.png" alt="">&lt;/p>
+&lt;p>写那篇文章的时候，立了个 flag 要详细介绍下其中的原理，鸽了很久，现在年底了，也该发出来了。&lt;/p>
+&lt;h2 id="eents-概览">Eents 概览&lt;/h2>
+&lt;p>我们先来做个简单的示例，来看看 Kubernetes 集群中的 events 是什么。&lt;/p>
+&lt;p>创建一个新的名叫 moelove 的 namespace ，然后在其中创建一个叫做 redis 的 deployment。接下来查看这个 namespace 中的所有 events。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl create ns moelove
+namespace/moelove created
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl -n moelove create deployment redis --image&lt;span class="o">=&lt;/span>ghcr.io/moelove/redis:alpine
+deployment.apps/redis created
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl -n moelove get deploy
+NAME READY UP-TO-DATE AVAILABLE AGE
+redis 1/1 &lt;span class="m">1&lt;/span> &lt;span class="m">1&lt;/span> 11s
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl -n moelove get events
+LAST SEEN TYPE REASON OBJECT MESSAGE
+21s Normal Scheduled pod/redis-687967dbc5-27vmr Successfully assigned moelove/redis-687967dbc5-27vmr to kind-worker3
+21s Normal Pulling pod/redis-687967dbc5-27vmr Pulling image &lt;span class="s2">&amp;#34;ghcr.io/moelove/redis:alpine&amp;#34;&lt;/span>
+15s Normal Pulled pod/redis-687967dbc5-27vmr Successfully pulled image &lt;span class="s2">&amp;#34;ghcr.io/moelove/redis:alpine&amp;#34;&lt;/span> in 6.814310968s
+14s Normal Created pod/redis-687967dbc5-27vmr Created container redis
+14s Normal Started pod/redis-687967dbc5-27vmr Started container redis
+22s Normal SuccessfulCreate replicaset/redis-687967dbc5 Created pod: redis-687967dbc5-27vmr
+22s Normal ScalingReplicaSet deployment/redis Scaled up replica &lt;span class="nb">set&lt;/span> redis-687967dbc5 to &lt;span class="m">1&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>但是我们会发现默认情况下 &lt;code>kubectl get events&lt;/code> 并没有按照 events 发生的顺序进行排列，所以我们往往需要为其增加 &lt;code>--sort-by='{.metadata.creationTimestamp}'&lt;/code> 参数来让其输出可以按时间进行排列。&lt;/p>
+&lt;p>这也是为何 Kubernetes v1.23 版本中会新增 &lt;code>kubectl alpha events&lt;/code> 命令的原因。我在之前的&lt;a href="https://zhuanlan.zhihu.com/p/442534887">文章《K8S 生态周报| Kubernetes v1.23.0 正式发布，新特性一览》&lt;/a>中已进行了详细的介绍，这里就不展开了。&lt;/p>
+&lt;p>按时间排序后可以看到如下结果：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl -n moelove get events --sort-by&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;{.metadata.creationTimestamp}&amp;#39;&lt;/span>
+LAST SEEN TYPE REASON OBJECT MESSAGE
+2m12s Normal Scheduled pod/redis-687967dbc5-27vmr Successfully assigned moelove/redis-687967dbc5-27vmr to kind-worker3
+2m13s Normal SuccessfulCreate replicaset/redis-687967dbc5 Created pod: redis-687967dbc5-27vmr
+2m13s Normal ScalingReplicaSet deployment/redis Scaled up replica &lt;span class="nb">set&lt;/span> redis-687967dbc5 to &lt;span class="m">1&lt;/span>
+2m12s Normal Pulling pod/redis-687967dbc5-27vmr Pulling image &lt;span class="s2">&amp;#34;ghcr.io/moelove/redis:alpine&amp;#34;&lt;/span>
+2m6s Normal Pulled pod/redis-687967dbc5-27vmr Successfully pulled image &lt;span class="s2">&amp;#34;ghcr.io/moelove/redis:alpine&amp;#34;&lt;/span> in 6.814310968s
+2m5s Normal Created pod/redis-687967dbc5-27vmr Created container redis
+2m5s Normal Started pod/redis-687967dbc5-27vmr Started container redis
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>通过以上的操作，我们可以发现 &lt;strong>events 实际上是 Kubernetes 集群中的一种资源。当 Kubernetes 集群中资源状态发生变化时，可以产生新的 events&lt;/strong>。&lt;/p>
+&lt;h2 id="深入-events">深入 Events&lt;/h2>
+&lt;h3 id="单个-event-对象">单个 Event 对象&lt;/h3>
+&lt;p>既然 events 是 Kubernetes 集群中的一种资源，正常情况下它的 metadata.name 中应该包含其名称，用于进行单独操作。所以我们可以使用如下命令输出其 name ：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl -n moelove get events --sort-by&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;{.metadata.creationTimestamp}&amp;#39;&lt;/span> -o &lt;span class="nv">jsonpath&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;{range .items[*]}{.metadata.name}{&amp;#34;\n&amp;#34;}{end}&amp;#39;&lt;/span>
+redis-687967dbc5-27vmr.16c4fb7bde8c69d2
+redis-687967dbc5.16c4fb7bde6b54c4
+redis.16c4fb7bde1bf769
+redis-687967dbc5-27vmr.16c4fb7bf8a0ab35
+redis-687967dbc5-27vmr.16c4fb7d8ecaeff8
+redis-687967dbc5-27vmr.16c4fb7d99709da9
+redis-687967dbc5-27vmr.16c4fb7d9be30c06
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>选择其中的任意一条 event 记录，将其输出为 YAML 格式进行查看：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl -n moelove get events redis-687967dbc5-27vmr.16c4fb7bde8c69d2 -o yaml
+action: Binding
+apiVersion: v1
+eventTime: &lt;span class="s2">&amp;#34;2021-12-28T19:31:13.702987Z&amp;#34;&lt;/span>
+firstTimestamp: null
+involvedObject:
+apiVersion: v1
+kind: Pod
+name: redis-687967dbc5-27vmr
+namespace: moelove
+resourceVersion: &lt;span class="s2">&amp;#34;330230&amp;#34;&lt;/span>
+uid: 71b97182-5593-47b2-88cc-b3f59618c7aa
+kind: Event
+lastTimestamp: null
+message: Successfully assigned moelove/redis-687967dbc5-27vmr to kind-worker3
+metadata:
+creationTimestamp: &lt;span class="s2">&amp;#34;2021-12-28T19:31:13Z&amp;#34;&lt;/span>
+name: redis-687967dbc5-27vmr.16c4fb7bde8c69d2
+namespace: moelove
+resourceVersion: &lt;span class="s2">&amp;#34;330235&amp;#34;&lt;/span>
+uid: e5c03126-33b9-4559-9585-5e82adcd96b0
+reason: Scheduled
+reportingComponent: default-scheduler
+reportingInstance: default-scheduler-kind-control-plane
+source: &lt;span class="o">{}&lt;/span>
+type: Normal
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以看到其中包含了很多信息, 这里我们先不展开。我们看另一个例子。&lt;/p>
+&lt;h3 id="kubectl-describe-中的-events">&lt;code>kubectl describe&lt;/code> 中的 Events&lt;/h3>
+&lt;p>我们可以分别对 Deployment 对象和 Pod 对象执行 &lt;code>describe&lt;/code> 的操作，可以得到如下结果（省略掉了中间输出）：&lt;/p>
+&lt;ul>
+&lt;li>对 Deployment 操作&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl -n moelove describe deploy/redis
+Name: redis
+Namespace: moelove
+...
+Events:
+Type Reason Age From Message
+---- ------ ---- ---- -------
+Normal ScalingReplicaSet 15m deployment-controller Scaled up replica &lt;span class="nb">set&lt;/span> redis-687967dbc5 to &lt;span class="m">1&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>对 Pod 操作&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl -n moelove describe pods redis-687967dbc5-27vmr
+Name: redis-687967dbc5-27vmr
+Namespace: moelove
+Priority: &lt;span class="m">0&lt;/span>
+Events:
+Type Reason Age From Message
+---- ------ ---- ---- -------
+Normal Scheduled 18m default-scheduler Successfully assigned moelove/redis-687967dbc5-27vmr to kind-worker3
+Normal Pulling 18m kubelet Pulling image &lt;span class="s2">&amp;#34;ghcr.io/moelove/redis:alpine&amp;#34;&lt;/span>
+Normal Pulled 17m kubelet Successfully pulled image &lt;span class="s2">&amp;#34;ghcr.io/moelove/redis:alpine&amp;#34;&lt;/span> in 6.814310968s
+Normal Created 17m kubelet Created container redis
+Normal Started 17m kubelet Started container redis
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>我们可以发现 &lt;strong>对不同的资源对象进行 describe 的时候，能看到的 events 内容都是与自己有直接关联的&lt;/strong>。在 describe Deployment 的时候，看不到 Pod 相关的 Events 。&lt;/p>
+&lt;p>这说明， &lt;strong>Event 对象中是包含它所描述的资源对象的信息的&lt;/strong>，它们是有直接联系的。&lt;/p>
+&lt;p>结合前面我们看到的单个 Event 对象，我们发现 &lt;strong>&lt;code>involvedObject&lt;/code> 字段中内容就是与该 Event 相关联的资源对象的信息&lt;/strong>。&lt;/p>
+&lt;h2 id="更进一步了解-events">更进一步了解 Events&lt;/h2>
+&lt;p>我们来看看如下的示例，创建一个 Deployment ，但是使用一个不存在的镜像：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl -n moelove create deployment non-exist --image&lt;span class="o">=&lt;/span>ghcr.io/moelove/non-exist
+deployment.apps/non-exist created
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl -n moelove get pods
+NAME READY STATUS RESTARTS AGE
+non-exist-d9ddbdd84-tnrhd 0/1 ErrImagePull &lt;span class="m">0&lt;/span> 11s
+redis-687967dbc5-27vmr 1/1 Running &lt;span class="m">0&lt;/span> 26m
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>我们可以看到当前的 Pod 处于一个 &lt;code>ErrImagePull&lt;/code> 的状态。查看当前 namespace 中的 events (我省略掉了之前 deploy/redis 的记录)&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl -n moelove get events --sort-by&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;{.metadata.creationTimestamp}&amp;#39;&lt;/span>
+LAST SEEN TYPE REASON OBJECT MESSAGE
+35s Normal SuccessfulCreate replicaset/non-exist-d9ddbdd84 Created pod: non-exist-d9ddbdd84-tnrhd
+35s Normal ScalingReplicaSet deployment/non-exist Scaled up replica &lt;span class="nb">set&lt;/span> non-exist-d9ddbdd84 to &lt;span class="m">1&lt;/span>
+35s Normal Scheduled pod/non-exist-d9ddbdd84-tnrhd Successfully assigned moelove/non-exist-d9ddbdd84-tnrhd to kind-worker3
+17s Warning Failed pod/non-exist-d9ddbdd84-tnrhd Error: ErrImagePull
+17s Warning Failed pod/non-exist-d9ddbdd84-tnrhd Failed to pull image &lt;span class="s2">&amp;#34;ghcr.io/moelove/non-exist&amp;#34;&lt;/span>: rpc error: &lt;span class="nv">code&lt;/span> &lt;span class="o">=&lt;/span> Unknown &lt;span class="nv">desc&lt;/span> &lt;span class="o">=&lt;/span> failed to pull and unpack image &lt;span class="s2">&amp;#34;ghcr.io/moelove/non-exist:latest&amp;#34;&lt;/span>: failed to resolve reference &lt;span class="s2">&amp;#34;ghcr.io/moelove/non-exist:latest&amp;#34;&lt;/span>: failed to authorize: failed to fetch anonymous token: unexpected status: &lt;span class="m">403&lt;/span> Forbidden
+18s Normal Pulling pod/non-exist-d9ddbdd84-tnrhd Pulling image &lt;span class="s2">&amp;#34;ghcr.io/moelove/non-exist&amp;#34;&lt;/span>
+4s Warning Failed pod/non-exist-d9ddbdd84-tnrhd Error: ImagePullBackOff
+4s Normal BackOff pod/non-exist-d9ddbdd84-tnrhd Back-off pulling image &lt;span class="s2">&amp;#34;ghcr.io/moelove/non-exist&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>对这个 Pod 执行 &lt;code>describe&lt;/code> 操作：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl -n moelove describe pods non-exist-d9ddbdd84-tnrhd
+...
+Events:
+Type Reason Age From Message
+---- ------ ---- ---- -------
+Normal Scheduled 4m default-scheduler Successfully assigned moelove/non-exist-d9ddbdd84-tnrhd to kind-worker3
+Normal Pulling 2m22s &lt;span class="o">(&lt;/span>x4 over 3m59s&lt;span class="o">)&lt;/span> kubelet Pulling image &lt;span class="s2">&amp;#34;ghcr.io/moelove/non-exist&amp;#34;&lt;/span>
+Warning Failed 2m21s &lt;span class="o">(&lt;/span>x4 over 3m59s&lt;span class="o">)&lt;/span> kubelet Failed to pull image &lt;span class="s2">&amp;#34;ghcr.io/moelove/non-exist&amp;#34;&lt;/span>: rpc error: &lt;span class="nv">code&lt;/span> &lt;span class="o">=&lt;/span> Unknown &lt;span class="nv">desc&lt;/span> &lt;span class="o">=&lt;/span> failed to pull and unpack image &lt;span class="s2">&amp;#34;ghcr.io/moelove/non-exist:latest&amp;#34;&lt;/span>: failed to resolve reference &lt;span class="s2">&amp;#34;ghcr.io/moelove/non-exist:latest&amp;#34;&lt;/span>: failed to authorize: failed to fetch anonymous token: unexpected status: &lt;span class="m">403&lt;/span> Forbidden
+Warning Failed 2m21s &lt;span class="o">(&lt;/span>x4 over 3m59s&lt;span class="o">)&lt;/span> kubelet Error: ErrImagePull
+Warning Failed 2m9s &lt;span class="o">(&lt;/span>x6 over 3m58s&lt;span class="o">)&lt;/span> kubelet Error: ImagePullBackOff
+Normal BackOff 115s &lt;span class="o">(&lt;/span>x7 over 3m58s&lt;span class="o">)&lt;/span> kubelet Back-off pulling image &lt;span class="s2">&amp;#34;ghcr.io/moelove/non-exist&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>我们可以发现，这里的输出和之前正确运行 Pod 的不一样。最主要的区别在与 &lt;code>Age&lt;/code> 列。这里我们看到了类似 &lt;code>115s (x7 over 3m58s)&lt;/code> 这样的输出。&lt;/p>
+&lt;p>它的含义表示： &lt;strong>该类型的 event 在 3m58s 中已经发生了 7 次，最近的一次发生在 115s 之前&lt;/strong>&lt;/p>
+&lt;p>但是当我们去直接 &lt;code>kubectl get events&lt;/code> 的时候，我们并没有看到有 7 次重复的 event 。这说明 &lt;strong>Kubernetes 会自动将重复的 events 进行合并&lt;/strong>。&lt;/p>
+&lt;p>选择最后一条 Events (方法前面内容已经讲了) 并将其内容使用 YAML 格式进行输出：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl -n moelove get events non-exist-d9ddbdd84-tnrhd.16c4fce570cfba46 -o yaml
+apiVersion: v1
+count: &lt;span class="m">43&lt;/span>
+eventTime: null
+firstTimestamp: &lt;span class="s2">&amp;#34;2021-12-28T19:57:06Z&amp;#34;&lt;/span>
+involvedObject:
+apiVersion: v1
+fieldPath: spec.containers&lt;span class="o">{&lt;/span>non-exist&lt;span class="o">}&lt;/span>
+kind: Pod
+name: non-exist-d9ddbdd84-tnrhd
+namespace: moelove
+resourceVersion: &lt;span class="s2">&amp;#34;333366&amp;#34;&lt;/span>
+uid: 33045163-146e-4282-b559-fec19a189a10
+kind: Event
+lastTimestamp: &lt;span class="s2">&amp;#34;2021-12-28T18:07:14Z&amp;#34;&lt;/span>
+message: Back-off pulling image &lt;span class="s2">&amp;#34;ghcr.io/moelove/non-exist&amp;#34;&lt;/span>
+metadata:
+creationTimestamp: &lt;span class="s2">&amp;#34;2021-12-28T19:57:06Z&amp;#34;&lt;/span>
+name: non-exist-d9ddbdd84-tnrhd.16c4fce570cfba46
+namespace: moelove
+resourceVersion: &lt;span class="s2">&amp;#34;334638&amp;#34;&lt;/span>
+uid: 60708be0-23b9-481b-a290-dd208fed6d47
+reason: BackOff
+reportingComponent: &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+reportingInstance: &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+source:
+component: kubelet
+host: kind-worker3
+type: Normal
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这里我们可以看到其字段中包括一个 &lt;code>count&lt;/code> 字段，表示同类 event 发生了多少次。以及 &lt;code>firstTimestamp&lt;/code> 和 &lt;code>lastTimestamp&lt;/code> 分别表示了这个 event 首次出现了最近一次出现的时间。这样也就解释了前面的输出中 events 持续的周期了。&lt;/p>
+&lt;h2 id="彻底搞懂-events">彻底搞懂 Events&lt;/h2>
+&lt;p>以下内容是从 Events 中随便选择的一条，我们可以看到它包含的一些字段信息：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">count&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">eventTime&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">null&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">firstTimestamp&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;2021-12-28T19:31:13Z&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">involvedObject&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">apps/v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ReplicaSet&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">redis-687967dbc5&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">namespace&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">moelove&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">resourceVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;330227&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">uid&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">11e98a9d-9062-4ccb-92cb-f51cc74d4c1d&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Event&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">lastTimestamp&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;2021-12-28T19:31:13Z&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">message: &amp;#39;Created pod&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">redis-687967dbc5-27vmr&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">creationTimestamp&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;2021-12-28T19:31:13Z&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">redis-687967dbc5.16c4fb7bde6b54c4&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">namespace&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">moelove&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">resourceVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;330231&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">uid&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">8e37ec1e-b3a1-420c-96d4-3b3b2995c300&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">reason&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">SuccessfulCreate&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">reportingComponent&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">reportingInstance&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">source&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">component&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">replicaset-controller&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Normal&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中主要字段的含义如下：&lt;/p>
+&lt;ul>
+&lt;li>count: 表示当前同类的事件发生了多少次 （前面已经介绍）&lt;/li>
+&lt;li>involvedObject: 与此 event 有直接关联的资源对象 （前面已经介绍） , 结构如下：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">type&lt;/span> &lt;span class="nx">ObjectReference&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">Kind&lt;/span> &lt;span class="kt">string&lt;/span>
+&lt;span class="nx">Namespace&lt;/span> &lt;span class="kt">string&lt;/span>
+&lt;span class="nx">Name&lt;/span> &lt;span class="kt">string&lt;/span>
+&lt;span class="nx">UID&lt;/span> &lt;span class="nx">types&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">UID&lt;/span>
+&lt;span class="nx">APIVersion&lt;/span> &lt;span class="kt">string&lt;/span>
+&lt;span class="nx">ResourceVersion&lt;/span> &lt;span class="kt">string&lt;/span>
+&lt;span class="nx">FieldPath&lt;/span> &lt;span class="kt">string&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>source: 直接关联的组件, 结构如下：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">type&lt;/span> &lt;span class="nx">EventSource&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">Component&lt;/span> &lt;span class="kt">string&lt;/span>
+&lt;span class="nx">Host&lt;/span> &lt;span class="kt">string&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>reason: 简单的总结（或者一个固定的代码），比较适合用于做筛选条件，主要是为了让机器可读，当前有超过 50 种这样的代码；&lt;/li>
+&lt;li>message: 给一个更易让人读懂的详细说明&lt;/li>
+&lt;li>type: 当前只有 &lt;code>Normal&lt;/code> 和 &lt;code>Warning&lt;/code> 两种类型, 源码中也分别写了其含义：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="c1">// staging/src/k8s.io/api/core/v1/types.go
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kd">const&lt;/span> &lt;span class="p">(&lt;/span>
+&lt;span class="c1">// Information only and will not cause any problems
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">EventTypeNormal&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;Normal&amp;#34;&lt;/span>
+&lt;span class="c1">// These events are to warn that something might go wrong
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">EventTypeWarning&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;Warning&amp;#34;&lt;/span>
+&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>所以，当我们将这些 Events 都作为 tracing 的 span 采集回来后，就可以按照其 &lt;code>source&lt;/code> 进行分类，按 &lt;code>involvedObject&lt;/code> 进行关联，按时间进行排序了。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>在这篇文章中，我主要通过两个示例，一个正确部署的 Deploy，以及一个使用不存在镜像部署的 Deploy，深入的介绍了 Events 对象的实际的作用及其各个字段的含义。&lt;/p>
+&lt;p>对于 Kubernetes 而言，Events 中包含了很多有用的信息，但是这些信息却并不会对 Kubernetes 造成什么影响，它们也并不是实际的 Kubernetes 的日志。默认情况下 Kubernetes 中的日志在 1 小时后就会被清理掉，以便释放对 etcd 的资源占用。&lt;/p>
+&lt;p>所以为了能更好的让集群管理员知道发生了什么，在生产环境中，我们通常会把 Kubernetes 集群的 events 也给采集回来。我个人比较推荐的工具是： &lt;a href="https://github.com/opsgenie/kubernetes-event-exporter">https://github.com/opsgenie/kubernetes-event-exporter&lt;/a>&lt;/p>
+&lt;p>当然你也可以按照我之前的文章 &lt;a href="https://zhuanlan.zhihu.com/p/383795254">《更优雅的 Kubernetes 集群事件度量方案》&lt;/a>，利用 Jaeger 利用 tracing 的方式来采集 Kubernetes 集群中的 events 并进行展示。&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">K8S 生态周报| Helm 新版本发布，解决了内存泄漏的问题</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/26/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-%E6%96%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E8%A7%A3%E5%86%B3%E4%BA%86%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98/"/><id>https://moelove.info/2021/12/26/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-%E6%96%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E8%A7%A3%E5%86%B3%E4%BA%86%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98/</id><updated>2021-12-27T14:47:52+08:00</updated><published>2021-12-26T23:57:25+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 Trivy v0.22.0 正式发布 Trivy 是一……</summary><content type="html">&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;h1 id="trivy-v0220-正式发布">Trivy v0.22.0 正式发布&lt;/h1>
