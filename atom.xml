@@ -1,4 +1,105 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-12-29T13:02:44+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">彻底搞懂 Kubernetes 中的 Events</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/28/%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82-Kubernetes-%E4%B8%AD%E7%9A%84-Events/"/><id>https://moelove.info/2021/12/28/%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82-Kubernetes-%E4%B8%AD%E7%9A%84-Events/</id><updated>2021-12-29T13:02:20+08:00</updated><published>2021-12-28T22:12:37+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 之前我写了一篇《更优雅的 Kubernetes 集群事件度量方案》，利用 Jaeger 利用 tracing 的方式来采集 Kubernetes 集群中的 events 并进行展示。最终效果如下：……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2021-12-31T09:18:18+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">6 个月内做了 15 场公开技术分享，我的 2021 是这样过的</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/30/6-%E4%B8%AA%E6%9C%88%E5%86%85%E5%81%9A%E4%BA%86-15-%E5%9C%BA%E5%85%AC%E5%BC%80%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB%E6%88%91%E7%9A%84-2021-%E6%98%AF%E8%BF%99%E6%A0%B7%E8%BF%87%E7%9A%84/"/><id>https://moelove.info/2021/12/30/6-%E4%B8%AA%E6%9C%88%E5%86%85%E5%81%9A%E4%BA%86-15-%E5%9C%BA%E5%85%AC%E5%BC%80%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB%E6%88%91%E7%9A%84-2021-%E6%98%AF%E8%BF%99%E6%A0%B7%E8%BF%87%E7%9A%84/</id><updated>2021-12-31T09:17:46+08:00</updated><published>2021-12-30T21:39:12+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 一眨眼 2021 年就要结束了，我每年都会惯例的做个小回顾。2021 年也发生了很多的事情值得记录一下。 生活与换工作 这两……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>一眨眼 2021 年就要结束了，我每年都会惯例的做个小回顾。2021 年也发生了很多的事情值得记录一下。&lt;/p>
+&lt;h2 id="生活与换工作">生活与换工作&lt;/h2>
+&lt;p>这两年的疫情对每个人的生活都或多或少的产生了一定的影响，对我而言也是一样。更多的可能是一些想法和心态上的变化。&lt;/p>
+&lt;p>我在 2020 年的回顾文章 &lt;a href="https://zhuanlan.zhihu.com/p/342464087">《新晋程序员奶爸的云原生之路》&lt;/a> 中有聊过，我和小可爱的宝宝在 2020 年出生了。&lt;/p>
+&lt;p>相比于去年的各种手忙脚乱，以及学习和探索，今年整体来说已经轻松了很多。半夜已经基本上不需要再起来哄他或者冲奶了，也增加了很多互动，变得更加有趣了。&lt;/p>
+&lt;p>我也更多的意识到对家人的陪伴是很关键的，之前总是在各种忙，在家人的陪伴方面是少了很多。&lt;/p>
+&lt;p>得益于今年换了工作，现在在 API7.AI 是远程工作，全职做开源，工作之余也有了更多的时间陪伴家人。&lt;/p>
+&lt;p>换工作期间有两个有趣的插曲跟大家一起分享下：&lt;/p>
+&lt;h3 id="爆火的离职消息">爆火的离职消息&lt;/h3>
+&lt;p>加了我微信或者关注了我其他社交媒体账号的小伙伴可能会发现，我更新还是比较频繁的。&lt;/p>
+&lt;p>在我从前司离职当天，我惯例的发了条 &amp;quot;江湖再会&amp;quot; 的消息，然后我就跟小可爱约会去了。&lt;/p>
+&lt;p>结果很意外的，这条消息得到了很多关注。&lt;/p>
+&lt;p>朋友圈自不必说，还有很多小伙伴给我发消息询问情况的。&lt;/p>
+&lt;p>在推上有 3w 的展示和 1w 多的互动。在脉脉上甚至给我送上了脉脉周榜的前 100 名，感谢大家的关注。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/31/iI9ZQRBWLuVNUh3.jpg" alt="">&lt;/p>
+&lt;h3 id="无缝衔接">无缝衔接&lt;/h3>
+&lt;p>其实我本来想要早点交接完在离职后休息一段时间的，不过老板让我多待了段时间，所以恰好周五是 last day。&lt;/p>
+&lt;p>经过了两天和平时差不多一样的周末后，我就直接入职 API7.AI 飞去珠海跟团队小伙伴团建去了。&lt;/p>
+&lt;p>基本上算是无缝衔接了，也就是正常的过了个周末罢了。这敬业程度，评个劳模不过分吧？（哈哈哈&lt;/p>
+&lt;h2 id="远程工作的那些事">远程工作的那些事&lt;/h2>
+&lt;p>再就是来聊聊我现在的工作，前面提到了，我现在是在 API7.AI 远程全职做开源。&lt;/p>
+&lt;p>熟悉我的小伙伴可能知道，我一直都在参与开源项目和开源社区，只不过之前都是靠爱发电，现在全职做开源，还可以有一个公司给我支付薪水，还是很不错的。&lt;/p>
+&lt;p>关于开源和职业规划等方面，我之前做过一次线下分享，感兴趣的小伙伴可以查看下分享内容的总结： &lt;a href="https://mp.weixin.qq.com/s?__biz=MzI2ODAwMzUwNA==&amp;amp;mid=2649296423&amp;amp;idx=1&amp;amp;sn=11d7dda8e5dc4569de5a5098a2834113&amp;amp;chksm=f2eb9ff8c59c16ee4f0e114fd523db85ea20446445f1a685de5abe7d60e95f3304e1208022a7&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=1229Yy2sWEYdoTgAzAc4SFwF&amp;amp;sharer_sharetime=1640852619547&amp;amp;sharer_shareid=ca2e51094588e06bf753d47ce6ce6894&amp;amp;exportkey=ARLdgzgH6nytXOL85guH5UM%3D&amp;amp;pass_ticket=qP4NeAQLR2lcADuYhEE8yUtney%2FiPQsWuwjri42D%2BPGtFyKUqAQElvw0Axv7%2Bs%2BQ&amp;amp;wx_header=0#rd">开源浪潮下程序员的职业规划和成长&lt;/a>&lt;/p>
+&lt;p>作为一家 Global 的开源商业化公司 API7.AI 为我提供的是一份远程的工作，并不限制我的办工地点，所以刚入职后我选择了在家办公。&lt;/p>
+&lt;p>不过那一周我发现一个很严重的问题，我下不了班。&lt;/p>
+&lt;p>因为我工作时间在做开源，但是我下班时间其实还是在做开源（这是我的兴趣，也是一个习惯），而且由于在家办公，少了一些边界，就更加感觉是一直在工作。&lt;/p>
+&lt;p>不过第二周我就调整好了，我在外面租了办公点，开始让工作和生活有了一定的边界，或者说有了点仪式感，这就有下班的感觉了。（虽然从结果上其实还是没有变化，仍然是工作时间在做开源，休息时间还在做开源 2333）&lt;/p>
+&lt;p>再之后节奏就都调整好了，不再会有之前的那种感觉了，也不会再去在意那种所谓的&amp;quot;仪式感&amp;quot;了，也知道什么时候该休息一下了。&lt;/p>
+&lt;p>有些小伙伴说远程工作可能会有孤独感，但我完全没有这种感觉。相反的，我觉得目前的状态特别好。&lt;/p>
+&lt;p>之前在参与开源社区和活动的时候，大家基本也都是文字交流，甚至聊个几年都没有真的见过一次面的。写到这里我突然想起来了 Python Tornado 框架的作者 Ben Darnell，2016 年我把他邀请到了杭州在 PyCon China 2016 做分享，但我当时还在北京上班过不去。实话说，我俩聊了这么多年，还真的没有线下见过面，但也并不觉得有什么。(扯远了)&lt;/p>
+&lt;p>至于工作内容的话，主要是在做基于 Apache APISIX 的 Kubernetes Ingress Controller 和 Service Mesh ，跟我个人的兴趣方向也是一致的，所以也比较开心。有朋友说我是把兴趣做成了工作，我觉得也基本上是的，毕竟即使没有这份工作，我也还是会持续的做开源。&lt;/p>
+&lt;h2 id="个人学习和成长">个人学习和成长&lt;/h2>
+&lt;p>今年的研究方向主要在 Kubernetes 和 Service Mesh 等云原生技术和方案上，另外就是对于 Apache APISIX 更加的熟悉。&lt;/p>
+&lt;p>和去年一样，在 Kubernetes 上面的多数时间花在了理清某些功能的设计和演进过程方面，奇奇怪怪的知识增加了更多。成为了 Kubernetes ingress-nginx 项目的 reviewer ，维护这么活跃的开源项目还是很辛苦的。&lt;/p>
+&lt;p>在 Docker 项目主仓库的贡献者排行榜上排名第 66 ，没有明显的进步。&lt;/p>
+&lt;p>其他方面的话，在 Cilium 和 eBPF 上花了一些时间，后续可能会分享一些这方面的内容。&lt;/p>
+&lt;h2 id="社区贡献">社区贡献&lt;/h2>
+&lt;p>记得我去年的年终总结在思否社区得了个凡尔赛奖 (广告费记得结一下)，这次也例行的做个总结和回顾。&lt;/p>
+&lt;h3 id="演讲">演讲&lt;/h3>
+&lt;p>&lt;strong>我在 2021 年一共做了 19 场公开的技术分享&lt;/strong> 。&lt;/p>
+&lt;p>主要集中在下半年， &lt;strong>我在 6 个月做了 15 场技术分享&lt;/strong> 。&lt;/p>
+&lt;p>最忙碌的是在 7 月和 11 月，每月有 4 场。最轻松的是 8 月份，没有安排任何活动。(其实 8 月份本来也有安排的，由于疫情延期/取消了)。&lt;/p>
+&lt;p>比较特殊的一个是在 7 月份海外 DoK 社区做了一场全英文的分享，由于时差的原因，那天是在 0 点做的分享，完事后已经凌晨 1 点了。打车回家的路上司机师傅问我是做什么工作的，然后说你们做程序员的就是加班太严重，哈哈哈。&lt;/p>
+&lt;p>另一个也是 7 月份，在上海的 GOTC 大会，我当时分享中聊到了供应链攻击和 SBOM。实话说，在那之前我在国内会议中确实没发现有人提 SBOM 这个概念。但是从 8 月份开始，这个概念就好像多起来了。另外就是在这次也面基了很多小伙伴，特别开心。&lt;/p>
+&lt;p>这些技术分享中可公开的 PPT 我全都上传到了 &lt;a href="https://github.com/tao12345666333/slides">https://github.com/tao12345666333/slides&lt;/a> 有兴趣的小伙伴可以自取。&lt;/p>
+&lt;h3 id="专访">专访&lt;/h3>
+&lt;p>没记错的话，今年有两次专访。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://mp.weixin.qq.com/s?__biz=MzI2ODAwMzUwNA==&amp;amp;mid=2649296303&amp;amp;idx=1&amp;amp;sn=e8d8267cf7cc79d7a4480b592e776253&amp;amp;chksm=f2eb9c70c59c1566c828313673c555d91086bd642508bd0b65da706b95231933e5f2085fc970&amp;amp;token=36152412&amp;amp;lang=zh_CN#rd">开源中国专访张晋涛：从Web开发者到中国首位K8s ingress-nginx reviewer&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://mp.weixin.qq.com/s?__biz=MzI2ODAwMzUwNA==&amp;amp;mid=2649297017&amp;amp;idx=1&amp;amp;sn=082c0dc8073fbaf4661b442598ab72ea&amp;amp;chksm=f2eb81a6c59c08b0b0d1bee2fba47069f759bad19e6256bf102ecab5a8fce5aef9f8c4d56b7c&amp;amp;token=36152412&amp;amp;lang=zh_CN#rd">「对话GitOps之星」张晋涛：“肝帝”时不时也会拖更&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="文章">文章&lt;/h3>
+&lt;p>今年我写了 40 篇文章，相比去年的 57 篇明显的要少了很多。其中 『K8s生态周报』也断更了几篇，明年要争取保持更新不断更！&lt;/p>
+&lt;p>以下是一些反馈较好的文章：&lt;/p>
+&lt;p>&lt;strong>『彻底搞懂』系列&lt;/strong> ：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://mp.weixin.qq.com/s?__biz=MzI2ODAwMzUwNA==&amp;amp;mid=2649296734&amp;amp;idx=1&amp;amp;sn=ec98a1fdbd011c5610bd5aa3537d23fb&amp;amp;chksm=f2eb9e81c59c17978fd88244e41c69e2fd77653bd54c1d14eae997e1793e527fcb57735f7eed&amp;amp;token=36152412&amp;amp;lang=zh_CN#rd">彻底搞懂容器技术的基石： cgroup&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://mp.weixin.qq.com/s?__biz=MzI2ODAwMzUwNA==&amp;amp;mid=2649297149&amp;amp;idx=2&amp;amp;sn=d522e6a1b5013288137c81318f8907d5&amp;amp;chksm=f2eb8122c59c083482976978e86c6ec99fbe9b52ae5fa343baef0de9842dd0b6538b8f491ba2&amp;amp;token=36152412&amp;amp;lang=zh_CN#rd">彻底搞懂容器技术的基石： namespace （上）&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://mp.weixin.qq.com/s?__biz=MzI2ODAwMzUwNA==&amp;amp;mid=2649297169&amp;amp;idx=1&amp;amp;sn=e2c175436ecc24da51361cf72a0f497a&amp;amp;chksm=f2eb80cec59c09d8715024b477b1cf9281b03e5aca9b6ea280081633620fa8279263f1b47425&amp;amp;token=36152412&amp;amp;lang=zh_CN#rd">彻底搞懂容器技术的基石：namespace（下）&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://mp.weixin.qq.com/s?__biz=MzI2ODAwMzUwNA==&amp;amp;mid=2649297426&amp;amp;idx=2&amp;amp;sn=215535b6044cae9a06e7239c1b6770f4&amp;amp;chksm=f2eb83cdc59c0adb3b9f20a748aad19b59e7828ce75aa7f616b94af1c9d0e0cda53854ea020b&amp;amp;token=36152412&amp;amp;lang=zh_CN#rd">彻底搞懂 Kubernetes 中的 Events&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>『K8s生态周报』系列&lt;/strong> 中大家比较关注的可能还是新版本的特性：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://mp.weixin.qq.com/s?__biz=MzI2ODAwMzUwNA==&amp;amp;mid=2649297076&amp;amp;idx=1&amp;amp;sn=4d6a86220535a0aaa9fdbcbaf66625f4&amp;amp;chksm=f2eb816bc59c087db1ff984e94e449cb9bd6ee6efd18cf25cf946f3019532e56463629e2f1e0&amp;amp;token=36152412&amp;amp;lang=zh_CN#rd">K8S 生态周报| Kubernetes v1.23.0 正式发布，新特性一览&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://mp.weixin.qq.com/s?__biz=MzI2ODAwMzUwNA==&amp;amp;mid=2649296413&amp;amp;idx=1&amp;amp;sn=18168eb2edde8f64be559c93b4b845de&amp;amp;chksm=f2eb9fc2c59c16d4a5790e1c46cc31c82b461be28b871e0fd790b45aa19f5ca09170a7f9dbb5&amp;amp;token=36152412&amp;amp;lang=zh_CN#rd">K8S 生态周报| Kubernetes v1.22.0 正式发布，新特性一览！&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>其他一些:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://mp.weixin.qq.com/s?__biz=MzI2ODAwMzUwNA==&amp;amp;mid=2649296229&amp;amp;idx=1&amp;amp;sn=18584c5faef02109480ab539b84fd9af&amp;amp;chksm=f2eb9cbac59c15ac882d3c51206e033dbefd612f65a15abe098ae943e1973023ea3a8e7ee7d9&amp;amp;token=36152412&amp;amp;lang=zh_CN#rd">开源项目的 5 年长跑，runc v1.0 终于正式发布！&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://mp.weixin.qq.com/s?__biz=MzI2ODAwMzUwNA==&amp;amp;mid=2649296442&amp;amp;idx=1&amp;amp;sn=dbf9fe41dd461663d73b3cd3473ceb47&amp;amp;chksm=f2eb9fe5c59c16f3cd85e0c723e20446e5cde5e5bfdc5181ba9d30ca9003b495a3144f5626f0&amp;amp;token=36152412&amp;amp;lang=zh_CN#rd">Lima：Docker Desktop for Mac 的免费开源且自由的替代品&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://mp.weixin.qq.com/s?__biz=MzI2ODAwMzUwNA==&amp;amp;mid=2649296423&amp;amp;idx=1&amp;amp;sn=11d7dda8e5dc4569de5a5098a2834113&amp;amp;chksm=f2eb9ff8c59c16ee4f0e114fd523db85ea20446445f1a685de5abe7d60e95f3304e1208022a7&amp;amp;token=36152412&amp;amp;lang=zh_CN#rd">开源浪潮下程序员的职业规划和成长-分享总结&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>最后惯例的贴一张图：&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2021/12/31/4yrdYS7Mg23bBxA.png" alt="">&lt;/p>
+&lt;p>2022 年的小目标仍然不写了。愿：平安喜乐！&lt;/p>
+&lt;p>还有文章前的你，感谢你的关注和支持，希望我们能各有收获！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Life/" term="Life" label="Life"/></entry><entry><title type="text">彻底搞懂 Kubernetes 中的 Events</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/12/28/%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82-Kubernetes-%E4%B8%AD%E7%9A%84-Events/"/><id>https://moelove.info/2021/12/28/%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82-Kubernetes-%E4%B8%AD%E7%9A%84-Events/</id><updated>2021-12-29T13:02:20+08:00</updated><published>2021-12-28T22:12:37+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 之前我写了一篇《更优雅的 Kubernetes 集群事件度量方案》，利用 Jaeger 利用 tracing 的方式来采集 Kubernetes 集群中的 events 并进行展示。最终效果如下：……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>之前我写了一篇&lt;a href="https://zhuanlan.zhihu.com/p/383795254">《更优雅的 Kubernetes 集群事件度量方案》&lt;/a>，利用 Jaeger 利用 tracing 的方式来采集 Kubernetes 集群中的 events 并进行展示。最终效果如下：&lt;/p>
 &lt;p>&lt;img src="https://i.loli.net/2021/06/25/cIyzN5Himdb6GEW.png" alt="">&lt;/p>
 &lt;p>写那篇文章的时候，立了个 flag 要详细介绍下其中的原理，鸽了很久，现在年底了，也该发出来了。&lt;/p>
