@@ -1,4 +1,164 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Fri, 31 Dec 2021 09:18:18 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>6 个月内做了 15 场公开技术分享，我的 2021 是这样过的</title><link>https://moelove.info/2021/12/30/6-%E4%B8%AA%E6%9C%88%E5%86%85%E5%81%9A%E4%BA%86-15-%E5%9C%BA%E5%85%AC%E5%BC%80%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB%E6%88%91%E7%9A%84-2021-%E6%98%AF%E8%BF%99%E6%A0%B7%E8%BF%87%E7%9A%84/</link><guid isPermaLink="true">https://moelove.info/2021/12/30/6-%E4%B8%AA%E6%9C%88%E5%86%85%E5%81%9A%E4%BA%86-15-%E5%9C%BA%E5%85%AC%E5%BC%80%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB%E6%88%91%E7%9A%84-2021-%E6%98%AF%E8%BF%99%E6%A0%B7%E8%BF%87%E7%9A%84/</guid><pubDate>Thu, 30 Dec 2021 21:39:12 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Fri, 07 Jan 2022 09:23:49 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| 2021 回顾和 2022 展望</title><link>https://moelove.info/2022/01/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2021-%E5%9B%9E%E9%A1%BE%E5%92%8C-2022-%E5%B1%95%E6%9C%9B/</link><guid isPermaLink="true">https://moelove.info/2022/01/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2021-%E5%9B%9E%E9%A1%BE%E5%92%8C-2022-%E5%B1%95%E6%9C%9B/</guid><pubDate>Thu, 06 Jan 2022 19:18:41 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>2021 年已经结束了，我们来对 Kubernetes 及相关生态做个回顾和总结。&lt;/p>
+&lt;h2 id="kubernetes-的-2021">Kubernetes 的 2021&lt;/h2>
+&lt;p>从 2021 年的 4 月份开始， Kubernetes 的发版节奏由原先的每 3 个月发布一个版本，修改成了每 4 个月发布一个版本。所以在 2021 年，Kubernetes 一共发布了 3 个大版本。包括 v1.21、v1.22 和 v1.23 。&lt;/p>
+&lt;p>从整体的功能上而言，主要侧重在以下的几个方面。&lt;/p>
+&lt;h3 id="资源利用">资源利用&lt;/h3>
+&lt;h4 id="内存管理器kubelet">内存管理器（kubelet）&lt;/h4>
+&lt;p>在 Kubernetes v1.21 中在 kubelet 组件生态中新增了一个 &lt;strong>内存管理器&lt;/strong> ，在 Linux 系统中，为需要保证 QoS 的 Pod 在多 NUMA 节点保障内存和大内存页分配。这个特性非常有用，尤其是当数据库类或者使用 DPDK 进行高性能数据包处理的应用要部署到 Kubernetes 中时，内存对其性能影响至关重要。&lt;/p>
+&lt;p>这里稍微聊点和 NUMA 相关的内容。简单来说就是在多 NUMA 结构下，为了保证效率，所以会按内存和 CPU 的相对距离来按 node 定义是否为 local memory 或者说本地内存，同时由于实际位置不同，所以就可能会产生内存分配不均匀的情况了。比如，我们可以使用 numactl 管理工具查看下当前机器上的情况：&lt;/p>
+&lt;pre>&lt;code>[tao@moelove ~]# numactl -H
+available: 2 nodes (0-1)
+node 0 cpus: 0 1 2 3 4 5 6 7 8 9 20 21 22 23 24 25 26 27 28 29
+node 0 size: 65186 MB
+node 0 free: 9769 MB
+node 1 cpus: 10 11 12 13 14 15 16 17 18 19 30 31 32 33 34 35 36 37 38 39
+node 1 size: 65536 MB
+node 1 free: 15206 MB
+node distances:
+node 0 1
+0: 10 21
+1: 21 10
+&lt;/code>&lt;/pre>&lt;p>可以看到在我当前的这台机器上就存在着比较明显的内存分配不均的情况。所以当某个进程达到了其 local memory 的上限，那自然就会影响到它的性能。&lt;/p>
+&lt;p>这次在 kubelet 中增加的内存管理器便可以很好的解决这个问题，可以在启动 kubelet 的时候通过 &lt;code>--reserved-memory&lt;/code> 以及配合 &lt;code>--memory-manager-policy&lt;/code> 等参数来一起设置。例如：&lt;/p>
+&lt;pre>&lt;code>--memory-manager-policy static --reserved-memory 0:memory=1Gi,hugepages-1M=2Gi --reserved-memory 1:memory=2Gi
+&lt;/code>&lt;/pre>&lt;p>注意：&lt;code>memory-manager-policy&lt;/code> 必须设置为 static，如果不设置则默认为 none，即不采取任何行为。&lt;/p>
+&lt;p>不过这个特性还在较早期的阶段，目前只为 &lt;code>Guaranteed&lt;/code> QoS 类的 Pod 提供支持。另外，如果正确启用了此特性，则在机器的 /var/lib/kubelet/memory_manager_state 可以看到其详细信息。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2022/01/07/8d1nKrtip9QoOmW.png" alt="img">&lt;/p>
+&lt;p>最终将会影响到拓扑管理器。&lt;/p>
+&lt;h4 id="内存资源的qos">内存资源的QoS&lt;/h4>
+&lt;p>之前 Kubernetes 在使用 cgroups v1 ，对于 Pod 的 QoS 其实只适用于 CPU 资源。Kubernetes v1.22 中通过引入 cgroups v2 来提供了一个 alpha 特性，允许对内存资源也提供 QoS。（如果没记错，貌似是腾讯云团队提交的 KEP 吧）&lt;/p>
+&lt;h4 id="replicaset-缩容算法调整">ReplicaSet 缩容算法调整&lt;/h4>
+&lt;p>当前的缩容算法，主要是优先删除生命周期最短的 Pod，本次修改主要是为了避免某些场景：&lt;/p>
+&lt;p>比如在缩容的时候，一次性把新扩容的所有的 Pod 给删掉了之类的。所以计划对他们进行对数计算，也可以简单的理解为想要相对随机的对 Pod 进行清理。&lt;/p>
+&lt;p>这个调整确实能避免掉上述提到的那种场景，不过也可能会带来一些其他的关于服务可用性相关的问题，比如通常情况下运行时间越久的 Pod 可能当前服务的用户数就越多，连接销毁时，可能就会比新 Pod 带来的影响大一些了。（当然，这些也都是可以通过其他的方式来避免的）&lt;/p>
+&lt;h4 id="node-swap-支持">Node swap 支持&lt;/h4>
+&lt;p>此特性现在是 Alpha 阶段。&lt;/p>
+&lt;p>虽然 swap 并不够快，但是现在有很多场景都是需要用到它的，尤其是一些 Java 和 Node 应用。&lt;/p>
+&lt;p>在 Kubernetes 的 issue 列表中有一个存在了 5 年左右的讨论，就是针对于能否开启 swap 支持的。当前这个特性一旦开启就是针对于整个 Node 的，并不能精确到某个 Pod 中。&lt;/p>
+&lt;p>你可以通过如下步骤启用此特性：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>在 Node 中启用 swap；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>开启 kubelet 的 &lt;code>NodeMemorySwap&lt;/code> 特性；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>设置 &lt;code>--fail-on-swap=false&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>可选在 Kubelet 的配置中增加 &lt;code>MemorySwap.SwapBehavior=UnlimitedSwap&lt;/code>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>更多内容可参考：&lt;a href="https://link.juejin.cn?target=https%3A%2F%2Fgithub.com%2Fkubernetes%2Fenhancements%2Ftree%2Fmaster%2Fkeps%2Fsig-node%2F2400-node-swap">github.com/kubernetes/…&lt;/a>&lt;/p>
+&lt;h4 id="hpa-v2-api-达到-ga">HPA v2 API 达到 GA&lt;/h4>
+&lt;p>HPA v2 大约是在 5 年前首次提出，经过这 5 年的发展，终于在现在它达到了 GA 级别。&lt;/p>
+&lt;h3 id="安全性">安全性&lt;/h3>
+&lt;h4 id="pod-security-policy-的替代品">Pod Security Policy 的替代品&lt;/h4>
+&lt;p>&lt;a href="https://link.juejin.cn?target=https%3A%2F%2Fgithub.com%2Fkubernetes%2Fwebsite%2Fblob%2Fdev-1.22%2Fcontent%2Fen%2Fdocs%2Fconcepts%2Fsecurity%2Fpod-security-admission.md">PodSecurity admission controller&lt;/a> 是&lt;a href="https://link.juejin.cn?target=https%3A%2F%2Fsysdig.com%2Fblog%2Fkubernetes-1-21-whats-new%2F%235">在 Kubernets v1.21 中被废弃的 &lt;/a>&lt;a href="https://link.juejin.cn?target=https%3A%2F%2Fsysdig.com%2Fblog%2Fkubernetes-1-21-whats-new%2F%235">Pod&lt;/a>&lt;a href="https://link.juejin.cn?target=https%3A%2F%2Fsysdig.com%2Fblog%2Fkubernetes-1-21-whats-new%2F%235"> Security Policies &lt;/a>的替代品。&lt;/p>
+&lt;p>这个 admission controller 可以按 namespace 级别启用 &lt;a href="https://link.juejin.cn?target=https%3A%2F%2Fkubernetes.io%2Fdocs%2Fconcepts%2Fsecurity%2Fpod-security-standards%2F">Pod&lt;/a>&lt;a href="https://link.juejin.cn?target=https%3A%2F%2Fkubernetes.io%2Fdocs%2Fconcepts%2Fsecurity%2Fpod-security-standards%2F"> Security Standards&lt;/a> ，可以有以下三种模式：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>enforce&lt;/strong>: 违反策略的 Pod 将被拒绝；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>audit&lt;/strong>：违反策略的 Pod 将会添加审计注释，但其他情况下都允许；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>warn&lt;/strong>：违反策略的 Pod 将会触发面向用户的警告；&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>可通过如下配置文件进行控制：&lt;/p>
+&lt;pre>&lt;code>apiVersion: apiserver.config.k8s.io/v1
+kind: AdmissionConfiguration
+plugins:
+- name: PodSecurity
+configuration:
+defaults: ## Defaults applied when a mode label is not set.
+enforce: &amp;lt;default enforce policy level&amp;gt;
+enforce-version: &amp;lt;default enforce policy version&amp;gt;
+audit: &amp;lt;default audit policy level&amp;gt;
+audit-version: &amp;lt;default audit policy version&amp;gt;
+warn: &amp;lt;default warn policy level&amp;gt;
+warn-version: &amp;lt;default warn policy version&amp;gt;
+exemptions:
+usernames: [ &amp;lt;array of authenticated usernames to exempt&amp;gt; ]
+runtimeClassNames: [ &amp;lt;array of runtime class names to exempt&amp;gt; ]
+namespaces: [ &amp;lt;array of namespaces to exempt&amp;gt; ]
+&lt;/code>&lt;/pre>&lt;h3 id="可扩展性">可扩展性&lt;/h3>
+&lt;h4 id="新增-openapi-v3">新增 OpenAPI V3&lt;/h4>
+&lt;p>这个特性是 Alpha 级别，可通过 &lt;code>OpenApiv3&lt;/code> feature gate 进行开启。&lt;/p>
+&lt;p>增加此特性主要是由于 CRD 目前可通过 OpenApi V3 进行定义，但是 api-server 目前还不支持。当从 OpenApi V3 转换为 V2 时，部分信息将会丢失。&lt;/p>
+&lt;p>更多详细信息可参考 &lt;a href="https://link.juejin.cn?target=https%3A%2F%2Fgithub.com%2Fkubernetes%2Fenhancements%2Fissues%2F2896">KEP #2896&lt;/a>&lt;/p>
+&lt;h4 id="crd-validation-表达式语言">CRD Validation 表达式语言&lt;/h4>
+&lt;p>这是一项 Alpha 级别的特性，默认是不开启的。可通过增加 &lt;code>CustomResourceValidationExpressions&lt;/code> feature gate 来进行开启。单独介绍此 Alpha 级别的特性是因为目前基于 Custom Resource Definitions (CRDs) 的方式对 Kubernetes 进行扩展已经成为主流，但是在 CRD 中目前能添加的校验规则有限，更多的场景都需要通过额外的 Admission 来完成。&lt;/p>
+&lt;p>此功能使用一种叫做 Common Expression Language (CEL) 的语言进行规则定义，通过 &lt;code>x-kubernetes-validation-rules&lt;/code> 字段进行规则的添加。&lt;/p>
+&lt;p>例如，某个 CRDs 的内容如下，其中定义了 &lt;code>minReplicas&lt;/code> 小于 &lt;code>replicas&lt;/code> 并且 &lt;code>replicas&lt;/code> 小于 &lt;code>maxReplicas&lt;/code> 。&lt;/p>
+&lt;pre>&lt;code>...
+openAPIV3Schema:
+type: object
+properties:
+spec:
+type: object
+x-kubernetes-validation-rules:
+- rule: &amp;quot;self.minReplicas &amp;lt;= self.replicas&amp;quot;
+message: &amp;quot;replicas should be greater than or equal to minReplicas.&amp;quot;
+- rule: &amp;quot;self.replicas &amp;lt;= self.maxReplicas&amp;quot;
+message: &amp;quot;replicas should be smaller than or equal to maxReplicas.&amp;quot;
+properties:
+...
+minReplicas:
+type: integer
+replicas:
+type: integer
+maxReplicas:
+type: integer
+required:
+- minReplicas
+- replicas
+- maxReplicas
+&lt;/code>&lt;/pre>&lt;p>那么，当有如下的自定义资源创建时，Kubernetes 将会拒绝其请求。&lt;/p>
+&lt;pre>&lt;code>apiVersion: &amp;quot;stable.example.com/v1&amp;quot;
+kind: CustomDeployment
+metadata:
+name: my-new-deploy-object
+spec:
+minReplicas: 0
+replicas: 20
+maxReplicas: 10
+&lt;/code>&lt;/pre>&lt;p>并且返回如下错误：&lt;/p>
+&lt;pre>&lt;code>The CustomDeployment &amp;quot;my-new-deploy-object&amp;quot; is invalid:
+* spec: Invalid value: map[string]interface {}{&amp;quot;maxReplicas&amp;quot;:10, &amp;quot;minReplicas&amp;quot;:0, &amp;quot;replicas&amp;quot;:20}: replicas should be smaller than or equal to maxReplicas.
+&lt;/code>&lt;/pre>&lt;p>这样相比原来我们通过 Admission 的方式来进行校验就会方便的多。&lt;/p>
+&lt;h3 id="易用性">易用性&lt;/h3>
+&lt;h4 id="增加-kubectl-alpha-events-命令">增加 &lt;code>kubectl alpha events&lt;/code> 命令&lt;/h4>
+&lt;p>增加此命令主要是由于在不修改 &lt;code>kubectl get&lt;/code> 的前提下，查看 &lt;code>event&lt;/code> 有一些限制，所以直接增加 &lt;code>kubectl events&lt;/code> 命令可以更方便的去获取到需要的信息，尤其是 event 是在 Kubernetes 中经常需要查看的一个信息。&lt;code>kubectl get events&lt;/code> 比较典型的一些问题, 比如排序（虽然可以通过加参数解决）， watch，以及无法按照时间线方式去查看 events 等。&lt;/p>
+&lt;h2 id="kubernetes-生态的-2021">Kubernetes 生态的 2021&lt;/h2>
+&lt;h3 id="service-mesh">Service Mesh&lt;/h3>
+&lt;p>在 Kubernetes 生态中，今年最主要的不同是在 Service Mesh 领域迎来了一个新的选手：Cilium Service Mesh。&lt;/p>
+&lt;p>在之前，Service Mesh 的典型架构是以 Istio 和 Linkerd 等为代表的，基于 Sidecar 的架构模式。在应用程序的 Pod 中自动的注入一个 Sidecar 用于流量的管理等相关能力。&lt;/p>
+&lt;p>但是 Cilium Service Mesh 提出了 Sidecarless 的模式，通过 eBPF 技术的加持，带来了更加安全，高性能，以及良好的可观测性。&lt;/p>
+&lt;p>这也将引起了新一轮的变革。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2022/01/07/YUFjcMZsifuDxqw.png" alt="img">&lt;/p>
+&lt;h3 id="serverless">Serverless&lt;/h3>
+&lt;p>今年，Severless领域出现了一些新选手，比如国内青云团队开源出来的 OpenFunction 等项目。&lt;/p>
+&lt;p>2012年，Severless概念正式提出，2014年Serverless开启商业化之路，2021年是Serverless规模化落地的关键一年，几乎所有的科技公司都有各种方式、形式的Serverless应用落地。&lt;/p>
+&lt;h2 id="2022-展望">2022 展望&lt;/h2>
+&lt;p>2022 年，Kubernetes的技术趋势可能将围绕安全性和eBPF展开。&lt;/p>
+&lt;h3 id="安全性-1">安全性&lt;/h3>
+&lt;p>随着云原生的普及，越来越多的公司已经越过了最初的探索阶段，迈入了实际使用或更大规模应用的阶段。&lt;/p>
+&lt;p>安全性成为了另一个受大家关注的核心。其中包括供应链安全，DevSecOps 以及 Kubernetes 在使用时遇到的各种安全性问题。&lt;/p>
+&lt;p>在 2022 年，这方面也会得到更多的重视。&lt;/p>
+&lt;h3 id="ebpf">eBPF&lt;/h3>
+&lt;p>eBPF 技术将会得到更多的普及，不仅是用于可观测性。也会被用于提升 Kubernetes 集群整体的网络性能，还有包括像 Cilium Service Mesh 等这样的架构层上的变革。&lt;/p>
+&lt;p>这些都会提升 eBPF 技术在云原生时代的重要性。&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>6 个月内做了 15 场公开技术分享，我的 2021 是这样过的</title><link>https://moelove.info/2021/12/30/6-%E4%B8%AA%E6%9C%88%E5%86%85%E5%81%9A%E4%BA%86-15-%E5%9C%BA%E5%85%AC%E5%BC%80%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB%E6%88%91%E7%9A%84-2021-%E6%98%AF%E8%BF%99%E6%A0%B7%E8%BF%87%E7%9A%84/</link><guid isPermaLink="true">https://moelove.info/2021/12/30/6-%E4%B8%AA%E6%9C%88%E5%86%85%E5%81%9A%E4%BA%86-15-%E5%9C%BA%E5%85%AC%E5%BC%80%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB%E6%88%91%E7%9A%84-2021-%E6%98%AF%E8%BF%99%E6%A0%B7%E8%BF%87%E7%9A%84/</guid><pubDate>Thu, 30 Dec 2021 21:39:12 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>一眨眼 2021 年就要结束了，我每年都会惯例的做个小回顾。2021 年也发生了很多的事情值得记录一下。&lt;/p>
 &lt;h2 id="生活与换工作">生活与换工作&lt;/h2>
 &lt;p>这两年的疫情对每个人的生活都或多或少的产生了一定的影响，对我而言也是一样。更多的可能是一些想法和心态上的变化。&lt;/p>
