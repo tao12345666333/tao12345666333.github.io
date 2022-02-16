@@ -1,4 +1,100 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Fri, 07 Jan 2022 09:23:49 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| 2021 回顾和 2022 展望</title><link>https://moelove.info/2022/01/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2021-%E5%9B%9E%E9%A1%BE%E5%92%8C-2022-%E5%B1%95%E6%9C%9B/</link><guid isPermaLink="true">https://moelove.info/2022/01/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2021-%E5%9B%9E%E9%A1%BE%E5%92%8C-2022-%E5%B1%95%E6%9C%9B/</guid><pubDate>Thu, 06 Jan 2022 19:18:41 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Wed, 16 Feb 2022 08:36:26 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Istio 即将发布重大安全更新，多个版本受影响</title><link>https://moelove.info/2022/02/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Istio-%E5%8D%B3%E5%B0%86%E5%8F%91%E5%B8%83%E9%87%8D%E5%A4%A7%E5%AE%89%E5%85%A8%E6%9B%B4%E6%96%B0%E5%A4%9A%E4%B8%AA%E7%89%88%E6%9C%AC%E5%8F%97%E5%BD%B1%E5%93%8D/</link><guid isPermaLink="true">https://moelove.info/2022/02/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Istio-%E5%8D%B3%E5%B0%86%E5%8F%91%E5%B8%83%E9%87%8D%E5%A4%A7%E5%AE%89%E5%85%A8%E6%9B%B4%E6%96%B0%E5%A4%9A%E4%B8%AA%E7%89%88%E6%9C%AC%E5%8F%97%E5%BD%B1%E5%93%8D/</guid><pubDate>Wed, 16 Feb 2022 00:14:36 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;h1 id="istio-即将发布重大安全更新多个版本受影响">Istio 即将发布重大安全更新，多个版本受影响&lt;/h1>
+&lt;p>Istio 产品安全工作组近期发现 Istio 中存在一些安全漏洞，其中 &lt;strong>最高级别的漏洞被评级为高严重性。&lt;/strong>
+鉴于当前 Istio 的漏洞披露政策，所以目前我们不会透露具体的漏洞细节。&lt;/p>
+&lt;p>在一周后的 2 月 22 日，将会发布 Istio v1.11.7、v1.12.3 和 v1.13.1 版本修正这些安全漏洞。届时会再更新漏洞的详细内容。&lt;/p>
+&lt;p>请参考&lt;a href="https://discuss.istio.io/t/upcoming-istio-v1-11-7-v1-12-4-and-v1-13-1-security-releases/12264">官方通告&lt;/a>&lt;/p>
+&lt;p>此外，本周 Istio 也发布了 v1.13.0 正式版， &lt;strong>在 v1.13.1 版本发布前，我不建议大家将自己所用的 Istio 升级到 v1.13.0&lt;/strong> 。&lt;/p>
+&lt;p>虽然不建议现在升级，但我们也可以关注下 v1.13.0 带来的一些值得关注的变更：&lt;/p>
+&lt;p>v1.13.0 版本中为东西向流量提供了基于主机名的多网络网关支持。主机名可以在控制面中被解析，解析记录可被用作 endpoint。
+如果你不需要这个行为，或者想要恢复到之前版本中的默认行为，可以为 istiod 添加 &lt;code>RESOLVE_HOSTNAME_GATEWAYS=false&lt;/code> 的配置。&lt;/p>
+&lt;p>此外，它还支持重写 gRPC 探针，以及通过 &lt;code>proxyMetadata&lt;/code> 提供了在 Envoy 工作线程间的重平衡，并且通过学习 Kubernetes 的探测
+行为，改善了 istio-agent 健康检查的探测，这样它就不会再重用连接了。请参考 &lt;a href="https://github.com/istio/istio/issues/36390">#36390&lt;/a> 。&lt;/p>
+&lt;p>同时我们会发现在这个版本中它对 Telemetry API 的支持增加了不少，尤其是它为 access log 支持了
+Common Expression Language (CEL) filter 。如果你觉得对 CEL 有些陌生，那么你可以看下我之前的文章 &lt;a href="https://zhuanlan.zhihu.com/p/442534887">《K8S 生态周报| Kubernetes v1.23.0 正式发布，新特性一览》&lt;/a> ，其中就介绍到了在 Kubernetes v1.23 中对 CEL 的支持。（这样看起来 CEL 的储备很正确）&lt;/p>
+&lt;p>最后，就是 Istio 终于把 iptables 相关处理代码中对 22 端口硬编码的部分去掉了，可以通过 &lt;code>ISTIO_LOCAL_EXCLUDE_PORTS&lt;/code> 进行配置。这段代码其实存在很久了，这是 Istio 为了兼容在虚拟机 VM 上的用例专门加的。&lt;/p>
+&lt;p>更多关于 Istio v1.13.0 版本的信息请参考其 &lt;a href="https://istio.io/latest/news/releases/1.13.x/announcing-1.13/change-notes/">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="kyverno-v160-正式发布">Kyverno v1.6.0 正式发布&lt;/h1>
+&lt;p>Kyverno 是 Kubernetes 上原生的策略引擎，它主要的实现原理是利用 Kubernetes 提供的 Admission controller 机制。关于 Kubernetes Admission controller 机制可以参考我之前的文章：&lt;a href="https://zhuanlan.zhihu.com/p/439329022">《搞懂 Kubernetes 准入控制（Admission Controller)》&lt;/a> 。&lt;/p>
+&lt;p>这个版本提供了很多有趣的功能，我挑几个特别值得关注的特性吧：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>基于 sigstore Cosign 的镜像验证策略规则已进入到 beta 阶段。关于 Cosign 如何使用，可以参考我之前的文章 &lt;a href="https://moelove.info/2021/11/23/%E4%BA%91%E5%8E%9F%E7%94%9F%E6%97%B6%E4%BB%A3%E4%B8%8B%E7%9A%84%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E5%AE%89%E5%85%A8%E4%B8%8A/#sigstore-%E5%92%8C-cosign">云原生时代下的容器镜像安全（上）&lt;/a>。
+在这个版本中其实增加了包括 keyless, annotation 等相关的很多增强，这个特性也非常的方便；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>可以在 Kyverno 策略中直接使用 OCI 容器镜像相关的元信息了，比如检查镜像的 label，挂载卷以及一些其他的配置。
+比如，一种常见的使用场景是我们希望容器镜像不要过大，那么就可以使用如下的策略文件来限制集群内使用体积过大的容器镜像了。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>如下策略文件表示仅允许使用体积小于 2Gi 的容器镜像，如果镜像过大，则直接拒绝。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">kyverno.io/v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ClusterPolicy&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">images&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">validationFailureAction&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">enforce&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">only-allow-small-images&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">match&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">resources&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">kinds&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">Pod&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">preconditions&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">all&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">key&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;{{request.operation}}&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">operator&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">NotEquals&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">value&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">DELETE&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">validate&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">message&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;images with size greater than 2Gi not allowed&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">foreach&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">list&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;request.object.spec.containers&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">context&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">imageSize&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">imageRegistry&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">reference&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;{{ element.image }}&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Note that we need to use `to_string` here to allow kyverno to treat it like a resource quantity of type memory&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># the total size of an image as calculated by docker is the total sum of its layer sizes&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">jmesPath&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;to_string(sum(manifest.layers[*].size))&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">deny&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">conditions&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">all&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">key&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;2Gi&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">operator&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">LessThan&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">value&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;{{imageSize}}&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>此外，这个版本中还增加了很多有用的函数，可用于进行数据处理。&lt;/p>
+&lt;p>更多详细内容可参考其 &lt;a href="https://github.com/kyverno/kyverno/releases/tag/v1.6.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="trivy-v0230-正式发布">Trivy v0.23.0 正式发布&lt;/h1>
+&lt;p>Trivy 是一款简单易用的漏洞扫描工具，关于 Trivy 我之前已经写过很多篇文章了，这里就不赘述了。近期它发布了 v0.23.0 版本，这个版本中有一些值得关注的内容：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Trivy DB 原先是通过使用 &lt;a href="https://github.com/aquasecurity/trivy-db">https://github.com/aquasecurity/trivy-db&lt;/a> 项目的 GitHub Release 进行下载的，但是目前如果出现大量重复下载，会触发 GitHub 的限流策略。所以现在选择将 Trivy DB 切换为使用 GitHub Container Registry 进行托管了。这样一方面可以规避掉 GitHub 限流的问题，另一方面也可以可以利用 ghcr.io 提供的数据分析工具等。 &lt;strong>需要注意的是，这是一个破坏性变更。&lt;/strong>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Trivy 现在可以直接从 Azure 的 ACR 下载镜像并进行扫描了，不再需要安装 az 工具，或者预先下载镜像了；&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>更多详细内容可参考其 &lt;a href="https://github.com/aquasecurity/trivy/releases/tag/v0.23.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes/kubernetes/pull/107695">#107695 · kubernetes/kubernetes&lt;/a> 这个 PR 实际上是对 Kubelet 管理的 Static Pod 生命周期部分的一个修正。我们都知道 Static Pod 的生命周期是不受 kube-apiserver 影响的，并且是由 Kubelet 管理的。但是之前几个相关的 issue 和 PR 都并没有覆盖到重启 Pod 时候需要名称完全相同。这个 PR 中对其逻辑进行了修正，增加了 Pod 的完整名称；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes/kubernetes/pull/107775">#107775 · kubernetes/kubernetes&lt;/a> 如果调度过程中，Pod 抢占失败，则在 event 中为其增加详细内容。这对于我们去调试问题来说是非常有帮助的；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes/kubernetes/pull/107317">#107317 · kubernetes/kubernetes&lt;/a> 当前 Kubernetes 仓库中 in-tree 的 dockershim 组件的代码已经删除，其他相关组件比如 kubelet 中的清理也基本完成了。这个 PR 中完成了 kubeadm 对于移除 in-tree dockershim 的相关支持和逻辑，主要是变更默认的容器运行时的配置，访问地址等。关于 Kubernetes 移除 in-tree 的 dockershim 相关内容的详细内容可查看我之前的文章 &lt;a href="https://zhuanlan.zhihu.com/p/334787180">《K8S 弃用 Docker 了？Docker 不能用了？别逗了！》&lt;/a>。我在本周五( 2 月 18 日)晚上，也会做一场直播，和 SUSE Rancher 的两位小伙伴一起聊聊关于 Kubernetes 移除 dockershim 后，企业用户如何处理的话题。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="题外话">题外话&lt;/h1>
+&lt;p>最近一段时间没有持续更新，感谢大家的关注。这段时间主要是两方面的原因，一方面是在进行个人的休整，另一方面也是事情较多。&lt;/p>
+&lt;p>不过，从这篇开始，「K8S 生态周报」将会正常的恢复每周更新啦！希望不断更！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>K8S 生态周报| 2021 回顾和 2022 展望</title><link>https://moelove.info/2022/01/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2021-%E5%9B%9E%E9%A1%BE%E5%92%8C-2022-%E5%B1%95%E6%9C%9B/</link><guid isPermaLink="true">https://moelove.info/2022/01/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-2021-%E5%9B%9E%E9%A1%BE%E5%92%8C-2022-%E5%B1%95%E6%9C%9B/</guid><pubDate>Thu, 06 Jan 2022 19:18:41 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
