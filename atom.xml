@@ -1,4 +1,57 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-02-16T08:36:25+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Istio 即将发布重大安全更新，多个版本受影响</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/02/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Istio-%E5%8D%B3%E5%B0%86%E5%8F%91%E5%B8%83%E9%87%8D%E5%A4%A7%E5%AE%89%E5%85%A8%E6%9B%B4%E6%96%B0%E5%A4%9A%E4%B8%AA%E7%89%88%E6%9C%AC%E5%8F%97%E5%BD%B1%E5%93%8D/"/><id>https://moelove.info/2022/02/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Istio-%E5%8D%B3%E5%B0%86%E5%8F%91%E5%B8%83%E9%87%8D%E5%A4%A7%E5%AE%89%E5%85%A8%E6%9B%B4%E6%96%B0%E5%A4%9A%E4%B8%AA%E7%89%88%E6%9C%AC%E5%8F%97%E5%BD%B1%E5%93%8D/</id><updated>2022-02-16T02:57:23+08:00</updated><published>2022-02-16T00:14:36+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 Istio 即将发布重大安全……</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-02-21T09:27:43+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| containerd v1.6 正式发布，带来众多新特性</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/02/20/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.6-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/"/><id>https://moelove.info/2022/02/20/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.6-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/</id><updated>2022-02-21T09:27:39+08:00</updated><published>2022-02-20T20:55:03+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 containerd v1.6.0 正式发布 containerd v1.6 在……</summary><content type="html">&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;h1 id="containerd-v160-正式发布">containerd v1.6.0 正式发布&lt;/h1>
+&lt;p>containerd v1.6 在本周也正式发布了，这是 containerd 的第 7 个大版本。距离上一个大的正式版 v1.5.0 已经过了将近 9 个月的时间（v1.5.0 是 2021 年 5 月发布的），关于 containerd v1.5.0 的主要变更，可参考我去年写的 &lt;a href="https://zhuanlan.zhihu.com/p/364074085">K8S 生态周报| containerd v1.5.0-rc.0 发布&lt;/a>。我们一起来看看 containerd v1.6.0 中有哪些值得关注的变更吧！&lt;/p>
+&lt;h3 id="runtime">Runtime&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/containerd/containerd/pull/5744">#5744&lt;/a> 在 containerd 的 metrics 接口中增加了 &lt;code>runtime&lt;/code> 的 label;&lt;/li>
+&lt;li>&lt;a href="https://github.com/containerd/containerd/pull/6375">#6375&lt;/a> 将 runc 的依赖升级到了 v1.1.0 版本；&lt;/li>
+&lt;li>&lt;a href="https://github.com/containerd/containerd/pull/5817">#5871&lt;/a> 增加了 shim plugin 的支持，重构了 shim v2 来加载和注册 plugin;&lt;/li>
+&lt;/ul>
+&lt;h3 id="cri">CRI&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/containerd/containerd/pull/5619">#5619&lt;/a> 当前会同时支持 CRI v1 和 v1alpha2 ；&lt;/li>
+&lt;li>&lt;a href="https://github.com/containerd/containerd/pull/6113">#6113&lt;/a> 实现了新的 Kubernetes CRI pod sandbox stats API，这其实是为了遵守 Kubernetes 中 CRI 的变更。其根本原因实际上是在 Kubernetes 中希望能够增强 CRI 的能力，减少对 cAdvisor 的依赖。更深层次的则是由于 cAdvisor 仅支持 Linux 容器，和一般的容器运行时，无法支持类似 Kata Containers 这类 VM 运行时，以及不支持 Windows 容器。由此其实我们也可以看出来 Kubernetes &amp;amp; containerd 的一些目标，做的更通用，更标准化；&lt;/li>
+&lt;li>&lt;a href="https://github.com/containerd/containerd/pull/6111">#6111&lt;/a> 添加了 sandbox 和 container 延迟的 metrics，以便用户可以更简单的了解 containerd 内部的运行情况；&lt;/li>
+&lt;/ul>
+&lt;h3 id="其他">其他&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/containerd/containerd/pull/5778">#5778&lt;/a> 增加了 Windows 资源限制的支持；&lt;/li>
+&lt;li>&lt;a href="https://github.com/containerd/containerd/pull/5131">#5131&lt;/a> 增加了 Windows HostProcess 容器的支持；&lt;/li>
+&lt;li>&lt;a href="https://github.com/containerd/containerd/pull/5606">#5606&lt;/a> 在 gRPC 配置中增加了一个 &lt;code>tcp_tls_ca&lt;/code> 的配置；&lt;/li>
+&lt;/ul>
+&lt;p>毕竟是个大版本更新，还有很多其他的内容，具体的可参考其 &lt;a href="https://github.com/containerd/containerd/releases/tag/v1.6.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="podman-v400-正式发布">Podman v4.0.0 正式发布&lt;/h1>
+&lt;p>距离上一个完整的大版本 v3.0.0 已经过了整整一年了，我们来看看 Podman 这个大版本中比较值得关注的内容吧：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>podman run&lt;/code> 和 &lt;code>podman create&lt;/code> 等命令现在增加了一个 &lt;code>--ip6&lt;/code> 的选项用于支持 IPv6;&lt;/li>
+&lt;li>如果是使用 CNI network 的话，现在可以增加了一个 &lt;code>ipvlan&lt;/code> 驱动；&lt;/li>
+&lt;li>所有删除 container 的命令，现在都支持了 &lt;code>--time&lt;/code> 参数来控制超时时间。其实这个选项 Docker 很久之前就已经有了，我通常会加个 &lt;code>-t 1&lt;/code> ；&lt;/li>
+&lt;li>有一些为了增加 Docker 兼容性的破坏性变更，可以通过在配置文件中增加 &lt;code>compat_api_enforce_docker_hub&lt;/code> 来进行控制；&lt;/li>
+&lt;/ul>
+&lt;p>此外，更多的就是一些功能增加和 bugfix 了，具体内容请参考其 &lt;a href="https://github.com/containers/podman/releases/tag/v4.0.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="kube-state-metrics-v240-发布">kube-state-metrics v2.4.0 发布&lt;/h1>
+&lt;p>如果大家用过 &lt;code>kubectl top&lt;/code> 来查看 Node/Pod 的资源情况，或者有在用 HPA/VPA 等，应该都会比较熟悉 &lt;a href="https://github.com/kubernetes-sigs/metrics-server">Kubernetes Metrics Server&lt;/a>。
+而 kube-state-metrics (KSM) 与它的定位以及做法是不一样的，KSM 会在内存中保存 Kubernetes 中各种资源/状态的完整快照，并根据这些数据生成完整的指标。
+如果你使用 &lt;a href="https://github.com/prometheus-operator/kube-prometheus">Prometheus Operator/kube-prometheus&lt;/a> 来进行 Kubernetes 集群的监控，它会默认把 kube-state-metrics 作为一个组件进行安装。&lt;/p>
+&lt;p>这个版本中新增了几个功能：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kube-state-metrics/pull/1652">#1652&lt;/a> 在 Ingress 的指标 &lt;code>kube_ingress_info&lt;/code> 中增加了 IngressClass 的支持；&lt;/li>
+&lt;li>&lt;a href="https://github.com/kubernetes/kube-state-metrics/pull/1644">#1644&lt;/a> 扩展 KSM 来支持自定义资源的 metrics;&lt;/li>
+&lt;li>&lt;a href="https://github.com/kubernetes/kube-state-metrics/pull/1491">#1491&lt;/a> 将 &lt;code>PodDisruptionBudget&lt;/code> 和 &lt;code>CronJob&lt;/code> 资源的 API version 切换到了 v1;&lt;/li>
+&lt;li>&lt;a href="https://github.com/kubernetes/kube-state-metrics/pull/1676">#1676&lt;/a> 这个 PR 主要是优化 Slice 分配的性能；&lt;/li>
+&lt;/ul>
+&lt;p>不过当前这个版本标记的是预发布，需要注意下。&lt;/p>
+&lt;h1 id="其他-1">其他&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://chaos-mesh.org/">Chaos Mesh&lt;/a> &lt;a href="https://www.cncf.io/blog/2022/02/16/chaos-mesh-moves-to-the-cncf-incubator/">正式进入 CNCF incubator 阶段&lt;/a> 算起来 Chaos Mesh 的孵化过程还算是比较顺利的，进度也比较快。恭喜！&lt;/li>
+&lt;li>Kubernetes 项目中正在进行一些移除 dockershim 的后续操作，比如文档更新之类的。如果大家想要体验由 Mirantis 维护的 cri-dockerd ，将 Docker 继续用作 Kubernetes 的容器运行时的话，可以尝试下 minikube。启动时增加 &lt;code>--runtime=docker&lt;/code> 即可；&lt;/li>
+&lt;li>&lt;a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-23649">CVE-2022-23649&lt;/a> &lt;strong>Cosign 中包含了一个 CVE 漏洞&lt;/strong>。关于 Cosign 我在之前的文章中由介绍过，它是用于去校验镜像的，算作是供应链安全中的一个组件。这个事情说明，做供应链安全的时候，得把自己所用的工具也考虑在内。（思考：用不安全的工具是否可以保证最终的安全性？）&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">K8S 生态周报| Istio 即将发布重大安全更新，多个版本受影响</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/02/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Istio-%E5%8D%B3%E5%B0%86%E5%8F%91%E5%B8%83%E9%87%8D%E5%A4%A7%E5%AE%89%E5%85%A8%E6%9B%B4%E6%96%B0%E5%A4%9A%E4%B8%AA%E7%89%88%E6%9C%AC%E5%8F%97%E5%BD%B1%E5%93%8D/"/><id>https://moelove.info/2022/02/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Istio-%E5%8D%B3%E5%B0%86%E5%8F%91%E5%B8%83%E9%87%8D%E5%A4%A7%E5%AE%89%E5%85%A8%E6%9B%B4%E6%96%B0%E5%A4%9A%E4%B8%AA%E7%89%88%E6%9C%AC%E5%8F%97%E5%BD%B1%E5%93%8D/</id><updated>2022-02-16T02:57:23+08:00</updated><published>2022-02-16T00:14:36+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 Istio 即将发布重大安全……</summary><content type="html">&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;h1 id="istio-即将发布重大安全更新多个版本受影响">Istio 即将发布重大安全更新，多个版本受影响&lt;/h1>
