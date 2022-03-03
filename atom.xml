@@ -1,4 +1,216 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-02-21T09:27:43+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| containerd v1.6 正式发布，带来众多新特性</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/02/20/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.6-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/"/><id>https://moelove.info/2022/02/20/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.6-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/</id><updated>2022-02-21T09:27:39+08:00</updated><published>2022-02-20T20:55:03+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 containerd v1.6.0 正式发布 containerd v1.6 在……</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-03-03T09:07:16+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">云原生策略引擎 Kyverno （上）</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/03/02/%E4%BA%91%E5%8E%9F%E7%94%9F%E7%AD%96%E7%95%A5%E5%BC%95%E6%93%8E-Kyverno-%E4%B8%8A/"/><id>https://moelove.info/2022/03/02/%E4%BA%91%E5%8E%9F%E7%94%9F%E7%AD%96%E7%95%A5%E5%BC%95%E6%93%8E-Kyverno-%E4%B8%8A/</id><updated>2022-03-03T09:06:50+08:00</updated><published>2022-03-02T21:39:12+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 在之前的 『K8S生态周报』 和 《搞懂 Kubernetes 准入控制（Admission Controller)》 等文章中，我曾提到过……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>在之前的 &lt;a href="https://zhuanlan.zhihu.com/container">『K8S生态周报』&lt;/a> 和 &lt;a href="https://zhuanlan.zhihu.com/p/439329022">《搞懂 Kubernetes 准入控制（Admission Controller)》&lt;/a> 等文章中，我曾提到过 Kyverno 这个云原生策略引擎项目，很多小伙伴在后台私信我说对这个项目比较感兴趣。这篇文章我们专门来聊聊 Kyverno 吧。&lt;/p>
+&lt;p>Kyverno 当前是一个 CNCF sandbox 级别的项目。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2022/03/03/KUYpoEOH9SFIdL3.png" alt="img">&lt;/p>
+&lt;p>本文的大纲如下，小伙伴们可自行跳跃到感兴趣的部分查阅。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2022/03/03/gtcEG9vWfOqyp8C.png" alt="img">&lt;/p>
+&lt;h2 id="kubernetes-的策略">Kubernetes 的策略&lt;/h2>
+&lt;p>我们称 Kyverno 是云原生策略引擎，那么 Kubernetes 中的策略是什么呢？&lt;/p>
+&lt;p>对于 Kubernetes 中的策略，大家可能比较熟悉的是 PodSecurityPolicy。 不过 PodSecurityPolicy 自 Kubernetes v1.21 起已弃用，并将在 v1.25 中删除（当前版本是 v1.23 ）。当前建议大家迁移到 Kubernetes 新增的替换方案 Pod Security Admission 或者类似本文中介绍的 Kyverno 等这种第三方策略插件。&lt;/p>
+&lt;p>其实无论是 PodSecurityPolicy 还是它的替代方案 Pod Security Admission ，甚至包括 Kyverno 等，它们都是构筑在 Kubernetes 的 Admission 机制之上的。&lt;/p>
+&lt;p>首先，我们主要从两个角度来理解为什么我们需要准入控制器（Admission Controller）：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>从安全的角度&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;ul>
+&lt;li>比如，为避免攻击。需要对Kubernetes 集群中部署的镜像来源判定；&lt;/li>
+&lt;li>比如，避免 Pod 使用 root 用户，或者尽量不开启特权容器等；&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>从治理的角度&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;ul>
+&lt;li>比如，通过 admission controller 校验服务是否拥有必须的 label；&lt;/li>
+&lt;li>比如，避免出现资源超卖等；&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>下图，是 kube-apiserver 处理 API 请求的流程图。每个 API 的请求从开始被 kube-apiserver 接收需要经过认证授权，然后就会进入准入控制（admission controllers）的部分。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2022/03/03/WVM6KdT8A4vQGRx.png" alt="img">&lt;/p>
+&lt;p>如上图所示，准入控制的过程分为两个阶段：&lt;/p>
+&lt;ul>
+&lt;li>Mutating Admission - 变更，将相关资源作为请求处理的一部分进行变更&lt;/li>
+&lt;li>Validating Admission - 验证，只验证不能进行任何修改&lt;/li>
+&lt;/ul>
+&lt;p>如果任一个阶段的准入控制器拒绝了该请求，则整个请求将立即被拒绝，并向终端用户返回错误。&lt;/p>
+&lt;p>Kubernetes 目前已经实现了很多内置的 Admission Controller ，默认情况是跟 kube-apiserver 构建打包到了一起，可以通过 &lt;code>--enable-admission-plugins&lt;/code> 和 &lt;code>--disable-admission-plugins&lt;/code> 控制是否启用。 你也可以参考官方文档来获取详细列表： &lt;a href="https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#what-does-each-admission-controller-do">https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#what-does-each-admission-controller-do&lt;/a>&lt;/p>
+&lt;p>我们可以发现，Admission controller 的作用很大，但如果想要增加新的 Admission controller 则需要跟 kube-apiserver 编译到一起，
+并重启 kube-apiserver ，这是一件很繁琐的事情。&lt;/p>
+&lt;p>所以 Kubernetes 中提供了两个特殊的 Admission controller，分别为：&lt;/p>
+&lt;ul>
+&lt;li>MutatingAdmissionWebhook&lt;/li>
+&lt;li>ValidatingAdmissionWebhook&lt;/li>
+&lt;/ul>
+&lt;p>用户可以通过使用这两个 Admission controller 配置一些自定义的 HTTP server 提供 webhook，并在这些 HTTP server 中执行用户的一些特定逻辑，
+以此实现无需重新编译 kube-apiserver 便可扩展 Admission controller 的能力。这便是动态准入控制器。&lt;/p>
+&lt;p>使用动态准入控制器的时候，需要满足以下条件：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Kubernetes 集群版本至少 v1.16（以便使用 &lt;code>admissionregistration.k8s.io/v1&lt;/code> API） 或者 v1.9 （以便使用 &lt;code>admissionregistration.k8s.io/v1beta1&lt;/code> API）；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>已经启用 &lt;code>MutatingAdmissionWebhook&lt;/code> 和 &lt;code>ValidatingAdmissionWebhook&lt;/code> 准入控制器；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>启用了 &lt;code>admissionregistration.k8s.io/v1beta1&lt;/code> 或者 &lt;code>admissionregistration.k8s.io/v1&lt;/code> API;&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>当前的两种类型的准入 webhook，我们可以对照上方来理解：&lt;/p>
+&lt;ul>
+&lt;li>validating admission webhook - 验证，并行处理&lt;/li>
+&lt;li>mutating admission webhook - 变更，串行处理，不保障顺序。所以需要做到幂等很重要。&lt;/li>
+&lt;/ul>
+&lt;p>Kubernetes 中的策略其实就是构筑在 Admission Controller 之上的各种规则，接下来我们看看利用了 Kubernetes 动态准入控制能力的 Kyverno 项目。&lt;/p>
+&lt;h2 id="kyverno">Kyverno&lt;/h2>
+&lt;p>Kyverno 是 Nirmata 在2019年重写并开源的一个项目。在一年后，也就是 2020年11月10日 Nirmata 将 Kyverno 捐给 CNCF。在实际生产环境中，也已经有了很多可参考的实践，包括 AWS、RedHat 等公司都有成功使用 Kyverno 案例。Kyverno 有一个很大的优势，开发人员不必学习一门新语言，只要直接使用 YAML 进行配置即可，入门门槛比较低（这里是跟 OPA 使用的 rego 语言进行对比。不过我个人写 Rego 比较多，我也很喜欢 OPA）。&lt;/p>
+&lt;p>对于想了解 Kyverno 商业化的小伙伴建议可以从 BlakYaks 及 Nirmata 获取更多信息。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2022/03/03/wEfAcUl3geCrGkj.jpg" alt="img">&lt;/p>
+&lt;h3 id="kyverno-的原理及架构">Kyverno 的原理及架构&lt;/h3>
+&lt;p>Kyverno 在 Kubernetes 集群中是作为动态准入控制器运行的。Kyverno 策略可以使用资源种类、名称和标签选择器匹配资源。&lt;/p>
+&lt;p>如下方架构图所示，Kyverno 的功能涵盖了验证、变更或生成资源；验证容器镜像的供应链安全；检查图像元数据；支持类似 Kustomize 的叠加验证和变更；跨命名空间同步配置；监控、报告；可以在 GitOps 的 CI/CD 部分集成测试验证等等。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2022/03/03/DPrWMHAwhOi9vNE.png" alt="img">&lt;/p>
+&lt;p>从 Kyverno 的架构图中我们可以看到：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Webhook 处理来自 Kubernetes API 服务器的 AdmissionReview 请求。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Monitor 组件创建和管理所需的配置。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>监视策略资源并根据 PolicyController 配置的扫描间隔启动后台扫描。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>管理生成资源的 GenerateController 生命周期。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>Kyverno 的 Generate Controller 会分两个阶段处理：&lt;/p>
+&lt;ul>
+&lt;li>webhook 服务器接收源（触发）资源，并根据准入请求创建 GenerateRequest 对象。&lt;/li>
+&lt;li>Generate Controller 接收 GenerateRequest 的事件，然后开始处理它（生成目标资源）。&lt;/li>
+&lt;/ul>
+&lt;p>Kyverno 的 Policy Controller 主要做了以下三件事：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>在生成策略更新时更新 GenerateRequests。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>在验证策略更新时构建和创建 ReportChangeRequest。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>监视 ReportChangeRequest 的事件以生成策略报告。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>此外，如果想要采用 Kyverno 的时候，可能也会考虑一些其他的问题，比如高可用。&lt;/p>
+&lt;p>关于高可用这个问题，Kyverno 支持运行多个副本。当 Kyverno 运行多个实例时，服务将跨不同实例分发准入请求。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>对于 mutate 和 validate 执行策略 -- Kyverno 采用了一个同步的请求-响应过程，即将决定与响应一起返回。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>对于 generate 和 validate 审计策略 -- Kyverno 采用异步处理数据，即将这些请求推送到队列中，并立即返回响应。审计处理程序中的队列 validate 会生成策略报告。由于 Kyverno 进程终止时是优雅退出的，所以不用担心队列是否排空；重启后，会对队列进行协调。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>在高可用性的多副本场景下，Generate Controller 启用了领导者选举，实际上只有一个实例处理 GenerateRequest。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>在高可用性的多副本场景下，Policy Controller 也启用了领导者选举。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://s2.loli.net/2022/03/03/d71mXj8lhDAL43v.png" alt="img">&lt;/p>
+&lt;p>如上图，Kyverno 策略是规则的集合。每个规则由一个 match 声明、一个可选 exclude 声明和一个 validate 、 mutate 、 generate 或 verifyImages 声明之一组成。&lt;/p>
+&lt;p>每个规则只能包含一个 validate 、mutate 、generate 或 verifyImages 的子声明。&lt;/p>
+&lt;ul>
+&lt;li>namespace 策略（Policy）将仅适用于定义它们的 namespace 内的资源。&lt;/li>
+&lt;li>集群范围的策略（ClusterPolicy）应用于匹配跨所有 namespace 的资源。&lt;/li>
+&lt;/ul>
+&lt;h3 id="kyverno-policy-reports">Kyverno policy reports&lt;/h3>
+&lt;p>Kyverno policy reports 是 Kubernetes 的自定义资源。每个 namespace 、每个集群都有对应的 policy report ，提供有关 policy 结果的信息（也包含违规行为）。&lt;/p>
+&lt;p>这里需要特别提下违规资源的问题（validationFailureAction=[audit, enforce]）。&lt;/p>
+&lt;ul>
+&lt;li>当处于 audit 模式下 ，每当创建违反适用规则集的一个或多个规则的资源时，就会将结果添加到报告中。（资源删除时，报告对应的 item 也会被删除）&lt;/li>
+&lt;li>当处于 enforce 模式下 ，资源在创建时立即被阻止，报告中不会有。&lt;/li>
+&lt;/ul>
+&lt;p>Kyverno 创建和更新两种类型的报告（报告的内容取决于违规资源，而不是规则的存储位置）：&lt;/p>
+&lt;ul>
+&lt;li>ClusterPolicyReport - 集群范围的资源&lt;/li>
+&lt;li>PolicyReport - namespace 级别的资源&lt;/li>
+&lt;/ul>
+&lt;p>使用 kubectl 来查看报告结果，在这里也给大家示例和标注出，请看下图：&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2022/03/03/YfHjzRCGF2SiDWX.png" alt="img">&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2022/03/03/pv3UtCy7QL1TH5X.png" alt="img">&lt;/p>
+&lt;h3 id="kyverno-监控">Kyverno 监控&lt;/h3>
+&lt;p>生产环境中对于整个集群的可观测性和合规性有着一定的要求。Kyverno 的监控可以做到对应用的策略进行可视化和报警（Prometheus + Grafana）。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>监控内容&lt;/th>
+&lt;th>指标名称&lt;/th>
+&lt;th>指标值&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>策略和规则计数&lt;/td>
+&lt;td>kyverno_policy_rule_info_total&lt;/td>
+&lt;td>0 - 如果规则不再存在于集群中（尽管它是在过去创建的）。1 - 如果规则当前活跃在集群中。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>政策和规则执行结果追踪&lt;/td>
+&lt;td>kyverno_policy_results_total&lt;/td>
+&lt;td>Counter - 一个仅递增的整数，表示与对应于度量样本的规则相关联的结果/执行次数。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>策略规则执行延迟&lt;/td>
+&lt;td>kyverno_policy_execution_duration_seconds&lt;/td>
+&lt;td>直方图 - 一个浮点值，表示规则执行的延迟（以秒为单位）。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>准入审查延迟&lt;/td>
+&lt;td>kyverno_admission_review_duration_seconds&lt;/td>
+&lt;td>直方图 - 一个浮点值，以秒为单位表示准入审查的延迟。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>准入请求计数&lt;/td>
+&lt;td>kyverno_admission_requests_total&lt;/td>
+&lt;td>Counter - 一个唯一递增的整数，表示与样本相关联的准入请求计数。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>策略更改跟踪&lt;/td>
+&lt;td>kyverno_policy_changes_total&lt;/td>
+&lt;td>Counter - 一个仅递增的整数，表示与度量样本相关的策略级别更改的总数。&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>在这里还是推荐大家一定要去官方文档看看。在官方文档中，详细的给出了各个监控内容的 Grafana 的表达式（查询语句）。&lt;/p>
+&lt;h2 id="kyverno-vs-gatekeeper">Kyverno vs GateKeeper&lt;/h2>
+&lt;p>&lt;img src="https://s2.loli.net/2022/03/03/XEhwsjl4oILYuD8.png" alt="img">&lt;/p>
+&lt;p>关于 Kyverno ，经过上文的介绍，相信大家已经有了初步的了解。我们来看看 GateKeeper。&lt;/p>
+&lt;h3 id="gatekeeperopa-简介">GateKeeper/OPA 简介&lt;/h3>
+&lt;p>&lt;img src="https://s2.loli.net/2022/03/03/BeXG2blTfKxCF9g.png" alt="img">&lt;/p>
+&lt;p>styra 公司成立于 2016 年，紧接着搞了 OPA，发布了第一代 GateKeeper ，它通过 kube-mgmt sidecar 执行基于 configmap 的策略，提供验证和变异准入控制。&lt;/p>
+&lt;p>2018年，第二代 GateKeeper 的主要贡献者为微软，使用 Kubernetes 策略控制器作为准入控制器，通过 OPA 和 kube-mgmt sidecars 执行基于 configmap 的策略。&lt;/p>
+&lt;p>2019年，第三代 GateKeeper 是 Google、Microsoft、Red Hat 和 Styra 的合作项目，它与 OPA 约束框架集成，基于 CRD 的策略，允许以声明方式配置的策略可靠地共享。&lt;/p>
+&lt;h4 id="open-policy-agent-opa">Open Policy Agent (OPA)&lt;/h4>
+&lt;p>Open Policy Agent (OPA) 是一种开源的通用策略引擎，可在整个堆栈中实现统一、上下文感知的策略实施。它将策略决策与应用程序的业务逻辑分离（解耦）。OPA 策略以 Rego 这种高级声明性语言来表达。如果小伙伴们对这部分感兴趣的话，欢迎查阅我之前发布过的文章 &lt;a href="https://zhuanlan.zhihu.com/p/442190502">Open Policy Agent(OPA) 入门实践&lt;/a>。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2022/03/03/S8JRpnoIw5uQgvq.png" alt="img">&lt;/p>
+&lt;p>总得来讲，GateKeeper 是一个很好的将 OPA 与 Kubernetes 集成的实践。&lt;/p>
+&lt;h3 id="kyverno-与-gatekeeper-对比">Kyverno 与 GateKeeper 对比&lt;/h3>
+&lt;p>各有所长，关键在于生产环境中的人员资源及使用场景。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2022/03/03/TpFwn3OMWSx15f8.png" alt="img">&lt;/p>
+&lt;h4 id="技术属性的特征能力">技术属性的特征/能力&lt;/h4>
+&lt;p>&lt;img src="https://s2.loli.net/2022/03/03/TZK89YWrFde3q5X.png" alt="img">&lt;/p>
+&lt;p>&lt;img src="https://cdn.nlark.com/yuque/0/2022/png/10359851/1646232403013-75fbc754-1ea4-47a3-903a-6d5185d745a4.png" alt="img">&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>Kyverno 是一个云原生的策略引擎，上手简单，覆盖场景全面。&lt;/p>
+&lt;p>如果大家对 Kyverno 感兴趣的话欢迎留言讨论，我会根据大家的反馈来考虑下是否安排实践篇。&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/></entry><entry><title type="text">K8S 生态周报| containerd v1.6 正式发布，带来众多新特性</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/02/20/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.6-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/"/><id>https://moelove.info/2022/02/20/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-v1.6-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/</id><updated>2022-02-21T09:27:39+08:00</updated><published>2022-02-20T20:55:03+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 containerd v1.6.0 正式发布 containerd v1.6 在……</summary><content type="html">&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;h1 id="containerd-v160-正式发布">containerd v1.6.0 正式发布&lt;/h1>
