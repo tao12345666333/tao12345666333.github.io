@@ -1,4 +1,83 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-03-07T08:45:22+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Knative 进入 CNCF 孵化，K8S ingress-nginx 解决多实例问题</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/03/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Knative-%E8%BF%9B%E5%85%A5-CNCF-%E5%AD%B5%E5%8C%96K8S-ingress-nginx-%E8%A7%A3%E5%86%B3%E5%A4%9A%E5%AE%9E%E4%BE%8B%E9%97%AE%E9%A2%98/"/><id>https://moelove.info/2022/03/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Knative-%E8%BF%9B%E5%85%A5-CNCF-%E5%AD%B5%E5%8C%96K8S-ingress-nginx-%E8%A7%A3%E5%86%B3%E5%A4%9A%E5%AE%9E%E4%BE%8B%E9%97%AE%E9%A2%98/</id><updated>2022-03-07T01:25:28+08:00</updated><published>2022-03-06T23:39:51+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 Kubernetes ingress-nginx v1.1.2 发布 就在今天……</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-03-14T09:06:07+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Helm v3.8 OCI 支持正式 GA，Docker 新版本修复多个严重 bug</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/03/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.8-OCI-%E6%94%AF%E6%8C%81%E6%AD%A3%E5%BC%8F-GADocker-%E6%96%B0%E7%89%88%E6%9C%AC%E4%BF%AE%E5%A4%8D%E5%A4%9A%E4%B8%AA%E4%B8%A5%E9%87%8D-bug/"/><id>https://moelove.info/2022/03/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.8-OCI-%E6%94%AF%E6%8C%81%E6%AD%A3%E5%BC%8F-GADocker-%E6%96%B0%E7%89%88%E6%9C%AC%E4%BF%AE%E5%A4%8D%E5%A4%9A%E4%B8%AA%E4%B8%A5%E9%87%8D-bug/</id><updated>2022-03-13T17:30:35+08:00</updated><published>2022-03-12T02:34:36+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 KIND v0.12.0 发布 KIND（……</summary><content type="html">&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;h1 id="kind-v0120-发布">KIND v0.12.0 发布&lt;/h1>
+&lt;p>KIND（Kubernetes In Docker）是我很喜欢，也是一直在参与的一个开源项目。
+在我之前的文章中有过多次介绍，可以参考&lt;a href="">&lt;/a>
+我基本上每天都会用到它，非常的方便。&lt;/p>
+&lt;p>距离上个大版本，v0.11 已经过了近十个月，我们来看看这个新版本带来哪些值得关注的特性吧：&lt;/p>
+&lt;p>目前 v0.12.0 默认使用的 Kubernetes 版本为 v1.23.4 版本。如果升级 KIND 的话，会重新拉取最新的镜像，镜像托管在 Docker Hub 上，
+可能会比较耗时，建议确保网络顺畅。&lt;/p>
+&lt;p>在 v0.12.0 中专门优化了对多架构的支持，默认的所有已发布镜像都包含了 amd64 和 arm64 的支持。
+在镜像中也对相关组件都做了升级：&lt;/p>
+&lt;ul>
+&lt;li>containerd v1.5.10&lt;/li>
+&lt;li>crictl 1.23.0&lt;/li>
+&lt;li>CNI plugin v1.1.0&lt;/li>
+&lt;/ul>
+&lt;p>此外，也修复了 Docker + cgroup2 + rootless 环境下的支持，和 WSL2 环境下的支持。建议大家进行升级。&lt;/p>
+&lt;p>更多详细信息请参考其 &lt;a href="https://github.com/kubernetes-sigs/kind/releases/tag/v0.12.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="docker-v201013-发布">Docker v20.10.13 发布&lt;/h1>
+&lt;p>本周 Docker 发布了 v20.10.13 版本，是的，你没有看错，现在发布的版本还是在给 v20.10 打 patch 。
+实际上当前 Docker 仓库中最新的代码比 v20.10 已经多了很多功能特性，只不过尚未达到发布一个全新的大版本的目标，所以一直没有发布新的大版本。&lt;/p>
+&lt;p>这个版本中主要是进行了一些 bugfix 和打包相关的变更。其中包括：&lt;/p>
+&lt;ul>
+&lt;li>将 buildx 升级到了 v0.8.0 版本。&lt;/li>
+&lt;li>&lt;a href="https://github.com/moby/moby/pull/43165">#43165&lt;/a> 修复了当使用 &lt;code>local&lt;/code> 日志驱动时，如果迅速产生大量日志，可能会产生 OOM 的问题。 &lt;strong>如果有在使用 &lt;code>local&lt;/code> 日志驱动的小伙伴，建议进行升级&lt;/strong> 。&lt;/li>
+&lt;li>&lt;a href="https://github.com/moby/moby/pull/43147">#43147&lt;/a> 修复了 fluentd 日志驱动配合 &lt;code>fluentd-async-connect=true&lt;/code> 使用，并且远端服务不可用时，可能会导致 docker daemon 发生 crash 。&lt;/li>
+&lt;li>&lt;a href="https://github.com/moby/moby/pull/43333">#43333&lt;/a> 当 pull image 的时候，如果在 image-manifests 时遇到网络连接失败，则进行重试。&lt;/li>
+&lt;/ul>
+&lt;p>所以，如果有使用 &lt;code>local&lt;/code> 或 &lt;code>fluentd&lt;/code> 等日志驱动的小伙伴，请尽量进行 Docker 的升级。其余场景可自行判断。&lt;/p>
+&lt;p>更多详细信息请参考其 &lt;a href="https://github.com/moby/moby/releases/tag/v20.10.13">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="helm-v38-发布">Helm v3.8 发布&lt;/h1>
+&lt;p>Helm v3.8 是一个特性版本，在这个版本中最大的变化就是对 OCI registry 的支持达到 GA。&lt;/p>
+&lt;p>如果想要登陆一个 OCI registry 的话，可以使用类似 Docker CLI 的用法，使用 &lt;code>helm registry login 镜像仓库&lt;/code> 进行操作。&lt;/p>
+&lt;p>例如，可以使用如下命令登陆 GitHub 的镜像仓库地址：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">➜ &lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ~ helm registry login ghcr.io
+Username: tao12345666333
+Password:
+Login Succeeded
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>它实际参考了 Docker CLI 的做法，包括配置文件的结构等都与 Docker CLI 保持一致。&lt;/p>
+&lt;p>如果想要将 Helm chart 提交到 GitHub 镜像仓库的话，可以进行如下操作：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ helm create foo
+Creating foo
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ helm package foo
+Successfully packaged chart and saved it to: /tmp/foo-0.1.0.tgz
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ helm push foo-0.1.0.tgz oci://ghcr.io/tao12345666333/foo-chart
+Pushed: ghcr.io/tao12345666333/foo-chart/foo:0.1.0
+Digest: sha256:1b0a889b4e0fee5b5679512182fc6c2e802f39bdc5ba9d11fff0affb962b9b49
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>也可以通过如下命令完成 Chart 的 pull 操作：&lt;/p>
+&lt;pre>&lt;code># Pull chart
+(MoeLove) ➜ helm pull oci://ghcr.io/tao12345666333/foo-chart/foo --version 0.1.0
+Pulled: ghcr.io/tao12345666333/foo-chart/foo:0.1.0
+Digest: sha256:1b0a889b4e0fee5b5679512182fc6c2e802f39bdc5ba9d11fff0affb962b9b49
+&lt;/code>&lt;/pre>&lt;p>或者安装操作：&lt;/p>
+&lt;pre>&lt;code># Install
+(MoeLove) ➜ helm install foo oci://ghcr.io/tao12345666333/foo-chart/foo --version 0.1.0
+NAME: foo
+LAST DEPLOYED: Sun Mar 13 16:52:55 2022
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+NOTES:
+1. Get the application URL by running these commands:
+export POD_NAME=$(kubectl get pods --namespace default -l &amp;quot;app.kubernetes.io/name=foo,app.kubernetes.io/instance=foo&amp;quot; -o jsonpath=&amp;quot;{.items[0].metadata.name}&amp;quot;)
+export CONTAINER_PORT=$(kubectl get pod --namespace default $POD_NAME -o jsonpath=&amp;quot;{.spec.containers[0].ports[0].containerPort}&amp;quot;)
+echo &amp;quot;Visit http://127.0.0.1:8080 to use your application&amp;quot;
+kubectl --namespace default port-forward $POD_NAME 8080:$CONTAINER_PORT
+&lt;/code>&lt;/pre>&lt;p>这次 OCI 支持达到 GA 最大的好处就在于，我们不再需要分别维护容器镜像仓库和 Helm chart 的仓库了。可以直接使用同一个，维护成本可以降低。&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;p>&lt;a href="https://github.com/kubernetes/kubernetes/pull/108309">#108309 · kubernetes/kubernetes&lt;/a> 这是 &lt;a href="https://github.com/kubernetes/enhancements/pull/2800">KEP-2799: Reduction of Secret-based Service Account Tokens&lt;/a> 的实现，主要原因是由于 Kubernetes 默认情况下的 Service Account Token 的机制，如果 Pod 引用了某个 Service Account，则默认会为其挂载对应的 Token。当然，我们也可以通过配置 &lt;code>automountServiceAccountToken: false&lt;/code> 来避免此行为。&lt;/p>
+&lt;p>在这个 PR 中，将 &lt;code>LegacyServiceAccountTokenNoAutoGeneration&lt;/code> 特性设置为 beta 级别，并且在 Kubernetes v1.24 版本中将默认启用。届时，所有新创建的 ServiceAccount 默认不会获取到 Token 信息。这是需要额外注意的，当然，这个变更并不会影响到 Pod 使用的。&lt;/p>
+&lt;h1 id="其他一些变更">其他一些变更&lt;/h1>
+&lt;ul>
+&lt;li>Thanos v0.25 发布&lt;/li>
+&lt;li>Knative v1.3 发布&lt;/li>
+&lt;li>CNI plugins v1.1.0 发布&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">K8S 生态周报| Knative 进入 CNCF 孵化，K8S ingress-nginx 解决多实例问题</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/03/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Knative-%E8%BF%9B%E5%85%A5-CNCF-%E5%AD%B5%E5%8C%96K8S-ingress-nginx-%E8%A7%A3%E5%86%B3%E5%A4%9A%E5%AE%9E%E4%BE%8B%E9%97%AE%E9%A2%98/"/><id>https://moelove.info/2022/03/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Knative-%E8%BF%9B%E5%85%A5-CNCF-%E5%AD%B5%E5%8C%96K8S-ingress-nginx-%E8%A7%A3%E5%86%B3%E5%A4%9A%E5%AE%9E%E4%BE%8B%E9%97%AE%E9%A2%98/</id><updated>2022-03-07T01:25:28+08:00</updated><published>2022-03-06T23:39:51+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 Kubernetes ingress-nginx v1.1.2 发布 就在今天……</summary><content type="html">&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;h1 id="kubernetes-ingress-nginx-v112-发布">Kubernetes ingress-nginx v1.1.2 发布&lt;/h1>
