@@ -1,4 +1,95 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-03-14T09:06:07+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Helm v3.8 OCI 支持正式 GA，Docker 新版本修复多个严重 bug</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/03/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.8-OCI-%E6%94%AF%E6%8C%81%E6%AD%A3%E5%BC%8F-GADocker-%E6%96%B0%E7%89%88%E6%9C%AC%E4%BF%AE%E5%A4%8D%E5%A4%9A%E4%B8%AA%E4%B8%A5%E9%87%8D-bug/"/><id>https://moelove.info/2022/03/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.8-OCI-%E6%94%AF%E6%8C%81%E6%AD%A3%E5%BC%8F-GADocker-%E6%96%B0%E7%89%88%E6%9C%AC%E4%BF%AE%E5%A4%8D%E5%A4%9A%E4%B8%AA%E4%B8%A5%E9%87%8D-bug/</id><updated>2022-03-13T17:30:35+08:00</updated><published>2022-03-12T02:34:36+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 KIND v0.12.0 发布 KIND（……</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-03-21T16:48:12+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Argo Workflows 新版本发布，带来众多新特性</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/03/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Argo-Workflows-%E6%96%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/"/><id>https://moelove.info/2022/03/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Argo-Workflows-%E6%96%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/</id><updated>2022-03-21T08:58:13+08:00</updated><published>2022-03-21T00:01:32+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 Trivy 新版本发布 本周 Trivy……</summary><content type="html">&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;h1 id="trivy-新版本发布">Trivy 新版本发布&lt;/h1>
+&lt;p>本周 Trivy 相继发布了 v0.24.3 和 v0.24.4 版本。最需要关注的变更是如下两个：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/aquasecurity/trivy/pull/1791">#1791&lt;/a> 更新了 hcl2json 的版本，以便于修正 hcl2json 在处理无效 HCL 配置时的发生的 &lt;a href="https://github.com/tmccombs/hcl2json/pull/39">panic&lt;/a>;&lt;/li>
+&lt;li>&lt;a href="https://github.com/aquasecurity/trivy/pull/1852">#1852&lt;/a> 修正了一个自 v0.24.3 开始引入的 bug, 如果不提供镜像的 tag，在 v0.24.3 中将会报错，现在会遵循 Docker 的相关行为，如果不提供 tag 则默认使用 &lt;code>latest&lt;/code> ；&lt;/li>
+&lt;/ul>
+&lt;p>更多详情请参考其 &lt;a href="https://github.com/aquasecurity/trivy/releases">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="argo-workflows-v33-正式发布">Argo Workflows v3.3 正式发布&lt;/h1>
+&lt;p>Argo Workflows 是一个 Kubernetes 上的通用 Workflow 引擎，近期发布的 v3.3 是它的一个特性版本。这里我主要列几个我所关注的变更：&lt;/p>
+&lt;ul>
+&lt;li>Plugin template 允许开发者使用任何语言对 workflow 进行扩展，这是一个非常棒的特性。在之前，如果我们想在 Workflow 中执行一些通知，或者做一些报告，那么我可能需要添加一个新的步骤。这样会让整个流程变长。而且，假如我需要上一步的执行结果或输出，那么我还需要单独的处理参数传递等事情，很繁琐。但是，v3.3 中增加的这个 Plugin template 能力，就让事情变得很简单了。比如我可以使用如下配置进行消息通知：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">argoproj.io/v1alpha1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Workflow&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">generateName&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">plugin-example-&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">entrypoint&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">main&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">templates&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">main&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">plugin&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">webhook&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">text&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;{{workflow.name}} finished!&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>而要实现一个 Plugin template 也非常的简单，它可以用任何语言实现，只要实现一个 HTTP server，处理相关请求即可。具体内容可参考 &lt;a href="https://argoproj.github.io/argo-workflows/plugins/">https://argoproj.github.io/argo-workflows/plugins/&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>Workflow Hooks 可以配置表达式了。在之前的版本中，Workflow 的 Hooks 是按照任务的实际执行情况进行触发的。这个版本中增加了条件判断，比如：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">argoproj.io/v1alpha1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Workflow&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">generateName&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">test-hook-&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">entrypoint&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">main&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">hooks&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">exit&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">template&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">notice&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">running&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">expression&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">workflow.status == &amp;#34;Running&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">template&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">notice&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">templates&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">main&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">steps&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- - &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">step1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">template&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">hello&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">hello&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">container&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">alpine:3.15&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">command&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="l">sh, -c]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">args&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;echo \&amp;#34;Hello\&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">notice&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">http&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">url&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">http://notice.webhook/api/v1/msg&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/argoproj-labs/hera-workflows">Hera&lt;/a> 是一个新的 Argo Python SDK 。我之前在用 Argo SDK 的时候，都是直接通过它的 OpenAPI 自动生成 SDK 来用的，如果对 Argo 不太了解的人会觉得很难用。这个项目主要是为了能让使用更加简单，易用。期待它的发展。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Debug 的增强。现在可以通过 &lt;code>ARGO_DEBUG_PAUSE&lt;/code> 来动态的 debug 任务了。在之前的 debug，比较原始的方法可能是去加 sleep 之类的。现在可以使用如下配置：&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">argoproj.io/v1alpha1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Workflow&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">generateName&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">pause-before-after&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">entrypoint&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">whalesay&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">templates&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">whalesay&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">container&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">argoproj/argosay:v2&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">env&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ARGO_DEBUG_PAUSE_BEFORE&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">value&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;true&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ARGO_DEBUG_PAUSE_AFTER&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">value&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;true&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>此外，对于 SSO + RBAC 等有了更多支持。更多详情请参考其 &lt;a href="https://github.com/argoproj/argo-workflows/blob/master/CHANGELOG.md">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;p>&lt;a href="https://github.com/kubernetes/kubernetes/pull/108107">#108107 · kubernetes/kubernetes&lt;/a> 我们知道 kubelet 会按照 &lt;code>node-status-update-frequency&lt;/code> 的配置定时跟 API Server 同步 Node 的状态，默认是 10 秒。如果心跳持续失败，那么会导致 Node 被标记为不可用以及所有的 Pod 都将被驱逐。不过自 v1.20 开始，默认&lt;a href="https://github.com/kubernetes/kubernetes/pull/95981">启用了 HTTP/2 健康检查&lt;/a>, 这允许自动的进行健康检查，把一些失败的连接自动断开。本次修改是让 kubelet 在心跳失败的时候不会强制关闭活跃连接，只是关闭 idle 的连接。如果用户不希望使用此特性，可以通过增加 &lt;code>DISABLE_HTTP2&lt;/code> 的环境变量来恢复成之前的行为。&lt;/p>
+&lt;h1 id="题外话">题外话&lt;/h1>
+&lt;p>最近的安全漏洞 &lt;a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-0847">CVE-2022-0847&lt;/a> 对容器环境也有一定的影响，
+但是注意，受影响的 Linux 内核版本为 5.8+，
+并且已经在 5.16.11, 5.15.25 和 5.10.102 等版本的 Linux 内核中进行了修复。
+此外 Docker Desktop for Mac/Windows 也均发布了最新版本用来修正此问题。
+请注意及时更新。&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">K8S 生态周报| Helm v3.8 OCI 支持正式 GA，Docker 新版本修复多个严重 bug</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/03/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.8-OCI-%E6%94%AF%E6%8C%81%E6%AD%A3%E5%BC%8F-GADocker-%E6%96%B0%E7%89%88%E6%9C%AC%E4%BF%AE%E5%A4%8D%E5%A4%9A%E4%B8%AA%E4%B8%A5%E9%87%8D-bug/"/><id>https://moelove.info/2022/03/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3.8-OCI-%E6%94%AF%E6%8C%81%E6%AD%A3%E5%BC%8F-GADocker-%E6%96%B0%E7%89%88%E6%9C%AC%E4%BF%AE%E5%A4%8D%E5%A4%9A%E4%B8%AA%E4%B8%A5%E9%87%8D-bug/</id><updated>2022-03-13T17:30:35+08:00</updated><published>2022-03-12T02:34:36+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 KIND v0.12.0 发布 KIND（……</summary><content type="html">&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;h1 id="kind-v0120-发布">KIND v0.12.0 发布&lt;/h1>
