@@ -1,4 +1,151 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 21 Mar 2022 16:48:13 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Argo Workflows 新版本发布，带来众多新特性</title><link>https://moelove.info/2022/03/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Argo-Workflows-%E6%96%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/</link><guid isPermaLink="true">https://moelove.info/2022/03/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Argo-Workflows-%E6%96%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/</guid><pubDate>Mon, 21 Mar 2022 00:01:32 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Fri, 25 Mar 2022 09:22:01 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>企业级云原生应用交付及管理系列 - Helm 基础 (一)</title><link>https://moelove.info/2022/03/25/%E4%BC%81%E4%B8%9A%E7%BA%A7%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E4%BA%A4%E4%BB%98%E5%8F%8A%E7%AE%A1%E7%90%86%E7%B3%BB%E5%88%97-Helm-%E5%9F%BA%E7%A1%80-%E4%B8%80/</link><guid isPermaLink="true">https://moelove.info/2022/03/25/%E4%BC%81%E4%B8%9A%E7%BA%A7%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E4%BA%A4%E4%BB%98%E5%8F%8A%E7%AE%A1%E7%90%86%E7%B3%BB%E5%88%97-Helm-%E5%9F%BA%E7%A1%80-%E4%B8%80/</guid><pubDate>Fri, 25 Mar 2022 00:01:32 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>在 Kubernetes 中，当我们要部署一个应用时，往往会涉及一个或多个部署资源。我们如果使用 YAML 文件来对这些资源的依赖及关联关系进行组织、配置，这往往十分复杂繁琐并且可移植性较差。
+Helm 这个 Kubernetes 环境中的包管理器可以帮助我们更快速便捷的来实现资源的组织和部署。&lt;/p>
+&lt;p>&lt;img src="https://cdn.nlark.com/yuque/0/2022/png/10359851/1648103928214-fc9e56ca-86ac-4466-ba41-543a305eca07.png" alt="img">&lt;/p>
+&lt;p>本期的主要内容将围绕 Helm 来进行展开。欢迎小伙伴们留言讨论 （觉得内容还不错，就请点赞点在看及转发，谢谢）。&lt;/p>
+&lt;h1 id="helm-的诞生及发展">Helm 的诞生及发展&lt;/h1>
+&lt;h2 id="helm-1">Helm 1&lt;/h2>
+&lt;p>最早期的 Helm 是一个内部黑客马拉松项目，旨在帮助独立开发人员创建 Kubernetes 资源包并将其部署至集群当中。它是于 2015 年在 Deis 创建，后被微软收购 。在同年的11月9日由 CNCF 主办的 KubeCon 上，正式推出（现在称之为 Helm Classic），这是 Helm 的第一个公开版本。&lt;/p>
+&lt;h2 id="helm-2">Helm 2&lt;/h2>
+&lt;p>2016 年 1 月，Helm Classic 与名为 Kubernetes Deployment Manager 的 GCS 工具合并成 Helm，并移至 &lt;a href="https://kubernetes.io/">Kubernetes&lt;/a>下。之后，Helm 加入了 CNCF，成为顶级项目，并已成功毕业。&lt;/p>
+&lt;p>在 Helm 2 开发周期中，引入了一个服务端组件 Tiller。Tiller 可以让多个操作者在同一组发布中进行交互，在共享集群中的团队协作发挥了一定的作用。但是，基于 Kubernetes 1.6 的安全策略，在将 Tiller 安装到多租户集群时，DevOps 和 SRE 必须学习额外的操作步骤。此外，由于 Tiller 是一个服务端组件，在安全性上有很严重的缺陷，所有能访问 Tiller 的用户都具备了相同的权限。&lt;/p>
+&lt;p>这就引出了：如何化繁为简，即不能陷入在安全控制的繁复上；又不能扩大非预期的权限授予。&lt;/p>
+&lt;p>在 Helm 2 中，默认使用 ConfigMaps 来存储发布信息，在 Helm 2.7.0 版本中，实现了首个使用 Secrets 存储发布信息的特性。&lt;/p>
+&lt;h2 id="helm-3">Helm 3&lt;/h2>
+&lt;p>Tiller 的目标是可以通过 Kubernetes API 来获取信息，在客户端进行 charts 渲染并且将记录存储于 Kubernetes 。
+Helm 3 做的第一个决定就是移除 Tiller。随着 Tiller 消失，Helm 的安全模型得到了简化。可以借助 kubeconfig 文件来为 Helm 进行授权。&lt;/p>
+&lt;p>在 Helm 3 中，默认使用 Secrets 存储发布信息（Release）。并且也将其 Go 模块路径从 &lt;code>k8s.io/helm&lt;/code> 切换到了 &lt;code>helm.sh/helm/v3&lt;/code> 。&lt;/p>
+&lt;h2 id="发展">发展&lt;/h2>
+&lt;p>从 2015 年开始，Helm 的贡献者迅速扩张。下方图表显示了随时间推移的贡献者百分比，按国家/地区细分（这是基于 GitHub 上的数据）。自 Helm 加入 CNCF 后，贡献代码的公司总数增加了 41%，从 930 家增加到 1,314 家。（官网上 2015-2019 年的数据对比）&lt;/p>
+&lt;p>&lt;img src="https://cdn.nlark.com/yuque/0/2022/png/10359851/1648061801711-c5c46d4d-3544-49d8-8f31-82a9c4c5be73.png" alt="img">&lt;/p>
+&lt;p>2020 年 4 月 30 日，CNCF 宣布 Helm 正式毕业，这是 CNCF 的第十个毕业项目。&lt;/p>
+&lt;p>&lt;img src="https://cdn.nlark.com/yuque/0/2022/png/10359851/1648061234704-1cf0b30b-6d4f-459c-886e-9ab23d8d0c10.png" alt="img">&lt;/p>
+&lt;p>此外，CNCF 的 Artifact Hub 于 2020 年 10 月取代了 Helm Hub 。Artifact Hub 是一个基于 Web 的应用程序，可用于查找、安装和发布 CNCF 项目的包和配置。比如，我们想快速找到 Helm 的 Chart 和插件就可以借助于 Artifact Hub。&lt;/p>
+&lt;h1 id="helm-基础介绍">Helm 基础介绍&lt;/h1>
+&lt;h2 id="helm-架构">Helm 架构&lt;/h2>
+&lt;p>&lt;img src="https://cdn.nlark.com/yuque/0/2022/png/10359851/1648140716778-6359e541-5e3b-414f-a696-403836e1d740.png" alt="img">&lt;/p>
+&lt;p>Helm 是使用 Go 语言编写的，使用 client-go 和 apiserver 进行交互。它将信息存储在 Kubernetes 内部的 Secrets 中（Release），不需要自己的数据库。&lt;/p>
+&lt;p>Helm 有两个重要的部分：&lt;/p>
+&lt;ul>
+&lt;li>Helm CLI - &lt;strong>Helm Client&lt;/strong> 是面向最终用户的命令行客户端。主要负责：本地 chart 开发、管理存储库、管理发布、与 Helm registry 交互。&lt;/li>
+&lt;li>Library - Helm 库是独立的，它封装了 Helm 逻辑，支持不同的客户端使用。（可以开心的随意导入使用）&lt;/li>
+&lt;/ul>
+&lt;h2 id="helm-基本概念">Helm 基本概念&lt;/h2>
+&lt;ul>
+&lt;li>Chart - Chart files ，即有组织的 YAML 。&lt;/li>
+&lt;li>Chart package - Chart files 打包之后就是 Chart package 。&lt;/li>
+&lt;li>Chart registry - 存储共享 Chart 。&lt;/li>
+&lt;li>Release - 是在 Kubernetes 集群中运行的 Chart 实例。一个 Chart 可以多次安装到同一个集群，每次安装时都会创建一个新的 Release。&lt;/li>
+&lt;/ul>
+&lt;h2 id="helm-的-chart-托管">Helm 的 Chart 托管&lt;/h2>
+&lt;p>helm charts registry 就是一个 HTTP Server。&lt;/p>
+&lt;p>它包含一个 index.yaml 文件和一些 chart package。从 Helm 2.2.0 开始，支持对存储库的客户端 SSL 身份验证。其他身份验证协议可作为插件使用。index.yaml 包含存储库中所有 charts 的索引。&lt;/p>
+&lt;p>chart registry 中的 chart 必须正确打包 ( helm package chart-name/) 并进行版本控制。&lt;/p>
+&lt;p>Helm v3.8.0 支持通过 OCI Registry 进行 package 分发。chart package 能够在基于 OCI 的 registry 中存储和共享。&lt;/p>
+&lt;ul>
+&lt;li>v3.8.0 之前，是实验性的，需要开启。需要设置：export HELM_EXPERIMENTAL_OCI=1&lt;/li>
+&lt;li>v3.8.0 之后，默认开启。&lt;/li>
+&lt;/ul>
+&lt;h2 id="helm-插件">Helm 插件&lt;/h2>
+&lt;p>Helm 插件是一种可以通过helmCLI 访问的工具。Helm 插件存在于 &lt;code>$HELM_PLUGINS&lt;/code> 。&lt;/p>
+&lt;ul>
+&lt;li>Helm 插件可以在 Helm 中添加和删除，而不会影响核心 Helm 工具。&lt;/li>
+&lt;li>Helm 插件可以用任何编程语言编写。&lt;/li>
+&lt;li>Helm 插件与 Helm 集成，会出现在 helm help 等处。&lt;/li>
+&lt;/ul>
+&lt;h2 id="helm-版本支持">Helm 版本支持&lt;/h2>
+&lt;h3 id="helm-vs-kubernetes-的版本支持">Helm vs Kubernetes 的版本支持&lt;/h3>
+&lt;p>&lt;img src="https://cdn.nlark.com/yuque/0/2022/png/10359851/1648144017180-4b3e9f79-8327-41d3-8dff-d139c4e9999c.png" alt="img">&lt;/p>
+&lt;h3 id="helm-不同操作系统下的默认路径">Helm 不同操作系统下的默认路径&lt;/h3>
+&lt;p>&lt;img src="https://cdn.nlark.com/yuque/0/2022/png/10359851/1648144264421-d2d4fb8c-bc7a-4617-b832-b41cace3151f.png" alt="img">&lt;/p>
+&lt;h1 id="helm-实践操作">Helm 实践操作&lt;/h1>
+&lt;h2 id="helm-的部署安装">Helm 的部署安装&lt;/h2>
+&lt;p>Helm 是使用 Go 编写的，我们安装时只要下载其二进制文件即可。&lt;/p>
+&lt;p>一般从 Helm 仓库的 Release 页面进行下载即可。&lt;/p>
+&lt;p>当然，我们也可以使用下面的脚本自动化的进行安装。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 &lt;span class="p">|&lt;/span> bash
+% Total % Received % Xferd Average Speed Time Time Time Current
+Dload Upload Total Spent Left Speed
+&lt;span class="m">100&lt;/span> &lt;span class="m">11156&lt;/span> &lt;span class="m">100&lt;/span> &lt;span class="m">11156&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="m">0&lt;/span> &lt;span class="m">10399&lt;/span> &lt;span class="m">0&lt;/span> 0:00:01 0:00:01 --:--:-- &lt;span class="m">10406&lt;/span>
+Helm v3.8.1 is available. Changing from version v3.8.0.
+Downloading https://get.helm.sh/helm-v3.8.1-linux-amd64.tar.gz
+Verifying checksum... Done.
+Preparing to install helm into /usr/local/bin
+&lt;span class="o">[&lt;/span>sudo&lt;span class="o">]&lt;/span> tao 的密码：
+helm installed into /usr/local/bin/helm
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="helm-的常见操作">Helm 的常见操作&lt;/h2>
+&lt;h3 id="创建-chart">创建 Chart&lt;/h3>
+&lt;p>通过 &lt;code>helm create&lt;/code>命令，可以快速的创建一个 Helm Chart。 新创建的 Chart 中预先包含了一些必要的文件。&lt;/p>
+&lt;p>比如 &lt;code>Chart.yaml&lt;/code>文件中，包含了 Chart 相关的一些元信息。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ helm create foo
+Creating foo
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ ls
+foo
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ tree
+.
+└── foo
+├── charts
+├── Chart.yaml
+├── templates
+│ ├── deployment.yaml
+│ ├── _helpers.tpl
+│ ├── hpa.yaml
+│ ├── ingress.yaml
+│ ├── NOTES.txt
+│ ├── serviceaccount.yaml
+│ ├── service.yaml
+│ └── tests
+│ └── test-connection.yaml
+└── values.yaml
+&lt;span class="m">4&lt;/span> directories, &lt;span class="m">10&lt;/span> files
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="查看-chart-的元信息">查看 Chart 的元信息&lt;/h3>
+&lt;p>我们也可以直接通过 &lt;code>helm show&lt;/code> 查看 Chart 相关的一些信息，而无需打开各配置文件。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ helm show chart foo
+apiVersion: v2
+appVersion: 1.16.0
+description: A Helm chart &lt;span class="k">for&lt;/span> Kubernetes
+name: foo
+type: application
+version: 0.1.0
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="安装">安装&lt;/h3>
+&lt;p>可以通过 &lt;code>helm install&lt;/code>命令将 Helm Chart 安装到 Kubernetes 集群中。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ helm install foo foo -n demo --create-namespace
+NAME: foo
+LAST DEPLOYED: Fri Mar &lt;span class="m">25&lt;/span> 01:55:11 &lt;span class="m">2022&lt;/span>
+NAMESPACE: demo
+STATUS: deployed
+REVISION: &lt;span class="m">1&lt;/span>
+NOTES:
+1. Get the application URL by running these commands:
+&lt;span class="nb">export&lt;/span> &lt;span class="nv">POD_NAME&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="k">$(&lt;/span>kubectl get pods --namespace demo -l &lt;span class="s2">&amp;#34;app.kubernetes.io/name=foo,app.kubernetes.io/instance=foo&amp;#34;&lt;/span> -o &lt;span class="nv">jsonpath&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;{.items[0].metadata.name}&amp;#34;&lt;/span>&lt;span class="k">)&lt;/span>
+&lt;span class="nb">export&lt;/span> &lt;span class="nv">CONTAINER_PORT&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="k">$(&lt;/span>kubectl get pod --namespace demo &lt;span class="nv">$POD_NAME&lt;/span> -o &lt;span class="nv">jsonpath&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;{.spec.containers[0].ports[0].containerPort}&amp;#34;&lt;/span>&lt;span class="k">)&lt;/span>
+&lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;Visit http://127.0.0.1:8080 to use your application&amp;#34;&lt;/span>
+kubectl --namespace demo port-forward &lt;span class="nv">$POD_NAME&lt;/span> 8080:&lt;span class="nv">$CONTAINER_PORT&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="查看-release">查看 Release&lt;/h3>
+&lt;p>通过 &lt;code>helm list&lt;/code>可以查看已经部署到 Kubernetes 中的 Release 资源。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ helm -n demo list
+NAME NAMESPACE REVISION UPDATED STATUS CHART APP VERSION
+foo demo &lt;span class="m">1&lt;/span> 2022-03-25 01:55:11.18271151 +0800 CST deployed foo-0.1.0 1.16.0
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="删除-release">删除 Release&lt;/h3>
+&lt;p>通过 &lt;code>helm uninstall&lt;/code>可以用于删除 Release。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ helm -n demo uninstall foo
+release &lt;span class="s2">&amp;#34;foo&amp;#34;&lt;/span> uninstalled
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="打包">打包&lt;/h3>
+&lt;p>通过 &lt;code>helm package&lt;/code>命令可以对 Chart 进行打包。然后通过 &lt;code>helm repo index&lt;/code>命令即可生成 &lt;code>index.yaml&lt;/code>文件。&lt;/p>
+&lt;p>在此目录中启动一个 HTTP Server ，就可以作为 Helm repo 供下载/安装 Helm Chart 使用了。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ helm package foo
+Successfully packaged chart and saved it to: /tmp/helm/foo-0.1.0.tgz
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ ls
+foo foo-0.1.0.tgz
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ helm repo index .
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ ls
+foo foo-0.1.0.tgz index.yaml
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="总结">总结&lt;/h1>
+&lt;p>在本篇中，主要介绍了 Helm 的发展历程，以及其中的核心概念及一些常见的操作方式。&lt;/p>
+&lt;p>本系列的后续内容中会提供 Helm 的高级用法，以及企业级云原生应用的交付及管理相关的内容，敬请期待！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>K8S 生态周报| Argo Workflows 新版本发布，带来众多新特性</title><link>https://moelove.info/2022/03/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Argo-Workflows-%E6%96%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/</link><guid isPermaLink="true">https://moelove.info/2022/03/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Argo-Workflows-%E6%96%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/</guid><pubDate>Mon, 21 Mar 2022 00:01:32 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;h1 id="trivy-新版本发布">Trivy 新版本发布&lt;/h1>
