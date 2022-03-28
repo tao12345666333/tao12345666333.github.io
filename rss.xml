@@ -1,4 +1,89 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Fri, 25 Mar 2022 09:22:01 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>企业级云原生应用交付及管理系列 - Helm 基础 (一)</title><link>https://moelove.info/2022/03/25/%E4%BC%81%E4%B8%9A%E7%BA%A7%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E4%BA%A4%E4%BB%98%E5%8F%8A%E7%AE%A1%E7%90%86%E7%B3%BB%E5%88%97-Helm-%E5%9F%BA%E7%A1%80-%E4%B8%80/</link><guid isPermaLink="true">https://moelove.info/2022/03/25/%E4%BC%81%E4%B8%9A%E7%BA%A7%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E4%BA%A4%E4%BB%98%E5%8F%8A%E7%AE%A1%E7%90%86%E7%B3%BB%E5%88%97-Helm-%E5%9F%BA%E7%A1%80-%E4%B8%80/</guid><pubDate>Fri, 25 Mar 2022 00:01:32 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 28 Mar 2022 10:41:09 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Docker，containerd 全版本漏洞公布，请及时更新</title><link>https://moelove.info/2022/03/27/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Dockercontainerd-%E5%85%A8%E7%89%88%E6%9C%AC%E6%BC%8F%E6%B4%9E%E5%85%AC%E5%B8%83%E8%AF%B7%E5%8F%8A%E6%97%B6%E6%9B%B4%E6%96%B0/</link><guid isPermaLink="true">https://moelove.info/2022/03/27/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Dockercontainerd-%E5%85%A8%E7%89%88%E6%9C%AC%E6%BC%8F%E6%B4%9E%E5%85%AC%E5%B8%83%E8%AF%B7%E5%8F%8A%E6%97%B6%E6%9B%B4%E6%96%B0/</guid><pubDate>Sun, 27 Mar 2022 21:59:33 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;h1 id="cve-2022-24769">CVE-2022-24769&lt;/h1>
+&lt;p>近期在 Docker 中发现了一个 &lt;strong>影响所有版本的安全漏洞&lt;/strong> &lt;a href="https://www.cve.org/CVERecord?id=CVE-2022-24769">CVE-2022-24769&lt;/a>，该漏洞已经在 Docker 最新的版本
+v20.10.14 中修复。&lt;/p>
+&lt;p>这个漏洞主要是由于错误的设置了非空的 Linux 进程的 Inheritable capabilities 集合。导致在 &lt;code>execve(2)&lt;/code> 期间，可能会造成提权。&lt;/p>
+&lt;p>我在&lt;a href="https://juejin.cn/book/7044052687779790880/section/7044055655014989827">《Kubernetes 安全原理与实践》&lt;/a> 中 Linux 的权限和能力模型中，
+曾介绍过相关内容。&lt;/p>
+&lt;p>Linux 中的 capabilities 可以作为每个线程的属性存在，也可以作用在可执行文件上。
+如果用作线程属性存在，我们称之为 线程 capability 集合；如果用作可执行文件的扩展属性上，则称之为 文件 capability 集合。&lt;/p>
+&lt;p>其中的线程 capability 集合主要包含以下五类：&lt;/p>
+&lt;ul>
+&lt;li>Permitted&lt;/li>
+&lt;li>Inheritable&lt;/li>
+&lt;li>Effective&lt;/li>
+&lt;li>Bounding&lt;/li>
+&lt;li>Ambient&lt;/li>
+&lt;/ul>
+&lt;p>本次漏洞受影响的就是 Inheritable 集合。 它主要定义了一组跨 execve(2) 系统调用时可继承的 capability 集合。
+但是它的影响是会将 Inheritable 集合中的 capability 应用于新线程的 Permitted 集合中，而非直接设置成新线程的 Effective 集合。&lt;/p>
+&lt;p>另一方面，文件 capability 集合则主要包含以下三类：&lt;/p>
+&lt;ul>
+&lt;li>Permitted&lt;/li>
+&lt;li>Inheritable&lt;/li>
+&lt;li>Effective&lt;/li>
+&lt;/ul>
+&lt;p>其中 Inheritable 集合的作用是它定义的 capability 会与线程的 Inheritable 取交集，
+然后添加到 &lt;code>execve(2)&lt;/code> 产生的线程 Permitted 集合中。&lt;/p>
+&lt;p>所以当上述关于 Inheritable 集合的 capability 都进行设置时，就可能会出现提权。&lt;/p>
+&lt;p>以下是本次&lt;a href="https://github.com/moby/moby/commit/2bbc786e4c59761d722d2d1518cd0a32829bc07f">修正此漏洞时的主要变更&lt;/a>,
+可以看到主要是将原先默认设置的 Inheritable 集合的部分去掉。
+这样就可以创建出来一个典型的 Linux 环境了。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-diff" data-lang="diff">func SetCapabilities(s *specs.Spec, caplist []string) error {
+&lt;span class="gd">- s.Process.Capabilities.Effective = caplist
+&lt;/span>&lt;span class="gd">- s.Process.Capabilities.Bounding = caplist
+&lt;/span>&lt;span class="gd">- s.Process.Capabilities.Permitted = caplist
+&lt;/span>&lt;span class="gd">- s.Process.Capabilities.Inheritable = caplist
+&lt;/span>&lt;span class="gd">&lt;/span> // setUser has already been executed here
+&lt;span class="gd">- // if non root drop capabilities in the way execve does
+&lt;/span>&lt;span class="gd">- if s.Process.User.UID != 0 {
+&lt;/span>&lt;span class="gd">- s.Process.Capabilities.Effective = []string{}
+&lt;/span>&lt;span class="gd">- s.Process.Capabilities.Permitted = []string{}
+&lt;/span>&lt;span class="gd">&lt;/span>&lt;span class="gi">+ if s.Process.User.UID == 0 {
+&lt;/span>&lt;span class="gi">+ s.Process.Capabilities = &amp;amp;specs.LinuxCapabilities{
+&lt;/span>&lt;span class="gi">+ Effective: caplist,
+&lt;/span>&lt;span class="gi">+ Bounding: caplist,
+&lt;/span>&lt;span class="gi">+ Permitted: caplist,
+&lt;/span>&lt;span class="gi">+ }
+&lt;/span>&lt;span class="gi">+ } else {
+&lt;/span>&lt;span class="gi">+ // Do not set Effective and Permitted capabilities for non-root users,
+&lt;/span>&lt;span class="gi">+ // to match what execve does.
+&lt;/span>&lt;span class="gi">+ s.Process.Capabilities = &amp;amp;specs.LinuxCapabilities{
+&lt;/span>&lt;span class="gi">+ Bounding: caplist,
+&lt;/span>&lt;span class="gi">+ }
+&lt;/span>&lt;span class="gi">&lt;/span> }
+return nil
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>此漏洞虽然是在 Docker 中发现的，但实际上在 containerd 中也是存在的。
+当前 Docker 已经发布了最新的 &lt;a href="https://github.com/moby/moby/releases/tag/v20.10.14">v20.10.14 版本&lt;/a>修正此漏洞。
+同时 containerd 也相继发布了 v1.5.11 和 v1.6.2 来对此漏洞进行修复。
+&lt;strong>建议大家进行升级。并且升级后需要对现有已经启动的容器进行重建操作。&lt;/strong>&lt;/p>
+&lt;p>或者，如果在不升级的情况下，可以通过主动删除 Inheritable 集合的 capability 来进行安全防护。&lt;/p>
+&lt;h1 id="cert-manager-v180-alpha0-发布">cert-manager v1.8.0-alpha.0 发布&lt;/h1>
+&lt;p>cert-manager 是一个可以很方便在 Kubernetes 集群上用于自动化管理证书的工具。
+这是 cert-manager v1.8.0 的 alpha 版本。其中有一些我很关注的内容：&lt;/p>
+&lt;p>在 &lt;a href="https://github.com/cert-manager/cert-manager/pull/4789">#4789&lt;/a> 中删除了硬编码的 Ingress 的 &lt;code>whitelist-source-range&lt;/code> Annotation，
+这样就可以通过 Ingress template 来自定义进行设置了。&lt;/p>
+&lt;p>这对于用户想要去使用其他的 Ingress controller 是非常关键的。比如我正在做的 &lt;a href="https://github.com/apache/apisix-ingress-controller/">Apache APISIX Ingress controller&lt;/a>
+项目，对于这类黑白名单需求的 Annotation 名称其实是 &lt;code>k8s.apisix.apache.org/allowlist-source-range&lt;/code> 和 &lt;code>k8s.apisix.apache.org/blocklist-source-range&lt;/code>，
+经过此次修改就可以很方便的使用了。&lt;/p>
+&lt;p>此外，对于 Kubernetes Ingress-nginx 项目而言，在 v1.x 版本中，我们将其中的 &lt;code>white/black&lt;/code> 等都修改成了 &lt;code>allowlist/blocklist&lt;/code> 了，所以此次修改也能对 Ingress-nginx 项目的
+新版本进行兼容。&lt;/p>
+&lt;p>此外，从这个版本开始引入了 &lt;code>ServerSideApply&lt;/code> 的特性，不过相关功能应该还会有些变更，这里就不展开了。&lt;/p>
+&lt;p>更多关于此版本的变更请查看其 &lt;a href="https://github.com/cert-manager/cert-manager/releases/tag/v1.8.0-alpha.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/enhancements/pull/3137">KEP-3136: beta apis off by default · kubernetes/enhancements&lt;/a> 从 Kubernetes v1.24 开始默认情况下将会禁用新的 Beta 版本 API，但是不影响旧的/已存在的。&lt;/li>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/107979">#107979 · kubernetes/kubernetes&lt;/a> loadBalancerClass 特性达到 GA 状态，这是从 v1.21 开始引入的，跟 IngressClass/StorageClass 等比较类似。&lt;/li>
+&lt;/ul>
+&lt;h1 id="题外话">题外话&lt;/h1>
+&lt;p>Kubernetes 的发布周期从 2021 年初改成了一年三个版本，至今已经一年了。Kubernetes 的发版节奏变慢，你感觉如何？欢迎留言交流讨论&lt;/p>
+&lt;p>如果有兴趣的小伙伴也可以填一下 Kubernetes 社区的问卷 &lt;a href="https://www.surveymonkey.com/r/k8s-cadence-2022">https://www.surveymonkey.com/r/k8s-cadence-2022&lt;/a>&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>企业级云原生应用交付及管理系列 - Helm 基础 (一)</title><link>https://moelove.info/2022/03/25/%E4%BC%81%E4%B8%9A%E7%BA%A7%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E4%BA%A4%E4%BB%98%E5%8F%8A%E7%AE%A1%E7%90%86%E7%B3%BB%E5%88%97-Helm-%E5%9F%BA%E7%A1%80-%E4%B8%80/</link><guid isPermaLink="true">https://moelove.info/2022/03/25/%E4%BC%81%E4%B8%9A%E7%BA%A7%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E4%BA%A4%E4%BB%98%E5%8F%8A%E7%AE%A1%E7%90%86%E7%B3%BB%E5%88%97-Helm-%E5%9F%BA%E7%A1%80-%E4%B8%80/</guid><pubDate>Fri, 25 Mar 2022 00:01:32 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>在 Kubernetes 中，当我们要部署一个应用时，往往会涉及一个或多个部署资源。我们如果使用 YAML 文件来对这些资源的依赖及关联关系进行组织、配置，这往往十分复杂繁琐并且可移植性较差。
 Helm 这个 Kubernetes 环境中的包管理器可以帮助我们更快速便捷的来实现资源的组织和部署。&lt;/p>
 &lt;p>&lt;img src="https://cdn.nlark.com/yuque/0/2022/png/10359851/1648103928214-fc9e56ca-86ac-4466-ba41-543a305eca07.png" alt="img">&lt;/p>
