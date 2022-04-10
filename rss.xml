@@ -1,4 +1,212 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sat, 02 Apr 2022 09:18:28 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Docker，containerd 全版本漏洞公布，请及时更新</title><link>https://moelove.info/2022/03/27/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Dockercontainerd-%E5%85%A8%E7%89%88%E6%9C%AC%E6%BC%8F%E6%B4%9E%E5%85%AC%E5%B8%83%E8%AF%B7%E5%8F%8A%E6%97%B6%E6%9B%B4%E6%96%B0/</link><guid isPermaLink="true">https://moelove.info/2022/03/27/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Dockercontainerd-%E5%85%A8%E7%89%88%E6%9C%AC%E6%BC%8F%E6%B4%9E%E5%85%AC%E5%B8%83%E8%AF%B7%E5%8F%8A%E6%97%B6%E6%9B%B4%E6%96%B0/</guid><pubDate>Sun, 27 Mar 2022 21:59:33 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sun, 10 Apr 2022 23:56:19 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>企业级云原生应用交付及管理系列 - Helm 调试及维护 (二)</title><link>https://moelove.info/2022/03/30/%E4%BC%81%E4%B8%9A%E7%BA%A7%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E4%BA%A4%E4%BB%98%E5%8F%8A%E7%AE%A1%E7%90%86%E7%B3%BB%E5%88%97-Helm-%E8%B0%83%E8%AF%95%E5%8F%8A%E7%BB%B4%E6%8A%A4-%E4%BA%8C/</link><guid isPermaLink="true">https://moelove.info/2022/03/30/%E4%BC%81%E4%B8%9A%E7%BA%A7%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E4%BA%A4%E4%BB%98%E5%8F%8A%E7%AE%A1%E7%90%86%E7%B3%BB%E5%88%97-Helm-%E8%B0%83%E8%AF%95%E5%8F%8A%E7%BB%B4%E6%8A%A4-%E4%BA%8C/</guid><pubDate>Wed, 30 Mar 2022 20:21:07 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>在上一篇 &lt;a href="https://zhuanlan.zhihu.com/p/487412617">《企业级云原生应用交付及管理系列 - Helm 基础 (一)》&lt;/a> 中，我主要介绍了
+Helm 的诞生及其发展，包括 Helm 各个版本的情况及社区的发展。&lt;/p>
+&lt;p>此外，还介绍了 Helm 的架构，概念，插件以及其基本用法。&lt;/p>
+&lt;p>本节我将默认读者已经有一定的 Helm 和 Kubernetes 基础，
+介绍 Helm 的一些高阶特性和用法，
+如果有不清楚的概念可以看我的历史文章。&lt;/p>
+&lt;h2 id="准备">准备&lt;/h2>
+&lt;p>这里我们使用 &lt;code>helm create&lt;/code> 命令来创建一个 Helm chart。执行完成后，会在当前目录创建一个新的目录，其中包含了 Helm 预先创建的一个模板。
+本文中的后续内容均会基于该 Helm chart 完成。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">tao@moelove:~$ helm create moelove
+Creating moelove
+tao@moelove:~$ ls
+moelove
+tao@moelove:~$ tree
+.
+└── moelove
+├── Chart.yaml
+├── charts
+├── templates
+│   ├── NOTES.txt
+│   ├── _helpers.tpl
+│   ├── deployment.yaml
+│   ├── hpa.yaml
+│   ├── ingress.yaml
+│   ├── service.yaml
+│   ├── serviceaccount.yaml
+│   └── tests
+│   └── test-connection.yaml
+└── values.yaml
+&lt;span class="m">4&lt;/span> directories, &lt;span class="m">10&lt;/span> files
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="debug">Debug&lt;/h2>
+&lt;p>在我们去创建/维护，或者使用 Helm chart 进行应用部署的时候，有时候可能会遇到一些错误。
+那么如何对 Helm chart 进行 debug 呢？这是很多人都会遇到的一个问题。&lt;/p>
+&lt;p>Helm chart 是通过 YAML 进行维护的，而 YAML 是缩进/语法敏感的。
+假如你的缩进或者语法有问题，都将会导致报错。
+最简单的检查办法是使用 &lt;code>helm lint&lt;/code> 进行检查。&lt;/p>
+&lt;p>比如我们进行如下修改：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="gh">diff --git a/values.yaml b/values.yaml
+&lt;/span>&lt;span class="gh">index 4a8b237..696a77d 100644
+&lt;/span>&lt;span class="gh">&lt;/span>&lt;span class="gd">--- a/values.yaml
+&lt;/span>&lt;span class="gd">&lt;/span>&lt;span class="gi">+++ b/values.yaml
+&lt;/span>&lt;span class="gi">&lt;/span>&lt;span class="gu">@@ -5,7 +5,7 @@
+&lt;/span>&lt;span class="gu">&lt;/span> replicaCount: 1
+image:
+&lt;span class="gd">- repository: nginx
+&lt;/span>&lt;span class="gd">&lt;/span>&lt;span class="gi">+ repository: nginx
+&lt;/span>&lt;span class="gi">&lt;/span> pullPolicy: IfNotPresent
+# Overrides the image tag whose default is the chart appVersion.
+tag: &amp;#34;&amp;#34;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以看到，我们将 &lt;code>image.repository&lt;/code> 的缩进搞错了。
+这时进行安装将看到如下报错：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">tao@moelove:~$ helm install foo .
+Error: INSTALLATION FAILED: cannot load values.yaml: error converting YAML to JSON: yaml: line 9: mapping values are not allowed in this context
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>我建议你可以使用 &lt;code>helm lint&lt;/code> 先进行检查，避免一些低级错误。如下：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">tao@moelove:~$ helm lint .
+&lt;span class="o">==&lt;/span>&amp;gt; Linting .
+&lt;span class="o">[&lt;/span>INFO&lt;span class="o">]&lt;/span> Chart.yaml: icon is recommended
+&lt;span class="o">[&lt;/span>ERROR&lt;span class="o">]&lt;/span> values.yaml: unable to parse YAML: error converting YAML to JSON: yaml: line 9: mapping values are not allowed in this context
+&lt;span class="o">[&lt;/span>ERROR&lt;span class="o">]&lt;/span> templates/: cannot load values.yaml: error converting YAML to JSON: yaml: line 9: mapping values are not allowed in this context
+&lt;span class="o">[&lt;/span>ERROR&lt;span class="o">]&lt;/span> : unable to load chart
+cannot load values.yaml: error converting YAML to JSON: yaml: line 9: mapping values are not allowed in this context
+Error: &lt;span class="m">1&lt;/span> chart&lt;span class="o">(&lt;/span>s&lt;span class="o">)&lt;/span> linted, &lt;span class="m">1&lt;/span> chart&lt;span class="o">(&lt;/span>s&lt;span class="o">)&lt;/span> failed
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>我们将该内容恢复原样，并进行如下变更：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="gh">diff --git a/values.yaml b/values.yaml
+&lt;/span>&lt;span class="gh">index 4a8b237..c86c0be 100644
+&lt;/span>&lt;span class="gh">&lt;/span>&lt;span class="gd">--- a/values.yaml
+&lt;/span>&lt;span class="gd">&lt;/span>&lt;span class="gi">+++ b/values.yaml
+&lt;/span>&lt;span class="gi">&lt;/span>&lt;span class="gu">@@ -2,7 +2,7 @@
+&lt;/span>&lt;span class="gu">&lt;/span> # This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+&lt;span class="gd">-replicaCount: 1
+&lt;/span>&lt;span class="gd">&lt;/span>&lt;span class="gi">+replicaCount: &amp;#34;this should not be string&amp;#34;
+&lt;/span>&lt;span class="gi">&lt;/span>
+image:
+repository: nginx
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>将 &lt;code>replicaCount&lt;/code> 修改成了一段字符串。这时候我们使用 &lt;code>helm lint&lt;/code> 是无法检查出来的。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">tao@moelove:~$ helm lint .
+&lt;span class="o">==&lt;/span>&amp;gt; Linting .
+&lt;span class="o">[&lt;/span>INFO&lt;span class="o">]&lt;/span> Chart.yaml: icon is recommended
+&lt;span class="m">1&lt;/span> chart&lt;span class="o">(&lt;/span>s&lt;span class="o">)&lt;/span> linted, &lt;span class="m">0&lt;/span> chart&lt;span class="o">(&lt;/span>s&lt;span class="o">)&lt;/span> failed
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>因为从 YAML 语法上是无法检查出来类型的，并且这也是我们具体的业务逻辑（Kubernetes）限制的。&lt;/p>
+&lt;p>这时，如果进行安装将得到如下错误：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">tao@moelove:~$ helm install foo .
+Error: INSTALLATION FAILED: unable to build kubernetes objects from release manifest: error validating &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>: error validating data: ValidationError&lt;span class="o">(&lt;/span>Deployment.spec.replicas&lt;span class="o">)&lt;/span>: invalid &lt;span class="nb">type&lt;/span> &lt;span class="k">for&lt;/span> io.k8s.api.apps.v1.DeploymentSpec.replicas: got &lt;span class="s2">&amp;#34;string&amp;#34;&lt;/span>, expected &lt;span class="s2">&amp;#34;integer&amp;#34;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以看到，对于这种类型错误是可以很直接的得到反馈的。&lt;/p>
+&lt;p>但还有一种情况，就是语法规则，类型均正常，但是不符合业务的实际预期。&lt;/p>
+&lt;p>比如我们进行如下变更：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="gh">diff --git a/values.yaml b/values.yaml
+&lt;/span>&lt;span class="gh">index 4a8b237..8feedd6 100644
+&lt;/span>&lt;span class="gh">&lt;/span>&lt;span class="gd">--- a/values.yaml
+&lt;/span>&lt;span class="gd">&lt;/span>&lt;span class="gi">+++ b/values.yaml
+&lt;/span>&lt;span class="gi">&lt;/span>&lt;span class="gu">@@ -8,7 +8,7 @@ image:
+&lt;/span>&lt;span class="gu">&lt;/span> repository: nginx
+pullPolicy: IfNotPresent
+# Overrides the image tag whose default is the chart appVersion.
+&lt;span class="gd">- tag: &amp;#34;&amp;#34;
+&lt;/span>&lt;span class="gd">&lt;/span>&lt;span class="gi">+ tag: &amp;#34;1.20&amp;#34;
+&lt;/span>&lt;span class="gi">&lt;/span>
+imagePullSecrets: []
+nameOverride: &amp;#34;&amp;#34;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这时，可以安装成功，但可能我们预期想要安装的镜像是 &lt;code>1.20-alpine&lt;/code> 。
+这种场景下，上述两种方式就都没有效果了。&lt;/p>
+&lt;p>我们可以通过 &lt;code>helm install --dry-run --debug&lt;/code> 命令进行调试。
+当然，如果你想通过 &lt;code>helm template&lt;/code> 进行调试也可以。&lt;/p>
+&lt;p>这两者主要的区别在于，如果增加了 &lt;code>--debug&lt;/code> 参数的话，可以输出更加详细的信息，
+包括最终使用的 Values 信息等。&lt;/p>
+&lt;p>这是我比较推荐的做法，适合在你开发/调试 Helm chart 时使用。&lt;/p>
+&lt;h2 id="helm-单元测试">Helm 单元测试&lt;/h2>
+&lt;p>谈到 Helm chart 的单元测试，你可能会产生疑问，YAML 也要写单元测试？&lt;/p>
+&lt;p>是的。如果你是 Helm chart 的维护者的话，写单元测试是个好主意，可以更好的保证大多数内容都是符合预期的。&lt;/p>
+&lt;p>如果想要为 Helm chart 写单元测试，我有三个工具推荐。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/quintush/helm-unittest">quintush/helm-unittest&lt;/a> 是从 &lt;a href="https://github.com/helm-unittest/helm-unittest">helm-unittest/helm-unittest&lt;/a> fork 出来的，但是它更加活跃，并且包含了很多功能和修复，此外，它可以很好的与 Helm 3 配合使用；&lt;/li>
+&lt;li>&lt;a href="https://github.com/open-policy-agent/conftest">conftest&lt;/a> 这是基于 Open Policy Agent (OPA) 的一个工具，通过使用 Rego 编写策略文件来完成配置的校验。我现在在 &lt;a href="https://github.com/apache/apisix-ingress-controller/">Apache APISIX Ingress controller&lt;/a> 项目中使用它，辅助用户进行升级检查；&lt;/li>
+&lt;li>&lt;a href="https://github.com/gruntwork-io/terratest">terratest&lt;/a> 这是一个使用 Go 开发的通用测试框架，支持多种配置的测试，包括 Helm，AWS/Docker 等；&lt;/li>
+&lt;/ul>
+&lt;p>其中我最喜欢的是 conftest ，因为我更喜欢写 Rego ，对 OPA 感兴趣的小伙伴可以参考我之前的文章 &lt;a href="https://zhuanlan.zhihu.com/p/442190502">《Open Policy Agent(OPA) 入门实践》&lt;/a> 。
+最简单的则是 helm-unittest 了，它更加专注一些。&lt;/p>
+&lt;p>这里我们使用 helm-unittest 作为示例。&lt;/p>
+&lt;h3 id="安装">安装&lt;/h3>
+&lt;p>helm-unittest 可以作为 Helm Plugin 进行安装，执行以下命令即可：&lt;/p>
+&lt;pre>&lt;code>tao@moelove:~$ helm plugin install https://github.com/quintush/helm-unittest
+Support linux-amd64
+...
+Installed plugin: unittest
+&lt;/code>&lt;/pre>&lt;h3 id="测试">测试&lt;/h3>
+&lt;p>只要在 chart 目录下创建一个 &lt;code>tests&lt;/code> 目录，在其中编写测试文件即可。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="l">tao@moelove:~$ cat tests/deployment_test.yaml&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">suite&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">test deployment&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">templates&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">deployment.yaml&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">tests&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">it&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">should work&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">set&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">image.tag&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">latest&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">asserts&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">isKind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">of&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Deployment&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">matchRegex&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">metadata.name&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">pattern&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>-&lt;span class="l">moelove$&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">equal&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">spec.template.spec.containers[0].image&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">value&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">nginx:latest&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>我可以通过如下方式进行运行，注意，一定要增加 &lt;code>-3&lt;/code> 参数，以便可以和 Helm v3 进行兼容。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">tao@moelove:~$ helm unittest -3 .
+&lt;span class="c1">### Chart [ moelove ] .&lt;/span>
+PASS &lt;span class="nb">test&lt;/span> deployment tests/deployment_test.yaml
+Charts: &lt;span class="m">1&lt;/span> passed, &lt;span class="m">1&lt;/span> total
+Test Suites: &lt;span class="m">1&lt;/span> passed, &lt;span class="m">1&lt;/span> total
+Tests: &lt;span class="m">1&lt;/span> passed, &lt;span class="m">1&lt;/span> total
+Snapshot: &lt;span class="m">0&lt;/span> passed, &lt;span class="m">0&lt;/span> total
+Time: 5.932023ms
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>我们可以此 case 做些调整，看看如果测试不通过会是什么情况：&lt;/p>
+&lt;pre>&lt;code>tao@moelove:~$ cat tests/deployment_test.yaml
+suite: test deployment
+templates:
+- deployment.yaml
+tests:
+- it: should work
+set:
+image.tag: alpine
+asserts:
+- isKind:
+of: Deployment
+- matchRegex:
+path: metadata.name
+pattern: -moelove$
+- equal:
+path: spec.template.spec.containers[0].image
+value: nginx:latest
+&lt;/code>&lt;/pre>&lt;p>这里我们给 &lt;code>image.tag&lt;/code> 设置为 &lt;code>alpine&lt;/code> ，但是在断言中没有让其匹配，所以执行测试后会看到失败。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">tao@moelove:~$ helm unittest -3 .
+&lt;span class="c1">### Chart [ moelove ] .&lt;/span>
+FAIL &lt;span class="nb">test&lt;/span> deployment tests/deployment_test.yaml
+- should work
+- asserts&lt;span class="o">[&lt;/span>2&lt;span class="o">]&lt;/span> &lt;span class="sb">`&lt;/span>equal&lt;span class="sb">`&lt;/span> fail
+Template: moelove/templates/deployment.yaml
+DocumentIndex: &lt;span class="m">0&lt;/span>
+Path: spec.template.spec.containers&lt;span class="o">[&lt;/span>0&lt;span class="o">]&lt;/span>.image
+Expected to equal:
+nginx:latest
+Actual:
+nginx:alpine
+Diff:
+--- Expected
++++ Actual
+@@ -1,2 +1,2 @@
+-nginx:latest
++nginx:alpine
+Charts: &lt;span class="m">1&lt;/span> failed, &lt;span class="m">0&lt;/span> passed, &lt;span class="m">1&lt;/span> total
+Test Suites: &lt;span class="m">1&lt;/span> failed, &lt;span class="m">0&lt;/span> passed, &lt;span class="m">1&lt;/span> total
+Tests: &lt;span class="m">1&lt;/span> failed, &lt;span class="m">0&lt;/span> passed, &lt;span class="m">1&lt;/span> total
+Snapshot: &lt;span class="m">0&lt;/span> passed, &lt;span class="m">0&lt;/span> total
+Time: 5.22252ms
+Error: plugin &lt;span class="s2">&amp;#34;unittest&amp;#34;&lt;/span> exited with error
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>我们可以很清晰的看到具体失败的原因和位置。&lt;/p>
+&lt;p>如果你在维护 Helm chart，并且需要保证其能够高质量交付，那么为其增加单元测试是个不错的办法。
+至于工具的选择，主要看个人喜好。helm-unittest 只需要写 YAML， 而其他两个工具分别是写 Rego 和 Go 。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>在本文中，我们主要聚焦到了 Helm chart 的调试和维护这个主题上。
+介绍了 Helm 内置的对 chart 的一些检查工具，同时也介绍了如何使用 helm-unittest 为 Helm chart 编写
+单元测试。&lt;/p>
+&lt;p>在维护，交付和使用 Helm chart 时，掌握这些内容都是非常有用的。如果这篇文章对你有所帮助，欢迎点赞、转发、留言讨论。&lt;/p>
+&lt;p>如果大家对这个主题感兴趣的话，后续我还会更新 Helm 的一些进阶内容，敬请期待！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category><category domain="https://moelove.info/tags/Helm/">Helm</category><category domain="https://moelove.info/tags/Linux/">Linux</category></item><item><title>K8S 生态周报| Docker，containerd 全版本漏洞公布，请及时更新</title><link>https://moelove.info/2022/03/27/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Dockercontainerd-%E5%85%A8%E7%89%88%E6%9C%AC%E6%BC%8F%E6%B4%9E%E5%85%AC%E5%B8%83%E8%AF%B7%E5%8F%8A%E6%97%B6%E6%9B%B4%E6%96%B0/</link><guid isPermaLink="true">https://moelove.info/2022/03/27/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Dockercontainerd-%E5%85%A8%E7%89%88%E6%9C%AC%E6%BC%8F%E6%B4%9E%E5%85%AC%E5%B8%83%E8%AF%B7%E5%8F%8A%E6%97%B6%E6%9B%B4%E6%96%B0/</guid><pubDate>Sun, 27 Mar 2022 21:59:33 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;h1 id="cve-2022-24769">CVE-2022-24769&lt;/h1>
