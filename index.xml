@@ -1,4 +1,63 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sun, 10 Apr 2022 23:56:19 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>企业级云原生应用交付及管理系列 - Helm 调试及维护 (二)</title><link>https://moelove.info/2022/03/30/%E4%BC%81%E4%B8%9A%E7%BA%A7%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E4%BA%A4%E4%BB%98%E5%8F%8A%E7%AE%A1%E7%90%86%E7%B3%BB%E5%88%97-Helm-%E8%B0%83%E8%AF%95%E5%8F%8A%E7%BB%B4%E6%8A%A4-%E4%BA%8C/</link><guid isPermaLink="true">https://moelove.info/2022/03/30/%E4%BC%81%E4%B8%9A%E7%BA%A7%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E4%BA%A4%E4%BB%98%E5%8F%8A%E7%AE%A1%E7%90%86%E7%B3%BB%E5%88%97-Helm-%E8%B0%83%E8%AF%95%E5%8F%8A%E7%BB%B4%E6%8A%A4-%E4%BA%8C/</guid><pubDate>Wed, 30 Mar 2022 20:21:07 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 11 Apr 2022 08:56:37 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Kubernetes CronJob 可直接配置时区了</title><link>https://moelove.info/2022/04/10/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-CronJob-%E5%8F%AF%E7%9B%B4%E6%8E%A5%E9%85%8D%E7%BD%AE%E6%97%B6%E5%8C%BA%E4%BA%86/</link><guid isPermaLink="true">https://moelove.info/2022/04/10/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-CronJob-%E5%8F%AF%E7%9B%B4%E6%8E%A5%E9%85%8D%E7%BD%AE%E6%97%B6%E5%8C%BA%E4%BA%86/</guid><pubDate>Sun, 10 Apr 2022 23:57:56 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;h1 id="prometheus-blackbox_exporter-v0200-正式发布">Prometheus blackbox_exporter v0.20.0 正式发布&lt;/h1>
+&lt;p>Prometheus 中的 blackbox_exporter 我们一般使用它进行黑盒监控，比如对一些 HTTP/HTTPS，DNS，TCP 等接口或者请求。&lt;/p>
+&lt;p>在这个版本中又增加了很多有趣的特性，我们一起来看看。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/prometheus/blackbox_exporter/pull/835">#835&lt;/a> 增加了对 gRPC 接口的健康检查，现在 gRPC 用的也越来越多了。要知道在两年前发起类似功能讨论的时候，当时的维护者还认为 gRPC 支持已经超过了项目的职责范围，不过目前可以看到 blackbox_exporter 已经基本涵盖到了我们所需要的各类协议。&lt;/li>
+&lt;/ul>
+&lt;p>如果你使用了这个功能的话，它会产生一些 metrics 可供我们进行监控告警。&lt;/p>
+&lt;pre>&lt;code>probe_grpc_healthcheck_response{serving_status=&amp;quot;UNKNOWN&amp;quot;}=0
+probe_grpc_healthcheck_response{serving_status=&amp;quot;SERVING&amp;quot;}=1
+probe_grpc_healthcheck_response{serving_status=&amp;quot;NOT_SERVING&amp;quot;}=0
+probe_grpc_healthcheck_response{serving_status=&amp;quot;SERVICE_UNKNOWN&amp;quot;}=0
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>&lt;a href="https://github.com/prometheus/blackbox_exporter/pull/823">#823&lt;/a> 为 HTTP 类型的任务增加了 &lt;code>Hostname&lt;/code> 参数，这可以在发起请求的时候传递过去 &lt;code>Host&lt;/code> 请求头，在配置任务的时候可以使用如下的配置作为参考：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">scrape_configs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">job_name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">blackbox_all&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">metrics_path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/probe&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">params&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">module&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">http_2xx ] &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Look for a HTTP 200 response.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">dns_sd_configs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">names&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">example.com&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">prometheus.io&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">A&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">port&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">443&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">relabel_configs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">source_labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="l">__address__]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">target_label&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">__param_target&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">replacement&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">https://$1/ &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Make probe URL be like https://1.2.3.4:443/&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">source_labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="l">__param_target]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">target_label&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">instance&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">target_label&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">__address__&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">replacement&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">127.0.0.1&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="m">9115&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The blackbox exporter&amp;#39;s real hostname:port.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">source_labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="l">__meta_dns_name]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">target_label&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">__param_hostname &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Make domain name become &amp;#39;Host&amp;#39; header for probe requests&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">source_labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="l">__meta_dns_name]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">target_label&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">vhost &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># and store it in &amp;#39;vhost&amp;#39; label&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>更多详细信息请参考其 &lt;a href="https://github.com/prometheus/blackbox_exporter/releases/tag/v0.20.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="runc-v111-发布">runc v1.1.1 发布&lt;/h1>
+&lt;p>runc 是一个底层容器运行时。我之前的文章中有很多篇关于 runc 的内容，如有兴趣可以翻翻看。&lt;/p>
+&lt;p>事实上 runc 作为一个底层容器运行时，它的发布频率是很低的，毕竟在云原生领域中有大量的项目都依赖于 runc 或者将 runc 作为依赖导入，
+runc 每次发布新版本，这些项目一般也需要进行依赖的更新。&lt;/p>
+&lt;p>本次发布的 v1.1.1 只是一个小版本更新，主要是进行一些 bugfix 。我们来看看其中值得关注的内容：&lt;/p>
+&lt;p>在之前版本中，如果遇到了 &lt;code>statfs(&amp;quot;/sys/fs/cgroup/unified&amp;quot;)&lt;/code> 发生除了 &lt;code>ENOENT&lt;/code> 外的错误，都会引起 panic 。
+本次在 &lt;a href="https://github.com/opencontainers/runc/pull/3433">#3433&lt;/a> 中对其进行了调整，不再会 panic ，而是会记录下
+日志。&lt;/p>
+&lt;p>此外, 通过在 &lt;a href="https://github.com/opencontainers/runc/pull/3389">#3398&lt;/a> 中修正了对
+&lt;code>/sys/kernel/cgroup/delegate&lt;/code> 文件中包含的内容的检查。因为并非所有的 cgroup 中都包含了此内容。&lt;/p>
+&lt;p>更多详细信息请参考其 &lt;a href="https://github.com/opencontainers/runc/releases/tag/v1.1.1">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/109074">#109074 · kubernetes/kubernetes&lt;/a> kubeadm 中为 etcd 的 static Pod 增加了一个 &lt;code>--experimental-initial-corrupt-check&lt;/code> 选项，可以用来确认 etcd member 中数据的一致性。这个特性预期在 etcd 的 v3.6 版本中会正式可用。此外，etcd 的 Release 页面也写了，当前不建议将 etcd 3.5.x 用于生产环境，如果尚未进行升级，可以先继续使用 3.4.x。如果已经升级了，那么可以自行增加此参数；&lt;/li>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/108032">#108032 · kubernetes/kubernetes&lt;/a> 这个 PR 为 CronJob 增加了一个 &lt;code>timeZone&lt;/code> 的字段，这是根据 KEP 3140 进行实现的。从此大家在 Kubernetes 中使用 CronJob 时，就可以比较方便的去设置时区了。&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>企业级云原生应用交付及管理系列 - Helm 调试及维护 (二)</title><link>https://moelove.info/2022/03/30/%E4%BC%81%E4%B8%9A%E7%BA%A7%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E4%BA%A4%E4%BB%98%E5%8F%8A%E7%AE%A1%E7%90%86%E7%B3%BB%E5%88%97-Helm-%E8%B0%83%E8%AF%95%E5%8F%8A%E7%BB%B4%E6%8A%A4-%E4%BA%8C/</link><guid isPermaLink="true">https://moelove.info/2022/03/30/%E4%BC%81%E4%B8%9A%E7%BA%A7%E4%BA%91%E5%8E%9F%E7%94%9F%E5%BA%94%E7%94%A8%E4%BA%A4%E4%BB%98%E5%8F%8A%E7%AE%A1%E7%90%86%E7%B3%BB%E5%88%97-Helm-%E8%B0%83%E8%AF%95%E5%8F%8A%E7%BB%B4%E6%8A%A4-%E4%BA%8C/</guid><pubDate>Wed, 30 Mar 2022 20:21:07 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>在上一篇 &lt;a href="https://zhuanlan.zhihu.com/p/487412617">《企业级云原生应用交付及管理系列 - Helm 基础 (一)》&lt;/a> 中，我主要介绍了
 Helm 的诞生及其发展，包括 Helm 各个版本的情况及社区的发展。&lt;/p>
 &lt;p>此外，还介绍了 Helm 的架构，概念，插件以及其基本用法。&lt;/p>
