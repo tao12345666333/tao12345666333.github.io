@@ -1,4 +1,87 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-06-30T00:32:23+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Kubernetes CronJob 可直接配置时区了</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/04/10/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-CronJob-%E5%8F%AF%E7%9B%B4%E6%8E%A5%E9%85%8D%E7%BD%AE%E6%97%B6%E5%8C%BA%E4%BA%86/"/><id>https://moelove.info/2022/04/10/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-CronJob-%E5%8F%AF%E7%9B%B4%E6%8E%A5%E9%85%8D%E7%BD%AE%E6%97%B6%E5%8C%BA%E4%BA%86/</id><updated>2022-04-11T01:54:50+08:00</updated><published>2022-04-10T23:57:56+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 Prometheus blackbox_exporter v0.20.0 正式发布 Prometheus 中……</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-07-04T09:26:52+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Ingress NGINX 项目暂停接收新功能将专注于稳定性提升</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/07/03/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Ingress-NGINX-%E9%A1%B9%E7%9B%AE%E6%9A%82%E5%81%9C%E6%8E%A5%E6%94%B6%E6%96%B0%E5%8A%9F%E8%83%BD%E5%B0%86%E4%B8%93%E6%B3%A8%E4%BA%8E%E7%A8%B3%E5%AE%9A%E6%80%A7%E6%8F%90%E5%8D%87/"/><id>https://moelove.info/2022/07/03/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Ingress-NGINX-%E9%A1%B9%E7%9B%AE%E6%9A%82%E5%81%9C%E6%8E%A5%E6%94%B6%E6%96%B0%E5%8A%9F%E8%83%BD%E5%B0%86%E4%B8%93%E6%B3%A8%E4%BA%8E%E7%A8%B3%E5%AE%9A%E6%80%A7%E6%8F%90%E5%8D%87/</id><updated>2022-07-04T07:52:26+08:00</updated><published>2022-07-03T10:10:04+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 题外话 大家好，我是……</summary><content type="html">&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="题外话">题外话&lt;/h2>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>本次我将这个部分放在开头。聊聊最近的一些情况。&lt;/p>
+&lt;p>「K8S 生态周报」暂停了 2 个多月的时间，期间也有小伙伴来催更，感谢大家的持续关注！！！&lt;/p>
+&lt;p>主要有两方面的原因，一是我近期确实比较忙，另一方面是我进行了一些思考和总结，分享给大家。&lt;/p>
+&lt;p>「K8S 生态周报」从 2019 年的 3 月开始，到现在已经是第四年了，我也一直在思考，它能为我，还有关注我的读者小伙伴们带来什么。&lt;/p>
+&lt;p>对我而言，这是一个总结归档，分享反馈的过程，在此期间我也成长了很多。&lt;/p>
+&lt;p>我比较开心的事情是，相比于其他人/其他社区发的日报，周报等，「K8S 生态周报」并不单纯的是在搬运链接，或者搬运 ChangeLog，
+在每期的内容中，除去资讯本身外，我也会增加我的一些个人看法，还有我所了解到的一些其他内容，包括一些背景知识等。
+此外，还会包括一些代码的分析/功能的实践和对比等。可以说「K8S 生态周报」是更有技术性的内容。&lt;/p>
+&lt;p>基于以上的一些分析和个人的一些思考，我决定后续「K8S 生态周报」中将加入更多我个人的思考的理解，
+在提供这些有价值的资讯的同时，与小伙伴们增加更多的交流和沟通。&lt;/p>
+&lt;h2 id="ingress-nginx-项目暂停接收新功能将专注于稳定性提升">Ingress NGINX 项目暂停接收新功能将专注于稳定性提升&lt;/h2>
+&lt;p>熟悉我的小伙伴可能知道，我是 Kubernetes Ingress NGINX 项目的 maintainer 。&lt;/p>
+&lt;p>经过我们开发团队的长时间讨论，我们发现 Kubernetes Ingress NGINX 项目自 2016 年到现在已经走过了 6 年时间，
+在这 6 年的时间里，在 GitHub 上达到了 13K star，同时也有 800+ 位 Contributor 参与贡献此项目，
+同时也收到了 4000+ 的 Issue 反馈，以及 4000+ 的 PR 。&lt;/p>
+&lt;p>在这个过程中，Ingress NGINX 项目的功能得到了极大的丰富，但作为一个软件，不可避免的也会有各种 bug，漏洞等存在。
+目前对于此项目来说，大家会在需要某些功能的时候快速的去实现它（感谢大家贡献的 PR），但是当出现 bug 或漏洞的时候，却很少有人
+来修正它。（在开源项目中，这是一个普遍情况，修正 bug 或漏洞，相比于增加新功能，需要对项目自身更加的熟悉）&lt;/p>
+&lt;p>这种情况实际上为维护者们增加了很多负担，我们需要把时间放在处理 issue，添加和 review 新功能的 PR，以及进行 bug 和漏洞修正，以及考虑
+新功能是否可能会带来一些连锁反应等。&lt;/p>
+&lt;p>在上面的数据中，可以看到此项目和社区都是比较活跃的，我们在业余时间进行此项目的维护和开发，整体上压力是比较大的，而且无法做到非常及时的响应。&lt;/p>
+&lt;p>近期 Ingress NGINX 项目中报告了一些安全漏洞（已经进行了修复），但在修正过程中，我们发现要完美的修正这些漏洞是比较难的，而且任意的改动都
+有可能会引起其他的连锁反应，包括引入其他的漏洞，或者影响用户的某些功能/行为等。&lt;/p>
+&lt;p>基于以上的考虑，我们一致达成了决定， &lt;strong>暂停接收新功能，并专注于修复和提升 Ingress NGINX 项目的稳定性&lt;/strong> 。可能你有新的 PR 正在等待合并，
+但是很抱歉，希望你能够理解，在我们提升了此项目的稳定性后，我们可以迭代的更快！&lt;/p>
+&lt;p>目前我们的计划是用 6 个月的时间来完成此目标，并且我们已经确定了一些具体需要做的事情，你可以通过以下链接了解我们的进度：
+&lt;a href="https://github.com/kubernetes/ingress-nginx/projects/52">https://github.com/kubernetes/ingress-nginx/projects/52&lt;/a>&lt;/p>
+&lt;p>同时，我们也正式发出了一项社区调查，用于帮助我们决定在此冻结期后，我们应该发展的方向。如果你是 Ingress NGINX 的用户，请填写此表单，谢谢！&lt;/p>
+&lt;p>&lt;a href="https://www.surveymonkey.com/r/ingressngx2022">https://www.surveymonkey.com/r/ingressngx2022&lt;/a>&lt;/p>
+&lt;h2 id="上游进展">上游进展&lt;/h2>
+&lt;h3 id="为-kubectl-引入-kuberc-配置文件">为 kubectl 引入 kuberc 配置文件&lt;/h3>
+&lt;p>&lt;a href="https://github.com/kubernetes/enhancements/pull/3392">KEP-3104&lt;/a> 这个 KEP 旨在为 kubectl 引入一个新的配置文件 &lt;code>kuberc&lt;/code>，用来配置一些用户的自定义配置。这在很多的项目，或者工具中都有类似的用法。比如 Vim 中可以通过 &lt;code>-u&lt;/code> 指定用户自己的配置文件，或者使用默认的 &lt;code>~/.vimrc&lt;/code> 来完成自定义配置。&lt;/p>
+&lt;p>这样做的好处就在于可以让 &lt;code>kubeconfig&lt;/code> 更加的专注，仅仅需要保留和集群、用户凭证相关的信息即可，对于用户的自定义配置则分离开来。具体而言，这个配置文件看起来就会是这样：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">v1alpha1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Preferences&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">command&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">aliases&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">alias&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">getdbprod&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">command&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">get pods -l what=database --namespace us-2-production&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">overrides&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">command&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">apply&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">flags&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">server-side&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">default&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;true&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">command&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">delete&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">flags&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">confirm&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">default&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;true&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">command&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;*&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">flags&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">exec-auth-allowlist&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">default&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/var/kubectl/exec/...&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>看起来也比较直观，可以用来增加一些 &lt;code>alias&lt;/code> 和覆盖一些默认的配置，这样大家不再需要定义很多的 alias，以后使用 kubectl 的时候敲的命令也能少很多。
+此特性未实现之前，
+在这里顺便推荐另一个项目 &lt;a href="https://github.com/ahmetb/kubectl-aliases">kubectl-aliases&lt;/a>，此项目中包含了很多 alias，可以让使用 kubectl 的过程更加简单。&lt;/p>
+&lt;p>但也有一些弊端，就像是每个 Vim 用户都要有自己的 vimrc 配置文件一样，这会养成一定的习惯。在一些没有自己自定义配置的机器上使用时，会有些不习惯。
+同时，这在排查问题时，也可能增加排查的链路（比如 kuberc 中增加了一个错误的配置之类的）。&lt;/p>
+&lt;p>举例来说，我在排查 Vim 的问题时候，通常会直接 &lt;code>vim -u /dev/null&lt;/code> 这样，以防使用了任何自定义配置造成影响。那么后续如果这个功能完全实现了，那么大家在
+排查问题的时候，需要注意使用 &lt;code>kubectl --kuberc /dev/null&lt;/code> 类似这样的方式来避免本地自定义配置造成影响。&lt;/p>
+&lt;h3 id="podsecurity-特性达到-ga">PodSecurity 特性达到 GA&lt;/h3>
+&lt;p>近期在 &lt;a href="https://github.com/kubernetes/kubernetes/pull/110459">#110459 · kubernetes/kubernetes&lt;/a> 中正式将 PodSecurity 特性升级到 GA 。如果我没有记错，这个
+特性应该是从引入到 GA 最快的特性之一了。&lt;/p>
+&lt;p>PodSecurity 是自 Kubernetes v1.22 引入的 alpha 特性，作为 PodSecurityPolicy 的一个替代。在 v1.23 达到 beta 级别，通过上述 PR，在 v1.25 正式 GA ，并且默认启用，可以看到
+整个发展过程还是很快的。&lt;/p>
+&lt;p>PodSecurity 定义了 3 种级别：&lt;/p>
+&lt;ul>
+&lt;li>Enforce：如果 Pod 违反策略，则不会被创建；&lt;/li>
+&lt;li>Audit：如果 Pod 违反策略，则在审计日志中会被记录，但是 Pod 仍将正常创建；&lt;/li>
+&lt;li>Warn：如果 Pod 违反策略，则会在 console 中打印 warning 信息，Pod 仍将正常创建；&lt;/li>
+&lt;/ul>
+&lt;p>使用起来也很简单，只需要给 namespace 添加 &lt;code>pod-security.kubernetes.io/&amp;lt;mode&amp;gt;=&amp;lt;standard&amp;gt;&lt;/code> 标签即可。&lt;/p>
+&lt;p>但是如果你的集群版本较低，并且还希望能有一个相对通用的方法，我建议你可以看看我之前写的文章。&lt;a href="https://moelove.info/2021/11/30/%E7%90%86%E6%B8%85-Kubernetes-%E4%B8%AD%E7%9A%84%E5%87%86%E5%85%A5%E6%8E%A7%E5%88%B6Admission-Controller/#%E5%A6%82%E4%BD%95%E9%83%A8%E7%BD%B2-admission-webhook">《理清 Kubernetes 中的准入控制（Admission Controller)》&lt;/a>
+和 &lt;a href="https://moelove.info/2022/03/02/%E4%BA%91%E5%8E%9F%E7%94%9F%E7%AD%96%E7%95%A5%E5%BC%95%E6%93%8E-Kyverno-%E4%B8%8A/">《云原生策略引擎 Kyverno （上）》&lt;/a>
+通过使用 Admission controller 、OPA/GateKeeper、Kyverno 等来完成统一配置。&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">K8S 生态周报| Kubernetes CronJob 可直接配置时区了</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/04/10/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-CronJob-%E5%8F%AF%E7%9B%B4%E6%8E%A5%E9%85%8D%E7%BD%AE%E6%97%B6%E5%8C%BA%E4%BA%86/"/><id>https://moelove.info/2022/04/10/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-CronJob-%E5%8F%AF%E7%9B%B4%E6%8E%A5%E9%85%8D%E7%BD%AE%E6%97%B6%E5%8C%BA%E4%BA%86/</id><updated>2022-04-11T01:54:50+08:00</updated><published>2022-04-10T23:57:56+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 Prometheus blackbox_exporter v0.20.0 正式发布 Prometheus 中……</summary><content type="html">&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;h1 id="prometheus-blackbox_exporter-v0200-正式发布">Prometheus blackbox_exporter v0.20.0 正式发布&lt;/h1>
