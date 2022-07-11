@@ -1,4 +1,86 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 04 Jul 2022 09:26:52 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Ingress NGINX 项目暂停接收新功能将专注于稳定性提升</title><link>https://moelove.info/2022/07/03/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Ingress-NGINX-%E9%A1%B9%E7%9B%AE%E6%9A%82%E5%81%9C%E6%8E%A5%E6%94%B6%E6%96%B0%E5%8A%9F%E8%83%BD%E5%B0%86%E4%B8%93%E6%B3%A8%E4%BA%8E%E7%A8%B3%E5%AE%9A%E6%80%A7%E6%8F%90%E5%8D%87/</link><guid isPermaLink="true">https://moelove.info/2022/07/03/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Ingress-NGINX-%E9%A1%B9%E7%9B%AE%E6%9A%82%E5%81%9C%E6%8E%A5%E6%94%B6%E6%96%B0%E5%8A%9F%E8%83%BD%E5%B0%86%E4%B8%93%E6%B3%A8%E4%BA%8E%E7%A8%B3%E5%AE%9A%E6%80%A7%E6%8F%90%E5%8D%87/</guid><pubDate>Sun, 03 Jul 2022 10:10:04 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 11 Jul 2022 22:51:19 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Cilium 新版本发布默认开启 ICMP 策略防护</title><link>https://moelove.info/2022/07/10/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Cilium-%E6%96%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E9%BB%98%E8%AE%A4%E5%BC%80%E5%90%AF-ICMP-%E7%AD%96%E7%95%A5%E9%98%B2%E6%8A%A4/</link><guid isPermaLink="true">https://moelove.info/2022/07/10/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Cilium-%E6%96%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E9%BB%98%E8%AE%A4%E5%BC%80%E5%90%AF-ICMP-%E7%AD%96%E7%95%A5%E9%98%B2%E6%8A%A4/</guid><pubDate>Sun, 10 Jul 2022 23:16:51 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>你有没有考虑过，也许作为工程师，我们的设备可以更简单？&lt;/p>
+&lt;p>最近两周我进行了一些&lt;s>不开电脑的&lt;/s>尝试。尤其是本周，我的大多数工作都是用 iPad 完成的。&lt;/p>
+&lt;p>具体而言，在写代码和测试方面，我使用了 GitHub 的 Codespaces，
+这是 GitHub 推出的一个云端开发环境，与 Gitpod 比较类似。&lt;/p>
+&lt;p>主要的区别在与 Gitpod 是通过启动一个安全容器来提供环境，而 GitHub Codespaces 则是启动了一个新的 VM，所以这两者比较
+而言，GitHub Codespaces 会更贵一些。&lt;/p>
+&lt;p>速度方面，Gitpod 号称自己更快，不过就目前的网络环境而言，我倒是没有明显的感觉。&lt;/p>
+&lt;p>体验方面，GitHub Codespaces 其实就是云端的 Visual Studio Code，我之前没怎么用过，
+偶尔还是会继续我之前的习惯，直接在它的终端下就 Vim 编辑文件了。启动环境后默认是 4C8G，比我的电脑差很多，
+但只是用来编码和运行测试也足够。&lt;/p>
+&lt;p>我觉得它做的比较好的点在于，启动环境后默认就进行了 Github 的授权，尽管代码仓库配置的都是 HTTPS 的连接，
+但无需密码或者私钥均可直接提交代码。&lt;/p>
+&lt;p>其余方面 iPad 上的应用也都能支持。&lt;s>飞书的屏幕共享弱了些，只能全屏直播&lt;/s>&lt;/p>
+&lt;p>总的来说，体验还不错，基本的需求可以满足，也不需要自己额外维护云端环境。
+弊端在于网络环境并不稳定，浏览器内进行操作，相比本地感觉慢了一点。而且我个人还是更喜欢直接用 Vim 能更快点。&lt;/p>
+&lt;p>但从我这次的尝试来看，也许之后将环境都迁移到云端后，使用的设备可以更加简单轻量。
+甚至用手机连到云端也可以完成很多事情。&lt;/p>
+&lt;h1 id="thanos-v0270-正式发布">Thanos v0.27.0 正式发布&lt;/h1>
+&lt;p>Thanos 从上个版本到现在也就不到 3 个月的时间，变化不算太大，如果想要升级则需要注意如下内容：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Ruler: 检查是否设置了 &lt;code>--eval-interval&lt;/code> 参数，如果你没有设置这个参数，并且在生成规则的时候还依赖这个值的话，那么本次升级就会带来比较严重的影响。新版本中将这个值从 30s 调整到了 1 分钟，这是为了能更好的符合 Prometheus 告警生成器规范。https://github.com/prometheus/compliance/blob/main/alert_generator/specification.md#executing-an-alerting-rule&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/thanos-io/thanos/pull/5410">#5410&lt;/a>: 在 Query 中添加了一些 &lt;code>defer qry.Close()&lt;/code>，添加这个代码可以在每次查询结束后，自动调用 &lt;code>Close()&lt;/code>，这可以在内存回收中减少一些波动；&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>此外，这个版本中还添加了一个比较有趣的特性，为 &lt;code>Receive&lt;/code> 添加了一种新的哈希算法 &lt;a href="https://github.com/thanos-io/thanos/pull/5408">#5408&lt;/a>。之前的实现中默认都是使用 &lt;code>hashmod&lt;/code>，现在可以通过 &lt;code>--receive.hashrings-algorithm=ketama&lt;/code> 来使用 ketama 一致性哈希算法了。&lt;/p>
+&lt;p>这里简单来说下之前算法的问题，使用 &lt;code>hashmod&lt;/code> 几乎是最为简单的分片方式，但是一旦副本数有调整的时候，这就会导致跳过某些分片。想要在生产环境中大规模使用此系统或者想要动态的使用此系统的时候，都是需要解决这个问题的。&lt;/p>
+&lt;p>&lt;code>ketama&lt;/code> 算是一个可以比较好的解决扩/缩容场景，以及在平衡性方面表现还不错的算法了，在很多的系统中都可以使用类似的能力，比如设计缓存系统之类的。
+当然，后续也许还会增加其他哈希算法，但这终究还是要看实际的规模，以及在性能 &amp;amp; 资源 &amp;amp; 功能 方面的权衡了。&lt;/p>
+&lt;h1 id="cilium-v1120-rc3-发布">Cilium v1.12.0-rc3 发布&lt;/h1>
+&lt;p>Cilium v1.12 即将正式发布，在 v1.12 版本中会将 Cilium Service Mesh Ingress 升级至 Stable ，算是一个大的飞跃了。关于此特性，可以查看我之前 Cilium Service Mesh 相关的文章。&lt;/p>
+&lt;p>我这里主要介绍一个值得关注的特性，在 &lt;a href="https://github.com/cilium/cilium/pull/20174">#20174&lt;/a> 中将 ICMP network policy 功能默认开启了。&lt;/p>
+&lt;p>其实 Cilium 在去年就已经支持在配置 CiliumNetworkPolicy 的时候配置 ICMP 协议了，但是由于 eBPF 程序 Size 的问题，默认没有启用。
+现在该问题已经解决，所以可以默认将它开启了，
+该配置如下：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;cilium.io/v2&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">CiliumNetworkPolicy&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;icmp-policy-deny&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">description&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;ICMP policy deny&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">endpointSelector&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">matchLabels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">id&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">app1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">ingressDeny&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">fromEndpoints&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">matchLabels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">id&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">app2&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">icmps&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">fields&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">8&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这可以用来提供更加安全的网络环境，避免攻击者利用 ICMP 了解你的网络，或者进行攻击。&lt;/p>
+&lt;p>额外一说，在配置中 &lt;code>icmps[].fields[].type&lt;/code> 为 8 表示是 IPv4，如果是 IPv6 则是 128 。&lt;/p>
+&lt;p>此外，如果你使用的 CNI 是 Calico 的话，也是支持 ICMP 的 NetworkPolicy 配置的。
+我是 Calico 的社区大使，最近有篇对我的专访，有兴趣的小伙伴可以看看：https://sourl.cn/uG7bRn&lt;/p>
+&lt;h1 id="cert-manager-v190-beta1-发布">cert-manager v1.9.0-beta.1 发布&lt;/h1>
+&lt;p>cert-manager 想必大家不会太陌生，它是在 Kubernetes 和 OpenShift 集群中最简单的证书管理工具。&lt;/p>
+&lt;p>在 v1.9 版本中主要是进行一些项目的稳定性和质量提升，以及增加一些新功能和提升用户体验。&lt;/p>
+&lt;p>在这个版本中有几个比较值得注意的功能:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>为 Ingress 资源新增了一个 &lt;code>cert-manager.io/revision-history-limit&lt;/code> annotation，这样可以控制 CertificateRequests 的历史记录；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>为 Ingress 资源添加了一组关于 private-key 相关的 annotation，比如 &lt;code>cert-manager.io/private-key-algorithm&lt;/code> 之类的，可以控制其生成算法，编码格式，保存时间等。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>其他的功能则包含一些 bugfix，以及一些新的 metrics 等。如果想升级到新版本，基本上是比较平滑的。&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;p>最近社区还在 Kubernetes v1.25 版本的发布流程中，此版本中目前有 55 个跟踪的功能。&lt;/p>
+&lt;p>有个跨越了近一年的新特性目前还在 review 中，为 kubelet 提供 OpenTelemetry 的 tracing 能力。&lt;/p>
+&lt;p>这样可以更容易的去进行 kubelet 的问题定位，以及可以通过 OpenTelemetry 采集 CNI/CRI/CSI 等接口的调用情况等。
+希望它能顺利的在 v1.25 完成。&lt;/p>
+&lt;p>感兴趣的小伙伴可以参考：&lt;a href="https://github.com/kubernetes/enhancements/pull/2832/files">KEP-2831: Instrumenting Kubelet for OpenTelemetry Tracing&lt;/a>&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>K8S 生态周报| Ingress NGINX 项目暂停接收新功能将专注于稳定性提升</title><link>https://moelove.info/2022/07/03/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Ingress-NGINX-%E9%A1%B9%E7%9B%AE%E6%9A%82%E5%81%9C%E6%8E%A5%E6%94%B6%E6%96%B0%E5%8A%9F%E8%83%BD%E5%B0%86%E4%B8%93%E6%B3%A8%E4%BA%8E%E7%A8%B3%E5%AE%9A%E6%80%A7%E6%8F%90%E5%8D%87/</link><guid isPermaLink="true">https://moelove.info/2022/07/03/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Ingress-NGINX-%E9%A1%B9%E7%9B%AE%E6%9A%82%E5%81%9C%E6%8E%A5%E6%94%B6%E6%96%B0%E5%8A%9F%E8%83%BD%E5%B0%86%E4%B8%93%E6%B3%A8%E4%BA%8E%E7%A8%B3%E5%AE%9A%E6%80%A7%E6%8F%90%E5%8D%87/</guid><pubDate>Sun, 03 Jul 2022 10:10:04 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;h2 id="题外话">题外话&lt;/h2>
