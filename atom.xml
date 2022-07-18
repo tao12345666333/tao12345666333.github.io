@@ -1,4 +1,73 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-07-11T22:51:19+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Cilium 新版本发布默认开启 ICMP 策略防护</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/07/10/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Cilium-%E6%96%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E9%BB%98%E8%AE%A4%E5%BC%80%E5%90%AF-ICMP-%E7%AD%96%E7%95%A5%E9%98%B2%E6%8A%A4/"/><id>https://moelove.info/2022/07/10/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Cilium-%E6%96%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E9%BB%98%E8%AE%A4%E5%BC%80%E5%90%AF-ICMP-%E7%AD%96%E7%95%A5%E9%98%B2%E6%8A%A4/</id><updated>2022-07-11T02:05:38+08:00</updated><published>2022-07-10T23:16:51+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-07-18T10:33:23+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Kubernetes Ingress-NGINX 功能冻结前最后一个版本发布</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/07/17/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-Ingress-NGINX-%E5%8A%9F%E8%83%BD%E5%86%BB%E7%BB%93%E5%89%8D%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/"/><id>https://moelove.info/2022/07/17/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-Ingress-NGINX-%E5%8A%9F%E8%83%BD%E5%86%BB%E7%BB%93%E5%89%8D%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/</id><updated>2022-07-18T00:59:17+08:00</updated><published>2022-07-17T21:07:24+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>本周仍然是忙碌的一周，赶在 deadline 提交了 ApacheCon Asia 2022 的分享内容，活动是在月底进行，大家如果感兴趣的话可以参与到线上活动中。&lt;/p>
+&lt;p>下周 7 月 20 日晚上，我也将在中国 DevOps 社区带来题目为 《打造 Kubernetes 上更好用的 Ingress controller》的直播分享，
+大家如果感兴趣也可以参与在线直播。在公众号后台回复 &amp;quot;kic&amp;quot; 获取活动海报和直播地址等。&lt;/p>
+&lt;h1 id="kubernetes-ingress-nginx-v130-正式发布">Kubernetes Ingress-NGINX v1.3.0 正式发布&lt;/h1>
+&lt;p>本周我们发布了 Kubernetes Ingress-NGINX 的 v1.3.0 版本，
+正如我在之前的文章 &lt;a href="https://zhuanlan.zhihu.com/p/537186167">K8S 生态周报| Ingress NGINX 项目暂停接收新功能将专注于稳定性提升&lt;/a> 中介绍的，
+我们接下来会投入 6 个月的时间，用于项目稳定性的提升。&lt;/p>
+&lt;p>本次发布的 v1.3.0 版本，将会是正式进入功能冻结期前的最后一个功能版本，接下来 6 个月不会再发布新的功能版本，但如果有需要会发布一些 bugfix 版本。&lt;/p>
+&lt;p>以下是此版本中的最值得关注的变更：&lt;/p>
+&lt;ul>
+&lt;li>删除了对 Kubernetes v1.19 版本及以下的变更；&lt;/li>
+&lt;li>增加了对 Kubernetes v1.24 版本的支持；&lt;/li>
+&lt;li>从这个版本开始，需要增加 &lt;code>coordination.k8s.io/leases&lt;/code> 资源的授权来进行 leaderelection&lt;/li>
+&lt;/ul>
+&lt;p>本次共有 18 位贡献者参与，感谢大家的贡献！&lt;/p>
+&lt;p>如果大家在使用中有遇到问题，或者发现 bug 等，欢迎在 GitHub 上提交 issue 进行反馈。&lt;/p>
+&lt;p>更多详细变更，请参考其 &lt;a href="https://github.com/kubernetes/ingress-nginx/releases/tag/controller-v1.3.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="kubernetes-gateway-api-达到-beta-阶段">Kubernetes Gateway API 达到 Beta 阶段&lt;/h1>
+&lt;p>随着 Kubernetes Gateway API 项目的 v0.5.0 版本的发布，其中最重要的几个 API 资源已经达到了 Beta 阶段，
+同时社区也发展的很快，各类实现都在积极跟进。比如我正在做的 &lt;a href="https://github.com/apache/apisix-ingress-controller/">Apache APISIX Ingress 项目&lt;/a>，目前
+已经基本实现了 Gateway API 中主要资源的支持，
+如果有小伙伴想要体验可以直接使用项目源代码进行构建，或者等下个 Release 发布。&lt;/p>
+&lt;p>那么什么是 Gateway API 呢？实际上它就是一套自定义资源的规范集合，各类 Ingress controller 项目通过实现此规范
+来进行集成。并且 Gateway API 相比于 Ingress 资源来讲，它具备更加丰富的表现力，同时社区也在积极的扩展其应用场景。&lt;/p>
+&lt;p>本次的 v0.5.0 版本的发布，主要是将以下 3 种资源升级到了 &lt;code>v1beta1&lt;/code>:&lt;/p>
+&lt;ul>
+&lt;li>GatewayClass&lt;/li>
+&lt;li>Gateway&lt;/li>
+&lt;li>HTTPRoute&lt;/li>
+&lt;/ul>
+&lt;p>你可以通过官方文档中的 &lt;a href="https://gateway-api.sigs.k8s.io/implementations/">Implementations&lt;/a> 查看到当前各种实现对 Gateway API 的支持程度。&lt;/p>
+&lt;p>另一方面：Gateway API 也在探索其与 Service mesh 的结合点。本次也重点宣布了其与
+Cilium Service Mesh, Consul, Istio, Kuma, Linkerd, NGINX Service Mesh 以及 Open Service Mesh 等社区的协作，
+共同组成 GAMMA Initiative ，共同探索 Gateway API 与这些项目的集成等。&lt;/p>
+&lt;p>当然，Gateway API 项目也与另一个项目 SMI 进行了讨论，探索通过 Gateway API 来替换 SMI 规范中流量切割特性的可能性，
+不过目前还没有讨论结果，我很期待后续的进展。&lt;/p>
+&lt;p>如果真的实现了，那么相当于是使用一套 CRD 或者说使用一套规范来完成了南北向和东西向流量的定义。
+对应的这些 controller 实现，也都将变成全流量代理平台！这其实和 Apache APISIX 做的事情是一样的，但 APISIX 是具体的实现，而非定义规范。&lt;/p>
+&lt;p>我个人对 Gateway API 项目的发展是很看好的，无论是我在维护的 Kubernetes Ingress-NGINX 还是 Apache APISIX Ingress 项目都会很积极的拥抱此项目的。
+期待后续进展！&lt;/p>
+&lt;h1 id="kyverno-项目达到-cncf-孵化阶段">Kyverno 项目达到 CNCF 孵化阶段&lt;/h1>
+&lt;p>Kyverno 是一个为 Kubernetes 实现的策略引擎，用户可以通过 YAML 配置策略，并应用到集群中。
+如果对 Kyverno 不太熟悉的小伙伴可以看看我之前的文章 &lt;a href="https://moelove.info/2022/03/02/%E4%BA%91%E5%8E%9F%E7%94%9F%E7%AD%96%E7%95%A5%E5%BC%95%E6%93%8E-Kyverno-%E4%B8%8A/">《云原生策略引擎 Kyverno》&lt;/a>&lt;/p>
+&lt;p>Kyverno 的上手是非常简单的，我在上述文章中也有介绍。&lt;/p>
+&lt;p>此外，该项目是在 2020 年 11 月进入 CNCF 成为 sandbox 级别项目的，从进入 CNCF 至今，无论是社区，用户等都有着显著的发展和提升。
+现在能达到 CNCF 的孵化阶段，也证明了该项目是非常成功的，有着丰富的用户基数，并且其社区也发展的很健康。&lt;/p>
+&lt;p>对此项目感兴趣的小伙伴欢迎去其官网查看文档 &lt;a href="https://kyverno.io/">https://kyverno.io/&lt;/a> ，文档及示例很丰富。&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;p>近期 Kubernetes 上游仓库处于特性冻结期，所以相对来说变更并不是特别多。这里说一些比较值得注意的内容：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/109111">Migrate Ginkgo from v1 to v2 · kubernetes/kubernetes&lt;/a> 这个 PR 持续了将近三个月，主要是将 Kubernetes 项目中使用的 Ginkgo 从已经废弃的 v1 版本升级到 v2 版本。&lt;/li>
+&lt;/ul>
+&lt;p>其实目前很多项目都在积极的推进此事，但不同的项目对 Ginkgo 的依赖和使用程度不同，在这个 PR 中修改了超过 600 个文件，非常的庞大。
+而之前在 Apache APISIX Ingress controller 项目中，从 Ginkgo v1 升级到 v2 时，仅仅用了一周时间，修改文件不算太多。
+此外目前 Kubernetes Ingress-NGINX 项目也同样在进行此升级，可能工作量也不小。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/109479">Introduce KUBECACHEDIR environment variable to override default discovery cache dir by ardaguclu · kubernetes/kubernetes&lt;/a> 这个 PR 说起来是比较小的一个改动，但是它的影响却很大。&lt;/li>
+&lt;/ul>
+&lt;p>在这个 PR 中引入了一个新的 &lt;code>KUBECACHEDIR&lt;/code> 环境变量，来替代默认的 &lt;code>~/.kube/cache&lt;/code> 缓存目录。通过这个 PR 就有可能会导致用户在使用 kubectl 的时候，可以通过这个环境变量来跳过
+缓存。进而可能会引起一些性能问题。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/110738">kube-apiserver: default --enable-logs-handler flag to false · kubernetes/kubernetes&lt;/a> kube-apiserver 中的 &lt;code>/logs&lt;/code> 由于安全问题，默认情况下会进行关闭，然后通过 &lt;code>--enable-logs-handler&lt;/code> 标签进行启用。如果要进行日志采集的话，需要额外注意下。&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">K8S 生态周报| Cilium 新版本发布默认开启 ICMP 策略防护</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/07/10/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Cilium-%E6%96%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E9%BB%98%E8%AE%A4%E5%BC%80%E5%90%AF-ICMP-%E7%AD%96%E7%95%A5%E9%98%B2%E6%8A%A4/"/><id>https://moelove.info/2022/07/10/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Cilium-%E6%96%B0%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83%E9%BB%98%E8%AE%A4%E5%BC%80%E5%90%AF-ICMP-%E7%AD%96%E7%95%A5%E9%98%B2%E6%8A%A4/</id><updated>2022-07-11T02:05:38+08:00</updated><published>2022-07-10T23:16:51+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
