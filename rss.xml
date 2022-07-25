@@ -1,4 +1,81 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 18 Jul 2022 10:33:23 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Kubernetes Ingress-NGINX 功能冻结前最后一个版本发布</title><link>https://moelove.info/2022/07/17/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-Ingress-NGINX-%E5%8A%9F%E8%83%BD%E5%86%BB%E7%BB%93%E5%89%8D%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/</link><guid isPermaLink="true">https://moelove.info/2022/07/17/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-Ingress-NGINX-%E5%8A%9F%E8%83%BD%E5%86%BB%E7%BB%93%E5%89%8D%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/</guid><pubDate>Sun, 17 Jul 2022 21:07:24 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 25 Jul 2022 11:25:29 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Cilium 新版本 Ingress/ServiceMesh/MultiCluster 等特性</title><link>https://moelove.info/2022/07/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Cilium-%E6%96%B0%E7%89%88%E6%9C%AC-Ingress/ServiceMesh/MultiCluster-%E7%AD%89%E7%89%B9%E6%80%A7/</link><guid isPermaLink="true">https://moelove.info/2022/07/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Cilium-%E6%96%B0%E7%89%88%E6%9C%AC-Ingress/ServiceMesh/MultiCluster-%E7%AD%89%E7%89%B9%E6%80%A7/</guid><pubDate>Mon, 25 Jul 2022 00:17:31 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>本周我花费了比较多的时间在 mTLS (mutual TLS) 上。
+主要解决两方面的问题：&lt;/p>
+&lt;ul>
+&lt;li>客户端与 APISIX 通过 mTLS 进行交互；&lt;/li>
+&lt;li>将 APISIX 放入开启 mTLS 的 Istio 环境；&lt;/li>
+&lt;/ul>
+&lt;p>具体细节这里不再展开，简单聊聊这中间一些有趣的事情。&lt;/p>
+&lt;p>不知道大家在进行自签证书的时候是如何来做的，
+我个人是习惯于直接使用 &lt;code>openssl&lt;/code> 直接进行手动签发。 &lt;s>(搞 Kubernetes 的传统手艺)&lt;/s>&lt;/p>
+&lt;p>但在我处理上述第一个问题时，发现未能按预期生效，这让我对自己产生了怀疑，难道是自己太久不自签证书手艺丢了？
+毕竟现在包括 Kubernetes 集群证书到期也都是直接 renew 就可以，自签证书频度很低了。&lt;/p>
+&lt;p>本着求真务实（&lt;s>盲目自信&lt;/s>）的心态，快速的用 Go 写了个小工具，把自己的这些证书丢进去验证了下，
+果然，传统手艺没有丢，在自己的工具中使用这些证书是可以正常的进行 mTLS 通信的。所以我给 APISIX 提交了一个
+&lt;a href="https://github.com/apache/apisix/issues/7526">issue&lt;/a>&lt;/p>
+&lt;p>如果下周这个问题解决了，我会写篇文章给大家分享下 mTLS 相关的内容，敬请期待（flag++）&lt;/p>
+&lt;h1 id="kube-vip-发布了-v050-版本">kube-vip 发布了 v0.5.0 版本&lt;/h1>
+&lt;p>kube-vip 这个项目可能有些小伙伴不是很熟悉，我来简单介绍下。
+这个项目为 Kubernetes 集群控制面高可用部署提供了虚 IP 和负载均衡。同时也为 &lt;code>LoadBalancer&lt;/code> 类型的 Service 提供了支持。
+并且这些能力不依赖于任何外部的软硬件。&lt;/p>
+&lt;p>这对于大多数自行部署 Kubernetes 集群的公司/团队来说都是很常见的需求，并且这个项目跟 kubeadm 搭配使用还是很方便的。&lt;/p>
+&lt;p>本次发布的 v0.5.0 目前还是一个 pre-release 的状态。其中带来了非常重要的特性：&lt;/p>
+&lt;ul>
+&lt;li>Wireguard 模式，Wireguard 我在这里就不再介绍了，强烈推荐大家去了解下它；&lt;/li>
+&lt;li>路由表模式，这允许进行配置一些额外的路由技术，比如 ECMP 等。这将极大的满足企业的一些具体的网络需求；&lt;/li>
+&lt;li>支持了 Load Balancer Class；&lt;/li>
+&lt;li>新增一种 local 的 External Policy 模式；&lt;/li>
+&lt;/ul>
+&lt;p>整体而言，这个版本还是非常值得期待的。
+这个项目未来将会增加更多的网络模式以及提供更加丰富的功能。&lt;/p>
+&lt;h1 id="cilium-v112-正式发布">Cilium v1.12 正式发布&lt;/h1>
+&lt;p>可以说 Cilium v1.12 版本是最近几个版本中影响最大的一个版本，包含了很多新的特性和变更，我们一起来看看：&lt;/p>
+&lt;p>在之前我曾经介绍过 Cilium 的 Service Mesh，也曾介绍如何使用 Cilium Ingress ，但那时候这些功能尚未完全稳定。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>现在的 v1.12 中携带了完整的 Ingress controller 实现，以便于提供 L7 的负载均衡能力，并且跟 cilium 的
+NetworkPolicy 及可观测性等功能可以完美集成。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Service Mesh 功能，提供多控制面，Envoy CRD 等实现，并且利用其 eBPF 能力的加持，提供了无 sidecar 模式的
+服务网格能力。这也是一个非常显著的特性，并且与现在主流使用的 sidecar 模型的服务网格方案有了极大的不同。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Cilium 的出口网关 EgressGateway 也正式达到了 stable 级别，并且提供了 CiliumEgressGatewayPolicy 的 CRD
+让用户可以更加方便的控制集群出口流量。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Pod 的 BBR 拥塞控制能力，如果没有记错，Cilium 应该是第一个支持此特性的 CNI，这可以方便实现更大的吞吐和低延迟。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Cilium 现在可以安装一条路由，在 Pod 删除时会发送 ICMP unreachable host 通知，以避免其他的 Pod 访问到正在删除的 Pod, 这个功能我感觉是非常不错的。目前这是一个可选行为，但后续应该会成为一个默认行为。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>更多关于 Cilium v1.12 版本的新特性可参考其 &lt;a href="https://github.com/cilium/cilium/releases/tag/v1.12.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="nutanix-objects-违反了-minio-的开源协议">Nutanix Objects 违反了 MinIO 的开源协议&lt;/h1>
+&lt;p>MinIO 我之前有稍微介绍过，不过可能有些小伙伴之前未接触过，我这里同样简单的介绍下。
+MinIO 是一个高性能的云原生对象存储产品，可作为 Kubernetes 中分布式存储的一个技术选型。
+我个人还是比较喜欢这个项目的，目前尚未遇到什么太大的坑，有兴趣的小伙伴可以去了解下。&lt;/p>
+&lt;p>MinIO 使用 AGPL v3 进行开源许可，其创始团队坚信最优秀的软件一定是通过社区协作制作的，
+因此人们可以随意的进行创新和改进。&lt;/p>
+&lt;p>这里提到的 Nutanix Objects 则是一款基于 MinIO 构建的商业化产品，但类似于很多商业公司
+侵权行为一样，Nutanix Objects 并未披露过其是基于 MinIO 进行构建的，以及也并未将任何对 MinIO
+的修改进行公开。&lt;/p>
+&lt;p>这导致了近期 MinIO 宣布会根据开源许可证的条款，撤销对 Nutanix 的一切许可。&lt;/p>
+&lt;p>可能有小伙伴会好奇，为什么我会写到这个事情。其实商业公司对开源项目的侵权事件有很多，
+这里提到对 MinIO 的侵权事件只是众多事件中的一例。
+只不过我对 MinIO 这个项目还是比较看好的，所以就多关注了一些。&lt;/p>
+&lt;p>另一方面，我也挺想看到这类 AGPL 协议侵权的事件会如何解决，毕竟它和我们常用到的 Apache v2 之类的协议
+还是有很大不同的。&lt;/p>
+&lt;p>具体的信息可以从 &lt;a href="https://blog.min.io/nutanix-objects-violates-minios-open-source-license/">MinIO 官方博客&lt;/a>
+看到。&lt;/p>
+&lt;p>最近没有关注到其他特别值得聊的内容了，我们下期再见！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>K8S 生态周报| Kubernetes Ingress-NGINX 功能冻结前最后一个版本发布</title><link>https://moelove.info/2022/07/17/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-Ingress-NGINX-%E5%8A%9F%E8%83%BD%E5%86%BB%E7%BB%93%E5%89%8D%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/</link><guid isPermaLink="true">https://moelove.info/2022/07/17/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-Ingress-NGINX-%E5%8A%9F%E8%83%BD%E5%86%BB%E7%BB%93%E5%89%8D%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/</guid><pubDate>Sun, 17 Jul 2022 21:07:24 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
