@@ -1,4 +1,58 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-07-25T11:25:29+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Cilium 新版本 Ingress/ServiceMesh/MultiCluster 等特性</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/07/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Cilium-%E6%96%B0%E7%89%88%E6%9C%AC-Ingress/ServiceMesh/MultiCluster-%E7%AD%89%E7%89%B9%E6%80%A7/"/><id>https://moelove.info/2022/07/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Cilium-%E6%96%B0%E7%89%88%E6%9C%AC-Ingress/ServiceMesh/MultiCluster-%E7%AD%89%E7%89%B9%E6%80%A7/</id><updated>2022-07-25T03:25:11+08:00</updated><published>2022-07-25T00:17:31+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-08-01T13:58:51+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Kubernetes 新版本引入 ContainerCheckpoint 特性</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/07/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E6%96%B0%E7%89%88%E6%9C%AC%E5%BC%95%E5%85%A5-ContainerCheckpoint-%E7%89%B9%E6%80%A7/"/><id>https://moelove.info/2022/07/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E6%96%B0%E7%89%88%E6%9C%AC%E5%BC%95%E5%85%A5-ContainerCheckpoint-%E7%89%B9%E6%80%A7/</id><updated>2022-08-01T13:58:44+08:00</updated><published>2022-07-31T23:27:33+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>本周折腾的一个比较有意思的事情是在 Azure 的 VM 上跑了 Google Cloud Build，并修复了 Ingress-NGINX 的一个 &lt;a href="https://prow.k8s.io/view/gs/kubernetes-jenkins/logs/post-ingress-nginx-build-e2e-image/1548900213035372544#">CI 问题&lt;/a>。&lt;/p>
+&lt;p>参与过 Kubernetes 社区相关项目贡献的小伙伴应该都知道，Kubernetes 社区相关项目的自动化主要都是构筑在 Prow 之上的。
+而 Prow 使用的基础设施则是 Google Cloud，比如其中一项镜像构建的能力是使用了 Google Cloud Build，镜像存储也使用了它的 Container Registry。&lt;/p>
+&lt;p>在这周之前我下意识认为如果想要对 CI 中的一些基础配置进行调试，那就需要在 PR 中触发 Google Cloud Build 的任务才行，或者
+是直接在 Google Cloud 的控制台进行一些管理操作。&lt;/p>
+&lt;p>但本周遇到的问题其实是在 Prow 的配置上(test-infra) ，并非 Ingress-NGINX 项目中具体的 cloudbuild.yml 任务的错误。而 test-infra 中的
+配置并不容易调试，因为一旦 test-infra 中的 PR 合并就意味着配置发生变更，那么它将会直接影响到对应项目的所有后续 Job。&lt;/p>
+&lt;p>所以 test-infra 中的配置变更，需要尽可能的保证它是正确的。这也就促使我需要去调试 Prow 中的任务了。&lt;/p>
+&lt;p>在这个过程中我听取了两个小伙伴 @BenTheElder @Itsuugo 的建议，发现竟然可以在 &lt;a href="https://cloud.google.com/build/docs/build-debug-locally?hl=en">本地进行 Cloud Build 任务的调试&lt;/a>&lt;/p>
+&lt;p>完成这件事本身倒是比较容易，找一个网络顺畅的机器，安装 Google Cloud CLI 和 &lt;code>cloud-build-local&lt;/code> 工具，主要需要安装一些依赖，比如 Docker 等。
+安装完成后，进行 Google Cloud CLI 的授权，
+然后 clone 具体需要进行调试的项目，通过传递 cloudbuild.yml 文件给 &lt;code>cloud-build-local&lt;/code> 工具即可。&lt;/p>
+&lt;p>说这件事有意思，主要在于在我的潜意识里，各家云厂商的 CLI/SDK 都仅仅是给自家服务使用的，通常还都是使用内部的一些地址，以及特殊的授权。
+从来没有考虑过竟然还可以在其他厂商的环境中使用（并且工作良好）。&lt;/p>
+&lt;p>在这件事结束后，我发了条动态，也确实还有人问我 &amp;quot;这真的可能吗？&amp;quot; 2333&lt;/p>
+&lt;p>遇到问题的时候还是多尝试，潜意识有可能会误导自己的。&lt;/p>
+&lt;p>另外，在上一篇周报中，我提到的 mTLS 的问题已经得到解决，实际上只是一个低级的环境问题。
+我也正在兑现上篇中的 flag，近期会分享一篇 mTLS 相关的文章，敬请期待！&lt;/p>
+&lt;h1 id="apache-apisix-ingress-controller-150-rc1-发布">Apache APISIX Ingress controller 1.5.0-rc1 发布&lt;/h1>
+&lt;p>目前 &lt;a href="https://github.com/apache/apisix-ingress-controller" title="Apache APISIX Ingress">Apache APISIX Ingress controller&lt;/a> 项目已经进入了 v1.5 的发布窗口，目前会先发布 1.5.0-rc1 版本，
+待投票流程结束后，将会有正式的公告和对应的 Release 发布。&lt;/p>
+&lt;p>距离上一个特性版本 v1.4.0 发布已经过去了将近 7 个月的时间，这期间我们进行了大量的开发工作，有 144 次提交和 28 位贡献者参与，感谢大家的参与让这个版本有了很大的不同。
+这里我列一些主要的变化，后续还会有专门的发版公告和特性解读文章等。&lt;/p>
+&lt;p>在这个版本中，正式将所有 CRD 资源的 API version 升级到了 v2 stable ，这也标志着用户使用起来会更加的方便和统一，同时这些资源也已经过多个版本迭代和用户在生产环境的使用，达到了足够稳定的级别。&lt;/p>
+&lt;p>此外，在这个版本中提供了对 Gateway API 的支持，不过此特性目前尚处于实验性质，默认不开启，用户可以通过为它传递 &lt;code>enable_gateway_api=true&lt;/code> 的配置项来开启此能力。在下个版本中我们将引入 Gateway API 项目的一致性测试，来保证我们的实现与 Gateway API 项目的一致性。这样做的好处在于凡是通过了 Gateway API 一致性校验的实现，均可进行互相替换，不会存在锁定的情况。而且在迁移的过程中，也可以保证配置的兼容性。&lt;/p>
+&lt;p>Apache APISIX Ingress controller 项目是支持多种配置方式的，无论使用 CRD 的方式，或者使用 Kubernetes 中原生的 Ingress 资源都是可以的。但在之前版本中，对于 Ingress 资源来说，想要使用 APISIX 提供的 plugin 能力，就必须先实现一个对应的 annotation，这种方式可扩展能力很差。
+在这个版本中，我们为 Ingress 资源提供了一个新的 annotation 允许所有的 Ingress 资源可以直接使用 APISIX 所提供的 70+ 种 plugin 的能力，这对于一些使用开源的仅支持配置 Ingress 资源的用户而言，是非常有用的。&lt;/p>
+&lt;p>除去这些新功能外，目前无论是开源项目的维护者，还是使用者，都在积极的关注供应链安全。在 Apache APISIX Ingress controller 中，我们也升级了它使用的 Golang 版本，以及所有依赖的模块均升级到了最新版本，并且借助 GitHub 的 Dependabot 进行依赖的周期性扫描和更新，尽可能的提供安全可信的软件。&lt;/p>
+&lt;p>这里我先介绍这么多，大家如果对此项目感兴趣，欢迎在 GitHub 加个 star &lt;a href="https://github.com/apache/apisix-ingress-controller">https://github.com/apache/apisix-ingress-controller&lt;/a>&lt;/p>
+&lt;p>发布流程未结束前，也可直接从最新的代码中构建镜像尝试使用。&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;p>&lt;a href="https://github.com/kubernetes/kubernetes/pull/104907">#104907 · kubernetes/kubernetes&lt;/a> 这是一个持续了将近一年的 PR，在这个 PR 中引入了一项新的特性：&lt;code>ContainerCheckpoint&lt;/code>。&lt;/p>
+&lt;p>对 Docker 比较熟悉的小伙伴，可能知道在 Docker 中存在一个 &lt;code>docker checkpoint&lt;/code> 的子命令。
+这个子命令实际上是可以帮助我们为某个正在运行的容器创建一个状态点的快照，并将其保存到磁盘中。&lt;/p>
+&lt;p>后续，我们可以使用此 checkpoint 启动容器，恢复其原先的状态，或者将容器迁移到其他的机器上。&lt;/p>
+&lt;p>同样的，在 Kubernetes 中提供的这个 &lt;code>ContainerCheckpoint&lt;/code> 的新特性是自 v1.25 开始作为 alpha 特性加入的，默认是关闭的。
+利用此特性可以通过 kubelet 提供的 API，为 container 创建一个有状态的快照，然后将其移动到另一个节点上进行调试，或者其他类似的需求。&lt;/p>
+&lt;p>此处需要注意的是，创建 checkpoint 可能会产生一些安全隐患，比如 checkpoint 实际上是对当前运行中 container 的内存快照，所以如果在
+container 的内存中包含了某些隐私数据，那么有可能在迁移到其他机器上也可以访问到。&lt;/p>
+&lt;p>另一方面，创建 checkpoint 会产生一些文件，这些文件是需要占用磁盘的。如果频繁的创建 checkpoint 则可能导致磁盘压力过大。
+checkpoint 的存档，默认情况下会放在 &lt;code>/var/lib/kubelet/checkpoints&lt;/code> 目录下，并且以 &lt;code>checkpoint-&amp;lt;podFullName&amp;gt;-&amp;lt;containerName&amp;gt;-&amp;lt;timestamp&amp;gt;.tar&lt;/code> 进行命名。&lt;/p>
+&lt;p>这个特性使用起来也很简单，直接给 Kubelet 发送一个请求即可：&lt;/p>
+&lt;pre>&lt;code>POST /checkpoint/{namespace}/{pod}/{container}
+&lt;/code>&lt;/pre>&lt;p>然后将获取到的归档文件，通过以下命令进行恢复：&lt;/p>
+&lt;pre>&lt;code>crictl restore --import=&amp;lt;archive&amp;gt;
+&lt;/code>&lt;/pre>&lt;p>另一个值得注意的变更是，kube-proxy 的 container image 将要变更为 distroless 的了。&lt;a href="https://github.com/kubernetes/kubernetes/pull/111060">#111060 · kubernetes/kubernetes&lt;/a>&lt;/p>
+&lt;p>这可以规避很多安全隐患，提升集群的安全性。&lt;/p>
+&lt;p>好了，这期主要就这些内容，我们下期再见！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">K8S 生态周报| Cilium 新版本 Ingress/ServiceMesh/MultiCluster 等特性</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/07/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Cilium-%E6%96%B0%E7%89%88%E6%9C%AC-Ingress/ServiceMesh/MultiCluster-%E7%AD%89%E7%89%B9%E6%80%A7/"/><id>https://moelove.info/2022/07/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Cilium-%E6%96%B0%E7%89%88%E6%9C%AC-Ingress/ServiceMesh/MultiCluster-%E7%AD%89%E7%89%B9%E6%80%A7/</id><updated>2022-07-25T03:25:11+08:00</updated><published>2022-07-25T00:17:31+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
