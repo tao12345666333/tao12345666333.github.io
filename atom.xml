@@ -1,4 +1,86 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-08-01T13:58:51+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Kubernetes 新版本引入 ContainerCheckpoint 特性</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/07/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E6%96%B0%E7%89%88%E6%9C%AC%E5%BC%95%E5%85%A5-ContainerCheckpoint-%E7%89%B9%E6%80%A7/"/><id>https://moelove.info/2022/07/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E6%96%B0%E7%89%88%E6%9C%AC%E5%BC%95%E5%85%A5-ContainerCheckpoint-%E7%89%B9%E6%80%A7/</id><updated>2022-08-01T13:58:44+08:00</updated><published>2022-07-31T23:27:33+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-08-10T01:56:21+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Kubernetes v1.25 将 GlusterFS 卷插件废弃</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/08/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.25-%E5%B0%86-GlusterFS-%E5%8D%B7%E6%8F%92%E4%BB%B6%E5%BA%9F%E5%BC%83/"/><id>https://moelove.info/2022/08/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.25-%E5%B0%86-GlusterFS-%E5%8D%B7%E6%8F%92%E4%BB%B6%E5%BA%9F%E5%BC%83/</id><updated>2022-08-08T04:16:09+08:00</updated><published>2022-08-07T15:46:01+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>本周事情比较多，空闲时间基本都在关注上游的进展，没折腾其他的东西。
+Kubernetes v1.25 正常情况下会在本月发布正式版本。&lt;/p>
+&lt;p>我来介绍一些本周关注到比较值得注意的内容：&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/111485">deprecate GlusterFS plugin from available in-tree drivers. by humblec · Pull Request #111485 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>在这个 PR 中废弃了 in-tree 的 GlusterFS 的 plugin，这其实是最早的 dynamic provisioner ，自 Kubernetes v1.4 版本开始引入。&lt;/p>
+&lt;p>在后来 CSI 驱动出现的时候，社区中也立刻出现了对应的驱动实现 &lt;a href="https://github.com/gluster/gluster-csi-driver/">https://github.com/gluster/gluster-csi-driver/&lt;/a> ，只不过该项目并没有积极的进行维护。
+现在还有另一个比较推荐的替代方案，可以考虑使用 &lt;a href="https://github.com/kadalu/kadalu/">https://github.com/kadalu/kadalu/&lt;/a> 此项目最新的版本为 v0.8.15 。&lt;/p>
+&lt;p>经过社区之前的讨论，还是决定在 v1.25 版本开始将 in-tree 的 GlusterFS plugin 标记为废弃，并在后续的版本中进行移除。&lt;/p>
+&lt;p>如果有正在使用此插件的小伙伴，我建议可以尽早的评估 kadalu 的可行性 &amp;amp; 迁移成本。&lt;/p>
+&lt;p>此外， &lt;strong>这个修改属于完全删除 in-tree 卷插件的一部分，无论你在使用哪种 in-tree 的卷插件，建议尽早迁移至使用 CSI 驱动的模式。&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/109070">Add shell completion for new --subresource flag by marckhouzam · Pull Request #109070 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>在 Kubernetes v1.24 中，给 kubectl 增加了 subresource 的支持（指 &lt;code>status&lt;/code> 和 &lt;code>scale&lt;/code>），这样就可以很方便的直接对 subresource 进行操作了，而不需要每次都 &lt;code>-o yaml&lt;/code> 之类的直接进行查看，或者通过 curl 之类的调用 API 来完成其他操作。
+使用了此特性后，可以有如下效果：&lt;/p>
+&lt;pre>&lt;code># v1.24+
+tao@moelove:~$ kubectl get -n apisix --subresource status deploy apisix-ingress-controller
+NAME AGE
+apisix-ingress-controller 2d23h
+tao@moelove:~$ kubectl get -n apisix --subresource scale deploy apisix-ingress-controller -ojson
+{
+&amp;quot;apiVersion&amp;quot;: &amp;quot;autoscaling/v1&amp;quot;,
+&amp;quot;kind&amp;quot;: &amp;quot;Scale&amp;quot;,
+&amp;quot;metadata&amp;quot;: {
+&amp;quot;creationTimestamp&amp;quot;: &amp;quot;2022-08-04T18:57:45Z&amp;quot;,
+&amp;quot;name&amp;quot;: &amp;quot;apisix-ingress-controller&amp;quot;,
+&amp;quot;namespace&amp;quot;: &amp;quot;apisix&amp;quot;,
+&amp;quot;resourceVersion&amp;quot;: &amp;quot;1656&amp;quot;,
+&amp;quot;uid&amp;quot;: &amp;quot;7c191a14-ee55-4254-80ba-7c91b4c833bd&amp;quot;
+},
+&amp;quot;spec&amp;quot;: {
+&amp;quot;replicas&amp;quot;: 1
+},
+&amp;quot;status&amp;quot;: {
+&amp;quot;replicas&amp;quot;: 1,
+&amp;quot;selector&amp;quot;: &amp;quot;app.kubernetes.io/instance=apisix,app.kubernetes.io/name=ingress-controller&amp;quot;
+}
+}
+&lt;/code>&lt;/pre>&lt;p>但是在此之前版本使用该参数的话，会直接提示错误：&lt;/p>
+&lt;pre>&lt;code># v1.23
+tao@moelove:~$ kubectl-v1.23 get -n apisix --subresource status deploy apisix-ingress-controller
+Error: unknown flag: --subresource
+See 'kubectl get --help' for usage.
+&lt;/code>&lt;/pre>&lt;p>此处我提到的这个在 v1.25 中的 PR 实际上是为了给 &lt;code>--subresource&lt;/code> 提供一个命令补全的能力（虽然如上文提到的，目前就两种资源），还是比较方便的。&lt;/p>
+&lt;ul>
+&lt;li>PodSecurityPolicy 已经被删除，请迁移至 PodSecurity Admission Controller&lt;/li>
+&lt;/ul>
+&lt;p>持续关注「k8s生态」的小伙伴应该还记得，我从去年 Kubernetes v1.21 时候就介绍过，PodSecurityPolicy （PSP）被废弃，将通过内置 PodSecurity Admission 来进行替代。
+并且在后续的文章中也曾对 PodSecurity Admission 进行了介绍。&lt;/p>
+&lt;p>此外我之前写过 &lt;a href="https://moelove.info/2021/11/30/%E7%90%86%E6%B8%85-Kubernetes-%E4%B8%AD%E7%9A%84%E5%87%86%E5%85%A5%E6%8E%A7%E5%88%B6Admission-Controller/">《理清 Kubernetes 中的准入控制（Admission Controller)》&lt;/a> 和 &lt;a href="https://moelove.info/2022/03/02/%E4%BA%91%E5%8E%9F%E7%94%9F%E7%AD%96%E7%95%A5%E5%BC%95%E6%93%8E-Kyverno-%E4%B8%8A/">《云原生策略引擎 Kyverno》&lt;/a> 等文章，介绍一些 Kubernetes 中的 Admission 机制和通用的策略引擎，使用它们也可以作为 PodSecurityPolicy 的替代。&lt;/p>
+&lt;p>目前在 v1.25 中，PodSecurityPolicy 已经被删除，如果你之前有在使用 PodSecurityPolicy，并且打算将 Kubernetes 集群升级到 v1.25 的话，请先进行迁移。&lt;/p>
+&lt;p>只要你的 Kubernetes 集群版本先升级到 v1.22 以上，并且开启 PodSecurity 特性，那么就可以按照 &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/migrate-from-psp/">Migrate from PodSecurityPolicy to the Built-In PodSecurity Admission Controller | Kubernetes&lt;/a> 进行迁移了。&lt;/p>
+&lt;p>或者使用通用的引擎，比如 Kyverno 或者 OPA/Gatekeeper 等进行替代。&lt;/p>
+&lt;ul>
+&lt;li>cgroup v2 支持达到 GA&lt;/li>
+&lt;/ul>
+&lt;p>在 2019 年 GitChat 对我的访谈中让我聊 2020 年的技术趋势，我当时的主要观点摘录如下：&lt;/p>
+&lt;blockquote>
+&lt;p>作为云原生技术的基石，Kubernetes 在 2020 年的热度将会持续上升。而各个公司的集群规模，以及对容器技术的推进都将会持续加大。在经历了初步容器化后，更多的公司将面临的问题是稳定性和性能优化问题。与此同时，service mesh，serverless 等技术也都会逐步得到普遍应用。 从底层次技术的角度来看，cgroups v2 将逐步普及，进而取代 cgroups v1，但这个过程可能需要两三年左右。 整体而言，稳定性和性能优化将会是未来的主旋律。&lt;/p>
+&lt;/blockquote>
+&lt;p>如今，3 年时间已经过去，Kubernetes v1.25 中对 cgroup v2 的支持已经达到 GA ，和我之前的判断是一样的。&lt;/p>
+&lt;p>我之前也写了一篇 &lt;a href="https://moelove.info/2021/11/17/%E4%B8%80%E7%AF%87%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-cgroup/">《一篇搞懂容器技术的基石： cgroup》&lt;/a> ，可能该考虑写篇新的 cgroup v2 了 （笑&lt;/p>
+&lt;h1 id="nutanix-objects-违反了-minio-开源许可的后续">Nutanix Objects 违反了 MinIO 开源许可的后续&lt;/h1>
+&lt;p>在我上上篇周报中，曾介绍过 Nutanix Objects 违反 MinIO 开源许可事件的背景，如今该事件可能是因为发酵了，
+所以 Nutanix 给出了正式的回应，承认他们的违规行为。&lt;/p>
+&lt;p>这里简单说一下为什么 Nutanix 坚持不说他们使用了 MinIO 呢？这是由于对于海外的 Gartner 魔力象限和 GigaOm Radar 之类的行业顶级评估报告而言，
+如果他们使用了 MinIO 那么就不再是一个独立的软件，在进行评估的时候，会把它们排除在外。当然，应该还会有一些其他商业上的原因。&lt;/p>
+&lt;p>另一方面，Nutanix 的客户如果根据此事件要求 Nutanix 的赔偿，需要检查下与 Nutanix 的赔偿条款是否有覆盖的这个部分。&lt;/p>
+&lt;p>从 2019 年至今，这算是一个耗时相对较久的侵权事件了。这也可以反映出开源软件协议/许可被侵权，其实是一个相对不那么容易维权的事情。
+维权成本比较高。&lt;/p>
+&lt;p>如果不是 MinIO 背后还有个商业公司会盯着这个事情，也许这事情就不了了之了。&lt;/p>
+&lt;p>好了，以上就是本期的内容，我想发起一个投票了解下大家目前在用的 Kubernetes 版本，欢迎大家参与，在 v1.25 发布后投票自动关闭，届时再和大家分享数据。&lt;/p>
+&lt;p>&lt;a href="https://wj.qq.com/s2/10618008/29e3/">https://wj.qq.com/s2/10618008/29e3/&lt;/a>&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">K8S 生态周报| Kubernetes 新版本引入 ContainerCheckpoint 特性</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/07/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E6%96%B0%E7%89%88%E6%9C%AC%E5%BC%95%E5%85%A5-ContainerCheckpoint-%E7%89%B9%E6%80%A7/"/><id>https://moelove.info/2022/07/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E6%96%B0%E7%89%88%E6%9C%AC%E5%BC%95%E5%85%A5-ContainerCheckpoint-%E7%89%B9%E6%80%A7/</id><updated>2022-08-01T13:58:44+08:00</updated><published>2022-07-31T23:27:33+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
