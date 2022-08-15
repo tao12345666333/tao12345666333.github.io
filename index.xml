@@ -1,4 +1,70 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Wed, 10 Aug 2022 01:56:22 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Kubernetes v1.25 将 GlusterFS 卷插件废弃</title><link>https://moelove.info/2022/08/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.25-%E5%B0%86-GlusterFS-%E5%8D%B7%E6%8F%92%E4%BB%B6%E5%BA%9F%E5%BC%83/</link><guid isPermaLink="true">https://moelove.info/2022/08/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.25-%E5%B0%86-GlusterFS-%E5%8D%B7%E6%8F%92%E4%BB%B6%E5%BA%9F%E5%BC%83/</guid><pubDate>Sun, 07 Aug 2022 15:46:01 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 16 Aug 2022 04:48:38 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Kubernetes v1.25 将添加 user namespaces 的支持</title><link>https://moelove.info/2022/08/14/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.25-%E5%B0%86%E6%B7%BB%E5%8A%A0-user-namespaces-%E7%9A%84%E6%94%AF%E6%8C%81/</link><guid isPermaLink="true">https://moelove.info/2022/08/14/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.25-%E5%B0%86%E6%B7%BB%E5%8A%A0-user-namespaces-%E7%9A%84%E6%94%AF%E6%8C%81/</guid><pubDate>Sun, 14 Aug 2022 23:25:24 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>本周同样是忙碌的一周，一个经验分享给大家，优先回答问题而非解释细节。这也就是为什么我经常在文章的开头都会先说明下文章主要涵盖的内容，这样有助于节省时间。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2022/08/15/LZ3GXudlOpEI4Mc.png" alt="">&lt;/p>
+&lt;p>我本周空闲时间基本都在关注上游的进展，没空折腾其他的东西。
+Kubernetes v1.25.0-rc.0 已于本周发布，正常情况下会在本月发布正式版本。&lt;/p>
+&lt;p>我来介绍一些本周关注到比较值得注意的内容：&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/111090">Add support for user namespaces phase 1 (KEP 127) by rata · Pull Request #111090 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>这个 PR 实现了 KEP127 的第一阶段，KEP127 旨在为 Pod 添加 user namespaces 的支持。
+对 user namespaces 不太熟悉的小伙伴，可以看看我之前的系列文章：&lt;a href="https://moelove.info/2021/12/10/%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-namespace-%E4%B8%8A/">《搞懂容器技术的基石： namespace （上）》&lt;/a> 和 &lt;a href="https://moelove.info/2021/12/13/%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-namespace-%E4%B8%8B/">《搞懂容器技术的基石： namespace （下）》&lt;/a> 。&lt;/p>
+&lt;p>在 Kubernetes 中支持使用 user namespaces 的好处在于，可以在与主机有不同 UID/GID 的 Pod 中运行进程，这样在 Pod 内的特权进程
+实际是作为主机中的普通进程运行的。这样，假设 Pod 内的特权进程由于安全漏洞被攻破，对主机的影响也可以降到比较低。&lt;/p>
+&lt;p>直接相关的漏洞，比如 CVE-2019-5736 ，我也曾在 2019 年的文章 &lt;a href="https://moelove.info/2019/03/29/runc-1.0-rc7-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/">《runc 1.0-rc7 发布之际》&lt;/a> 专门介绍过，
+感兴趣的小伙伴可以到该文章中了解详情。&lt;/p>
+&lt;p>该实现是在 Pod 的 Spec 中添加了布尔类型的 &lt;code>HostUsers&lt;/code> 字段，以决定是否启用主机的 user namespaces，默认是 true 。&lt;/p>
+&lt;p>此外，目前可预见的情况是，如果 Kubernetes 集群使用的 Linux 内核版本在 v5.19 以下的话，那么使用该特性可能会导致 Pod 的启动时间增加。&lt;/p>
+&lt;p>期待后续的进展。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/111620">cleanup: Remove storageos volume plugins from k8s codebase by Jiawei0227 · Pull Request #111620 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/111618">cleanup: Remove flocker volume plugins from k8s codebase by Jiawei0227 · Pull Request #111618 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/111619">cleanup: Remove quobyte volume plugins from k8s codebase by Jiawei0227 · Pull Request #111619 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>在上周的 「k8s生态」中我曾介绍过，in-tree 的 GlusterFS plugin 在 PR #111485 中被废弃。
+上述的这几个 PR 所做的事情基本类似，是一些清理操作。&lt;/p>
+&lt;p>将 Kubernetes 项目中 &lt;code>StorageOS&lt;/code>，&lt;code>Flocker&lt;/code> 和 &lt;code>Quobyte&lt;/code> 等 in-tree 的卷插件都删除掉了。&lt;/p>
+&lt;p>其中 &lt;code>StorageOS&lt;/code> 和 &lt;code>Quobyte&lt;/code> 如果有在使用，建议往 CSI plugin 进行迁移，而 &lt;code>Flocker&lt;/code> 则是由于不再维护了，所以并没有任何迁移计划。&lt;/p>
+&lt;p>尽管 &lt;code>Flocker&lt;/code> 不再维护了，不过我觉得还是可以稍微介绍下它 （算是把自己曾记得的一些事情倒出来，大概以后就可以安全删除了，hahah）&lt;/p>
+&lt;p>如果是比较早期参与到 Docker/Kubernetes 生态的小伙伴，可能还会记得 Flocker 这个工具，
+这个工具主要解决的是容器化应用中数据卷管理的问题，这在 2015 年左右算是容器生态圈最主要解决的问题之一。&lt;/p>
+&lt;p>在那个时候，涌现出来很多 Docker volume plugin，做的事情其实都差不多，但这个项目背后的公司/团队却比较有意思。&lt;/p>
+&lt;p>这家名为 ClusterHQ 的公司，和现在很多的开源商业化公司类似，以开源软件 Flocker 作为其出发点，先后完成了 Docker/Kubernetes/Mosos 等各种平台的集成，
+后续推出了其 SaaS 服务 FlockerHub。&lt;/p>
+&lt;p>团队成员也大多数来自于知名开源项目 &lt;a href="https://github.com/twisted/twisted">Twisted&lt;/a>，用 Python 的小伙伴应该很少有人不知道这个项目。
+很自然的，Flocker 也是用 Python 构建的。&lt;/p>
+&lt;p>但就是这样一家看起来都还不错的公司，在它的 SaaS 服务推出预览版后的一段时间后，就突然宣布关闭了。&lt;/p>
+&lt;p>当年很多人猜测，也许是公司将商业核心放在了 SaaS 上，但是该产品并没有真正流行起来。&lt;/p>
+&lt;p>其实这类事情在整个容器生态领域，已经发生了很多，并且还在持续的发生。
+这背后更多的其实是商业化逻辑，尽管 Flocker 也曾火热一时，但在商业公司关闭后，也就直接停止维护了。&lt;/p>
+&lt;p>现在从 Kubernetes 中将其删除，很可能在是流行项目中最后一次看到 Flocker 的名字了。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/111435/files">Promote CronJobTimeZone to beta by soltysh · Pull Request #111435 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>CronJob TimeZone 的特性达到了 Beta 阶段。不过根据 Kubernetes 最新的特性策略，该特性仍然需要手动开启 &lt;code>CronJobTimeZone&lt;/code> feature gate 。&lt;/p>
+&lt;p>注意，CronJob 如果不设置 TimeZone 的话，默认使用的是 kube-controller-manager 进程的 TimeZone 。
+之前有遇到小伙伴在这个问题上浪费了一些时间。&lt;/p>
+&lt;h1 id="cloud-native-security-whitepaper-version-10-有声读物发布">Cloud Native Security Whitepaper version 1.0 有声读物发布&lt;/h1>
+&lt;p>该音频是 2020 年版本的 Cloud Native Security Whitepaper，可以从 &lt;a href="https://soundcloud.com/user-769472014/sets/cncf-tag-security-cloud-native-security-whitepaper-version-v1">soundcloud&lt;/a> 听到。&lt;/p>
+&lt;p>现在 Cloud Native Security Whitepaper v2 的文字版也已经发布，可以从以下仓库中获取到。&lt;/p>
+&lt;p>&lt;a href="https://github.com/cncf/tag-security/tree/main/security-whitepaper">https://github.com/cncf/tag-security/tree/main/security-whitepaper&lt;/a>&lt;/p>
+&lt;h1 id="cri-dockerd-发布-v025">cri-dockerd 发布 v0.2.5&lt;/h1>
+&lt;p>想必大家还记得之前讨论比较多的 Kubernetees 移除其 dockershim 组件的事件，我也专门曾写了一篇文章 &lt;a href="https://moelove.info/2020/12/03/K8S-%E5%BC%83%E7%94%A8-Docker-%E4%BA%86Docker-%E4%B8%8D%E8%83%BD%E7%94%A8%E4%BA%86%E5%88%AB%E9%80%97%E4%BA%86/">《K8S 弃用 Docker 了？Docker 不能用了？别逗了！》&lt;/a> 对此事件进行说明。&lt;/p>
+&lt;p>如今 Kubernetes 已经将其 in-tree 的 dockershim 组件彻底移除，而 Mirantis 也正在如履行其之前的承诺，在维护 &lt;a href="https://github.com/Mirantis/cri-dockerd">Mirantis/cri-dockerd&lt;/a> 项目。&lt;/p>
+&lt;p>该项目已经逐步的进入相对规范的维护期，也正在跟随上游进行持续的演进。&lt;/p>
+&lt;p>比如在 v0.2.5 版本中，将默认的网络插件修改成了 CNI 。&lt;/p>
+&lt;p>如果有小伙伴的 Kubernetes 集群中，仍然使用 Docker 作为容器运行时，并且想要对 Kubernetes 集群进行升级的话，可以查看此项目。
+使用起来并不麻烦。&lt;/p>
+&lt;p>期待后续的表现。&lt;/p>
+&lt;p>好了，以上就是本期的内容，我想发起一个投票了解下大家目前在用的 Kubernetes 版本，欢迎大家参与，在 v1.25 发布后投票自动关闭，届时再和大家分享数据。&lt;/p>
+&lt;p>&lt;a href="https://wj.qq.com/s2/10618008/29e3/">https://wj.qq.com/s2/10618008/29e3/&lt;/a>&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>K8S 生态周报| Kubernetes v1.25 将 GlusterFS 卷插件废弃</title><link>https://moelove.info/2022/08/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.25-%E5%B0%86-GlusterFS-%E5%8D%B7%E6%8F%92%E4%BB%B6%E5%BA%9F%E5%BC%83/</link><guid isPermaLink="true">https://moelove.info/2022/08/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.25-%E5%B0%86-GlusterFS-%E5%8D%B7%E6%8F%92%E4%BB%B6%E5%BA%9F%E5%BC%83/</guid><pubDate>Sun, 07 Aug 2022 15:46:01 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
