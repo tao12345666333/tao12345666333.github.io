@@ -1,4 +1,61 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 16 Aug 2022 04:48:38 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Kubernetes v1.25 将添加 user namespaces 的支持</title><link>https://moelove.info/2022/08/14/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.25-%E5%B0%86%E6%B7%BB%E5%8A%A0-user-namespaces-%E7%9A%84%E6%94%AF%E6%8C%81/</link><guid isPermaLink="true">https://moelove.info/2022/08/14/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.25-%E5%B0%86%E6%B7%BB%E5%8A%A0-user-namespaces-%E7%9A%84%E6%94%AF%E6%8C%81/</guid><pubDate>Sun, 14 Aug 2022 23:25:24 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 22 Aug 2022 13:19:23 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| kube-scheduler 频繁抢占时内存泄漏问题得到修正</title><link>https://moelove.info/2022/08/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-kube-scheduler-%E9%A2%91%E7%B9%81%E6%8A%A2%E5%8D%A0%E6%97%B6%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E9%97%AE%E9%A2%98%E5%BE%97%E5%88%B0%E4%BF%AE%E6%AD%A3/</link><guid isPermaLink="true">https://moelove.info/2022/08/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-kube-scheduler-%E9%A2%91%E7%B9%81%E6%8A%A2%E5%8D%A0%E6%97%B6%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E9%97%AE%E9%A2%98%E5%BE%97%E5%88%B0%E4%BF%AE%E6%AD%A3/</guid><pubDate>Sun, 21 Aug 2022 19:23:19 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>本周在小伙伴的提醒下，发现在 Kubernetes 官方博客的 &lt;a href="https://kubernetes.io/blog/2022/08/15/meet-our-contributors-china-ep-03/">Meet Our Contributors - APAC (China region)&lt;/a> 中有关于自己的介绍：&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2022/08/21/ujCV6OHay8dJtKB.png" alt="">&lt;/p>
+&lt;p>很多人问过我，并且我也在很多场合下聊过，关于 &amp;quot;新人如何参与开源项目&amp;quot; 的话题。&lt;/p>
+&lt;p>虽然有不少人会直接建议，&amp;quot;不要想那么多，做就完了。&amp;quot;&lt;/p>
+&lt;p>但就我个人而言，我建议在参与开源项目之前，稍微花一点时间进行思考。
+当然，我指的 &amp;quot;参与开源项目&amp;quot;，并不仅仅说你给某个项目偶然的提交了一个 issue 或者贡献了一个 PR ，然后就不再去看这个项目了。
+我也经常会有在看某个项目的时候，顺手去提个 issue 或者 PR 的情况，但后续可能就不再去关注这个项目了。&lt;/p>
+&lt;p>我指的是长期投入。&lt;/p>
+&lt;p>如果你真的想要融入某个开源项目/社区，那么我建议你按自己的兴趣来选择项目，这样才更容易会主动的投入时间，
+并在其中收获快乐。&lt;/p>
+&lt;p>本周仍然很忙, 本篇中主要涉及一些开源项目社区方面的事情，和几个上游相关的 bugfix 。&lt;/p>
+&lt;p>下周需要去趟深圳，回来后 Kubernetes v1.25 应该就发布正式版本了。&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/111773">Fix memory leak on kube-scheduler preemption by amewayne · Pull Request #111773 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>这是一个很小的 PR，通过增加了一行 &lt;code>defer cancel()&lt;/code>，修复了 kube-scheduler 频繁抢占时的内存泄漏问题。&lt;/p>
+&lt;p>不过社区中其他人也发现了原本那段代码需要进行优化，于是提交了另一个 PR &lt;a href="https://github.com/kubernetes/kubernetes/pull/111775">fix(scheduler): split scheduleOne into two functions for schedulingCycle and bindingCycle by sanposhiho · Pull Request #111775 · kubernetes/kubernetes&lt;/a> 来进行更加彻底的修复。（尚未合并）&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/111477">Share a single etcd3 client logger across all clients by negz · Pull Request #111477 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>来自 Crossplane 项目的 @negz 指出，在 Crossplane 项目中，有时候会有上千种 CRD 资源。
+他发现当存在约 1900 种 CRD 资源时，kube-apiserver 大约使用了 8Gi RSS 。&lt;/p>
+&lt;p>经过分析，发现这是由于未在实例化 etcd3 client 时候共享 logger，所以每个 etcd3 client 实例的时候，都会创建一个自己的 logger，从而导致占用了很多的资源。&lt;/p>
+&lt;p>在这个 PR 中是通过在创建 etcd3 client 的时候，传递已经创建好的 logger，让所有的 clients 共享，以此来减少资源的浪费。&lt;/p>
+&lt;p>当然，和上述的 PR 类似，他发现目前 Kubernetes 是为每个 CRD 创建一个 etcd client，显然，这应该也是可以优化的，仅仅创建一个 client，共享即可。&lt;/p>
+&lt;p>我有点记不清为什么原来是为每个 CRD 创建一个 client 了，但目前他在积极的完成新的 PR #111559 ，期待能顺利完成！&lt;/p>
+&lt;h1 id="etcd-项目健康度的担忧">etcd 项目健康度的担忧&lt;/h1>
+&lt;p>众所周知，etcd 是 Kubernetes 的核心组件之一，同时它也被大量其他的开源项目所依赖，比如 Apache APISIX 也是使用 etcd 作为其默认的数据存储的。&lt;/p>
+&lt;p>但是 etcd 最早的两个维护者，基本上都由于工作变动的原因已经不在 etcd 项目中积极活跃了。后来社区中剩余的一些贡献者开始承担起了该项目的维护工作。&lt;/p>
+&lt;p>在几个月之前，etcd 项目现有的维护者们，由于难以达到大多数人的同意，也发起了一次社区治理方案的调整，在决策时改成了惰性共识
+&lt;a href="https://github.com/etcd-io/etcd/pull/14053">https://github.com/etcd-io/etcd/pull/14053&lt;/a>&lt;/p>
+&lt;p>当前 CNCF TOC 正在讨论 etcd 项目的健康度问题，也许我们可以做点什么，让这个项目变的更好。&lt;/p>
+&lt;h1 id="argo-项目毕业提案">Argo 项目毕业提案&lt;/h1>
+&lt;p>&lt;a href="https://github.com/cncf/toc/pull/604">Argo Project Graduation Proposal by edlee2121 · Pull Request #604 · cncf/toc&lt;/a>&lt;/p>
+&lt;p>这是一个从 2021 年 2 月开始提交的提案，不过中间由于需要进行一些安全审查，以及其他的一些审查及挑战，所以一直没有完成。
+近期又重新进行了更新，并且大多数的报告也已经补充，
+至少今年应该是可以毕业的吧（我猜测）。&lt;/p>
+&lt;p>另外也看到在进行报告补充过程中，Argo 相关的两篇不错的文章，推荐给大家：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://blog.argoproj.io/argo-security-automation-with-oss-fuzz-da38c1f86452">Argo Security Automation with OSS-Fuzz | by Yuan Tang | Argo Project&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://blog.argoproj.io/best-practices-for-multi-tenancy-in-argo-cd-273e25a047b0">Best Practices for Multi-tenancy in Argo CD | by Dan Garfield | Argo Project&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="新版本发布">新版本发布&lt;/h1>
+&lt;ul>
+&lt;li>Trivy 发布了 &lt;a href="https://github.com/aquasecurity/trivy/releases/tag/v0.31.0">v0.31 版本&lt;/a>&lt;/li>
+&lt;li>Kyma 发布了 &lt;a href="https://github.com/kyma-project/kyma/releases/tag/2.5.0">v2.5 版本&lt;/a>&lt;/li>
+&lt;li>Cilium 发布了 &lt;a href="https://github.com/cilium/cilium/releases/tag/v1.12.1">v1.12.1 版本&lt;/a>&lt;/li>
+&lt;li>Helm 发布了 &lt;a href="https://github.com/helm/helm/releases/tag/v3.9.3">v3.9 版本&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>好了，以上就是这期的内容，我们下期再见！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>K8S 生态周报| Kubernetes v1.25 将添加 user namespaces 的支持</title><link>https://moelove.info/2022/08/14/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.25-%E5%B0%86%E6%B7%BB%E5%8A%A0-user-namespaces-%E7%9A%84%E6%94%AF%E6%8C%81/</link><guid isPermaLink="true">https://moelove.info/2022/08/14/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.25-%E5%B0%86%E6%B7%BB%E5%8A%A0-user-namespaces-%E7%9A%84%E6%94%AF%E6%8C%81/</guid><pubDate>Sun, 14 Aug 2022 23:25:24 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
