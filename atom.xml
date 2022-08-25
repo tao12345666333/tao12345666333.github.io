@@ -1,4 +1,185 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-08-22T13:19:23+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| kube-scheduler 频繁抢占时内存泄漏问题得到修正</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/08/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-kube-scheduler-%E9%A2%91%E7%B9%81%E6%8A%A2%E5%8D%A0%E6%97%B6%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E9%97%AE%E9%A2%98%E5%BE%97%E5%88%B0%E4%BF%AE%E6%AD%A3/"/><id>https://moelove.info/2022/08/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-kube-scheduler-%E9%A2%91%E7%B9%81%E6%8A%A2%E5%8D%A0%E6%97%B6%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E9%97%AE%E9%A2%98%E5%BE%97%E5%88%B0%E4%BF%AE%E6%AD%A3/</id><updated>2022-08-22T03:24:09+08:00</updated><published>2022-08-21T19:23:19+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-08-25T11:46:52+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Kubernetes v1.25.0 正式发布，新特性一览</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/08/24/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.25.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/"/><id>https://moelove.info/2022/08/24/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.25.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</id><updated>2022-08-24T01:45:24+08:00</updated><published>2022-08-24T00:19:52+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 Kubernetes 正式发布了，包含了 40 项目增强更新。 本次 LOGO 的主要表达的意思是 尊重协作和开放的精神 ，这种精神将我们凝聚到一起转……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>Kubernetes 正式发布了，包含了 40 项目增强更新。&lt;/p>
+&lt;p>本次 LOGO 的主要表达的意思是 &lt;strong>尊重协作和开放的精神&lt;/strong> ，这种精神将我们凝聚到一起转变为能改变世界的力量。&lt;/p>
+&lt;p>其实我每期的 「k8s生态周报」都有一个叫上游进展的部分，所以很多值得关注的内容在之前的文章中已经发过了。&lt;/p>
+&lt;p>这篇中我会再额外介绍一些之前未涵盖的，和之前介绍过的值得关注的内容。&lt;/p>
+&lt;h2 id="core-csi-migration-达到-stable">core CSI Migration 达到 Stable&lt;/h2>
+&lt;p>Kubernetes 对 CSI 的支持是自 v1.9 开始引入的，到 2019 年的 v1.13 时已经正式 GA 。
+最近几个版本中，社区正在将原本的 in-tree 插件逐步废弃或删除，并迁移至使用 CSI 驱动的方式。&lt;/p>
+&lt;p>迁移至使用 CSI 的好处在于，能提高可维护性，并减少因 in-tree 代码导致的漏洞或者错误的发生。&lt;/p>
+&lt;p>但是迁移也并不是直接替换，社区考虑到用户的迁移成本，于是提出了一种解决方案：CSI Migration ，这个方案是将
+in-tree API 转换为等效 CSI API，并将操作委托给 CSI 驱动程序的功能。目前该功能达到 GA，in-tree 的迁移也有很多进展。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/111485">deprecate GlusterFS plugin from available in-tree drivers. by humblec · Pull Request #111485 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>在这个 PR 中废弃了 in-tree 的 GlusterFS 的 plugin，这其实是最早的 dynamic provisioner ，自 Kubernetes v1.4 版本开始引入。&lt;/p>
+&lt;p>在后来 CSI 驱动出现的时候，社区中也立刻出现了对应的驱动实现 &lt;a href="https://github.com/gluster/gluster-csi-driver/">https://github.com/gluster/gluster-csi-driver/&lt;/a> ，只不过该项目并没有积极的进行维护。
+现在还有另一个比较推荐的替代方案，可以考虑使用 &lt;a href="https://github.com/kadalu/kadalu/">https://github.com/kadalu/kadalu/&lt;/a> 此项目最新的版本为 v0.8.15 。&lt;/p>
+&lt;p>经过社区之前的讨论，还是决定在 v1.25 版本开始将 in-tree 的 GlusterFS plugin 标记为废弃，并在后续的版本中进行移除。&lt;/p>
+&lt;p>如果有正在使用此插件的小伙伴，我建议可以尽早的评估 kadalu 的可行性 &amp;amp; 迁移成本。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/111620">cleanup: Remove storageos volume plugins from k8s codebase by Jiawei0227 · Pull Request #111620 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/111618">cleanup: Remove flocker volume plugins from k8s codebase by Jiawei0227 · Pull Request #111618 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/111619">cleanup: Remove quobyte volume plugins from k8s codebase by Jiawei0227 · Pull Request #111619 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>上述的这几个 PR 所做的事情基本类似，是一些清理操作。
+将 Kubernetes 项目中 &lt;code>StorageOS&lt;/code>，&lt;code>Flocker&lt;/code> 和 &lt;code>Quobyte&lt;/code> 等 in-tree 的卷插件都删除掉了。&lt;/p>
+&lt;p>其中 &lt;code>StorageOS&lt;/code> 和 &lt;code>Quobyte&lt;/code> 如果有在使用，建议往 CSI plugin 进行迁移，而 &lt;code>Flocker&lt;/code> 则是由于不再维护了，所以并没有任何迁移计划。&lt;/p>
+&lt;h2 id="cgroup-v2-支持达到-ga">cgroup v2 支持达到 GA&lt;/h2>
+&lt;p>在 2019 年 GitChat 对我的访谈中让我聊 2020 年的技术趋势，我当时的主要观点摘录如下：&lt;/p>
+&lt;blockquote>
+&lt;p>作为云原生技术的基石，Kubernetes 在 2020 年的热度将会持续上升。而各个公司的集群规模，以及对容器技术的推进都将会持续加大。在经历了初步容器化后，更多的公司将面临的问题是稳定性和性能优化问题。与此同时，service mesh，serverless 等技术也都会逐步得到普遍应用。 从底层次技术的角度来看，cgroups v2 将逐步普及，进而取代 cgroups v1，但这个过程可能需要两三年左右。 整体而言，稳定性和性能优化将会是未来的主旋律。&lt;/p>
+&lt;/blockquote>
+&lt;p>如今，3 年时间已经过去，Kubernetes v1.25 中对 cgroup v2 的支持已经达到 GA ，和我之前的判断是一样的。&lt;/p>
+&lt;p>我之前也写了一篇 &lt;a href="https://moelove.info/2021/11/17/%E4%B8%80%E7%AF%87%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-cgroup/">《一篇搞懂容器技术的基石： cgroup》&lt;/a> ，可能该考虑写篇新的 cgroup v2 了 （笑&lt;/p>
+&lt;h2 id="podsecurity-特性达到-ga">PodSecurity 特性达到 GA&lt;/h2>
+&lt;p>在 &lt;a href="https://github.com/kubernetes/kubernetes/pull/110459">#110459 · kubernetes/kubernetes&lt;/a> 中正式将 PodSecurity 特性升级到 GA 。如果我没有记错，这个
+特性应该是从引入到 GA 最快的特性之一了。&lt;/p>
+&lt;p>PodSecurity 是自 Kubernetes v1.22 引入的 alpha 特性，作为 PodSecurityPolicy 的一个替代。在 v1.23 达到 beta 级别，通过上述 PR，在 v1.25 正式 GA ，并且默认启用，可以看到
+整个发展过程还是很快的。&lt;/p>
+&lt;p>PodSecurity 定义了 3 种级别：&lt;/p>
+&lt;ul>
+&lt;li>Enforce：如果 Pod 违反策略，则不会被创建；&lt;/li>
+&lt;li>Audit：如果 Pod 违反策略，则在审计日志中会被记录，但是 Pod 仍将正常创建；&lt;/li>
+&lt;li>Warn：如果 Pod 违反策略，则会在 console 中打印 warning 信息，Pod 仍将正常创建；&lt;/li>
+&lt;/ul>
+&lt;p>使用起来也很简单，只需要给 namespace 添加 &lt;code>pod-security.kubernetes.io/&amp;lt;mode&amp;gt;=&amp;lt;standard&amp;gt;&lt;/code> 标签即可。&lt;/p>
+&lt;p>只要你的 Kubernetes 集群版本先升级到 v1.22 以上，并且开启 PodSecurity 特性，那么就可以按照 &lt;a href="https://kubernetes.io/docs/tasks/configure-pod-container/migrate-from-psp/">Migrate from PodSecurityPolicy to the Built-In PodSecurity Admission Controller | Kubernetes&lt;/a> 进行迁移了。&lt;/p>
+&lt;p>但是如果你的集群版本较低，并且还希望能有一个相对通用的方法，我建议你可以看看我之前写的文章。&lt;a href="https://moelove.info/2021/11/30/%E7%90%86%E6%B8%85-Kubernetes-%E4%B8%AD%E7%9A%84%E5%87%86%E5%85%A5%E6%8E%A7%E5%88%B6Admission-Controller/#%E5%A6%82%E4%BD%95%E9%83%A8%E7%BD%B2-admission-webhook">《理清 Kubernetes 中的准入控制（Admission Controller)》&lt;/a>
+和 &lt;a href="https://moelove.info/2022/03/02/%E4%BA%91%E5%8E%9F%E7%94%9F%E7%AD%96%E7%95%A5%E5%BC%95%E6%93%8E-Kyverno-%E4%B8%8A/">《云原生策略引擎 Kyverno （上）》&lt;/a>
+通过使用 Admission controller 、OPA/GateKeeper、Kyverno 等来完成统一配置。&lt;/p>
+&lt;h2 id="初步支持-user-namespaces">初步支持 user namespaces&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/111090">Add support for user namespaces phase 1 (KEP 127) by rata · Pull Request #111090 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>这个 PR 实现了 KEP127 的第一阶段，KEP127 旨在为 Pod 添加 user namespaces 的支持。
+对 user namespaces 不太熟悉的小伙伴，可以看看我之前的系列文章：&lt;a href="https://moelove.info/2021/12/10/%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-namespace-%E4%B8%8A/">《搞懂容器技术的基石： namespace （上）》&lt;/a> 和 &lt;a href="https://moelove.info/2021/12/13/%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-namespace-%E4%B8%8B/">《搞懂容器技术的基石： namespace （下）》&lt;/a> 。&lt;/p>
+&lt;p>在 Kubernetes 中支持使用 user namespaces 的好处在于，可以在与主机有不同 UID/GID 的 Pod 中运行进程，这样在 Pod 内的特权进程
+实际是作为主机中的普通进程运行的。这样，假设 Pod 内的特权进程由于安全漏洞被攻破，对主机的影响也可以降到比较低。&lt;/p>
+&lt;p>直接相关的漏洞，比如 CVE-2019-5736 ，我也曾在 2019 年的文章 &lt;a href="https://moelove.info/2019/03/29/runc-1.0-rc7-%E5%8F%91%E5%B8%83%E4%B9%8B%E9%99%85/">《runc 1.0-rc7 发布之际》&lt;/a> 专门介绍过，
+感兴趣的小伙伴可以到该文章中了解详情。&lt;/p>
+&lt;p>该实现是在 Pod 的 Spec 中添加了布尔类型的 &lt;code>HostUsers&lt;/code> 字段，以决定是否启用主机的 user namespaces，默认是 true 。&lt;/p>
+&lt;p>此外，目前可预见的情况是，如果 Kubernetes 集群使用的 Linux 内核版本在 v5.19 以下的话，那么使用该特性可能会导致 Pod 的启动时间增加。&lt;/p>
+&lt;h2 id="cronjobtimezone-达到-beta-级别">CronJobTimeZone 达到 Beta 级别&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/111435/files">Promote CronJobTimeZone to beta by soltysh · Pull Request #111435 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>CronJob TimeZone 的特性达到了 Beta 阶段。不过根据 Kubernetes 最新的特性策略，该特性仍然需要手动开启 &lt;code>CronJobTimeZone&lt;/code> feature gate 。&lt;/p>
+&lt;p>注意，CronJob 如果不设置 TimeZone 的话，默认使用的是 kube-controller-manager 进程的 TimeZone 。
+之前有遇到小伙伴在这个问题上浪费了一些时间。&lt;/p>
+&lt;h2 id="引入-alpha-特性-containercheckpoint">引入 alpha 特性 ContainerCheckpoint&lt;/h2>
+&lt;p>&lt;a href="https://github.com/kubernetes/kubernetes/pull/104907">#104907 · kubernetes/kubernetes&lt;/a> 这是一个持续了将近一年的 PR，在这个 PR 中引入了一项新的特性：&lt;code>ContainerCheckpoint&lt;/code>。&lt;/p>
+&lt;p>对 Docker 比较熟悉的小伙伴，可能知道在 Docker 中存在一个 &lt;code>docker checkpoint&lt;/code> 的子命令。
+这个子命令实际上是可以帮助我们为某个正在运行的容器创建一个状态点的快照，并将其保存到磁盘中。&lt;/p>
+&lt;p>后续，我们可以使用此 checkpoint 启动容器，恢复其原先的状态，或者将容器迁移到其他的机器上。&lt;/p>
+&lt;p>同样的，在 Kubernetes 中提供的这个 &lt;code>ContainerCheckpoint&lt;/code> 的新特性是自 v1.25 开始作为 alpha 特性加入的，默认是关闭的。
+利用此特性可以通过 kubelet 提供的 API，为 container 创建一个有状态的快照，然后将其移动到另一个节点上进行调试，或者其他类似的需求。&lt;/p>
+&lt;p>此处需要注意的是，创建 checkpoint 可能会产生一些安全隐患，比如 checkpoint 实际上是对当前运行中 container 的内存快照，所以如果在
+container 的内存中包含了某些隐私数据，那么有可能在迁移到其他机器上也可以访问到。&lt;/p>
+&lt;p>另一方面，创建 checkpoint 会产生一些文件，这些文件是需要占用磁盘的。如果频繁的创建 checkpoint 则可能导致磁盘压力过大。
+checkpoint 的存档，默认情况下会放在 &lt;code>/var/lib/kubelet/checkpoints&lt;/code> 目录下，并且以 &lt;code>checkpoint-&amp;lt;podFullName&amp;gt;-&amp;lt;containerName&amp;gt;-&amp;lt;timestamp&amp;gt;.tar&lt;/code> 进行命名。&lt;/p>
+&lt;p>这个特性使用起来也很简单，直接给 Kubelet 发送一个请求即可：&lt;/p>
+&lt;pre>&lt;code>POST /checkpoint/{namespace}/{pod}/{container}
+&lt;/code>&lt;/pre>&lt;p>然后将获取到的归档文件，通过以下命令进行恢复：&lt;/p>
+&lt;pre>&lt;code>crictl restore --import=&amp;lt;archive&amp;gt;
+&lt;/code>&lt;/pre>&lt;h2 id="为-kubectl-引入-kuberc-配置文件">为 kubectl 引入 kuberc 配置文件&lt;/h2>
+&lt;p>&lt;a href="https://github.com/kubernetes/enhancements/pull/3392">KEP-3104&lt;/a> 这个 KEP 旨在为 kubectl 引入一个新的配置文件 &lt;code>kuberc&lt;/code>，用来配置一些用户的自定义配置。这在很多的项目，或者工具中都有类似的用法。比如 Vim 中可以通过 &lt;code>-u&lt;/code> 指定用户自己的配置文件，或者使用默认的 &lt;code>~/.vimrc&lt;/code> 来完成自定义配置。&lt;/p>
+&lt;p>这样做的好处就在于可以让 &lt;code>kubeconfig&lt;/code> 更加的专注，仅仅需要保留和集群、用户凭证相关的信息即可，对于用户的自定义配置则分离开来。具体而言，这个配置文件看起来就会是这样：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">v1alpha1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Preferences&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">command&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">aliases&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">alias&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">getdbprod&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">command&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">get pods -l what=database --namespace us-2-production&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">overrides&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">command&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">apply&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">flags&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">server-side&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">default&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;true&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">command&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">delete&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">flags&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">confirm&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">default&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;true&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">command&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;*&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">flags&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">exec-auth-allowlist&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">default&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/var/kubectl/exec/...&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>看起来也比较直观，可以用来增加一些 &lt;code>alias&lt;/code> 和覆盖一些默认的配置，这样大家不再需要定义很多的 alias，以后使用 kubectl 的时候敲的命令也能少很多。
+此特性未实现之前，
+在这里顺便推荐另一个项目 &lt;a href="https://github.com/ahmetb/kubectl-aliases">kubectl-aliases&lt;/a>，此项目中包含了很多 alias，可以让使用 kubectl 的过程更加简单。&lt;/p>
+&lt;p>但也有一些弊端，就像是每个 Vim 用户都要有自己的 vimrc 配置文件一样，这会养成一定的习惯。在一些没有自己自定义配置的机器上使用时，会有些不习惯。
+同时，这在排查问题时，也可能增加排查的链路（比如 kuberc 中增加了一个错误的配置之类的）。&lt;/p>
+&lt;p>举例来说，我在排查 Vim 的问题时候，通常会直接 &lt;code>vim -u /dev/null&lt;/code> 这样，以防使用了任何自定义配置造成影响。那么后续如果这个功能完全实现了，那么大家在
+排查问题的时候，需要注意使用 &lt;code>kubectl --kuberc /dev/null&lt;/code> 类似这样的方式来避免本地自定义配置造成影响。&lt;/p>
+&lt;h2 id="为-kubectl-添加---subresource-的补全">为 kubectl 添加 --subresource 的补全&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/109070">Add shell completion for new --subresource flag by marckhouzam · Pull Request #109070 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>在 Kubernetes v1.24 中，给 kubectl 增加了 subresource 的支持（指 &lt;code>status&lt;/code> 和 &lt;code>scale&lt;/code>），这样就可以很方便的直接对 subresource 进行操作了，而不需要每次都 &lt;code>-o yaml&lt;/code> 之类的直接进行查看，或者通过 curl 之类的调用 API 来完成其他操作。
+使用了此特性后，可以有如下效果：&lt;/p>
+&lt;pre>&lt;code># v1.24+
+tao@moelove:~$ kubectl get -n apisix --subresource status deploy apisix-ingress-controller
+NAME AGE
+apisix-ingress-controller 2d23h
+tao@moelove:~$ kubectl get -n apisix --subresource scale deploy apisix-ingress-controller -ojson
+{
+&amp;quot;apiVersion&amp;quot;: &amp;quot;autoscaling/v1&amp;quot;,
+&amp;quot;kind&amp;quot;: &amp;quot;Scale&amp;quot;,
+&amp;quot;metadata&amp;quot;: {
+&amp;quot;creationTimestamp&amp;quot;: &amp;quot;2022-08-04T18:57:45Z&amp;quot;,
+&amp;quot;name&amp;quot;: &amp;quot;apisix-ingress-controller&amp;quot;,
+&amp;quot;namespace&amp;quot;: &amp;quot;apisix&amp;quot;,
+&amp;quot;resourceVersion&amp;quot;: &amp;quot;1656&amp;quot;,
+&amp;quot;uid&amp;quot;: &amp;quot;7c191a14-ee55-4254-80ba-7c91b4c833bd&amp;quot;
+},
+&amp;quot;spec&amp;quot;: {
+&amp;quot;replicas&amp;quot;: 1
+},
+&amp;quot;status&amp;quot;: {
+&amp;quot;replicas&amp;quot;: 1,
+&amp;quot;selector&amp;quot;: &amp;quot;app.kubernetes.io/instance=apisix,app.kubernetes.io/name=ingress-controller&amp;quot;
+}
+}
+&lt;/code>&lt;/pre>&lt;p>但是在此之前版本使用该参数的话，会直接提示错误：&lt;/p>
+&lt;pre>&lt;code># v1.23
+tao@moelove:~$ kubectl-v1.23 get -n apisix --subresource status deploy apisix-ingress-controller
+Error: unknown flag: --subresource
+See 'kubectl get --help' for usage.
+&lt;/code>&lt;/pre>&lt;p>此处我提到的这个在 v1.25 中的 PR 实际上是为了给 &lt;code>--subresource&lt;/code> 提供一个命令补全的能力（虽然如上文提到的，目前就两种资源），还是比较方便的。&lt;/p>
+&lt;h2 id="其他">其他&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/109074">#109074 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>kubeadm 中为 etcd 的 static Pod 增加了一个 &lt;code>--experimental-initial-corrupt-check&lt;/code> 选项，可以用来确认 etcd member 中数据的一致性。这个特性预期在 etcd 的 v3.6 版本中会正式可用。此外，etcd 的 Release 页面也写了，当前不建议将 etcd 3.5.x 用于生产环境，如果尚未进行升级，可以先继续使用 3.4.x。如果已经升级了，那么可以自行增加此参数；&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/109111">Migrate Ginkgo from v1 to v2 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>这个 PR 持续了将近三个月，主要是将 Kubernetes 项目中使用的 Ginkgo 从已经废弃的 v1 版本升级到 v2 版本。&lt;/p>
+&lt;p>其实目前很多项目都在积极的推进此事，但不同的项目对 Ginkgo 的依赖和使用程度不同，在这个 PR 中修改了超过 600 个文件，非常的庞大。
+而之前在 Apache APISIX Ingress controller 项目中，从 Ginkgo v1 升级到 v2 时，仅仅用了一周时间，修改文件不算太多。
+此外目前 Kubernetes Ingress-NGINX 项目也同样在进行此升级，可能工作量也不小。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/109479">Introduce KUBECACHEDIR environment variable to override default discovery cache dir by ardaguclu · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>这个 PR 说起来是比较小的一个改动，但是它的影响却很大。&lt;/p>
+&lt;p>在这个 PR 中引入了一个新的 &lt;code>KUBECACHEDIR&lt;/code> 环境变量，来替代默认的 &lt;code>~/.kube/cache&lt;/code> 缓存目录。通过这个 PR 就有可能会导致用户在使用 kubectl 的时候，可以通过这个环境变量来跳过
+缓存。进而可能会引起一些性能问题。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/110738">kube-apiserver: default --enable-logs-handler flag to false · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>kube-apiserver 中的 &lt;code>/logs&lt;/code> 由于安全问题，默认情况下会进行关闭，然后通过 &lt;code>--enable-logs-handler&lt;/code> 标签进行启用。如果要进行日志采集的话，需要额外注意下。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/111060">#111060 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>kube-proxy 的 container image 将要变更为 distroless 的了。
+这可以规避很多安全隐患，提升集群的安全性。&lt;/p>
+&lt;p>以上就是 Kubernetes v1.25 中比较值得关注的内容。在进行集群升级前一定要注意检查。
+好了，我们下期再见！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">K8S 生态周报| kube-scheduler 频繁抢占时内存泄漏问题得到修正</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/08/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-kube-scheduler-%E9%A2%91%E7%B9%81%E6%8A%A2%E5%8D%A0%E6%97%B6%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E9%97%AE%E9%A2%98%E5%BE%97%E5%88%B0%E4%BF%AE%E6%AD%A3/"/><id>https://moelove.info/2022/08/21/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-kube-scheduler-%E9%A2%91%E7%B9%81%E6%8A%A2%E5%8D%A0%E6%97%B6%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E9%97%AE%E9%A2%98%E5%BE%97%E5%88%B0%E4%BF%AE%E6%AD%A3/</id><updated>2022-08-22T03:24:09+08:00</updated><published>2022-08-21T19:23:19+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
