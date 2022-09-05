@@ -1,4 +1,83 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Thu, 25 Aug 2022 11:46:52 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Kubernetes v1.25.0 正式发布，新特性一览</title><link>https://moelove.info/2022/08/24/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.25.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</link><guid isPermaLink="true">https://moelove.info/2022/08/24/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.25.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</guid><pubDate>Wed, 24 Aug 2022 00:19:52 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 05 Sep 2022 12:11:28 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| runc 修复多个漏洞，影响 Docker、containerd 和 K8s</title><link>https://moelove.info/2022/08/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-runc-%E4%BF%AE%E5%A4%8D%E5%A4%9A%E4%B8%AA%E6%BC%8F%E6%B4%9E%E5%BD%B1%E5%93%8D-Dockercontainerd-%E5%92%8C-K8s/</link><guid isPermaLink="true">https://moelove.info/2022/08/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-runc-%E4%BF%AE%E5%A4%8D%E5%A4%9A%E4%B8%AA%E6%BC%8F%E6%B4%9E%E5%BD%B1%E5%93%8D-Dockercontainerd-%E5%92%8C-K8s/</guid><pubDate>Mon, 29 Aug 2022 01:32:35 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;h1 id="runc-v114-发布">runc v1.1.4 发布&lt;/h1>
+&lt;p>runc 是一个底层容器运行时，我在之前已经写过很多篇文章介绍它了，感兴趣的小伙伴可以翻翻历史文章。上周它发布了 v1.1.4 版本，
+这是 v1.1 系列的第 4 个 patch 版本。当前该项目正在积极的进行 v1.2 版本的开发。&lt;/p>
+&lt;p>大多数人都不会直接操作 runc 来启动容器，但是 runc 却是 Docker, containerd 等主流容器工具的底层依赖。本次 runc 新版本中修复的问题，
+同样的也都会出现在 Docker 和 containerd 环境中。&lt;/p>
+&lt;p>具体包含如下内容：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/opencontainers/runc/pull/3510">libct: fix mounting via wrong proc fd by kolyshkin · Pull Request #3510 · opencontainers/runc&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>这个 bug 确实存在挺长时间了，但由于触发的条件比较严格，所以一直未发现。究其原因是 mountFd 未被清理，并且它可能被用于后续的挂载操作所使用。&lt;/p>
+&lt;p>这里介绍下它的触发条件：&lt;/p>
+&lt;ul>
+&lt;li>userns 和 mountns 都被使用；&lt;/li>
+&lt;li>cgroupns 未被使用；&lt;/li>
+&lt;li>使用 cgroup v1 ；&lt;/li>
+&lt;li>&lt;code>/sys/fs/cgroup&lt;/code> 的挂载在 bind mount 之后;&lt;/li>
+&lt;/ul>
+&lt;p>本身这些条件要同时都满足就概率比较小，加上现在 containerd，Docker，Kubernetes，runc 等都已经支持了 cgroup v2 ，并且在逐步完成往
+cgroup v2 的迁移，所以被这个 bug 影响的可能性相对较小。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/opencontainers/runc/pull/3522">Fix error from runc run on noexec fs by kolyshkin · Pull Request #3522 · opencontainers/runc&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>这个 PR 修正了 &lt;code>runc run&lt;/code> 命令在 noexec fs 上的权限问题。本质上来说它替换了 &lt;code>exec.LookPath&lt;/code> 函数，
+使用了如下函数进行替代。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="nf">Eaccess&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">path&lt;/span> &lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="kt">error&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">unix&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Faccessat2&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">unix&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">AT_FDCWD&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">path&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">unix&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">X_OK&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">unix&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">AT_EACCESS&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="nx">unix&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ENOSYS&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="nx">unix&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">EPERM&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="c1">//nolint:errorlint // unix errors are bare
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="c1">// Faccessat2() not available; check if we are a set[ug]id binary.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="nx">os&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Getuid&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="nx">os&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Geteuid&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">os&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Getgid&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="nx">os&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Getegid&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="c1">// For a non-set[ug]id binary, use access(2).
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="nx">unix&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Access&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">path&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">unix&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">X_OK&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="c1">// For a setuid/setgid binary, there is no fallback way
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// so assume we can execute the binary.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这里值得注意的一点是 &lt;code>faccessat2&lt;/code> 使用 &lt;code>AT_EACCESS&lt;/code> 是从 Linux v5.8 才开始提供支持的，不过这里通过 Go 的封装进行解决了。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/opencontainers/runc/pull/3554">[1.1] Fix failed exec after systemctl daemon-reload (regression in 1.1.3) by kolyshkin · Pull Request #3554 · opencontainers/runc&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>此处修正了一处自 v1.1.3 起存在的一个 bug，可能导致在 &lt;code>systemctl daemon-reload&lt;/code> 后，&lt;code>runc exec&lt;/code> 失败的情况。&lt;/p>
+&lt;pre>&lt;code>exec failed: unable to start container process: open /dev/pts/0: operation not permitted: unknown
+&lt;/code>&lt;/pre>&lt;p>这是由于 runc v1.1.3 中不再添加 &lt;code>DeviceAllow=char-pts rwm&lt;/code> 规则了，当执行 &lt;code>systemctl daemon-reload&lt;/code> 后，
+会导致重新应用 systemd 的规则，进而导致这条规则的缺失。&lt;/p>
+&lt;p>该问题不仅仅会影响 runc，包括 containerd 和 Docker 都受到了影响，以及一些使用它们作为容器运行时的 Kubernetes 集群也受到了影响。
+解决办法是升级到 runc 的 v1.1.4 或者 containerd v1.6.8 版本即可。&lt;/p>
+&lt;p>以上就是 runc 新版本中值得关注的变更。 &lt;strong>建议仔细检查，尽早进行修复&lt;/strong> 。&lt;/p>
+&lt;h1 id="linkerd-212-正式发布">Linkerd 2.12 正式发布&lt;/h1>
+&lt;p>Linkerd 是 Service Mesh 领域中很重要的组成部分，近期发布了 v2.12 版本，其中有两个很重要的特性：&lt;/p>
+&lt;ul>
+&lt;li>支持了 Gateway API （中的 HTTPRoute) ，具体信息可参考：https://buoyant.io/blog/linkerd-and-the-gateway-api&lt;/li>
+&lt;li>支持更细粒度的单路由策略，详情可参考：https://linkerd.io/2.12/tasks/configuring-per-route-policy/&lt;/li>
+&lt;/ul>
+&lt;p>我觉得上面的文章写的挺好的，我想聊的事情，在那篇文章中基本都聊到了，就不再重复了。&lt;/p>
+&lt;p>额外一点，Gateway API 被越来越多的厂商支持，整体而言是个好事情，可以促进 Gateway API 逐步达到毕业标准。&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/111093">Fix rollout history bug by brianpursley · Pull Request #111093 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>在执行 &lt;code>kubectl rollout history&lt;/code> 的时候可以传递 &lt;code>--revision=3&lt;/code> 拿到指定版本的信息。但是如果指定了 output format ，则 &lt;code>--revision&lt;/code> 可能会失效。
+通过此 PR 便可解决此问题，但要到 v1.26 才会携带。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/111726">Expose a pending pods summary in scheudler's dummper output by Huang-Wei · Pull Request #111726 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>调度程序可以 dump 出更多信息。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/112076">Revert &amp;quot;promote LocalStorageCapacityIsolationFSQuotaMonitoring to beta&amp;quot; by rphillips · Pull Request #112076 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>由于 OpenShift 团队发现在使用它的时候存在一些问题, 将 &lt;code>LocalStorageCapacityIsolationFSQuotaMonitoring&lt;/code> 重新回退到 Alpha 阶段。&lt;/p>
+&lt;p>以上就是本期的全部内容，
+好了，我们下期再见！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>K8S 生态周报| Kubernetes v1.25.0 正式发布，新特性一览</title><link>https://moelove.info/2022/08/24/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.25.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</link><guid isPermaLink="true">https://moelove.info/2022/08/24/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.25.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</guid><pubDate>Wed, 24 Aug 2022 00:19:52 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>Kubernetes 正式发布了，包含了 40 项目增强更新。&lt;/p>
 &lt;p>本次 LOGO 的主要表达的意思是 &lt;strong>尊重协作和开放的精神&lt;/strong> ，这种精神将我们凝聚到一起转变为能改变世界的力量。&lt;/p>
 &lt;p>其实我每期的 「k8s生态周报」都有一个叫上游进展的部分，所以很多值得关注的内容在之前的文章中已经发过了。&lt;/p>
