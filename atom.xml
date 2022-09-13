@@ -1,4 +1,69 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-09-05T12:11:28+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| runc 修复多个漏洞，影响 Docker、containerd 和 K8s</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/08/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-runc-%E4%BF%AE%E5%A4%8D%E5%A4%9A%E4%B8%AA%E6%BC%8F%E6%B4%9E%E5%BD%B1%E5%93%8D-Dockercontainerd-%E5%92%8C-K8s/"/><id>https://moelove.info/2022/08/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-runc-%E4%BF%AE%E5%A4%8D%E5%A4%9A%E4%B8%AA%E6%BC%8F%E6%B4%9E%E5%BD%B1%E5%93%8D-Dockercontainerd-%E5%92%8C-K8s/</id><updated>2022-09-05T04:09:57+08:00</updated><published>2022-08-29T01:32:35+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-09-13T09:56:40+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Kubernetes 社区发布 CVE 漏洞订阅列表</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/09/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E7%A4%BE%E5%8C%BA%E5%8F%91%E5%B8%83-CVE-%E6%BC%8F%E6%B4%9E%E8%AE%A2%E9%98%85%E5%88%97%E8%A1%A8/"/><id>https://moelove.info/2022/09/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E7%A4%BE%E5%8C%BA%E5%8F%91%E5%B8%83-CVE-%E6%BC%8F%E6%B4%9E%E8%AE%A2%E9%98%85%E5%88%97%E8%A1%A8/</id><updated>2022-09-13T00:54:15+08:00</updated><published>2022-09-12T20:05:30+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;h1 id="kubernetes-ingress-nginx-发布-v131-版本">Kubernetes Ingress-NGINX 发布 v1.3.1 版本&lt;/h1>
+&lt;p>这是 &lt;a href="https://moelove.info/2022/07/03/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Ingress-NGINX-%E9%A1%B9%E7%9B%AE%E6%9A%82%E5%81%9C%E6%8E%A5%E6%94%B6%E6%96%B0%E5%8A%9F%E8%83%BD%E5%B0%86%E4%B8%93%E6%B3%A8%E4%BA%8E%E7%A8%B3%E5%AE%9A%E6%80%A7%E6%8F%90%E5%8D%87/">Kubernetes Ingress-NGINX 项目在进入功能冻结&lt;/a>之后，发布的第一个版本。&lt;/p>
+&lt;p>由于这个版本只是 patch 版本，所以并没有过多大的新增特性。&lt;/p>
+&lt;p>但这里也有一些需要注意的变更：&lt;/p>
+&lt;ul>
+&lt;li>为了能兼容 Kubernetes 的更高版本，所以我们将 controller 中用于选举的机制修改成了使用 Lease API 的方式，而不再是原先的 configmap 的方式。其实在 Kubernetes Ingress-NGINX v1.3.0 版本中，我增加了往 Lease API 平滑迁移的逻辑，在使用 v1.3.0 版本的时候，可以自动的完成 ConfigMap 往 Lease API 迁移的逻辑。 &lt;strong>所以，如果是想要从旧版本进行平滑升级，建议先升级到 v1.3.0，待完成自动的迁移后，再往更新版本升级&lt;/strong>。&lt;/li>
+&lt;li>将基础镜像和 Go 版本均升级到最新版本，修正了一些漏洞。&lt;/li>
+&lt;li>从这个版本开始，也逐步开始了数据面和控制面的拆分。&lt;/li>
+&lt;/ul>
+&lt;p>如果你在使用 Kubernetes Ingress-NGINX，请帮忙提交一下我们的用户调查： &lt;a href="https://www.surveymonkey.com/r/ingressngx2022">https://www.surveymonkey.com/r/ingressngx2022&lt;/a>&lt;/p>
+&lt;p>更多相关信息可查看 &lt;a href="https://github.com/kubernetes/ingress-nginx/releases/tag/controller-v1.3.1">Release Note&lt;/a>&lt;/p>
+&lt;h1 id="docker-v201018-发布">Docker v20.10.18 发布&lt;/h1>
+&lt;p>这个版本主要是一些 bugfix，其中有个比较值得注意的修复：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/moby/moby/pull/44018">[20.10 backport] daemon: kill exec process on ctx cancel by thaJeztah · Pull Request #44018 · moby/moby&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Dockerfile 中有一个 &lt;code>HEALTHCHECK&lt;/code> 的指令，该指令支持 &lt;code>--interval&lt;/code> 和 &lt;code>--timeout&lt;/code> 参数，但是 docker daemon 在 healthcheck 的 timeout 之后，并没有回收对应的进程，这样就会导致容器内可能会产生很多 healthcheck 的进程。
+本次修复了该处理逻辑，在超时后会自动的发送 &lt;code>KILL&lt;/code> 信号进行进程的清理。&lt;/p>
+&lt;ul>
+&lt;li>升级 runc 和 containerd 版本等，上次的周报 &lt;a href="https://moelove.info/2022/08/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-runc-%E4%BF%AE%E5%A4%8D%E5%A4%9A%E4%B8%AA%E6%BC%8F%E6%B4%9E%E5%BD%B1%E5%93%8D-Dockercontainerd-%E5%92%8C-K8s/">K8S 生态周报| runc 修复多个漏洞，影响 Docker、containerd 和 K8s | MoeLove&lt;/a> 里面我介绍过其背景，有兴趣的小伙伴可以看看。&lt;/li>
+&lt;/ul>
+&lt;p>更多相关信息可查看 &lt;a href="https://github.com/moby/moby/releases/tag/v20.10.18">Release Note&lt;/a>&lt;/p>
+&lt;h1 id="kubernetes-社区发布官方-cve-订阅列表">Kubernetes 社区发布官方 CVE 订阅列表&lt;/h1>
+&lt;p>Kubernetes Security Response Committee 近期发布了官方 Kubernetes CVE 订阅列表。&lt;/p>
+&lt;p>这是一个会自动更新的 JSON feed, 可以直接通过此列表订阅更新。&lt;/p>
+&lt;p>其包含的内容如下如下所示：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ ~ curl -Ls https://k8s.io/docs/reference/issues-security/official-cve-feed/index.json &lt;span class="p">|&lt;/span> jq -r &lt;span class="s1">&amp;#39;.items[0]&amp;#39;&lt;/span>
+&lt;span class="o">{&lt;/span>
+&lt;span class="s2">&amp;#34;id&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;CVE-2021-25741&amp;#34;&lt;/span>,
+&lt;span class="s2">&amp;#34;url&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;https://github.com/kubernetes/kubernetes/issues/104980&amp;#34;&lt;/span>,
+&lt;span class="s2">&amp;#34;external_url&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;https://www.cvedetails.com/cve-details.php?cve_id=CVE-2021-25741&amp;#34;&lt;/span>,
+&lt;span class="s2">&amp;#34;summary&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;Symlink Exchange Can Allow Host Filesystem Access&amp;#34;&lt;/span>
+&lt;span class="o">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这些内容来自 GitHub 上加了 &lt;code>official-cve-feed&lt;/code> 标签的漏洞公告 issue ，并同步到 Google Cloud Bucket 进行存储。&lt;/p>
+&lt;p>其实这个事情从去年就已经开始做了。不过由于其中涉及的事务较多，直到现在也才正式宣布。&lt;/p>
+&lt;p>此外，Kubernetes 社区也计划在今后逐步增加 osv.dev 的支持，期待后续的进展!&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/112172">kubeadm: Add the option to cleanup the &lt;code>tmp&lt;/code> directory by chendave · Pull Request #112172 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>kubeadm 新增 &lt;code>cleanup-tmp-dir&lt;/code> 配置项，在 &lt;code>kubeadm reset&lt;/code> 时，可以通过传递此参数将 kubeadm 产生的临时文件给清理干净。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/112157">Avoid propagating &amp;quot;search .&amp;quot; into containers /etc/resolv.conf by dghubble · Pull Request #112157 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>从 Kubernetes v1.25 开始，&lt;code>/etc/resolv.conf&lt;/code> 中的 &lt;code>search .&lt;/code> 会被传递到容器内。&lt;/p>
+&lt;p>这会导致任意基于 musl libc 系统的 DNS 查询失败，比如任何基于 Alpinelinux 的镜像都会失败。&lt;/p>
+&lt;p>要验证自己的集群是否会受该问题影响，只需要查看系统的 &lt;code>/etc/resolv.conf&lt;/code> 文件的内容即可。比如：&lt;/p>
+&lt;pre>&lt;code>nameserver 127.0.0.53
+options edns0 trust-ad
+search .
+&lt;/code>&lt;/pre>&lt;p>如果是上述的情况，一般说明是被 systemd resove 接管了，并且会受到此处描述的问题所影响。
+该修正会携带到 Kubernetes v1.25.1 版本中。&lt;/p>
+&lt;h1 id="其他">其他&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://istio.io/latest/blog/2022/introducing-ambient-mesh/">Istio / Introducing Ambient Mesh&lt;/a> 这是 Istio 新增的一种无 sidecar 代理的数据面模式，有兴趣的小伙伴可以看看。&lt;/li>
+&lt;li>&lt;a href="https://github.com/prometheus-operator/prometheus-operator/releases/tag/v0.59.1">Release 0.59.1 / 2022-09-12 · prometheus-operator/prometheus-operator&lt;/a> Prometheus operator 发布了新版本。&lt;/li>
+&lt;/ul>
+&lt;p>以上就是本期的全部内容，
+好了，我们下期再见！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">K8S 生态周报| runc 修复多个漏洞，影响 Docker、containerd 和 K8s</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/08/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-runc-%E4%BF%AE%E5%A4%8D%E5%A4%9A%E4%B8%AA%E6%BC%8F%E6%B4%9E%E5%BD%B1%E5%93%8D-Dockercontainerd-%E5%92%8C-K8s/"/><id>https://moelove.info/2022/08/29/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-runc-%E4%BF%AE%E5%A4%8D%E5%A4%9A%E4%B8%AA%E6%BC%8F%E6%B4%9E%E5%BD%B1%E5%93%8D-Dockercontainerd-%E5%92%8C-K8s/</id><updated>2022-09-12T20:06:06+08:00</updated><published>2022-08-29T01:32:35+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
@@ -77,7 +142,7 @@ cgroup v2 的迁移，所以被这个 bug 影响的可能性相对较小。&lt;/
 好了，我们下期再见！&lt;/p>
 &lt;hr>
 &lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
-&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">K8S 生态周报| Kubernetes v1.25.0 正式发布，新特性一览</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/08/24/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.25.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/"/><id>https://moelove.info/2022/08/24/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.25.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</id><updated>2022-08-24T01:45:24+08:00</updated><published>2022-08-24T00:19:52+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 Kubernetes 正式发布了，包含了 40 项目增强更新。 本次 LOGO 的主要表达的意思是 尊重协作和开放的精神 ，这种精神将我们凝聚到一起转……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">K8S 生态周报| Kubernetes v1.25.0 正式发布，新特性一览</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/08/24/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.25.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/"/><id>https://moelove.info/2022/08/24/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.25.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</id><updated>2022-09-06T08:47:45+08:00</updated><published>2022-08-24T00:19:52+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 Kubernetes 正式发布了，包含了 40 项目增强更新。 本次 LOGO 的主要表达的意思是 尊重协作和开放的精神 ，这种精神将我们凝聚到一起转……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>Kubernetes 正式发布了，包含了 40 项目增强更新。&lt;/p>
 &lt;p>本次 LOGO 的主要表达的意思是 &lt;strong>尊重协作和开放的精神&lt;/strong> ，这种精神将我们凝聚到一起转变为能改变世界的力量。&lt;/p>
 &lt;p>其实我每期的 「k8s生态周报」都有一个叫上游进展的部分，所以很多值得关注的内容在之前的文章中已经发过了。&lt;/p>
