@@ -1,4 +1,81 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 13 Sep 2022 09:56:40 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Kubernetes 社区发布 CVE 漏洞订阅列表</title><link>https://moelove.info/2022/09/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E7%A4%BE%E5%8C%BA%E5%8F%91%E5%B8%83-CVE-%E6%BC%8F%E6%B4%9E%E8%AE%A2%E9%98%85%E5%88%97%E8%A1%A8/</link><guid isPermaLink="true">https://moelove.info/2022/09/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E7%A4%BE%E5%8C%BA%E5%8F%91%E5%B8%83-CVE-%E6%BC%8F%E6%B4%9E%E8%AE%A2%E9%98%85%E5%88%97%E8%A1%A8/</guid><pubDate>Mon, 12 Sep 2022 20:05:30 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 19 Sep 2022 15:38:49 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Kubernetes 爆出全版本漏洞</title><link>https://moelove.info/2022/09/18/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E7%88%86%E5%87%BA%E5%85%A8%E7%89%88%E6%9C%AC%E6%BC%8F%E6%B4%9E/</link><guid isPermaLink="true">https://moelove.info/2022/09/18/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E7%88%86%E5%87%BA%E5%85%A8%E7%89%88%E6%9C%AC%E6%BC%8F%E6%B4%9E/</guid><pubDate>Sun, 18 Sep 2022 15:01:09 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;h1 id="kubernetes-cve-2022-3172-安全漏洞">Kubernetes CVE-2022-3172 安全漏洞&lt;/h1>
+&lt;p>扩展 Kubernetes 的方法有很多种，目前扩展 API 方面用到最多的是 自定义资源定义（CRD）和聚合 API（Aggregation API）。
+自定义资源定义主要是为了让 Kubernetes 集群中可以识别到新的资源，此处我主要说明下后者。&lt;/p>
+&lt;p>聚合 API 实际上是在 kube-apiserver 中运行的，在新 API 注册之前，它并不会工作。如果要添加新的 API，则需要创建一个
+&lt;code>APIService&lt;/code> 对象，用来申请 Kubernetes 中新的 URL 路径。注册成功后，当有发送到此路径中的请求，则会被转发到已经注册
+的 APIService 上。&lt;/p>
+&lt;p>本次公布的 CVE-2022-3172 便与聚合 API 有关。&lt;/p>
+&lt;p>就像我前面介绍的那样，当新的 URL 被注册成功后，发送到该路径的请求便会被转发到已经注册的 APIService 上。
+安全人员发现，目前的实现中存在一个漏洞，APIService 可以将客户端的请求转发到任意的 URL 上，这就有可能会导致
+Client 发送请求时，所携带的一些认证信息可能会被发送给第三方。&lt;/p>
+&lt;p>这也就是我们在安全领域常提到的 SSRF（Server Side Request Forgery），即：服务端请求伪造。
+与之对应的是 CSRF（Client Side Request Forgery）,即：客户端请求伪造。
+它们的区别主要在于攻击目标和过程不同，这里不展开了。&lt;/p>
+&lt;p>想要知道自己是否可能受到影响？可以执行如下命令进行验证：&lt;/p>
+&lt;pre>&lt;code>kubectl get apiservices.apiregistration.k8s.io -o=jsonpath='{range .items[?(@.spec.service)]}{.metadata.name}{&amp;quot;\n&amp;quot;}{end}'
+&lt;/code>&lt;/pre>&lt;p>比如，我在我的某一个集群中执行该命令得到的结果如下：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">tao@moelove:~$ kubectl get apiservices.apiregistration.k8s.io -o&lt;span class="o">=&lt;/span>&lt;span class="nv">jsonpath&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;{range .items[?(@.spec.service)]}{.metadata.name}{&amp;#34;\n&amp;#34;}{end}&amp;#39;&lt;/span>
+v1alpha1.cluster.karmada.io
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>这是由于该集群是 Karmada 的一个 host 集群，而 Karmada 的主要实现方式便是通过聚合 API 来实现的。
+当然，大家比较容易接触到的利用聚合 API 的另一服务可能是 metrics-server 。&lt;/p>
+&lt;h2 id="影响范围">影响范围&lt;/h2>
+&lt;p>此漏洞几乎影响了当前所有的 Kubernetes 版本。具体如下：&lt;/p>
+&lt;ul>
+&lt;li>kube-apiserver v1.25.0&lt;/li>
+&lt;li>kube-apiserver v1.24.0 - v1.24.4&lt;/li>
+&lt;li>kube-apiserver v1.23.0 - v1.23.10&lt;/li>
+&lt;li>kube-apiserver v1.22.0 - v1.22.13&lt;/li>
+&lt;li>kube-apiserver &amp;lt;= v1.21.14&lt;/li>
+&lt;/ul>
+&lt;h2 id="解决办法">解决办法&lt;/h2>
+&lt;p>由于聚合 API 默认是 Kubernetes control plane 受信任的部分，之前并没有规避它的办法。所以想要彻底解决该问题的话， &lt;strong>仅能通过升级&lt;/strong> 进行解决。
+新版本中增加对来自 APIService 响应状态码的判断，如果是 3xx 的，则按照配置来决定是否要跟随重定向。&lt;/p>
+&lt;p>集群维护者可以通过设置 &lt;code>--aggregator-reject-forwarding-redirect=true&lt;/code> (默认 true) 来设置拒绝跟随重定向，来避免 SSRF 。&lt;/p>
+&lt;h2 id="缓解办法">缓解办法&lt;/h2>
+&lt;p>由于本次问题主要是在聚合 API 上，缓解办法可以通过限制对 APIService 资源的操作来达到。
+也可以仅仅部署可信来源的 APIService 来避免受到影响。&lt;/p>
+&lt;h2 id="检测">检测&lt;/h2>
+&lt;p>此外，除了验证自己是否有使用聚合 API 外，也可以通过审计日志中的 &lt;code>responseStatus.code&lt;/code> 来进行判断是否有出现重定向的情况。&lt;/p>
+&lt;h1 id="helm-v3100-rc1-发布">Helm v3.10.0-rc.1 发布&lt;/h1>
+&lt;p>Helm 其实一直都在比较积极的进行开发和迭代，只不过 Helm 目前功能上已经非常丰富了，所以最近的一些版本中并没有特别大的变更。
+更多的都是一些 UX 和 bugfix 之类的。&lt;/p>
+&lt;p>相比于 v3.9.4 而言，此版本中一些值得聊的变更如下：&lt;/p>
+&lt;ul>
+&lt;li>新增 &lt;code>helm list --no-headers&lt;/code> 参数，可以在执行 helm list 的时候不输出表头。尽管原先我们通过 jq 或者 shell 等都可以实现；&lt;/li>
+&lt;li>增加了 &lt;code>--burst-limit&lt;/code> 参数，用于控制 client-side throttling limit；&lt;/li>
+&lt;li>新增 &lt;code>--kube-insecure-skip-tls-verify&lt;/code> 和 &lt;code>HELM_KUBEINSECURE_SKIP_TLS_VERIFY&lt;/code>，用于控制是否要跳过 kube-apiserver 的证书校验；&lt;/li>
+&lt;/ul>
+&lt;p>更多内容可以参考其 &lt;a href="https://github.com/helm/helm/releases/tag/v3.10.0-rc.1">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="trivy-v032-发布">Trivy v0.32 发布&lt;/h1>
+&lt;p>Trivy 我之前的文章中已经介绍过多次了，这里就不再重复了。&lt;/p>
+&lt;p>Trivy 其实与上面提到的 Helm 类似，功能上已经相对丰富了，所以每次版本中并没有特别显著的新特性，整体趋于平稳。&lt;/p>
+&lt;p>此版本中值得关注的内容如下：&lt;/p>
+&lt;ul>
+&lt;li>增加了对 Rust 二进制文件的依赖扫描；&lt;/li>
+&lt;li>增加了对 gradle.lockfile 和 conan.lock 文件的支持；&lt;/li>
+&lt;li>还有一些对 SBOM 的支持，比如增加对 SPDX 的扫描；&lt;/li>
+&lt;/ul>
+&lt;p>更多内容可以参考其 &lt;a href="https://github.com/aquasecurity/trivy/releases/tag/v0.32.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes/kubernetes/pull/111122">support removal of event handlers from SharedIndexInformers by alexzielenski · Pull Request #111122 · kubernetes/kubernetes&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes/kubernetes/pull/112046">rate limite etcd healthcheck request by aojea · Pull Request #112046 · kubernetes/kubernetes&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>可控制 kube-apiserver 和 etcd 健康检查之间的流量。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/112017">exec auth: support TLS config caching by enj · Pull Request #112017 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>K8S 生态周报| Kubernetes 社区发布 CVE 漏洞订阅列表</title><link>https://moelove.info/2022/09/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E7%A4%BE%E5%8C%BA%E5%8F%91%E5%B8%83-CVE-%E6%BC%8F%E6%B4%9E%E8%AE%A2%E9%98%85%E5%88%97%E8%A1%A8/</link><guid isPermaLink="true">https://moelove.info/2022/09/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E7%A4%BE%E5%8C%BA%E5%8F%91%E5%B8%83-CVE-%E6%BC%8F%E6%B4%9E%E8%AE%A2%E9%98%85%E5%88%97%E8%A1%A8/</guid><pubDate>Mon, 12 Sep 2022 20:05:30 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
