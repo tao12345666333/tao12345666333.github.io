@@ -1,4 +1,105 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-09-19T15:38:49+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Kubernetes 爆出全版本漏洞</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/09/18/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E7%88%86%E5%87%BA%E5%85%A8%E7%89%88%E6%9C%AC%E6%BC%8F%E6%B4%9E/"/><id>https://moelove.info/2022/09/18/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E7%88%86%E5%87%BA%E5%85%A8%E7%89%88%E6%9C%AC%E6%BC%8F%E6%B4%9E/</id><updated>2022-09-19T08:03:19+08:00</updated><published>2022-09-18T15:01:09+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-09-26T09:00:09+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Kubernetes 新增 auth whoami 子命令，可获取用户属性</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/09/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E6%96%B0%E5%A2%9E-auth-whoami-%E5%AD%90%E5%91%BD%E4%BB%A4%E5%8F%AF%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E5%B1%9E%E6%80%A7/"/><id>https://moelove.info/2022/09/25/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E6%96%B0%E5%A2%9E-auth-whoami-%E5%AD%90%E5%91%BD%E4%BB%A4%E5%8F%AF%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E5%B1%9E%E6%80%A7/</id><updated>2022-09-26T02:21:15+08:00</updated><published>2022-09-25T05:25:01+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;h1 id="apache-apisix-ingress-v150-发布">Apache APISIX Ingress v1.5.0 发布&lt;/h1>
+&lt;p>目前 &lt;a href="https://github.com/apache/apisix-ingress-controller" title="Apache APISIX Ingress">Apache APISIX Ingress controller&lt;/a> 项目已经进入了 v1.5 的发布窗口，之前已经发布了 1.5.0-rc1 版本，如今发现的一些 bug 已经得到修正，我们已经计划发布 v1.5.0 的正式版本了。
+待投票流程结束后，将会有正式的公告和对应的 Release 发布。&lt;/p>
+&lt;p>距离上一个特性版本 v1.4.0 发布已经过去了将近 7 个月的时间，这期间我们进行了大量的开发工作，有 155 次提交和 32 位贡献者参与，感谢大家的参与让这个版本有了很大的不同。
+这里我列一些主要的变化，后续还会有专门的发版公告和特性解读文章等。&lt;/p>
+&lt;p>在这个版本中，正式将所有 CRD 资源的 API version 升级到了 v2 stable ，这也标志着用户使用起来会更加的方便和统一，同时这些资源也已经过多个版本迭代和用户在生产环境的使用，达到了足够稳定的级别。&lt;/p>
+&lt;p>此外，在这个版本中提供了对 Gateway API 的支持，不过此特性目前尚处于实验性质，默认不开启，用户可以通过为它传递 &lt;code>enable_gateway_api=true&lt;/code> 的配置项来开启此能力。在下个版本中我们将引入 Gateway API 项目的一致性测试，来保证我们的实现与 Gateway API 项目的一致性。这样做的好处在于凡是通过了 Gateway API 一致性校验的实现，均可进行互相替换，不会存在锁定的情况。而且在迁移的过程中，也可以保证配置的兼容性。&lt;/p>
+&lt;p>Apache APISIX Ingress controller 项目是支持多种配置方式的，无论使用 CRD 的方式，或者使用 Kubernetes 中原生的 Ingress 资源都是可以的。但在之前版本中，对于 Ingress 资源来说，想要使用 APISIX 提供的 plugin 能力，就必须先实现一个对应的 annotation，这种方式可扩展能力很差。
+在这个版本中，我们为 Ingress 资源提供了一个新的 annotation 允许所有的 Ingress 资源可以直接使用 APISIX 所提供的 70+ 种 plugin 的能力，这对于一些使用开源的仅支持配置 Ingress 资源的用户而言，是非常有用的。&lt;/p>
+&lt;p>除去这些新功能外，目前无论是开源项目的维护者，还是使用者，都在积极的关注供应链安全。在 Apache APISIX Ingress controller 中，我们也升级了它使用的 Golang 版本，以及所有依赖的模块均升级到了最新版本，并且借助 GitHub 的 Dependabot 进行依赖的周期性扫描和更新，尽可能的提供安全可信的软件。&lt;/p>
+&lt;p>这里我先介绍这么多，大家如果对此项目感兴趣，欢迎在 GitHub 加个 star &lt;a href="https://github.com/apache/apisix-ingress-controller">https://github.com/apache/apisix-ingress-controller&lt;/a>&lt;/p>
+&lt;p>发布流程未结束前，也可直接从最新的代码中构建镜像尝试使用。&lt;/p>
+&lt;h1 id="wasmtime-v10-正式发布">Wasmtime v1.0 正式发布&lt;/h1>
+&lt;p>Wasmtime 是一个快速且安全的 WebAssembly 运行时，是 Bytecode Alliance （非营利组织）下的项目。&lt;/p>
+&lt;blockquote>
+&lt;p>字节码联盟是一个非营利组织，致力于创建安全的新软件基础，建立在WebAssembly和WebAssembly 系统接口 (WASI)等标准之上。
+字节码联盟致力于建立一个功能强大、安全的平台，让应用程序开发人员和服务提供商能够自信地在任何基础设施、任何操作系统或设备上运行不受信任的代码，并利用数十年来在 Web 浏览器中的经验。
+我们的愿景是为所有平台建立一个默认安全的 WebAssembly 生态系统。&lt;/p>
+&lt;/blockquote>
+&lt;p>关于 WebAssembly 的详细介绍，并不是此处的重点，推荐可以看看 &lt;a href="https://developer.mozilla.org/en-US/docs/WebAssembly">MDN 的 WebAssembly 文档&lt;/a> 进行了解。&lt;/p>
+&lt;p>Wasmtime 的语言支持目前是有限的，其中最受支持的语言是 Rust。此外，多种语言都支持嵌入 Wasmtime，比如 Rust、C、Python、C#、Go 和 Bash 等。&lt;/p>
+&lt;p>以下我使用 Rust 来快速的介绍下 Wasmtime 的使用。&lt;/p>
+&lt;p>首先在安装完 Rust 和 Wasmtime 的环境后，写一个最简单的 &lt;code>hello.rs&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-rust" data-lang="rust">&lt;span class="k">fn&lt;/span> &lt;span class="nf">main&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">println&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Hello, Wasmtime!&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="p">}&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后进行编译和运行即可：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ ws rustup target add wasm32-wasi
+info: component &lt;span class="s1">&amp;#39;rust-std&amp;#39;&lt;/span> &lt;span class="k">for&lt;/span> target &lt;span class="s1">&amp;#39;wasm32-wasi&amp;#39;&lt;/span> is up to date
+➜ ws rustc hello.rs --target wasm32-wasi
+➜ ws wasmtime hello.wasm
+Hello, Wasmtime!
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以看到非常简单，当然你也可以选择使用 &lt;code>cargo new &lt;/code> 的方式创建个新项目来进行使用，此处仅做为示例。&lt;/p>
+&lt;p>来自 Fastly 的工程师提到，在一年多以前就可以将 Wasmtime 称为生产就绪了，之所以没有这样做，是希望能在正式宣布它生产就绪前，能在生产中稳定
+运行 Wasmtime 很长一段时间。&lt;/p>
+&lt;p>此事与 K8s 生态比较相关的一个重要内容是，Microsoft 在 Azure Kubernetes （AKS）服务中提供了一个预览版功能：
+&lt;strong>允许创建具有 WASM/WASI 运行时的节点池，并运行 WASM 应用程序&lt;/strong> 。当然，此处可以使用的 WASM 运行时就是 Wasmtime 。&lt;/p>
+&lt;p>期待后续 WebAssembly 生态在云原生领域中的发展！&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/111333">Add auth API to get self subject attributes by nabokihms · Pull Request #111333 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>这是 &lt;a href="https://github.com/kubernetes/enhancements/issues/3325">KEP-3325: Self subject attributes review API&lt;/a> 实现的一部分。&lt;/p>
+&lt;p>大家想必都知道，Kubernetes 中并没有 User（用户）的资源，但是 Kubernetes 中有权限校验的方式，比如我们常用到的利用 x509 证书进行用户权限相关的校验，或者
+通过外部的 OIDC 和 webhook 等进行校验。&lt;/p>
+&lt;p>此功能实际上是为了添加一个新的接口，以便于用户身份通过校验后，获取其所具有的属性。这样就可以简单的通过增加一个 &lt;code>kubectl auth whoami&lt;/code> 的命令，来了解当前用户的相关信息了。
+这功能比较类似于我们做 OAuth 的时候，可能会做个 UserInfo 之类的接口，用来查看用户相关的属性。&lt;/p>
+&lt;p>该功能是通过在 &lt;code>authentication.k8s.io&lt;/code> Group 下添加了 &lt;code>SelfSubjectReview&lt;/code> 资源来实现的，具体如下：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="c1">// SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request.
+&lt;/span>&lt;span class="c1">// When using impersonation, users will receive the user info of the user being impersonated.
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kd">type&lt;/span> &lt;span class="nx">SelfSubjectReview&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">metav1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">TypeMeta&lt;/span> &lt;span class="s">`json:&amp;#34;,inline&amp;#34;`&lt;/span>
+&lt;span class="c1">// Standard object&amp;#39;s metadata.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// +optional
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">metav1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ObjectMeta&lt;/span> &lt;span class="s">`json:&amp;#34;metadata,omitempty&amp;#34; protobuf:&amp;#34;bytes,1,opt,name=metadata&amp;#34;`&lt;/span>
+&lt;span class="c1">// Status is filled in by the server with the user attributes.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Status&lt;/span> &lt;span class="nx">SelfSubjectReviewStatus&lt;/span> &lt;span class="s">`json:&amp;#34;status,omitempty&amp;#34; protobuf:&amp;#34;bytes,2,opt,name=status&amp;#34;`&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="c1">// SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kd">type&lt;/span> &lt;span class="nx">SelfSubjectReviewStatus&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="c1">// User attributes of the user making this request.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// +optional
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">UserInfo&lt;/span> &lt;span class="nx">v1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">UserInfo&lt;/span> &lt;span class="s">`json:&amp;#34;userInfo,omitempty&amp;#34; protobuf:&amp;#34;bytes,1,opt,name=userInfo&amp;#34;`&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>此功能在 v1.26 版本开始引入，并作为 Alpha 特性提供，可通过 &lt;code>APISelfSubjectReview&lt;/code> feature gate 控制是否启用。&lt;/p>
+&lt;p>同时，本次也在 kubectl 中添加了 &lt;code>kubectl alpha auth whoami&lt;/code> 子命令，可直接查看当前用户的相关属性信息。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/112526">Limit redirect proxy handling to redirected responses by liggitt · Pull Request #112526 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>在上一篇 &lt;a href="https://moelove.info/2022/09/18/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E7%88%86%E5%87%BA%E5%85%A8%E7%89%88%E6%9C%AC%E6%BC%8F%E6%B4%9E/">《K8S 生态周报| Kubernetes 爆出全版本漏洞》&lt;/a> 中，
+我曾介绍过 CVE-2022-3172 漏洞相关的信息。&lt;/p>
+&lt;p>上游中的修复方式是提供了一个选项 &lt;code>--aggregator-reject-forwarding-redirect=true&lt;/code> 来设置拒绝跟随重定向，避免 SSRF 。
+但同时该修复也引入了新的问题，由于该修复仅判断了 HTTP Code 是否在 300～399 ，但这是个不完整的假设，并非所有的 3xx 状态码都是重定向，
+比如 &lt;code>304 Not Modified&lt;/code> 表示无需再次传输请求的内容。&lt;/p>
+&lt;p>所以本次的修复额外增加了对 &lt;code>Location&lt;/code> Header 的判断。如下：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="gh">diff --git a/staging/src/k8s.io/apimachinery/pkg/util/proxy/upgradeaware.go b/staging/src/k8s.io/apimachinery/pkg/util/proxy/upgradeaware.go
+&lt;/span>&lt;span class="gh">index a3a14241cc6..278ed089d95 100644
+&lt;/span>&lt;span class="gh">&lt;/span>&lt;span class="gd">--- a/staging/src/k8s.io/apimachinery/pkg/util/proxy/upgradeaware.go
+&lt;/span>&lt;span class="gd">&lt;/span>&lt;span class="gi">+++ b/staging/src/k8s.io/apimachinery/pkg/util/proxy/upgradeaware.go
+&lt;/span>&lt;span class="gi">&lt;/span>&lt;span class="gu">@@ -263,7 +263,7 @@ func (h *UpgradeAwareHandler) ServeHTTP(w http.ResponseWriter, req *http.Request
+&lt;/span>&lt;span class="gu">&lt;/span> oldModifyResponse := proxy.ModifyResponse
+proxy.ModifyResponse = func(response *http.Response) error {
+code := response.StatusCode
+&lt;span class="gd">- if code &amp;gt;= 300 &amp;amp;&amp;amp; code &amp;lt;= 399 {
+&lt;/span>&lt;span class="gd">&lt;/span>&lt;span class="gi">+ if code &amp;gt;= 300 &amp;amp;&amp;amp; code &amp;lt;= 399 &amp;amp;&amp;amp; len(response.Header.Get(&amp;#34;Location&amp;#34;)) &amp;gt; 0 {
+&lt;/span>&lt;span class="gi">&lt;/span> // close the original response
+response.Body.Close()
+msg := &amp;#34;the backend attempted to redirect this request, which is not permitted&amp;#34;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>此修复也会被 cherry-pick 到其他的分支中，并将在下个版本进行发布。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/112015">Removal of GlusterFS code from the repo by humblec · Pull Request #112015 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>在之前的 「K8S 生态周报」中我曾介绍过，在 v1.25 中将树内的 GlusterFS plugin 标记为废弃，并建议迁移至使用 CSI ，
+如今这些插件已经被彻底删除了。&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">K8S 生态周报| Kubernetes 爆出全版本漏洞</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/09/18/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E7%88%86%E5%87%BA%E5%85%A8%E7%89%88%E6%9C%AC%E6%BC%8F%E6%B4%9E/"/><id>https://moelove.info/2022/09/18/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E7%88%86%E5%87%BA%E5%85%A8%E7%89%88%E6%9C%AC%E6%BC%8F%E6%B4%9E/</id><updated>2022-09-19T08:03:19+08:00</updated><published>2022-09-18T15:01:09+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
