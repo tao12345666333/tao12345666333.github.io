@@ -1,4 +1,68 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-10-10T21:53:39+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Prometheus 新版本内存用量大幅度优化！</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/10/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Prometheus-%E6%96%B0%E7%89%88%E6%9C%AC%E5%86%85%E5%AD%98%E7%94%A8%E9%87%8F%E5%A4%A7%E5%B9%85%E5%BA%A6%E4%BC%98%E5%8C%96/"/><id>https://moelove.info/2022/10/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Prometheus-%E6%96%B0%E7%89%88%E6%9C%AC%E5%86%85%E5%AD%98%E7%94%A8%E9%87%8F%E5%A4%A7%E5%B9%85%E5%BA%A6%E4%BC%98%E5%8C%96/</id><updated>2022-10-10T06:50:58+08:00</updated><published>2022-10-09T20:59:15+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-10-24T08:32:17+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Lima 已正式加入 CNCF</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/10/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Lima-%E5%B7%B2%E6%AD%A3%E5%BC%8F%E5%8A%A0%E5%85%A5-CNCF/"/><id>https://moelove.info/2022/10/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Lima-%E5%B7%B2%E6%AD%A3%E5%BC%8F%E5%8A%A0%E5%85%A5-CNCF/</id><updated>2022-10-24T06:12:17+08:00</updated><published>2022-10-16T19:39:07+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>上周太忙，缺席了一周。本周继续更新。&lt;/p>
+&lt;h1 id="cert-manager-成为-cncf-孵化级项目">cert-manager 成为 CNCF 孵化级项目&lt;/h1>
+&lt;p>本周我花时间写了篇文章，介绍 &lt;a href="https://github.com/cert-manager/cert-manager">cert-manager&lt;/a> 如何通过 &lt;a href="https://www.github.com/hashicorp/vault">Vault&lt;/a> 进行证书签发，
+并且在 &lt;a href="https://github.com/apache/apisix-ingress-controller/">Apache APISIX Ingress controller&lt;/a> 中配合使用，为部署在 Kubernetes 中的服务提供 TLS 代理。（这篇文章过几天会发布出来）&lt;/p>
+&lt;p>写文章的时候 cert-manager 还是 CNCF sandbox 级别的项目，写完它就已经成为 CNCF incubating 级别的项目了。&lt;/p>
+&lt;p>cert-manager 可以说是当前云原生场景下，证书管理方面应用最多的软件了。它除了可用于证书管理，还可以与多种服务集成，进行证书的签发和续期。
+并且它还积极的融入到了很多项目的生态中，比如和各类 Ingress controller 项目的集成，和服务网格相关的项目进行整合等。&lt;/p>
+&lt;p>目前该项目已经有 9.4k star ,300 名贡献者。&lt;/p>
+&lt;p>本次成为 CNCF incubating 级别的项目，是个里程碑，希望它继续扩展生态。&lt;/p>
+&lt;p>(而且我想起来我草稿箱里还有一篇未完成的关于 cert-manager 的文章，过段时间抽空完成后再发出来)&lt;/p>
+&lt;h1 id="nerdctl-正式发布-v10">nerdctl 正式发布 v1.0&lt;/h1>
+&lt;p>去年在我为大家介绍 &lt;a href="https://moelove.info/2021/09/05/%E8%AF%91LimaDocker-Desktop-for-Mac-%E7%9A%84%E5%85%8D%E8%B4%B9%E5%BC%80%E6%BA%90%E4%B8%94%E8%87%AA%E7%94%B1%E7%9A%84%E6%9B%BF%E4%BB%A3%E5%93%81/">Docker Desktop 的替代品 Lima 的文章&lt;/a>中，曾为大家介绍过 &lt;a href="https://github.com/containerd/nerdctl" title="nerdctl">nerdctl&lt;/a> 。&lt;/p>
+&lt;p>nerdctl 出现的原因是由于 &lt;a href="https://containerd.io/scope/" title="containerd 项目的核心目标">containerd 项目的核心范围仅限于非面向用户的区域&lt;/a>，因此用户很难直接与 containerd 进行交互。&lt;/p>
+&lt;p>nerdctl 的功能和用法几乎与 Docker CLI 相同，但是 nerdctl 还支持 Docker 中不存在的几个 containerd 的前沿功能。此类功能包括但不限于 &lt;a href="https://github.com/containerd/nerdctl/blob/master/docs/stargz.md">延迟拉取(stargz)&lt;/a> 和 &lt;a href="https://github.com/containerd/nerdctl/blob/master/docs/ocicrypt.md">运行加密镜像（ocicrypt）&lt;/a>等。&lt;/p>
+&lt;p>到目前为止，nerdctl 已经开发了将近 2 年的时间，有超过 80 个贡献者和 4600 star ，以及大量的用户。这里我主要介绍几个 nerdctl 的重要阶段：&lt;/p>
+&lt;ul>
+&lt;li>v0.3 (2020 年 12 月): &lt;code>nerdctl run --publish=&amp;lt;PORT&amp;gt;&lt;/code>&lt;/li>
+&lt;li>v0.8 (2021 年 4 月): &lt;code>nerdctl compose up&lt;/code> 支持 compose&lt;/li>
+&lt;li>v0.9 (2021 年 6 月): &lt;code>nerdctl run --gpus=&amp;lt;GPU&amp;gt;&lt;/code> 支持 GPU&lt;/li>
+&lt;li>v0.13 (2021 年 11 月): &lt;code>nerdctl run --platform=&amp;lt;PLATFORM&amp;gt;&lt;/code> 支持多平台&lt;/li>
+&lt;li>v0.19 (2022 年 4 月): &lt;code>nerdctl cp&lt;/code> 支持文件复制&lt;/li>
+&lt;li>v0.22 (2022 年 7 月): &lt;code>nerdctl system prune&lt;/code> 允许清理未使用的数据&lt;/li>
+&lt;/ul>
+&lt;p>到目前为止，nerdctl 已经实现了所有除了 &lt;code>swarm&lt;/code> 相关的 Docker CLI 的命令，也额外实现了类似 &lt;code>nerdctl diff&lt;/code> 之类的命令。&lt;/p>
+&lt;p>近期 nerdctl 有很多新的特性，比如：&lt;/p>
+&lt;ul>
+&lt;li>增加了多种日志驱动：&lt;code>journald&lt;/code> , &lt;code>fluentd&lt;/code>, &lt;code>syslog&lt;/code> 和外部驱动；&lt;/li>
+&lt;li>除了默认的 &lt;code>bridge&lt;/code> CNI 外，还支持了 &lt;code>macvlan&lt;/code> 和 &lt;code>ipvlan&lt;/code> 网络驱动；&lt;/li>
+&lt;li>支持了多种清理命令， &lt;code>nerdctl (container|image|volume|network|system) prune&lt;/code>；&lt;/li>
+&lt;/ul>
+&lt;p>目前 containerd 正在被越来越多的 Kubernetes 集群使用，所以一个好用的 CLI 也非常的重要。
+不出意外的话，以后 nerdctl 的用户应该会变的更多，期待它发展的更好。&lt;/p>
+&lt;p>此外另一个很重要的事情是： Lima 已经正式加入 CNCF 成为 Sandbox 级别的项目。
+Lima 实际运行的就是 &lt;code>containerd&lt;/code> 和 &lt;code>nerdctl&lt;/code> ，这样也会加速 nerdctl 的发展。&lt;/p>
+&lt;h1 id="docker-v201020-发布">Docker v20.10.20 发布&lt;/h1>
+&lt;p>Docker 最近相继发布了 v20.10.19 和 v20.10.20，主要是一些 bugfix 和安全修复。这里我主要介绍一个比较有意思的 &lt;a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-39253">CVE-2022-39253&lt;/a> 。&lt;/p>
+&lt;h2 id="cve-2022-39253">CVE-2022-39253&lt;/h2>
+&lt;p>这个漏洞其实和 Docker 没有直接的关系。这个漏洞是 Git 的。&lt;/p>
+&lt;p>之所以在这里聊是因为 Docker 中进行 &lt;code>docker build&lt;/code> 时，可以直接指向 Git 仓库进行构建。
+在构建过程中，实际上会先将 Git 仓库拉入到本地的临时目录，并作为构建上下文传递给 Docker daemon 。&lt;/p>
+&lt;p>而且可以通过为指定的 Git 仓库后添加参数的方式来扩展具体构建使用的内容。比如：&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2022/10/23/57oYBPrbIsktNyT.png" alt="2022-10-23.png">&lt;/p>
+&lt;p>这次 Git 的 CVE-2022-39253 漏洞，是由于 Git 在 clone 的时候存在对本地仓库的优化，可以绕过 &amp;quot;Git aware&amp;quot; 的传输机制，然后可以通过硬链接的方式来节省空间。
+但是攻击者可以通过诱导受害者在同一个机器上 clone 恶意仓库，并且利用这种硬链接的方式来将敏感信息暴露给恶意攻击者。&lt;/p>
+&lt;p>具体的修复方式包括避免使用 &lt;code>--recurse-submodules&lt;/code> 和增加 &lt;code>protocol.file.allow=never&lt;/code> 参数，以此来避免受漏洞的影响。&lt;/p>
+&lt;p>另外，这个漏洞也在 Git 的 2.37.4 之后的版本进行了修复。&lt;/p>
+&lt;h2 id="其他修复">其他修复&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/moby/moby/pull/44122">moby/moby#44122&lt;/a> 通过更新 buildkit 的依赖，修复了执行 &lt;code>docker builder prune&lt;/code> 和 &lt;code>docker system prune&lt;/code> 期间可能出现的 panic ；&lt;/li>
+&lt;li>&lt;a href="https://github.com/moby/moby/pull/44238">moby/moby#44238&lt;/a> 修复了一个当已经开启 &amp;quot;live restore&amp;quot; 并进行了重启，当执行 &lt;code>docker volume prune&lt;/code> 时，有可能会删掉仍然在使用的 volume ，解决办法是在 restore 的时候，先确保准备好了 volume ;&lt;/li>
+&lt;li>&lt;a href="https://github.com/moby/moby/commit/4b9902bad44373b43f2ba55d6b587dbe8505b86f">moby/moby#4b9902b&lt;/a> 更新了 Docker daemon 在处理通过 digest pull 镜像时的处理逻辑，即使用 &lt;code>image:tag@digest&lt;/code> 的形式。原先是直接通过内容寻址的方式直接获取镜像的，并没有利用到 &lt;code>tag&lt;/code> 和 &lt;code>digest&lt;/code> ，这有可能会被攻击者利用来运行已经存在于本地的镜像。现在 Docker daemon 将会检查 digest 是否与其名字匹配；&lt;/li>
+&lt;/ul>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/112945">kubeadm: Inherit &lt;code>dry-run&lt;/code> flags for each sub-phases by chendave · Pull Request #112945 · kubernetes/kubernetes&lt;/a> kubeadm 所有的阶段都支持了 dry-run 模式；&lt;/li>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/111096">Add categories to kubectl api-resources wide output and add --categories flag by brianpursley · Pull Request #111096 · kubernetes/kubernetes&lt;/a> 为 &lt;code>kubectl api-resources -o wide&lt;/code> 的输出中增加了一列 &amp;quot;Categories&amp;quot;；&lt;/li>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/108501">add &lt;code>--concurrent-horizontal-pod-autoscaler-syncs&lt;/code> flag to kube-controller-manager by zroubalik · Pull Request #108501 · kubernetes/kubernetes&lt;/a> 为 kube-controller-manager 增加了 &lt;code>--concurrent-horizontal-pod-autoscaler-syncs&lt;/code> 的参数，原先 HPA 中默认只有一个 worker，在大规模集群中处理效率很低。本次的 PR 可以通过此参数来自行配置 worker 数量，以便于提升效率；&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">K8S 生态周报| Prometheus 新版本内存用量大幅度优化！</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/10/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Prometheus-%E6%96%B0%E7%89%88%E6%9C%AC%E5%86%85%E5%AD%98%E7%94%A8%E9%87%8F%E5%A4%A7%E5%B9%85%E5%BA%A6%E4%BC%98%E5%8C%96/"/><id>https://moelove.info/2022/10/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Prometheus-%E6%96%B0%E7%89%88%E6%9C%AC%E5%86%85%E5%AD%98%E7%94%A8%E9%87%8F%E5%A4%A7%E5%B9%85%E5%BA%A6%E4%BC%98%E5%8C%96/</id><updated>2022-10-10T06:50:58+08:00</updated><published>2022-10-09T20:59:15+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
