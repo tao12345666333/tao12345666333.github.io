@@ -1,4 +1,137 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-10-24T08:32:17+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Lima 已正式加入 CNCF</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/10/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Lima-%E5%B7%B2%E6%AD%A3%E5%BC%8F%E5%8A%A0%E5%85%A5-CNCF/"/><id>https://moelove.info/2022/10/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Lima-%E5%B7%B2%E6%AD%A3%E5%BC%8F%E5%8A%A0%E5%85%A5-CNCF/</id><updated>2022-10-24T06:12:17+08:00</updated><published>2022-10-16T19:39:07+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-11-02T12:03:43+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Sigstore 正式 GA</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/10/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Sigstore-%E6%AD%A3%E5%BC%8F-GA/"/><id>https://moelove.info/2022/10/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Sigstore-%E6%AD%A3%E5%BC%8F-GA/</id><updated>2022-10-31T13:02:57+08:00</updated><published>2022-10-31T06:55:48+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>本周 KubeCon + CloudNativeCon North America 2022 已经结束，看 timeline 有了一种几乎所有人都去参加的错觉，
+大概也是受近几年各类因素的影响，很多人也都没有线下聚会之类的。&lt;/p>
+&lt;p>在这次大会上，有很多有意思的内容，简单的概括一下：&lt;/p>
+&lt;ul>
+&lt;li>当前的 Kubernetes 生态中有太多的工具，在做相同或者类似的事情，所以很多人都会面临&amp;quot;选择困难症&amp;quot;，在工具选择上需要考虑很多方面，比如技术匹配度，学习成本，灵活性，可扩展性，社区以及文档等方面。&lt;/li>
+&lt;li>&lt;strong>供应链安全愈发的受到重视&lt;/strong> ，很多的公司 &amp;amp; 工具都在积极的添加此类支持。但国内在此方面并不那么重视。我之前写了一本小册 &lt;a href="https://juejin.cn/book/7044052687779790880">《Kubernetes 安全原理与实践》&lt;/a>，其中覆盖了在生产中使用 Kubernetes 需要关注的各方面及其原理等内容，从反馈上看大家对此方面的关注度并不高，当然也有可能是很多公司还处于调研/测试的阶段，尚未真正迈入生产，否则的话，安全还是一个很重要的部分。&lt;/li>
+&lt;li>混沌工程和模糊测试等在工程实践中得到了更多关注和实践，尤其是构建金融级服务时候，产生了更大的价值。&lt;/li>
+&lt;li>eBPF, 安全，可观测性等持续让企业从中得到收益，越来越多的公司也选择了相关的技术栈，来丰富自己现有的产品和工具。&lt;/li>
+&lt;li>多集群，多租户，GitOps, 调度，Service Mesh 等仍然在探索中，并且越复杂的环境，其中衍生出来的问题就越多，尤其是需要与其他的一些工具/平台进行集成。&lt;/li>
+&lt;/ul>
+&lt;p>此外就是一些开源项目的发展和技术等内容了，有兴趣的小伙伴可以再去看看。&lt;/p>
+&lt;h1 id="sigstore-正式-ga">Sigstore 正式 GA&lt;/h1>
+&lt;p>在本周的 SigstoreCon 上，&lt;a href="https://openssf.org/press-release/2022/10/25/sigstore-announces-general-availability-at-sigstorecon/">Sigstore 社区宣布 Sigstore 正式 GA&lt;/a>。&lt;/p>
+&lt;p>在去年 11 月份，我曾写过一篇文章：《&lt;a href="https://moelove.info/2021/11/23/%E4%BA%91%E5%8E%9F%E7%94%9F%E6%97%B6%E4%BB%A3%E4%B8%8B%E7%9A%84%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E5%AE%89%E5%85%A8%E4%B8%8A/">云原生时代下的容器镜像安全（上） | MoeLove&lt;/a>》其中就有介绍过 Sigstore 以及利用它来提升镜像安全，有兴趣的小伙伴可以回顾下文章。&lt;/p>
+&lt;p>Sigstore 的出现就是为了应对日益增长的供应链攻击的问题，并且 Sigstore 一经出现，就成为了历史上采用最快的开源技术之一，
+迄今为止，已使用 Sigstore 记录了超过 400 万个签名，并且世界上最大的两个开源社区 Kubernetes 和 Python 已使用 Sigstore 进行其生产 release 的签名。最近，npm 宣布他们正在积极整合 Sigstore，因此所有 npm 包都可以可靠地链接到它们的源代码和构建指令。这将极大的提高 Sigstore 的采用率。&lt;/p>
+&lt;p>此外，无论你在用什么 CI/CD 工具，还是在使用一些云上工具类似 GitHub Action 等都可以很轻松的与 Sigstore 进行集成，以下是一个简单的示例：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nn">...&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">jobs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">build&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">steps&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># ... build steps here&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">sigstore/cosign-installer@main&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Write signing key to disk (only needed for `cosign sign --key`)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">echo &amp;#34;${{ secrets.SIGNING_SECRET }}&amp;#34; &amp;gt; cosign.key&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Sign container image&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">|&lt;/span>&lt;span class="sd">
+&lt;/span>&lt;span class="sd"> cosign sign --key cosign.key \
+&lt;/span>&lt;span class="sd"> ghcr.io/your-org/your-repo:some-tag&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">env&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">COSIGN_PASSWORD&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后在部署之前进行验证：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">$ cosign verify --key cosign.pub ghcr.io/your-org/your-repo:some-tag
+Verification &lt;span class="k">for&lt;/span> ghcr.io/your-org/your-repo:some-tag --
+The following checks were performed on each of these signatures:
+- The cosign claims were validated
+- The signatures were verified against the specified public key
+- Any certificates were verified against the Fulcio roots.
+&lt;span class="o">[{&lt;/span>&lt;span class="s2">&amp;#34;critical&amp;#34;&lt;/span>:&lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;identity&amp;#34;&lt;/span>:&lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;docker-reference&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;ghcr.io/your-org/your-repo&amp;#34;&lt;/span>&lt;span class="o">}&lt;/span>,&lt;span class="s2">&amp;#34;image&amp;#34;&lt;/span>:&lt;span class="o">{&lt;/span>&lt;span class="s2">&amp;#34;docker-manifest-digest&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;sha256:...&amp;#34;&lt;/span>&lt;span class="o">}&lt;/span>,&lt;span class="s2">&amp;#34;type&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;cosign container image signature&amp;#34;&lt;/span>&lt;span class="o">}&lt;/span>,&lt;span class="s2">&amp;#34;optional&amp;#34;&lt;/span>:&lt;span class="o">{}}]&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>更多详细信息请参考 &lt;a href="https://openssf.org/press-release/2022/10/25/sigstore-announces-general-availability-at-sigstorecon/">Sigstore Announces General Availability at SigstoreCon - Open Source Security Foundation&lt;/a>&lt;/p>
+&lt;h1 id="kyverno-18-正式发布">Kyverno 1.8 正式发布&lt;/h1>
+&lt;p>我之前已经写过一些 Kyverno 相关文章了，感兴趣的小伙伴可以回顾下 《&lt;a href="https://moelove.info/2022/03/02/%E4%BA%91%E5%8E%9F%E7%94%9F%E7%AD%96%E7%95%A5%E5%BC%95%E6%93%8E-Kyverno-%E4%B8%8A/">云原生策略引擎 Kyverno （上） | MoeLove&lt;/a>》&lt;/p>
+&lt;p>本次发布的 v1.8 包含了很多值得关注的特性，一起来看看：&lt;/p>
+&lt;h2 id="yaml-manifest-的验证">YAML Manifest 的验证&lt;/h2>
+&lt;p>Kyverno 之前已经与 Sigstore 进行了集成，可以进行镜像的签名校验（常规功能），本次 1.8 中集成了 Sigstore 的 &lt;a href="https://github.com/sigstore/k8s-manifest-sigstore">k8s-manifest-sigstore&lt;/a> 工具，通过
+这次的集成，Kyverno 还可以验证 Kubernetes YAML manifest 上的签名，以便确保它们没有被篡改。&lt;/p>
+&lt;p>一但用户使用私钥对 YAML manifest 进行了签名，就可以使用类似下方示例中的策略文件对其进行校验了。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">kyverno.io/v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ClusterPolicy&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">verify-manifest-integrity&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">validationFailureAction&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">audit&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">background&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">verify-deployment-allow-replicas&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">match&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">any&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">resources&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">kinds&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">Deployment&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">validate&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">manifests&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">attestors&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">count&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">entries&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">keys&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">publicKeys&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">|-&lt;/span>&lt;span class="sd">
+&lt;/span>&lt;span class="sd"> -----BEGIN PUBLIC KEY-----
+&lt;/span>&lt;span class="sd"> MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEStoX3dPCFYFD2uPgTjZOf1I5UFTa
+&lt;/span>&lt;span class="sd"> 1tIu7uoGoyTxJqqEq7K2aqU+vy+aK76uQ5mcllc+TymVtcLk10kcKvb3FQ==
+&lt;/span>&lt;span class="sd"> -----END PUBLIC KEY----- &lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">ignoreFields&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">objects&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Deployment&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">fields&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">spec.replicas&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这里需要注意的是，在 Kubernetes 中对 YAML manifest 签名时，需要考虑哪些内容是需要变更的，比如 &lt;code>spec.replicas&lt;/code> 就可能经常发生变更，所以此处需要忽略它。否则当出现变更时候，就会被此策略拒绝。当然也还可以根据实际情况去忽略其他的字段。&lt;/p>
+&lt;h2 id="与-pod-security-的集成">与 Pod Security 的集成&lt;/h2>
+&lt;p>作为 Pod Security Policy (PSP) 的替代品，Pod Security Admission（PSA）在 Kuberenetes v1.23 中默认启用，并在 1.25 中达到 stable 状态，PSA 带来了 &lt;a href="https://kubernetes.io/docs/concepts/security/pod-security-standards/">Pod Security Standards | Kubernetes&lt;/a> 。&lt;/p>
+&lt;p>Kyverno 从 1.8 开始增加了 podSecurity 的验证规则，它使用了和 PSA 相同的库，所以是完全兼容的。以下是一个简单的示例：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">kyverno.io/v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ClusterPolicy&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">podsecurity-restricted&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">background&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">validationFailureAction&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">audit&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">restricted&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">match&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">any&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">resources&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">kinds&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">Pod&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">validate&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">podSecurity&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">level&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">restricted&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">latest&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>它为整个集群实现了 PSA 的 restricted 策略。&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/86139/">Normalize HTTP lifecycle handlers with HTTP probers by jasimmons · Pull Request #86139 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>我们可以为 Pod 增加 &lt;code>postStart&lt;/code> 和 &lt;code>preStop&lt;/code> 的 Hook，并且其分别可以设置为 &lt;code>Exec&lt;/code> 或 &lt;code>HTTP&lt;/code> 模式。这个 PR 主要是在修改 HTTP 模式下的行为。&lt;/p>
+&lt;p>具体来说，HTTP 模式下的代码与 readiness/liveness 下使用的并不一样，而且也不支持一些常见的功能，比如：&lt;/p>
+&lt;ul>
+&lt;li>设置自定义 HTTP header&lt;/li>
+&lt;li>使用 HTTPS 连接&lt;/li>
+&lt;/ul>
+&lt;p>但经过此 PR ,终于将它们的行为进行了统一，但这毕竟是一个比较大的调整，如果你不希望应用此变更，
+可以通过 &lt;code>-feature-gates=ConsistentHTTPGetHandlers=false&lt;/code> 进行全局禁用，避免这个功能影响到你的环境。&lt;/p>
+&lt;h1 id="其他">其他&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/cncf/toc/pull/952">#952&lt;/a> Cilium 正在申请从 CNCF 毕业。&lt;/li>
+&lt;/ul>
+&lt;p>在几年前，部署 Kubernetes 集群选择 CNI 时，Flannel 和 Calico 还是最流行的选项。不过现在 Cilium 也已经成为了一个备选。这有几个方面的原因：&lt;/p>
+&lt;ul>
+&lt;li>eBPF 的持续火热，让 cilium 大放异彩；。&lt;/li>
+&lt;li>Flannel 不支持 Network Policy 等特性，无法满足企业在安全性方面的需求；&lt;/li>
+&lt;li>越来越多的公司开始将 Linux 内核升级到 5.x 以上了，不像之前总是在用 3.10.x ，所以可以尝试使用 eBPF 等技术了；&lt;/li>
+&lt;li>cilium 已经成为了很多厂商的首选，比如 GKE。 我之前还写过一篇 &lt;a href="https://moelove.info/2020/08/23/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Google-%E9%80%89%E6%8B%A9-Cilium-%E4%BD%9C%E4%B8%BA-GKE-%E4%B8%8B%E4%B8%80%E4%BB%A3%E6%95%B0%E6%8D%AE%E9%9D%A2/">K8S 生态周报| Google 选择 Cilium 作为 GKE 下一代数据面 | MoeLove&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">K8S 生态周报| Lima 已正式加入 CNCF</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/10/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Lima-%E5%B7%B2%E6%AD%A3%E5%BC%8F%E5%8A%A0%E5%85%A5-CNCF/"/><id>https://moelove.info/2022/10/16/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Lima-%E5%B7%B2%E6%AD%A3%E5%BC%8F%E5%8A%A0%E5%85%A5-CNCF/</id><updated>2022-10-24T06:12:17+08:00</updated><published>2022-10-16T19:39:07+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
