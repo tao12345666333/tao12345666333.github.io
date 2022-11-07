@@ -1,4 +1,107 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-11-02T12:03:43+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Sigstore 正式 GA</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/10/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Sigstore-%E6%AD%A3%E5%BC%8F-GA/"/><id>https://moelove.info/2022/10/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Sigstore-%E6%AD%A3%E5%BC%8F-GA/</id><updated>2022-10-31T13:02:57+08:00</updated><published>2022-10-31T06:55:48+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-11-07T08:49:56+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Kubernetes 修复了转义漏洞，可以放心的查看资源了</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/11/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E4%BF%AE%E5%A4%8D%E4%BA%86%E8%BD%AC%E4%B9%89%E6%BC%8F%E6%B4%9E%E5%8F%AF%E4%BB%A5%E6%94%BE%E5%BF%83%E7%9A%84%E6%9F%A5%E7%9C%8B%E8%B5%84%E6%BA%90%E4%BA%86/"/><id>https://moelove.info/2022/11/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E4%BF%AE%E5%A4%8D%E4%BA%86%E8%BD%AC%E4%B9%89%E6%BC%8F%E6%B4%9E%E5%8F%AF%E4%BB%A5%E6%94%BE%E5%BF%83%E7%9A%84%E6%9F%A5%E7%9C%8B%E8%B5%84%E6%BA%90%E4%BA%86/</id><updated>2022-11-06T18:21:26+08:00</updated><published>2022-11-06T05:11:45+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;h1 id="ko-申请成为-cncf-sandbox-项目">ko 申请成为 CNCF sandbox 项目&lt;/h1>
+&lt;p>&lt;a href="https://github.com/ko-build/ko">ko-build/ko: Build and deploy Go applications on Kubernetes&lt;/a> 是一个专注于为 Go 应用程序构建容器镜像的工具。&lt;/p>
+&lt;p>当初 ko 的出现是为了给 Knative 项目提供一个使用 Go 项目使用的轻量化构建工具，后来社区中为其逐步增加了很多功能。
+现在 Knative 已经托管到了 CNCF ，ko 很自然的也应该成为社区项目。
+目前它已经从原先 Google 的组织下移动到了一个独立的 ko-build 组织下。&lt;/p>
+&lt;p>使用 &lt;code>ko&lt;/code> 可以像使用 &lt;code>go build&lt;/code> 那样简单，并且无需 Docker 或者其他容器运行时。如果你的项目仅包含 Go 应用的话，选择使用 ko 也是个比较轻量化的选择。&lt;/p>
+&lt;p>此外，ko 可以用于构建多架构的镜像，以及生成 SBOM 。&lt;/p>
+&lt;p>接下来我以 &lt;a href="https://github.com/apache/apisix-ingress-controller/">apache/apisix-ingress-controller: APISIX Ingress Controller for Kubernetes&lt;/a> 这个 Go 项目为例，进行构建：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">➜ apisix-ingress-controller git:&lt;span class="o">(&lt;/span>master&lt;span class="o">)&lt;/span> ✗ &lt;span class="nv">KO_DOCKER_REPO&lt;/span>&lt;span class="o">=&lt;/span>apisix-ingress ko build . -L
+2022/11/06 17:13:23 Using base distroless.dev/static:latest@sha256:0c627e7a97a91ed2049c3da50a915b8577a79821561a5704ec89f6c8972deae2 &lt;span class="k">for&lt;/span> github.com/apache/apisix-ingress-controller
+2022/11/06 17:13:24 Building github.com/apache/apisix-ingress-controller &lt;span class="k">for&lt;/span> linux/amd64
+2022/11/06 17:13:27 Loading ko.local/apisix-ingress-controller-29a2b9b3f039e9a9971dc48aef895b48:56a132da8c4b1b8b79053b59d6f45f7c64d0ff0a10664a7000c3c87f43a1aac4
+2022/11/06 17:13:28 Loaded ko.local/apisix-ingress-controller-29a2b9b3f039e9a9971dc48aef895b48:56a132da8c4b1b8b79053b59d6f45f7c64d0ff0a10664a7000c3c87f43a1aac4
+2022/11/06 17:13:28 Adding tag latest
+2022/11/06 17:13:28 Added tag latest
+ko.local/apisix-ingress-controller-29a2b9b3f039e9a9971dc48aef895b48:56a132da8c4b1b8b79053b59d6f45f7c64d0ff0a10664a7000c3c87f43a1aac4
+➜ apisix-ingress-controller git:&lt;span class="o">(&lt;/span>master&lt;span class="o">)&lt;/span> ✗ docker image ls ko.local/apisix-ingress-controller-29a2b9b3f039e9a9971dc48aef895b48:56a132da8c4b1b8b79053b59d6f45f7c64d0ff0a10664a7000c3c87f43a1aac4
+REPOSITORY TAG IMAGE ID CREATED SIZE
+ko.local/apisix-ingress-controller-29a2b9b3f039e9a9971dc48aef895b48 56a132da8c4b1b8b79053b59d6f45f7c64d0ff0a10664a7000c3c87f43a1aac4 df3478059f07 &lt;span class="m">7&lt;/span> hours ago 62.9MB
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>通过加 &lt;code>-L&lt;/code> 参数可以将镜像加载到本地的 Docker daemon 中。默认使用 distroless 的镜像作为基础镜像，构建出的镜像体积相对也较小。&lt;/p>
+&lt;p>同时还可以写一份 &lt;code>.ko.yaml&lt;/code> 进行更加详细的配置。对此项目感兴趣的小伙伴可以去尝试下，唯一的限制就只是它仅仅是为 Go 项目使用的，并不够通用。&lt;/p>
+&lt;h1 id="trivy-v0340-发布">Trivy v0.34.0 发布&lt;/h1>
+&lt;p>Trivy 我介绍过很多次了，这里就不再展开。Trivy 的这个版本主要增加了一些操作系统上的依赖图支持。比如：&lt;/p>
+&lt;ul>
+&lt;li>对 CentOS/RHEL 等使用 rpm 系统的支持&lt;/li>
+&lt;li>对 Debian/Ubuntu 等使用 dpkg 系统的支持&lt;/li>
+&lt;li>对 Alpine 等使用 apk 系统的支持&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://s2.loli.net/2022/11/06/yJsYRhdj4ar96iT.png" alt="198851146-0a913071-a9a1-44f5-9cb1-db26f7bec6de.png">&lt;/p>
+&lt;p>如上所示，不仅可以显示对应存在漏洞的包，还可以查看其相关的依赖，非常方便用于检查系统漏洞。&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/112553">Escape terminal special characters in kubectl by dgl · Pull Request #112553 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>这个 PR 中对一些特殊字符进行了转义。这其实是一个比较有意思的内容，我来稍微介绍一下。&lt;/p>
+&lt;p>你可以在自己的终端中尝试执行如下命令：&lt;/p>
+&lt;pre>&lt;code>kubectl create -f - &amp;lt;&amp;lt;EOF
+{
+&amp;quot;apiVersion&amp;quot;: &amp;quot;v1&amp;quot;,
+&amp;quot;involvedObject&amp;quot;: {
+&amp;quot;kind&amp;quot;: &amp;quot;Node&amp;quot;,
+&amp;quot;name&amp;quot;: &amp;quot;node01&amp;quot;,
+&amp;quot;uid&amp;quot;: &amp;quot;node01&amp;quot;
+},
+&amp;quot;kind&amp;quot;: &amp;quot;Event&amp;quot;,
+&amp;quot;message&amp;quot;: &amp;quot;\u001b[2J\u001b[3J\u001b[1;1H\u001b[m spoofed \u001b[60C\u001b[1;0m. Done&amp;quot;,
+&amp;quot;metadata&amp;quot;: {
+&amp;quot;name&amp;quot;: &amp;quot;spoofEvent&amp;quot;,
+&amp;quot;namespace&amp;quot;: &amp;quot;default&amp;quot;
+},
+&amp;quot;source&amp;quot;: {
+&amp;quot;component&amp;quot;: &amp;quot;kubelet&amp;quot;,
+&amp;quot;host&amp;quot;: &amp;quot;node01&amp;quot;
+},
+&amp;quot;type&amp;quot;: &amp;quot;Normal&amp;quot;
+}
+EOF
+&lt;/code>&lt;/pre>&lt;p>这将会创建一条 event 记录，但是一但你执行 &lt;code>kubectl get events&lt;/code> 你就会发现一些有趣的事情，屏幕上的记录被清空了。&lt;/p>
+&lt;p>这是由于 kubectl 在输出内容的时候并不会进行任何转义，比如上述示例中包含了一些特殊字符：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>\u001b[2J&lt;/code>：清屏&lt;/li>
+&lt;li>&lt;code>\u001b[60C&lt;/code>: 将光标向前移动 60&lt;/li>
+&lt;/ul>
+&lt;p>当然还有一些其他的，我印象中我早年刚开始接触 Linux 不久后还花费了一些时间来学习这些东西，因为这些东西可以配置到终端里面，实现一些比如变换颜色之类的事情。&lt;/p>
+&lt;p>我翻了下我之前的文章，曾经还有将 bash 做过如下设置：&lt;/p>
+&lt;pre>&lt;code>function git-branch-name {
+git symbolic-ref HEAD 2&amp;gt;/dev/null | cut -d&amp;quot;/&amp;quot; -f 3
+#git rev-parse --abbrev-ref HEAD
+}
+function git-branch-prompt {
+local branch=`git-branch-name`
+if [ $branch ]; then printf &amp;quot; [%s]&amp;quot; $branch; fi
+}
+PS1=&amp;quot;\u@\h \[\033[0;36m\]\W\[\033[0m\]\[\033[0;32m\]\$(git-branch-prompt)\[\033[0m\] \$ &amp;quot;
+&lt;/code>&lt;/pre>&lt;p>对此内容感兴趣的小伙伴可以试试看把上述内容贴到自己的 &lt;code>.bashrc&lt;/code> 文件中，然后 &lt;code>source&lt;/code> 一下看看。&lt;/p>
+&lt;p>回到这个 PR 中，之前这个问题还给分配成了 &lt;a href="https://github.com/advisories/GHSA-f9jg-8p32-2f55">CVE-2021-25743&lt;/a>，
+修复的办法也比较简单，但是比较耗时耗力，就是对一些输出的位置做了转义操作。&lt;/p>
+&lt;p>不过可能还有一些遗漏的，比如 &lt;code>kubectl logs&lt;/code> 之类的，可能也会受到影响，有兴趣的小伙伴可以去验证一下。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/111990">(kubectl certificates): Remove certificates/v1beta1 client usage by ardaguclu · Pull Request #111990 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;code>certificates.k8s.io/v1beta1&lt;/code> 自 Kubernetes v1.19 已被废弃，通过此 PR 移除，将在 v1.26 版本中生效。&lt;/p>
+&lt;p>以后使用 &lt;code>certificates.k8s.io/v1&lt;/code> 即可。这个主要是影响 &lt;code>kubectl certificate&lt;/code> 命令。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/110618">Remove CRI v1alpha2 by saschagrunert · Pull Request #110618 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>移除了 CRI v1alpha2 的 API， 之后使用 v1 即可。&lt;/p>
+&lt;h1 id="其他">其他&lt;/h1>
+&lt;p>最近有一批项目在申请成为 CNCF 的毕业项目，包括：&lt;/p>
+&lt;ul>
+&lt;li>Cilium&lt;/li>
+&lt;li>Falco&lt;/li>
+&lt;li>cri-o&lt;/li>
+&lt;li>KEDA&lt;/li>
+&lt;/ul>
+&lt;p>这些项目中除去 cri-o 外，被开发者和公司采纳率都非常高。&lt;/p>
+&lt;p>cri-o 的主要对标的是 containerd，相比而言，cri-o 比 containerd 市场份额差的太多了，目前最主要还是靠着 Red Hat 在支持。&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">K8S 生态周报| Sigstore 正式 GA</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/10/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Sigstore-%E6%AD%A3%E5%BC%8F-GA/"/><id>https://moelove.info/2022/10/31/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Sigstore-%E6%AD%A3%E5%BC%8F-GA/</id><updated>2022-10-31T13:02:57+08:00</updated><published>2022-10-31T06:55:48+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
