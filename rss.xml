@@ -1,4 +1,95 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 07 Nov 2022 08:49:57 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Kubernetes 修复了转义漏洞，可以放心的查看资源了</title><link>https://moelove.info/2022/11/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E4%BF%AE%E5%A4%8D%E4%BA%86%E8%BD%AC%E4%B9%89%E6%BC%8F%E6%B4%9E%E5%8F%AF%E4%BB%A5%E6%94%BE%E5%BF%83%E7%9A%84%E6%9F%A5%E7%9C%8B%E8%B5%84%E6%BA%90%E4%BA%86/</link><guid isPermaLink="true">https://moelove.info/2022/11/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E4%BF%AE%E5%A4%8D%E4%BA%86%E8%BD%AC%E4%B9%89%E6%BC%8F%E6%B4%9E%E5%8F%AF%E4%BB%A5%E6%94%BE%E5%BF%83%E7%9A%84%E6%9F%A5%E7%9C%8B%E8%B5%84%E6%BA%90%E4%BA%86/</guid><pubDate>Sun, 06 Nov 2022 05:11:45 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 14 Nov 2022 08:58:46 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| 基础库放弃维护，上游社区如何选择？</title><link>https://moelove.info/2022/11/13/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E5%9F%BA%E7%A1%80%E5%BA%93%E6%94%BE%E5%BC%83%E7%BB%B4%E6%8A%A4%E4%B8%8A%E6%B8%B8%E7%A4%BE%E5%8C%BA%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9/</link><guid isPermaLink="true">https://moelove.info/2022/11/13/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E5%9F%BA%E7%A1%80%E5%BA%93%E6%94%BE%E5%BC%83%E7%BB%B4%E6%8A%A4%E4%B8%8A%E6%B8%B8%E7%A4%BE%E5%8C%BA%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9/</guid><pubDate>Sun, 13 Nov 2022 21:42:20 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>周末我花了点时间把工作站的操作系统从 Fedora 35 升级到了 36。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2022/11/13/QVLlpfJPE2sFqyt.png" alt="2022-11-12 17-53-10屏幕截图.png">&lt;/p>
+&lt;p>我对操作系统的大版本升级节奏，一般都是在最新的 beta 版本发布后，从即将 EOL 的版本往上升级一个版本。&lt;/p>
+&lt;p>目前 Fedora 37 的 beta 版本已经发布了，而且 Fedora 35 下个月就 EOL 了，所以就需要安排一次版本的升级了。&lt;/p>
+&lt;p>Fedora 的系统升级其实比较简单，有需要的小伙伴可以直接看官方文档 &lt;a href="https://docs.fedoraproject.org/en-US/quick-docs/dnf-system-upgrade/">DNF System Upgrade :: Fedora Docs&lt;/a>。这次升级仍然很稳，一共耗费了 40 分钟左右，主要的时间都花在了下载更新上。&lt;/p>
+&lt;p>升级后，内核版本也升级到了 6.0 ，可以尝试一些新的内核特性了。&lt;/p>
+&lt;h1 id="kubernetes-ingress-nginx-v15-正式发布">Kubernetes Ingress NGINX v1.5 正式发布&lt;/h1>
+&lt;p>本周 Kubernetes Ingress NGINX 正式发布了 v1.5 版本，这是我们宣布进入维护期后发布的第二个大版本。&lt;/p>
+&lt;p>目前项目的整体进度和我们在宣布进入维护期时发布的公告中作出的承诺基本是保持一致的。&lt;/p>
+&lt;p>我在这里介绍一些 v1.5 中主要的变化。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes/ingress-nginx/pull/9124">#9124&lt;/a> Go 版本升级到了 v1.19，这也主要是出于安全的考虑，并且升级了所有的依赖，解决了几个 CVE；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes/ingress-nginx/pull/9231">#9231&lt;/a> &lt;strong>我已经将次项目中使用的 NGINX 版本升级到了 v1.21.6&lt;/strong>，在此之前 Ingress NGINX 项目中使用的 NGINX 版本是 v1.19，其中有不少的
+CVE 漏洞。有人可能会问为什么只是升级到了 v1.21.6 而不是升级到最新版 v1.23，这是由于项目中除了使用了 NGINX 外，还使用了 OpenResty，
+而当前 OpenResty 尚未支持到 NGINX 的最新版本，所以我把它升级到了 v1.21 系列的最高版本。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes/ingress-nginx/issues/9240">#9240&lt;/a> 修复了在 Service name 过长的场景下导致的 503 问题。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>这个问题其实比较有意思，也是一个比较特殊的场景。&lt;/p>
+&lt;p>想必大家都知道 Kubernetes 中限制了 Service 的名字最长不得超过 63 个字符，因为 Service name 在 Kubernetes 中会加一条 DNS 记录，所以受到了 DNS 规范的约束。&lt;/p>
+&lt;p>在 Ingress NGINX 中进行流量转发的时候，我们需要根据 Service name 查找实际的 Pod IP。原先在此项目中我们使用的是 endpoint，在上个版本的时候更新成了
+使用 endpointslice 的机制。&lt;/p>
+&lt;p>但是并没有修改这个查找的逻辑，所以这就导致了在 service name 过长的时候，endpointslice 无法直接根据完整的 service name 进行查找。
+Kubernetes 中使用前 58 个字符作为前缀，后面再加 5 个随机字符串，组成 endpointslice 的名称。&lt;/p>
+&lt;p>了解了具体的原理后，解决起来就很简单了，直接通过前缀匹配的方式解决了。&lt;/p>
+&lt;p>更多关于此版本的变更请查看 &lt;a href="https://github.com/kubernetes/ingress-nginx/releases/tag/controller-v1.5.1">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/110618">Remove CRI v1alpha2 by saschagrunert · Pull Request #110618 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>在移除了 dockershim 的支持后， 现在终于删掉了 CRI v1alpha2 的代码，这意味着之后所有实现了 CRI 的运行时，都必须实现 CRI v1 的接口。&lt;/p>
+&lt;p>目前 containerd 的 CRI v1 接口已经实现了，所以在 Kubernetes v1.26 发布后，也可以放心的使用 containerd 作为其运行时。&lt;/p>
+&lt;p>不过，你是否还记得 cri-dockerd 呢？用于将 Docker 作为 Kubernetes 运行时的组件，现在由 Mirantis 进行维护，
+此项目目前的维护者比较少，目前还只支持 CRI v1alpha2 ，所以，如果你在使用此项目让 Docker 作为运行时，并且想要升级到 Kubernetes v1.26 的话，这是不行的。&lt;/p>
+&lt;p>此外，这里也衍生出来了一些其他的问题，比如上游发展比较快，尽管 API 的维护遵循着一份比较明确的废弃策略 &lt;a href="https://kubernetes.io/docs/reference/using-api/deprecation-policy/">Kubernetes Deprecation Policy | Kubernetes&lt;/a>
+但是上游发展和版本的发布是很快的。作为一些下游项目，或者基于 Kubernetes 发展的项目而言，想要紧跟 Kubernetes 的发展
+还是很吃力的。&lt;/p>
+&lt;p>比较典型的一个例子是在深度学习领域被广泛使用的一个项目 - &lt;a href="https://www.kubeflow.org/">Kubeflow&lt;/a> ，它的最新版本是上个月发布的 v1.6 。&lt;/p>
+&lt;p>而 v1.6 只是保证了和 Kubernetes v1.22 兼容，但事实上 Kubernetes v1.22 在上月底时也正式 EOL 了。
+社区希望该项目可以支持 Kubernetes v1.25 版本 &lt;a href="https://github.com/kubeflow/kubeflow/issues/6697">Support for Kubernetes 1.25 · Issue #6697 · kubeflow/kubeflow&lt;/a>&lt;/p>
+&lt;p>本周 Kubernetes v1.26.0-beta.0 已经发布了，kubeflow 社区还没开始对 v1.25 版本的支持。
+这样来看，很有可能会跟上游社区的版本就这样逐步落下了。&lt;/p>
+&lt;p>对此，你有什么看法呢？欢迎讨论!&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/113274">KEP-3521 Part 1: New Pod API .spec.schedulingGates by Huang-Wei · Pull Request #113274 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>这是 &lt;a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/3521-pod-scheduling-readiness">KEP 3521&lt;/a> 的第一部分。&lt;/p>
+&lt;p>首先我们来简单的回顾一下 Pod 的创建过程。&lt;/p>
+&lt;p>当 client 通过 kube-apiserver 创建成功 Pod 资源后，kube-scheduler 会去检查尚未被调度的 Pod，然后为其进行调度，分配 Node。之后 Node 获取到调度到该 Node 上的 Pod 然后进行创建。
+这里省略了很多细节，但其他的部分与我们此处要介绍的内容关系不太大，就不展开了。&lt;/p>
+&lt;p>根据上述的过程，我们可以发现，在 Pod 创建成功后，其实就默认该 Pod 是可以被调度了，kube-scheduler 就应该开始工作了。&lt;/p>
+&lt;p>但在实际的场景中，Pod 通常还会需要一些其他的资源，最典型的比如存储。在一些环境中，这些资源是需要预先进行创建的，
+&lt;strong>尤其是在一些云厂商的场景中，还需要检查用户账户中是否还有余额可以用于创建云盘等&lt;/strong>。&lt;/p>
+&lt;p>一但前置的依赖无法满足，假如 kube-scheduler 已经完成了 Pod 的调度，那么 kubelet 侧就会处于尝试创建 Pod ，但失败的情况。&lt;/p>
+&lt;p>这个 KEP 的出现就可以很好的解决这个问题，增加了一个 Pod 是否准备好被调度的机制。
+如果前置依赖不满足，那么 Pod 就无需被调度，这也不会消耗资源。kube-scheduler 和 kubelet 都无需进行处理。
+待条件满足，Pod 再被调度和创建即可。&lt;/p>
+&lt;p>这个机制我个人感觉还是挺好的，甚至我可以有更灵活的策略来控制应用的副本。
+比如在大流量，需要动态扩容的场景下，我可以利用此机制预先创建一些 Pod 资源以及准备好它的依赖，
+甚至可以在 Node 上准备好镜像等。当需要增加副本时，直接标记 Pod 可被调度，
+这样就可以更快的在 Node 上拉起 Pod 了。&lt;/p>
+&lt;h1 id="其他">其他&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/gogo/protobuf">gogo/protobuf: &amp;quot;Deprecated&amp;quot; Protocol Buffers for Go with Gadgets&lt;/a> GoGo Protobuf 这个项目正式宣布停止维护了&lt;/li>
+&lt;/ul>
+&lt;p>这个项目写到这里，可能有些小伙伴会觉得有些奇怪，它和 Kubernetes 貌似没什么关系吧？&lt;/p>
+&lt;p>但其实不是的，Kubernetes 以及 Kubernetes 生态中的很多项目都重度使用了此项目。
+包括大家比较熟知的 containerd，etcd，Kubernetes，cortex 等。&lt;/p>
+&lt;p>此处聊这个内容，并不是为了介绍它在这些项目中如何应用的，而是这个项目的作者
+在 GopherCon 上做了一个演讲：《gogoprotobuf: How NOT to run an open source project - Walter Schulze》
+我个人看这个分享还是有很多感触的。
+大家如果有兴趣的话，可以去看看。&lt;/p>
+&lt;p>这个项目之所以放弃维护的一部分原因和新版本 API 的出现也是有一定关系的，因为要去兼容新版本 API 需要花费太多的时间和精力，
+但是维护者本身就很少，完全用爱发电，很难去跟的上新版本的变化。&lt;/p>
+&lt;p>另外，这个项目其实两年前就发出了寻找维护者的通告，尽管相关项目的维护者们基本上都知道这个事情，
+我在昨天翻看这个事情的时候，发现我两年前还确实是知道这个事情的。&lt;/p>
+&lt;p>但可惜，并没有更多人参与到该项目的维护中。&lt;/p>
+&lt;p>所以这个项目即使获得了 5.5k 的 star ，并且被很多知名项目所使用，但最终还是得放弃了。
+目前我们正在社区中讨论这个事情应该如何处理。&lt;/p>
+&lt;p>好了，以上就是本次的全部内容，我们下期再聊！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>K8S 生态周报| Kubernetes 修复了转义漏洞，可以放心的查看资源了</title><link>https://moelove.info/2022/11/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E4%BF%AE%E5%A4%8D%E4%BA%86%E8%BD%AC%E4%B9%89%E6%BC%8F%E6%B4%9E%E5%8F%AF%E4%BB%A5%E6%94%BE%E5%BF%83%E7%9A%84%E6%9F%A5%E7%9C%8B%E8%B5%84%E6%BA%90%E4%BA%86/</link><guid isPermaLink="true">https://moelove.info/2022/11/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E4%BF%AE%E5%A4%8D%E4%BA%86%E8%BD%AC%E4%B9%89%E6%BC%8F%E6%B4%9E%E5%8F%AF%E4%BB%A5%E6%94%BE%E5%BF%83%E7%9A%84%E6%9F%A5%E7%9C%8B%E8%B5%84%E6%BA%90%E4%BA%86/</guid><pubDate>Sun, 06 Nov 2022 05:11:45 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
