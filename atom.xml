@@ -1,4 +1,136 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-11-14T08:58:46+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| 基础库放弃维护，上游社区如何选择？</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/11/13/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E5%9F%BA%E7%A1%80%E5%BA%93%E6%94%BE%E5%BC%83%E7%BB%B4%E6%8A%A4%E4%B8%8A%E6%B8%B8%E7%A4%BE%E5%8C%BA%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9/"/><id>https://moelove.info/2022/11/13/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E5%9F%BA%E7%A1%80%E5%BA%93%E6%94%BE%E5%BC%83%E7%BB%B4%E6%8A%A4%E4%B8%8A%E6%B8%B8%E7%A4%BE%E5%8C%BA%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9/</id><updated>2022-11-14T00:58:55+08:00</updated><published>2022-11-13T21:42:20+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-11-21T15:52:53+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| 深入源码剖析 Kubernetes 的漏洞</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/11/20/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E6%B7%B1%E5%85%A5%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90-Kubernetes-%E7%9A%84%E6%BC%8F%E6%B4%9E/"/><id>https://moelove.info/2022/11/20/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E6%B7%B1%E5%85%A5%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90-Kubernetes-%E7%9A%84%E6%BC%8F%E6%B4%9E/</id><updated>2022-11-21T02:02:37+08:00</updated><published>2022-11-20T19:52:05+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;p>Kubernetes 发布了 v1.22.16 和 1.23.14，1.24.8，1.25.4等版本，其中最重要的就是以下两个安全漏洞了。&lt;/p>
+&lt;h2 id="cve-2022-3162">CVE-2022-3162&lt;/h2>
+&lt;p>当用户被授权允许在集群范围内 list 或 watch 某个 namespace 范围的自定义资源时，可以读取在同一 API 组下，不同类型的其他自定义资源。&lt;/p>
+&lt;p>这个漏洞影响范围是：&lt;/p>
+&lt;ul>
+&lt;li>kube-apiserver v1.25.0 - v1.25.3&lt;/li>
+&lt;li>kube-apiserver v1.24.0 - v1.24.7&lt;/li>
+&lt;li>kube-apiserver v1.23.0 - v1.23.13&lt;/li>
+&lt;li>kube-apiserver v1.22.0 - v1.22.15&lt;/li>
+&lt;li>kube-apiserver &amp;lt; v1.21.?&lt;/li>
+&lt;/ul>
+&lt;h2 id="cve-2022-3294">CVE-2022-3294&lt;/h2>
+&lt;p>我们平时如果想要进入 Pod 内进行操作（即 &lt;code>kubectl exec&lt;/code>）的时候，它的过程是：&lt;/p>
+&lt;ul>
+&lt;li>kubectl -&amp;gt; kube-apiserver：&lt;/li>
+&lt;/ul>
+&lt;p>kubectl 会请求 &lt;code>/api/v1/namespaces/&amp;lt;ns&amp;gt;/pods/&amp;lt;pod&amp;gt;/exec&lt;/code> 到 kube-apiserver，实际的代码也很简单，可以看到是一个 POST 请求，并且按照传递的参数构造请求。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go"> &lt;span class="nx">fn&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="kd">func&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="kt">error&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">restClient&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">restclient&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">RESTClientFor&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">p&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Config&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="c1">// TODO: consider abstracting into a client invocation or client helper
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">req&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">restClient&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Post&lt;/span>&lt;span class="p">().&lt;/span>
+&lt;span class="nf">Resource&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;pods&amp;#34;&lt;/span>&lt;span class="p">).&lt;/span>
+&lt;span class="nf">Name&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">pod&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Name&lt;/span>&lt;span class="p">).&lt;/span>
+&lt;span class="nf">Namespace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">pod&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Namespace&lt;/span>&lt;span class="p">).&lt;/span>
+&lt;span class="nf">SubResource&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;exec&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">req&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">VersionedParams&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">corev1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">PodExecOptions&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">Container&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">containerName&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">Command&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">p&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Command&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">Stdin&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">p&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Stdin&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">Stdout&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">p&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Out&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">Stderr&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">p&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ErrOut&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">TTY&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">t&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Raw&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">},&lt;/span> &lt;span class="nx">scheme&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ParameterCodec&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">p&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Executor&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Execute&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;POST&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">req&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">URL&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="nx">p&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Config&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">p&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">In&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">p&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Out&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">p&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ErrOut&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">t&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Raw&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">sizeQueue&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>kube-apiserver -&amp;gt; 目标节点的 kubelet&lt;/li>
+&lt;/ul>
+&lt;p>当 kube-apiserver 接收到来自 client 的请求后，就需要构造新的请求然后到目标节点上执行了。
+这部分的最直接的代码是如下的内容，会有一个 &lt;code>ExecLocation&lt;/code> 函数，用来返回目标位置。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="nf">ExecLocation&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;span class="nx">ctx&lt;/span> &lt;span class="nx">context&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Context&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">getter&lt;/span> &lt;span class="nx">ResourceGetter&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">connInfo&lt;/span> &lt;span class="nx">client&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ConnectionInfoGetter&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">name&lt;/span> &lt;span class="kt">string&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">opts&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">api&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">PodExecOptions&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="p">)&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="nx">url&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">URL&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">http&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">RoundTripper&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">error&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nf">streamLocation&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">getter&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">connInfo&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">opts&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">opts&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Container&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;exec&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>当然，和节点信息有关的部分，是在 &lt;code>streamLocation&lt;/code> 函数的部分来获取的，如下：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="nx">container&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nf">validateContainer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">container&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">pod&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">nodeName&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">types&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NodeName&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">pod&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Spec&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">NodeName&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">nodeName&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="c1">// If pod has not been assigned a host, return an empty location
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">errors&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewBadRequest&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Sprintf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;pod %s does not have a host assigned&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">nodeInfo&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">connInfo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">GetConnectionInfo&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">nodeName&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">params&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">url&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Values&lt;/span>&lt;span class="p">{}&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nf">streamParams&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">params&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">opts&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">nil&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">loc&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">url&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">URL&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">Scheme&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">nodeInfo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Scheme&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;span class="nx">Host&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">net&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">JoinHostPort&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">nodeInfo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Hostname&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">nodeInfo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Port&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;span class="nx">Path&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">fmt&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Sprintf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;/%s/%s/%s/%s&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">path&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">pod&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Namespace&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">pod&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Name&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">container&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;span class="nx">RawQuery&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">params&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Encode&lt;/span>&lt;span class="p">(),&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">loc&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">nodeInfo&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Transport&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>通过以上的步骤，kube-apiserver 就知道要跟哪个 Node 连接了。&lt;/p>
+&lt;p>不过这里有个需要注意的内容，上面的 &lt;code>ResourceGetter&lt;/code> 是个通过 &lt;code>ResourceLocation&lt;/code> 获取资源的接口，这也是这个漏洞中的核心。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-diff" data-lang="diff">func ResourceLocation(getter ResourceGetter, connection client.ConnectionInfoGetter, proxyTransport http.RoundTripper, ctx context.Context, id string) (*url.URL, http.RoundTripper, error) {
+schemeReq, name, portReq, valid := utilnet.SplitSchemeNamePort(id)
+if !valid {
+return nil, nil, errors.NewBadRequest(fmt.Sprintf(&amp;#34;invalid node request %q&amp;#34;, id))
+}
+info, err := connection.GetConnectionInfo(ctx, types.NodeName(name))
+if err != nil {
+return nil, nil, err
+}
+&lt;span class="gi">+ if err := proxyutil.IsProxyableHostname(ctx, &amp;amp;net.Resolver{}, info.Hostname); err != nil {
+&lt;/span>&lt;span class="gi">+ return nil, nil, errors.NewBadRequest(err.Error())
+&lt;/span>&lt;span class="gi">+ }
+&lt;/span>&lt;span class="gi">&lt;/span>
+// We check if we want to get a default Kubelet&amp;#39;s transport. It happens if either:
+// - no port is specified in request (Kubelet&amp;#39;s port is default)
+// - the requested port matches the kubelet port for this node
+if portReq == &amp;#34;&amp;#34; || portReq == info.Port {
+return &amp;amp;url.URL{
+Scheme: info.Scheme,
+Host: net.JoinHostPort(info.Hostname, info.Port),
+},
+info.Transport,
+nil
+}
+&lt;span class="gd">- if err := proxyutil.IsProxyableHostname(ctx, &amp;amp;net.Resolver{}, info.Hostname); err != nil {
+&lt;/span>&lt;span class="gd">- return nil, nil, errors.NewBadRequest(err.Error())
+&lt;/span>&lt;span class="gd">- }
+&lt;/span>&lt;span class="gd">&lt;/span>
+// Otherwise, return the requested scheme and port, and the proxy transport
+return &amp;amp;url.URL{Scheme: schemeReq, Host: net.JoinHostPort(info.Hostname, portReq)}, proxyTransport, nil
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>上面是在 v1.22.16 中的修复，可以看到实际是把 &lt;code>proxyutil.IsProxyableHostname&lt;/code> 的判断逻辑移动到了前面，在之前有可能会跳过此判断。&lt;/p>
+&lt;p>如果跳过了这个判断，就可能会导致原本经过认证的请求被发送到 API Server 所在的私有网络（说直白点，就是有可能会篡改目标地址）。&lt;/p>
+&lt;p>所以，这个漏洞的触发条件也很明确，只有能篡改 Node 地址才会受到影响。&lt;/p>
+&lt;p>受影响的版本如下：&lt;/p>
+&lt;ul>
+&lt;li>Kubernetes kube-apiserver ≤ v1.25.3&lt;/li>
+&lt;li>Kubernetes kube-apiserver ≤ v1.24.7&lt;/li>
+&lt;li>Kubernetes kube-apiserver ≤ v1.23.13&lt;/li>
+&lt;li>Kubernetes kube-apiserver ≤ v1.22.15&lt;/li>
+&lt;/ul>
+&lt;p>解决办法要么是升级 kube-apiserver，要么可以设置 egress proxy 来进行管理。
+但是如果升级 kube-apiserver 也有可能会导致一些依赖于 Node/Proxy 的子资源场景下的不可用，需要注意。&lt;/p>
+&lt;p>本周 Kubernetes v1.26.0-rc.0 也发布了，按照之前的习惯，正式版和这个版本中差别就不会很大了。
+下期我会写一篇介绍 v1.26 版本中重点需要关注的内容，敬请期待！&lt;/p>
+&lt;p>好了，以上就是本次的全部内容，我们下期再聊！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">K8S 生态周报| 基础库放弃维护，上游社区如何选择？</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/11/13/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E5%9F%BA%E7%A1%80%E5%BA%93%E6%94%BE%E5%BC%83%E7%BB%B4%E6%8A%A4%E4%B8%8A%E6%B8%B8%E7%A4%BE%E5%8C%BA%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9/"/><id>https://moelove.info/2022/11/13/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E5%9F%BA%E7%A1%80%E5%BA%93%E6%94%BE%E5%BC%83%E7%BB%B4%E6%8A%A4%E4%B8%8A%E6%B8%B8%E7%A4%BE%E5%8C%BA%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9/</id><updated>2022-11-20T21:58:22+08:00</updated><published>2022-11-13T21:42:20+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
