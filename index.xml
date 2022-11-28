@@ -1,4 +1,129 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 21 Nov 2022 15:52:54 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| 深入源码剖析 Kubernetes 的漏洞</title><link>https://moelove.info/2022/11/20/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E6%B7%B1%E5%85%A5%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90-Kubernetes-%E7%9A%84%E6%BC%8F%E6%B4%9E/</link><guid isPermaLink="true">https://moelove.info/2022/11/20/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E6%B7%B1%E5%85%A5%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90-Kubernetes-%E7%9A%84%E6%BC%8F%E6%B4%9E/</guid><pubDate>Sun, 20 Nov 2022 19:52:05 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 28 Nov 2022 09:25:39 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>聊聊 Docker 的存储驱动 Overlay2</title><link>https://moelove.info/2022/11/28/%E8%81%8A%E8%81%8A-Docker-%E7%9A%84%E5%AD%98%E5%82%A8%E9%A9%B1%E5%8A%A8-Overlay2/</link><guid isPermaLink="true">https://moelove.info/2022/11/28/%E8%81%8A%E8%81%8A-Docker-%E7%9A%84%E5%AD%98%E5%82%A8%E9%A9%B1%E5%8A%A8-Overlay2/</guid><pubDate>Mon, 28 Nov 2022 07:54:40 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>上周在我的交流群里有个小伙伴问到了 Overlay2 相关的问题，这篇就来介绍一下。&lt;/p>
+&lt;p>本节，我将为你介绍 Docker 现在推荐使用的存储驱动 Overlay2，在开始之前，你可以执行以下命令来查看 Docker 正在使用的存储驱动：&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ ~ docker info --format '{{.Driver}}'
+overlay2
+&lt;/code>&lt;/pre>&lt;p>如果你看到的结果也是 &lt;code>overlay2&lt;/code> 说明你的 Docker 已经在使用 overlay2 存储驱动了。我在个人工作站上用的是 btrfs，这是因为自从 Fedora 33 开始，btrfs 就成为了 Fedora 默认的文件系统。不过服务器上就都是 overlay2 了。&lt;/p>
+&lt;p>你也可能会看到其他不同的结果，可以在启动 docker daemon 的时候，通过 &lt;code>--storage-driver&lt;/code> 参数进行指定，也可以在 &lt;code>/etc/docker/daemon.json&lt;/code> 文件中通过 &lt;code>storage-driver&lt;/code> 字段进行配置。&lt;/p>
+&lt;p>目前对于 Docker 最新版本而言，你有以下几种存储驱动可供选择：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>overlay2&lt;/code>&lt;/li>
+&lt;li>&lt;code>fuse-overlayfs&lt;/code>&lt;/li>
+&lt;li>&lt;code>btrfs&lt;/code>&lt;/li>
+&lt;li>&lt;code>zfs&lt;/code>&lt;/li>
+&lt;li>&lt;code>aufs&lt;/code>&lt;/li>
+&lt;li>&lt;code>overlay&lt;/code>&lt;/li>
+&lt;li>&lt;code>devicemapper&lt;/code>&lt;/li>
+&lt;li>&lt;code>vfs&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>但它们对于你使用的文件系统之类的都有不同的要求，且实现方式也不尽相同。我以本节的重点 &lt;code>overlay2&lt;/code> 存储驱动为例，它需要你使用 Linux 4.x 以上版本的内核，或者是对于 RHEL/CentOS 等需要使用 3.10.0-514 以上的内核（旧版本中存在一些兼容性问题，我在之前的文章中有提到过）。&lt;/p>
+&lt;p>同时，它支持你使用 ext4 的文件系统，或者增加了 &lt;code>ftype=1&lt;/code> 的 xfs 文件系统。可以通过 &lt;code>docker info&lt;/code> 进行得到文件系统相关的信息。&lt;/p>
+&lt;pre>&lt;code># 省略了部分输出
+(MoeLove) ➜ ~ docker info
+Storage Driver: overlay2
+Backing Filesystem: extfs
+Supports d_type: true
+Native Overlay Diff: true
+&lt;/code>&lt;/pre>&lt;h2 id="存储驱动的作用">存储驱动的作用&lt;/h2>
+&lt;p>前面虽然已经聊了如何设置和检查当前在用的存储驱动，但尚未介绍为何一定要使用存储驱动，以及它的作用。&lt;/p>
+&lt;p>还记得我在之前的文章&lt;a href="https://moelove.info/2021/03/14/%E4%B8%87%E5%AD%97%E9%95%BF%E6%96%87%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/">《万字长文：彻底搞懂容器镜像构建》&lt;/a>中为你介绍的 Docker 如何存储镜像相关的内容吗，如果忘了可以回头复习一下。&lt;/p>
+&lt;p>Docker 将容器镜像做了分层存储，每个层相当于包含着一条 Dockerfile 的指令。而这些层在磁盘上的存储方式，以及在启动容器时，如何组织这些层，并提供可写层，便是存储驱动的主要作用了。&lt;/p>
+&lt;p>另外需要注意的是：不同的存储驱动实现不同，性能也有差异，同时使用不同的存储驱动也会导致占用的磁盘空间有所不同。&lt;/p>
+&lt;p>同时： &lt;strong>由于它们的实现不同，当你修改存储驱动后，可能会导致看不到原有的镜像，容器等，这是正常的，不必担心，切换回原先的驱动即可见。&lt;/strong>&lt;/p>
+&lt;h2 id="overlayfs">OverlayFS&lt;/h2>
+&lt;p>了解完前面的背景知识后，你也看到了我刚才列出的可用存储驱动中有两个 &lt;code>overlay&lt;/code> 和 &lt;code>overlay2&lt;/code>，其实 &lt;code>overlay2&lt;/code> 算是 &lt;code>overlay&lt;/code> 的升级版，这两个存储驱动所用的都是 &lt;code>OverlayFS&lt;/code> 。&lt;/p>
+&lt;p>&lt;code>overlay&lt;/code> 驱动是在 2014 年 8 月份首次进入 Docker 的，而 &lt;code>overlay2&lt;/code> 则是在 2016 年 6 月份被合并，并首次出现在 Docker 1.12 中的。它的出现是为了解决 &lt;code>overlay&lt;/code> 存储驱动可能早层 inode 耗尽的问题。&lt;/p>
+&lt;p>简单介绍完 &lt;code>overlay&lt;/code> 和 &lt;code>overlay2&lt;/code> ，我们将重点回归到 &lt;code>OverlayFS&lt;/code> 上。&lt;/p>
+&lt;p>我们启动一个容器，以此为切入点来认识下 OverlayFS，注意： &lt;strong>以下内容使用 Linux 5.4 内核以及 Docker 20.10.21&lt;/strong>，不同环境下可能结果略有差异。&lt;/p>
+&lt;pre>&lt;code># 检查无在运行的容器和 overlay 挂载
+(MoeLove) ➜ ~ mount |grep overlay
+(MoeLove) ➜ ~ docker ps
+CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
+# 启动一个容器
+(MoeLove) ➜ ~ docker run --rm -d alpine sleep 99999
+caa9517ce0d799602735a30aaaaf123c07e07ff6e44c5a4b07e776af85780abe
+(MoeLove) ➜ ~ docker ps
+CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
+caa9517ce0d7 alpine &amp;quot;sleep 99999&amp;quot; 23 seconds ago Up 22 seconds hopeful_dubinsky
+# 检查 overlay 挂载
+(MoeLove) ➜ ~ mount |grep overlay
+overlay on /var/lib/docker/overlay2/f4356a8f14342008fc298bf3d313b863d10f30ef447a3b2f51ea9ece0dec09db/merged type overlay (rw,relatime,seclabel,lowerdir=/var/lib/docker/overlay2/l/5OO3RLRXHJPEH3IFEXNCTO4PY5:/var/lib/docker/overlay2/l/UVA7IR67ZZTN2BNTKCZ7T6HUWU,upperdir=/var/lib/docker/overlay2/f4356a8f14342008fc298bf3d313b863d10f30ef447a3b2f51ea9ece0dec09db/diff,workdir=/var/lib/docker/overlay2/f4356a8f14342008fc298bf3d313b863d10f30ef447a3b2f51ea9ece0dec09db/work)
+&lt;/code>&lt;/pre>&lt;p>可以看到，在启动容器后，系统上多了一个 OverlayFS (overlay) 的挂载。注意看其中的几个内容：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>挂载点在： &lt;code>/var/lib/docker/overlay2/f4356a8f14342008fc298bf3d313b863d10f30ef447a3b2f51ea9ece0dec09db/merged&lt;/code>&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ ~ sudo ls /var/lib/docker/overlay2/f4356a8f14342008fc298bf3d313b863d10f30ef447a3b2f51ea9ece0dec09db/merged
+bin dev etc home lib media mnt opt proc root run sbin srv sys tmp usr var
+&lt;/code>&lt;/pre>&lt;p>其中的内容，看着很熟悉，是我们所启动容器根目录中的内容。为了验证这一说法，我在容器中新写一个文件：&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ ~ docker exec -it $(docker ps -ql) sh
+/ # echo 'Hello Docker' &amp;gt; moelove-info
+&lt;/code>&lt;/pre>&lt;p>再次查看此挂载点中的内容：&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ ~ sudo ls /var/lib/docker/overlay2/22be5e4dc4541a60aa4f6de628c3938e7fdc9c4b117277274cd911c46166986b/merged
+bin dev moelove-info etc home lib media mnt opt proc root run sbin srv sys tmp usr var
+(MoeLove) ➜ ~ sudo cat /var/lib/docker/overlay2/f4356a8f14342008fc298bf3d313b863d10f30ef447a3b2f51ea9ece0dec09db/merged/moelove-info
+Hello Docker
+&lt;/code>&lt;/pre>&lt;p>可以看到刚才写的内容已经在这个挂载点的目录中了。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>lowerdir&lt;/code>: 这是是我们 mount 中指定的目录。&lt;/p>
+&lt;p>这个 &lt;code>lowerdir&lt;/code> 中包含两个目录，这是使用了内核对 OverlayFS multi layer 特性的支持，我们分别查看下其中内容：&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ ~ sudo ls -a /var/lib/docker/overlay2/l/5OO3RLRXHJPEH3IFEXNCTO4PY5
+. .. dev .dockerenv etc
+(MoeLove) ➜ ~ sudo ls -a /var/lib/docker/overlay2/l/UVA7IR67ZZTN2BNTKCZ7T6HUWU
+. .. bin dev etc home lib media mnt opt proc root run sbin srv sys tmp usr var
+&lt;/code>&lt;/pre>&lt;p>这两个目录，是不是看着很熟悉？&lt;/p>
+&lt;p>是的，它们就是我们所启动容器根目录中的大部分内容。为什么说是大部分内容呢？当我们查看其中的内容时，你也会发现它们的内容也并不完整。比如我们刚才新写入的 &lt;code>moelove-info&lt;/code> 文件，或者当我们查看 &lt;code>etc&lt;/code> 目录下的文件，你也会发现其中都只是常规系统 &lt;code>/etc&lt;/code> 目录下的部分内容。&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ ~ sudo ls /var/lib/docker/overlay2/l/5OO3RLRXHJPEH3IFEXNCTO4PY5/etc
+hostname hosts mtab resolv.conf
+(MoeLove) ➜ ~ sudo ls /var/lib/docker/overlay2/l/UVA7IR67ZZTN2BNTKCZ7T6HUWU/etc
+alpine-release fstab init.d modprobe.d mtab passwd protocols shells udhcpd.conf
+apk group inittab modules network periodic securetty ssl
+conf.d hostname issue modules-load.d opt profile services sysctl.conf
+crontabs hosts logrotate.d motd os-release profile.d shadow sysctl.d
+&lt;/code>&lt;/pre>&lt;/li>
+&lt;li>
+&lt;p>&lt;code>upperdir&lt;/code> 是另一个重要的目录，我们来看看其中的内容&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ ~ sudo ls -a /var/lib/docker/overlay2/f4356a8f14342008fc298bf3d313b863d10f30ef447a3b2f51ea9ece0dec09db/diff
+. .. moelove-info root
+&lt;/code>&lt;/pre>&lt;p>我们发现这个目录中包含着刚才创建的 &lt;code>moelove-info&lt;/code> 文件。同时，其中也包含一个 &lt;code>root&lt;/code> 目录，这个目录便是我们默认使用的 &lt;code>root&lt;/code> 用户的家目录。&lt;/p>
+&lt;p>如果去查看其中的内容，也会发现刚才我们执行命令的历史记录。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>workdir&lt;/code> 这个目录和 &lt;code>upperdir&lt;/code> 在同一个父目录下，查看其内容发现里面只有一个 &lt;code>work&lt;/code> 目录&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ ~ sudo ls -a /var/lib/docker/overlay2/f4356a8f14342008fc298bf3d313b863d10f30ef447a3b2f51ea9ece0dec09db/work
+. .. work
+&lt;/code>&lt;/pre>&lt;/li>
+&lt;/ul>
+&lt;p>看完以上的介绍，想必你已经发现了它们之间的部分联系，在此之前，我们在额外看一个目录，那就是 &lt;code>upperdir&lt;/code> 和 &lt;code>workdir&lt;/code> 以及挂载点共同的父目录：&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ ~ sudo ls /var/lib/docker/overlay2/f4356a8f14342008fc298bf3d313b863d10f30ef447a3b2f51ea9ece0dec09db
+diff link lower merged work
+&lt;/code>&lt;/pre>&lt;p>你会发现这个目录下的内容就比较直观了。我们刚才已经看了其中 &lt;code>diff&lt;/code>，&lt;code>merged&lt;/code> 和 &lt;code>work&lt;/code> 目录的内容了，现在看看 &lt;code>lower&lt;/code> 中的内容吧：&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ ~ sudo cat /var/lib/docker/overlay2/f4356a8f14342008fc298bf3d313b863d10f30ef447a3b2f51ea9ece0dec09db/lower
+l/5OO3RLRXHJPEH3IFEXNCTO4PY5:l/UVA7IR67ZZTN2BNTKCZ7T6HUWU
+&lt;/code>&lt;/pre>&lt;p>我们发现，&lt;code>lower&lt;/code> 文件中的内容是以 &lt;code>:&lt;/code> 分隔的两个 &lt;code>lowerdir&lt;/code> 的目录名称。&lt;/p>
+&lt;p>至此，我们可以得到以下结论：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>lower&lt;/code> 是基础层，可以包含多个 &lt;code>lowerdir&lt;/code>；&lt;/li>
+&lt;li>&lt;code>diff&lt;/code> 是可写层，即挂载时的 &lt;code>upperdir&lt;/code>，在容器内变更的文件都在这一层存储；&lt;/li>
+&lt;li>&lt;code>merged&lt;/code> 是最终的合并结果，即容器给我们呈现出来的结果；&lt;/li>
+&lt;/ul>
+&lt;h2 id="overlay2">Overlay2&lt;/h2>
+&lt;p>经过前面对 Docker 启动容器后挂载的 OverlayFS 的介绍后，Overlay2 的工作流程想必你也就比较清楚了。&lt;/p>
+&lt;p>将镜像各层作为 &lt;code>lower&lt;/code> 基础层，同时增加 &lt;code>diff&lt;/code> 这个可写层，通过 OverlayFS 的工作机制，最终将 &lt;code>merged&lt;/code> 作为容器内的文件目录展示给用户。&lt;/p>
+&lt;p>你可能会有疑问，如果只是这样简单的组织，会不会有什么限制呢？答案是肯定的，当然有限制，我们可以通过 Overlay2 的代码来看&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="c1">// daemon/graphdriver/overlay2/overlay.go#L442
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kd">func&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">d&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">Driver&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nf">getLower&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">parent&lt;/span> &lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">error&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="c1">// 省略部分内容
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">lowers&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">&amp;gt;&lt;/span> &lt;span class="nx">maxDepth&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="s">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">errors&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">New&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;max depth exceeded&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以看到其对 lower 的深度有硬编码的限制，当前硬编码的限制是 128 。如果你在使用的过程中遇到这个错误，那表示你超过了最大深度限制，你就需要找些办法来减少层级了。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>本节，我为你介绍了 OverlayFS 及 Overlay2 存储驱动相关的内容。通过实际启动容器生成的相关目录来介绍 overlay2 的工作流程，想必通过这种方式能更易理解。&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Docker/">Docker</category></item><item><title>K8S 生态周报| 深入源码剖析 Kubernetes 的漏洞</title><link>https://moelove.info/2022/11/20/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E6%B7%B1%E5%85%A5%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90-Kubernetes-%E7%9A%84%E6%BC%8F%E6%B4%9E/</link><guid isPermaLink="true">https://moelove.info/2022/11/20/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E6%B7%B1%E5%85%A5%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90-Kubernetes-%E7%9A%84%E6%BC%8F%E6%B4%9E/</guid><pubDate>Sun, 20 Nov 2022 19:52:05 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
