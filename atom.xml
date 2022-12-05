@@ -1,4 +1,73 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-11-28T09:25:39+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">聊聊 Docker 的存储驱动 Overlay2</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/11/28/%E8%81%8A%E8%81%8A-Docker-%E7%9A%84%E5%AD%98%E5%82%A8%E9%A9%B1%E5%8A%A8-Overlay2/"/><id>https://moelove.info/2022/11/28/%E8%81%8A%E8%81%8A-Docker-%E7%9A%84%E5%AD%98%E5%82%A8%E9%A9%B1%E5%8A%A8-Overlay2/</id><updated>2022-11-28T09:25:22+08:00</updated><published>2022-11-28T07:54:40+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 上周在我的交流群里有个小伙伴问到了 Overlay2 相关的问题，这篇就来介绍一下。 本节，我将为你介绍 Docker 现在推荐使用的存储驱动……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2022-12-05T08:32:08+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| KSM 即将废弃对 VerticalPodAutoscaler 的支持</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/12/04/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-KSM-%E5%8D%B3%E5%B0%86%E5%BA%9F%E5%BC%83%E5%AF%B9-VerticalPodAutoscaler-%E7%9A%84%E6%94%AF%E6%8C%81/"/><id>https://moelove.info/2022/12/04/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-KSM-%E5%8D%B3%E5%B0%86%E5%BA%9F%E5%BC%83%E5%AF%B9-VerticalPodAutoscaler-%E7%9A%84%E6%94%AF%E6%8C%81/</id><updated>2022-12-05T08:29:57+08:00</updated><published>2022-12-04T22:03:38+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>最近的 &lt;a href="https://watch.githubuniverse.com/on-demand/?utm_source=moelove.info&amp;amp;utm_medium=product&amp;amp;utm_campaign=2022-product-WW-Universe&amp;amp;utm_content=watch-on-demand-promo">GitHub Universe&lt;/a> 上 Kyle Daigle
+介绍了 GitHub 的一个处于技术预览阶段的特性，名为 &lt;a href="https://blocks.githubnext.com/?utm_source=moelove.info">GitHub Blocks&lt;/a>，你可以点击左侧的链接，加入 waitlist 或者查看其具体介绍。&lt;/p>
+&lt;p>简单来说 GitHub Blocks 就是允许在 GitHub 的仓库中增加一些 JavaScript 代码，并由 GitHub 直接进行执行/渲染。&lt;/p>
+&lt;p>这个特性的本意是用于增强 GitHub 上文档的体验 （当在 GitHub 上的文档体验很强大时，各种项目应该就没必要再自建文档站了吧（笑））。&lt;/p>
+&lt;p>我来列几个我认为特别实用的特性：&lt;/p>
+&lt;ul>
+&lt;li>对于上传到 GitHub 仓库中的 &lt;code>.csv&lt;/code> 文件，不仅仅可以渲染成表格，而且还可以直接渲染出图表，根据用户的选择来自定义横纵轴，以及图表类型；&lt;/li>
+&lt;li>&lt;a href="https://excalidraw.com/?utm_source=moelove.info">excalidraw&lt;/a> 是我经常用来画图的工具，在 GitHub 中可以直接渲染 &lt;code>.excalidraw&lt;/code> 的源文件，以及进行一些编辑，这可比 GitHub 集成 Mermaid 要强大的多；&lt;/li>
+&lt;li>还可以很简单的将贡献者和趋势图等，目前在 Insights 可以看到的内容，用很简单的代码加到 markdown 文件中。我猜测这个功能上线后，有一些类似的工具可能就会被抛弃了；&lt;/li>
+&lt;li>还有就是构建可交互的文档，比如现在很多前端框架/库的文档站基本都提供了交互的能力，在 GitHub 上也可以得到相同的能力了，而且还无需自己维护相关逻辑/代码，这不香吗？&lt;/li>
+&lt;/ul>
+&lt;p>当然，这里需要重点说明一下，这个功能目前是 GitHub 特有的，如果你依赖了这些功能，那么后续可能就无法简单的通过
+迁移到其他的服务提供商（比如 GitLab）来得到相同的体验了。&lt;/p>
+&lt;h2 id="kube-state-metrics-v27-正式发布">kube-state-metrics v2.7 正式发布&lt;/h2>
+&lt;p>kube-state-metrics (KSM) 是一个比较简单的，通过监听 kube-apiserver 并生成关于 Object 状态指标的组件。&lt;/p>
+&lt;p>我们可以通过这个组件暴露出集群内各种对象的 metrics，并结合 Prometheus 做一些监控，以及一些其他的需求。&lt;/p>
+&lt;p>在 v2.7 中有一个很重要的变化， &lt;strong>实验性的 VerticalPodAutoscaler metrics 被废弃，并将在 v2.9 中移除。&lt;/strong> 用户可以通过使用 CustomResourceStateMetrics 从 VPA 资源中获取。
+主要是由于 VPA 并不是一个 Kubernetes 内置的资源，并且添加此实验性的特性，本身已经超过了该项目的主要目标，所以社区决定将其逐步移除。&lt;/p>
+&lt;p>此外 &lt;strong>实验性的 CustomResourceState 也修改了其命名规则，以便于更加易用。&lt;/strong>
+之前 CRD 的名称等信息都被插入到了 metrics 的名称中，这非常不方便进行聚合查询。本次的修改如下：&lt;/p>
+&lt;p>kube_apisix_apache_org_v2_ApisixRoute_myroute &amp;gt; kube_crd_myroute{group=&amp;quot;apisix.apache.org&amp;quot;, kind=&amp;quot;ApisixRoute&amp;quot;, version=&amp;quot;v2&amp;quot;}&lt;/p>
+&lt;p>可以看到，经过这次修改，可读性更好，并且也更容易按 Group 聚合。如果存在多个版本的资源，也会很方便进行管理。&lt;/p>
+&lt;p>此外还有一些值得注意的变更：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kube-state-metrics/pull/1752">#1752&lt;/a> 实验性的增加了 kube_pod_container_status_last_terminated_exitcode 指标，这样就可以查看 Pod 上次退出时的状态码了，在排查问题的时候很方便；&lt;/li>
+&lt;li>&lt;a href="https://github.com/kubernetes/kube-state-metrics/pull/1905/files">#1905&lt;/a> 添加了对 IngressClass 资源的 metrcis；&lt;/li>
+&lt;/ul>
+&lt;p>更多关于此版本的变更，请查看其 &lt;a href="https://github.com/kubernetes/kube-state-metrics/releases/tag/v2.7.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h2 id="registryk8sio-达到-ga">registry.k8s.io 达到 GA&lt;/h2>
+&lt;p>Kubernetes 自 v1.25 起将默认的镜像仓库从 k8s.gcr.io 切换到了 registry.k8s.io ，以便于给用户提供更高可用的镜像服务，且可以通过 CDN 提升速度。&lt;/p>
+&lt;p>这主要是由于 k8s.gcr.io 本质上是由 Google 提供的镜像服务，但是目前有其他的供应商也可以提供类似的服务，
+比如，近期 Amazon 也宣布会对 Kubernetes 进行捐赠。&lt;/p>
+&lt;p>并且以后可能也会有其他的厂商也可能会提供类似的服务。&lt;/p>
+&lt;p>所以本次切换相当于提供了一个中立的服务，并通过使用各个云厂商提供的镜像服务做为后端服务，
+实现了镜像仓库的高可用，并且可以在各个厂商之间进行分流，节省开支等。&lt;/p>
+&lt;p>大家以后拉取镜像/安装的时候，默认就会使用这个镜像仓库了。&lt;/p>
+&lt;p>如果你不想使用此镜像仓库，可以通过以下两种方法来使用旧的域名：&lt;/p>
+&lt;ul>
+&lt;li>直接通过命令行传递参数&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">kubeadm init --image-repository&lt;span class="o">=&lt;/span>k8s.gcr.io
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>或者通过 &lt;code>ClusterConfiguration&lt;/code> 进行配置&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">kubeadm.k8s.io/v1beta3&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ClusterConfiguration&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">imageRepository&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;k8s.gcr.io&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>此外，kubelet 中也可以通过如下方式来指定使用旧的仓库：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">kubelet --pod-infra-container-image&lt;span class="o">=&lt;/span>k8s.gcr.io/pause:3.5
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="flux-从-cncf-毕业了">Flux 从 CNCF 毕业了&lt;/h2>
+&lt;p>在我之前的文章 &lt;a href="https://moelove.info/2021/12/18/GitOps-%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5%E7%B3%BB%E5%88%97-Flux-CD-%E5%8F%8A%E5%85%B6%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6/#flux-cd">GitOps 应用实践系列 - Flux CD 及其核心组件 | MoeLove&lt;/a> 中，我曾详细介绍过 Flux 的发展过程以及其用法，感兴趣的小伙伴可以翻翻那篇文章，这里就不重复了。&lt;/p>
+&lt;p>Flux 是 CNCF 第 18 个毕业的项目，自 2019 年 7 月加入 CNCF sandbox，2021 年 3 月达到孵化级别，截至目前该项目获得了 4.2K star，
+并且有上百位贡献者，也有很多知名公司在生产环境中使用了它。&lt;/p>
+&lt;p>目前 Flux 社区正在积极推进 Flux 达到 GA，预计 Flux GitOps 和 Flux Helm 在 2023 年均会达到 GA。详细计划请参考 &lt;a href="https://fluxcd.io/roadmap/">Flux Roadmap | Flux&lt;/a>.&lt;/p>
+&lt;h2 id="其他">其他&lt;/h2>
+&lt;ul>
+&lt;li>Alpine Linux v3.17 正式发布了。有一些新的变更，OpenSSL 默认是 3.0 版本了，解决了一些安全问题，又一大波镜像需要进行更新了。具体请参考 &lt;a href="https://www.alpinelinux.org/posts/Alpine-3.17.0-released.html">Alpine 3.17.0 released | Alpine Linux&lt;/a>&lt;/li>
+&lt;li>containerd 可通过其子项目 &lt;a href="https://github.com/containerd/runwasi">containerd/runwasi: Facilitates running Wasm / WASI workloads managed by containerd&lt;/a> 来运行 Wasm/WASI 的容器了，不过该项目还处于很早期的阶段。&lt;/li>
+&lt;li>cilium &lt;a href="https://github.com/cilium/cilium/releases/tag/v1.13.0-rc3">Release 1.13.0-rc3 · cilium/cilium&lt;/a>&lt;/li>
+&lt;li>Kyverno &lt;a href="https://github.com/kyverno/kyverno/releases/tag/v1.8.3-rc.2">Release v1.8.3-rc.2 · kyverno/kyverno&lt;/a>&lt;/li>
+&lt;li>Kyma &lt;a href="https://github.com/kyma-project/kyma/releases/tag/2.9.0">Release 2.9.0 · kyma-project/kyma&lt;/a> 尽管这个项目有点不温不火，但还是在以比较高的频度在进行迭代；&lt;/li>
+&lt;li>Talos &lt;a href="https://github.com/siderolabs/talos/releases/tag/v1.3.0-beta.0">Release v1.3.0-beta.0 · siderolabs/talos&lt;/a> 云原生操作系统，已经将自己的依赖升级到了最新，以及可以通过 &lt;code>talosctl etcd remove-member&lt;/code> 命令，删除指定 member ID 的节点了；&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">聊聊 Docker 的存储驱动 Overlay2</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/11/28/%E8%81%8A%E8%81%8A-Docker-%E7%9A%84%E5%AD%98%E5%82%A8%E9%A9%B1%E5%8A%A8-Overlay2/"/><id>https://moelove.info/2022/11/28/%E8%81%8A%E8%81%8A-Docker-%E7%9A%84%E5%AD%98%E5%82%A8%E9%A9%B1%E5%8A%A8-Overlay2/</id><updated>2022-11-28T09:25:22+08:00</updated><published>2022-11-28T07:54:40+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 上周在我的交流群里有个小伙伴问到了 Overlay2 相关的问题，这篇就来介绍一下。 本节，我将为你介绍 Docker 现在推荐使用的存储驱动……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>上周在我的交流群里有个小伙伴问到了 Overlay2 相关的问题，这篇就来介绍一下。&lt;/p>
 &lt;p>本节，我将为你介绍 Docker 现在推荐使用的存储驱动 Overlay2，在开始之前，你可以执行以下命令来查看 Docker 正在使用的存储驱动：&lt;/p>
 &lt;pre>&lt;code>(MoeLove) ➜ ~ docker info --format '{{.Driver}}'
