@@ -1,4 +1,351 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Wed, 07 Dec 2022 10:11:50 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>Kubernetes 证书管理系列（一）</title><link>https://moelove.info/2022/12/07/Kubernetes-%E8%AF%81%E4%B9%A6%E7%AE%A1%E7%90%86%E7%B3%BB%E5%88%97%E4%B8%80/</link><guid isPermaLink="true">https://moelove.info/2022/12/07/Kubernetes-%E8%AF%81%E4%B9%A6%E7%AE%A1%E7%90%86%E7%B3%BB%E5%88%97%E4%B8%80/</guid><pubDate>Wed, 07 Dec 2022 07:51:08 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Fri, 09 Dec 2022 07:48:35 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>Kubernetes v1.26 新特性一览</title><link>https://moelove.info/2022/12/09/Kubernetes-v1.26-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</link><guid isPermaLink="true">https://moelove.info/2022/12/09/Kubernetes-v1.26-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</guid><pubDate>Fri, 09 Dec 2022 00:35:10 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>Kubernetes v1.26 是 2022 年的最后一个大版本更新，包含了 37 项主要的更新。&lt;/p>
+&lt;p>8 月底正式发布的 v1.25 中包含 40 项，单从这个角度来看，Kubernetes 每个版本节奏的把控也是挺不错的。&lt;/p>
+&lt;p>我每期的 「k8s生态周报」都有一个叫上游进展的部分，所以很多值得关注的内容在之前的文章中已经发过了。
+这篇中我会再额外介绍一些之前未涵盖的，和之前介绍过的值得关注的内容。&lt;/p>
+&lt;p>在 v1.26 中包含了很多直接影响用户与 Kubernetes 交互相关的功能，比如以下内容中会介绍的允许跨 namespace 持久化卷快照引用；
+允许用户无需额外的 exporter 即可自定义 Service Level Indicator(SLI); kubectl events 达到 Beta；支持 Pod 所需资源就绪后再进行调度；
+支持使用 OpenAPI v3 等。&lt;/p>
+&lt;p>以及针对高性能负载运行在哪个物理 CPU 的场景支持。&lt;/p>
+&lt;p>我们一起来具体看看吧！&lt;/p>
+&lt;h1 id="3294httpsgithubcomkubernetesenhancementsissues3294-允许跨-namespace-持久化卷快照引用">&lt;a href="https://github.com/kubernetes/enhancements/issues/3294">#3294&lt;/a> 允许跨 namespace 持久化卷快照引用&lt;/h1>
+&lt;p>在 Kubernetes 中，用户可以通过使用 &lt;code>VolumeSnapshot&lt;/code> 特性，从卷快照创建新的持久化卷。这是非常有用的，比如说
+DBA 可以在进行数据库大的变更/迁移操作前，对持久化卷做一次快照，如果出现异常，则可以直接从该快照恢复数据库之前的状态。&lt;/p>
+&lt;p>例如通过以下方式可以动态的创建一个快照：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">snapshot.storage.k8s.io/v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">VolumeSnapshotClass&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">test-snapclass&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">driver&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">testdriver.csi.k8s.io&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">deletionPolicy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Delete&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">parameters&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">csi.storage.k8s.io/snapshotter-secret-name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">mysecret&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">csi.storage.k8s.io/snapshotter-secret-namespace&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">mysecretnamespace&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">snapshot.storage.k8s.io/v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">VolumeSnapshot&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">test-snapshot&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">namespace&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ns1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">volumeSnapshotClassName&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">test-snapclass&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">source&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">persistentVolumeClaimName&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">test-pvc&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>当然，这里也有些需要注意的点，该功能只能用于 CSI 存储驱动，并且该功能是自 Kubernetes v1.17 达到 beta，v1.20 正式 GA 的。&lt;/p>
+&lt;p>在 v1.26 中增加的特性是 &lt;code>CrossNamespaceVolumeDataSource&lt;/code> 当前是 Alpha 阶段，允许创建持久化卷的时候，跨 namespace 引用卷快照。
+它的主要价值在于，比如想要做应用跨 namespace 迁移的时候，直接从另一个 namespace 对持久化卷做快照，然后使用快照创建 PVC 即可很轻松的完成迁移。
+例如：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">PersistentVolumeClaim&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">testvolumeclaim&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">namespace&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">nstest1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">storageClassName&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">mystorageclass&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">accessModes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">ReadWriteOnce&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">resources&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">requests&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">storage&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">2Gi&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">dataSourceRef&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">apiGroup&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">snapshot.storage.k8s.io&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">VolumeSnapshot&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">testsnapshot&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">namespace&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">moelove&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">volumeMode&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Filesystem&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>当然如果考虑授权相关问题的话，这里使用 Gateway API 的 ReferenceGrant 来控制授权。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">gateway.networking.k8s.io/v1alpha2&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ReferenceGrant&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">test&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">namespace&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">moelove&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">from&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">group&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">PersistentVolumeClaim&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">namespace&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">nstest1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">to&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">group&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">snapshot.storage.k8s.io&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">VolumeSnapshot&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">testsnapshot&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>我认为这是个很实用的功能。&lt;/p>
+&lt;h1 id="3488httpsgithubcomkubernetesenhancementsissues3488-允许使用-cel-进行-admission-control">&lt;a href="https://github.com/kubernetes/enhancements/issues/3488">#3488&lt;/a> 允许使用 CEL 进行 Admission Control&lt;/h1>
+&lt;p>我在去年的 &lt;a href="https://moelove.info/2021/12/08/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.23.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/">K8S 生态周报| Kubernetes v1.23.0 正式发布，新特性一览 | MoeLove&lt;/a> 文章中，曾介绍过 Kubernetes 中引入了 Common Expression Language (CEL) 进行 CRD Validation。该特性在 v1.25 达到 Beta。&lt;/p>
+&lt;p>例如，某个 CRDs 的内容如下，其中定义了 &lt;code>minReplicas&lt;/code> 小于 &lt;code>replicas&lt;/code> 并且 &lt;code>replicas&lt;/code> 小于 &lt;code>maxReplicas&lt;/code> 。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nn">...&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">openAPIV3Schema&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">object&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">properties&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">object&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">x-kubernetes-validation-rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">rule&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;self.minReplicas &amp;lt;= self.replicas&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">message&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;replicas should be greater than or equal to minReplicas.&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">rule&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;self.replicas &amp;lt;= self.maxReplicas&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">message&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;replicas should be smaller than or equal to maxReplicas.&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">properties&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">...&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">minReplicas&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">integer&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">replicas&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">integer&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">maxReplicas&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">integer&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">required&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">minReplicas&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">replicas&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">maxReplicas &lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>那么，当有如下的自定义资源创建时，Kubernetes 将会拒绝其请求。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;stable.example.com/v1&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">CustomDeployment&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">my-new-deploy-object&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">minReplicas&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">0&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">replicas&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">20&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">maxReplicas&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">10&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>并且返回如下错误：&lt;/p>
+&lt;pre>&lt;code>The CustomDeployment &amp;quot;my-new-deploy-object&amp;quot; is invalid:
+* spec: Invalid value: map[string]interface {}{&amp;quot;maxReplicas&amp;quot;:10, &amp;quot;minReplicas&amp;quot;:0, &amp;quot;replicas&amp;quot;:20}: replicas should be smaller than or equal to maxReplicas.
+&lt;/code>&lt;/pre>&lt;p>这个过程看起来和 Admission controller 做的事情很像。当然，我之前也写了一篇文章 《&lt;a href="https://moelove.info/2021/11/30/%E7%90%86%E6%B8%85-Kubernetes-%E4%B8%AD%E7%9A%84%E5%87%86%E5%85%A5%E6%8E%A7%E5%88%B6Admission-Controller/">理清 Kubernetes 中的准入控制（Admission Controller) | MoeLove&lt;/a>》，有兴趣的小伙伴可以再翻看下。&lt;/p>
+&lt;p>回到我们聊到这个特性中，可以认为这是一种对 Admission webhook 的替代，用一种更加原生，直观，并且声明式的方式来进行管理。&lt;/p>
+&lt;p>这里引入了一个新的资源 &lt;code>ValidatingAdmissionPolicy&lt;/code> ，使用起来如下：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="w"> &lt;/span>&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">admissionregistration.k8s.io/v1alpha1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ValidatingAdmissionPolicy&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;demo-policy.moelove.info&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">Spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">failurePolicy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Fail&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">matchConstraints&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">resourceRules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">apiGroups&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;apps&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">apiVersions&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;v1&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">operations&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;CREATE&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;UPDATE&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">resources&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;deployments&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">validations&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">expression&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;object.spec.replicas &amp;lt;= 2&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>上述配置将会拒绝 replicas 不大于 2 的 Deployment。&lt;/p>
+&lt;p>这个特性的优势就在于无需额外的其他组件，除了需要学习 CEL 外，还是比较方便的。该特性目前是 alpha 级别。&lt;/p>
+&lt;p>这里我还想为大家推荐我之前写的两篇和策略相关的文章： 《&lt;a href="https://moelove.info/2022/03/02/%E4%BA%91%E5%8E%9F%E7%94%9F%E7%AD%96%E7%95%A5%E5%BC%95%E6%93%8E-Kyverno-%E4%B8%8A/">云原生策略引擎 Kyverno （上） | MoeLove&lt;/a>》 和 《&lt;a href="https://moelove.info/2021/12/06/Open-Policy-Agent-OPA-%E5%85%A5%E9%97%A8%E5%AE%9E%E8%B7%B5/">Open Policy Agent (OPA) 入门实践 | MoeLove&lt;/a>》&lt;/p>
+&lt;h1 id="3545httpsgithubcomkubernetesenhancementsissues3545-改善-numa-中的拓扑管理">&lt;a href="https://github.com/kubernetes/enhancements/issues/3545">#3545&lt;/a> 改善 NUMA 中的拓扑管理&lt;/h1>
+&lt;p>我在 2021 年 4 月份的文章 &lt;a href="https://moelove.info/2021/04/10/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.21-%E5%8F%91%E5%B8%83-%E5%B8%A6%E6%9D%A5%E6%96%B0%E7%9A%84%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E5%99%A8/">K8S 生态周报| Kubernetes v1.21 发布, 带来新的内存管理器 | MoeLove&lt;/a> 中介绍过，Kubernetes v1.21 中在 kubelet 中新增了一个内存管理器。&lt;/p>
+&lt;p>主要是为了应对多 NUMA 结构下的效率。多 NUMA 结构下，为了保证效率，所以会按内存和 CPU 的相对距离来按 node 定义是否为 local memory 或者说本地内存，同时由于实际位置不同，所以就可能会产生内存分配不均匀的情况了。比如，我们可以使用 numactl 管理工具查看下当前机器上的情况：&lt;/p>
+&lt;pre>&lt;code>[tao@moelove ~]# numactl -H
+available: 2 nodes (0-1)
+node 0 cpus: 0 1 2 3 4 5 6 7 8 9 20 21 22 23 24 25 26 27 28 29
+node 0 size: 65186 MB
+node 0 free: 9769 MB
+node 1 cpus: 10 11 12 13 14 15 16 17 18 19 30 31 32 33 34 35 36 37 38 39
+node 1 size: 65536 MB
+node 1 free: 15206 MB
+node distances:
+node 0 1
+0: 10 21
+1: 21 10
+&lt;/code>&lt;/pre>&lt;p>可以看到在我当前的这台机器上就存在着比较明显的内存分配不均的情况。所以当某个进程达到了其 local memory 的上限，那自然就会影响到它的性能。我最早折腾 NUMA 相关问题是在前些年大量使用 MongoDB 的时候，在这上面也花了些时间，不过这也不影响我对 MongoDB 的喜爱~&lt;/p>
+&lt;p>这次在 kubelet 中增加的内存管理器便可以很好的解决这个问题，可以在启动 kubelet 的时候通过 &lt;code>--reserved-memory&lt;/code> 以及配合 &lt;code>--memory-manager-policy&lt;/code> 等参数来一起设置。例如：&lt;/p>
+&lt;pre>&lt;code>--memory-manager-policy static --reserved-memory 0:memory=1Gi,hugepages-1M=2Gi --reserved-memory 1:memory=2Gi
+&lt;/code>&lt;/pre>&lt;p>注意：&lt;code>memory-manager-policy&lt;/code> 必须设置为 static，如果不设置则默认为 none，即不采取任何行为。&lt;/p>
+&lt;p>不过这个特性还在较早期的阶段，目前只为 &lt;code>Guaranteed&lt;/code> QoS 类的 Pod 提供支持。另外，如果正确启用了此特性，则在机器的 /var/lib/kubelet/memory_manager_state 可以看到其详细信息。&lt;/p>
+&lt;p>&lt;img src="https://github.com/kubernetes/enhancements/raw/master/keps/sig-node/1769-memory-manager/mm_tm_diagram.png" alt="内存管理器的设计 - https://moelove.info">&lt;/p>
+&lt;p>最终将会影响到拓扑管理器。&lt;/p>
+&lt;p>然后在 Kubernetes v1.22 则继续在 kubelet 中增加了另一个 &lt;code>--cpu-manager-policy-options&lt;/code> 选项，对应为 CPU 管理器。&lt;/p>
+&lt;p>在 v1.26 中增加的则是 &lt;code>--topology-manager-policy-options&lt;/code> 来控制整体的拓扑管理。现在仅支持一个 &lt;code>prefer-closest-numa-nodes=true&lt;/code> 配置，当开启此配置的时候，拓扑管理器将尽量在单个
+NUMA 或者尽可能少的 NUMA 节点中对齐资源。&lt;/p>
+&lt;p>这对于高性能负载是非常重要的一个优化。建议关注。&lt;/p>
+&lt;h1 id="113274httpsgithubcomkuberneteskubernetespull113274-为-pod-调度增加调度就绪的机制">&lt;a href="https://github.com/kubernetes/kubernetes/pull/113274">#113274&lt;/a> 为 Pod 调度增加调度就绪的机制&lt;/h1>
+&lt;p>这是 &lt;a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/3521-pod-scheduling-readiness">KEP 3521&lt;/a> 的第一部分。&lt;/p>
+&lt;p>首先我们来简单的回顾一下 Pod 的创建过程。&lt;/p>
+&lt;p>当 client 通过 kube-apiserver 创建成功 Pod 资源后，kube-scheduler 会去检查尚未被调度的 Pod，然后为其进行调度，分配 Node。之后 Node 获取到调度到该 Node 上的 Pod 然后进行创建。
+这里省略了很多细节，但其他的部分与我们此处要介绍的内容关系不太大，就不展开了。&lt;/p>
+&lt;p>根据上述的过程，我们可以发现，在 Pod 创建成功后，其实就默认该 Pod 是可以被调度了，kube-scheduler 就应该开始工作了。&lt;/p>
+&lt;p>但在实际的场景中，Pod 通常还会需要一些其他的资源，最典型的比如存储。在一些环境中，这些资源是需要预先进行创建的，
+&lt;strong>尤其是在一些云厂商的场景中，还需要检查用户账户中是否还有余额可以用于创建云盘等&lt;/strong>。&lt;/p>
+&lt;p>一但前置的依赖无法满足，假如 kube-scheduler 已经完成了 Pod 的调度，那么 kubelet 侧就会处于尝试创建 Pod ，但失败的情况。&lt;/p>
+&lt;p>这个 KEP 的出现就可以很好的解决这个问题，增加了一个 Pod 是否准备好被调度的机制。
+如果前置依赖不满足，那么 Pod 就无需被调度，这也不会消耗资源。kube-scheduler 和 kubelet 都无需进行处理。
+待条件满足，Pod 再被调度和创建即可。&lt;/p>
+&lt;p>这个机制我个人感觉还是挺好的，甚至我可以有更灵活的策略来控制应用的副本。
+比如在大流量，需要动态扩容的场景下，我可以利用此机制预先创建一些 Pod 资源以及准备好它的依赖，
+甚至可以在 Node 上准备好镜像等。当需要增加副本时，直接标记 Pod 可被调度，
+这样就可以更快的在 Node 上拉起 Pod 了。&lt;/p>
+&lt;h1 id="110618httpsgithubcomkuberneteskubernetespull110618-移除了-cri-v1alpha2">&lt;a href="https://github.com/kubernetes/kubernetes/pull/110618">#110618&lt;/a> 移除了 CRI v1alpha2&lt;/h1>
+&lt;p>在移除了 dockershim 的支持后， 现在终于删掉了 CRI v1alpha2 的代码，这意味着之后所有实现了 CRI 的运行时，都必须实现 CRI v1 的接口。&lt;/p>
+&lt;p>目前 containerd 的 CRI v1 接口已经实现了，所以在 Kubernetes v1.26 发布后，也可以放心的使用 containerd 作为其运行时。&lt;/p>
+&lt;p>不过，你是否还记得 cri-dockerd 呢？用于将 Docker 作为 Kubernetes 运行时的组件，现在由 Mirantis 进行维护，
+此项目目前的维护者比较少，目前还只支持 CRI v1alpha2 ，所以，如果你在使用此项目让 Docker 作为运行时，并且想要升级到 Kubernetes v1.26 的话，这是不行的。&lt;/p>
+&lt;h1 id="111333httpsgithubcomkuberneteskubernetespull111333-auth-api-允许获取-user-属性">&lt;a href="https://github.com/kubernetes/kubernetes/pull/111333">#111333&lt;/a> Auth API 允许获取 User 属性&lt;/h1>
+&lt;p>这是 &lt;a href="https://github.com/kubernetes/enhancements/issues/3325">KEP-3325: Self subject attributes review API&lt;/a> 实现的一部分。&lt;/p>
+&lt;p>大家想必都知道，Kubernetes 中并没有 User（用户）的资源，但是 Kubernetes 中有权限校验的方式，比如我们常用到的利用 x509 证书进行用户权限相关的校验，或者
+通过外部的 OIDC 和 webhook 等进行校验。&lt;/p>
+&lt;p>此功能实际上是为了添加一个新的接口，以便于用户身份通过校验后，获取其所具有的属性。这样就可以简单的通过增加一个 &lt;code>kubectl auth whoami&lt;/code> 的命令，来了解当前用户的相关信息了。
+这功能比较类似于我们做 OAuth 的时候，可能会做个 UserInfo 之类的接口，用来查看用户相关的属性。&lt;/p>
+&lt;p>该功能是通过在 &lt;code>authentication.k8s.io&lt;/code> Group 下添加了 &lt;code>SelfSubjectReview&lt;/code> 资源来实现的，具体如下：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="c1">// SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request.
+&lt;/span>&lt;span class="c1">// When using impersonation, users will receive the user info of the user being impersonated.
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kd">type&lt;/span> &lt;span class="nx">SelfSubjectReview&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">metav1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">TypeMeta&lt;/span> &lt;span class="s">`json:&amp;#34;,inline&amp;#34;`&lt;/span>
+&lt;span class="c1">// Standard object&amp;#39;s metadata.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// +optional
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">metav1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ObjectMeta&lt;/span> &lt;span class="s">`json:&amp;#34;metadata,omitempty&amp;#34; protobuf:&amp;#34;bytes,1,opt,name=metadata&amp;#34;`&lt;/span>
+&lt;span class="c1">// Status is filled in by the server with the user attributes.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Status&lt;/span> &lt;span class="nx">SelfSubjectReviewStatus&lt;/span> &lt;span class="s">`json:&amp;#34;status,omitempty&amp;#34; protobuf:&amp;#34;bytes,2,opt,name=status&amp;#34;`&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="c1">// SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kd">type&lt;/span> &lt;span class="nx">SelfSubjectReviewStatus&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="c1">// User attributes of the user making this request.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// +optional
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">UserInfo&lt;/span> &lt;span class="nx">v1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">UserInfo&lt;/span> &lt;span class="s">`json:&amp;#34;userInfo,omitempty&amp;#34; protobuf:&amp;#34;bytes,1,opt,name=userInfo&amp;#34;`&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>此功能在 v1.26 版本开始引入，并作为 Alpha 特性提供，可通过 &lt;code>APISelfSubjectReview&lt;/code> feature gate 控制是否启用。&lt;/p>
+&lt;p>同时，本次也在 kubectl 中添加了 &lt;code>kubectl alpha auth whoami&lt;/code> 子命令，可直接查看当前用户的相关属性信息。
+当执行此命令后，会得到如下输出：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">authentication.k8s.io/v1alpha1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">SelfSubjectReview&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">status&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">userInfo&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">username&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">tao.moelove.info&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">uid&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">a79aaf30-0c6a-66ed-881d-0888ac1266683&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">groups&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">admins&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">speakers&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">system:authenticated&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">extra&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">skills&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">reading&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">learning&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">subjects&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">kubernetes&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">containers&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="3386httpsgithubcomkubernetesenhancementsissues3386-减少-kubelet-在-pleg-中的-cpu-消耗">&lt;a href="https://github.com/kubernetes/enhancements/issues/3386">#3386&lt;/a> 减少 Kubelet 在 PLEG 中的 CPU 消耗&lt;/h1>
+&lt;p>这个主要是为了减少 Kubelet 在跟踪 Pod 状态 PLEG 时的 CPU 消耗。&lt;/p>
+&lt;p>它将减少 Kubelet 的一些定期轮询，而是尽可能的依赖于 CRI 的通知。&lt;/p>
+&lt;p>经过这个调整，也许在生产环境中遇到的 PLEG 问题也能少一点吧。&lt;/p>
+&lt;h1 id="其他">其他&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/112172">kubeadm: Add the option to cleanup the &lt;code>tmp&lt;/code> directory by chendave · Pull Request #112172 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>kubeadm 新增 &lt;code>cleanup-tmp-dir&lt;/code> 配置项，在 &lt;code>kubeadm reset&lt;/code> 时，可以通过传递此参数将 kubeadm 产生的临时文件给清理干净。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/112157">Avoid propagating &amp;quot;search .&amp;quot; into containers /etc/resolv.conf by dghubble · Pull Request #112157 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>从 Kubernetes v1.25 开始，&lt;code>/etc/resolv.conf&lt;/code> 中的 &lt;code>search .&lt;/code> 会被传递到容器内。&lt;/p>
+&lt;p>这会导致任意基于 musl libc 系统的 DNS 查询失败，比如任何基于 Alpinelinux 的镜像都会失败。&lt;/p>
+&lt;p>要验证自己的集群是否会受该问题影响，只需要查看系统的 &lt;code>/etc/resolv.conf&lt;/code> 文件的内容即可。比如：&lt;/p>
+&lt;pre>&lt;code>nameserver 127.0.0.53
+options edns0 trust-ad
+search .
+&lt;/code>&lt;/pre>&lt;p>如果是上述的情况，一般说明是被 systemd resove 接管了，并且会受到此处描述的问题所影响。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/111093">Fix rollout history bug by brianpursley · Pull Request #111093 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>在执行 &lt;code>kubectl rollout history&lt;/code> 的时候可以传递 &lt;code>--revision=3&lt;/code> 拿到指定版本的信息。但是如果指定了 output format ，则 &lt;code>--revision&lt;/code> 可能会失效。
+通过此 PR 便可解决此问题，但要到 v1.26 才会携带。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/111726">Expose a pending pods summary in scheudler's dummper output by Huang-Wei · Pull Request #111726 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>调度程序可以 dump 出更多信息。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/112076">Revert &amp;quot;promote LocalStorageCapacityIsolationFSQuotaMonitoring to beta&amp;quot; by rphillips · Pull Request #112076 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>由于 OpenShift 团队发现在使用它的时候存在一些问题, 将 &lt;code>LocalStorageCapacityIsolationFSQuotaMonitoring&lt;/code> 重新回退到 Alpha 阶段。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/112015">Removal of GlusterFS code from the repo by humblec · Pull Request #112015 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>在之前的 「K8S 生态周报」中我曾介绍过，在 v1.25 中将树内的 GlusterFS plugin 标记为废弃，并建议迁移至使用 CSI ，
+如今这些插件已经被彻底删除了。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/112414">kubelet: append options to pod if there are multi options in /etc/resolv.conf by pacoxu · Pull Request #112414 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>当前 kubelet 创建 Pod 的时候，如果 &lt;code>/etc/resolv.conf&lt;/code> 中存在多行 options 配置，则只取最后一行。&lt;/p>
+&lt;p>例如 /etc/resolv.conf 包含的配置如下：&lt;/p>
+&lt;pre>&lt;code>options timeout:1
+options attempts:3
+&lt;/code>&lt;/pre>&lt;p>则 Pod 中的 /etc/resolv.conf 只包含如下内容&lt;/p>
+&lt;pre>&lt;code>options attempts:3
+&lt;/code>&lt;/pre>&lt;p>但事实上即使在 /etc/resolv.conf 中配置多行 options ，DNS 也是可以正常工作的。所以当前的 kubelet 行为就不一致了。&lt;/p>
+&lt;p>通过这个 PR， 会将主机的 /etc/resolv.conf 中的多行配置合并为一行。如果还是上面的例子，则 Pod 内看到的就是如下内容了.&lt;/p>
+&lt;pre>&lt;code>options timeout:1 attempts:3
+&lt;/code>&lt;/pre>&lt;p>这里有个需要注意的点就是，Kubernetes 中的默认 DNS 策略并非 &lt;code>default&lt;/code>，这个修改只是针对 &lt;code>default&lt;/code> 策略的。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes/kubernetes/pull/112945">kubeadm: Inherit &lt;code>dry-run&lt;/code> flags for each sub-phases by chendave · Pull Request #112945 · kubernetes/kubernetes&lt;/a> kubeadm 所有的阶段都支持了 dry-run 模式；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes/kubernetes/pull/111096">Add categories to kubectl api-resources wide output and add --categories flag by brianpursley · Pull Request #111096 · kubernetes/kubernetes&lt;/a> 为 &lt;code>kubectl api-resources -o wide&lt;/code> 的输出中增加了一列 &amp;quot;Categories&amp;quot;；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes/kubernetes/pull/108501">add &lt;code>--concurrent-horizontal-pod-autoscaler-syncs&lt;/code> flag to kube-controller-manager by zroubalik · Pull Request #108501 · kubernetes/kubernetes&lt;/a> 为 kube-controller-manager 增加了 &lt;code>--concurrent-horizontal-pod-autoscaler-syncs&lt;/code> 的参数，原先 HPA 中默认只有一个 worker，在大规模集群中处理效率很低。本次的 PR 可以通过此参数来自行配置 worker 数量，以便于提升效率；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes/kubernetes/pull/86139/">Normalize HTTP lifecycle handlers with HTTP probers by jasimmons · Pull Request #86139 · kubernetes/kubernetes&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>我们可以为 Pod 增加 &lt;code>postStart&lt;/code> 和 &lt;code>preStop&lt;/code> 的 Hook，并且其分别可以设置为 &lt;code>Exec&lt;/code> 或 &lt;code>HTTP&lt;/code> 模式。这个 PR 主要是在修改 HTTP 模式下的行为。&lt;/p>
+&lt;p>具体来说，HTTP 模式下的代码与 readiness/liveness 下使用的并不一样，而且也不支持一些常见的功能，比如：&lt;/p>
+&lt;ul>
+&lt;li>设置自定义 HTTP header&lt;/li>
+&lt;li>使用 HTTPS 连接&lt;/li>
+&lt;/ul>
+&lt;p>但经过此 PR ,终于将它们的行为进行了统一，但这毕竟是一个比较大的调整，如果你不希望应用此变更，
+可以通过 &lt;code>-feature-gates=ConsistentHTTPGetHandlers=false&lt;/code> 进行全局禁用，避免这个功能影响到你的环境。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/112553">Escape terminal special characters in kubectl by dgl · Pull Request #112553 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>这个 PR 中对一些特殊字符进行了转义。这其实是一个比较有意思的内容，我来稍微介绍一下。&lt;/p>
+&lt;p>你可以在自己的终端中尝试执行如下命令：&lt;/p>
+&lt;pre>&lt;code>kubectl create -f - &amp;lt;&amp;lt;EOF
+{
+&amp;quot;apiVersion&amp;quot;: &amp;quot;v1&amp;quot;,
+&amp;quot;involvedObject&amp;quot;: {
+&amp;quot;kind&amp;quot;: &amp;quot;Node&amp;quot;,
+&amp;quot;name&amp;quot;: &amp;quot;node01&amp;quot;,
+&amp;quot;uid&amp;quot;: &amp;quot;node01&amp;quot;
+},
+&amp;quot;kind&amp;quot;: &amp;quot;Event&amp;quot;,
+&amp;quot;message&amp;quot;: &amp;quot;\u001b[2J\u001b[3J\u001b[1;1H\u001b[m spoofed \u001b[60C\u001b[1;0m. Done&amp;quot;,
+&amp;quot;metadata&amp;quot;: {
+&amp;quot;name&amp;quot;: &amp;quot;spoofEvent&amp;quot;,
+&amp;quot;namespace&amp;quot;: &amp;quot;default&amp;quot;
+},
+&amp;quot;source&amp;quot;: {
+&amp;quot;component&amp;quot;: &amp;quot;kubelet&amp;quot;,
+&amp;quot;host&amp;quot;: &amp;quot;node01&amp;quot;
+},
+&amp;quot;type&amp;quot;: &amp;quot;Normal&amp;quot;
+}
+EOF
+&lt;/code>&lt;/pre>&lt;p>这将会创建一条 event 记录，但是一但你执行 &lt;code>kubectl get events&lt;/code> 你就会发现一些有趣的事情，屏幕上的记录被清空了。&lt;/p>
+&lt;p>这是由于 kubectl 在输出内容的时候并不会进行任何转义，比如上述示例中包含了一些特殊字符：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>\u001b[2J&lt;/code>：清屏&lt;/li>
+&lt;li>&lt;code>\u001b[60C&lt;/code>: 将光标向前移动 60&lt;/li>
+&lt;/ul>
+&lt;p>当然还有一些其他的，我印象中我早年刚开始接触 Linux 不久后还花费了一些时间来学习这些东西，因为这些东西可以配置到终端里面，实现一些比如变换颜色之类的事情。&lt;/p>
+&lt;p>我翻了下我之前的文章，曾经还有将 bash 做过如下设置：&lt;/p>
+&lt;pre>&lt;code>function git-branch-name {
+git symbolic-ref HEAD 2&amp;gt;/dev/null | cut -d&amp;quot;/&amp;quot; -f 3
+#git rev-parse --abbrev-ref HEAD
+}
+function git-branch-prompt {
+local branch=`git-branch-name`
+if [ $branch ]; then printf &amp;quot; [%s]&amp;quot; $branch; fi
+}
+PS1=&amp;quot;\u@\h \[\033[0;36m\]\W\[\033[0m\]\[\033[0;32m\]\$(git-branch-prompt)\[\033[0m\] \$ &amp;quot;
+&lt;/code>&lt;/pre>&lt;p>对此内容感兴趣的小伙伴可以试试看把上述内容贴到自己的 &lt;code>.bashrc&lt;/code> 文件中，然后 &lt;code>source&lt;/code> 一下看看。&lt;/p>
+&lt;p>回到这个 PR 中，之前这个问题还给分配成了 &lt;a href="https://github.com/advisories/GHSA-f9jg-8p32-2f55">CVE-2021-25743&lt;/a>，
+修复的办法也比较简单，但是比较耗时耗力，就是对一些输出的位置做了转义操作。&lt;/p>
+&lt;p>不过可能还有一些遗漏的，比如 &lt;code>kubectl logs&lt;/code> 之类的，可能也会受到影响，有兴趣的小伙伴可以去验证一下。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/111990">(kubectl certificates): Remove certificates/v1beta1 client usage by ardaguclu · Pull Request #111990 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;code>certificates.k8s.io/v1beta1&lt;/code> 自 Kubernetes v1.19 已被废弃，通过此 PR 移除，将在 v1.26 版本中生效。&lt;/p>
+&lt;p>以后使用 &lt;code>certificates.k8s.io/v1&lt;/code> 即可。这个主要是影响 &lt;code>kubectl certificate&lt;/code> 命令。&lt;/p>
+&lt;p>以上就是 Kubernetes v1.26 版本中我认为主要值得关注的部分。下次再见！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>Kubernetes 证书管理系列（一）</title><link>https://moelove.info/2022/12/07/Kubernetes-%E8%AF%81%E4%B9%A6%E7%AE%A1%E7%90%86%E7%B3%BB%E5%88%97%E4%B8%80/</link><guid isPermaLink="true">https://moelove.info/2022/12/07/Kubernetes-%E8%AF%81%E4%B9%A6%E7%AE%A1%E7%90%86%E7%B3%BB%E5%88%97%E4%B8%80/</guid><pubDate>Wed, 07 Dec 2022 07:51:08 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>这是一个系列文章，将会通过七篇内容和大家一起聊聊 Kubernetes 中的证书管理。&lt;/p>
 &lt;p>以下是内容概览：&lt;/p>
 &lt;p>&lt;img src="https://s2.loli.net/2022/12/07/9LCeqkM7YBoQwdv.png" alt="img">&lt;/p>
