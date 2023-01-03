@@ -1,4 +1,86 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 13 Dec 2022 09:18:26 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>聊聊容器网络和 iptables</title><link>https://moelove.info/2022/12/12/%E8%81%8A%E8%81%8A%E5%AE%B9%E5%99%A8%E7%BD%91%E7%BB%9C%E5%92%8C-iptables/</link><guid isPermaLink="true">https://moelove.info/2022/12/12/%E8%81%8A%E8%81%8A%E5%AE%B9%E5%99%A8%E7%BD%91%E7%BB%9C%E5%92%8C-iptables/</guid><pubDate>Mon, 12 Dec 2022 00:04:54 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 03 Jan 2023 08:44:16 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>我的 2022 总结</title><link>https://moelove.info/2023/01/02/%E6%88%91%E7%9A%84-2022-%E6%80%BB%E7%BB%93/</link><guid isPermaLink="true">https://moelove.info/2023/01/02/%E6%88%91%E7%9A%84-2022-%E6%80%BB%E7%BB%93/</guid><pubDate>Mon, 02 Jan 2023 14:53:55 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>2022 年已经结束，我每年都会惯例的做个小回顾，今年因为阳了在恢复身体，一直拖到了今天才写。&lt;/p>
+&lt;h2 id="生活">生活&lt;/h2>
+&lt;p>在 2022 年初做回顾的时候，觉得 2021 是魔幻的一年，但现在看来 2022 年其实更加魔幻。&lt;/p>
+&lt;p>一年几乎都在防疫，生活也因此受到了各种影响，几乎没有和小可爱单独出去玩过，
+戴口罩，消毒等各方面也很谨慎，
+但在年底还是全阳了。&lt;/p>
+&lt;p>从朋友们和各种渠道的消息来看，北方的症状比南方要严重一些，而我症状也确实相对严重一些。
+高烧，心率翻了 2 倍多，腹泻，咳嗽，味觉嗅觉消失等都来了一遍，即使转阴后几天，心率也是很容易就升高了。
+最近几天才算是恢复到了正常水平，多亏了小可爱的悉心照料。&lt;/p>
+&lt;p>在这期间也非常感谢家人们的关心和朋友们的帮助，给我们邮寄了一些药物储备，帮了大忙。&lt;/p>
+&lt;p>在我刚退烧后，小朋友就发烧了，但好在有了一些准备，也没有太过于手忙脚乱。
+小可爱是最后一个阳的，没有发烧，但有其他的症状。&lt;/p>
+&lt;p>现在虽然都已经恢复，但还是在休养身体。&lt;/p>
+&lt;p>今年感觉格外冷，给小可爱买了辆车，她用了两个多月的时间拿到了驾照，现在上路也很稳当了。&lt;/p>
+&lt;p>此外我还买了各种东西：&lt;/p>
+&lt;ul>
+&lt;li>iPad Pro 12.9 + Apple Pencil 2 代 + 妙控键盘，这套设备主要用来轻办公（开会时候共享屏幕用），但是笔还没用到；&lt;/li>
+&lt;li>两台空气净化器（号称医疗级，不做什么评价）；&lt;/li>
+&lt;li>一些摄像头（电脑直播，智能猫眼之类的）；&lt;/li>
+&lt;li>一些防疫用的（口罩，防护服，药物之类的）；&lt;/li>
+&lt;li>一些路由器；&lt;/li>
+&lt;/ul>
+&lt;p>上面写了型号的是我觉得可以推荐的，其余东西就不做推荐了。&lt;/p>
+&lt;h2 id="工作和社区">工作和社区&lt;/h2>
+&lt;p>如果是之前关注了我的朋友，可能知道我是 2021 年加入 API7 开始远程 + 全职开源的，负责这边的云原生团队，主要在做的是 Apache APISIX Ingress 和基于 APISIX 的 Service Mesh 项目。&lt;/p>
+&lt;p>得益于团队和社区小伙伴的支持，现在 &lt;a href="https://github.com/apache/apisix-ingress-controller">Apache APISIX Ingress&lt;/a> 项目的贡献者已经达到了 100 人，收到了 660+ star ，
+&lt;a href="https://github.com/apache/apisix-ingress-controller#user-stories">并且也在国内外很多公司上线到了生产环境&lt;/a>，整体稳中向好（笑&lt;/p>
+&lt;p>希望来年继续向前发展。&lt;/p>
+&lt;p>&lt;strong>2022 年我做了 22 场公开的对外分享，包括 DockerCon，IstioCon，CalicoCon，ApacheCon Asia，PyCon China 等国内外的大会&lt;/strong>，
+相比于 2021 年，海外大会的分享多了一些，我预计 2023 年应该会更多一些。&lt;/p>
+&lt;p>&lt;strong>最多的时候是 4 月份，做了 5 场分享&lt;/strong>。 8～10 月份没有安排，实在太忙，完全抽不出时间。
+可分享的 PPT 和视频我都整理放在了我 GitHub 的仓库内了 &lt;a href="https://github.com/tao12345666333/slides">https://github.com/tao12345666333/slides&lt;/a> ，有兴趣的小伙伴可以自取。&lt;/p>
+&lt;p>另外，2022 年也收获了一些社区荣誉：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://twitter.com/zhangjintao9020/status/1477835757972647937?s=20&amp;amp;t=6bfcF_qKUi8AGCgnu_tTkA">Microsoft MVP&lt;/a>；&lt;/li>
+&lt;li>&lt;a href="https://mp.weixin.qq.com/s?__biz=MzI1MDU3NjQ5OA==&amp;amp;mid=2247491650&amp;amp;idx=1&amp;amp;sn=7bdf09efbf38bb91ca95381235ad7651&amp;amp;chksm=e9828b5fdef50249cf5958a85ed988f8a6b0b441cadb5246ccaf4dbd7f792b70b46c6688fa34&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=0114jk3EkLH1C7r76irApi3K&amp;amp;sharer_sharetime=1672668162631&amp;amp;sharer_shareid=bf770e548777d4d43d89f3afa910b5f2&amp;amp;exportkey=n_ChQIAhIQb%2BvsinVgnd2JBGw2pgMYUhLwAQIE97dBBAEAAAAAAAMIEa7uvd4AAAAOpnltbLcz9gKNyK89dVj03z5ojjKbCYqn8AfTjx3pDzUXiPmudUdxo2%2BU3JSyEimIJcN4jwtnopKN9XiBPpOkBcTQ25gehO9Eu1n0tplE2ZhKCz7Q5az8q7sAuDyl41rCvB1wdsToaav1IJR%2ByNJ9zPP1ixLaLINM1xiXgQtxhOv6i4sCtMco8RVbdcch%2FqgMMpNgkdhiGZ6BpIUxAzUg9x22swE%2BOqoxKD%2F6DsKkxbje3uVaZbnS0Rq3DhhYqTHp9uDCNvqChYmYETZkiIlnNn%2Fy42YBZf0wpg%3D%3D&amp;amp;acctmode=0&amp;amp;pass_ticket=IFventamVq1J4Sw4VTGdggkqKFwX4KjSzbef1xPNZc3%2FTJzFbZDD72tuwgpe2po%2BaxY0N%2B5UR1XaglbLf3zsEg%3D%3D&amp;amp;wx_header=0#rd">中国开源先锋 33 人&lt;/a>；&lt;/li>
+&lt;li>&lt;a href="https://twitter.com/zhangjintao9020/status/1483645668308791300?s=20&amp;amp;t=6bfcF_qKUi8AGCgnu_tTkA">Apache APISIX PMC&lt;/a>；&lt;/li>
+&lt;li>Calico 大使；&lt;/li>
+&lt;li>&lt;a href="https://twitter.com/zhangjintao9020/status/1515842612493651968?s=20&amp;amp;t=6bfcF_qKUi8AGCgnu_tTkA">Kubernetes Ingress-NGINX maintainer&lt;/a>;&lt;/li>
+&lt;li>&lt;a href="https://mp.weixin.qq.com/s?__biz=MjM5NTEwMTAwNg==&amp;amp;mid=2650260881&amp;amp;idx=1&amp;amp;sn=12e8e40eb37dd3398b54aa5135965b81&amp;amp;chksm=befec5b089894ca6f1ff889834c00a5ee0cf9c43cffd0e34aaaa003311a9b762a2cc84e0099a&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=0301dyntVqpJyVLIGEKKJ52D&amp;amp;sharer_sharetime=1672668348715&amp;amp;sharer_shareid=bf770e548777d4d43d89f3afa910b5f2&amp;amp;exportkey=n_ChQIAhIQMXQS3VY4A654%2FuBHxFTF6RLkAQIE97dBBAEAAAAAAJNOKV9Ic4oAAAAOpnltbLcz9gKNyK89dVj0v7V2CN7nGIM7SJCfkgIqGKh9FzJ0NACp84zsMhvBpdZGMtYScrNUh41qul5alyrHcd9l8z4DgPAM3PUmMKldSXjif%2BXkCLsivouu5csHCxbEHKEETuvxHvFAQ7dy6pnKLohA2y1GTT46YhrxdeljQwvLzZk%2F2el6yWC%2FaTh%2BQT0p4zHM4MJFCWAH%2FleA1i2u4VB8KFdKBQ%2FvKb7V4uiqGzOs4lB5M7ajyGY4YZYdxyl2osAwAL%2FpmyT6ntja9A%3D%3D&amp;amp;acctmode=0&amp;amp;pass_ticket=IFventamVq1J4Sw4VTGdggkqKFwX4KjSzbef1xPNZc1JLKMvlCtvdhtE%2B5umNa6OFXM3Zrq%2Fa1HzZ6BHbkH2Ww%3D%3D&amp;amp;wx_header=0#rd">SegmentFault 思否 Top Writer &amp;amp; 开源码力&lt;/a>；&lt;/li>
+&lt;li>在开源之夏作为导师指导学习完成了一个项目；&lt;/li>
+&lt;li>在微软比特熊直播间做了次访谈：&lt;a href="https://mp.weixin.qq.com/s?__biz=MzI2ODAwMzUwNA==&amp;amp;mid=2649297567&amp;amp;idx=1&amp;amp;sn=f02c17e5a539a9514c1a355bffdce03c&amp;amp;chksm=f2eb8340c59c0a56da03389a1991f11005d05e3066a76078426becd50d77fd00bc31cd446329&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=0302RPBawoIqdhv8pgeeem7e&amp;amp;sharer_sharetime=1672669779775&amp;amp;sharer_shareid=bf770e548777d4d43d89f3afa910b5f2&amp;amp;exportkey=n_ChQIAhIQF0yl0fL8O8vWlRmSEwn1ORLwAQIE97dBBAEAAAAAAC28BVJZdQAAAAAOpnltbLcz9gKNyK89dVj0xI403W11ILxswk4uxxrM%2FvGAH1t3C2ooTixlk0kddvpqwB%2F6GV%2FElaMqb5Doth6RenhasmvjZzW5IHFUWHvgTFudqNtOcyV8aO7EFN8gxm6thPjZ9nGgqstY%2F0i%2FAvbOUlboIdOGSEyy%2BSKuDsBvbSGQyM%2FquzxLAiLjzxBRr4R4nJX93XfLyKrXI7fZHlk%2F8%2FqMo8%2F9GDBa0muVHFhj0q0Rps5fi88TveQj74ZF%2F7%2BBpT6nwFMs3ryjPaV9glqw7Def1iRLkGCYXw%3D%3D&amp;amp;acctmode=0&amp;amp;pass_ticket=IFventamVq1J4Sw4VTGdggkqKFwX4KjSzbef1xPNZc2Y6n3bvVH1JbtfAQIBpNvClhYbu0g6kvY2l%2FMRhLMFMQ%3D%3D&amp;amp;wx_header=0#rd">【比特熊故事汇】2月MVP英雄故事｜有爱的开源&lt;/a>&lt;/li>
+&lt;li>上了 Kubernetes 官方博客： &lt;a href="https://mp.weixin.qq.com/s?__biz=MzI5ODk5ODI4Nw==&amp;amp;mid=2247524460&amp;amp;idx=1&amp;amp;sn=b651c3b0d2002f8285e93b3cf8868683&amp;amp;chksm=ec9f6f0cdbe8e61afcbc36a5666ed6288f1cff0bfe8f8e0d009d548f5a356cb99ea20191c36f&amp;amp;mpshare=1&amp;amp;scene=1&amp;amp;srcid=0819o8kodVuwQHwI1MebP42r&amp;amp;sharer_sharetime=1672669908173&amp;amp;sharer_shareid=bf770e548777d4d43d89f3afa910b5f2&amp;amp;exportkey=n_ChQIAhIQCL4OVEc8GoEBcEL%2BsP9WEBLwAQIE97dBBAEAAAAAAF1AIToPGmYAAAAOpnltbLcz9gKNyK89dVj0PNUUQVsPJ8HW525Co%2B3XTWPhQUv4pa0mdeaBzUU5VcKve4A7jtMM%2BNZpXNxF376xouoaeu1ay%2B%2Byrvyygon8Ve2183%2FSqk%2Fsy7hH%2BjIiuNqXT%2BU7vDty8lKJ5NRSSn7zmuZy0tgnnx3YCAViGtNRLDCbK5dM81VVI7CmgG9k2YmVygiCpMTutjiQW%2B%2FenDY7FI9amm2y1DOsAaqsqXdVCQOg6o7LLM1GyuWqJUdKgJnGbgn2QmuBTC4O0iHVHuJFnq%2BNPkMHQubrWQ%3D%3D&amp;amp;acctmode=0&amp;amp;pass_ticket=IFventamVq1J4Sw4VTGdggkqKFwX4KjSzbef1xPNZc0XgpspK8tKhWtCaMg681j0%2BDGu3jTDPXTQqGdL8H5KJw%3D%3D&amp;amp;wx_header=0#rd">认识 Kubernetes 的贡献者 - 亚太地区（中国地区）&lt;/a>&lt;/li>
+&lt;li>...&lt;/li>
+&lt;/ul>
+&lt;p>感谢小伙伴们的信任和支持！&lt;/p>
+&lt;h2 id="个人学习和成长">个人学习和成长&lt;/h2>
+&lt;p>我的技术方向并没有太多变化，作为国内最早一批搞容器化技术的人，到明年就可以说自己有 10 年容器经验了（笑&lt;/p>
+&lt;p>我仍然还是集中在 Kubernetes 和 Service Mesh 等云原生技术和方案上。&lt;/p>
+&lt;p>和往年一样，在 Kubernetes 上面的多数时间花在了理清某些功能的设计和演进过程方面，奇奇怪怪的知识增加了更多，希望以后有机会可以分享出来。&lt;/p>
+&lt;p>今年下半年开始，我们决定 Kubernetes Ingress-NGINX 项目进入了长达半年的维护期，专注于提升其稳定性和一些重点的功能，
+所以整体节奏放慢了一些，维护压力小了很多。不过，在这个过程里面，也得到了很多提升。目前在 Ingress-NGINX 项目的贡献者排行榜上排第 8 位。&lt;/p>
+&lt;p>在 Docker 项目主仓库的贡献者排行榜上是第 62，进步缓慢，但我明年会增加一些投入。（Docker v23.0 你期待吗？！！&lt;/p>
+&lt;p>其他时间，还是投入了一些在 eBPF/Cilium/Envoy 上面，我想会有机会分享这方面内容的。&lt;/p>
+&lt;p>2022 年还上线了一本小册：&lt;a href="https://juejin.cn/book/7044052687779790880">《Kubernetes 安全原理与实践》&lt;/a> ，说实话这本小册耗费了我很多时间，强烈推荐！&lt;/p>
+&lt;h2 id="文章">文章&lt;/h2>
+&lt;p>2022 年我写了 36 篇文章，比 2021 年的 40 篇少了一些（在公司也写了一些，没计算在内）。
+其中『K8s生态周报』也断更了几篇，由其是这次阳了后就直接断更了。明年争取不断更！&lt;/p>
+&lt;p>以下是一些反馈较好的文章：&lt;/p>
+&lt;p>&lt;strong>『K8s生态周报』系列&lt;/strong> 中大家比较关注的可能还是新版本的特性和社区的一些新闻：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://mp.weixin.qq.com/s?__biz=MzI2ODAwMzUwNA==&amp;amp;mid=2649297905&amp;amp;idx=1&amp;amp;sn=40c5fc8d6161c2ef4bae47eac82c036a&amp;amp;chksm=f2eb822ec59c0b38b39047f3c35a974992552a585400d4a95069edaf7c85961b9f9d6275b1c7&amp;amp;token=972017317&amp;amp;lang=zh_CN#rd">K8S 生态周报| Kubernetes v1.25.0 正式发布，新特性一览&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://mp.weixin.qq.com/s?__biz=MzI2ODAwMzUwNA==&amp;amp;mid=2649298102&amp;amp;idx=1&amp;amp;sn=2bef678dc8ece2b17c492a9a31450d6e&amp;amp;chksm=f2eb8569c59c0c7f3dad16f45941218c59310779759e275120311fe30ded91b88fa1d576028e&amp;amp;token=972017317&amp;amp;lang=zh_CN#rd">Kubernetes v1.26 新特性一览&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://mp.weixin.qq.com/s?__biz=MzI2ODAwMzUwNA==&amp;amp;mid=2649297940&amp;amp;idx=1&amp;amp;sn=93fc21d2c117cbba0dc10b03905fe001&amp;amp;chksm=f2eb85cbc59c0cdd259b0eb7fad62af8cc39c0d657d82487c92bc9204d4bc22ba36d36d40352&amp;amp;token=972017317&amp;amp;lang=zh_CN#rd">K8S 生态周报| Kubernetes 爆出全版本漏洞&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://mp.weixin.qq.com/s?__biz=MzI2ODAwMzUwNA==&amp;amp;mid=2649297795&amp;amp;idx=1&amp;amp;sn=240b4d1897327948defaf2d3a2948e62&amp;amp;chksm=f2eb825cc59c0b4a1172cda0cb473cfb6ff7c463d37eba02c75ee30c6cd532a97450c3c1aef5&amp;amp;token=972017317&amp;amp;lang=zh_CN#rd">K8S 生态周报| Ingress NGINX 项目暂停接收新功能将专注于稳定性提升&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>一篇容器网络相关的：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://mp.weixin.qq.com/s?__biz=MzI2ODAwMzUwNA==&amp;amp;mid=2649298134&amp;amp;idx=2&amp;amp;sn=241a065050cdd5326813b23772a515b3&amp;amp;chksm=f2eb8509c59c0c1f282662b4fa34b5ceca3b9a85d5bfe55bad16223ae81001bc7a910e148acb&amp;amp;token=972017317&amp;amp;lang=zh_CN#rd">聊聊容器网络和 iptables&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>证书管理系列是我新开的内容，一共 7 篇，不过只更新了一篇：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://mp.weixin.qq.com/s?__biz=MzI2ODAwMzUwNA==&amp;amp;mid=2649298078&amp;amp;idx=1&amp;amp;sn=24d17a25ccf1c97337e0ed7bc951a8a2&amp;amp;chksm=f2eb8541c59c0c576b3dbbc0fc32bbb0874955a6a83d852b8aa6f35685220d1eb8a135253b47&amp;amp;token=972017317&amp;amp;lang=zh_CN#rd">Kubernetes 证书管理系列（一）&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>最后惯例的贴一张图：&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2023/01/02/6oWTRjV7CDY1rnu.png" alt="GitHub: tao12345666333">&lt;/p>
+&lt;p>2023 年的小目标仍然不写了，不确定性比较多，有可能会比 2022 年难过一些，
+继续愿：平安喜乐！&lt;/p>
+&lt;p>还有文章前的你，感谢你的关注和支持，希望我们能各有收获！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Life/">Life</category></item><item><title>聊聊容器网络和 iptables</title><link>https://moelove.info/2022/12/12/%E8%81%8A%E8%81%8A%E5%AE%B9%E5%99%A8%E7%BD%91%E7%BB%9C%E5%92%8C-iptables/</link><guid isPermaLink="true">https://moelove.info/2022/12/12/%E8%81%8A%E8%81%8A%E5%AE%B9%E5%99%A8%E7%BD%91%E7%BB%9C%E5%92%8C-iptables/</guid><pubDate>Mon, 12 Dec 2022 00:04:54 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>上周有小伙伴在群里问到 Docker 和 Iptables 的关系，这里来具体聊聊。&lt;/p>
 &lt;p>Docker 能为我们提供很强大和灵活的网络能力，很大程度上要归功于与 iptables 的结合。在使用时，你可能没有太关注到 iptables 的作用，这是因为 Docker 已经帮我们自动完成了相关的配置。&lt;/p>
 &lt;pre>&lt;code>(MoeLove) ➜ ~ dockerd --help |grep iptables
