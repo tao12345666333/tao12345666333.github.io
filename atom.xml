@@ -1,4 +1,125 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2023-01-03T08:44:16+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">我的 2022 总结</title><link rel="alternate" type="text/html" href="https://moelove.info/2023/01/02/%E6%88%91%E7%9A%84-2022-%E6%80%BB%E7%BB%93/"/><id>https://moelove.info/2023/01/02/%E6%88%91%E7%9A%84-2022-%E6%80%BB%E7%BB%93/</id><updated>2023-01-03T08:43:45+08:00</updated><published>2023-01-02T14:53:55+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 2022 年已经结束，我每年都会惯例的做个小回顾，今年因为阳了在恢复身体，一直拖到了今天才写。 生活 在 2022 年初做回顾的时……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2023-01-09T08:27:55+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| containerd 存在 bug 会导致 Pod 被重启，建议升级</title><link rel="alternate" type="text/html" href="https://moelove.info/2023/01/08/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-%E5%AD%98%E5%9C%A8-bug-%E4%BC%9A%E5%AF%BC%E8%87%B4-Pod-%E8%A2%AB%E9%87%8D%E5%90%AF%E5%BB%BA%E8%AE%AE%E5%8D%87%E7%BA%A7/"/><id>https://moelove.info/2023/01/08/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-%E5%AD%98%E5%9C%A8-bug-%E4%BC%9A%E5%AF%BC%E8%87%B4-Pod-%E8%A2%AB%E9%87%8D%E5%90%AF%E5%BB%BA%E8%AE%AE%E5%8D%87%E7%BA%A7/</id><updated>2023-01-09T08:27:39+08:00</updated><published>2023-01-08T20:14:25+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>这是 2023 年的第一篇『K8S 生态周报』，在上个月的月中之后我因为阳了就停止更新了，一直在修养身体。生病相关的内容我在上一篇文章 &lt;a href="https://moelove.info/2023/01/02/%E6%88%91%E7%9A%84-2022-%E6%80%BB%E7%BB%93/">张晋涛：我的 2022 总结 | MoeLove&lt;/a>有做介绍。愿大家都注意身体，保持健康。&lt;/p>
+&lt;p>这篇中的内容同样也包含了近一个月中值得关注的内容。&lt;/p>
+&lt;h1 id="containerd-v1615-发布">containerd v1.6.15 发布&lt;/h1>
+&lt;p>尽管 containerd 的 1.7.0-beta.2 也已经于近期发布，但正式版发布还需要一段时间。现在 containerd 使用最多的还是 v1.6 和 v1.5 这两个主要版本，
+这次发布的 v1.6.15 中有一个非常关键的变更，是 &lt;a href="https://github.com/containerd/containerd/pull/7845">#7845 - CRI: Fix no CNI info for pod sandbox on restart by dcantah&lt;/a>&lt;/p>
+&lt;p>我主要也是想聊一下这个，从 v1.6.9 开始的最近几个 containerd 版本中都受到了此问题影响。&lt;/p>
+&lt;p>简单来说就是 containerd 重启后，Sandbox IP 没能保留，最终导致 kubelet 将会重启 Pod （如果重启 kubelet）。&lt;/p>
+&lt;p>具体现象如下，在 Node 上通过 crictl 工具查看任意未使用 HostNetwork 的 Pod 的 &lt;code>.status.network&lt;/code> 字段，可以看到如下结果：&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ crictl -r unix:///run/containerd/containerd.sock inspectp e03077da768e6 | jq .status.network
+{
+&amp;quot;additionalIps&amp;quot;: [],
+&amp;quot;ip&amp;quot;: &amp;quot;10.244.1.5&amp;quot;
+&lt;/code>&lt;/pre>&lt;p>在重启 containerd 后，再次重复操作，就会发现 &lt;code>.status.network.ip&lt;/code> 字段为空了：&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ crictl -r unix:///run/containerd/containerd.sock inspectp e03077da768e6 | jq .status.network
+{
+&amp;quot;additionalIps&amp;quot;: [],
+&amp;quot;ip&amp;quot;: &amp;quot;&amp;quot;
+&lt;/code>&lt;/pre>&lt;p>不过次是如果在 Kubernetes 集群中通过 kubectl 查看该 Pod 的状态，会发现 Pod 的 IP 还在。&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ kubectl get pods moelove-test-pods -o json | jq .status.podIPs
+[
+{
+&amp;quot;ip&amp;quot;: &amp;quot;10.244.1.5&amp;quot;
+}
+]
+&lt;/code>&lt;/pre>&lt;p>但如果在 Node 上重启 kubelet，再次查看 Pod 的状态，则会发现它的 IP 发生了变化，并且还重启了。&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ kubectl get pods moelove-test-pods -o json | jq '{podIPs: .status.podIPs, restartCount: .status.containerStatuses[].restartCount}'
+{
+&amp;quot;podIPs&amp;quot;: [
+{
+&amp;quot;ip&amp;quot;: &amp;quot;10.244.1.8&amp;quot;
+}
+],
+&amp;quot;restartCount&amp;quot;: 1
+}
+&lt;/code>&lt;/pre>&lt;p>在生产环境中，比如要进行版本升级，或者一些维护操作，kubelet 发生重启是一件常规的事情。
+但上述这种情况， &lt;strong>在大多数生产环境都是不能接受的。&lt;/strong> 这将会导致 Node 上的 Pod 都发生重启，进而可能会影响到业务的稳定性。&lt;/p>
+&lt;p>现在 containerd 上游已经进行了修复，也 cherry-pick 到了 v1.6.15 中。
+所以，如果想要避免或者修正此问题，
+&lt;strong>可以使用低于 containerd v1.6.9 的版本，或者直接更新到 v1.6.15&lt;/strong>。&lt;/p>
+&lt;p>更多关于 containerd 新版本的变更，请参考其 &lt;a href="https://github.com/containerd/containerd/releases/tag/v1.6.15">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="apache-apisix-ingress-v16-发布">Apache APISIX Ingress v1.6 发布&lt;/h1>
+&lt;p>距离上一个版本 v1.5 发布，已经过了 3 个月，Apache APISIX Ingress v1.6 终于正式发布！&lt;/p>
+&lt;p>在这个版本中，共有 &lt;strong>29 位贡献者&lt;/strong>参与代码提交，其中 &lt;strong>17 位是新增贡献者&lt;/strong>，感谢大家的支持和参与！&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2023/01/08/f4K9aqY6RuXDGbW.png" alt="img">&lt;/p>
+&lt;p>本次发布的 Apache APISIX Ingress v1.6 版本带来了众多新特性，主要集中在对 Gateway API 的支持，扩展 APISIX Ingress 的使用场景，和一些易用性方面的提升。以下是一些重点特性的介绍。&lt;/p>
+&lt;h2 id="扩展对-gateway-api-的支持">扩展对 Gateway API 的支持&lt;/h2>
+&lt;p>Gateway API 是 Kubernetes 中下一代的 Ingress 规范，致力于提供富有表现力，可扩展和面向角色的接口来发展 Kubernetes 的网络，各个 Ingress controller 项目都在积极推进对该规范的支持。Apache APISIX Ingress 项目自 2021 年开始就在积极的紧跟上游社区的发展，并积极推进 Gateway API 在 APISIX Ingress 项目中的实现。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2023/01/08/FA5QlPrHaKp3mVX.png" alt="img">&lt;/p>
+&lt;p>当前，Apache APISIX Ingress 项目中通过 Gateway API 进行配置的特性尚处于 beta 阶段，欢迎大家在测试环境中积极进行测试，并提供反馈，我们将持续的对此特性进行优化和改进，尽早完成此特性的 GA。&lt;/p>
+&lt;p>在 APISIX Ingress v1.6 版本中，我们添加了对 Gateway API 中的 &lt;code>TCPRoute&lt;/code> 和 &lt;code>UDPRoute&lt;/code> 这两种资源的支持，同时，扩展了对 &lt;code>HTTPRoute&lt;/code> 资源中 &lt;code>Filters&lt;/code> 的支持，这样用户在使用 &lt;code>HTTPRoute&lt;/code> 资源的时候，就可以在该资源中应用一些重定向，Header 改写等能力了。&lt;/p>
+&lt;p>例如可以使用如下配置：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">gateway.networking.k8s.io/v1alpha2&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">HTTPRoute&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">http-route&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">hostnames&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;httpbin.org&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">matches&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">PathPrefix&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">value&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/headers&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">filters&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">RequestHeaderModifier&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">requestHeaderModifier&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">add&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">X-Api-Version&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">value&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">X-api-key&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">value&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">api-value&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">set&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">X-Auth&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">value&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">filter&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">remove&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="l">Remove-header&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">backendRefs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">httpbin&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">port&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">80&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>通过使用此配置，client 在对 &lt;code>httpbin.org&lt;/code> 进行请求时，将会添加 &lt;code>&amp;quot;X-Api-Version&amp;quot;: &amp;quot;v1&amp;quot;&lt;/code> 和 &lt;code>&amp;quot;X-Api-Key&amp;quot;: &amp;quot;api-value&amp;quot;&lt;/code> 的请求头，并将 &lt;code>&amp;quot;X-Auth&amp;quot;&lt;/code> 请求头的值设置为 &lt;code>filter&lt;/code> ，同时将移除 &lt;code>&amp;quot;Remove-Header&amp;quot;&lt;/code> 这个请求头 。&lt;/p>
+&lt;p>另外就是在这个版本中，增加了对外部服务的代理以及 ExternalName Service 支持；还有支持和外部服务注册发现组件的集成，比如 Consul, Nacos，Eureka, DNS 等，
+而 &lt;strong>这些功能在很多 Ingress controller 中是不具备的&lt;/strong> 。&lt;/p>
+&lt;p>此外，我们也积极的和众多开源项目进行了协作，比如可以和 Flagger 以及 Argo 等 GitOps 领域的主流项目集成。关于 Flagger 和 Argo 等相关项目的使用，可以查看我之前写的文章。&lt;/p>
+&lt;p>欢迎感兴趣的小伙伴查看具体的 &lt;a href="https://github.com/apache/apisix-ingress-controller/releases/tag/1.6.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="keda-v29-正式发布">KEDA v2.9 正式发布&lt;/h1>
+&lt;p>KEDA 是一个基于 Kubernetes ，由事件驱动的自动扩容组件，它为部署在 Kubernetes 上的应用提供了非常灵活的弹性伸缩的能力。&lt;/p>
+&lt;p>它最新发布的 v2.9 包含了很多值得注意的更新：&lt;/p>
+&lt;ul>
+&lt;li>新增了基于 CouchDB, Etcd 和 Loki 的缩放器；&lt;/li>
+&lt;li>为应用程序自动所放引入现成的 Grafana Dashboard；&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://s2.loli.net/2023/01/08/ZshE94UobtA2ud5.png" alt="Grafana Dashboard">&lt;/p>
+&lt;ul>
+&lt;li>提供了经过改进的 Prometheus metrics；&lt;/li>
+&lt;li>实验性的支持了在轮询间隔期间为缩放器缓存指标值的功能；&lt;/li>
+&lt;li>关于 metrics 指标如何暴露给 Kubernetes 的性能改进和架构变化;&lt;/li>
+&lt;li>Azure Key Vault 身份验证提供程序现在支持用于身份验证的容器标识；&lt;/li>
+&lt;li>针对我们 50 多个缩放器中的一些缩放器的大量新功能和修复；&lt;/li>
+&lt;/ul>
+&lt;p>另外需要注意的是，根据 KEDA 的废弃策略，自 v2.9 开始官方仅为 Kubernetes v1.23 及更新版本提供支持。&lt;/p>
+&lt;p>HPA 的 apiVersion 也从 &lt;code>autoscaling/v2beta2&lt;/code> 升级到了 &lt;code>autoscaling/v2&lt;/code> 。&lt;/p>
+&lt;p>更多关于此版本的变更，请查看 &lt;a href="https://github.com/kedacore/keda/releases/tag/v2.9.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/114055">kubernetes components using leader election to leases by aimuz · Pull Request #114055 · kubernetes/kubernetes&lt;/a> 我在之前的文章中介绍过，Kubernetes 中的选举机制，之前使用基于 ConfigMap 和 secrets 的比较多，但是自 Kubernetes v1.27 开始，将仅仅允许使用 Lease 的接口进行选举相关操作了；&lt;/li>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/112260">Add metric for max no. of CIDRs available by aryan9600 · Pull Request #112260 · kubernetes/kubernetes&lt;/a> 新增了 &lt;code>cidrset_cidrs_max_total&lt;/code> 和 &lt;code>multicidrset_cidrs_max_total&lt;/code> metrics，用于暴露有多少 CIDRs 可供分配；&lt;/li>
+&lt;li>&lt;a href="https://github.com/Mirantis/cri-dockerd/issues/125">Migrate to runtime.v1 for CRI · Issue #125 · Mirantis/cri-dockerd&lt;/a> 目前 Mirantis 维护的 cri-dockerd 项目也已经将 CRI 升级到了 runtime.v1 了，这样就可以和 Kubernetes 新版本进行兼容，配合使用了；&lt;/li>
+&lt;li>&lt;a href="https://github.com/kyverno/kyverno/releases/tag/v1.9.0-beta.1">Release v1.9.0-beta.1 · kyverno/kyverno&lt;/a> Kyverno 发布了 v1.9.0-beta.1 版本；&lt;/li>
+&lt;li>&lt;a href="https://github.com/cilium/cilium/releases/tag/v1.13.0-rc4">Release v1.13.0-rc4 · cilium/cilium&lt;/a> Cilium v1.13.0-rc4 发布；&lt;/li>
+&lt;li>&lt;a href="https://github.com/moby/moby/releases/tag/v23.0.0-rc.1">Release v23.0.0-rc.1 · moby/moby&lt;/a> Docker v23.0.0-rc1 发布，这次应该不会跳票了，现在试用里面便有我的一些努力；&lt;/li>
+&lt;/ul>
+&lt;h1 id="其他">其他&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://circleci.com/blog/january-4-2023-security-alert/">CircleCI security alert: Rotate any secrets stored in CircleCI (Updated Jan 7)&lt;/a> CircleCI 中的一些信息可能遭到了泄漏，所以建议用户尽快修改其中的机密信息。（我已经注销了账户）&lt;/li>
+&lt;li>&lt;a href="https://github.com/volcano-sh/volcano/pull/2636">update image to v1.7.0 by wangyang0616 · Pull Request #2636 · volcano-sh/volcano&lt;/a> 看起来 volcano 是打算发布 v1.7 版本了&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">我的 2022 总结</title><link rel="alternate" type="text/html" href="https://moelove.info/2023/01/02/%E6%88%91%E7%9A%84-2022-%E6%80%BB%E7%BB%93/"/><id>https://moelove.info/2023/01/02/%E6%88%91%E7%9A%84-2022-%E6%80%BB%E7%BB%93/</id><updated>2023-01-03T08:43:45+08:00</updated><published>2023-01-02T14:53:55+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 2022 年已经结束，我每年都会惯例的做个小回顾，今年因为阳了在恢复身体，一直拖到了今天才写。 生活 在 2022 年初做回顾的时……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>2022 年已经结束，我每年都会惯例的做个小回顾，今年因为阳了在恢复身体，一直拖到了今天才写。&lt;/p>
 &lt;h2 id="生活">生活&lt;/h2>
 &lt;p>在 2022 年初做回顾的时候，觉得 2021 是魔幻的一年，但现在看来 2022 年其实更加魔幻。&lt;/p>
@@ -1033,7 +1154,7 @@ extensions &lt;span class="o">[&lt;/span>3&lt;span class="o">]&lt;/span> Extensi
 &lt;p>欢迎大家在评论区留言讨论，也请点赞再看，谢谢。&lt;/p>
 &lt;hr>
 &lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
-&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/><category scheme="https://moelove.info/tags/Certificate/" term="Certificate" label="Certificate"/></entry><entry><title type="text">K8S 生态周报| KSM 即将废弃对 VerticalPodAutoscaler 的支持</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/12/04/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-KSM-%E5%8D%B3%E5%B0%86%E5%BA%9F%E5%BC%83%E5%AF%B9-VerticalPodAutoscaler-%E7%9A%84%E6%94%AF%E6%8C%81/"/><id>https://moelove.info/2022/12/04/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-KSM-%E5%8D%B3%E5%B0%86%E5%BA%9F%E5%BC%83%E5%AF%B9-VerticalPodAutoscaler-%E7%9A%84%E6%94%AF%E6%8C%81/</id><updated>2022-12-05T08:29:57+08:00</updated><published>2022-12-04T22:03:38+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/><category scheme="https://moelove.info/tags/Certificate/" term="Certificate" label="Certificate"/></entry><entry><title type="text">K8S 生态周报| KSM 即将废弃对 VerticalPodAutoscaler 的支持</title><link rel="alternate" type="text/html" href="https://moelove.info/2022/12/04/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-KSM-%E5%8D%B3%E5%B0%86%E5%BA%9F%E5%BC%83%E5%AF%B9-VerticalPodAutoscaler-%E7%9A%84%E6%94%AF%E6%8C%81/"/><id>https://moelove.info/2022/12/04/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-KSM-%E5%8D%B3%E5%B0%86%E5%BA%9F%E5%BC%83%E5%AF%B9-VerticalPodAutoscaler-%E7%9A%84%E6%94%AF%E6%8C%81/</id><updated>2023-01-08T20:15:15+08:00</updated><published>2022-12-04T22:03:38+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
