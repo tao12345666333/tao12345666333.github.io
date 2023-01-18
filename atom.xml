@@ -1,4 +1,125 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2023-01-09T08:27:55+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| containerd 存在 bug 会导致 Pod 被重启，建议升级</title><link rel="alternate" type="text/html" href="https://moelove.info/2023/01/08/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-%E5%AD%98%E5%9C%A8-bug-%E4%BC%9A%E5%AF%BC%E8%87%B4-Pod-%E8%A2%AB%E9%87%8D%E5%90%AF%E5%BB%BA%E8%AE%AE%E5%8D%87%E7%BA%A7/"/><id>https://moelove.info/2023/01/08/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-%E5%AD%98%E5%9C%A8-bug-%E4%BC%9A%E5%AF%BC%E8%87%B4-Pod-%E8%A2%AB%E9%87%8D%E5%90%AF%E5%BB%BA%E8%AE%AE%E5%8D%87%E7%BA%A7/</id><updated>2023-01-09T08:27:39+08:00</updated><published>2023-01-08T20:14:25+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2023-01-18T09:53:57+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Podman 开始废弃 CNI plugins, 推进自己的网络堆栈</title><link rel="alternate" type="text/html" href="https://moelove.info/2023/01/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Podman-%E5%BC%80%E5%A7%8B%E5%BA%9F%E5%BC%83-CNI-plugins-%E6%8E%A8%E8%BF%9B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%BD%91%E7%BB%9C%E5%A0%86%E6%A0%88/"/><id>https://moelove.info/2023/01/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Podman-%E5%BC%80%E5%A7%8B%E5%BA%9F%E5%BC%83-CNI-plugins-%E6%8E%A8%E8%BF%9B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%BD%91%E7%BB%9C%E5%A0%86%E6%A0%88/</id><updated>2023-01-15T23:57:33+08:00</updated><published>2023-01-15T00:05:58+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>还有一周就春节了，想必有一些小伙伴已经开始休假了吧，提前祝大家新春快乐！&lt;/p>
+&lt;h1 id="buildkit-v011-发布">BuildKit v0.11 发布&lt;/h1>
+&lt;p>BuildKit 我以前有很多篇文章中都有介绍过了。
+它是 Docker 的下一代构建引擎，目前在 Docker Desktop 中已经默认启用，在 Docker 的下一个版本 v23.0 中也会默认启用，对 Docker 中构建引擎感兴趣的小伙伴可以查看我之前的 《&lt;a href="https://moelove.info/2021/03/14/%E4%B8%87%E5%AD%97%E9%95%BF%E6%96%87%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/#buildkit">万字长文：彻底搞懂容器镜像构建 | MoeLove&lt;/a>》。&lt;/p>
+&lt;p>同时它也可以作为独立的镜像构建工具使用，很多人在将 Kubernetes 集群中的容器运行时从 Docker 替换为 containerd 后，想要寻找新的镜像构建工具，我推荐可以尝试下 BuildKit。&lt;/p>
+&lt;p>BuildKit 的发展还是很不错的，目前已经有 6.3K 的 star。本次发布的 v0.11 中有很多值得关注的内容。&lt;/p>
+&lt;ul>
+&lt;li>内置的 Dockerfile 前端升级到了 v1.5&lt;/li>
+&lt;li>可以为构建结果生成 SBOM ，以便看到其相关的依赖；&lt;/li>
+&lt;li>可以为构建结果设置 OCI annotations 了，并将其导出为 images;&lt;/li>
+&lt;li>新的 Build History API 允许监听构建开始和完成，以及构建过程的事件；&lt;/li>
+&lt;li>新的 remote cache: Azure Blob Storage 和 S3;&lt;/li>
+&lt;li>支持了 Nydus 格式；&lt;/li>
+&lt;/ul>
+&lt;p>更多关于此版本的变更可以查看其 &lt;a href="https://github.com/moby/buildkit/releases/tag/v0.11.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="opa-v0480-发布">OPA v0.48.0 发布&lt;/h1>
+&lt;p>Open Policy Agent 我在之前的文章 《&lt;a href="https://moelove.info/2021/12/06/Open-Policy-Agent-OPA-%E5%85%A5%E9%97%A8%E5%AE%9E%E8%B7%B5/">Open Policy Agent (OPA) 入门实践 | MoeLove&lt;/a>》进行过介绍，感兴趣的小伙伴可以看看。&lt;/p>
+&lt;p>本次发布的版本中增加了如下值得关注的变更：&lt;/p>
+&lt;h2 id="改善了-opa-eval-命令的错误报告">改善了 opa eval 命令的错误报告&lt;/h2>
+&lt;p>例如有如下规则，因为 0 不能作为除数，所以很明显这两个规则都是错误的。&lt;/p>
+&lt;pre>&lt;code>package play
+this_errors(number) := result {
+result := number / 0
+}
+this_errors_too(number) := result {
+result := number / 0
+}
+res1 := this_errors(1)
+res2 := this_errors_too(1)
+&lt;/code>&lt;/pre>&lt;p>而且在 OPA 中，这其实会得到一个 &lt;code>undefined&lt;/code> 的错误。&lt;/p>
+&lt;pre>&lt;code>(MoeLove)➜ opa run
+&amp;gt; 1/0
+&amp;gt; undefined
+&lt;/code>&lt;/pre>&lt;p>为了便于调试，OPA 提供了 &lt;code>--strict-builtin-errors&lt;/code> 参数，可以允许用户得到执行期间的发现的第一个错误，然后立即终止。效果如下：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span>➜ opa &lt;span class="nb">eval&lt;/span> --strict-builtin-errors -d multi-error.rego data.play
+&lt;span class="m">1&lt;/span> error occurred: multi-error.rego:4: eval_builtin_error: div: divide by zero
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>但很明显，只拿到第一个错误对于调试而言往往是不够的（需要不停的修正错误，然后再次调试，效率很低）。所以在这个版本中新增了 &lt;code>--show-builtin-errors&lt;/code> 参数，允许展示所有发现的错误。效果如下：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span>➜ opa &lt;span class="nb">eval&lt;/span> --show-builtin-errors -d multi-error.rego data.play -f pretty
+&lt;span class="m">2&lt;/span> errors occurred:
+multi-error.rego:4: eval_builtin_error: div: divide by zero
+multi-error.rego:8: eval_builtin_error: div: divide by zero
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="其他">其他&lt;/h2>
+&lt;ul>
+&lt;li>新增了 &lt;code>time.format&lt;/code> 内置函数；&lt;/li>
+&lt;li>对于 rule 索引进行了一系列优化，索引的查找时间与规则数量成正比；&lt;/li>
+&lt;li>在 bundle fetch 的时候可以支持 AWS 的 Signature Version 4A (SigV4A) 方法了，以便于使用 Amazon S3 Multi-Region Access Points (MRAP);&lt;/li>
+&lt;/ul>
+&lt;p>更多关于此版本的变更可以查看其 &lt;a href="https://github.com/open-policy-agent/opa/releases/tag/v0.48.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="podman-开始废弃-cni-plugins">Podman 开始废弃 CNI plugins&lt;/h1>
+&lt;p>在 Podman 创建之初，它就使用 CNI 作为它的网络堆栈了，但是 CNI 毕竟不是 Podman 原生的组件，所以会有一些 Podman 中想要有的功能，但是 CNI 中并不打算支持，这实际上就出现了一些分歧。&lt;/p>
+&lt;p>所以 Podman 在去年的时候创建了自己的 &lt;a href="https://github.com/containers/netavark">containers/netavark: Container network stack&lt;/a> 和 &lt;a href="https://github.com/containers/aardvark-dns">containers/aardvark-dns: Authoritative dns server for A/AAAA container records. Forwards other request to host's /etc/resolv.conf&lt;/a> 项目，用来构建 Podman 自己的网络堆栈。&lt;/p>
+&lt;p>该项目经过一年时间的打磨和用户的反馈，目前与上游的 CNI 插件相比，只是在 MACVLAN 的 DHCP 支持上稍有不足，但是后续会补上，另外，该网络堆栈目前主要的一些特性包括：&lt;/p>
+&lt;ul>
+&lt;li>通过 JSON 配置文件配置容器网络；&lt;/li>
+&lt;li>创建和管理网络接口，包括 MACVLAN 网络；&lt;/li>
+&lt;li>配置防火墙规则，NAT 和端口转发等能力；&lt;/li>
+&lt;li>目前支持 iptables 和 firewalld ，未来会支持 nftables ；&lt;/li>
+&lt;li>支持 rootless 容器；&lt;/li>
+&lt;li>支持 IPv4 和 IPv6；&lt;/li>
+&lt;li>可以通过 aardvark-dns 项目完成容器 DNS 解析的能力；&lt;/li>
+&lt;/ul>
+&lt;p>Podman 团队打算接下来开始废弃 CNI Plugins 的支持，但这可能会持续很长时间。目前 Podman 自己的网络堆栈是从 Podman 4.x 开始引入的，用户可以通过 &lt;code>podman info&lt;/code> 命令查看自己在用的网络堆栈，比如：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">$ sudo podman info
+host:
+arch: amd64
+buildahVersion: 1.29.0-dev
+...
+memFree: &lt;span class="m">16088698880&lt;/span>
+memTotal: &lt;span class="m">33380950016&lt;/span>
+networkBackend: netavark
+ociRuntime:
+name: crun
+package: crun-1.7.2-3.fc37.x86_64
+...
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>在输出中的 &lt;code>networkBackend: netavark&lt;/code> 就表示在用 Podman 自己的网络堆栈了。&lt;/p>
+&lt;p>其实这件事情也不算是啥大事儿，很多人可能根本没用过 Podman，但从这个事情中也反映出一些问题，以下是我的一些想法：&lt;/p>
+&lt;p>Podman 早期属于尽可能贴近开源社区和一些现成标准，然后基本上是照着 Docker 把所有的功能复制了一遍，所以早期宣传 Podman 的时候有一句话是：你可以添加一条 alias &lt;code>alias docker='podman'&lt;/code> 完成替换。&lt;/p>
+&lt;p>后来随着 Podman 有了一些用户基础，开始照着 Docker 的生态构造自己的组件了，比如 &lt;a href="https://github.com/containers/podman">Podman&lt;/a>, &lt;a href="https://github.com/containers/buildah">Buildah&lt;/a>, &lt;a href="https://github.com/containers/skopeo">Skopeo&lt;/a>, &lt;a href="https://github.com/containers/conmon-rs">conmon-rs&lt;/a>, &lt;a href="https://github.com/containers/crun">crun&lt;/a>, &lt;a href="https://github.com/containers/podman-desktop">Podman Desktop&lt;/a> 和 &lt;a href="https://github.com/containers/youki">youki&lt;/a>。&lt;/p>
+&lt;p>这些项目基本上是对照着 Docker 生态中的组件来自己实现了一遍，并且纳入到了该组织下。它的背后最主要的公司是 Red Hat 。&lt;/p>
+&lt;p>所以目前在容器领域，基本可以认为存在有两个阵营，看后续的发展吧。&lt;/p>
+&lt;h1 id="argo-rollouts-v14-发布">Argo Rollouts v1.4 发布&lt;/h1>
+&lt;p>我之前写了一篇文章 &lt;a href="https://moelove.info/2021/10/21/GitOps-%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5%E7%B3%BB%E5%88%97-Argo-CD-%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D/">GitOps 应用实践系列 - Argo CD 的基本介绍 | MoeLove&lt;/a> ，Argo CD 是 Argo 生态中的一个项目。&lt;/p>
+&lt;p>Argo 生态目前主要由四个子项目组成，包括：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Argo Workflows -- 第一个 Argo 项目，是 Kubernetes 的原生工作流引擎，支持 DAG 和 step-based 的工作流；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Argo Events -- Kubernetes 上的基于事件的依赖管理器，用于触发 Kubernetes 中的 Argo 工作流和其他操作。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Argo CD -- 是 Argo 社区和 Intuit 带来的开源项目，支持基于 GitOps 的声明性部署 Kubernetes 资源。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Argo Rollouts -- 支持声明式渐进式交付策略，例如 canary 、blue-green 和更多形式。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>Argo Rollouts v1.4 中包含了一些主要的变更：&lt;/p>
+&lt;ul>
+&lt;li>支持基于 revisions 的快速回滚，这在生产环境中想要快速回滚的时候，非常有用；&lt;/li>
+&lt;li>提供了 Apache APISIX Ingress 的支持，用户可以在这个版本中配合 Apache APISIX Ingress 进行渐进式交付；&lt;/li>
+&lt;li>允许为 canary 发布的时候设置最小 ReplicaSet 的 Pod 数；&lt;/li>
+&lt;/ul>
+&lt;p>更多关于此版本的更新，请查看其 &lt;a href="https://blog.argoproj.io/argo-rollouts-1-4-release-8275a0d364be">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/114947">Make seccomp annotations non-functional by saschagrunert · Pull Request #114947 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>这是 KEP 135 的后续，在 Kubernetes v1.19 中废弃的 &lt;code>seccomp.security.alpha.kubernetes.io/pod&lt;/code> 和 &lt;code>container.seccomp.security.alpha.kubernetes.io&lt;/code> 这两个 annotation ，在这个 PR 中被彻底删除了。&lt;/p>
+&lt;p>用户如果想要使用 seccomp 相关配置，请正确设置 &lt;code>securityContext.seccompProfile&lt;/code> 即可。&lt;/p>
+&lt;h1 id="其他-1">其他&lt;/h1>
+&lt;ul>
+&lt;li>由 ARMO 创建的 Kubescape 被 CNCF 接受成为了 sandbox 级别的项目，主要是作为 Kubernetes 安全平台。&lt;/li>
+&lt;/ul>
+&lt;p>这是春节前的最后一篇 「K8S 生态周报」，祝大家新春快乐！年后继续更新！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">K8S 生态周报| containerd 存在 bug 会导致 Pod 被重启，建议升级</title><link rel="alternate" type="text/html" href="https://moelove.info/2023/01/08/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-%E5%AD%98%E5%9C%A8-bug-%E4%BC%9A%E5%AF%BC%E8%87%B4-Pod-%E8%A2%AB%E9%87%8D%E5%90%AF%E5%BB%BA%E8%AE%AE%E5%8D%87%E7%BA%A7/"/><id>https://moelove.info/2023/01/08/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-containerd-%E5%AD%98%E5%9C%A8-bug-%E4%BC%9A%E5%AF%BC%E8%87%B4-Pod-%E8%A2%AB%E9%87%8D%E5%90%AF%E5%BB%BA%E8%AE%AE%E5%8D%87%E7%BA%A7/</id><updated>2023-01-09T08:27:39+08:00</updated><published>2023-01-08T20:14:25+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
