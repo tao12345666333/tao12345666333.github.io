@@ -1,4 +1,148 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2023-01-18T09:53:57+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Podman 开始废弃 CNI plugins, 推进自己的网络堆栈</title><link rel="alternate" type="text/html" href="https://moelove.info/2023/01/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Podman-%E5%BC%80%E5%A7%8B%E5%BA%9F%E5%BC%83-CNI-plugins-%E6%8E%A8%E8%BF%9B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%BD%91%E7%BB%9C%E5%A0%86%E6%A0%88/"/><id>https://moelove.info/2023/01/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Podman-%E5%BC%80%E5%A7%8B%E5%BA%9F%E5%BC%83-CNI-plugins-%E6%8E%A8%E8%BF%9B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%BD%91%E7%BB%9C%E5%A0%86%E6%A0%88/</id><updated>2023-01-15T23:57:33+08:00</updated><published>2023-01-15T00:05:58+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2023-01-30T08:50:58+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| 集群中应用正常但探针失败，如何解决？</title><link rel="alternate" type="text/html" href="https://moelove.info/2023/01/30/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E9%9B%86%E7%BE%A4%E4%B8%AD%E5%BA%94%E7%94%A8%E6%AD%A3%E5%B8%B8%E4%BD%86%E6%8E%A2%E9%92%88%E5%A4%B1%E8%B4%A5%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3/"/><id>https://moelove.info/2023/01/30/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E9%9B%86%E7%BE%A4%E4%B8%AD%E5%BA%94%E7%94%A8%E6%AD%A3%E5%B8%B8%E4%BD%86%E6%8E%A2%E9%92%88%E5%A4%B1%E8%B4%A5%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3/</id><updated>2023-01-30T07:00:31+08:00</updated><published>2023-01-30T04:34:36+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>这是春节后的第一篇「K8S 生态周报」，主要集中在上游进展。&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/115143">Kubelet TCP/HTTP probes: improve network resources utilization by aojea · Pull Request #115143 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>这个 PR 对有大量 workload 并且 &lt;strong>开启了 Liveness/Readiness Probes 的集群&lt;/strong> 可以说是非常有用了。&lt;/p>
+&lt;p>在这个场景下， &lt;strong>有时可能会出现应用程序是正常运行的，但是配置的 Liveness/Readiness Probes 结果是失败的，导致 Unhealthy 状态的出现，进而影响应用的稳定性。&lt;/strong>&lt;/p>
+&lt;p>这是因为自从 Kubernetes v1.2 版本开始，kubelet probe 就&lt;a href="https://github.com/kubernetes/kubernetes/commit/80287e343027f74ebd83ad8b5f468435281cbd83">使用短链接&lt;/a>的方式了，主要是考虑到
+Kubernetes 中 Pod 和 port 都很多，每次检查都连接不同的地址，并且用短链接的方式就不再需要处理连接关闭的事情了。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2023/01/30/xVme7wIPcGr32o6.png" alt="kubelet using short connections">&lt;/p>
+&lt;p>对于每次的探针，都会建立新的连接，而且每个连接都会消耗对应的资源，直到 TIME-WAIT 状态超时后释放。&lt;/p>
+&lt;p>这对于小规模或者压力不太大的集群而言是可接受的，但是对于有大量 workload 和 probes 的场景就无法接受了，因为对于每次
+探针的检查，实际都会有 conntrack 记录，并且是一直在进行消耗。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">ipv4 &lt;span class="m">2&lt;/span> tcp &lt;span class="m">6&lt;/span> &lt;span class="m">51&lt;/span> TIME_WAIT &lt;span class="nv">src&lt;/span>&lt;span class="o">=&lt;/span>127.0.0.1 &lt;span class="nv">dst&lt;/span>&lt;span class="o">=&lt;/span>127.0.0.1 &lt;span class="nv">sport&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">39458&lt;/span> &lt;span class="nv">dport&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">6666&lt;/span> &lt;span class="nv">src&lt;/span>&lt;span class="o">=&lt;/span>127.0.0.1 &lt;span class="nv">dst&lt;/span>&lt;span class="o">=&lt;/span>127.0.0.1 &lt;span class="nv">sport&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">6666&lt;/span> &lt;span class="nv">dport&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">39458&lt;/span> &lt;span class="o">[&lt;/span>ASSURED&lt;span class="o">]&lt;/span> &lt;span class="nv">mark&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">0&lt;/span> &lt;span class="nv">secctx&lt;/span>&lt;span class="o">=&lt;/span>system_u:object_r:unlabeled_t:s0 &lt;span class="nv">zone&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">0&lt;/span> u
+&lt;span class="nv">se&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">2&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>每个机器上 conntrack 记录的容量是有限的，比如在我机器上是 262144:&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ sudo sysctl -a &lt;span class="p">|&lt;/span> grep conntrack_max
+net.netfilter.nf_conntrack_max &lt;span class="o">=&lt;/span> &lt;span class="m">262144&lt;/span>
+net.nf_conntrack_max &lt;span class="o">=&lt;/span> &lt;span class="m">262144&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果连接消耗的资源持续未释放，就会导致新连接失败，进而导致 Unhealthy 的状态。&lt;/p>
+&lt;p>看到这里，想必你应该已经能得出解决的办法了。&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>调整机器配置&lt;/strong>: 如果遇到类似情况，你可以查看下系统日志，看看是否有 &lt;code>nf_conntrack: table full&lt;/code> 类似这样的日志，如果有可以调大 conntrack ，但是这需要对每台机器操作，而且这需要集群管理员按照实际情况进行操作。当然还有一些其他的配置也需要对应调整，比如可用端口之类的，这种方式对于解决自己环境中遇到问题而言可行，但是对于 Kubernetes 而言，其实就会增加它的运维成本；&lt;/li>
+&lt;li>&lt;strong>连接复用&lt;/strong>：这会是一种有效的解决办法，但是这需要涉及到所有 probe 相关代码的重构，成本较高；&lt;/li>
+&lt;li>&lt;strong>减少 TIME_WAIT 超时时间&lt;/strong>：这可以通过在建立 socket 连接的时候，设置 SO_LINGER 来完成。但这里有个点需要注意，之所以在此处能通过设置 SO_LINGER 来完成，是由于这种场景下，通常都是短连接探针发送数据较少，缓冲区内没有其他额外数据，所以即使设置 SO_LINGER 丢弃也没关系。这也是这个 PR 中所采用的办法。&lt;/li>
+&lt;/ul>
+&lt;p>核心逻辑是：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="nf">ProbeDialer&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">net&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Dialer&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">dialer&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">net&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Dialer&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;span class="nx">Control&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kd">func&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">network&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">address&lt;/span> &lt;span class="kt">string&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">c&lt;/span> &lt;span class="nx">syscall&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">RawConn&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="kt">error&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Control&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">func&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">fd&lt;/span> &lt;span class="kt">uintptr&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">syscall&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">SetsockoptLinger&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">fd&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="nx">syscall&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">SOL_SOCKET&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">syscall&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">SO_LINGER&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">&amp;amp;&lt;/span>&lt;span class="nx">syscall&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Linger&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="nx">Onoff&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Linger&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">})&lt;/span>
+&lt;span class="p">})&lt;/span>
+&lt;span class="p">},&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">dialer&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可以看到这里提供了两个选项，它们的含义如下；&lt;/p>
+&lt;ul>
+&lt;li>Onoff: 它表示是否忽略 Linger 的配置，0 表示关闭，非 0 表示打开；&lt;/li>
+&lt;li>Linger: 这就是超时时间了，配置为 0 就表示立即关闭，发送 RST 直接丢弃缓冲区数据，但是考虑这种方式不太温和，所以设置成了 1 ，给一个尽可能短的时间，并且 1s 内也可以将缓冲区内的数据继续发送。 这里也有另一个影响需要注意 &lt;strong>如果你部署在 Kubernetes 集群中的服务，配置健康检查探针时，用的不是专门的健康检查接口（只是返回健康状态），而是复用了其他的业务接口，并且其中传输数据量大的话，将可能导致异常&lt;/strong>。&lt;/li>
+&lt;/ul>
+&lt;p>后续还有另一个 PR 是补充了对 gPRC probes 的处理：&lt;a href="https://github.com/kubernetes/kubernetes/pull/115321">Kubelet GRPC probes: improve network resources utilization by rphillips · Pull Request #115321 · kubernetes/kubernetes&lt;/a>&lt;/p>
+&lt;p>在 Kubernetes 环境下排查问题是个挺有趣的事情，但正如我之前和这个 PR 的作者聊的那样，每个角色都有各自关注的点，conntrack 多数情况下在排查问题的时候才会有人注意到。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2023/01/30/zBlMstc6GAHvSWr.png" alt="2023-01-30 06-03-21屏幕截图.png">&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/114878">Ipvs: remove the scheduler validation by uablrek · Pull Request #114878 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>在这个 PR 中移除了对 IPVS scheduler 的校验，原先在代码中指定了如下 10 种 IPVS 可用的 scheduler 。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">const&lt;/span> &lt;span class="p">(&lt;/span>
+&lt;span class="nx">RoundRobin&lt;/span> &lt;span class="nx">IPVSSchedulerMethod&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;rr&amp;#34;&lt;/span>
+&lt;span class="nx">WeightedRoundRobin&lt;/span> &lt;span class="nx">IPVSSchedulerMethod&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;wrr&amp;#34;&lt;/span>
+&lt;span class="nx">LeastConnection&lt;/span> &lt;span class="nx">IPVSSchedulerMethod&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;lc&amp;#34;&lt;/span>
+&lt;span class="nx">WeightedLeastConnection&lt;/span> &lt;span class="nx">IPVSSchedulerMethod&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;wlc&amp;#34;&lt;/span>
+&lt;span class="nx">LocalityBasedLeastConnection&lt;/span> &lt;span class="nx">IPVSSchedulerMethod&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;lblc&amp;#34;&lt;/span>
+&lt;span class="nx">LocalityBasedLeastConnectionWithReplication&lt;/span> &lt;span class="nx">IPVSSchedulerMethod&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;lblcr&amp;#34;&lt;/span>
+&lt;span class="nx">SourceHashing&lt;/span> &lt;span class="nx">IPVSSchedulerMethod&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;sh&amp;#34;&lt;/span>
+&lt;span class="nx">DestinationHashing&lt;/span> &lt;span class="nx">IPVSSchedulerMethod&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;dh&amp;#34;&lt;/span>
+&lt;span class="nx">ShortestExpectedDelay&lt;/span> &lt;span class="nx">IPVSSchedulerMethod&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;sed&amp;#34;&lt;/span>
+&lt;span class="nx">NeverQueue&lt;/span> &lt;span class="nx">IPVSSchedulerMethod&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;nq&amp;#34;&lt;/span>
+&lt;span class="p">)&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>但是 IPVS 也在发展，比如 Linux 内核种还增加了 &lt;code>fo&lt;/code>, &lt;code>ovf&lt;/code>, &lt;code>mh&lt;/code> 等算法，
+而且也有一些团队会选择自己来扩展 IPVS scheduler，此处的限制就导致无法进行灵活的扩展了。&lt;/p>
+&lt;p>移除掉这里校验之后，集群管理员可以配置任意可用的 IPVS scheduler 了，但如果配置错了，那么也会有错误信息的。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/114814/files">Do not create endpoints for Services of type ExternalName by panslava · Pull Request #114814 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>在这个 PR 之前，如果创建了 ExternalName 类型的 service，会自动的创建出来 endpoints 和 endpointslice，虽然会加上 &lt;code>headless&lt;/code> 的 label ，但它们没有什么真正的作用。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl create service externalname my-ns --external-name moelove.info
+service/my-ns created
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl get svc
+NAME TYPE CLUSTER-IP EXTERNAL-IP PORT&lt;span class="o">(&lt;/span>S&lt;span class="o">)&lt;/span> AGE
+kubernetes ClusterIP 10.43.0.1 &amp;lt;none&amp;gt; 443/TCP 10d
+my-ns ExternalName &amp;lt;none&amp;gt; moelove.info &amp;lt;none&amp;gt; 5s
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl get ep
+NAME ENDPOINTS AGE
+kubernetes 166.66.116.66:6443 10d
+my-ns &amp;lt;none&amp;gt; 9s
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl get endpointslice
+NAME ADDRESSTYPE PORTS ENDPOINTS AGE
+kubernetes IPv4 &lt;span class="m">6443&lt;/span> 166.66.116.66 10d
+my-ns-8r2vj IPv6 &amp;lt;unset&amp;gt; &amp;lt;unset&amp;gt; 15s
+my-ns-vcw59 IPv4 &amp;lt;unset&amp;gt; &amp;lt;unset&amp;gt; 15s
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>而且有可能会产生一些异常情况，比如如下配置&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Service&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">new-blog&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">namespace&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">default&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">externalName&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">blog.moelove.info&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ExternalName&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">selector&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">app&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">myapp&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Pod&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">testpod&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">app&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">myapp&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">containers&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">web&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">nginx&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">ports&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">web&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">containerPort&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">80&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">protocol&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">TCP&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>将上述配置应用到集群后，看下效果：&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ kubectl get svc,ep,endpointslices --show-labels
+NAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) AGE LABELS
+service/kubernetes ClusterIP 10.43.0.1 &amp;lt;none&amp;gt; 443/TCP 10d component=apiserver,provider=kubernetes
+service/new-blog ExternalName &amp;lt;none&amp;gt; blog.moelove.info &amp;lt;none&amp;gt; 63s &amp;lt;none&amp;gt;
+NAME ENDPOINTS AGE LABELS
+endpoints/kubernetes 166.66.116.66:6443 10d endpointslice.kubernetes.io/skip-mirror=true
+endpoints/new-blog &amp;lt;none&amp;gt; 64s service.kubernetes.io/headless=
+NAME ADDRESSTYPE PORTS ENDPOINTS AGE LABELS
+endpointslice.discovery.k8s.io/kubernetes IPv4 6443 166.66.116.66 10d kubernetes.io/service-name=kubernetes
+endpointslice.discovery.k8s.io/new-blog-n22t7 IPv4 &amp;lt;unset&amp;gt; 10.0.0.129 64s endpointslice.kubernetes.io/managed-by=endpointslice-controller.k8s.io,kubernetes.io/service-name=new-blog,service.kubernetes.io/headless=
+endpointslice.discovery.k8s.io/new-blog-r479n IPv6 &amp;lt;unset&amp;gt; &amp;lt;unset&amp;gt; 64s endpointslice.kubernetes.io/managed-by=endpointslice-controller.k8s.io,kubernetes.io/service-name=new-blog,service.kubernetes.io/headless=
+(MoeLove) ➜ kubectl get pods -owide
+NAME READY STATUS RESTARTS AGE IP NODE NOMINATED NODE READINESS GATES
+testpod 1/1 Running 0 72s 10.0.0.129 moelove-kubernetes-cluster-node-pool-6666-ud11o &amp;lt;none&amp;gt; &amp;lt;none&amp;gt;
+&lt;/code>&lt;/pre>&lt;p>会发现 endpointslice 中有一个是指向了正在运行的 Pod (这是由于 label selector 导致的) ，但如果将该 service 转换成 ClusterIP 类型时候，kube-proxy 也不会再为它创建新的规则，无法进行正常的流量代理。&lt;/p>
+&lt;p>所以在这个 PR 中移除了对 ExternalName 类型 service 的 endpoints 和 endpointslice 的创建。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/114886">kubectl: use autoscaling v2 for hpa by a7i · Pull Request #114886 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>HorizontalPodAutoscaler &lt;code>autoscaling/v2beta2&lt;/code> 在 v1.23+ 废弃，v1.26+ 不可用，所以将 kubectl 使用的版本切换到了 &lt;code>autoscaling/v2&lt;/code>&lt;/p>
+&lt;h1 id="其他">其他&lt;/h1>
+&lt;ul>
+&lt;li>Docker &lt;a href="https://github.com/moby/moby/releases/tag/v23.0.0-rc.3">Release v23.0.0-rc.3 · moby/moby&lt;/a>，想起来我还有一个 PR 没合并；&lt;/li>
+&lt;li>Cilium &lt;a href="https://github.com/cilium/cilium/releases/tag/v1.13.0-rc5">Release v1.13.0-rc5 · cilium/cilium&lt;/a> 改动还是很多；&lt;/li>
+&lt;li>Knative &lt;a href="https://github.com/knative/serving/releases/tag/knative-v1.9.0">Release Knative Serving release v1.9.0 · knative/serving&lt;/a> 如果创建一些特权 Pod 将会有 warn 提示；&lt;/li>
+&lt;li>Kyma &lt;a href="https://github.com/kyma-project/kyma/releases/tag/2.10.0">Release 2.10.0 · kyma-project/kyma&lt;/a> 没有太特别的改动；&lt;/li>
+&lt;/ul>
+&lt;p>以上就是本次的全部内容，我们下期再见！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">K8S 生态周报| Podman 开始废弃 CNI plugins, 推进自己的网络堆栈</title><link rel="alternate" type="text/html" href="https://moelove.info/2023/01/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Podman-%E5%BC%80%E5%A7%8B%E5%BA%9F%E5%BC%83-CNI-plugins-%E6%8E%A8%E8%BF%9B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%BD%91%E7%BB%9C%E5%A0%86%E6%A0%88/"/><id>https://moelove.info/2023/01/15/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Podman-%E5%BC%80%E5%A7%8B%E5%BA%9F%E5%BC%83-CNI-plugins-%E6%8E%A8%E8%BF%9B%E8%87%AA%E5%B7%B1%E7%9A%84%E7%BD%91%E7%BB%9C%E5%A0%86%E6%A0%88/</id><updated>2023-01-15T23:57:33+08:00</updated><published>2023-01-15T00:05:58+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
