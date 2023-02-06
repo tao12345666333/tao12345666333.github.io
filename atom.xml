@@ -1,4 +1,124 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2023-01-30T08:50:58+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| 集群中应用正常但探针失败，如何解决？</title><link rel="alternate" type="text/html" href="https://moelove.info/2023/01/30/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E9%9B%86%E7%BE%A4%E4%B8%AD%E5%BA%94%E7%94%A8%E6%AD%A3%E5%B8%B8%E4%BD%86%E6%8E%A2%E9%92%88%E5%A4%B1%E8%B4%A5%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3/"/><id>https://moelove.info/2023/01/30/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E9%9B%86%E7%BE%A4%E4%B8%AD%E5%BA%94%E7%94%A8%E6%AD%A3%E5%B8%B8%E4%BD%86%E6%8E%A2%E9%92%88%E5%A4%B1%E8%B4%A5%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3/</id><updated>2023-01-30T07:00:31+08:00</updated><published>2023-01-30T04:34:36+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2023-02-06T09:03:10+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Docker v23.0.0 正式发布，带来众多新特性</title><link rel="alternate" type="text/html" href="https://moelove.info/2023/02/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v23.0.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/"/><id>https://moelove.info/2023/02/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v23.0.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/</id><updated>2023-02-06T07:44:06+08:00</updated><published>2023-02-06T05:04:06+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;h1 id="docker-v2300-正式发布">Docker v23.0.0 正式发布&lt;/h1>
+&lt;p>Docker 上一个发布的正式版本是 v20.10 发布于 2020 年的 12 月份，至今已过两年有余。不过其 patch 版本倒是也一直在更新，目前最新的是 v20.10.23 。&lt;/p>
+&lt;p>作为一个引领了容器化浪潮的基础技术，Docker 经历了每年发多个版本，到每年两个版本，每年一个版本，以及现在这个历经两年才发布了一个正式版本的过程。
+这其实也从侧面反映出来了 Docker 的发展。&lt;/p>
+&lt;p>作为一个真正被用户采用的开源项目，在初期会不断的满足用户需求，并且也不断的有贡献者参与进来，迭代速度相对较快。
+但是当大多数需求已经被满足，成为一个基础设施的时候，大多数用户会更加关注于上层的项目，比如 Kubernetes，而逐步放弃对该项目的投入。&lt;/p>
+&lt;p>加上 Docker 也把自己的底层容器运行时 containerd 和 runc 拆分出来，还有很多其中的模块和通用基础库也都拆分成为了一些独立的项目，这也就使得主仓库更加的专注，活跃度慢慢降低。&lt;/p>
+&lt;p>同时，过去的两年多时间，Docker 开源项目，及其创办者 Docker Inc. 过的也并不好。&lt;/p>
+&lt;p>比如 &lt;strong>2020 年，它在技术圈内的两度成为（舆论的）焦点。&lt;/strong> ，具体信息可以看我之前的文章：&lt;/p>
+&lt;p>&lt;a href="https://moelove.info/2020/12/03/K8S-%E5%BC%83%E7%94%A8-Docker-%E4%BA%86Docker-%E4%B8%8D%E8%83%BD%E7%94%A8%E4%BA%86%E5%88%AB%E9%80%97%E4%BA%86/">K8S 弃用 Docker 了？Docker 不能用了？别逗了！ | MoeLove&lt;/a>&lt;/p>
+&lt;p>和视频：&lt;/p>
+&lt;p>&lt;a href="https://www.youtube.com/watch?v=9Ekm7gZdNi4">为何 2020 年 Docker 两度成为焦点 - YouTube&lt;/a>&lt;/p>
+&lt;p>不过从 2022 年初，Docker Inc. 拿到 C 轮 1.05 亿美金的融资后，展开了多个收购项目和扩充团队，也逐步的让 Docker Inc. 和 Docker 项目回到了正轨。&lt;/p>
+&lt;p>好了，回到 Docker v23.0.0 版本中，我们一起来看看这个已经跳票两年的版本为我们带来了哪些值得关注的更新吧！&lt;/p>
+&lt;h2 id="构建系统默认切换到了-buildkit">构建系统默认切换到了 BuildKit&lt;/h2>
+&lt;p>Docker 其实在 2017 年就开始着手增加自己的新一代构建引擎 BuildKit 了，并且在 Docker v18.09 中已经可以通过增加 &lt;code>DOCKER_BUILDKIT=1&lt;/code> 环境变量的方式来默认启用它了。
+后来 Docker Desktop 中也已经将 BuildKit 设置成了默认的构建引擎。&lt;/p>
+&lt;p>BuildKit 有很多优秀的特性，比如：&lt;/p>
+&lt;ul>
+&lt;li>它可以在多阶段构建中检测并跳过执行未使用的构建阶段。但是 Docker 旧版本中的 builder 只能按顺序执行 Dockerfile 中的阶段；&lt;/li>
+&lt;li>并发构建独立的构建阶段，这可以显著提升构建的效率；&lt;/li>
+&lt;li>在两次构建之间，只递增传输构建环境中已更改的文件;&lt;/li>
+&lt;li>检测并跳过传输构建环境中未使用的文件;&lt;/li>
+&lt;li>使用具有许多新功能的 Dockerfile 前端实现，用户可以自行选择要使用的 Dockerfile frontend；&lt;/li>
+&lt;li>避免与其他API（中间镜像和容器）产生副作用;&lt;/li>
+&lt;li>对你的构建缓存进行优先排序，以便自动清除;&lt;/li>
+&lt;/ul>
+&lt;p>关于 Docker 中构建过程的原理和源码分析，可以看看我之前的文章：&lt;a href="https://moelove.info/2021/03/14/%E4%B8%87%E5%AD%97%E9%95%BF%E6%96%87%E5%BD%BB%E5%BA%95%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA/#buildkit">万字长文：彻底搞懂容器镜像构建 | MoeLove&lt;/a>&lt;/p>
+&lt;p>同时，BuildKit 除了作为 Docker 的构建引擎外，也可以被独立使用，或者被其他工具集成，比如 Tekton，Dagger 等。&lt;/p>
+&lt;p>Docker 之前提供了一个名为 buildx 的插件，可以认为是 BuildKit 的前端，主要是为了能提供 BuildKit 的一些能力。
+在 Docker v23.0.0 中，&lt;code>docker build&lt;/code> 实际已经成为了 &lt;code>docker buildx build&lt;/code> 的别名。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ docker build --help
+Usage: docker buildx build &lt;span class="o">[&lt;/span>OPTIONS&lt;span class="o">]&lt;/span> PATH &lt;span class="p">|&lt;/span> URL &lt;span class="p">|&lt;/span> -
+Start a build
+Aliases:
+docker buildx build, docker buildx b
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>docker buildx&lt;/code> 同样具备了非常丰富的特性，其中一个有趣的特性在于 &lt;strong>它支持设置不同的构建驱动&lt;/strong>，包括使用 docker-container ， Kubernetes 和 remote。&lt;/p>
+&lt;p>这样做的好处在于，如果你本地的计算资源不足，那么你可以选择使用 Kubernetes 集群进行构建（副本数可以自行设置）也可以使用 remote 的 Docker engine 进行构建（但是 remote 就只是 1 个副本了）。&lt;/p>
+&lt;pre>&lt;code>(MoeLove) ➜ kubectl create ns buildkit
+namespace/buildkit created
+(MoeLove) ➜ docker buildx create \
+--bootstrap \
+--name=kube \
+--driver=kubernetes \
+--driver-opt=namespace=buildkit,replicas=4
+[+] Building 12.7s (1/1) FINISHED
+=&amp;gt; [internal] booting buildkit 12.2s
+=&amp;gt; =&amp;gt; waiting for 4 pods to be ready 11.6s
+kube
+(MoeLove) ➜ docker buildx ls
+NAME/NODE DRIVER/ENDPOINT STATUS BUILDKIT PLATFORMS
+kube kubernetes
+kube0-6977cdcb75-5flvl running v0.11.2 linux/amd64, linux/amd64/v2, linux/amd64/v3, linux/amd64/v4, linux/386
+kube0-6977cdcb75-7s8x9 running v0.11.2 linux/amd64, linux/amd64/v2, linux/amd64/v3, linux/amd64/v4, linux/386
+kube0-6977cdcb75-bzk75 running v0.11.2 linux/amd64, linux/amd64/v2, linux/amd64/v3, linux/amd64/v4, linux/386
+kube0-6977cdcb75-n78cw running v0.11.2 linux/amd64, linux/amd64/v2, linux/amd64/v3, linux/amd64/v4, linux/386
+default * docker
+default default running 23.0.0 linux/amd64, linux/amd64/v2, linux/amd64/v3, linux/386
+(MoeLove) ➜ docker buildx use kube
+&lt;/code>&lt;/pre>&lt;p>这样之后执行 &lt;code>docker build&lt;/code> 的时候，构建就会在 Kubernetes 集群中的 Pod 内进行了。&lt;/p>
+&lt;p>另一个好处在于，如果你的本地网络环境不太好，也可以利用远端的 Kubernetes 或者 remote 的 Docker 实例进行构建，突破这个限制。&lt;/p>
+&lt;h2 id="允许配置更多-oci-运行时">允许配置更多 OCI 运行时&lt;/h2>
+&lt;p>Docker 默认使用的运行时是 containerd， 其底层 OCI 运行时是 runc，但是目前也有很多其他的运行时可以使用，比如&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/containers/crun">containers/crun: A fast and lightweight fully featured OCI runtime and C library for running containers&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/containers/youki">containers/youki: A container runtime written in Rust&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>但如果从规范层来看 containerd 架构的话，shim 才是 OCI 运行时，所以上述的这些实现都可以认为是 &lt;code>io.containerd.runc.v2&lt;/code> 的一个实现细节。&lt;/p>
+&lt;p>目前有一些其他的运行时，它们实现了自己的 shim，比如 Kata 的 &lt;code>io.containerd.kata.v2&lt;/code> ，它是无法在 Docker 中直接使用的。所以 Docker 对此进行了支持。
+从 Docker v23.0.0 开始，用户可以简单的通过 &lt;code>docker run --runtime &amp;lt;&amp;gt;&lt;/code> 将任意兼容 containerd runtime v2 API 的运行时配置给 Docker 使用。&lt;/p>
+&lt;p>几个月前，Docker Desktop 中支持了通过 wasmedge 运行 WASM，就是这样的方式。&lt;/p>
+&lt;h2 id="允许多种配置-proxy-的方式">允许多种配置 Proxy 的方式&lt;/h2>
+&lt;p>之前 Docker 仅仅允许通过环境变量的方式进行 Proxy 的配置，所以通常在进行 Docker 部署的时候，会增加一个配置&lt;/p>
+&lt;pre>&lt;code># /etc/systemd/system/docker.service.d/http-proxy.conf
+[Service]
+Environment=&amp;quot;HTTP_PROXY=http://IP:Port&amp;quot;
+Environment=&amp;quot;HTTPS_PROXY=http://IP:PORT&amp;quot;
+Environment=&amp;quot;NO_PROXY=localhost,127.0.0.1,*.moelove.info&amp;quot;
+&lt;/code>&lt;/pre>&lt;p>在新版本中允许通过 &lt;code>/etc/docker/daemon.json&lt;/code> 和通过命令行参数的方式进行配置了：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ dockerd --help &lt;span class="p">|&lt;/span>grep http
+--http-proxy string HTTP proxy URL to use &lt;span class="k">for&lt;/span> outgoing traffic
+--https-proxy string HTTPS proxy URL to use &lt;span class="k">for&lt;/span> outgoing traffic
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>但是注意 &lt;strong>此配置仍然不是动态加载的&lt;/strong>，如果要修改，仍然需要重启 docker daemon，这和 Go 中使用的 &lt;code>sync.Once()&lt;/code> 有关。&lt;/p>
+&lt;h2 id="废弃">废弃&lt;/h2>
+&lt;ul>
+&lt;li>移除了对 &lt;code>~/.dockercfg&lt;/code> 配置的支持，实际上这个配置从 1.7 就宣布废弃了；&lt;/li>
+&lt;li>移除了 &lt;code>-g&lt;/code> 和 &lt;code>--graph&lt;/code> 参数，使用 &lt;code>--data-root&lt;/code> 替代；&lt;/li>
+&lt;li>移除了 LCOW (Linux Containers on Windows);&lt;/li>
+&lt;li>移除了 &lt;code>io.containerd.runtime.v1.linux&lt;/code> OCI runtime 的支持；&lt;/li>
+&lt;li>移除了对于没有 &lt;code>d_type&lt;/code> 文件系统上 overlay 和 overlay2 的支持， &lt;strong>对于新部署 Docker 环境的小伙伴需要特别关注&lt;/strong> ，毕竟 Overlay2 是默认的存储驱动；&lt;/li>
+&lt;/ul>
+&lt;h2 id="对-swarmkit-的一些支持">对 SwarmKit 的一些支持&lt;/h2>
+&lt;p>Swarm 尽管在容器编排领域败给了 Kubernetes，但即使到目前也还是有一些人因为它的简单在使用它。而且 Mirantis 在 2019 年收购了 Docker Enterprise 后，
+也将 Swarm 放在了自家的 Mirantis Kubernetes Engine 平台中了。所以也还在继续更新和提供支持。&lt;/p>
+&lt;ul>
+&lt;li>实验性的支持了 SwarmKit cluster volumes，主要指对 CSI 的支持;&lt;/li>
+&lt;li>在 &lt;code>docker stack deploy&lt;/code> 添加对 SwarmKit job 的支持;&lt;/li>
+&lt;/ul>
+&lt;h2 id="其他">其他&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/moby/moby/pull/42393">moby/moby#42393&lt;/a> 添加 &lt;code>dockerd --validate&lt;/code> 允许检查 docker daemon 的配置是否正确；&lt;/li>
+&lt;li>添加了 ipvlan_flag 选项，允许支持 l3s ipvlan_mode；&lt;/li>
+&lt;/ul>
+&lt;p>以上就是 Docker v23.0.0 版本中主要值得关注的一些内容了，更多信息请查看其 &lt;a href="https://github.com/moby/moby/releases/tag/v23.0.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h2 id="其他更新">其他更新&lt;/h2>
+&lt;ul>
+&lt;li>Jaeger &lt;a href="https://github.com/jaegertracing/jaeger/releases/tag/v1.42.0">Release Release v1.42.0 · jaegertracing/jaeger&lt;/a>&lt;/li>
+&lt;li>Istio &lt;a href="https://github.com/istio/istio/releases/tag/1.17.0-beta.1">Release Istio 1.17.0-beta.1 · istio/istio&lt;/a>&lt;/li>
+&lt;li>Podman &lt;a href="https://github.com/containers/podman/releases/tag/v4.4.0">Release v4.4.0 · containers/podman&lt;/a>&lt;/li>
+&lt;li>Kyverno &lt;a href="https://github.com/kyverno/kyverno/releases/tag/v1.9.0">Release v1.9.0 · kyverno/kyverno&lt;/a>&lt;/li>
+&lt;li>Kustomize &lt;a href="https://github.com/kubernetes-sigs/kustomize/releases/tag/kustomize/v5.0.0">Release kustomize/v5.0.0 · kubernetes-sigs/kustomize&lt;/a> 有很多 break change&lt;/li>
+&lt;li>trivy &lt;a href="https://github.com/aquasecurity/trivy/releases/tag/v0.37.0">Release v0.37.0 · aquasecurity/trivy&lt;/a>&lt;/li>
+&lt;li>Kubernetes &lt;a href="https://github.com/kubernetes/kubernetes/releases/tag/v1.27.0-alpha.1">Release Kubernetes v1.27.0-alpha.1 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">K8S 生态周报| 集群中应用正常但探针失败，如何解决？</title><link rel="alternate" type="text/html" href="https://moelove.info/2023/01/30/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E9%9B%86%E7%BE%A4%E4%B8%AD%E5%BA%94%E7%94%A8%E6%AD%A3%E5%B8%B8%E4%BD%86%E6%8E%A2%E9%92%88%E5%A4%B1%E8%B4%A5%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3/"/><id>https://moelove.info/2023/01/30/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E9%9B%86%E7%BE%A4%E4%B8%AD%E5%BA%94%E7%94%A8%E6%AD%A3%E5%B8%B8%E4%BD%86%E6%8E%A2%E9%92%88%E5%A4%B1%E8%B4%A5%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3/</id><updated>2023-01-30T07:00:31+08:00</updated><published>2023-01-30T04:34:36+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
