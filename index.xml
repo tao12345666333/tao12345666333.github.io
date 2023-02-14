@@ -1,4 +1,90 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 06 Feb 2023 09:03:10 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Docker v23.0.0 正式发布，带来众多新特性</title><link>https://moelove.info/2023/02/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v23.0.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/</link><guid isPermaLink="true">https://moelove.info/2023/02/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v23.0.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/</guid><pubDate>Mon, 06 Feb 2023 05:04:06 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 14 Feb 2023 17:49:40 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Kubernetes 旧的 registry 将被冻结</title><link>https://moelove.info/2023/02/13/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E6%97%A7%E7%9A%84-registry-%E5%B0%86%E8%A2%AB%E5%86%BB%E7%BB%93/</link><guid isPermaLink="true">https://moelove.info/2023/02/13/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E6%97%A7%E7%9A%84-registry-%E5%B0%86%E8%A2%AB%E5%86%BB%E7%BB%93/</guid><pubDate>Mon, 13 Feb 2023 16:48:16 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;h1 id="docker-compose-v2160-正式发布">docker compose v2.16.0 正式发布&lt;/h1>
+&lt;p>Docker Compose 自 v2 开始使用 Go 替换了原先的 Python 实现，并在其中添加了很多新的特性。同时，也支持通过 Docker Plugin 的方式进行配置，所以用户可以直接使用 &lt;code>docker compose&lt;/code> 来进行调用。&lt;/p>
+&lt;p>另外，Docker Compose 尽管在默认情况下只能进行单机服务编排，但它仍然也是一个非常方便的工具，有很多的用户在使用它，Docker Compose 的更新节奏也比较快。&lt;/p>
+&lt;p>这次的版本中它带来了一些主要的功能：&lt;/p>
+&lt;ul>
+&lt;li>在 &lt;code>compose create&lt;/code> 和 &lt;code>compose run&lt;/code> 中增加了一个 &lt;code>--remove-orphans&lt;/code> 参数， 移除未在 Compose 文件中定义的 service 的容器；&lt;/li>
+&lt;li>实验性的增加了一个 &lt;code>watch&lt;/code> 命令，可以实时查看 build context 的变化。不过这里需要说下，compose 的 alpha 命令没有直接暴露出来，所以很多人可能都没发现。&lt;/li>
+&lt;/ul>
+&lt;pre>&lt;code>➜ ~ docker compose alpha
+Usage: docker compose alpha COMMAND
+Experimental commands
+EXPERIMENTAL:
+docker compose alpha is an experimental feature.
+Experimental features provide early access to product functionality. These
+features may change between releases without warning, or can be removed from a
+future release. Learn more about experimental features in our documentation:
+https://docs.docker.com/go/experimental/
+Commands:
+dry-run EXPERIMENTAL - Dry run command allow you to test a command without applying changes
+watch EXPERIMENTAL - Watch build context for service and rebuild/refresh containers when files are updated
+Run 'docker compose alpha COMMAND --help' for more information on a command.
+&lt;/code>&lt;/pre>&lt;ul>
+&lt;li>实验性的 &lt;code>dry-run&lt;/code> 命令也是这次新增的；&lt;/li>
+&lt;li>增加了 &lt;code>docker compose build --push&lt;/code> 这样在构建后就可以同时把镜像 push 到 registry 中了；&lt;/li>
+&lt;li>修复了 goroutine 泄漏的问题，不过这个对服务无影响，是在终端输出格式化的部分的代码；&lt;/li>
+&lt;/ul>
+&lt;p>更多关于此版本的详细信息请查看其 &lt;a href="https://github.com/docker/compose/releases/tag/v2.16.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="kubernetes-旧的-registry-将被冻结">Kubernetes 旧的 registry 将被冻结&lt;/h1>
+&lt;p>Kubernetes 社区所使用的容器 registry 一开始是由 Google 提供的 &lt;code>k8s.gcr.io&lt;/code> ，后来社区在逐步的进行迁移，
+拥有了最新的 &lt;code>registry.k8s.io&lt;/code> 。&lt;/p>
+&lt;p>现在 registry.k8s.io 已经基本稳定，所以社区决定将旧的 registry 进行冻结，从 4 月份开始生效。&lt;/p>
+&lt;p>未来新的镜像都将直接推送到新的 registry 中，不再往旧的 registry 中推送镜像。&lt;/p>
+&lt;p>所以如果有在使用旧 registry ，或者在进行镜像同步的小伙伴请注意，是时候更新你的配置了。
+另外也可以参考我之前文章
+&lt;a href="https://moelove.info/2020/09/20/%E7%AA%81%E7%A0%B4-DockerHub-%E9%99%90%E5%88%B6%E5%85%A8%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F%E6%9C%8D%E5%8A%A1/">突破 DockerHub 限制，全镜像加速服务 | MoeLove&lt;/a>
+中的思路，进行镜像的加速。&lt;/p>
+&lt;h1 id="helm-v3111-发布">Helm v3.11.1 发布&lt;/h1>
+&lt;p>这是一个 CVE patch 版本，主要是为了解决 CVE-2023-25165 &lt;a href="https://github.com/helm/helm/security/advisories/GHSA-pwcw-6f5g-gxf8">getHostByName Function Information Disclosure · Advisory · helm/helm&lt;/a> 漏洞。&lt;/p>
+&lt;p>&lt;code>getHostByName&lt;/code> 是 Helm v3 中引入的一个模板函数。该函数能够接受主机名，并返回该主机名的 IP 地址。
+为了获取 IP 地址，该函数执行 DNS 查询。DNS 查询在使用 helm install|upgrade|template 或 Helm SDK 渲染 chart 时发生。&lt;/p>
+&lt;p>传递到 chart 中的信息可能会被用于查询 IP 地址的 DNS 服务器披露。
+例如，恶意图表可能会在 chart 中注入 &lt;code>getHostByName&lt;/code>，以便向恶意 DNS 服务器披露一些具体信息。&lt;/p>
+&lt;p>本次修复中是增加了一个 &lt;code>--enable-dns&lt;/code> 的参数，默认是 false, 如果用户需要该能力的话，可以自行打开，否则会自动跳过 DNS 查询的过程。&lt;/p>
+&lt;p>更多关于此版本的详细信息请查看其 &lt;a href="https://github.com/helm/helm/releases/tag/v3.11.1">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="cert-manager-v1120-alpha0-发布">cert-manager v1.12.0-alpha.0 发布&lt;/h1>
+&lt;p>cert-manager 我在之前的文章中已经介绍过多次了，这里不再赘述。&lt;/p>
+&lt;p>在这个版本中，主要变更如下：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/cert-manager/cert-manager/pull/5668/files">Added the ability to set volumes and volumeMounts to all pods via helm by waterfoul · Pull Request #5668 · cert-manager/cert-manager&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>允许通过 Helm chart 为所有 Pod 注入 volumes 和 volumeMounts；&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/cert-manager/cert-manager/pull/5502">The vault issuer can now be given a serviceAccountRef instead of relying on static service account tokens by maelvls · Pull Request #5502 · cert-manager/cert-manager&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>简单来说，在这个 PR 中增加了一个 &lt;code>serviceAccountRef&lt;/code> 的配置项，允许 Vault issuer 通过该配置项直接引用一个 serviceAccount。在之前的版本中这里有个类似的配置项是 &lt;code>secretRef&lt;/code> 。&lt;/p>
+&lt;p>这样比之前使用 secretRef 的好处在于，可以不用再依赖 secretRef 中配置的静态 token 了，可以更加安全。&lt;/p>
+&lt;ul>
+&lt;li>在 Helm chart 中增加了 &lt;code>--dns01-recursive-nameservers&lt;/code>, &lt;code>--enable-certificate-owner-ref&lt;/code>, 和 &lt;code>--dns01-recursive-nameservers-only&lt;/code> 的配置项；&lt;/li>
+&lt;/ul>
+&lt;p>更多关于此版本的详细信息请查看其 &lt;a href="https://github.com/cert-manager/cert-manager/releases/tag/v1.12.0-alpha.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="trivy-v0372-发布">Trivy v0.37.2 发布&lt;/h1>
+&lt;p>&lt;strong>这里有一个破坏性变更需要注意&lt;/strong>。
+在使用 v0.37 或 0.37.1 版本的用户，如果在使用 Trivy 扫描 Java 的话，需要删除本地的 Java DB cache，可以执行 &lt;code>trivy image --reset&lt;/code> 并升级到 v0.37.2 。&lt;/p>
+&lt;p>更多关于此版本的详细信息请查看其 &lt;a href="https://github.com/aquasecurity/trivy/releases/tag/v0.37.2">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/115412">make CEL admission controller code consumable by maxsmythe · Pull Request #115412 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>这个 PR 让 CEL admission controller 的代码可以被非 API server client 使用，包括：&lt;/p>
+&lt;ul>
+&lt;li>将验证查询返回的类型公开，以便调用者访问策略检查的结果;&lt;/li>
+&lt;li>将版本转换与验证分开，无需在 API 服务器特定功能不可用时模拟 API 服务器特定功能;&lt;/li>
+&lt;/ul>
+&lt;h1 id="其他">其他&lt;/h1>
+&lt;p>主要都是一些常规更新，升级依赖等。&lt;/p>
+&lt;ul>
+&lt;li>Kyma &lt;a href="https://github.com/kyma-project/kyma/releases/tag/2.11.0">Release 2.11.0 · kyma-project/kyma&lt;/a>&lt;/li>
+&lt;li>talos &lt;a href="https://github.com/siderolabs/talos/releases/tag/v1.3.4">Release v1.3.4 · siderolabs/talos&lt;/a>&lt;/li>
+&lt;li>rook &lt;a href="https://github.com/rook/rook/releases/tag/v1.10.11">Release v1.10.11 · rook/rook&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>K8S 生态周报| Docker v23.0.0 正式发布，带来众多新特性</title><link>https://moelove.info/2023/02/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v23.0.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/</link><guid isPermaLink="true">https://moelove.info/2023/02/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v23.0.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/</guid><pubDate>Mon, 06 Feb 2023 05:04:06 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
