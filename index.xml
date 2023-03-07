@@ -1,4 +1,145 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Wed, 22 Feb 2023 11:40:58 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Cilium 和 Istio 的新版本带来众多新特性</title><link>https://moelove.info/2023/02/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Cilium-%E5%92%8C-Istio-%E7%9A%84%E6%96%B0%E7%89%88%E6%9C%AC%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/</link><guid isPermaLink="true">https://moelove.info/2023/02/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Cilium-%E5%92%8C-Istio-%E7%9A%84%E6%96%B0%E7%89%88%E6%9C%AC%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/</guid><pubDate>Sun, 19 Feb 2023 14:13:45 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 07 Mar 2023 14:15:18 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Kubernetes In-place Pod 垂直伸缩的功能已合并</title><link>https://moelove.info/2023/02/27/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-In-place-Pod-%E5%9E%82%E7%9B%B4%E4%BC%B8%E7%BC%A9%E7%9A%84%E5%8A%9F%E8%83%BD%E5%B7%B2%E5%90%88%E5%B9%B6/</link><guid isPermaLink="true">https://moelove.info/2023/02/27/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-In-place-Pod-%E5%9E%82%E7%9B%B4%E4%BC%B8%E7%BC%A9%E7%9A%84%E5%8A%9F%E8%83%BD%E5%B7%B2%E5%90%88%E5%B9%B6/</guid><pubDate>Mon, 27 Feb 2023 22:14:33 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>近期流感严重，上周小朋友生病，鸽了一篇。&lt;/p>
+&lt;h1 id="thanos-v0310-rc0-发布">Thanos v0.31.0-rc.0 发布&lt;/h1>
+&lt;p>Thanos 想必大家都不陌生了，我之前的文章中已经介绍过多次了，感兴趣的小伙伴可以翻翻之前的文章。&lt;/p>
+&lt;p>尽管 Thanos 本次发布的是 rc.0 版本，不过正式版与这个版本相差并不会太大，我们一起来看看这个版本中值得注意的变更。&lt;/p>
+&lt;h2 id="增加了对--redis-sentinel-的支持">增加了对 Redis Sentinel 的支持&lt;/h2>
+&lt;p>Thanos Store Gateway 支持三种模式的 Index Cache，以加快 TSDB 块索引的发布和 series 查询。分别是&lt;/p>
+&lt;ul>
+&lt;li>in-memory：这是默认选项，可以通过 &lt;code>--index-cache-size&lt;/code> 进行配置；&lt;/li>
+&lt;li>Memcached：使用 Memcached 进行存储；&lt;/li>
+&lt;li>Redis：使用 Redis 进行存储；&lt;/li>
+&lt;/ul>
+&lt;p>其实对于 Memcached，自从早年用 Redis 替换它之后，我已经有很多年没用过了，Redis 则是一直都在用。&lt;/p>
+&lt;p>Redis 在很多场景下都挺好用的，而且也相对灵活，支持多种部署模式，并且大多数公司都有 Redis 作为基础设施提供。
+这个版本中通过添加一个 &lt;code>master_name&lt;/code> 参数增加了对 Redis Sentinel 的支持，如果不为空，则会进行 Redis master 的选择。&lt;/p>
+&lt;p>这对于很多使用了 Redis Sentinel 的团队而言，应该比较有用。&lt;/p>
+&lt;h2 id="创建缓存加速启动">创建缓存，加速启动&lt;/h2>
+&lt;p>增加了新的配置项 &lt;code>--cache-index-header&lt;/code> ，使用这个配置项的时候，会根据 &lt;code>--data-dir&lt;/code> 中配置的数据目录将 TSDB 的 index-header 缓存到本地，
+以便可以减少启动耗时。&lt;/p>
+&lt;h2 id="设置默认的-dns-解析组件为-miekgdns">设置默认的 DNS 解析组件为 miekgdns&lt;/h2>
+&lt;p>这算是一个破坏性变更了，使用 miekgdns 作为默认的 DNS 解析组件，而非使用 Go 默认的 net 库。&lt;/p>
+&lt;p>事实上 miekgdns 确实很好用，功能丰富，支持的标准也很多。&lt;/p>
+&lt;p>即使是自己写网络服务，我也比较喜欢用 miekgdns 。&lt;/p>
+&lt;h1 id="istio-1180-alpha0-发布">Istio 1.18.0-alpha.0 发布&lt;/h1>
+&lt;p>Istio Ambient service mesh 于 2022 年 9 月在实验分支中推出，引入了一种新的数据平面模式，可以在没有 sidecar 的情况下使用 Istio。
+Istio 社区通过与 Google、Solo.io、Microsoft、Intel、Aviatrix、华为、IBM 等合作，
+如今 Istio Ambient service mesh 已经从实验分支毕业，合并到 Istio 的主分支中！
+这是 Ambient service mesh 的重要里程碑！
+这也正如我在之前文章中预测的一样，此功能将在 Istio v1.18 中发布，并为在未来的 Istio 发布版本中默认安装铺平了道路。&lt;/p>
+&lt;p>Ambient service mesh 旨在简化操作、扩大应用兼容性，并降低基础设施成本。
+Ambient 的最终目标是对应用程序透明化，并对 ztunnel 和 waypoint 组件进行了一些更改，使其更简单、更轻量化。&lt;/p>
+&lt;ul>
+&lt;li>ztunnel 组件已从头开始进行了重写，以提高其速度、安全性和轻量化。请参阅&lt;a href="https://istio.io/latest/blog/2023/rust-based-ztunnel/">《Introducing Rust-Based Ztunnel for Istio Ambient Service Mesh》&lt;/a> 以获取更多信息。&lt;/li>
+&lt;li>简化了 waypoint 代理的配置，以提高其可调试性和性能。&lt;/li>
+&lt;li>添加了 &lt;code>istioctl x waypoint&lt;/code> 命令，以帮助用户方便地部署 waypoint 代理，以及 &lt;code>istioctl pc workload&lt;/code> 命令，以帮助用户查看工作负载信息。&lt;/li>
+&lt;li>让用户能够明确绑定 Istio 策略，例如 AuthorizationPolicy，到 waypoint 代理而不是选择目标工作负载。&lt;/li>
+&lt;/ul>
+&lt;p>如果对此有兴趣的小伙伴可以使用如下文档来先行体验：&lt;a href="https://preliminary.istio.io/latest/docs/ops/ambient/getting-started/">Istio Prelim 1.18 / Getting Started with Ambient Mesh&lt;/a>&lt;/p>
+&lt;h1 id="containerd-170-rc1-发布">containerd 1.7.0-rc.1 发布&lt;/h1>
+&lt;p>按计划 containerd v1.7 将会是 containerd v1.x 的最后一个大版本，后续就会往 v2.0 演进了。
+不过看目前的情况，可能还有很长的路要走。毕竟现在 v1.5 和 v1.6 还是主流版本。&lt;/p>
+&lt;p>这个版本中包含了很多实验性的特性，但整体仍然是符合 containerd 的兼容性承诺的。主要的特性包括以下内容：&lt;/p>
+&lt;h2 id="sandbox-api-experimental">Sandbox API (experimental)&lt;/h2>
+&lt;p>Sandbox API 提供了一种新的方式来管理 containerd 的 shim，为 Pod 和虚拟机等多容器环境提供更多的灵活性和功能性。&lt;/p>
+&lt;p>这个 API 让更高级别的容器组的管理更加容易，并且为 shim 实现和客户端提供了新的扩展点。
+主要通过 Sandbox API (&lt;a href="https://github.com/containerd/containerd/pull/6703">#6703&lt;/a>) 和 CRI Sandbox API Implementation (&lt;a href="https://github.com/containerd/containerd/pull/7228">#7228&lt;/a>) 实现。&lt;/p>
+&lt;h2 id="transfer-service-experimental">Transfer Service (experimental)&lt;/h2>
+&lt;p>Transfer Service 是一个简单而灵活的服务，可用于在源和目标之间传输工件对象。灵活的 API 允许传输接口的每个实现确定源和目标之间的传输是否可行。这使得可以直接通过实现添加新功能，而无需对 API 进行版本控制或要求其他实现处理接口更改。&lt;/p>
+&lt;p>传输服务基于 libchan 项目提出的核心思想构建，即具有二进制流和数据通道作为一等对象的 API 更加灵活，可以在不需要不断更新协议和 API 的情况下打开更广泛的用例。为了实现这一目标，传输服务利用流服务，使得在使用 grpc 和 ttrpc 时，二进制流和对象流可以被传输对象访问。&lt;/p>
+&lt;p>在这个版本中，这是实验性的，以便进一步插件开发和集成到现有插件中。&lt;/p>
+&lt;h2 id="nri-experimental">NRI (experimental)&lt;/h2>
+&lt;p>Node Resource Interface（NRI）是将扩展插件插入 OCI 兼容容器运行时的通用框架。它提供了基本机制，使插件能够跟踪容器的状态，并对其配置进行有限的更改。&lt;/p>
+&lt;p>NRI 本身对任何容器运行时的内部实现细节是不可知的。它提供了一个适配库，运行时使用它来与 NRI 和插件进行集成和交互。原则上，任何 NRI 插件都应该能够与支持 NRI 的运行时一起工作。&lt;/p>
+&lt;p>此版本引入了 NRI v0.3.0，其中包括更新的插件接口，以涵盖各种用例。&lt;/p>
+&lt;p>&lt;img src="https://github.com/containerd/containerd/raw/main/docs/containerd-nri-integration.png" alt="containerd-nri-integration.png">&lt;/p>
+&lt;h2 id="其他">其他&lt;/h2>
+&lt;ul>
+&lt;li>支持了在 FreeBSD 上运行 Linux 容器；&lt;/li>
+&lt;li>增加对 CDI 设备注入的支持 (#6654)&lt;/li>
+&lt;li>支持 cgroups blockio (#5490)&lt;/li>
+&lt;li>增加增强型重启管理器的重启策略 (#6744)&lt;/li>
+&lt;li>初步支持 gRPC shim&lt;/li>
+&lt;/ul>
+&lt;p>更多关于此版本的详细信息请参考其 &lt;a href="https://github.com/containerd/containerd/releases/tag/v1.7.0-rc.1">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="rook-v1110-正式发布">Rook v1.11.0 正式发布&lt;/h1>
+&lt;p>Rook 的这个版本中有一些需要关注的点：&lt;/p>
+&lt;ul>
+&lt;li>支持的最低 Kubernetes 版本是 v1.21。&lt;/li>
+&lt;li>支持的最低 Ceph-CSI 驱动程序版本是 v3.7。&lt;/li>
+&lt;li>已删除对 MachineDisruptionBudgets 的支持，包括从 CephCluster CR 中删除的 &lt;code>manageMachineDisruptionBudgets&lt;/code> 和 &lt;code>machineDisruptionBudgetNamespace&lt;/code>&lt;/li>
+&lt;li>在开发过程中支持的 golang 版本为 v1.19 和 v1.20。&lt;/li>
+&lt;/ul>
+&lt;p>这都是一些破坏性变更，升级的时候请参考 &lt;a href="https://rook.github.io/docs/rook/v1.11/Upgrade/rook-upgrade/">Rook Upgrades - Rook Ceph Documentation&lt;/a>&lt;/p>
+&lt;h1 id="trivy-v0380-正式发布">Trivy v0.38.0 正式发布&lt;/h1>
+&lt;p>Trivy 越来越完善了，也正在被更广泛的采用。我个人还是比较喜欢这个工具的。这个版本中增加了一些比较不错的特性：&lt;/p>
+&lt;h2 id="完善了-docker-cis-benchmark-的支持">完善了 Docker CIS Benchmark 的支持&lt;/h2>
+&lt;p>Docker CIS Benchmark 是一个针对 Docker 容器的安全基准，旨在提供一组标准的安全配置和建议，以帮助组织更好地保护其Docker容器环境。该基准由CIS（Center for Internet Security）组织制定。&lt;/p>
+&lt;p>该基准包括一系列安全配置建议，以确保Docker容器环境的安全。这些建议包括关于Docker主机的安全配置、Docker容器和图像的安全配置、Docker网络和存储的安全配置等。此外，该基准还提供了评估和监控Docker环境安全性的方法。&lt;/p>
+&lt;p>完整的Docker CIS Benchmark是一份包含所有建议配置和实施步骤的详细文档，可以帮助组织评估其Docker容器环境的安全性，并根据需要进行必要的更改和改进。&lt;/p>
+&lt;pre>&lt;code>$ trivy image --compliance docker-cis my-image
+...
+Summary Report for compliance: CIS Docker Community Edition Benchmark v1.1.0
+┌──────┬──────────┬─────────────────────────────────────────────────────────────────────────┬────────┬────────┐
+│ ID │ Severity │ Control Name │ Status │ Issues │
+├──────┼──────────┼─────────────────────────────────────────────────────────────────────────┼────────┼────────┤
+│ 4.1 │ HIGH │ Ensure a user for the container has been created │ FAIL │ 1 │
+│ 4.2 │ HIGH │ Ensure that containers use trusted base images (Manual) │ - │ - │
+│ 4.3 │ HIGH │ Ensure unnecessary packages are not installed in the container (Manual) │ - │ - │
+│ 4.4 │ CRITICAL │ Ensure images are scanned and rebuilt to include security patches │ PASS │ 0 │
+│ 4.5 │ LOW │ Ensure Content trust for Docker is Enabled (Manual) │ - │ - │
+│ 4.6 │ LOW │ Ensure HEALTHCHECK instructions have been added to the container image │ FAIL │ 1 │
+│ 4.7 │ HIGH │ Ensure update instructions are not use alone in the Dockerfile │ PASS │ 0 │
+│ 4.8 │ HIGH │ Ensure setuid and setgid permissions are removed in the images (Manual) │ - │ - │
+│ 4.9 │ LOW │ Ensure COPY is used instead of ADD in Dockerfile │ FAIL │ 1 │
+│ 4.10 │ CRITICAL │ Ensure secrets are not stored in Dockerfiles (Manual) │ FAIL │ 2 │
+│ 4.11 │ MEDIUM │ Ensure verified packages are only Installed (Manual) │ - │ - │
+└──────┴──────────┴─────────────────────────────────────────────────────────────────────────┴────────┴────────┘
+&lt;/code>&lt;/pre>&lt;h2 id="添加了对-kubernetes-废弃和删除-api-的检查">添加了对 Kubernetes 废弃和删除 API 的检查&lt;/h2>
+&lt;p>这个功能比较实用，不需要用户自己去记忆，或者特别的关注每个 API 的版本变化。&lt;/p>
+&lt;pre>&lt;code>$ trivy config ~/data/input.json --k8s-version=1.22.0
+2023-02-08T18:00:49.111+0200 INFO Misconfiguration scanning is enabled
+input.json (kubernetes)
+Tests: 145 (SUCCESSES: 144, FAILURES: 1, EXCEPTIONS: 0)
+Failures: 1 (UNKNOWN: 0, LOW: 1, MEDIUM: 0, HIGH: 0, CRITICAL: 0)
+LOW: apiVersion 'batch/v1beta1' and kind ‘CronJob' should be replaced with the new API 'batch.v1.CronJob'
+See https://github.com/kubernetes/kubernetes/tree/master/staging/src/k8s.io/api/batch/v1beta1/zz_generated.prerelease-lifecycle.go
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+apiVersion 'batch/v1beta1' and kind 'CronJob' has been deprecated on: 'v1.21' and planned for removal on:'v1.25'
+See https://github.com/kubernetes/kubernetes/tree/master/staging/src/k8s.io/api/batch/v1beta1/zz_generated.prerelease-lifecycle.go
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+input.json:1-5
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+1 ┌ {
+2 │ &amp;quot;apiVersion&amp;quot;: &amp;quot;batch/v1beta1&amp;quot;,
+3 │ &amp;quot;kind&amp;quot;: &amp;quot;CronJob&amp;quot;,
+4 │ &amp;quot;metadata&amp;quot;: {
+5 └ &amp;quot;name&amp;quot;: &amp;quot;pi&amp;quot;
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+&lt;/code>&lt;/pre>&lt;h2 id="对-go-依赖树和-license-的支持">对 Go 依赖树和 license 的支持&lt;/h2>
+&lt;p>使用方式如下：&lt;/p>
+&lt;pre>&lt;code>$ trivy fs --scanners vuln --dependency-tree ./go.mod
+&lt;/code>&lt;/pre>&lt;p>我两年前写过一篇文章，介绍了另一个获取 Go 依赖的方法，感兴趣的小伙伴可以看看 &lt;a href="https://moelove.info/2021/02/17/%E4%BB%8E-Go-%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6%E4%B8%AD%E8%8E%B7%E5%8F%96%E5%85%B6%E4%BE%9D%E8%B5%96%E7%9A%84%E6%A8%A1%E5%9D%97%E4%BF%A1%E6%81%AF/">从 Go 的二进制文件中获取其依赖的模块信息 | MoeLove&lt;/a>&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/102884">In-place Pod Vertical Scaling feature by vinaykul · Pull Request #102884 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>经过4年的规划和至少两年的开发，现在终于推出了 Pod 的就地资源缩放的第一版。
+这个PR实现了核心缩放功能和一些相关的API处理。
+主要功能非常简单，现在可以在现有容器上编辑 &lt;code>resources&lt;/code> 配置，而不会导致 API 错误。&lt;/p>
+&lt;p>在看到缩放请求后，Kubelet 会立即采取行动并检查节点是否有足够的资源来满足新的请求。
+如果是这样，它将 &lt;code>Status.Resize&lt;/code> 字段设置为 InProgress，并继续进行 CRI 调用和其他内部更新。&lt;/p>
+&lt;p>如果新的大小不合适，将启动其他状态流，但总体目标相同，即尝试在可能的情况下提供请求的更改。
+还有一个新的 per-resource 缩放策略字段，可以设置为 &lt;code>RestartNotRequired&lt;/code>（默认值）表示不需要重新启动（但某些运行时仍然可能需要这样做），
+或设置为 &lt;code>Restart&lt;/code> 以强制关闭和重新启动容器（例如具有需要重新计算-Xmx 堆大小标志的 Java 应用）。&lt;/p>
+&lt;p>现在缺少一个显著的特性是基于缩放的驱逐。目前，Kubelet 不会自动处理它，但如果外部系统执行 Pod 删除，它将适当地作出反应。&lt;/p>
+&lt;p>尽管现在还处于比较早期的阶段，但至少我们看到了它的变化，期待后续的演进。&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>K8S 生态周报| Cilium 和 Istio 的新版本带来众多新特性</title><link>https://moelove.info/2023/02/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Cilium-%E5%92%8C-Istio-%E7%9A%84%E6%96%B0%E7%89%88%E6%9C%AC%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/</link><guid isPermaLink="true">https://moelove.info/2023/02/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Cilium-%E5%92%8C-Istio-%E7%9A%84%E6%96%B0%E7%89%88%E6%9C%AC%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/</guid><pubDate>Sun, 19 Feb 2023 14:13:45 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
