@@ -1,4 +1,102 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 13 Mar 2023 09:04:47 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Kubernetes 基于 CEL 的控制系统再添新特性</title><link>https://moelove.info/2023/03/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E5%9F%BA%E4%BA%8E-CEL-%E7%9A%84%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E5%86%8D%E6%B7%BB%E6%96%B0%E7%89%B9%E6%80%A7/</link><guid isPermaLink="true">https://moelove.info/2023/03/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E5%9F%BA%E4%BA%8E-CEL-%E7%9A%84%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E5%86%8D%E6%B7%BB%E6%96%B0%E7%89%B9%E6%80%A7/</guid><pubDate>Sun, 12 Mar 2023 15:45:30 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 20 Mar 2023 13:27:20 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| 别慌，DockerHub 不会清退开源组织和开源项目</title><link>https://moelove.info/2023/03/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E5%88%AB%E6%85%8CDockerHub-%E4%B8%8D%E4%BC%9A%E6%B8%85%E9%80%80%E5%BC%80%E6%BA%90%E7%BB%84%E7%BB%87%E5%92%8C%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/</link><guid isPermaLink="true">https://moelove.info/2023/03/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E5%88%AB%E6%85%8CDockerHub-%E4%B8%8D%E4%BC%9A%E6%B8%85%E9%80%80%E5%BC%80%E6%BA%90%E7%BB%84%E7%BB%87%E5%92%8C%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/</guid><pubDate>Sun, 19 Mar 2023 20:31:01 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;h1 id="dockerhub-将停止个人免费版-team-的功能">DockerHub 将停止个人免费版 Team 的功能&lt;/h1>
+&lt;p>想必很多人都用过 DockerHub，Docker 刚面世的时候，不仅仅提供了资源隔离的能力，还可以通过 DockerHub 进行镜像的构建和分发。
+这也是后来 Docker 能快速流行的原因之一。&lt;/p>
+&lt;p>目前 DockerHub 仍然是全世界最大，使用最为广泛的容器镜像仓库，并且也提供了非常丰富的能力。&lt;/p>
+&lt;p>在 2019 年 Docker Inc. 将其企业服务出售给 Mirantis 后，Docker Inc. 也在大力发展旗下的两个主要产品： DockerHub 和 DockerDesktop。
+通过一系列的措施和改进后，也成功的通过这些产品和服务让 Docker Inc. 重新回到大众视野。&lt;/p>
+&lt;p>比如：&lt;/p>
+&lt;ul>
+&lt;li>2019 年 DockerHub 推出双因素身份认证功能，用于提升安全性，这也是付费用户/企业较为看重的一环。我在 &lt;a href="https://moelove.info/2019/10/27/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Helm-v3-%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AAbeta%E7%89%88%E6%9C%AC%E5%8F%91%E5%B8%83/">K8S 生态周报| Helm v3 最后一个beta版本发布 | MoeLove&lt;/a> 有具体介绍。&lt;/li>
+&lt;li>2020 年 DockerHub 修改定价和 TOS ，被一些标题党带歪了，带来了一阵恐慌。同时也引入了新的限流措施（Rate limit），我也在 &lt;a href="https://moelove.info/2020/09/20/%E7%AA%81%E7%A0%B4-DockerHub-%E9%99%90%E5%88%B6%E5%85%A8%E9%95%9C%E5%83%8F%E5%8A%A0%E9%80%9F%E6%9C%8D%E5%8A%A1/">突破 DockerHub 限制，全镜像加速服务 | MoeLove&lt;/a> 文章中进行了具体介绍，以及如何应对它。&lt;/li>
+&lt;li>2020 年，作为修改定价的后续，也发布了新的 hub-tools 工具，可用来查看和管理账号和资源，我也写了文章 &lt;a href="https://moelove.info/2020/12/19/Docker-%E6%96%B0%E5%8F%91%E5%B8%83%E7%9A%84-hub-tool-%E5%8F%AF%E7%9B%B4%E6%8E%A5%E6%9F%A5%E7%9C%8B%E8%B4%A6%E6%88%B7%E9%85%8D%E9%A2%9D/">Docker 新发布的 hub-tool 可直接查看账户配额 | MoeLove&lt;/a>。&lt;/li>
+&lt;li>2021 年 Docker Inc, 发布了一份报告，显示出 DockerHub 在 2021 第二季度有 420 亿次下载，表现出了强劲的增长趋势。&lt;/li>
+&lt;li>2021 年 DockerHub 上也增加了应对 Log4j 漏洞的安全扫描， 以及增强了对多架构的支持。&lt;/li>
+&lt;li>2022 年 DockerHub 增加了 OCI artifacts 的支持，可以同时在 DockerHub 上托管容器镜像和 Helm chart 等内容。&lt;/li>
+&lt;/ul>
+&lt;p>然后时间就来到了今年，Docker Inc. 宣布要停止个人免费版 Team 的功能。
+Docker Inc. 提供了多种订阅计划，以满足不同用户的需求和预算。其中，Docker 免费版 Team 订阅计划是一个遗留的计划，它允许用户免费创建组织并访问私有仓库。&lt;/p>
+&lt;p>Docker Inc. 对这个计划的重大改变，引起了用户和开源社区的关注和不满。&lt;/p>
+&lt;p>在本文中，我将解释 Docker Inc. 为什么要废弃这个计划，以及这对用户和开源社区有什么影响。&lt;/p>
+&lt;h2 id="docker-为什么要废弃免费团队订阅计划">Docker 为什么要废弃免费团队订阅计划？&lt;/h2>
+&lt;p>根据 Docker Inc. 的官方公告，他们在 2023 年 3 月给所有属于免费团队组织的账户发送了电子邮件，通知他们如果不在 2023 年 4 月 13 日之前升级到其他支持的免费或付费的服务计划，他们将失去一些付费功能，比如私有仓库和无限制的协作者，并且他们的组织数据将被删除。&lt;/p>
+&lt;p>这个改变影响了不到 2% 的 Docker 用户，并且不影响其他服务计划，比如 Docker Personal、Docker Pro、Docker Team 或者 Docker Business。它也不影响 Docker Hub 上的公共镜像，除非它们的维护者决定删除它们。&lt;/p>
+&lt;p>那么，Docker 为什么要做出这样一个决定呢？根据 Docker 的首席营销官 Tim Anglade 的道歉信，主要有以下几个原因：&lt;/p>
+&lt;ul>
+&lt;li>免费团队订阅计划是一个过时的计划，它没有很好地服务于开源社区。相反，Docker 最近更新了他们的 Docker-Sponsored Open Source (DSOS) 计划，这个计划提供了超过免费团队订阅计划的一些优惠和支持。&lt;/li>
+&lt;li>免费团队订阅计划是一个成本高昂且难以维护的计划。由于该计划提供了无限制地创建组织和私有仓库等功能，在过去几年中导致了大量无效或重复账户、垃圾数据、滥用行为等问题。&lt;/li>
+&lt;li>免费团队订阅计划与其他服务计划不一致且容易混淆。由于该计划是在几年前推出时设计的，并没有考虑到现在 Docker 的产品线和定价策略。因此，在与其他服务计划进行比较时会产生一些矛盾或歧义。&lt;/li>
+&lt;/ul>
+&lt;p>总结来说，就是 &lt;strong>这个过时的免费版团队计划提供的功能和特性太多了，不利于 Docker Inc. 继续推进其现有的产品和定价策略&lt;/strong>，
+而且付费用户也会提出意见，既然有这么好用且方便的免费版，为什么要升级到 Docker Team 计划呢？&lt;/p>
+&lt;h2 id="这对用户和开源社区有什么影响">这对用户和开源社区有什么影响？&lt;/h2>
+&lt;p>尽管 Docker Inc. 声称他们废弃免费团队订阅计划是为了提供更好地服务给用户和开源社区，并且只影响了少数用户，但实际上这也确实让很多人觉得不满意。&lt;/p>
+&lt;p>最主要的是 &lt;strong>一开始发送的通知邮件含糊不清，而且邮件内容也缺少了为用户的考虑&lt;/strong>。当然，也有可能在制定这个计划的时候，确实考虑的没有那么充分。（这种时候让 ChatGPT 帮忙写下邮件效果都能比这好一点）
+在经过社区和用户反馈后，该变了一些策略的细节。&lt;/p>
+&lt;p>我这里就只说一下目前最终的结果吧。&lt;/p>
+&lt;ul>
+&lt;li>如果是开源社区/开源项目，需要继续使用团队版的话，可以申请 &lt;strong>&lt;a href="https://www.docker.com/community/open-source/application/">Docker 赞助的开源计划 - DSOS&lt;/a>，这个计划比之前的版本要好的多，放宽了很多限制，而且更容易审核通过&lt;/strong> 。在之前的 DSOS 版本中，存在一些比较严苛的限制，现在已经都删掉了。而且 &lt;strong>可以获得不受限制的下载次数和流量。&lt;/strong>&lt;/li>
+&lt;li>如果是开源社区/开源项目，不打算申请 DSOS 的话，则可以通过提交工单，将账号转换为免费个人账户。&lt;/li>
+&lt;li>如果是个人用户，则需要升级 Docker team 才能使用相关功能，否则只能继续使用 Docker Personal 账户了。&lt;/li>
+&lt;/ul>
+&lt;h2 id="其他">其他&lt;/h2>
+&lt;p>Docker Inc. 这些年确实做了很多改变，也做了很多决策。有些是让用户很容易接受且欣然接受的。但也做过一些决策，让用户和社区都比较反感。幸好绝大多数决策在收到
+反馈后，都进行了调整。&lt;/p>
+&lt;p>目前来看，Docker Inc. 尽管最近拿到了一笔投资，但是它进行了一些买买买的收购，准备扩展自己的版图。但它当前最为核心的收入还是来自于 DockerHub 和 DockerDesktop 。
+随着它的一步步动作，整体的收费模式 &amp;amp; 策略将会更加清晰，类似本次这种调整应该会比较少了。&lt;/p>
+&lt;h1 id="azure-aks-edge-essentials-达到-ga">Azure AKS Edge Essentials 达到 GA&lt;/h1>
+&lt;p>Azure Kubernetes Service Edge Essentials 是 Azure Kubernetes Service（AKS）的本地 Kubernetes 实现，可自动化运行规模化容器化应用程序。&lt;/p>
+&lt;p>AKS Edge Essentials 包括一个由 Microsoft 支持的 Kubernetes 平台，其中包括具有小占用空间和简单安装体验的轻量级 Kubernetes 分发版，可以在 PC 级或轻型边缘硬件上部署 Kubernetes。&lt;/p>
+&lt;p>AKS Edge Essentials 使得启动容器化应用程序更加容易，并将云原生最佳实践带到您的边缘应用程序中。&lt;/p>
+&lt;p>与其他 Microsoft 支持的平台（如托管在 Azure 上的服务（AKS）和服务器级硬件（AKS-HCI））不同，AKS Edge Essentials 旨在进行静态、预定义配置，并且不允许动态 VM 创建/删除或集群生命周期管理。&lt;/p>
+&lt;p>AKS Edge Essentials 集群中每个机器只能有一个 Linux 和/或 Windows VM。 Linux VM 作为控制节点和工作负载节点，在 Kubernetes 集群中运行 Linux 工作负载。
+每个具有 AKS Edge Essentials 功能的机器都具有受限制 RAM、存储和物理 CPU 核心数量的VM，这些资源根据安装时分配给静态分配。
+此类应用程序配置方式使传统 Windows 应用程序可以并排运行；也就是说，在AKS Edge Essentials VM 旁相互操作。&lt;/p>
+&lt;p>整体看起来是这样：&lt;/p>
+&lt;p>&lt;img src="https://learn.microsoft.com/en-us/azure/aks/hybrid/media/aks-edge/aks-edge-windows.png" alt="aks edge windows">&lt;/p>
+&lt;p>感觉还挺不错的，我打算改天试试看。&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes/kubernetes/releases/tag/v1.27.0-beta.0">Release Kubernetes v1.27.0-beta.0 · kubernetes/kubernetes&lt;/a> ，正式版也很快将会发布。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes/kubernetes/pull/116510">Promote whoami kubectl command by nabokihms · Pull Request #116510 · kubernetes/kubernetes&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;code>kubectl auth whoami&lt;/code> 从 alpha 子命令中移出，可以直接使用了。&lt;/p>
+&lt;p>大家想必都知道，Kubernetes 中并没有 User（用户）的资源，但是 Kubernetes 中有权限校验的方式，比如我们常用到的利用 x509 证书进行用户权限相关的校验，或者
+通过外部的 OIDC 和 webhook 等进行校验。&lt;/p>
+&lt;p>之前有一个 &lt;a href="https://github.com/kubernetes/kubernetes/pull/111333">Add auth API to get self subject attributes by nabokihms · Pull Request #111333 · kubernetes/kubernetes&lt;/a>
+实际上是为了添加一个新的接口，以便于用户身份通过校验后，获取其所具有的属性。这样就可以简单的通过增加一个 &lt;code>kubectl auth whoami&lt;/code> 的命令，来了解当前用户的相关信息了。
+这功能比较类似于我们做 OAuth 的时候，可能会做个 UserInfo 之类的接口，用来查看用户相关的属性。&lt;/p>
+&lt;p>该功能是通过在 &lt;code>authentication.k8s.io&lt;/code> Group 下添加了 &lt;code>SelfSubjectReview&lt;/code> 资源来实现的，具体如下：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="c1">// SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request.
+&lt;/span>&lt;span class="c1">// When using impersonation, users will receive the user info of the user being impersonated.
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kd">type&lt;/span> &lt;span class="nx">SelfSubjectReview&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">metav1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">TypeMeta&lt;/span> &lt;span class="s">`json:&amp;#34;,inline&amp;#34;`&lt;/span>
+&lt;span class="c1">// Standard object&amp;#39;s metadata.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// +optional
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">metav1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ObjectMeta&lt;/span> &lt;span class="s">`json:&amp;#34;metadata,omitempty&amp;#34; protobuf:&amp;#34;bytes,1,opt,name=metadata&amp;#34;`&lt;/span>
+&lt;span class="c1">// Status is filled in by the server with the user attributes.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">Status&lt;/span> &lt;span class="nx">SelfSubjectReviewStatus&lt;/span> &lt;span class="s">`json:&amp;#34;status,omitempty&amp;#34; protobuf:&amp;#34;bytes,2,opt,name=status&amp;#34;`&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="c1">// SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
+&lt;/span>&lt;span class="c1">&lt;/span>&lt;span class="kd">type&lt;/span> &lt;span class="nx">SelfSubjectReviewStatus&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="c1">// User attributes of the user making this request.
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="c1">// +optional
+&lt;/span>&lt;span class="c1">&lt;/span> &lt;span class="nx">UserInfo&lt;/span> &lt;span class="nx">v1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">UserInfo&lt;/span> &lt;span class="s">`json:&amp;#34;userInfo,omitempty&amp;#34; protobuf:&amp;#34;bytes,1,opt,name=userInfo&amp;#34;`&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>此功能在 v1.26 版本开始引入，并作为 Alpha 特性提供，可通过 &lt;code>APISelfSubjectReview&lt;/code> feature gate 控制是否启用。
+在 v1.27 中成为 Beta 特性。&lt;/p>
+&lt;p>以上就是本周的全部内容了，我们下周再见！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>K8S 生态周报| Kubernetes 基于 CEL 的控制系统再添新特性</title><link>https://moelove.info/2023/03/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E5%9F%BA%E4%BA%8E-CEL-%E7%9A%84%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E5%86%8D%E6%B7%BB%E6%96%B0%E7%89%B9%E6%80%A7/</link><guid isPermaLink="true">https://moelove.info/2023/03/12/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-%E5%9F%BA%E4%BA%8E-CEL-%E7%9A%84%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E5%86%8D%E6%B7%BB%E6%96%B0%E7%89%B9%E6%80%A7/</guid><pubDate>Sun, 12 Mar 2023 15:45:30 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
