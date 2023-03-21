@@ -1,4 +1,132 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2023-03-20T13:27:20+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| 别慌，DockerHub 不会清退开源组织和开源项目</title><link rel="alternate" type="text/html" href="https://moelove.info/2023/03/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E5%88%AB%E6%85%8CDockerHub-%E4%B8%8D%E4%BC%9A%E6%B8%85%E9%80%80%E5%BC%80%E6%BA%90%E7%BB%84%E7%BB%87%E5%92%8C%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/"/><id>https://moelove.info/2023/03/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E5%88%AB%E6%85%8CDockerHub-%E4%B8%8D%E4%BC%9A%E6%B8%85%E9%80%80%E5%BC%80%E6%BA%90%E7%BB%84%E7%BB%87%E5%92%8C%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/</id><updated>2023-03-20T13:09:02+08:00</updated><published>2023-03-19T20:31:01+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2023-03-21T09:19:34+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">GitHub Actions 成本优化：让你的团队更具竞争力</title><link rel="alternate" type="text/html" href="https://moelove.info/2023/03/21/GitHub-Actions-%E6%88%90%E6%9C%AC%E4%BC%98%E5%8C%96%E8%AE%A9%E4%BD%A0%E7%9A%84%E5%9B%A2%E9%98%9F%E6%9B%B4%E5%85%B7%E7%AB%9E%E4%BA%89%E5%8A%9B/"/><id>https://moelove.info/2023/03/21/GitHub-Actions-%E6%88%90%E6%9C%AC%E4%BC%98%E5%8C%96%E8%AE%A9%E4%BD%A0%E7%9A%84%E5%9B%A2%E9%98%9F%E6%9B%B4%E5%85%B7%E7%AB%9E%E4%BA%89%E5%8A%9B/</id><updated>2023-03-21T09:19:21+08:00</updated><published>2023-03-21T08:03:07+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 本周 Docker 就发布 10 周年了，为了庆祝这个里程碑，我将会发布一系列文章，涉及 Docker，CI/CD, 容器等各个方面……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>本周 Docker 就发布 10 周年了，为了庆祝这个里程碑，我将会发布一系列文章，涉及 Docker，CI/CD, 容器等各个方面。&lt;/p>
+&lt;blockquote>
+&lt;p>这篇文章我将介绍如何降低 GitHub Actions 上的消费，以及一些建议&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://s2.loli.net/2023/01/24/zG5gTWm1lHxBMK2.png" alt="2023-01-24 08-12-54屏幕截图.png">&lt;/p>
+&lt;p>根据 G2 的&lt;a href="https://www.g2.com/categories/continuous-integration?tab=easiest_to_use">统计报告&lt;/a>, GitHub Actions 是最易用的 CI/CD 工具，越来越多的人都喜欢它。&lt;/p>
+&lt;p>由于 GitHub Actions 是 GitHub 原生的 CI/CD 工具，在 marketplace 有上万个 Actions 可直接使用，且对于公共仓库是免费的，所以越来越多的项目也将其使用的 CI 工具切换成了 GitHub Actions。&lt;/p>
+&lt;p>我也很喜欢 GitHub Actions，并且几乎在我所有托管在 GitHub 上的仓库中使用它。&lt;/p>
+&lt;p>但是最近我在一个项目中，触发了 GitHub Actions 配额的限制。这让我花费了一些时间去关注它的费用。&lt;/p>
+&lt;p>&lt;a href="https://twitter.com/zhangjintao9020/status/1616077513125691399?s=20&amp;amp;t=we9o9FxhgSEOXzY39czbJg">https://twitter.com/zhangjintao9020/status/1616077513125691399?s=20&amp;amp;t=we9o9FxhgSEOXzY39czbJg&lt;/a>&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2023/03/21/vNdUoLS3ZE2XTFt.png" alt="2023-03-21 08-41-52屏幕截图.png">&lt;/p>
+&lt;h2 id="为什么会耗尽配额">为什么会耗尽配额&lt;/h2>
+&lt;p>最近我发现了一个有趣的项目： &lt;a href="https://github.com/upptime/upptime">upptime/upptime: ⬆️ Free uptime monitor and status page powered by GitHub&lt;/a>&lt;/p>
+&lt;p>我想要尝试用它将自己的开发的一些服务监控起来，做一个 status page，但这会涉及到一些 API 的配置，我并不想将它公开，所以我将该仓库 fork 到了一个私有仓库中。
+经过简单的配置后，它就正常工作了。&lt;/p>
+&lt;p>由于我想要得到更多数据，所以我调整了其中中 CI 调度配置。让这些任务执行的更加频繁。&lt;/p>
+&lt;pre>&lt;code>workflowSchedule:
+graphs: &amp;quot;0 * * * *&amp;quot;
+responseTime: &amp;quot;0 * * * *&amp;quot;
+staticSite: &amp;quot;0 * * * *&amp;quot;
+summary: &amp;quot;0 * * * *&amp;quot;
+updateTemplate: &amp;quot;0 * * * *&amp;quot;
+updates: &amp;quot;0 * * * *&amp;quot;
+uptime: &amp;quot;*/5 * * * *&amp;quot;
+&lt;/code>&lt;/pre>&lt;p>根据 &lt;a href="https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions">GitHub Actions 的费用文档&lt;/a>，GitHub Actions 对于公开仓库是免费的，但是对私有仓库是有配额限制的。&lt;/p>
+&lt;blockquote>
+&lt;p>GitHub Actions usage is free for standard GitHub-hosted runners in public repositories, and for Self-hosted runners. For private repositories, each GitHub account receives a certain amount of free minutes and storage for use with GitHub-hosted runners, depending on the product used with the account. Any usage beyond the included amounts is controlled by spending limits.&lt;/p>
+&lt;/blockquote>
+&lt;p>很快我就收到了 GitHub 的额度提醒邮件，提醒我配额即将用完。&lt;/p>
+&lt;p>这让我开始思考如何解决它。&lt;/p>
+&lt;h2 id="使用-github-actions-的成本">使用 GitHub Actions 的成本&lt;/h2>
+&lt;p>将仓库设置为公开显然是最简单的办法，但我在上文中说明了不能设置成公开仓库的原因。只能去找其他的解决办法。&lt;/p>
+&lt;p>显然为 GitHub Actions 付费也是一个很直接的解决办法。&lt;/p>
+&lt;p>在决定为它付费之前，我想要预估一下成本。
+GitHub 提供了一个 &lt;a href="https://github.com/pricing/calculator">Pricing Calculator&lt;/a>，可以方便的预估花费。&lt;/p>
+&lt;p>由于我修改了 CI 的调度配置，最频繁运行的任务每 5 分钟会运行一次。&lt;/p>
+&lt;p>我使用 &lt;a href="https://meercode.io/">Meercode&lt;/a> 采集了这个仓库中 GitHub Actions 的运行数据，它默认提供了一些 dashboard，比较方便：&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2023/01/25/m5S3ZAtdpNjQz9y.png" alt="2023-01-25 11-29-12屏幕截图.png">&lt;/p>
+&lt;p>同时也允许用户自己进行自定义，我创建了自己的 dashboard，如果你对 Meercode 感兴趣，请在评论中告诉我。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2023/01/25/5bUsJnwmurC1fxl.png" alt="ci-dashboard.png">&lt;/p>
+&lt;p>从上面的图中可以看到，每次任务耗时不超过 0.5min，每小时会有不超过 12 个任务。使用价格计算器进行计算，大概 &lt;strong>每月花费是 &lt;code>$35&lt;/code>&lt;/strong> ，每年 &lt;code>$420&lt;/code>。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2023/01/25/DGQ3ie2zW6MTjC1.png" alt="2023-01-25 11-25-13屏幕截图.png">&lt;/p>
+&lt;h2 id="节约成本的办法">节约成本的办法&lt;/h2>
+&lt;p>由于我的这个仓库中是运行 uptime 的 CI，它消耗的资源很少，但是任务比较频繁，所以我想知道如果我使用 Self-hosted runner 是否可以节约成本。&lt;/p>
+&lt;p>我对比了几家云服务提供商的价格（规避广告嫌疑，这里就不列了）&lt;/p>
+&lt;p>其中 1C1G 的实例最低是 &lt;code>$5/month&lt;/code>。&lt;/p>
+&lt;p>我选择了其中一家最低规格的实例，并且有 1TB 流量。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2023/01/25/jzmTs6X7PR9QVMx.png" alt="2023-01-25 17-04-35屏幕截图.png">&lt;/p>
+&lt;p>我分别尝试了使用它的 Kubernetes 服务，和 compute instance ，它们都可以工作的很好。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2023/01/25/2ur4YJ6AlvKgm8O.png" alt="2023-01-25 17-08-43屏幕截图.png">&lt;/p>
+&lt;h3 id="使用-compute-instance">使用 compute instance&lt;/h3>
+&lt;p>在 Linux compute instance 中部署 GitHub Actions runner 简单，只需要在项目 &lt;code>https://github.com/&amp;lt;Your name&amp;gt;/&amp;lt;Project name&amp;gt;/settings/actions/runners/new&lt;/code> 添加即可。&lt;/p>
+&lt;p>在该页面有完整的部署步骤，按步骤执行即可。&lt;/p>
+&lt;p>我的执行过程如下：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">moelove@polished-bush-99d8-1926a1:~$ mkdir actions-runner &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nb">cd&lt;/span> actions-runner
+moelove@polished-bush-99d8-1926a1:~/actions-runner$ curl -o actions-runner-linux-x64-2.301.1.tar.gz -L https://github.com/actions/runner/releases/download/v2.301.1/actions-runner-linux-x64-2.301.1.tar.gz
+moelove@polished-bush-99d8-1926a1:~/actions-runner$ &lt;span class="nb">echo&lt;/span> &lt;span class="s2">&amp;#34;3ee9c3b83de642f919912e0594ee2601835518827da785d034c1163f8efdf907 actions-runner-linux-x64-2.301.1.tar.gz&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> shasum -a &lt;span class="m">256&lt;/span> -c
+actions-runner-linux-x64-2.301.1.tar.gz: OK
+moelove@polished-bush-99d8-1926a1:~/actions-runner$ tar xzf ./actions-runner-linux-x64-2.301.1.tar.gz
+moelove@polished-bush-99d8-1926a1:~/actions-runner$ ./config.sh --url https://github.com/MoeLove/monitoring --token &lt;span class="nv">$TOKEN&lt;/span>
+--------------------------------------------------------------------------------
+&lt;span class="p">|&lt;/span> ____ _ _ _ _ _ _ _ _ &lt;span class="p">|&lt;/span>
+&lt;span class="p">|&lt;/span> / ___&lt;span class="o">(&lt;/span>_&lt;span class="o">)&lt;/span> &lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>_ _&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>__ / &lt;span class="se">\ &lt;/span> ___&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>_&lt;span class="o">(&lt;/span>_&lt;span class="o">)&lt;/span> ___ _ __ ___ &lt;span class="p">|&lt;/span>
+&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> _&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> __&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="s1">&amp;#39;_ \ / _ \ / __| __| |/ _ \| &amp;#39;&lt;/span>_ &lt;span class="se">\/&lt;/span> __&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>
+&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span> _ &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>_&lt;span class="o">)&lt;/span> &lt;span class="p">|&lt;/span> / ___ &lt;span class="se">\ &lt;/span>&lt;span class="o">(&lt;/span>__&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="o">(&lt;/span>_&lt;span class="o">)&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="se">\_&lt;/span>_ &lt;span class="se">\ &lt;/span> &lt;span class="p">|&lt;/span>
+&lt;span class="p">|&lt;/span> &lt;span class="se">\_&lt;/span>___&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span>&lt;span class="se">\_&lt;/span>_&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span>&lt;span class="se">\_&lt;/span>_,_&lt;span class="p">|&lt;/span>_.__/ /_/ &lt;span class="se">\_\_&lt;/span>__&lt;span class="p">|&lt;/span>&lt;span class="se">\_&lt;/span>_&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span>&lt;span class="se">\_&lt;/span>__/&lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>_&lt;span class="p">|&lt;/span>___/ &lt;span class="p">|&lt;/span>
+&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>
+&lt;span class="p">|&lt;/span> Self-hosted runner registration &lt;span class="p">|&lt;/span>
+&lt;span class="p">|&lt;/span> &lt;span class="p">|&lt;/span>
+--------------------------------------------------------------------------------
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>执行完成后，会在当前目录下增加一些文件。执行 &lt;code>./env.sh&lt;/code> 即可启动 GitHub Actions runner 。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">moelove@polished-bush-99d8-1926a1:~/actions-runner$ ls
+_diag _work actions-runner-linux-x64-2.301.1.tar.gz bin config.sh env.sh externals run-helper.cmd.template run-helper.sh run-helper.sh.template run.sh safe_sleep.sh svc.sh
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>如果想要稳定的在后台运行，可以执行 &lt;code>./svc.sh install&lt;/code> 将 runner 安装为 systemd 的 service，通过 systemd 管理它的生命周期。&lt;/p>
+&lt;h3 id="使用-kubernetes">使用 Kubernetes&lt;/h3>
+&lt;p>我选择的这个服务对于 Kubernetes 的 control plane 不收费，仅对 Worker Node 收费，使用 Kubernetes 的好处在于我可以在该集群中进行自动扩缩容，并且可以轻松的运行创建多个 runner 给不同的项目使用。&lt;/p>
+&lt;p>由于 GitHub 官方尚未真正提供在 Kubernetes 上部署 Self-hosted runner, 我使用了 &lt;a href="https://github.com/actions/actions-runner-controller">Actions Runner Controller (ARC)&lt;/a> 项目，
+该项目允许通过 &lt;code>Runner&lt;/code> 自定义资源，快速的部署 Self-hosted runner。&lt;/p>
+&lt;p>部署过程在文档 &lt;a href="https://github.com/actions/actions-runner-controller/blob/master/docs/quickstart.md">https://github.com/actions/actions-runner-controller/blob/master/docs/quickstart.md&lt;/a> 中已经描述的很清楚了，以下是我的部署过程。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="c1"># deploy cert-manager&lt;/span>
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.11.0/cert-manager.yaml
+&lt;span class="c1"># deploy ARC&lt;/span>
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ helm repo add actions-runner-controller https://actions-runner-controller.github.io/actions-runner-controller
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ helm upgrade --install --namespace actions-runner-system --create-namespace&lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> --set&lt;span class="o">=&lt;/span>authSecret.create&lt;span class="o">=&lt;/span>true&lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> --set&lt;span class="o">=&lt;/span>authSecret.github_token&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;REPLACE_YOUR_TOKEN_HERE&amp;#34;&lt;/span>&lt;span class="se">\
+&lt;/span>&lt;span class="se">&lt;/span> --wait actions-runner-controller actions-runner-controller/actions-runner-controller
+&lt;span class="c1"># create runner&lt;/span>
+&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ cat &lt;span class="s">&amp;lt;&amp;lt;EOF | kubectl apply -f -
+&lt;/span>&lt;span class="s">apiVersion: actions.summerwind.dev/v1alpha1
+&lt;/span>&lt;span class="s">kind: RunnerDeployment
+&lt;/span>&lt;span class="s">metadata:
+&lt;/span>&lt;span class="s"> name: moelove-runner
+&lt;/span>&lt;span class="s">spec:
+&lt;/span>&lt;span class="s"> replicas: 1
+&lt;/span>&lt;span class="s"> template:
+&lt;/span>&lt;span class="s"> spec:
+&lt;/span>&lt;span class="s"> repository: MoeLove/monitoring
+&lt;/span>&lt;span class="s">EOF&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>安装后达成了如下效果:&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2023/03/21/rPnFOY7fbZVtdLD.png" alt="Fm4TAAOXkAAXP-H.png">&lt;/p>
+&lt;h2 id="self-hosted-vs-github-managed">Self-hosted vs GitHub-managed&lt;/h2>
+&lt;p>上面的内容我介绍了我是如何使用 Meercode 度量 CI 的关键指标，以及估算 GitHub Actions 成本的。
+根据我实际的低资源消耗，高耗时的场景，我选择了 Self-hosted 的模式。&lt;/p>
+&lt;p>那么什么时候选择 GitHub-managed runner 更合适呢？GitHub-managed 有什么优势呢？&lt;/p>
+&lt;p>GitHub-managed runner 有如下优势：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>支持多种操作系统&lt;/strong>：GitHub-managed runner 除了提供 Linux 系统外，还支持 macOS 和 Windows ，但是大多数云供应商是不提供 macOS 环境的。（我曾经为了特定场景将一些 Mac mini 作为服务器放在了机房中）&lt;/li>
+&lt;li>&lt;strong>VM 级别的隔离性&lt;/strong>：根据 GitHub Actions 的文档，GitHub Actions 的 runner 在执行 job 的时候，是通过创建 VM 来运行所有任务的，这带来了一定的安全性和隔离性的保证。如果是 Self-hosted runner，当通过二进制运行的时候，任务将共享主机环境，如果是通过 ARC 运行，则是通过 Pod 带来隔离。这都会产生一定的安全问题。Alex创建了&lt;strong>actuated&lt;/strong> &lt;a href="https://actuated.dev/">https://actuated.dev/&lt;/a> 通过使用&lt;strong>MicroVMs&lt;/strong>技术，带来轻量且安全的解决方案； &lt;a href="http://cirun.io">cirun.io&lt;/a> 是通过直接使用 cloud provider 创建实例。&lt;/li>
+&lt;li>&lt;strong>低维护成本&lt;/strong>：事实上在任何大型系统中，维护成本都是非常昂贵的。如果只是个人使用，或者仅仅有几个项目在使用 Self-hosted runner 时，维护成本相对可控。一旦规模变大，将会带来很多复杂性。显然 GitHub-managed runner 是由 GitHub 进行维护的。&lt;/li>
+&lt;/ul>
+&lt;p>此外，还有两个做 Self-hosted runner 服务的产品：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://actuated.dev?umt_source=blog.moelove.info">Actuated&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://cirun.io?umt_source=blog.moelove.info">cirun&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>它们降低了 runner 的维护和管理成本，提供了更安全的隔离性，以及基于 Arm 环境的支持。cirun 还提供了 GPU runner 的支持。&lt;/p>
+&lt;p>如果有上述的需求，也可以考虑这些服务。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>总的来说，想要节约 GitHub Actions 的成本，需要如下步骤&lt;/p>
+&lt;ul>
+&lt;li>可视化/可观测性：通过实际数据来预估成本；&lt;/li>
+&lt;li>比较多个厂商/解决方案：不同的厂商在不同的场景或者产品中提供了不同的定价，可以根据自己的实际情况进行选择；&lt;/li>
+&lt;li>安全性和维护成本也需要考虑在内；&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/GitHub/" term="GitHub" label="GitHub"/><category scheme="https://moelove.info/tags/FinOps/" term="FinOps" label="FinOps"/></entry><entry><title type="text">K8S 生态周报| 别慌，DockerHub 不会清退开源组织和开源项目</title><link rel="alternate" type="text/html" href="https://moelove.info/2023/03/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E5%88%AB%E6%85%8CDockerHub-%E4%B8%8D%E4%BC%9A%E6%B8%85%E9%80%80%E5%BC%80%E6%BA%90%E7%BB%84%E7%BB%87%E5%92%8C%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/"/><id>https://moelove.info/2023/03/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-%E5%88%AB%E6%85%8CDockerHub-%E4%B8%8D%E4%BC%9A%E6%B8%85%E9%80%80%E5%BC%80%E6%BA%90%E7%BB%84%E7%BB%87%E5%92%8C%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/</id><updated>2023-03-20T13:09:02+08:00</updated><published>2023-03-19T20:31:01+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
