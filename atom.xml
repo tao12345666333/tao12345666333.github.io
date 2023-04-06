@@ -1,4 +1,144 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2023-03-22T09:17:56+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">突破难关：Docker镜像和容器的区别以及构建的最佳实践</title><link rel="alternate" type="text/html" href="https://moelove.info/2023/03/22/%E7%AA%81%E7%A0%B4%E9%9A%BE%E5%85%B3Docker%E9%95%9C%E5%83%8F%E5%92%8C%E5%AE%B9%E5%99%A8%E7%9A%84%E5%8C%BA%E5%88%AB%E4%BB%A5%E5%8F%8A%E6%9E%84%E5%BB%BA%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"/><id>https://moelove.info/2023/03/22/%E7%AA%81%E7%A0%B4%E9%9A%BE%E5%85%B3Docker%E9%95%9C%E5%83%8F%E5%92%8C%E5%AE%B9%E5%99%A8%E7%9A%84%E5%8C%BA%E5%88%AB%E4%BB%A5%E5%8F%8A%E6%9E%84%E5%BB%BA%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</id><updated>2023-03-22T09:17:39+08:00</updated><published>2023-03-22T06:43:05+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 本周 Docker 就发布 10 周年了，为了庆祝这个里程碑，我将会发布一系列文章，涉及 Docker，CI/CD, 容器等各个方面……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2023-04-06T10:02:18+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">Kubernetes v1.27 新特性一览</title><link rel="alternate" type="text/html" href="https://moelove.info/2023/04/03/Kubernetes-v1.27-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/"/><id>https://moelove.info/2023/04/03/Kubernetes-v1.27-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</id><updated>2023-04-06T10:01:43+08:00</updated><published>2023-04-03T00:04:44+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 Kubernetes v1.27 是 2023 年的第一个大版本更新，包含了近 60 项主要的更新。 而 1.26 只有 37 项，所以这个版本可以说是一个变化非常显著的版……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>&lt;strong>Kubernetes v1.27 是 2023 年的第一个大版本更新，包含了近 60 项主要的更新。&lt;/strong> 而 1.26 只有 37 项，所以这个版本可以说是一个变化非常显著的版本了。&lt;/p>
+&lt;p>其中 18 个增强功能正在进入 Alpha 阶段，29 个将升级到 Beta 阶段，而另外 13 个则将升级到稳定版。&lt;/p>
+&lt;p>尽管这个版本中包含了这么多的特性变更，但值得一提的是，这个版本应该算是第一个完全按照即定流程，恪守每个 deadline 的版本。
+之前的版本中，每次都或多或少会有一些变数，不过这也从侧面可以看到 release team 做了很多幕后的工作。&lt;/p>
+&lt;p>我每期的 「k8s生态周报」都有一个叫上游进展的部分，所以很多值得关注的内容在之前的文章中已经发过了。
+这篇中我会再额外介绍一些之前未涵盖的，和之前介绍过的值得关注的内容。&lt;/p>
+&lt;p>我们一起来具体看看吧！&lt;/p>
+&lt;h2 id="seccompdefault-达到-stable">SeccompDefault 达到 Stable&lt;/h2>
+&lt;p>如果想要默认使用 seccomp profile，则必须在每个想要使用它的节点上为 kubelet 启用 &lt;code>--seccomp-default&lt;/code> 选项。
+如果启用了该选项，则 kubelet 将默认使用由容器运行时定义的 &lt;code>RuntimeDefault&lt;/code> seccomp profile，而不是使用 &lt;code>Unconfined&lt;/code>（禁用seccomp）模式。“&lt;/p>
+&lt;p>默认配置文件旨在提供强大的安全性设置，并保留工作负载功能。
+容器运行时的不同发布版本之间可能存在不同的默认配置文件。&lt;/p>
+&lt;p>印象里很早之前 Docker 的配置文件就因为修补安全漏洞而调整过。&lt;/p>
+&lt;h2 id="pod-调度就绪机制达到-beta">Pod 调度就绪机制达到 Beta&lt;/h2>
+&lt;p>这个功能实际上是从 Kubernetes v1.26 开始增加的。是 &lt;a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/3521-pod-scheduling-readiness">KEP 3521&lt;/a> 的第一部分。&lt;/p>
+&lt;p>首先我们来简单的回顾一下 Pod 的创建过程。&lt;/p>
+&lt;p>当 client 通过 kube-apiserver 创建成功 Pod 资源后，kube-scheduler 会去检查尚未被调度的 Pod，然后为其进行调度，分配 Node。之后 Node 获取到调度到该 Node 上的 Pod 然后进行创建。
+这里省略了很多细节，但其他的部分与我们此处要介绍的内容关系不太大，就不展开了。&lt;/p>
+&lt;p>根据上述的过程，我们可以发现，在 Pod 创建成功后，其实就默认该 Pod 是可以被调度了，kube-scheduler 就应该开始工作了。&lt;/p>
+&lt;p>但在实际的场景中，Pod 通常还会需要一些其他的资源，最典型的比如存储。在一些环境中，这些资源是需要预先进行创建的，
+&lt;strong>尤其是在一些云厂商的场景中，还需要检查用户账户中是否还有余额可以用于创建云盘等&lt;/strong>。&lt;/p>
+&lt;p>一但前置的依赖无法满足，假如 kube-scheduler 已经完成了 Pod 的调度，那么 kubelet 侧就会处于尝试创建 Pod ，但失败的情况。&lt;/p>
+&lt;p>这个 KEP 的出现就可以很好的解决这个问题，增加了一个 Pod 是否准备好被调度的机制。
+如果前置依赖不满足，那么 Pod 就无需被调度，这也不会消耗资源。kube-scheduler 和 kubelet 都无需进行处理。
+待条件满足，Pod 再被调度和创建即可。&lt;/p>
+&lt;p>这个机制我个人感觉还是挺好的，甚至我可以有更灵活的策略来控制应用的副本。
+比如在大流量，需要动态扩容的场景下，我可以利用此机制预先创建一些 Pod 资源以及准备好它的依赖，
+甚至可以在 Node 上准备好镜像等。当需要增加副本时，直接标记 Pod 可被调度，&lt;/p>
+&lt;p>使用时，通过配置 Pod 的 &lt;code>.spec.schedulingGates&lt;/code> 即可。&lt;/p>
+&lt;h2 id="新增-nodelogquery-特性---kep-2258">新增 NodeLogQuery 特性 - KEP-2258&lt;/h2>
+&lt;p>我们通常最习惯使用 &lt;code>kubectl logs&lt;/code> 命令来获取 Kubernetes 集群中运行的应用的日志，也可以通过给它传递一些参数来调整它的过滤范围。&lt;/p>
+&lt;p>比如：&lt;code>kubectl logs job/hello&lt;/code> 来指定获取 hello 这个 job 的日志；也可以增加 &lt;code>-l&lt;/code> / &lt;code>--selector=''&lt;/code> 来基于 label 进行过滤。&lt;/p>
+&lt;p>但这并没有扩展到 Node 级别的日志，无法直接获取到某个 Node 上的全部日志，要想得到这个结果需要写一段很复杂的 Shell 来完成。&lt;/p>
+&lt;p>当前 Kubernetes 社区已经逐渐提供了更多 Node 调试工具，旨在为调试 Node 故障提供统一体验，并更好地支持极简操作系统。通过 &lt;a href="https://github.com/kubernetes/kubernetes/pull/96120">KEP 2258: add node log query by LorbusChris · Pull Request #96120 · kubernetes/kubernetes&lt;/a> ，我们现在可以远程获取底层 Node 日志。与容器日志记录一样，这是Kubelet API的一部分。&lt;/p>
+&lt;p>对于Linux系统，它查询journald；对于Windows系统，则查询事件日志(Event Log)。目前还没有专门针对此功能的 kubectl 命令，但可以使用如下命令进行尝试：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl get --raw &lt;span class="s2">&amp;#34;/api/v2/nodes/&lt;/span>&lt;span class="nv">$NODE_NAME&lt;/span>&lt;span class="s2">/proxy/logs/?query=kubelet
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="基于-cel-的-admission-control">基于 CEL 的 Admission Control&lt;/h2>
+&lt;p>对 Kubernetes 中的 Adminssion Control 感兴趣的小伙伴可以看看我之前的文章：&lt;a href="https://moelove.info/2021/11/30/%E7%90%86%E6%B8%85-Kubernetes-%E4%B8%AD%E7%9A%84%E5%87%86%E5%85%A5%E6%8E%A7%E5%88%B6Admission-Controller/">理清 Kubernetes 中的准入控制（Admission Controller) | MoeLove&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/116054">KEP-3488: Implement secondary authz for ValidatingAdmissionPolicy by jpbetz · Pull Request #116054 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/115973">KEP-3488: Implement Enforcement Actions and Audit Annotations by jpbetz · Pull Request #115973 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Kubernetes 在 v1.26 增加了一项很重要的特性，那就是允许使用 CEL 进行 Admission Control，具体内容可以参考我之前写的文章：
+&lt;a href="https://moelove.info/2022/12/09/Kubernetes-v1.26-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/">Kubernetes v1.26 新特性一览 | MoeLove&lt;/a>&lt;/p>
+&lt;p>其中引入了一个新的资源 ValidatingAdmissionPolicy ，使用起来如下:&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">admissionregistration.k8s.io/v1alpha1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ValidatingAdmissionPolicy&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;demo-policy.moelove.info&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">Spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">failurePolicy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Fail&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">matchConstraints&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">resourceRules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">apiGroups&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;apps&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">apiVersions&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;v1&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">operations&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;CREATE&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;UPDATE&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">resources&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;deployments&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nt">validations&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;span class="w"> &lt;/span>- &lt;span class="nt">expression&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;object.spec.replicas &amp;lt;= 2&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>但是在当时也只是实现了 KEP-3488 的一部分。&lt;/p>
+&lt;p>在这个 PR 中是在实现 Authz 的部分，这允许用 CEL 表达式编写复杂的 admission control 规则，
+放置在声明式资源中，而不是构建和部署 webhook。&lt;/p>
+&lt;p>虽然 admission webhook 一直是我们灵活的与第三方工具集成的基石，但是对于新用户来说，它们有很多复杂性，新的 CEL 系统有望接管仅需要对默认规则进行小修改的简单独立案例。&lt;/p>
+&lt;p>以前，表达式上下文会公开有关当前请求和目标资源的信息，现在通过这个 PR 可以在授权层中动态检查 RBAC 权限。
+一些有用的地方可能是使用 RBAC 进行每个字段的更新权限，允许 RBAC 检查特定对象而不使用 resourceNames 系统，
+或基于请求者身份限制对程序敏感字段（例如 finalizers ）的访问而无需生成复杂的 RBAC 策略。&lt;/p>
+&lt;p>例如：&lt;/p>
+&lt;pre>&lt;code>authorizer.group('').resource('pods').namespace('default').check('create').allowed()
+authorizer.path('/healthz').check('GET').allowed()
+authorizer.requestResource.check('my-custom-verb').allowed()
+&lt;/code>&lt;/pre>&lt;p>本次还加入了#115973，该功能允许在失败时作为主要操作发出审计日志事件，或者如果需要更多数据，可以编写一个或多个CEL表达式，以提供详细的值，
+这些值将发送到审计子系统。&lt;/p>
+&lt;p>这既可以在开发新策略时提供强大的调试选项，也可以进行运行时分析。
+其他 CEL admission 特性包括成本检查，以防止您使用所有这些新功能意外拒绝服务自己的 kube-apiserver，以及改进的类型检查。&lt;/p>
+&lt;p>总的来说，基于 CEL 的 admission 处理有了很多新的功能，希望进一步将 webhook 推入到一个有限的用例空间中（防止滥用）。&lt;/p>
+&lt;h2 id="pod-in-place-原地伸缩能力">Pod In-place 原地伸缩能力&lt;/h2>
+&lt;p>这个功能允许在不重启 Pod 的情况下，更新 Pod 的 resources 配置。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/102884">In-place Pod Vertical Scaling feature by vinaykul · Pull Request #102884 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>经过 4 年的规划和至少 2 年的开发，在 Kubernetes v1.27 中终于推出了 Pod 的就地资源缩放的第一版。
+这个PR实现了核心缩放功能和一些相关的API处理。
+主要功能非常简单，现在可以在现有容器上编辑 &lt;code>resources&lt;/code> 配置，而不会导致 API 错误。&lt;/p>
+&lt;p>在看到缩放请求后，Kubelet 会立即采取行动并检查节点是否有足够的资源来满足新的请求。
+如果是这样，它将 &lt;code>Status.Resize&lt;/code> 字段设置为 InProgress，并继续进行 CRI 调用和其他内部更新。&lt;/p>
+&lt;p>如果新的大小不合适，将启动其他状态流，但总体目标相同，即尝试在可能的情况下提供请求的更改。
+还有一个新的 per-resource 缩放策略字段，可以设置为 &lt;code>RestartNotRequired&lt;/code>（默认值）表示不需要重新启动（但某些运行时仍然可能需要这样做），
+或设置为 &lt;code>Restart&lt;/code> 以强制关闭和重新启动容器（例如具有需要重新计算-Xmx 堆大小标志的 Java 应用）。&lt;/p>
+&lt;p>现在缺少一个显著的特性是基于缩放的驱逐。目前，Kubelet 不会自动处理它，但如果外部系统执行 Pod 删除，它将适当地作出反应。&lt;/p>
+&lt;p>尽管现在还处于比较早期的阶段，但至少我们看到了它的变化，期待后续的演进。&lt;/p>
+&lt;h2 id="一些废弃提醒">一些废弃提醒&lt;/h2>
+&lt;h3 id="不再提供的api版本">不再提供的API版本：&lt;/h3>
+&lt;ul>
+&lt;li>Kubeadm &lt;code>v1beta2&lt;/code>，可以使用 &lt;code>kubeadm config migrate&lt;/code> 迁移到 &lt;code>v1beta3&lt;/code>。&lt;/li>
+&lt;li>&lt;code>resource.k8s.io/v1alpha1.PodScheduling&lt;/code> ：请使用 &lt;code>resource.k8s.io/v1alpha2.PodSchedulingContext&lt;/code>。&lt;/li>
+&lt;li>DynamicResourceManagement &lt;code>v1alpha1&lt;/code>：请使用 &lt;code>v1alpha2&lt;/code>。&lt;/li>
+&lt;li>CSIStorageCapacity：&lt;code>storage.k8s.io/v1beta1&lt;/code>：请使用 v1。&lt;/li>
+&lt;/ul>
+&lt;h3 id="已弃用在下一个版本发布之前实现替代方案">已弃用，在下一个版本发布之前实现替代方案：&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>seccomp.security.alpha.kubernetes.io/pod&lt;/code> 和 &lt;code>container.seccomp.security.alpha.kubernetes.io&lt;/code> annotations ：请改用 &lt;code>securityContext.seccompProfile&lt;/code> 字段。&lt;/li>
+&lt;li>&lt;code>SecurityContextDeny&lt;/code> 准入插件。&lt;/li>
+&lt;li>&lt;code>service.kubernetes.io/topology-aware-hints&lt;/code> annotations：请改用 &lt;code>service.kubernetes.io/topology-mode&lt;/code>。&lt;/li>
+&lt;/ul>
+&lt;h3 id="已删除">已删除&lt;/h3>
+&lt;ul>
+&lt;li>Feature gates:
+&lt;ul>
+&lt;li>&lt;code>IPv6DualStack&lt;/code>&lt;/li>
+&lt;li>&lt;code>ExpandCSIVolumes&lt;/code>&lt;/li>
+&lt;li>&lt;code>ExpandInUsePersistentVolumes&lt;/code>&lt;/li>
+&lt;li>&lt;code>ExpandPersistentVolumes&lt;/code>&lt;/li>
+&lt;li>&lt;code>ControllerManagerLeaderMigration&lt;/code>&lt;/li>
+&lt;li>&lt;code>CSI Migration&lt;/code>&lt;/li>
+&lt;li>&lt;code>CSIInlineVolume&lt;/code>&lt;/li>
+&lt;li>&lt;code>EphemeralContainers&lt;/code>&lt;/li>
+&lt;li>&lt;code>LocalStorageCapacityIsolation&lt;/code>&lt;/li>
+&lt;li>&lt;code>NetworkPolicyEndPort&lt;/code>&lt;/li>
+&lt;li>&lt;code>StatefulSetMinReadySeconds&lt;/code>&lt;/li>
+&lt;li>&lt;code>IdentifyPodOS&lt;/code>&lt;/li>
+&lt;li>&lt;code>DaemonSetUpdateSurge&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>appProtocol: &lt;code>kubernetes.io/grpc&lt;/code>.&lt;/li>
+&lt;li>kube-apiserver 参数: &lt;code>--master-service-namespace&lt;/code>.&lt;/li>
+&lt;li>CLI 参数: &lt;code>--enable-taint-manager&lt;/code> 和 &lt;code>--pod-eviction-timeout&lt;/code>.&lt;/li>
+&lt;li>kubelet 参数: &lt;code>--container-runtime&lt;/code>, &lt;code>--master-service-namespace&lt;/code>.&lt;/li>
+&lt;li>Azure disk in-tree storage plugin.&lt;/li>
+&lt;li>AWS kubelet credential provider: 使用 &lt;code>ecr-credential-provider&lt;/code>.&lt;/li>
+&lt;li>Metrics:
+&lt;ul>
+&lt;li>&lt;code>node_collector_evictions_number&lt;/code> 被 &lt;code>node_collector_evictions_total&lt;/code> 替换&lt;/li>
+&lt;li>&lt;code>scheduler_e2e_scheduling_duration_seconds&lt;/code> 被 &lt;code>scheduler_scheduling_attempt_duration_seconds&lt;/code> 替换&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>以上就是 Kubernetes v1.27 版本中我认为主要值得关注的部分。下次再见！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">突破难关：Docker镜像和容器的区别以及构建的最佳实践</title><link rel="alternate" type="text/html" href="https://moelove.info/2023/03/22/%E7%AA%81%E7%A0%B4%E9%9A%BE%E5%85%B3Docker%E9%95%9C%E5%83%8F%E5%92%8C%E5%AE%B9%E5%99%A8%E7%9A%84%E5%8C%BA%E5%88%AB%E4%BB%A5%E5%8F%8A%E6%9E%84%E5%BB%BA%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"/><id>https://moelove.info/2023/03/22/%E7%AA%81%E7%A0%B4%E9%9A%BE%E5%85%B3Docker%E9%95%9C%E5%83%8F%E5%92%8C%E5%AE%B9%E5%99%A8%E7%9A%84%E5%8C%BA%E5%88%AB%E4%BB%A5%E5%8F%8A%E6%9E%84%E5%BB%BA%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</id><updated>2023-03-22T09:17:39+08:00</updated><published>2023-03-22T06:43:05+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 本周 Docker 就发布 10 周年了，为了庆祝这个里程碑，我将会发布一系列文章，涉及 Docker，CI/CD, 容器等各个方面……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>本周 Docker 就发布 10 周年了，为了庆祝这个里程碑，我将会发布一系列文章，涉及 Docker，CI/CD, 容器等各个方面。&lt;/p>
 &lt;blockquote>
 &lt;p>Docker 可谓是开启了容器化技术的新时代，现在无论大中小公司基本上都对容器化技术有不同程度的尝试，或是已经进行了大量容器化的改造。伴随着 Kubernetes 和 Cloud Native 等技术和理念的普及，也大大增加了业务容器化需求。而这一切的推进，不可避免的技术之一便是构建容器镜像。&lt;/p>
