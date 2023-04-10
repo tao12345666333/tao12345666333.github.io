@@ -1,4 +1,106 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Thu, 06 Apr 2023 10:02:18 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>Kubernetes v1.27 新特性一览</title><link>https://moelove.info/2023/04/03/Kubernetes-v1.27-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</link><guid isPermaLink="true">https://moelove.info/2023/04/03/Kubernetes-v1.27-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</guid><pubDate>Mon, 03 Apr 2023 00:04:44 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 10 Apr 2023 08:54:34 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Docker v24.0.0-beta.1 发布</title><link>https://moelove.info/2023/04/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v24.0.0-beta.1-%E5%8F%91%E5%B8%83/</link><guid isPermaLink="true">https://moelove.info/2023/04/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v24.0.0-beta.1-%E5%8F%91%E5%B8%83/</guid><pubDate>Sun, 09 Apr 2023 23:28:40 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;h1 id="kubernetes-v127-本周正式发布">Kubernetes v1.27 本周正式发布&lt;/h1>
+&lt;p>&lt;strong>Kubernetes v1.27 是 2023 年的第一个大版本更新，包含了近 60 项主要的更新。&lt;/strong> 而 1.26 只有 37 项，所以这个版本可以说是一个变化非常显著的版本了。&lt;/p>
+&lt;p>其中 18 个增强功能正在进入 Alpha 阶段，29 个将升级到 Beta 阶段，而另外 13 个则将升级到稳定版。&lt;/p>
+&lt;p>Kubernetes v1.27 计划在 4.11 正式发布，我上周已经发布了一篇文章 &lt;a href="https://moelove.info/2023/04/03/Kubernetes-v1.27-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/">Kubernetes v1.27 新特性一览 | MoeLove&lt;/a> 介绍了 Kubernetes v1.27 中我认为主要值得关注的部分，感兴趣的小伙伴可以查看上一篇文章。&lt;/p>
+&lt;h1 id="docker-v2400-beta1-发布">Docker v24.0.0-beta.1 发布&lt;/h1>
+&lt;p>Docker v23.0.0 在今年 2 月份发布，我也写了一篇 &lt;a href="https://moelove.info/2023/02/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v23.0.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/">K8S 生态周报| Docker v23.0.0 正式发布，带来众多新特性 | MoeLove&lt;/a> 来详细进行了介绍。&lt;/p>
+&lt;p>事实上 Docker 在 v23.0.0 之前的一个大版本是 v20.10 发布于 2020 年的 12 月份，看起来沉寂了两年多的时间，不过却也是一直在发 patch 版本，上个大版本的 patch 版本也更新到了 v20.10.23。&lt;/p>
+&lt;p>作为一个真正被用户采用的开源项目，在初期会不断的满足用户需求，并且也不断的有贡献者参与进来，迭代速度相对较快。 但是当大多数需求已经被满足，成为一个基础设施的时候，大多数用户会更加关注于上层的项目，比如 Kubernetes，而逐步放弃对该项目的投入。&lt;/p>
+&lt;p>目前 Docker Inc. 一直在积极发展，整体在变好，所以 Docker 社区上的投入也在逐步增加。这次发布的 v24.0.0-beta.1 版本其中也包含了很多值得关注的特性，上千次 commit 。
+甚至可以说 Docker v24.0 才是真正汇聚了近一年社区精华的版本。&lt;/p>
+&lt;p>比如，其中包含了 containerd image service 这一重大特性，允许直接在 Docker 中使用 containerd 的镜像处理能力，为全面支持多 runtime 提供了基础（包括 webassembly）。&lt;/p>
+&lt;p>如果有兴趣尝试的话，可以通过如下命令进行安装。 &lt;strong>由于是测试版，可能会存在一些 bug&lt;/strong>，请勿在生产环境使用。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">curl -fsSL https://get.docker.com -o get-docker.sh
+sudo &lt;span class="nv">CHANNEL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nb">test&lt;/span> sh get-docker.sh
+&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="containerd-v17-正式发布">containerd v1.7 正式发布&lt;/h1>
+&lt;p>这个版本是 containerd 的第八个主要版本。同时也是 containerd 1.x 版本的最后一个大版本，后续就是 2.0 版本了。&lt;/p>
+&lt;p>这个版本中的某些功能可能被视为实验性或不稳定，但将在 2.0 中变得稳定或默认。&lt;/p>
+&lt;p>当然此版本仍遵循向后兼容的保证，不使用或启用新功能的用户仍将得到稳定可用的功能。&lt;/p>
+&lt;p>&lt;strong>之前发布的 v1.6 版本已成为长期稳定版&lt;/strong> ，适用于希望等待几个版本以获取新功能并获得更多稳定性改进的用户。&lt;/p>
+&lt;p>主要的特性包括以下内容：&lt;/p>
+&lt;h2 id="sandbox-api-experimental">Sandbox API (experimental)&lt;/h2>
+&lt;p>Sandbox API 提供了一种新的方式来管理 containerd 的 shim，为 Pod 和虚拟机等多容器环境提供更多的灵活性和功能性。&lt;/p>
+&lt;p>这个 API 让更高级别的容器组的管理更加容易，并且为 shim 实现和客户端提供了新的扩展点。
+主要通过 Sandbox API (&lt;a href="https://github.com/containerd/containerd/pull/6703">#6703&lt;/a>) 和 CRI Sandbox API Implementation (&lt;a href="https://github.com/containerd/containerd/pull/7228">#7228&lt;/a>) 实现。&lt;/p>
+&lt;h2 id="transfer-service-experimental">Transfer Service (experimental)&lt;/h2>
+&lt;p>Transfer Service 是一个简单而灵活的服务，可用于在源和目标之间传输工件对象。灵活的 API 允许传输接口的每个实现确定源和目标之间的传输是否可行。这使得可以直接通过实现添加新功能，而无需对 API 进行版本控制或要求其他实现处理接口更改。&lt;/p>
+&lt;p>传输服务基于 libchan 项目提出的核心思想构建，即具有二进制流和数据通道作为一等对象的 API 更加灵活，可以在不需要不断更新协议和 API 的情况下打开更广泛的用例。为了实现这一目标，传输服务利用流服务，使得在使用 grpc 和 ttrpc 时，二进制流和对象流可以被传输对象访问。&lt;/p>
+&lt;p>在这个版本中，这是实验性的，以便进一步插件开发和集成到现有插件中。&lt;/p>
+&lt;h2 id="nri-experimental">NRI (experimental)&lt;/h2>
+&lt;p>Node Resource Interface（NRI）是将扩展插件插入 OCI 兼容容器运行时的通用框架。它提供了基本机制，使插件能够跟踪容器的状态，并对其配置进行有限的更改。&lt;/p>
+&lt;p>NRI 本身对任何容器运行时的内部实现细节是不可知的。它提供了一个适配库，运行时使用它来与 NRI 和插件进行集成和交互。原则上，任何 NRI 插件都应该能够与支持 NRI 的运行时一起工作。&lt;/p>
+&lt;p>此版本引入了 NRI v0.3.0，其中包括更新的插件接口，以涵盖各种用例。&lt;/p>
+&lt;p>&lt;img src="https://github.com/containerd/containerd/raw/main/docs/containerd-nri-integration.png" alt="containerd-nri-integration.png">&lt;/p>
+&lt;h2 id="其他">其他&lt;/h2>
+&lt;ul>
+&lt;li>支持了在 FreeBSD 上运行 Linux 容器 (#7000)；&lt;/li>
+&lt;li>增加对 CDI 设备注入的支持 (#6654)&lt;/li>
+&lt;li>支持 cgroups blockio (#5490)&lt;/li>
+&lt;li>增加增强型重启管理器的重启策略 (#6744)&lt;/li>
+&lt;li>初步支持 gRPC shim (#8052)&lt;/li>
+&lt;/ul>
+&lt;p>增加 gRPC shim 是一个很重要的变化，这样在使用 shim 的时候，除去原有的 ttrpc 外还多了 gRPC 可选择。现有的 ttrpc shim 支持不会消失，并且将继续推荐以获得最佳性能和最低的 shim 内存开销。
+gRPC支持允许实现更广泛范围的 shim 实现，这些实现可能无法在实现语言中访问稳定的 ttrpc 库。 shim 协议也已更新，以允许 shim 指定其所支持的协议。&lt;/p>
+&lt;p>更多关于此版本的详细信息请参考其 &lt;a href="https://github.com/containerd/containerd/releases/tag/v1.7.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="openfunction-v100-发布">OpenFunction v1.0.0 发布&lt;/h1>
+&lt;p>OpenFunction 是一个开源的云原生 FaaS（Function as a Service，函数即服务）平台，旨在帮助开发者专注于业务逻辑的研发。&lt;/p>
+&lt;p>该版本集成了 WasmEdge 以支持 Wasm 函数；同时增强了 OpenFunction 的 CI/CD 功能，提供完整端到端的 CI/CD 功能；除此之外，在这个版本中还新增了从本地代码直接构建函数或应用镜像的功能，让开发者可以更便捷地进行代码发布和部署。&lt;/p>
+&lt;p>以下是一个摘录自官方文档的 Wasm 函数示例：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">cat &lt;span class="s">&amp;lt;&amp;lt;EOF | kubectl apply -f -
+&lt;/span>&lt;span class="s">apiVersion: core.openfunction.io/v1beta1
+&lt;/span>&lt;span class="s">kind: Function
+&lt;/span>&lt;span class="s">metadata:
+&lt;/span>&lt;span class="s"> name: wasmedge-http-server
+&lt;/span>&lt;span class="s">spec:
+&lt;/span>&lt;span class="s"> workloadRuntime: wasmedge
+&lt;/span>&lt;span class="s"> image: openfunctiondev/wasmedge_http_server:0.1.0
+&lt;/span>&lt;span class="s"> imageCredentials:
+&lt;/span>&lt;span class="s"> name: push-secret
+&lt;/span>&lt;span class="s"> build:
+&lt;/span>&lt;span class="s"> dockerfile: Dockerfile
+&lt;/span>&lt;span class="s"> srcRepo:
+&lt;/span>&lt;span class="s"> revision: main
+&lt;/span>&lt;span class="s"> sourceSubPath: functions/knative/wasmedge/http-server
+&lt;/span>&lt;span class="s"> url: https://github.com/OpenFunction/samples
+&lt;/span>&lt;span class="s"> port: 8080
+&lt;/span>&lt;span class="s"> route:
+&lt;/span>&lt;span class="s"> rules:
+&lt;/span>&lt;span class="s"> - matches:
+&lt;/span>&lt;span class="s"> - path:
+&lt;/span>&lt;span class="s"> type: PathPrefix
+&lt;/span>&lt;span class="s"> value: /echo
+&lt;/span>&lt;span class="s"> serving:
+&lt;/span>&lt;span class="s"> runtime: knative
+&lt;/span>&lt;span class="s"> scaleOptions:
+&lt;/span>&lt;span class="s"> minReplicas: 0
+&lt;/span>&lt;span class="s"> template:
+&lt;/span>&lt;span class="s"> containers:
+&lt;/span>&lt;span class="s"> - command:
+&lt;/span>&lt;span class="s"> - /wasmedge_hyper_server.wasm
+&lt;/span>&lt;span class="s"> imagePullPolicy: IfNotPresent
+&lt;/span>&lt;span class="s"> livenessProbe:
+&lt;/span>&lt;span class="s"> initialDelaySeconds: 3
+&lt;/span>&lt;span class="s"> periodSeconds: 30
+&lt;/span>&lt;span class="s"> tcpSocket:
+&lt;/span>&lt;span class="s"> port: 8080
+&lt;/span>&lt;span class="s"> name: function
+&lt;/span>&lt;span class="s">EOF&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>为开发者提供了除去 Docker、Containerd 之外，还可以使用 WasmEdge 的新选择。&lt;/p>
+&lt;p>更多关于该版本的变更，请参考其 &lt;a href="https://github.com/OpenFunction/OpenFunction/releases/tag/v1.0.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="其他-1">其他&lt;/h1>
+&lt;ul>
+&lt;li>Cilium &lt;a href="https://github.com/cilium/cilium/releases/tag/v1.14.0-snapshot.1">Release 1.14.0-snapshot.1 · cilium/cilium&lt;/a> 这是一个非常大的版本更新；&lt;/li>
+&lt;li>Talos &lt;a href="https://github.com/siderolabs/talos/releases/tag/v1.4.0-beta.0">Release v1.4.0-beta.0 · siderolabs/talos&lt;/a> 在配置镜像源的时候可以用 &lt;code>*&lt;/code> 来匹配全部了；&lt;/li>
+&lt;li>Envoy &lt;a href="https://github.com/envoyproxy/envoy/releases/tag/v1.25.4">Release v1.25.4 · envoyproxy/envoy&lt;/a> 修复了 6 个 CVE 漏洞；&lt;/li>
+&lt;/ul>
+&lt;p>以上就是本周的全部内容了，我们下期再见！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>Kubernetes v1.27 新特性一览</title><link>https://moelove.info/2023/04/03/Kubernetes-v1.27-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</link><guid isPermaLink="true">https://moelove.info/2023/04/03/Kubernetes-v1.27-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</guid><pubDate>Mon, 03 Apr 2023 00:04:44 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>&lt;strong>Kubernetes v1.27 是 2023 年的第一个大版本更新，包含了近 60 项主要的更新。&lt;/strong> 而 1.26 只有 37 项，所以这个版本可以说是一个变化非常显著的版本了。&lt;/p>
 &lt;p>其中 18 个增强功能正在进入 Alpha 阶段，29 个将升级到 Beta 阶段，而另外 13 个则将升级到稳定版。&lt;/p>
 &lt;p>尽管这个版本中包含了这么多的特性变更，但值得一提的是，这个版本应该算是第一个完全按照即定流程，恪守每个 deadline 的版本。
