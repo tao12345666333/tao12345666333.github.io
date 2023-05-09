@@ -1,4 +1,94 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 10 Apr 2023 08:54:34 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Docker v24.0.0-beta.1 发布</title><link>https://moelove.info/2023/04/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v24.0.0-beta.1-%E5%8F%91%E5%B8%83/</link><guid isPermaLink="true">https://moelove.info/2023/04/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v24.0.0-beta.1-%E5%8F%91%E5%B8%83/</guid><pubDate>Sun, 09 Apr 2023 23:28:40 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 09 May 2023 08:00:28 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Open Service Mesh 已停止维护，并将归档</title><link>https://moelove.info/2023/05/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Open-Service-Mesh-%E5%B7%B2%E5%81%9C%E6%AD%A2%E7%BB%B4%E6%8A%A4%E5%B9%B6%E5%B0%86%E5%BD%92%E6%A1%A3/</link><guid isPermaLink="true">https://moelove.info/2023/05/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Open-Service-Mesh-%E5%B7%B2%E5%81%9C%E6%AD%A2%E7%BB%B4%E6%8A%A4%E5%B9%B6%E5%B0%86%E5%BD%92%E6%A1%A3/</guid><pubDate>Sun, 07 May 2023 23:31:45 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>自上一篇 &lt;a href="https://moelove.info/2023/04/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v24.0.0-beta.1-%E5%8F%91%E5%B8%83/">K8S 生态周报| Docker v24.0.0-beta.1 发布 | MoeLove&lt;/a>
+后，拖更了几期。这之间发生了一些事情，容我简单总结一下:&lt;/p>
+&lt;ul>
+&lt;li>4.13 在微软比特熊直播间，分享了 《GPT-4 如何助力开发者在多端效率的提升》。总结来说就是 &amp;quot;所有曾经做过的和没做过的，都可以加上 AI 再做一遍&amp;quot; ，这个领域仍然在持续火热中；&lt;/li>
+&lt;li>4.15 在大连线下参加了 Kubernetes Community Days China 2023, 分享了 《Kubernetes 安全：实践策略全方位解析》，不过在前一天我嗓子突然哑了，好在当天恢复了一些，顺利完成了演讲，感谢小伙伴们的理解。这也是自疫情几年来我首次去外地和这么多朋友们面基，很多人确实很久都没有见过了，今年这样的机会估计会更多；&lt;/li>
+&lt;li>4.20 在 APISIX 的视频号分享了 Apache APISIX Ingress controller 项目的近期进展，为即将发布的 v1.7 版本做了些宣传和铺垫；&lt;/li>
+&lt;li>4.27 在 GoCN 的视频号做了一场直播，作为 Gopher China 2023 云原生专场的预热， 我会在今年 6 月初的 Gopher China 2023 上分享一个与 Service Mesh 有关的主题，同时也欢迎小伙伴们来现场面基；&lt;/li>
+&lt;li>还有发现之前我参与编写的一本书 《Apache APISIX 实战》已经正式出版了；&lt;/li>
+&lt;/ul>
+&lt;p>此外这中间还伴随着孩子生病，我生病，以及公司的一些事情，所以没有来得及更新。现在身体已经基本恢复健康，可以继续更新了。
+同时也提醒小伙伴们注意安全防护，以免生病。&lt;/p>
+&lt;p>最近这段时间有很多值得关注的事情。我聊几个重点的内容：&lt;/p>
+&lt;h1 id="open-service-mesh-将停止更新并归档">Open Service Mesh 将停止更新并归档&lt;/h1>
+&lt;p>Open Service Mesh（简称 OSM ）是一个自 2020 年由微软开源的，轻量级、可扩展的云原生服务网格项目，
+旨在为运行在Kubernetes上的应用程序提供统一的控制和安全性。&lt;/p>
+&lt;p>它是一个基于Envoy代理构建的开源项目，并采用 Service Mesh Interface （简称SMI）作为其标准API，从而允许与支持SMI的其他服务网格实现进行兼容。&lt;/p>
+&lt;p>OSM 有助于处理在 Kubernetes 集群上运行的微服务的流量管理、策略执行和可观测性等任务，简化了应用程序的部署和管理。&lt;/p>
+&lt;p>并且该项目在开源后不久就成为了 CNCF sandbox 级别的项目。&lt;/p>
+&lt;p>我在 2020 年也写过一篇 &lt;a href="https://moelove.info/2020/08/07/%E5%88%9D%E8%AF%95-Open-Service-MeshOSM/">初试 Open Service Mesh（OSM） | MoeLove&lt;/a> 的文章，感兴趣的小伙伴可以再回顾下。&lt;/p>
+&lt;p>&lt;a href="https://openservicemesh.io/blog/announcing-osm-v1/">OSM 在 2022 年初正式发布了 v1.0.0 版本&lt;/a>。&lt;/p>
+&lt;p>并且早在 2021 年 Microsoft Azure 上的 Kubernetes cluster 就提供了与 Open Service Mesh 集成的能力。有了 Azure 的加持，OSM 也得到了很强的助力。&lt;/p>
+&lt;p>不过上周 OSM 项目的官方博客发了一篇文章 &lt;a href="https://openservicemesh.io/blog/osm-project-update/">OSM Project Update&lt;/a>:&lt;/p>
+&lt;blockquote>
+&lt;p>The OSM team has always been committed to meeting the needs of the community to deliver much-needed service mesh features to solve the current issues and develop the next generation of service mesh technologies. This decision will allow the team to help accelerate that realization. Additionally, there will be no more new releases of OSM.&lt;/p>
+&lt;/blockquote>
+&lt;p>其中提到 OSM 维护团队将会转向与 Istio 社区共同合作，来推进 Istio 的发展。并且 OSM 也不会再发布新的版本了。此外，OSM 也向 CNCF 申请了进行项目的归档，目前还没真正执行。&lt;/p>
+&lt;p>三年时间，还挺遗憾的，OSM 在一些简单和通用的场景已经足够，用做一个服务网格实现的参考也不错，我之前看了很多 OSM 的源码来着。&lt;/p>
+&lt;p>我现在主要就是关注 Azure 上 OSM 的部分会如何处理了。&lt;/p>
+&lt;h1 id="docker-desktop-419-正式发布">Docker Desktop 4.19 正式发布&lt;/h1>
+&lt;p>这个版本提供了一些比较显著的变更：&lt;/p>
+&lt;h2 id="在-macos-上容器与主机之间的网络传输速度提高了5倍">在 macOS 上，容器与主机之间的网络传输速度提高了5倍&lt;/h2>
+&lt;p>在Docker Desktop 4.19 中，通过使用 gVisor 项目的 TCP/IP 堆栈替换 vpnkit 来使 macOS 上容器与主机之间的网络传输性能提高了5倍。&lt;/p>
+&lt;p>许多用户正在处理需要容器与本地Docker网络外部服务器通信的项目。其中一个例子是通过 &lt;code>npm install&lt;/code> 或 &lt;code>apt-get&lt;/code> 从互联网下载软件包的工作负载。这种性能改进应该会在这些情况下有所帮助。&lt;/p>
+&lt;p>如果发现任何问题，可以通过在Docker Desktop 的 &lt;code>settings.json&lt;/code> 配置文件中设置 &lt;code>&amp;quot;networkType&amp;quot;: &amp;quot;vpnkit&amp;quot;&lt;/code> 来恢复使用旧版 vpnkit 网络堆栈。&lt;/p>
+&lt;p>这其实就是经常被诟病的一个点，如今终于有了解决办法。&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>docker init&lt;/code> 支持了 NodeJS 和 Python，这是一个新的插件，用于初始化 Dockerfile 的。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://www.docker.com/wp-content/uploads/2023/04/docker-desktop-419-f1-980x331.png" alt="docker init">&lt;/p>
+&lt;ul>
+&lt;li>在 2023 年 6 月之后， Docker Desktop 就不再会携带 docker-compose v1 了。 现在建议全面拥抱到 docker compose v2 中；&lt;/li>
+&lt;li>在这个版本中，将 Docker Engine 升级到了最新的 v23.0 ，这将会带来很多新的特性，可以参考我之前的文章：&lt;a href="https://moelove.info/2023/02/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v23.0.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/">K8S 生态周报| Docker v23.0.0 正式发布，带来众多新特性 | MoeLove&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>如果对 Docker Desktop 新版本感兴趣的小伙伴欢迎进行升级体验，如果想要寻找替代品的话，可以尝试下 &lt;a href="https://moelove.info/2021/09/05/%E8%AF%91LimaDocker-Desktop-for-Mac-%E7%9A%84%E5%85%8D%E8%B4%B9%E5%BC%80%E6%BA%90%E4%B8%94%E8%87%AA%E7%94%B1%E7%9A%84%E6%9B%BF%E4%BB%A3%E5%93%81/">Lima：Docker Desktop for Mac 的免费开源且自由的替代品 | MoeLove&lt;/a>&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/117558">Remove support for EndpointsLeases and ConfigMapsLeases lock from leader election by wojtek-t · Pull Request #117558 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Kubernetes 中提供了 leader election 机制，在早期版本中使用 Endpoints 或者 ConfigMaps，但是在实践中发现这种方式会带来一些非必要的负载以及一些其他的问题。&lt;/p>
+&lt;p>后来社区中引入了 Lease API，并逐步的将 Kubernetes 以及一些周边项目中关于 leader election 相关的实现都统一至使用 Lease API 。&lt;/p>
+&lt;p>比如我之前在 Kubernetes Ingress-NGINX 项目中就将基于 ConfigMap 的 leader election 机制，修改为了基于 Lease API 的实现。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes/ingress-nginx/pull/8733">feat: migrate leaderelection lock to leases by tao12345666333 · Pull Request #8733 · kubernetes/ingress-nginx&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes/ingress-nginx/pull/8921">feat: using LeaseLock for election. by tao12345666333 · Pull Request #8921 · kubernetes/ingress-nginx&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/kubernetes/kubernetes/pull/117034">kubectl events: Support fully qualified names for --for flag by ardaguclu · Pull Request #117034 · kubernetes/kubernetes&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;code>kubectl events&lt;/code> 的 &lt;code>--for&lt;/code> 参数可以支持带有 full name 的资源名称了。&lt;/p>
+&lt;p>举个例子：在这个 PR 之前，如果执行如下命令将会报错：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl events -n apisix --for deployment.apps/apisix-ingress
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>但是如下命令可以正常工作：&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl events -n apisix --for deployment/apisix-ingress
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>但是 &lt;code>deployment.apps/apisix-ingress&lt;/code> 和 &lt;code>deployment/apisix-ingress&lt;/code> 本质上是一样的。这个命令应该提供这样的兼容。&lt;/p>
+&lt;p>在这个 PR 中就添加了这样的支持，可以更加便于使用。&lt;/p>
+&lt;ul>
+&lt;li>kubernetes-sigs/kubefed kubefed v1 项目已经正式被归档，其实这个讨论已经很久了，只不过最近才最终完成归档。&lt;/li>
+&lt;/ul>
+&lt;h1 id="其他">其他&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/ingress-nginx/releases/tag/controller-v1.7.1">kubernetes/ingress-nginx: Ingress-NGINX Controller for Kubernetes&lt;/a> 发布了 v1.7.1 版本；&lt;/li>
+&lt;li>Docker &lt;a href="https://github.com/moby/moby/releases/tag/v24.0.0-rc.2">Release v24.0.0-rc.2 · moby/moby&lt;/a>;&lt;/li>
+&lt;li>Envoy &lt;a href="https://github.com/envoyproxy/envoy/releases/tag/v1.26.0">Release v1.26.0 · envoyproxy/envoy&lt;/a> 有一堆删除的配置和一些不兼容变更;&lt;/li>
+&lt;li>Talos &lt;a href="https://github.com/siderolabs/talos/releases/tag/v1.4.2">Release v1.4.2 · siderolabs/talos&lt;/a>;&lt;/li>
+&lt;li>Podman &lt;a href="https://github.com/containers/podman/releases/tag/v4.5.0">Release v4.5.0 · containers/podman&lt;/a>;&lt;/li>
+&lt;li>Kyma &lt;a href="https://github.com/kyma-project/kyma/releases/tag/2.13.0">Release 2.13.0 · kyma-project/kyma&lt;/a>;&lt;/li>
+&lt;li>Traefik &lt;a href="https://github.com/traefik/traefik/releases/tag/v2.10.0">Release v2.10.0 · traefik/traefik&lt;/a>;&lt;/li>
+&lt;li>Istio &lt;a href="https://github.com/istio/istio/releases/tag/1.18.0-beta.0">Release Istio 1.18.0-beta.0 · istio/istio&lt;/a>;&lt;/li>
+&lt;/ul>
+&lt;p>以上就是本周的全部内容了，我们下期再见！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>K8S 生态周报| Docker v24.0.0-beta.1 发布</title><link>https://moelove.info/2023/04/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v24.0.0-beta.1-%E5%8F%91%E5%B8%83/</link><guid isPermaLink="true">https://moelove.info/2023/04/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v24.0.0-beta.1-%E5%8F%91%E5%B8%83/</guid><pubDate>Sun, 09 Apr 2023 23:28:40 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
