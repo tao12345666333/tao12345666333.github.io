@@ -1,4 +1,182 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 09 May 2023 08:00:28 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Open Service Mesh 已停止维护，并将归档</title><link>https://moelove.info/2023/05/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Open-Service-Mesh-%E5%B7%B2%E5%81%9C%E6%AD%A2%E7%BB%B4%E6%8A%A4%E5%B9%B6%E5%B0%86%E5%BD%92%E6%A1%A3/</link><guid isPermaLink="true">https://moelove.info/2023/05/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Open-Service-Mesh-%E5%B7%B2%E5%81%9C%E6%AD%A2%E7%BB%B4%E6%8A%A4%E5%B9%B6%E5%B0%86%E5%BD%92%E6%A1%A3/</guid><pubDate>Sun, 07 May 2023 23:31:45 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 12 Jun 2023 14:40:45 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Ingress-NGINX v1.8 发布，升级前请先检查</title><link>https://moelove.info/2023/05/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Ingress-NGINX-v1.8-%E5%8F%91%E5%B8%83%E5%8D%87%E7%BA%A7%E5%89%8D%E8%AF%B7%E5%85%88%E6%A3%80%E6%9F%A5/</link><guid isPermaLink="true">https://moelove.info/2023/05/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Ingress-NGINX-v1.8-%E5%8F%91%E5%B8%83%E5%8D%87%E7%BA%A7%E5%89%8D%E8%AF%B7%E5%85%88%E6%A3%80%E6%9F%A5/</guid><pubDate>Sun, 28 May 2023 16:06:18 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>很抱歉，最近一段时间真的太忙了，写文章都断断续续的。主要在使用 Langchain 搭配 GPT-4 开发一些项目。&lt;/p>
+&lt;p>此外，在 6 月 11 日的 Gopher China 大会上我会做一个 Service Mesh 相关的分享，来参会的小伙伴欢迎来打个招呼。&lt;/p>
+&lt;h1 id="docker-v240-正式发布">Docker v24.0 正式发布&lt;/h1>
+&lt;p>Docker v23.0.0 在今年 2 月份发布，我也写了一篇 &lt;a href="https://moelove.info/2023/02/06/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v23.0.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/">K8S 生态周报| Docker v23.0.0 正式发布，带来众多新特性 | MoeLove&lt;/a> 来详细进行了介绍。&lt;/p>
+&lt;p>事实上 Docker 在 v23.0.0 之前的一个大版本是 v20.10 发布于 2020 年的 12 月份，看起来沉寂了两年多的时间，不过却也是一直在发 patch 版本，上个大版本的 patch 版本也更新到了 v20.10.25。
+&lt;strong>Docker v20.10.25 也将是 v20.10 系列的最后一个版本&lt;/strong>，不会再继续更新。&lt;/p>
+&lt;p>作为一个真正被用户采用的开源项目，在初期会不断的满足用户需求，并且也不断的有贡献者参与进来，迭代速度相对较快。 但是当大多数需求已经被满足，成为一个基础设施的时候，大多数用户会更加关注于上层的项目，比如 Kubernetes，而逐步放弃对该项目的投入。&lt;/p>
+&lt;p>目前 Docker Inc. 一直在积极发展，整体在变好，所以 Docker 社区上的投入也在逐步增加。&lt;/p>
+&lt;p>我在之前的文章 &lt;a href="https://moelove.info/2023/04/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v24.0.0-beta.1-%E5%8F%91%E5%B8%83/">K8S 生态周报| Docker v24.0.0-beta.1 发布 | MoeLove&lt;/a>
+中简要介绍过其中的一些特性，如今它终于发布了正式版！&lt;/p>
+&lt;p>以下补充一些其他值得关注的内容：&lt;/p>
+&lt;h2 id="废弃">废弃&lt;/h2>
+&lt;ul>
+&lt;li>&lt;code>--oom-score-adjust&lt;/code> 配置项被弃用，这个配置项原本是用来调整 dockerd 的 oom_score_adj 配置的，可用于避免 dockerd 在系统出现 OOM 的时候早于容器被 OOM kill，相关的内容可以在我两年前写的这篇文章中看到：&lt;a href="https://moelove.info/2021/04/18/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v20.10.6-%E5%8F%91%E5%B8%83-%E4%BF%AE%E6%AD%A3%E4%BA%86-K8S-%E4%B8%AD-dind-%E7%9A%84%E5%BC%82%E5%B8%B8%E8%A1%8C%E4%B8%BA/">K8S 生态周报| Docker v20.10.6 发布， 修正了 K8S 中 dind 的异常行为 | MoeLove&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>它的实现也比较简单，调整 &lt;code>/proc/self/oom_score_adj&lt;/code> 即可。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="kd">func&lt;/span> &lt;span class="nf">setupOOMScoreAdj&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">score&lt;/span> &lt;span class="kt">int&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="kt">error&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">score&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="nx">f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">os&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">OpenFile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;/proc/self/oom_score_adj&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">os&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">O_WRONLY&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="kc">nil&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">defer&lt;/span> &lt;span class="nx">f&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Close&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;span class="nx">stringScore&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">strconv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Itoa&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">score&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="nx">_&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nx">f&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">WriteString&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">stringScore&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="nx">os&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">IsPermission&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="k">if&lt;/span> &lt;span class="p">!&lt;/span>&lt;span class="nx">userns&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">RunningInUserNS&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;span class="nx">logrus&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Debugf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Permission denied writing %q to /proc/self/oom_score_adj&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">stringScore&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="kc">nil&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;span class="k">return&lt;/span> &lt;span class="nx">err&lt;/span>
+&lt;span class="p">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>docker info&lt;/code> 不再展示 Registry 字段了。&lt;/li>
+&lt;/ul>
+&lt;p>不知道是否有人去尝试过，如果访问这个地址其实会得到 404 响应。&lt;/p>
+&lt;pre>&lt;code>tao@moelove:~$ docker info |grep Registry
+Registry: https://index.docker.io/v1/
+&lt;/code>&lt;/pre>&lt;p>&lt;code>index.docker.io&lt;/code> 是第一个 DockerHub 的域名，也是它得第一个名称，它实际被命名为 &amp;quot;Docker Index&amp;quot;（因此是 &lt;code>index.docker.io&lt;/code>）。
+该注册表使用了注册表规范的 v1 版本，其中包括 search。&lt;/p>
+&lt;p>后来 Docker Index 变成了 DockerHub，并且注册表 v2 API 成为 OCI Distribution Spec 的基础。&lt;/p>
+&lt;p>DockerHub 注册表迁移到另一个域名（&lt;code>registry-1.docker.io&lt;/code>），但是 v2 规范（按设计）不提供搜索接口，因此这些接口仍然使用 v1 API（可在 &lt;code>https://index.docker.io/v1/search/&lt;/code> 上访问）。&lt;/p>
+&lt;p>在某个时候，Docker Engine 和 Docker CLI 代码中实现了逻辑来映射域名到其新位置（例如，对于 &lt;code>docker.io/xxxx&lt;/code> image 引用到 &lt;code>registry-1.docker .io&lt;/code> 的映射以及从 &lt;code>index.docker.io&lt;/code> 进行身份验证的映射）；&lt;/p>
+&lt;p>相同的逻辑也进入所有容器生态（containerd、cri-o、kubernetes），这意味着随着 Docker Engine 已经有超过3000万月度安装量，要更改这些内容而不破坏现有安装变得非常具有挑战性。&lt;/p>
+&lt;p>所以这些内容后来也就一直没有变化了，但是这对于用户而言，有可能会产生一些误解，干脆就不再展示了。&lt;/p>
+&lt;h1 id="kubernetes-ingress-nginx-v18-发布">Kubernetes Ingress-NGINX v1.8 发布&lt;/h1>
+&lt;p>我们在近期已经发布了 Kubernetes &lt;a href="https://github.com/kubernetes/ingress-nginx">Ingress-NGINX&lt;/a> 项目的 v1.8 版本。&lt;/p>
+&lt;p>&lt;strong>这个版本中有一个非常重要的变更需要注意&lt;/strong> ⚠️&lt;/p>
+&lt;p>请所有 Kubernetes Ingress-NGINX 的用户及管理员在升级至新版本前先进行检查。&lt;/p>
+&lt;p>为了规避我们遇到的一些 CVE 漏洞，所以我们在 ingress-nginx controller 中新增了一个配置项，用户可以选择开启该配置项，以便对 Ingress 资源进行严格校验。&lt;/p>
+&lt;p>Ingress 资源中的 &lt;code>pathType&lt;/code> 用于描述如何匹配请求路径。在 Kubernetes Ingress 中，有三种 &lt;code>pathType&lt;/code>：&lt;code>ImplementationSpecific&lt;/code>，&lt;code>Prefix&lt;/code> 和 &lt;code>Exact&lt;/code>。下面是对这三种 &lt;code>pathType&lt;/code> 的解释以及使用例子。&lt;/p>
+&lt;ol>
+&lt;li>ImplementationSpecific（实现特定）: 这是默认的 &lt;code>pathType&lt;/code>，它允许 Ingress 控制器自定义路径匹配的规则。实际的匹配规则取决于 Ingress 控制器的实现。例如，Kubernetes Ingress-NGINX 将 &lt;code>ImplementationSpecific&lt;/code> 视为 &lt;code>Prefix&lt;/code> 类型。&lt;/li>
+&lt;/ol>
+&lt;pre>&lt;code>apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+name: my-ingress
+spec:
+rules:
+- host: my-host.example.com
+http:
+paths:
+- path: /app
+pathType: ImplementationSpecific
+backend:
+service:
+name: my-service
+port:
+number: 80
+&lt;/code>&lt;/pre>&lt;p>由于 &lt;code>ImplementationSpecific&lt;/code> 的实际行为取决于 Ingress 控制器的实现，以 &lt;code>nginx-ingress-controller&lt;/code> 为例，它将 &lt;code>ImplementationSpecific&lt;/code> 视为 &lt;code>Prefix&lt;/code> 类型。因此，以下请求路径将正确路由到 &lt;code>my-service&lt;/code>：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>/app&lt;/code>&lt;/li>
+&lt;li>&lt;code>/app/&lt;/code>&lt;/li>
+&lt;li>&lt;code>/app/something&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>以下请求路径将不会被正确路由：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>/application&lt;/code>&lt;/li>
+&lt;li>&lt;code>/anotherapp&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;ol start="2">
+&lt;li>Prefix：前缀匹配&lt;/li>
+&lt;/ol>
+&lt;pre>&lt;code>apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+name: my-ingress
+spec:
+rules:
+- host: my-host.example.com
+http:
+paths:
+- path: /api
+pathType: Prefix
+backend:
+service:
+name: api-service
+port:
+number: 80
+&lt;/code>&lt;/pre>&lt;p>对于 &lt;code>Prefix&lt;/code> 类型，以下请求路径将正确路由到 &lt;code>api-service&lt;/code>：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>/api&lt;/code>&lt;/li>
+&lt;li>&lt;code>/api/&lt;/code>&lt;/li>
+&lt;li>&lt;code>/api/some-resource&lt;/code>&lt;/li>
+&lt;li>&lt;code>/api/users/123&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>以下请求路径将不会被正确路由：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>/apis&lt;/code>&lt;/li>
+&lt;li>&lt;code>/application&lt;/code>&lt;/li>
+&lt;li>&lt;code>/anotherapi&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;ol start="3">
+&lt;li>Exact：精确匹配&lt;/li>
+&lt;/ol>
+&lt;pre>&lt;code>apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+name: my-ingress
+spec:
+rules:
+- host: my-host.example.com
+http:
+paths:
+- path: /exact
+pathType: Exact
+backend:
+service:
+name: exact-service
+port:
+number: 80
+&lt;/code>&lt;/pre>&lt;p>对于 &lt;code>Exact&lt;/code> 类型，只有一个请求路径将正确路由到 &lt;code>exact-service&lt;/code>：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>/exact&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>以下请求路径将不会被正确路由：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>/exact/&lt;/code>&lt;/li>
+&lt;li>&lt;code>/exact/something&lt;/code>&lt;/li>
+&lt;li>&lt;code>/exactly&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>这些例子说明了每种 &lt;code>pathType&lt;/code> 的路径匹配行为及正确和错误的路由。在实际应用中，可以根据具体需求选择合适的 &lt;code>pathType&lt;/code>。&lt;/p>
+&lt;p>此外，正如前面提到的，不同的 ingress-controller 的实现并不完全一样。&lt;/p>
+&lt;p>比如 &lt;a href="https://github.com/apache/apisix-ingress-controller/">Apache APISIX Ingress controller&lt;/a> 默认将 &lt;code>ImplementationSpecific&lt;/code> 视为 &lt;code>Exact&lt;/code> 类型。
+这与数据面的 Apache APISIX 也是有关系的。
+在处理 &lt;code>Prefix&lt;/code> 类型的 pathType 时，创建了两个 uri 来进行兼容。&lt;/p>
+&lt;p>该版本中的其他变化影响并不是很大，有兴趣的小伙伴可以看看 &lt;a href="https://github.com/kubernetes/ingress-nginx/releases/tag/controller-v1.8.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/118013">kubeadm: add the &amp;quot;config validate&amp;quot; subcommand by neolit123 · Pull Request #118013 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>kubeadm 添加了一个 &lt;code>config validate&lt;/code> 的子命令，用于验证配置是否正确，如果有错误或者警告将会直接提示出来。
+这使得在使用 kubeadm 的时候，可以先通过此命令检查配置是否存在问题，提前进行修正。&lt;/p>
+&lt;p>此外还可以配合使用 &lt;code>kubeadm config migrate&lt;/code> 命令, 将旧版本的配置升级到新版本。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/117884">add no resources found message to rollout-status command by gxwilkerson33 · Pull Request #117884 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>修复了一个在没有任何 deployment 时，执行 &lt;code>kubectl rollout status deployment&lt;/code> 命令没有返回的 bug，
+而且执行该命令后，会一直卡住没有反应。&lt;/p>
+&lt;p>本次修复增加了对应的报错信息。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/115554">LegacyServiceAccountTokenCleanUp alpha by yt2985 · Pull Request #115554 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Bound service account tokens 在 v1.22 版本中已经 GA，并且是分配 service tokens 的当前和更安全的方式。&lt;/p>
+&lt;p>然而，旧版基于密钥的令牌的自动生成仍然可用，并且生产集群将会存储大量旧版令牌。&lt;/p>
+&lt;p>&lt;a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/2799-reduction-of-secret-based-service-account-token">KEP 2799&lt;/a> 清理了这个问题，结束了旧版令牌的自动生成。&lt;/p>
+&lt;p>这个 PR 实现了对旧版令牌进行清除，如果启用 &lt;code>LegacyServiceAccountTokenCleanUp&lt;/code> feature gate，则可以使用该功能来清除它们。到 &lt;code>v1.30&lt;/code> 左右，预计默认情况下将启用此功能。&lt;/p>
+&lt;p>感谢大家，我们下期再见！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>K8S 生态周报| Open Service Mesh 已停止维护，并将归档</title><link>https://moelove.info/2023/05/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Open-Service-Mesh-%E5%B7%B2%E5%81%9C%E6%AD%A2%E7%BB%B4%E6%8A%A4%E5%B9%B6%E5%B0%86%E5%BD%92%E6%A1%A3/</link><guid isPermaLink="true">https://moelove.info/2023/05/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Open-Service-Mesh-%E5%B7%B2%E5%81%9C%E6%AD%A2%E7%BB%B4%E6%8A%A4%E5%B9%B6%E5%B0%86%E5%BD%92%E6%A1%A3/</guid><pubDate>Sun, 07 May 2023 23:31:45 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
