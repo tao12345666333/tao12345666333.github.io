@@ -1,4 +1,58 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2023-06-12T14:40:45+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">K8S 生态周报| Ingress-NGINX v1.8 发布，升级前请先检查</title><link rel="alternate" type="text/html" href="https://moelove.info/2023/05/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Ingress-NGINX-v1.8-%E5%8F%91%E5%B8%83%E5%8D%87%E7%BA%A7%E5%89%8D%E8%AF%B7%E5%85%88%E6%A3%80%E6%9F%A5/"/><id>https://moelove.info/2023/05/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Ingress-NGINX-v1.8-%E5%8F%91%E5%B8%83%E5%8D%87%E7%BA%A7%E5%89%8D%E8%AF%B7%E5%85%88%E6%A3%80%E6%9F%A5/</id><updated>2023-06-10T01:08:01+08:00</updated><published>2023-05-28T16:06:18+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2023-06-23T05:41:39+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.84.0-DEV">Hugo</generator><entry><title type="text">k8s 生态周报| kubernetes 公布两个全版本受影响的漏洞</title><link rel="alternate" type="text/html" href="https://moelove.info/2023/06/20/k8s-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-kubernetes-%E5%85%AC%E5%B8%83%E4%B8%A4%E4%B8%AA%E5%85%A8%E7%89%88%E6%9C%AC%E5%8F%97%E5%BD%B1%E5%93%8D%E7%9A%84%E6%BC%8F%E6%B4%9E/"/><id>https://moelove.info/2023/06/20/k8s-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-kubernetes-%E5%85%AC%E5%B8%83%E4%B8%A4%E4%B8%AA%E5%85%A8%E7%89%88%E6%9C%AC%E5%8F%97%E5%BD%B1%E5%93%8D%E7%9A%84%E6%BC%8F%E6%B4%9E/</id><updated>2023-06-23T05:41:30+08:00</updated><published>2023-06-20T16:28:16+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;h1 id="kind-v0200-正式发布">KIND v0.20.0 正式发布&lt;/h1>
+&lt;p>&lt;a href="https://github.com/kubernetes-sigs/kind">KIND&lt;/a> 是我一直参与，也日常一直在使用的项目，用于快速的在本地或者 CI 环境中启动 Kubernetes 集群。&lt;/p>
+&lt;p>上周新发布的 v0.20.0 版本有很多值得关注的内容：&lt;/p>
+&lt;h2 id="breaking-changes">Breaking Changes&lt;/h2>
+&lt;p>当前 KIND 支持的最低版本的 Docker 更新到了 v20.10+ ，无论是服务器/CI 或者使用 Docker Desktop 的用户都可以比较容易的满足这个版本要求。&lt;/p>
+&lt;p>另外，如果是想要使用 KIND v0.20.0+ 版本构建 Node image 的话，要求主机是 cgroups v1 的环境， &lt;strong>这一点非常重要&lt;/strong>。比如我现在就无法在我本地用最新版来构建 Node image 了，我本地很早之前就已经设置成了默认 cgroups v2。&lt;/p>
+&lt;p>此外，默认的 Kubernetes 版本也更新到了 v1.27.3 。&lt;/p>
+&lt;p>最后，由于构建的 Node image 中 container runtime 使用的是 containerd，但是 containerd 弃用了其旧的 CRI mirrors 的配置方式，所以如果使用了 KIND 本地镜像仓库的用户 &lt;a href="https://kind.sigs.k8s.io/docs/user/local-registry/">https://kind.sigs.k8s.io/docs/user/local-registry/&lt;/a> 请更新下自己使用的脚本。其中有一个 &lt;code>config_path&lt;/code> 配置的更新。之后 KIND 应该也会逐步升级到使用 containerd v2.0 。&lt;/p>
+&lt;h2 id="新特性和其他">新特性和其他&lt;/h2>
+&lt;ul>
+&lt;li>&lt;code>kind build node-image&lt;/code> 命令中对 Kubernetes 代码仓库位置的检索逻辑做了一些修改，按如下顺序： &lt;code>$(pwd)&lt;/code>, &lt;code>${GOPATH}/src/k8s.io/kubernetes&lt;/code>, &lt;code>${GOPATH}/src/github.com/kubernetes/kubernetes&lt;/code> ；&lt;/li>
+&lt;li>runc 升级到 1.1.7, containerd 升级到 1.7.1；&lt;/li>
+&lt;/ul>
+&lt;p>此外，给 kubelet 的 systemd service 默认设置了一个 &lt;code>KillMode=process&lt;/code> 选项。这个事情我觉得比较值得聊一下：&lt;/p>
+&lt;p>&lt;code>KillMode&lt;/code> 在 systemd service 配置文件中用于指定服务停止时进程终止的方式。以下是可用的选项：&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>control-group&lt;/code>（默认值）：当服务停止时，systemd 将向整个控制组（cgroup）发送 &lt;code>SIGTERM&lt;/code> 信号，包括主进程及其所有子进程。如果在指定的超时时间内进程仍未终止，将发送 &lt;code>SIGKILL&lt;/code> 信号以强制终止它们；&lt;/li>
+&lt;li>&lt;code>process&lt;/code>：当服务停止时，systemd 仅向主进程发送 &lt;code>SIGTERM&lt;/code> 信号。子进程不会受到影响，将继续运行。 这也就是这次修改的主要内容，这样的话，主进程收到信号后可以做一些清理操作，进行优雅关闭；&lt;/li>
+&lt;li>&lt;code>mixed&lt;/code>：当服务停止时，systemd 向主进程发送 &lt;code>SIGTERM&lt;/code> 信号，如果在指定的超时时间内主进程仍未终止，将发送 SIGKILL 信号以强制终止它，即使它没有优雅关闭;&lt;/li>
+&lt;li>&lt;code>none&lt;/code>：当服务停止时，systemd 不会发送任何信号。这意味着服务进程不会被强制终止，除非它们自己检测到服务停止并执行相应的操作。这种设置可能在某些特殊情况下有用，但通常不建议使用;&lt;/li>
+&lt;/ol>
+&lt;p>对于实际的部署时，建议在 Kubelet systemd service 中加上此配置项。&lt;/p>
+&lt;h1 id="上游进展">上游进展&lt;/h1>
+&lt;h2 id="kubernetes-公布了两个新漏洞-cve-2023-2727-和-cve-2023-2728">Kubernetes 公布了两个新漏洞 CVE-2023-2727 和 CVE-2023-2728&lt;/h2>
+&lt;p>我在这里就直接把这两个一起来谈了。&lt;/p>
+&lt;p>简单来说都是绕过了 Admission plugin 的策略限制。如果对于 Kubernetes Adminssion 机制不太了解的小伙伴，可以看看我之前写的这篇 &lt;a href="https://moelove.info/2021/11/30/%E7%90%86%E6%B8%85-Kubernetes-%E4%B8%AD%E7%9A%84%E5%87%86%E5%85%A5%E6%8E%A7%E5%88%B6Admission-Controller/">理清 Kubernetes 中的准入控制（Admission Controller) | MoeLove&lt;/a>&lt;/p>
+&lt;p>具体而言，这两个漏洞触发的条件都包含了 Pod 使用 ephemeral containers(临时容器)的情况。如果通过审计日志未发现集群中使用此功能，则并未受到这两个漏洞的影响。&lt;/p>
+&lt;p>其中 CVE-2023-2727 也可以通过 &lt;a href="https://open-policy-agent.github.io/gatekeeper-library/website/validation/allowedrepos/">Allowed Repositories | Gatekeeper Library&lt;/a> 或者 &lt;a href="https://kyverno.io/policies/other/allowed-image-repos/allowed-image-repos/">Allowed Image Repositories | Kyverno&lt;/a> 来进行防护。&lt;/p>
+&lt;p>这两个漏洞影响了之前的所有版本，并在如下版本进行了修复：&lt;/p>
+&lt;ul>
+&lt;li>kube-apiserver v1.27.3&lt;/li>
+&lt;li>kube-apiserver v1.26.6&lt;/li>
+&lt;li>kube-apiserver v1.25.11&lt;/li>
+&lt;li>kube-apiserver v1.24.15&lt;/li>
+&lt;/ul>
+&lt;p>可以考虑进行升级。&lt;/p>
+&lt;h2 id="如果-cgroups-aware-oom-killer-可用时将会启用">如果 cgroups aware OOM killer 可用时将会启用&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/117793">use the cgroup aware OOM killer if available by tzneal · Pull Request #117793 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Kubernetes 在 v1.25 中对 cgroups v2 的支持达到了 GA ，可参考我之前的文章 &lt;a href="https://moelove.info/2022/08/24/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-v1.25.0-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/#cgroup-v2-%E6%94%AF%E6%8C%81%E8%BE%BE%E5%88%B0-ga">K8S 生态周报| Kubernetes v1.25.0 正式发布，新特性一览 | MoeLove&lt;/a>&lt;/p>
+&lt;p>但是在 Linux 4.19 内核中对于 cgroups v2 还添加了一个 cgroup-aware OOM killer 的支持。这个功能允许 OOM killer 杀死整个 cgroup，而不仅仅是杀死内存使用最多的进程。这可以帮助防止内存碎片化，并确保系统保持稳定。 关于 Linux 内核如何处理 OOM ，可以参考我之前的一篇文章 &lt;a href="https://zhuanlan.zhihu.com/p/104207255">Docker 容器资源管理 - 知乎&lt;/a> ，简单来说就是在 &lt;code>torvalds/linux/mm/oom_kill.c&lt;/code> 中有个 &lt;code>select_bad_process()&lt;/code> 选择所谓的 bad 进程来杀掉。&lt;/p>
+&lt;p>回过头来看看 cgroup-aware OOM killer 首先计算 cgroups 中所有进程的总内存使用量，如果总内存使用量超过了cgroups 的内存限制，则 OOM killer 将会杀死该 cgroup。&lt;/p>
+&lt;p>cgroup-aware OOM killer 还考虑了每个进程在 cgroup 中的 oom_score。oom_score 是一个指示进程被 OOM killer 杀死可能性有多大的值。具有更高 oom_score 值的进程比具有较低 oom_score 值的进程更容易被杀死。&lt;/p>
+&lt;p>通过将 &lt;code>cgroup_enable_memory_accounting&lt;/code> 内核参数设置为 1 即可启用 cgroup-aware OOM Killer 。大多数Linux发行版默认情况下启用此参数。&lt;/p>
+&lt;p>前面提到了它的好处有防止内存碎片化和确保系统保持稳定，但它也有一些可能的劣势，那就是如果整个 cgroup 被杀掉了，某些情况下可能导致数据丢失，另外，也可能导致不太好进行排查。&lt;/p>
+&lt;p>但整体来看，社区认为利大于弊，所以也就合并了这个 PR 。&lt;/p>
+&lt;p>感谢大家，我们下期再见！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">K8S 生态周报| Ingress-NGINX v1.8 发布，升级前请先检查</title><link rel="alternate" type="text/html" href="https://moelove.info/2023/05/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Ingress-NGINX-v1.8-%E5%8F%91%E5%B8%83%E5%8D%87%E7%BA%A7%E5%89%8D%E8%AF%B7%E5%85%88%E6%A3%80%E6%9F%A5/"/><id>https://moelove.info/2023/05/28/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Ingress-NGINX-v1.8-%E5%8F%91%E5%B8%83%E5%8D%87%E7%BA%A7%E5%89%8D%E8%AF%B7%E5%85%88%E6%A3%80%E6%9F%A5/</id><updated>2023-06-10T01:08:01+08:00</updated><published>2023-05-28T16:06:18+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏「k8s生态」。 大家好，我是张晋涛……</summary><content type="html">&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
