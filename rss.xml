@@ -1,4 +1,96 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Fri, 23 Jun 2023 05:41:39 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>k8s 生态周报| kubernetes 公布两个全版本受影响的漏洞</title><link>https://moelove.info/2023/06/20/k8s-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-kubernetes-%E5%85%AC%E5%B8%83%E4%B8%A4%E4%B8%AA%E5%85%A8%E7%89%88%E6%9C%AC%E5%8F%97%E5%BD%B1%E5%93%8D%E7%9A%84%E6%BC%8F%E6%B4%9E/</link><guid isPermaLink="true">https://moelove.info/2023/06/20/k8s-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-kubernetes-%E5%85%AC%E5%B8%83%E4%B8%A4%E4%B8%AA%E5%85%A8%E7%89%88%E6%9C%AC%E5%8F%97%E5%BD%B1%E5%93%8D%E7%9A%84%E6%BC%8F%E6%B4%9E/</guid><pubDate>Tue, 20 Jun 2023 16:28:16 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Thu, 06 Jul 2023 09:16:44 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>开源不等于免费：Red Hat 调整 CentOS 项目带来的思考</title><link>https://moelove.info/2023/07/05/%E5%BC%80%E6%BA%90%E4%B8%8D%E7%AD%89%E4%BA%8E%E5%85%8D%E8%B4%B9Red-Hat-%E8%B0%83%E6%95%B4-CentOS-%E9%A1%B9%E7%9B%AE%E5%B8%A6%E6%9D%A5%E7%9A%84%E6%80%9D%E8%80%83/</link><guid isPermaLink="true">https://moelove.info/2023/07/05/%E5%BC%80%E6%BA%90%E4%B8%8D%E7%AD%89%E4%BA%8E%E5%85%8D%E8%B4%B9Red-Hat-%E8%B0%83%E6%95%B4-CentOS-%E9%A1%B9%E7%9B%AE%E5%B8%A6%E6%9D%A5%E7%9A%84%E6%80%9D%E8%80%83/</guid><pubDate>Wed, 05 Jul 2023 19:14:59 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>最近关于 Red Hat，CentOS 以及开源等方面有很多讨论，每个人都有各自的观点和看法，其实在 CentOS Linux 宣布后续停止发布，推出 CentOS stream时我就想写相关内容来着，后来只是和同事们进行了一些内部交流并未成文。&lt;/p>
+&lt;p>先介绍下背景，近 10 年内我的桌面发行版主要使用 Fedora ，服务器跑的最多的是 CentOS。&lt;/p>
+&lt;p>早年我也维护着一个近 2 万人的 CentOS 社群（后来太忙就辞任了），现在我的公众号『MoeLove』的订阅者中也有一部分是因此过来的。&lt;/p>
+&lt;p>我也给 CentOS 报过 Bug，不过目前 CentOS Bug Tracker 这个网站已经访问不到了，Bug 报告已经转向到 Red Hat 的 Bugzilla 了。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2023/07/06/fSp3imPMyHxCFtO.png" alt="img">&lt;/p>
+&lt;p>翻了下邮件也有早期和别人交流的一些记录。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2023/07/06/SeAW6QdovhzrnYx.png" alt="img">&lt;/p>
+&lt;p>这些背景虽然与本文没有直接关系，但可能这是我最后一次写文章谈 CentOS 相关的内容了吧，作为我曾在这个领域中留下过的一些痕迹，也曾为 CentOS 的发展做出过一些努力。&lt;/p>
+&lt;p>&lt;strong>此外，本文所有观点仅代表个人看法，亦不构成任何&lt;strong>&lt;strong>操作系统&lt;/strong>&lt;/strong>/发行版选择的建议。&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2023/07/06/MPgxiN6DOESy9mw.png" alt="img">&lt;/p>
+&lt;p>2023 年 6 月，&lt;a href="https://www.redhat.com/en/blog/furthering-evolution-centos-stream">Red Hat 宣布了一个令许多人惊讶的决定&lt;/a>：它将不再向 git.centos.org 同步它的源 RPM（SRPM）包，也就是 Red Hat Enterprise Linux（RHEL）的源代码。这意味着，那些依赖于 git.centos.org 来构建和分发自己的 Linux 发行版的项目，如 Rocky Linux、AlmaLinux 等，将无法轻松地获取和重建 RHEL 的二进制包。Red Hat 还表示，它将继续在 git.centos.org 上发布 RHEL 的源代码，但这只与 CentOS 项目构建和发布的二进制包有关。Red Hat 解释说，这一决定是基于它对开源的承诺，以及它希望将 CentOS Stream 作为 RHEL 的上游开发平台。&lt;/p>
+&lt;p>相关通告：https://www.redhat.com/en/blog/furthering-evolution-centos-stream&lt;/p>
+&lt;p>那么，Red Hat 为什么要做出这样的决定呢？它对开源社区有什么影响呢？本文将从以下几个方面进行分析：&lt;/p>
+&lt;ul>
+&lt;li>CentOS 的起源和发展&lt;/li>
+&lt;li>Red Hat 为什么它不想让其他人轻易复制 RHEL&lt;/li>
+&lt;li>CentOS Stream 的作用&lt;/li>
+&lt;li>Rocky Linux 等社区驱动的 RHEL 替代品的优势和挑战&lt;/li>
+&lt;/ul>
+&lt;h2 id="centos-的起源和发展">CentOS 的起源和发展&lt;/h2>
+&lt;p>CentOS 的全称实际上是 &lt;strong>Community Enterprise Operating System&lt;/strong> 无论理解为『社区版的企业操作系统』，还是『企业级社区操作系统』都会发现它实际上比较奇怪，因为在多数场景下， Community 和 Enterprise 分别是代表着免费/收费的两个版本。（但这不是重点）&lt;/p>
+&lt;p>CentOS 最初是 CAOS Linux 的一个构建，CAOS Linux 是一个由 Gregory Kurtzer 在 2002 年开始的基于 RPM 的 Linux 发行版¹。2006 年，Tao Linux（另一个 RHEL 克隆版）的主要开发者 David Parsley 宣布 Tao Linux 退役，并加入到 CentOS 的开发中。&lt;/p>
+&lt;p>CentOS 的第一个版本于 2004 年 5 月发布，编号为 CentOS 2，是基于 RHEL 2.1AS 版本的。之后，CentOS 持续地跟随 RHEL 的版本更新，并逐渐成为最受欢迎的 RHEL 克隆版之一。2014 年 1 月，CentOS 宣布与 Red Hat 正式合作，但仍保持独立性，并由一个新的 CentOS 管理委员会负责。&lt;/p>
+&lt;p>发展到这个阶段的时候，其实 Red Hat 已经看到了 CentOS 带来的价值，&lt;strong>CentOS 的用户基数很大&lt;/strong>，各种资料/文档中都会写到 『CentOS 是 Red Hat 系的』，&lt;strong>为 Red Hat 带来了很多的品牌影响力&lt;/strong>，同样的也会&lt;strong>持续的进行 bug 反馈以及对上游进行贡献。&lt;/strong>&lt;/p>
+&lt;p>当然，如果仔细想来，也会发现 &lt;strong>CentOS&lt;/strong> &lt;strong>是一些想要用到&lt;/strong> &lt;strong>RHEL&lt;/strong> &lt;strong>稳定性，但是不想付费的用户的不二选择&lt;/strong>。&lt;/p>
+&lt;p>从商业的角度来看，它其实也阻碍了一些 Red Hat 的商业发展。这与大多数的开源项目/企业版的情况类似，企业需要的高阶特性会放在商业版中，而开源项目中主要是一些核心的基础能力。&lt;/p>
+&lt;p>**与其放任其发展，不如将它纳入到自己的版图中，还能更加可控一些。**当时 CentOS 加入 Red Hat 后，一些核心成员也就入职 Red Hat 了。&lt;/p>
+&lt;p>此外，这项变化带来的另一个影响就是 CentOS 可以更加方便的通过 git.centos.org 获取到 RHEL 的源码，在构建和同步等方面都将带来便利。&lt;/p>
+&lt;p>相关公告：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://lists.centos.org/pipermail/centos-announce/2014-January/020100.html">https://lists.centos.org/pipermail/centos-announce/2014-January/020100.html&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.redhat.com/en/about/press-releases/red-hat-and-centos-join-forces">https://www.redhat.com/en/about/press-releases/red-hat-and-centos-join-forces&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>2020 年 12 月，Red Hat 宣布将 CentOS Linux 转变为 CentOS Stream，一个位于 Fedora 和 RHEL 之间的滚动更新的发行版，作为 RHEL 的上游开发平台。这意味着 &lt;strong>CentOS 将不再是 RHEL 的克隆版，而是 RHEL 的预览版&lt;/strong>。这一决定引起了很多 CentOS 用户和开发者的不满和反对，认为 Red Hat 背弃了 CentOS 的初衷和使命。&lt;/p>
+&lt;p>这件事情从我前面的内容就可以很容易理解用户们为何不满，因为作为 RHEL 的克隆版代表着它的源码是经过 RHEL验证的，在稳定性方面得到了一定的保障，但转变为 RHEL 的预览版（上游）后，则变成了 RHEL 的试验场，在稳定性方面确实少了一些保障。&lt;/p>
+&lt;p>但其实对于 Red Hat 来说，即使是原先的 CentOS Linux，它也并未获得任何认证和保证，所以它的稳定性并不能认为和 RHEL 一样（印象里 Red Hat 的某篇文章中有写，我忘记了）&lt;/p>
+&lt;p>这之后就是一些下游发行版了，比如 Rocky Linux、AlmaLinux 等，它们的目标都是成为 CentOS 的替代品，成为兼具“免费”和“稳定性”的发行版，它们想要作为 RHEL 的下游进行构建和再发布。&lt;/p>
+&lt;p>本次的讨论中来自 Rocky Linux、AlmaLinux 等社区的声音也是比较多的，毕竟好不容易有了个发行版要接收 CentOS 原来的定位，并且可能已经做了从 CentOS 迁移的工作，然后 RHEL 突然发公告说构建的方式可能会变的更难了，那自然是接受不了了。&lt;/p>
+&lt;p>但是如果你阅读了上述内容，你应该会发现，下游发行版之所以能够简单的通过 git.centos.org 获取到 re-build 所需的源码包等内容，这其实是因为 CentOS 成为了 Red Hat 的一部分，这些便利是 Red Hat 提供的。现在 Red Hat 所做的无非是把这个便捷的通道给取消掉了，让下游发行版重新构建变的更难了一点。（这在很多年前也不是没有经历过）而且也仍然遵守开源协议会提供其源码（需要通过登陆 portal 获得）。&lt;/p>
+&lt;p>所以，&lt;strong>我的看法是&lt;/strong> &lt;strong>Red Hat&lt;/strong> &lt;strong>本身并未违反&lt;strong>&lt;strong>开源协议&lt;/strong>&lt;/strong>，只不过这确实增加了一些人的工作复杂度。&lt;/strong>&lt;/p>
+&lt;h2 id="red-hat-为什么不想让其他人轻易复制-rhel">Red Hat 为什么不想让其他人轻易复制 RHEL&lt;/h2>
+&lt;p>Red Hat 是一家以开源软件为核心的商业公司，本文中聊的主要产品是 RHEL，一款面向企业级用户的 Linux 操作系统。RHEL 现在是基于开源项目 Fedora 和 CentOS Stream 开发的，它遵循 GPL 等开源协议，也就是说，它必须公开自己的源代码，并允许任何人修改和分发。那么，Red Hat 是如何赚钱的呢？&lt;/p>
+&lt;p>Red Hat 的商业模式并不是靠出售软件本身，而是靠提供软件的订阅服务，包括技术支持、安全更新、认证、培训等。这些服务对于企业级用户来说是非常有价值的，因为它们可以保证软件的稳定性、安全性和可靠性，以及与其他软件和硬件的兼容性。Red Hat 还通过与各种合作伙伴和客户建立良好的关系，来推广自己的软件和服务。&lt;/p>
+&lt;p>此外，对于 RHEL 也有着很长的支持时间，Red Hat 会持续的将上游 &amp;amp; 安全更新 backport 到 RHEL 中，让即使发布很久的版本也能享受到一些新的特性，比如容器时代，大家可能接触最多的 CentOS 7 携带的 3.10 版本的内核就包含了很多上游内核中不包含的特性了。&lt;/p>
+&lt;p>然而，Red Hat 的商业模式也面临着一个挑战：由于 RHEL 的源代码是公开的，任何人都可以基于它来构建和分发自己的 Linux 发行版，而不需要支付给 Red Hat 任何费用。这些发行版被称为 RHEL 的克隆或重构版（rebuilds），它们通常只是将 Red Hat 的商标和徽标去掉，并做一些细微的修改。这些发行版可以吸引那些不愿意或不能负担 Red Hat 订阅服务费用的用户，从而削弱了 Red Hat 的市场份额和收入。（这就是我上面提到的包括 CentOS 在内的下游发行版了）不过也不可否认，通过这些下游发行版实际上发展了一个比较大的生态。&lt;/p>
+&lt;p>Red Hat 当然不希望这种情况发生，但它也不能违反 GPL 等开源协议来阻止其他人使用 RHEL 的源代码。因此，Red Hat 采取了一些措施来保护自己的利益，比如：像前面提到的，让 CentOS 团队加入 Red Hat；比如本次的，不再直接推送到 git.centos.org 等。&lt;/p>
+&lt;p>对于社区的各种不满和反对的声音 Red Hat 为此做出了一些回应和解释，比如：&lt;/p>
+&lt;ul>
+&lt;li>Red Hat 坚持遵守 GPL 等开源协议，它没有阻止或禁止任何人使用 RHEL 的源代码，只是改变了发布的方式和格式。&lt;/li>
+&lt;li>Red Hat 为 RHEL 投入了大量的时间、精力和资源，它有权利保护自己的商业模式和收入来源，而不是让其他人轻易地复制和利用。&lt;/li>
+&lt;li>Red Hat 通过 CentOS Stream 等项目，为开源社区提供了一个与 RHEL 紧密合作的机会，让社区成员可以参与到 RHEL 的开发和创新中。&lt;/li>
+&lt;/ul>
+&lt;p>相关公告：https://www.redhat.com/en/blog/red-hats-commitment-open-source-response-gitcentosorg-changes&lt;/p>
+&lt;h2 id="centos-stream-的作用">CentOS Stream 的作用&lt;/h2>
+&lt;p>CentOS Stream 是一个新的 Linux 发行版，它是由 CentOS 项目团队与 Red Hat 共同开发的。CentOS Stream 的目标是成为 RHEL 的上游开发平台，也就是说，它是 RHEL 的未来版本的预览版。CentOS Stream 与 RHEL 的关系可以用下图来表示：&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2023/07/06/h9ZUJyVsHmrM6Bk.png" alt="img">&lt;/p>
+&lt;p>从图中可以看出，CentOS Stream 位于 Fedora 和 RHEL 之间，它既接收 Fedora 中最新的软件包和功能，又向 RHEL 提供经过测试和稳定的软件包和功能。CentOS Stream 与传统的 CentOS Linux 不同，后者是基于已经发布的 RHEL 版本来构建的。CentOS Stream 是一个滚动更新（rolling release）的发行版，也就是说，它不会有固定的版本号或发布周期，而是会持续地接收更新和改进。&lt;/p>
+&lt;p>那么，CentOS Stream 有什么好处呢？它如何帮助 Red Hat 和 RHEL 的用户呢？&lt;/p>
+&lt;p>对于 Red Hat 来说，CentOS Stream 可以帮助它：&lt;/p>
+&lt;ul>
+&lt;li>加快 RHEL 的开发速度和质量。通过 CentOS Stream，Red Hat 可以更早地将 Fedora 中的新功能引入到 RHEL 中，并在社区中进行测试和反馈。这样可以提高 RHEL 的稳定性、安全性和兼容性，并减少出现 bug 和漏洞的可能性。&lt;/li>
+&lt;li>增强与社区的合作和沟通。通过 CentOS Stream，Red Hat 可以更好地与社区分享自己的开发计划和路线图，并邀请社区成员参与到 RHEL 的创新中。这样可以增加社区对 Red Hat 和 RHEL 的信任和支持，并吸引更多的贡献者和用户。&lt;/li>
+&lt;li>减少与克隆版的竞争和冲突。通过 CentOS Stream，Red Hat 可以让 RHEL 的克隆版无法直接复制 RHEL 的二进制包，而必须从 CentOS Stream 中获取源代码并自行构建。这样可以增加 RHEL 的克隆版的难度和成本，并降低它们的吸引力和优势。&lt;/li>
+&lt;/ul>
+&lt;p>对于 RHEL 的用户来说，CentOS Stream 可以帮助他们：&lt;/p>
+&lt;ul>
+&lt;li>预览和体验 RHEL 的未来版本。通过 CentOS Stream，RHEL 的用户可以更早地了解和尝试 RHEL 的新功能和改进，并根据自己的需求和场景进行测试和评估。这样可以帮助他们更好地规划和准备 RHEL 的升级和迁移。&lt;/li>
+&lt;li>反馈和影响 RHEL 的开发方向。通过 CentOS Stream，RHEL 的用户可以更方便地向 Red Hat 提供自己的意见和建议，并参与到 RHEL 的开发和创新中。这样可以让他们更有话语权和参与感，并提高 RHEL 的满意度和忠诚度。&lt;/li>
+&lt;li>享受更多的选择和灵活性。通过 CentOS Stream，RHEL 的用户可以根据自己的喜好和需求，选择使用稳定的 RHEL 版本，或者使用更新的 CentOS Stream 版本，或者同时使用两者。这样可以让他们更自由地控制自己的操作系统，并适应不同的环境和应用。&lt;/li>
+&lt;/ul>
+&lt;p>对于软硬件供应商而言，也有一定的好处，由于 CentOS Stream 使用 Red Hat Bugzilla 最终 bug 及反馈，这些厂商们可以更早，更快的测试其兼容性，并直接将相关问题反馈到 CentOS Stream 中。对应的修复，有可能直接会在下一个 RHEL 的 bugfix 版本中出现。&lt;/p>
+&lt;p>至于对于一般用户而言，是否有好处呢？我目前尚不确定。&lt;/p>
+&lt;p>就我个人而言，我会坚持使用 Fedora，因为我需要更新的版本和功能来进行测试，对于其中可能包含的实验性特性是在我的预期范围内的，出现问题也可以进行修正。但我尚未看到让我去使用 CentOS Stream 的理由。&lt;/p>
+&lt;h2 id="rocky-linux-等社区驱动的-rhel-替代品的优势和挑战">Rocky Linux 等社区驱动的 RHEL 替代品的优势和挑战&lt;/h2>
+&lt;p>Rocky Linux 是一个由社区驱动的 Linux 发行版，它的目标是成为 RHEL 的兼容替代品，也就是说，它是基于 RHEL 的源代码来构建的，与 RHEL 具有相同或相近的功能和性能。Rocky Linux 是由 CentOS 项目的创始人之一 Greg Kurtzer 发起的，它是对 Red Hat 调整 CentOS 项目的一种回应和抗议。除了 Rocky Linux 之外，还有其他一些类似的项目，如 AlmaLinux，它们都试图填补 Red Hat 和 CentOS 项目留下的空白。&lt;/p>
+&lt;p>那么，Rocky Linux 和 AlmaLinux 等社区驱动的 RHEL 替代品有什么优势呢？它们又面临着什么挑战呢？&lt;/p>
+&lt;p>对于开源社区来说，Rocky Linux 等社区驱动的 RHEL 替代品可以带来以下优势：&lt;/p>
+&lt;ul>
+&lt;li>维护开源软件的自由和多样性。通过 Rocky Linux ，AlmaLinux等社区驱动的 RHEL 替代品，开源社区可以保持对 RHEL 源代码的访问和使用权利，并根据自己的愿望和目标来构建和分发自己的 Linux 发行版。这样可以防止 Red Hat 对 RHEL 源代码进行垄断或限制，并促进开源软件的发展和创新。&lt;/li>
+&lt;li>提供更多的选择和可能性。通过 Rocky Linux ，AlmaLinux等社区驱动的 RHEL 替代品，开源社区可以提供更多的 Linux 发行版给不同类型的用户，比如那些不愿意或不能支付 Red Hat 订阅服务费用的用户，或者那些对 Red Hat 和 CentOS Stream 不满意或不信任的用户。这样可以满足不同用户的需求和期望，并增加开源软件的普及和推广。&lt;/li>
+&lt;/ul>
+&lt;p>然而，Rocky Linux 和 AlmaLinux 等社区驱动的 RHEL 替代品也面临着以下挑战：&lt;/p>
+&lt;ul>
+&lt;li>缺乏足够的资源和支持。与 Red Hat 不同，Rocky Linux 等社区驱动的 RHEL 替代品没有稳定的收入来源和商业模式，它们主要依靠社区的捐赠和志愿者的贡献来维持运作。这意味着，它们可能难以获得足够的资金、人力和设备来构建、测试和发布自己的 Linux 发行版，并提供相应的技术支持、安全更新、认证等服务。这可能影响它们的质量和可靠性，并让用户感到不安和不满。&lt;/li>
+&lt;li>难以跟上 RHEL 的发展和变化。由于 Red Hat 对 git.centos.org 的改变，Rocky Linux 等社区驱动的 RHEL 替代品无法直接获取和重构 RHEL 的二进制包，而必须从 CentOS Stream 中获取源代码并自行构建。这意味着，它们可能难以及时跟进 RHEL 的最新版本和补丁，并保持与 RHEL 的兼容性和一致性。这可能影响它们的安全性和稳定性，并让用户感到困惑和不便。&lt;/li>
+&lt;li>当然，目前无论是 Rocky Linux 还是 AlmaLinux 等都在探索如何以更低成本 &amp;amp; 合规的方式继续进行 re-build。其中一种可能是使用&lt;a href="https://www.redhat.com/en/blog/introducing-red-hat-universal-base-image"> Red Hat UBI&lt;/a> , 或者启动 RHEL 云实例等。目前尚无定论，但肯定比之前 CentOS Linux 存在的时候麻烦了一些。&lt;/li>
+&lt;/ul>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>Red Hat 对 git.centos.org 的改变，是一个具有重大意义的事件，它对开源社区产生了深远的影响。一方面，Red Hat 通过这一决策，保护了自己的商业利益和市场地位，并推动了 RHEL 的开发和创新。另一方面，Red Hat 也引起了开源社区的不满和反对，并激发了 Rocky Linux 和 AlmaLinux 等社区驱动的 RHEL 替代品的诞生和发展。&lt;/p>
+&lt;p>在这个事件中，我们可以看到开源软件的两面性：&lt;strong>开源不等于免费，也不等于无限制&lt;/strong>。开源软件是一种基于协作和共享的软件开发模式，它既有利于软件的质量和创新，也有利于软件的普及和推广。但是，开源软件也需要遵循一定的规则和协议，比如 GPL 等开源协议，它们既保护了软件作者的权利和利益，也保护了软件用户的自由和权利。&lt;/p>
+&lt;p>因此，我们应该正确地理解和尊重开源软件的价值和意义，既要支持和鼓励开源软件的发展和创新，也要遵守和维护开源软件的规则和协议。只有这样，我们才能真正享受到开源软件带来的好处和乐趣。&lt;/p>
+&lt;p>在当前的整体形式下，这类事情可能也还会发生，合规是其中的底线，至于其他的部分，见仁见智吧。&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/OpenSource/">OpenSource</category></item><item><title>k8s 生态周报| kubernetes 公布两个全版本受影响的漏洞</title><link>https://moelove.info/2023/06/20/k8s-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-kubernetes-%E5%85%AC%E5%B8%83%E4%B8%A4%E4%B8%AA%E5%85%A8%E7%89%88%E6%9C%AC%E5%8F%97%E5%BD%B1%E5%93%8D%E7%9A%84%E6%BC%8F%E6%B4%9E/</link><guid isPermaLink="true">https://moelove.info/2023/06/20/k8s-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-kubernetes-%E5%85%AC%E5%B8%83%E4%B8%A4%E4%B8%AA%E5%85%A8%E7%89%88%E6%9C%AC%E5%8F%97%E5%BD%B1%E5%93%8D%E7%9A%84%E6%BC%8F%E6%B4%9E/</guid><pubDate>Tue, 20 Jun 2023 16:28:16 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
