@@ -1,4 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Thu, 06 Jul 2023 09:16:44 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>开源不等于免费：Red Hat 调整 CentOS 项目带来的思考</title><link>https://moelove.info/2023/07/05/%E5%BC%80%E6%BA%90%E4%B8%8D%E7%AD%89%E4%BA%8E%E5%85%8D%E8%B4%B9Red-Hat-%E8%B0%83%E6%95%B4-CentOS-%E9%A1%B9%E7%9B%AE%E5%B8%A6%E6%9D%A5%E7%9A%84%E6%80%9D%E8%80%83/</link><guid isPermaLink="true">https://moelove.info/2023/07/05/%E5%BC%80%E6%BA%90%E4%B8%8D%E7%AD%89%E4%BA%8E%E5%85%8D%E8%B4%B9Red-Hat-%E8%B0%83%E6%95%B4-CentOS-%E9%A1%B9%E7%9B%AE%E5%B8%A6%E6%9D%A5%E7%9A%84%E6%80%9D%E8%80%83/</guid><pubDate>Wed, 05 Jul 2023 19:14:59 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Thu, 13 Jul 2023 09:39:43 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>k8s 生态周报| Istio 正式成为 CNCF 毕业项目</title><link>https://moelove.info/2023/07/13/k8s-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Istio-%E6%AD%A3%E5%BC%8F%E6%88%90%E4%B8%BA-CNCF-%E6%AF%95%E4%B8%9A%E9%A1%B9%E7%9B%AE/</link><guid isPermaLink="true">https://moelove.info/2023/07/13/k8s-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Istio-%E6%AD%A3%E5%BC%8F%E6%88%90%E4%B8%BA-CNCF-%E6%AF%95%E4%B8%9A%E9%A1%B9%E7%9B%AE/</guid><pubDate>Thu, 13 Jul 2023 05:32:57 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>就在昨天 &lt;strong>Istio 正式成为 CNCF 毕业项目了&lt;/strong> ！
+这是 Istio 发展过程中的一个重要的里程碑。&lt;/p>
+&lt;p>这篇文章我将快速回顾下 Istio 的发展历程以及它的一些主要特性。Istio 大概是我除了 Kubernetes 和 Docker 外写的相关内容最多的了，我也有幸在 Istio Con 做过分享。&lt;/p>
+&lt;p>Istio 的发展历程是这样的：&lt;/p>
+&lt;p>Istio 项目由 Google、IBM 和 Lyft 在 2017 年开源，结合了这三家公司在生产环境中运行多语言应用程序栈的经验。它的主要目标是简化云原生环境中微服务的管理，安全和可观测性。它一开始就是构筑在 Kubernetes 之上的。并且在 2018 年发布了 v1.0 版本，标志着它正式生产可用。&lt;/p>
+&lt;p>Istio 最初的架构中包含控制面和数据面，其中数据平面使用 Envoy 作为服务代理，控制平面由多个组件组成，包括 Pilot、Mixer、Citadel 和 Galley 等，但是这些组件经常遭到诟病。后来在 2020 年 3 月发布的 v1.5 版本中将这些组件进行了统一，成为 &lt;code>istiod&lt;/code> 。我在 &lt;a href="https://moelove.info/2020/03/08/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v19.03.7-%E5%8F%91%E5%B8%83/#istio-v150-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83">K8S 生态周报| Docker v19.03.7 发布 | MoeLove&lt;/a> 进行过介绍：&lt;/p>
+&lt;p>原先是这样&lt;/p>
+&lt;p>&lt;img src="https://developer.ibm.com/developer/blogs/istio-15-release/images/istio14.jpg" alt="istio before v1.5">&lt;/p>
+&lt;p>统一后成为 istiod，就清晰很多了。&lt;/p>
+&lt;p>&lt;img src="https://developer.ibm.com/developer/blogs/istio-15-release/images/istio15.jpg" alt="istio v1.0">&lt;/p>
+&lt;p>在 2020 年 5 月发布的 Istio 1.6 版本中，除去移除了一些不再需要的内容外，还增加了目前使用最为广泛的 &lt;code>istio install&lt;/code> 命令，也添加了 Istio 自身的金丝雀更新支持，相关内容也可以看 &lt;a href="https://moelove.info/2020/05/24/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-v19.03.9-%E5%8F%91%E5%B8%83/#istio-16-%E6%AD%A3%E5%BC%8F%E5%8F%91%E5%B8%83">K8S 生态周报| Docker v19.03.9 发布 | MoeLove&lt;/a>&lt;/p>
+&lt;p>到了 2020 年 7 月还发生了一件大事情，Google 宣布成立新组织 &lt;a href="https://openusage.org/">Open Usage Commons（OUC）&lt;/a> ，并将 Istio，Angular，Gerrit Code Review 三个项目的商标转移给它。&lt;/p>
+&lt;p>但是这一行为遭到了社区和其他公司的反对，其中也包括 Istio 最初的创始公司 IBM 也发文进行了反对。直到 2022 年 4 月份，Istio 申请成为 CNCF 孵化项目，到 10 月份正式成为 CNCF 孵化项目，并将相关商标等转移至 Linux 基金会，至此 Istio 真正成为 CNCF 治理下的项目。相关内容我也在 &lt;a href="https://moelove.info/2022/10/09/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Prometheus-%E6%96%B0%E7%89%88%E6%9C%AC%E5%86%85%E5%AD%98%E7%94%A8%E9%87%8F%E5%A4%A7%E5%B9%85%E5%BA%A6%E4%BC%98%E5%8C%96/">K8S 生态周报| Prometheus 新版本内存用量大幅度优化！ | MoeLove&lt;/a> 写过。&lt;/p>
+&lt;p>再后来就是 2023 年初 Istio 发布 v1.17 增加了双栈支持，并且在 v1.17 发布后，将新的 Ambient 模式合并进入了主线，并在 v1.18 中进行了发布。
+详细内容可参考 &lt;a href="https://moelove.info/2023/02/19/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Cilium-%E5%92%8C-Istio-%E7%9A%84%E6%96%B0%E7%89%88%E6%9C%AC%E5%B8%A6%E6%9D%A5%E4%BC%97%E5%A4%9A%E6%96%B0%E7%89%B9%E6%80%A7/">K8S 生态周报| Cilium 和 Istio 的新版本带来众多新特性 | MoeLove&lt;/a>&lt;/p>
+&lt;p>在 Istio v1.18 中发布的 Istio Ambient 模式于 2022 年 9 月在实验分支中推出，引入了一种新的数据平面模式，可以在没有 sidecar 的情况下使用 Istio。
+Istio 社区通过与 Google、Solo.io、Microsoft、Intel、Aviatrix、华为、IBM 等合作，这是 Ambient service mesh 的重要里程碑！&lt;/p>
+&lt;p>Ambient service mesh 旨在简化操作、扩大应用兼容性，并降低基础设施成本。
+Ambient 的最终目标是对应用程序透明化，并对 ztunnel 和 waypoint 组件进行了一些更改，使其更简单、更轻量化。&lt;/p>
+&lt;p>在 v1.18 中还带来了以下主要特性：&lt;/p>
+&lt;ul>
+&lt;li>ztunnel 组件已从头开始进行了重写，以提高其速度、安全性和轻量化。请参阅&lt;a href="https://istio.io/latest/blog/2023/rust-based-ztunnel/">《Introducing Rust-Based Ztunnel for Istio Ambient Service Mesh》&lt;/a> 以获取更多信息。&lt;/li>
+&lt;li>简化了 waypoint 代理的配置，以提高其可调试性和性能。&lt;/li>
+&lt;li>添加了 &lt;code>istioctl x waypoint&lt;/code> 命令，以帮助用户方便地部署 waypoint 代理，以及 &lt;code>istioctl pc workload&lt;/code> 命令，以帮助用户查看工作负载信息。&lt;/li>
+&lt;li>让用户能够明确绑定 Istio 策略，例如 AuthorizationPolicy，到 waypoint 代理而不是选择目标工作负载。&lt;/li>
+&lt;/ul>
+&lt;p>详细内容可参考 &lt;a href="https://moelove.info/2023/02/27/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Kubernetes-In-place-Pod-%E5%9E%82%E7%9B%B4%E4%BC%B8%E7%BC%A9%E7%9A%84%E5%8A%9F%E8%83%BD%E5%B7%B2%E5%90%88%E5%B9%B6/">K8S 生态周报| Kubernetes In-place Pod 垂直伸缩的功能已合并 | MoeLove&lt;/a>&lt;/p>
+&lt;p>此外就是在 2023 年 5 月份， Open Service Mesh 宣布停止维护，并进行归档。Microsoft 将加入 Istio 社区，共同发展 Istio。
+&lt;a href="https://moelove.info/2023/05/07/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Open-Service-Mesh-%E5%B7%B2%E5%81%9C%E6%AD%A2%E7%BB%B4%E6%8A%A4%E5%B9%B6%E5%B0%86%E5%BD%92%E6%A1%A3/">K8S 生态周报| Open Service Mesh 已停止维护，并将归档 | MoeLove&lt;/a>&lt;/p>
+&lt;p>以上就是 Istio 的主要发展历程，其实从上述内容也可以看到，几乎 Istio 每个里程碑和相关大事件都有在 「K8S 生态周报」 进行介绍了。&lt;/p>
+&lt;p>如今 Istio 成为 CNCF 毕业项目，意味着 Istio 也会继续引领服务网格发展方向。期待它的后续发展。&lt;/p>
+&lt;p>我们下期再见！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category><category domain="https://moelove.info/tags/Istio/">Istio</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category></item><item><title>开源不等于免费：Red Hat 调整 CentOS 项目带来的思考</title><link>https://moelove.info/2023/07/05/%E5%BC%80%E6%BA%90%E4%B8%8D%E7%AD%89%E4%BA%8E%E5%85%8D%E8%B4%B9Red-Hat-%E8%B0%83%E6%95%B4-CentOS-%E9%A1%B9%E7%9B%AE%E5%B8%A6%E6%9D%A5%E7%9A%84%E6%80%9D%E8%80%83/</link><guid isPermaLink="true">https://moelove.info/2023/07/05/%E5%BC%80%E6%BA%90%E4%B8%8D%E7%AD%89%E4%BA%8E%E5%85%8D%E8%B4%B9Red-Hat-%E8%B0%83%E6%95%B4-CentOS-%E9%A1%B9%E7%9B%AE%E5%B8%A6%E6%9D%A5%E7%9A%84%E6%80%9D%E8%80%83/</guid><pubDate>Wed, 05 Jul 2023 19:14:59 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>最近关于 Red Hat，CentOS 以及开源等方面有很多讨论，每个人都有各自的观点和看法，其实在 CentOS Linux 宣布后续停止发布，推出 CentOS stream时我就想写相关内容来着，后来只是和同事们进行了一些内部交流并未成文。&lt;/p>
 &lt;p>先介绍下背景，近 10 年内我的桌面发行版主要使用 Fedora ，服务器跑的最多的是 CentOS。&lt;/p>
 &lt;p>早年我也维护着一个近 2 万人的 CentOS 社群（后来太忙就辞任了），现在我的公众号『MoeLove』的订阅者中也有一部分是因此过来的。&lt;/p>
