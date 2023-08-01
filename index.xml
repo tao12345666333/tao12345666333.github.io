@@ -1,4 +1,113 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 01 Aug 2023 07:59:17 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Istio 正式成为 CNCF 毕业项目</title><link>https://moelove.info/2023/07/13/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Istio-%E6%AD%A3%E5%BC%8F%E6%88%90%E4%B8%BA-CNCF-%E6%AF%95%E4%B8%9A%E9%A1%B9%E7%9B%AE/</link><guid isPermaLink="true">https://moelove.info/2023/07/13/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Istio-%E6%AD%A3%E5%BC%8F%E6%88%90%E4%B8%BA-CNCF-%E6%AF%95%E4%B8%9A%E9%A1%B9%E7%9B%AE/</guid><pubDate>Thu, 13 Jul 2023 05:32:57 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.84.0-DEV https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 01 Aug 2023 10:57:44 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>跨平台日历同步：使用 CalDAV 和 Radicale 打造个人日历云服务</title><link>https://moelove.info/2023/07/29/%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%97%A5%E5%8E%86%E5%90%8C%E6%AD%A5%E4%BD%BF%E7%94%A8-CalDAV-%E5%92%8C-Radicale-%E6%89%93%E9%80%A0%E4%B8%AA%E4%BA%BA%E6%97%A5%E5%8E%86%E4%BA%91%E6%9C%8D%E5%8A%A1/</link><guid isPermaLink="true">https://moelove.info/2023/07/29/%E8%B7%A8%E5%B9%B3%E5%8F%B0%E6%97%A5%E5%8E%86%E5%90%8C%E6%AD%A5%E4%BD%BF%E7%94%A8-CalDAV-%E5%92%8C-Radicale-%E6%89%93%E9%80%A0%E4%B8%AA%E4%BA%BA%E6%97%A5%E5%8E%86%E4%BA%91%E6%9C%8D%E5%8A%A1/</guid><pubDate>Sat, 29 Jul 2023 16:11:46 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>前段时间，群里有小伙伴提出想听听我在&amp;quot;时间管理&amp;quot;方面的一些经验，可惜一直没能抽出时间来分享。于是乎，我决定干脆写一篇博客来详细介绍一下吧。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2023/08/01/ARVKwImkXTzjQEl.jpg" alt="chat">&lt;/p>
+&lt;p>在我看来，&amp;quot;时间管理&amp;quot;可以分为两个核心部分，分别是：&lt;/p>
+&lt;ul>
+&lt;li>日程管理&lt;/li>
+&lt;li>任务管理&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>日程管理&lt;/strong> 主要涉及到那些有计划的事件，例如会议、各类行程、直播、家庭活动等。这类事件通常是提前规划好的，并且有明确的开始和结束时间。虽然偶尔也会遇到一些不确定因素，如改期或者超时等。但在大多数情况下，我们仍然能够清楚地知道在某个时间段需要完成什么任务，而且这些时间节点通常是无法更改的。在后续安排其他事情的时候，需要尽量避开这些时间段，以免冲突。&lt;/p>
+&lt;p>&lt;strong>任务管理&lt;/strong> 则主要是一系列的待办事项，这些事情有优先级，有目标，有 deadline 等。
+可能有多个来源，比如工作，社区，一些合作等。
+但是这些任务的执行并不像固定日程那样，有明确的时间段，可能会根据任务的难度，目标，优先级之类的进行一些调整。
+如果想要知道自己在哪些任务上的耗时，就搭配个时间追踪工具即可。&lt;/p>
+&lt;p>我在这篇中会主要介绍我在日程管理上的经验，
+至于任务管理，因为它涉及的内容太多，我就之后再写一篇吧。&lt;/p>
+&lt;h2 id="集中式日程管理">集中式日程管理&lt;/h2>
+&lt;p>日程通常具备排他性，日程安排时需要尽量避免出现冲突，所以集中式的日程管理是非常有必要的。&lt;/p>
+&lt;p>我的日程来源有很多种，比如公司在用 Feishu 日历，社区中在用 Google 日历，一些的其他会议活动可能会安排在各类会议软件中，
+比如我经常参与线上的直播都在用腾讯会议之类的。还有一些私人邮箱中的活动，以及一些研讨会，或者 Conference 会有自己单独的日历。&lt;/p>
+&lt;p>另一方面，我希望能及时的收到日程提醒，所以不能完全依赖于电脑，移动设备是刚需。其实我更依赖的是 Apple Watch，因为我手机是常年静音（看不看的到随缘了），
+手表上有日程提醒的话，更容易看到。&lt;/p>
+&lt;p>所以我的集中式日程管理就选择了 &lt;strong>用 iOS 的系统日历&lt;/strong> 了，电脑上的话直接 Thunderbird 做集成。&lt;/p>
+&lt;p>iOS 的系统日历中想要查看 Feishu 和 Google 日历都还是比较简单的，在 设置 - 账户 中，添加账户或者订阅日历就可以。以下是参考文档：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://support.google.com/calendar/answer/99358?hl=en&amp;amp;co=GENIE.Platform%3DiOS&amp;amp;oco=1">Add Google Calendar events to Apple Calendar - iPhone &amp;amp; iPad - Google Calendar Help&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.feishu.cn/hc/zh-CN/articles/360043178673-%E4%B8%AA%E4%BA%BA%E7%94%A8%E6%88%B7%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AE%E6%9C%AC%E5%9C%B0%E7%B3%BB%E7%BB%9F%E6%97%A5%E5%8E%86%E5%88%B0%E9%A3%9E%E4%B9%A6%E6%97%A5%E5%8E%86%E7%9A%84%E5%8D%95%E5%90%91%E5%90%8C%E6%AD%A5">个人用户如何设置本地系统日历到飞书日历的单向同步&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>但对于我来说，还缺少一些不在这两个系统内的日程，幸好 iOS 的日历支持添加 CalDAV 账户，所以这就是解决问题的关键了。Thunderbird 也同样支持。&lt;/p>
+&lt;h2 id="选择-caldav-server">选择 CalDAV server&lt;/h2>
+&lt;p>先来聊下 CalDAV 是什么。&lt;/p>
+&lt;p>CalDAV（Calendar Distributed Authoring and Versioning）是一种基于 WebDAV 协议的网络日历访问协议，允许用户在不同设备和应用程序之间访问、管理和共享日历数据。CalDAV 主要使用 iCalendar（iCal）格式来存储和传输日历信息。&lt;/p>
+&lt;p>CalDAV的主要作用包括：&lt;/p>
+&lt;ul>
+&lt;li>跨设备和应用程序同步日历数据：CalDAV 协议使得用户能够在多个设备（如手机、平板和电脑）和不同的日历应用程序之间同步日历数据，从而实现统一的日程管理。&lt;/li>
+&lt;li>多用户日历共享和协作：CalDAV 支持多用户之间的日历共享，允许多用户查看和编辑彼此的日程安排，便于提升协作效率。&lt;/li>
+&lt;li>与现有的日历应用程序兼容：许多流行的日历应用程序，如 Google Calendar、Apple Calendar 和 Microsoft Outlook 等，都支持 CalDAV 协议。这意味着用户可以在不更换日历应用程序的情况下使用 CalDAV 功能。&lt;/li>
+&lt;li>支持离线访问和修改：CalDAV 允许用户在离线状态下访问和修改日历数据，当设备重新连接到互联网时，所有更改将自动同步到服务器和其他设备上。&lt;/li>
+&lt;/ul>
+&lt;p>所以我只要有一个支持 CalDAV 的 server，并在其他的地方将日程写入，就可以直接在手机上查看这些日程了。&lt;/p>
+&lt;p>关于 CalDAV server 的选择有很多，我随便搜了下 &lt;a href="https://tasks.org/docs/caldav_intro/">CalDAV | Tasks.org&lt;/a>&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2023/07/29/si7mxjNZPvIotnr.png" alt="CalDAV server">&lt;/p>
+&lt;p>对我而言主要考虑如下方面：&lt;/p>
+&lt;ul>
+&lt;li>需要能满足我的需求，可以用其他支持 CalDAV 的客户端进行订阅；&lt;/li>
+&lt;li>尽可能轻量，因为我的目标很清晰，对其他功能没依赖；&lt;/li>
+&lt;li>可以支持认证鉴权，为了让自己更轻松，日历中通常会包含很多关键信息，我不想让信息泄漏；&lt;/li>
+&lt;/ul>
+&lt;p>经过一番对比，我最终选择了 &lt;a href="https://radicale.org/v3.html">Radicale&lt;/a> 作为我的 CalDAV Server 。&lt;/p>
+&lt;h2 id="radicale">Radicale&lt;/h2>
+&lt;p>Radicale 是一个用 Python 开发的 CalDAV 和 CardDAV server，主要有如下功能:&lt;/p>
+&lt;ul>
+&lt;li>支持通过 CalDAV、CardDAV 和 HTTP 进行分享；&lt;/li>
+&lt;li>支持认证鉴权；&lt;/li>
+&lt;li>开箱即用；&lt;/li>
+&lt;li>可以通过 plugin 进行扩展；&lt;/li>
+&lt;li>支持绝对多数的 client；&lt;/li>
+&lt;li>直接通过文件存储，无需额外依赖；&lt;/li>
+&lt;li>GPLv3 授权的开源软件&lt;/li>
+&lt;/ul>
+&lt;p>事实上它的使用很简单，直接执行如下命令就可以启动了。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">python3 -m pip install --upgrade radicale
+python3 -m radicale --storage-filesystem-folder&lt;span class="o">=&lt;/span>~/.var/lib/radicale/collections
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>但如果想要把服务暴露到公网的时候，建议把认证打开，上面默认的启动方法是不开认证的。&lt;/p>
+&lt;p>我之前是直接通过把它作为一个 systemd service 运行的，官方文档中也有示例。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-ini" data-lang="ini">&lt;span class="k">[Unit]&lt;/span>
+&lt;span class="na">Description&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">A simple CalDAV (calendar) and CardDAV (contact) server&lt;/span>
+&lt;span class="na">After&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">network.target&lt;/span>
+&lt;span class="na">Requires&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">network.target&lt;/span>
+&lt;span class="k">[Service]&lt;/span>
+&lt;span class="na">ExecStart&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">/usr/bin/env python3 -m radicale&lt;/span>
+&lt;span class="na">Restart&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">on-failure&lt;/span>
+&lt;span class="na">User&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">radicale&lt;/span>
+&lt;span class="c1"># Deny other users access to the calendar data&lt;/span>
+&lt;span class="na">UMask&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">0027&lt;/span>
+&lt;span class="c1"># Optional security settings&lt;/span>
+&lt;span class="na">PrivateTmp&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">true&lt;/span>
+&lt;span class="na">ProtectSystem&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">strict&lt;/span>
+&lt;span class="na">ProtectHome&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">true&lt;/span>
+&lt;span class="na">PrivateDevices&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">true&lt;/span>
+&lt;span class="na">ProtectKernelTunables&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">true&lt;/span>
+&lt;span class="na">ProtectKernelModules&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">true&lt;/span>
+&lt;span class="na">ProtectControlGroups&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">true&lt;/span>
+&lt;span class="na">NoNewPrivileges&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">true&lt;/span>
+&lt;span class="na">ReadWritePaths&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">/var/lib/radicale/collections&lt;/span>
+&lt;span class="k">[Install]&lt;/span>
+&lt;span class="na">WantedBy&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">multi-user.target&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>不过前段时间迁机房，我顺手把它改容器化的方式部署了。有兴趣的小伙伴可以看下，仓库地址是 &lt;a href="https://github.com/tao12345666333/radicale">https://github.com/tao12345666333/radicale&lt;/a>&lt;/p>
+&lt;p>可以先写一个配置文件 &lt;code>radicale.ini&lt;/code>，其中 &lt;code>[auth]&lt;/code> 和 &lt;code>[rights]&lt;/code> 部分是进行认证和鉴权，可以参考文档进行修改 &lt;a href="https://radicale.org/v3.html#authentication-and-rights">Radicale: Authentication and Rights&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-ini" data-lang="ini">&lt;span class="k">[server]&lt;/span>
+&lt;span class="na">hosts&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">0.0.0.0:5232&lt;/span>
+&lt;span class="k">[auth]&lt;/span>
+&lt;span class="na">type&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">htpasswd&lt;/span>
+&lt;span class="na">htpasswd_filename&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">/radicale/users&lt;/span>
+&lt;span class="na">htpasswd_encryption&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">md5&lt;/span>
+&lt;span class="k">[rights]&lt;/span>
+&lt;span class="na">type&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">from_file&lt;/span>
+&lt;span class="na">file&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">/radicale/rights.ini&lt;/span>
+&lt;span class="k">[storage]&lt;/span>
+&lt;span class="na">filesystem_folder&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s">/radicale/collections&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后使用如下命令启动即可。&lt;/p>
+&lt;div class="highlight">&lt;pre class="chroma">&lt;code class="language-bash" data-lang="bash">docker run --restart unless-stopped -d -p 127.0.0.1:5232:5232 -v &lt;span class="nv">$PWD&lt;/span>:/radicale ghcr.io/tao12345666333/radicale:v23.07.16 python3 -m radicale --config&lt;span class="o">=&lt;/span>/radicale/radicale.ini
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>使用 Kubernetes 部署的话也同样，配置文件写入 ConfigMap，注意把数据文件挂载 volume 进行持久化。&lt;/p>
+&lt;p>最后在 iOS 的设置 - 日历 - 账户 中添加账户即可，电脑上的话，我使用 Thunderbird 直接添加日历即可。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2023/07/30/dk9tagoqJs1RyML.jpg" alt="ios CalDAV">&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>日程管理相对来说比较简单，有集中式管理会比较方便，避免安排出现冲突。
+我的一些活动类日程可能提前一两周甚至一两个月就确定下了，邮件确认后直接添加进日历，全平台进行同步。&lt;/p>
+&lt;p>当然，Radicale 除了支持日历外，还支持 task 和通过 CalDAV 同步联系人，有需要的小伙伴也可以自行探索下。&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category></item><item><title>K8S 生态周报| Istio 正式成为 CNCF 毕业项目</title><link>https://moelove.info/2023/07/13/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Istio-%E6%AD%A3%E5%BC%8F%E6%88%90%E4%B8%BA-CNCF-%E6%AF%95%E4%B8%9A%E9%A1%B9%E7%9B%AE/</link><guid isPermaLink="true">https://moelove.info/2023/07/13/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Istio-%E6%AD%A3%E5%BC%8F%E6%88%90%E4%B8%BA-CNCF-%E6%AF%95%E4%B8%9A%E9%A1%B9%E7%9B%AE/</guid><pubDate>Thu, 13 Jul 2023 05:32:57 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
