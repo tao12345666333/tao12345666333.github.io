@@ -1,4 +1,303 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.120.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Thu, 23 Nov 2023 11:38:51 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>KubeVirt 探秘：一些核心问题解答</title><link>https://moelove.info/2023/09/03/KubeVirt-%E6%8E%A2%E7%A7%98%E4%B8%80%E4%BA%9B%E6%A0%B8%E5%BF%83%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94/</link><guid isPermaLink="true">https://moelove.info/2023/09/03/KubeVirt-%E6%8E%A2%E7%A7%98%E4%B8%80%E4%BA%9B%E6%A0%B8%E5%BF%83%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94/</guid><pubDate>Sun, 03 Sep 2023 02:24:49 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.120.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 27 Nov 2023 10:19:09 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>Gateway API 将是 Kubernetes 中流量管理的未来吗？</title><link>https://moelove.info/2023/11/26/Gateway-API-%E5%B0%86%E6%98%AF-Kubernetes-%E4%B8%AD%E6%B5%81%E9%87%8F%E7%AE%A1%E7%90%86%E7%9A%84%E6%9C%AA%E6%9D%A5%E5%90%97/</link><guid isPermaLink="true">https://moelove.info/2023/11/26/Gateway-API-%E5%B0%86%E6%98%AF-Kubernetes-%E4%B8%AD%E6%B5%81%E9%87%8F%E7%AE%A1%E7%90%86%E7%9A%84%E6%9C%AA%E6%9D%A5%E5%90%97/</guid><pubDate>Sun, 26 Nov 2023 22:53:58 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;blockquote>
+&lt;p>因为前段时间家人生病住院 &amp;amp; 我换了份工作。所以断更了一段时间，后续就会逐步恢复更新了。&lt;/p>
+&lt;/blockquote>
+&lt;p>最近在 Kubernetes 生态中比较大的事情就是 KubeCon NA 2023 成功举办了，会上有很多不错的内容，也有很多重磅消息。目前会议的相关视频已经全部上传完成， 感兴趣的小伙伴可以通过 &lt;a href="https://sourl.cn/xTUCvn">https://sourl.cn/xTUCvn&lt;/a> 观看。&lt;/p>
+&lt;p>这其中就包括了本篇文章的主角： &lt;strong>Gateway API 发布了 v1.0 版本，正式 GA！&lt;/strong>&lt;/p>
+&lt;p>在聊 Gateway API 能否成为 Kubernetes 中流量管理的未来这个话题前，我先来介绍一些背景。&lt;/p>
+&lt;p>Kubernetes 中的流量管理实际上分为两个主要的部分：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>南北向流量&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>东西向流量&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;h2 id="南北向流量管理">南北向流量管理&lt;/h2>
+&lt;p>在 Kubernetes 场景中的 &lt;strong>南北向流量&lt;/strong> 主要指从集群外到集群内的流量，客户端想要访问部署在 Kubernetes 集群中的服务时，
+需要将集群内的服务暴露出来，最常用的方式就是通过 NodePort 或 LoadBalancer 类型的 Service。&lt;/p>
+&lt;p>这两种方式相对来说都比较简单，但是如果用户有很多服务需要暴露到集群外，通过使用这些方式就会浪费很多的端口（NodePort）或者浪费很多 IP（Loadbalancer），
+而且由于 Service 的 API 在设计时定位相对清晰，并不包含一些 LB 或者网关的能力，比如根据域名进行代理，或者认证，鉴权等能力，所以如果仅仅通过 Service 来将
+集群内服务暴露出去的话，就很不合理了。&lt;/p>
+&lt;p>基于上述的考虑，社区在 2015 年 &lt;a href="https://github.com/kubernetes/kubernetes/blob/7d6c8b640f2e90cf2347fb46ef4cf46cd3280015/pkg/apis/experimental/types.go#L467-L542">Kubernetes v1.1 版本时就增加了 Ingress 这种内置的资源/API&lt;/a>，可以看到它的定义是非常简单的，对于每个 Ingress 资源，仅仅能指定 Host, Path 以及应用的 Service，Port 和协议。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// An Ingress is a way to give services externally-reachable urls. Each Ingress is a
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// collection of rules that allow inbound connections to reach the endpoints defined by
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// a backend.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">type&lt;/span> &lt;span class="nx">Ingress&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">unversioned&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">TypeMeta&lt;/span> &lt;span class="s">`json:&amp;#34;,inline&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Standard object&amp;#39;s metadata.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#metadata
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">v1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ObjectMeta&lt;/span> &lt;span class="s">`json:&amp;#34;metadata,omitempty&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Spec is the desired state of the Ingress.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#spec-and-status
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">Spec&lt;/span> &lt;span class="nx">IngressSpec&lt;/span> &lt;span class="s">`json:&amp;#34;spec,omitempty&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Status is the current state of the Ingress.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// More info: http://releases.k8s.io/HEAD/docs/devel/api-conventions.md#spec-and-status
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">Status&lt;/span> &lt;span class="nx">IngressStatus&lt;/span> &lt;span class="s">`json:&amp;#34;status,omitempty&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// IngressSpec describes the Ingress the user wishes to exist.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">type&lt;/span> &lt;span class="nx">IngressSpec&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// TODO: Add the ability to specify load-balancer IP just like what Service has already done?
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// A list of rules used to configure the Ingress.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// http://&amp;lt;host&amp;gt;:&amp;lt;port&amp;gt;/&amp;lt;path&amp;gt;?&amp;lt;searchpart&amp;gt; -&amp;gt; IngressBackend
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// Where parts of the url conform to RFC 1738.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">Rules&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="nx">IngressRule&lt;/span> &lt;span class="s">`json:&amp;#34;rules&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// IngressRule represents the rules mapping the paths under a specified host to the related backend services.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">type&lt;/span> &lt;span class="nx">IngressRule&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Host is the fully qualified domain name of a network host, or its IP
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// address as a set of four decimal digit groups separated by &amp;#34;.&amp;#34;.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// Conforms to RFC 1738.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">Host&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`json:&amp;#34;host,omitempty&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Paths describe a list of load-balancer rules under the specified host.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">Paths&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="nx">IngressPath&lt;/span> &lt;span class="s">`json:&amp;#34;paths&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// IngressPath associates a path regex with an IngressBackend.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Incoming urls matching the Path are forwarded to the Backend.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">type&lt;/span> &lt;span class="nx">IngressPath&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Path is a regex matched against the url of an incoming request.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">Path&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="s">`json:&amp;#34;path,omitempty&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Define the referenced service endpoint which the traffic will be forwarded to.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">Backend&lt;/span> &lt;span class="nx">IngressBackend&lt;/span> &lt;span class="s">`json:&amp;#34;backend&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// IngressBackend describes all endpoints for a given Service, port and protocol.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">type&lt;/span> &lt;span class="nx">IngressBackend&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Specifies the referenced service.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">ServiceRef&lt;/span> &lt;span class="nx">v1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">LocalObjectReference&lt;/span> &lt;span class="s">`json:&amp;#34;serviceRef&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Specifies the port of the referenced service.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">ServicePort&lt;/span> &lt;span class="nx">util&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">IntOrString&lt;/span> &lt;span class="s">`json:&amp;#34;servicePort,omitempty&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Specifies the protocol of the referenced service.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">Protocol&lt;/span> &lt;span class="nx">v1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Protocol&lt;/span> &lt;span class="s">`json:&amp;#34;protocol,omitempty&amp;#34;`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这对于大多数场景来说，只是达到了 &lt;strong>基本可用&lt;/strong> 的状态，但没有包含其他常规的功能（比如根据 Request Header/Method 进行匹配，或者 Path Rewrite 等）。&lt;/p>
+&lt;p>此外，Ingress 也仅仅是一套 API 规范，是一种资源。想要让它生效还需要有 Controller 来支持。&lt;/p>
+&lt;h3 id="ingress-是如何工作的">Ingress 是如何工作的&lt;/h3>
+&lt;p>&lt;img src="https://s2.loli.net/2023/11/26/hRbXKVsaOvl7tAF.png" alt="How does Ingress work">&lt;/p>
+&lt;p>上文提到 Ingress 是一种资源，用户在 Kubernetes 集群中创建 Ingress 资源后，需要经历一系列的过程：&lt;/p>
+&lt;ul>
+&lt;li>AuthZ/AuthN 认证鉴权；&lt;/li>
+&lt;li>Admission Controller：这其中比较典型的是 Mutating Admission 和 Validating Admission，对这部分感兴趣的小伙伴可以查看我之前的文章 &lt;a href="https://moelove.info/2021/11/30/%E7%90%86%E6%B8%85-Kubernetes-%E4%B8%AD%E7%9A%84%E5%87%86%E5%85%A5%E6%8E%A7%E5%88%B6Admission-Controller/">理清 Kubernetes 中的准入控制（Admission Controller) | MoeLove&lt;/a>&lt;/li>
+&lt;li>通过上述所有步骤后，Ingress 资源才能真正写入 etcd 进行存储；&lt;/li>
+&lt;/ul>
+&lt;p>但是 Kubernetes 在引入 Ingress 资源的时候，并没有像 Deployment、Pod 等资源那样，一并实现其对应的 Controller。&lt;/p>
+&lt;p>所以它需要有一个 Ingress controller 存在，将 Ingress 资源中定义的规则翻译成数据面可以识别的配置，并在数据面上生效。这样才能为客户端请求提供服务，当前仅列在 Kubernetes 官方文档中的 Ingress controller 实现就有 30 种 &lt;a href="https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/">https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/&lt;/a>&lt;/p>
+&lt;p>同时，由于 Ingress API 只定义了有限的内容，它的表现力不够，为了满足不同场景下的需求，各个 Ingress controller 实现的时候，只好通过创建自己的 CRD（Custom Resource Definition）或者通过为 Ingress 资源增加 annotations 的方式来实现对应的需求，以 &lt;a href="https://github.com/kubernetes/ingress-nginx">Kubernetes Ingress-NGINX 项目&lt;/a>为例：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">networking.k8s.io/v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Ingress&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">annotations&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nginx.ingress.kubernetes.io/use-regex&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;true&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nginx.ingress.kubernetes.io/rewrite-target&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/$2&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">rewrite&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">namespace&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">default&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">ingressClassName&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">nginx&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">host&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">rewrite.bar.com&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">http&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">paths&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/something(/|$)(.*)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">pathType&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ImplementationSpecific&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">backend&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">service&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">http-svc&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">port&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">number&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">80&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>想要实现 Rewrite &lt;code>rewrite.bar.com/something/new&lt;/code> 到 &lt;code>rewrite.bar.com/new&lt;/code> 的操作，就需要为 Ingress 资源添加对应的 annotations 才能实现。而且目前 Kubernetes Ingress-NGINX 项目为了满足不同场景下的需求，已经有 130+ 的 annotation 存在了。&lt;/p>
+&lt;p>此外，目前这些 Ingress controller 为了实现其各自需求，彼此之间的 annotations 并不兼容， &lt;strong>用户想要在两套不同的 Ingress Controller 间进行迁移是非常困难的&lt;/strong>。&lt;/p>
+&lt;h2 id="东西向流量管理">东西向流量管理&lt;/h2>
+&lt;p>接下来聊聊 Kubernetes 中的东西向流量。&lt;/p>
+&lt;p>在 Kubernetes 场景中的 &lt;strong>东西向流量&lt;/strong> 主要指集群内服务内彼此之间的流量，主要是服务之间的调用管理。
+通常情况下，我们可以选择用 Service 来完成。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2023/11/26/yxTHN86lX2vOdAz.png" alt="How does service work">&lt;/p>
+&lt;p>集群内的应用，通过 Service 最终将请求发送到目标 Pod 中。&lt;/p>
+&lt;p>但我们也知道通常情况下集群内的 Service 使用的是 Overlay 网络，它存在一定的性能损耗。所以某些场景下，我们并不希望通过 Service 来访问其他的 Pod，而是希望能直接拿到对应的 Pod IP 进行直连。&lt;/p>
+&lt;p>这种场景下，Service 作用可以认为只是一个 DNS name， 或者说自动化管理 endpoint/endpointslices 等资源/信息的组件。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">➜ ~ kubectl get svc
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">NAME TYPE CLUSTER-IP EXTERNAL-IP PORT&lt;span class="o">(&lt;/span>S&lt;span class="o">)&lt;/span> AGE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">kubernetes ClusterIP 10.43.0.1 &amp;lt;none&amp;gt; 443/TCP 9d
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">➜ ~ kubectl get endpoints
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">NAME ENDPOINTS AGE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">kubernetes 131.83.127.119:6443 9d
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">➜ ~ kubectl get endpointslices
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">NAME ADDRESSTYPE PORTS ENDPOINTS AGE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">kubernetes IPv4 &lt;span class="m">6443&lt;/span> 131.83.127.119 9d
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>当然，在涉及到 Kubernetes 集群内东西向流量管理的时候，我们很容易想到例如 Istio/Linkerd/Kuma 等服务网格的项目，这些项目都是通过创建自己的 CRD 来完成东西向流量管理的。
+例如如下是 Kuma 的一个 TrafficRoute 的配置，可以完成东西向流量的切割。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">kuma.io/v1alpha1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">TrafficRoute&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">mesh&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">default&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">api-split&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">sources&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">match&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">kuma.io/service&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">frontend_default_svc_80&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">destinations&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">match&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">kuma.io/service&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">backend_default_svc_80&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">conf&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">http&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">match&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">prefix&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;/api&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">split&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">weight&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">90&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">destination&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">kuma.io/service&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">backend_default_svc_80&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;1.0&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">weight&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">10&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">destination&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">kuma.io/service&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">backend_default_svc_80&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;2.0&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">destination&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># default rule is applied when endpoint does not match any rules in http section&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">kuma.io/service&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">backend_default_svc_80&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;1.0&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>各个实现之间的配置也互相不兼容，虽然功能差异性并不大，但导致了用户想要进行迁移的时候，可能出现迁移困难的情况。&lt;/p>
+&lt;p>聊完了 Kubernetes 中的流量管理，我们简单总结一下：&lt;/p>
+&lt;ul>
+&lt;li>Kubernetes 中的南北向流量尽管制定了规范 Ingress，但由于该资源的表达能力弱，不同的厂商在实现的时候，彼此互不兼容，迁移成本很高；&lt;/li>
+&lt;li>Kubernetes 中的东西向流量管理，并未制定任何规范，各个厂商需要声明各自的 CRD 以满足需求。但同样的，也彼此互不兼容。&lt;/li>
+&lt;/ul>
+&lt;h2 id="gateway-api-是什么">Gateway API 是什么&lt;/h2>
+&lt;h3 id="gateway-api-为何会出现">Gateway API 为何会出现&lt;/h3>
+&lt;p>2018 年 Kubernetes 社区做的一项统计，调查用户的 Ingress 资源中包含多少为了实现特定需求而增加的 annotations。
+从结果上可以看到只有 8% 的用户没有额外添加 annotations。尽管后来我们没有再做这方面的调查，但我们一直也是根据用户的需求、反馈来持续增加 annotations 功能的，
+现在这个没有额外添加 annotations 的用户比例大概会下降很多。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2023/11/26/l6KTqZad2GNYrCw.png" alt="Do you use annotations in Ingress">&lt;/p>
+&lt;p>同时，可以看到将近 85% 的用户期望 Ingress 可以具备良好的移植性。这样用户在不同的环境、集群中就可以更容易的采用相同配置进行处理了。
+而且相比于更具备表达能力而言，用户更希望的还是可以具备移植性。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2023/11/26/wtKD6NqQo8SHylY.png" alt="Ingress to be portable">
+&lt;img src="https://s2.loli.net/2023/11/26/eiGjOpB2cyawPf6.png" alt="Expressive versus portable">&lt;/p>
+&lt;p>从整个调研结果来看，用户对于 Ingress API 的情况是：很多人都再用，但改进点还有很多。&lt;/p>
+&lt;p>所以在 2019 年圣地亚哥 KubeCon 大会上，来自 Kubernetes Networking Special Interest Group (SIG Network) 的很多人共同商量讨论了
+Ingress 的现状，用户需求等相关内容，并达成一致要启动 Gateway API 规范的制定。具体背后的故事可以参考 &lt;a href="https://konghq.com/blog/engineering/gateway-api-from-early-years-to-ga">Gateway API: From Early Years to GA&lt;/a>&lt;/p>
+&lt;h3 id="gateway-api-的现状">Gateway API 的现状&lt;/h3>
+&lt;p>由于在设计 Gateway API 的时候，Ingress 资源已经存在了 4 年时间，并且收到了很多用户真实环境的反馈。基于这些经验，设计出的 Gateway API 有如下特点：&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2023/11/26/xL7b1zRwfgkTZy8.png" alt="Gateway API Model">&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>面向角色&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>Gateway API 的设计是面向角色的，具体而言：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>GatewayClass&lt;/code>: 这是由基础设施供应商提供/配置的，可用于定义一些和基础设施相关的能力，例如下面的配置就定义了使用哪个 controller 来完成这些能力，可使用的 IP 地址池有哪些。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">gateway.networking.k8s.io/v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">GatewayClass&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">internet&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">controllerName&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;example.net/gateway-controller&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">parametersRef&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">group&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">example.net/v1alpha1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Config&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">internet-gateway-config&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">example.net/v1alpha1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Config&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">internet-gateway-config&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">ip-address-pool&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">internet-vips&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>Gateway&lt;/code>: 这个是由集群运维来管理的，可以定义一些 Gateway 自身相关的能力，例如监听哪些端口，支持哪些协议等；
+例如下面的配置就定义了一个只监听 80 端口，支持 HTTP 协议的 Kong Gateway 。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">gateway.networking.k8s.io/v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Gateway&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">kong-http&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">gatewayClassName&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">kong&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">listeners&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">proxy&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">port&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">80&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">protocol&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">HTTP&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;code>HTTPRoute&lt;/code>/&lt;code>TCPRoute&lt;/code>/&lt;code>*Route&lt;/code> : 路由规则可以由应用开发者进行管理和发布，因为应用开发知道应用需要暴露出哪些端口，访问路径，以及需要 Gateway 配合哪些功能等。
+例如下面的配置就定义了 client 带前缀 &lt;code>/echo&lt;/code> 访问时，请求将会被发送到 &lt;code>echo&lt;/code> Service 的 1027 端口。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">gateway.networking.k8s.io/v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">HTTPRoute&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">echo&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">parentRefs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">kong&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">matches&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">PathPrefix&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">value&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/echo&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">backendRefs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">echo&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Service&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">port&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">1027&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>而且，我们可以看到，这个配置中没有任何和 provider 有关的内容，那么它的移植性是非常好的，无论是在不同的环境之间进行迁移，
+还是在不同的 Ingress Controller 之间进行迁移都会很方便。&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>表现力更强&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>Gateway API 相比于 Ingress 具有更强的表现力，也就是说通过它原生在 spec 中定义的内容，就可以达到预期的效果，而不需要像 Ingress 资源那样添加 annotations 进行辅助。&lt;/p>
+&lt;p>正如我前面介绍 Ingress 时提到的 rewrite 的需求，在 Gateway API 的 HTTPRoute 资源中可以使用如下方式进行表示。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">gateway.networking.k8s.io/v1beta1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">HTTPRoute&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">http-filter-rewrite&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">hostnames&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">rewrite.example&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">filters&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">URLRewrite&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">urlRewrite&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">hostname&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">elsewhere.example&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ReplacePrefixMatch&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">replacePrefixMatch&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/fennel&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">backendRefs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">example-svc&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">weight&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">port&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">80&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>&lt;strong>可扩展&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>GatewayAPI 在设计的时候，预留了一些可以进行扩展的点，例如以下的配置，可以在 &lt;code>spec.parametersRef&lt;/code> 中关联到任意的自定义资源，从而实现更为复杂的需求。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">gateway.networking.k8s.io/v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">GatewayClass&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">internet&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">controllerName&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;example.net/gateway-controller&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">parametersRef&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">group&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">example.net/v1alpha1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Config&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">internet-gateway-config&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">example.net/v1alpha1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Config&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">internet-gateway-config&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">ip-address-pool&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">internet-vips&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>总的来说， &lt;strong>Gateway API 就是一套基于角色，更富有表现力，和可扩展性的规范&lt;/strong>。由于它的这些特点，也使得 Gateway API 的配置可以更具备可移植性，在不同的 provider 中进行迁移会更加简单。&lt;/p>
+&lt;h2 id="gateway-api-会是-kubernetes-中流量管理的未来吗">Gateway API 会是 Kubernetes 中流量管理的未来吗？&lt;/h2>
+&lt;p>Gateway API 最近正式 GA，但达到 GA 的也只有 &lt;code>GatewayClass&lt;/code>，&lt;code>Gateway&lt;/code>， &lt;code>HTTPRoute&lt;/code> 这三个资源，还有很多其他已经定义但尚处于 beta 阶段的资源，所以目前可以认为它主要能满足一些常规的 L7 的需求。&lt;/p>
+&lt;p>GAMMA(Gateway API for Service Mesh) 也还在持续演进中，用于定义如何使用 Gateway API 来管理 Kubernetes 中东西向的流量。&lt;/p>
+&lt;p>按照目前 Kubernetes 的发展和社区的演进来看，Gateway API 是下一代 Kubernetes 流量管理的规范。&lt;/p>
+&lt;p>而且我个人认为，不会再出现其他用来取代 Gateway API 的规范了。&lt;/p>
+&lt;p>此外，社区中也有一个想法是希望借助 Gateway API 来简化本文中提到多次的 Service API，以此来简化 Service API 的维护成本。&lt;/p>
+&lt;p>让我们拭目以待！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>KubeVirt 探秘：一些核心问题解答</title><link>https://moelove.info/2023/09/03/KubeVirt-%E6%8E%A2%E7%A7%98%E4%B8%80%E4%BA%9B%E6%A0%B8%E5%BF%83%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94/</link><guid isPermaLink="true">https://moelove.info/2023/09/03/KubeVirt-%E6%8E%A2%E7%A7%98%E4%B8%80%E4%BA%9B%E6%A0%B8%E5%BF%83%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94/</guid><pubDate>Sun, 03 Sep 2023 02:24:49 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>上一篇文章 &lt;a href="https://moelove.info/2023/09/01/%E8%80%97%E6%97%B6-7-%E5%B9%B4%E7%BB%88%E5%B0%86%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B8%A6%E5%85%A5-Kubernetes-%E4%B8%96%E7%95%8C/">KubeVirt: 耗时 7 年终将虚拟机带入 Kubernetes 世界 | MoeLove&lt;/a> 发布后，我收到了很多留言和讨论。
 限于篇幅，很多回答都比较简短，我想着还是写篇文章来详细聊聊关于 KubeVirt 的一些问题好了。&lt;/p>
 &lt;h2 id="为什么要用-kubevirt">为什么要用 KubeVirt&lt;/h2>
