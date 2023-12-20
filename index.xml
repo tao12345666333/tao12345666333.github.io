@@ -1,4 +1,123 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.120.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 11 Dec 2023 13:25:33 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>Kubernetes v1.29 新特性一览</title><link>https://moelove.info/2023/12/10/Kubernetes-v1.29-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</link><guid isPermaLink="true">https://moelove.info/2023/12/10/Kubernetes-v1.29-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</guid><pubDate>Sun, 10 Dec 2023 01:37:40 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.120.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Wed, 20 Dec 2023 20:46:08 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Docker 收购了 Testcontainers 背后的公司</title><link>https://moelove.info/2023/12/17/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-%E6%94%B6%E8%B4%AD%E4%BA%86-Testcontainers-%E8%83%8C%E5%90%8E%E7%9A%84%E5%85%AC%E5%8F%B8/</link><guid isPermaLink="true">https://moelove.info/2023/12/17/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-%E6%94%B6%E8%B4%AD%E4%BA%86-Testcontainers-%E8%83%8C%E5%90%8E%E7%9A%84%E5%85%AC%E5%8F%B8/</guid><pubDate>Sun, 17 Dec 2023 22:45:18 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+&lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>接近年底了，上游各个项目都在积极发布今年的最后一个版本，争取兑现年初立下的 flag。我们来看看最近有哪些值得关注的内容。&lt;/p>
+&lt;h2 id="kubernetes-v129-正式发布">Kubernetes v1.29 正式发布&lt;/h2>
+&lt;p>&lt;strong>Kubernetes v1.29 是 2023 年的第三个大版本更新，也是今年的最后一个大版本，包含了 49 项主要的更新。&lt;/strong> 这个版本中有 19 个增强功能正在进入 Alpha 阶段，19 个将升级到 Beta 阶段，而另外 11 个则将升级到稳定版。&lt;/p>
+&lt;p>我已经在上一篇文章中进行了详细的介绍，感兴趣的小伙伴推荐阅读：
+&lt;a href="https://moelove.info/2023/12/10/Kubernetes-v1.29-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/">Kubernetes v1.29 新特性一览 | MoeLove&lt;/a>&lt;/p>
+&lt;h2 id="docker-inc-收购了-atomicjar">Docker Inc. 收购了 AtomicJar&lt;/h2>
+&lt;p>今年是 Docker 的十周年，自从几年前 Docker Inc. 将自己的企业服务出售给 Mirantis，并专注在开发者服务上之后，
+Docker Inc. 的发展路线清晰了很多，并且今年也是各种大动作不断。&lt;/p>
+&lt;p>主要包括几个类型：&lt;/p>
+&lt;h3 id="收购">收购&lt;/h3>
+&lt;ul>
+&lt;li>上半年收购了 Mutagen，这是一个比较知名的开源项目，它的主要作用是为远程开发提供更快的文件同步和网络转发。开发人员可以不修改自己的任何使用习惯，仅仅通过使用 Mutagen 就完成从本地开发到远程开发模式的切换；&lt;/li>
+&lt;li>最近收购了 Atomicjar，提到这家公司可能没有多少人知道。这个公司其实也是去年为了商业化刚成立，它的主要项目叫做 &lt;a href="https://github.com/testcontainers/">Testcontainers&lt;/a>。这个项目大概有将近 8 年的历史，它是一套统一的开发框架，对各类测试中常规的需求进行了封装和抽象，用户可以非常简单的进行调用，进而完成测试所需的一切内容，而无需自己额外开发。&lt;/li>
+&lt;/ul>
+&lt;p>我很早前就开始在用这个项目了，非常方便。以下是我们在 &lt;a href="https://github.com/kong/kubernetes-ingress-controller">kong/kubernetes-ingress-controller&lt;/a> 项目中使用它的一段示例代码。&lt;/p>
+&lt;p>可以看到，它进行了一系列的抽象，还是很实用的。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// HTTPBin represents a docker container running the `kong/httpbin`.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">type&lt;/span> &lt;span class="nx">HTTPBin&lt;/span> &lt;span class="kd">struct&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">container&lt;/span> &lt;span class="nx">testcontainers&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Container&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// NewHTTPBin spawns a docker container running the `kong/httpbin` which can be used for proxy routing testing.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">func&lt;/span> &lt;span class="nf">NewHTTPBin&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span> &lt;span class="nx">context&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Context&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">t&lt;/span> &lt;span class="o">*&lt;/span>&lt;span class="nx">testing&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">T&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="nx">HTTPBin&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">port&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">nat&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NewPort&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">strconv&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Itoa&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">test&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">HTTPBinPort&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">require&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NoError&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">t&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">req&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">testcontainers&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ContainerRequest&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Image&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">test&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">HTTPBinImage&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">ExposedPorts&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[]&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="nf">MappedLocalPort&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">t&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">port&lt;/span>&lt;span class="p">)},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">WaitingFor&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">wait&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">ForListeningPort&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">port&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">httpBinC&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="nx">testcontainers&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">GenericContainer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">testcontainers&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">GenericContainerRequest&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">ContainerRequest&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">req&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Started&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">require&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NoError&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">t&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">err&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">t&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Cleanup&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">func&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">assert&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">NoError&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">t&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">httpBinC&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nf">Terminate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ctx&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">HTTPBin&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">container&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="nx">httpBinC&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>上述的两个收购，共同点 &lt;strong>都是为了便于开发者进行开发和测试，而且都是知名的开源项目&lt;/strong>。&lt;/p>
+&lt;p>同时 Mutagen 还可以协助 Docker Desktop 优化其系统的性能，Atomicjar 则可以覆盖更多的客户。&lt;/p>
+&lt;h3 id="产品特性">产品特性&lt;/h3>
+&lt;ul>
+&lt;li>Docker Compose v1 将被废弃并移除，全面使用 Compose v2。用户使用的命令将变更为 &lt;code>docker compose&lt;/code> 而非之前的 &lt;code>docker-compose&lt;/code>；&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://s2.loli.net/2023/12/18/cbiApJEU9l8veI4.png" alt="image-20231218120931990">&lt;/p>
+&lt;ul>
+&lt;li>Docker v24.0 系列版本和 v25.0 系列版本（尚未 GA）相继发布；&lt;/li>
+&lt;li>Docker Scout 正式 GA， 提供了解决软件供应链等安全相关问题的工具；&lt;/li>
+&lt;li>提供了多种语言的 &lt;code>docker init&lt;/code> 支持，便于新手入门；&lt;/li>
+&lt;/ul>
+&lt;h3 id="生态">生态&lt;/h3>
+&lt;ul>
+&lt;li>AI/ML 领域：Docker 与 DataStax 和 Hugging Face 等相继达成合作，共同致力于通过 Docker 为开发者在 AI、LLM 等方面，提供便捷；&lt;/li>
+&lt;li>借助 Docker Desktop 的 Extension 机制，和众多项目、社区达成了合作；&lt;/li>
+&lt;/ul>
+&lt;p>总体来看，我觉得 Docker Inc. 只要保持住当前的势头继续发展，应该还是可以有个不错的发展的，毕竟 Docker 也确实是个生产力工具，用户基数在那里的。&lt;/p>
+&lt;h2 id="talos-160-发布">Talos 1.6.0 发布&lt;/h2>
+&lt;p>Talos 我在之前的文章中进行过介绍，不过它相对来说比较小众。&lt;/p>
+&lt;p>Talos 是一个现代化的操作系统，专门用于运行 Kubernetes。它是一个安全、不可变和精简的操作系统，完全开源，已经准备好用于生产环境，并得到了 Sidero Labs 团队的支持。Talos 通过 API 进行所有系统管理操作，没有 shell 或交互式控制台。它的优点包括：&lt;/p>
+&lt;ul>
+&lt;li>安全性：Talos 减少了您的攻击面：它是最小化、硬化和不可变的。所有 API 访问都使用 mTLS 身份验证进行安全保护。&lt;/li>
+&lt;li>可预测性：Talos 消除了配置漂移，通过采用不可变基础设施思想减少未知因素，并提供原子更新。&lt;/li>
+&lt;li>可演进性：Talos 简化了您的架构，增加了您的敏捷性，并始终提供当前稳定的 Kubernetes 和 Linux 版本。&lt;/li>
+&lt;/ul>
+&lt;p>它本次发布的版本中进行了如下主要组件的更新：&lt;/p>
+&lt;ul>
+&lt;li>Linux: 6.1.67&lt;/li>
+&lt;li>containerd: 1.7.10&lt;/li>
+&lt;li>CoreDNS: 1.11.1&lt;/li>
+&lt;li>Kubernetes: 1.29.0&lt;/li>
+&lt;li>Flannel: 0.23.0&lt;/li>
+&lt;li>etcd: 3.5.11&lt;/li>
+&lt;li>runc: 1.1.10&lt;/li>
+&lt;li>基于 Go 1.21.5 进行构建&lt;/li>
+&lt;/ul>
+&lt;p>正好提前预告下，我搞了一套基于 Talos 的集群，我再用一段时间看看再分享下经验。&lt;/p>
+&lt;h2 id="karmada-正式成为-cncf-孵化项目">Karmada 正式成为 CNCF 孵化项目&lt;/h2>
+&lt;p>Karmada 是一个基于 Kubernetes 的管理系统，
+它可以帮助用户在多 Kubernetes 集群和云平台上运行云原生应用程序，
+并且无需修改这些应用程序。&lt;/p>
+&lt;p>通过与 Kubernetes 原生 API 的集成并提供先进的调度能力，
+Karmada 实现了开放式、多集群、多云的 Kubernetes。&lt;/p>
+&lt;p>Karmada 是在 2021 年 9 月成为 CNCF sandbox 项目的，由华为进行捐赠。当前已经被多个组织、公司应用于生产环境。&lt;/p>
+&lt;p>它的主体架构如下：&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2023/12/17/74R3t1D9UMeJYzG.png" alt="Karmada configuration">&lt;/p>
+&lt;p>发展到现在， Karmada 几乎可以说是现在 Kubernetes 多集群（MultiCluster）的首选项目了。&lt;/p>
+&lt;p>同时 Kubernetes Multicluster SIG 中的项目基本上都处于归档和停滞的状态，我个人观点是，短时间内
+不会出现完全由社区推进的 Multicluster 的其他能超越 Karmada 的项目了。&lt;/p>
+&lt;p>所以如果有需要，在进行技术选型的时候，我建议重点来看看 Karmada。&lt;/p>
+&lt;h2 id="rook-v1130-发布">Rook v1.13.0 发布&lt;/h2>
+&lt;p>Rook 是一个针对 Kubernetes 的开源云原生存储编排工具，在其中使用了 Ceph 分布式存储系统，并且可以很好地与其本地集成。&lt;/p>
+&lt;p>Ceph 可以同时处理文件、块以及对象类型数据，并且被广泛应用于大型生产环境下的数据集群中。&lt;/p>
+&lt;p>通过 Rook 工具可以轻松实现 Ceph 的自动化部署及管理，从而获得可靠高效并且易于维护的分布式存储服务。&lt;/p>
+&lt;p>它基于 Kubernetes operator 进行构建，负责完成 Ceph 集群相关任务如：部署配置, 扩缩容, 升级更新等等.&lt;/p>
+&lt;p>目前该工具已经处于稳定状态，是 CNCF 的毕业项目。&lt;/p>
+&lt;p>其实 Rook 发展到现在也已经很不容易了，很早之前 Rook 有个比较宏大的想法，它希望能支持多种存储引擎。
+但后来发现单单是支持 Ceph 已经耗费了太多的时间精力，并且也没有足够多的人能覆盖其他的存储引擎，所以后来就专注于发展
+Ceph 的支持了。可以看到这个项目自从重新设定目标后，就简化了很多。&lt;/p>
+&lt;p>新发布的 v1.13.0 中有一些主要的破坏性变更：&lt;/p>
+&lt;ul>
+&lt;li>不再支持使用 Ceph Pacific（v16）版本，而只推荐使用当前仅受到官方认可和维护的 Ceph Quincy（v17）和Ceph Reef（v18）版本。&lt;/li>
+&lt;li>要求至少使用 Kubernetes v1.23 版本，并且必须安装最新版的Ceph-CSI驱动程序(3.9)，以确保系统正常运行。&lt;/li>
+&lt;li>准入控制器（Admission Controller）功能已经被删除。如果曾经启用过该功能，请务必在进行升级操作之前关闭它，并查看相关升级指南以获取更多详细信息。&lt;/li>
+&lt;/ul>
+&lt;p>此外，CephCSI v3.10 已经成为了默认的 CSI 驱动版本。&lt;/p>
+&lt;p>更多关于 Rook v1.13 的详细变更，请参考其 &lt;a href="https://github.com/rook/rook/releases/tag/v1.13.0">ReleaseNote&lt;/a>&lt;/p>
+&lt;p>感谢大家，我们下期再见！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>Kubernetes v1.29 新特性一览</title><link>https://moelove.info/2023/12/10/Kubernetes-v1.29-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</link><guid isPermaLink="true">https://moelove.info/2023/12/10/Kubernetes-v1.29-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</guid><pubDate>Sun, 10 Dec 2023 01:37:40 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>&lt;strong>Kubernetes v1.29 是 2023 年的第三个大版本更新，也是今年的最后一个大版本，包含了 49 项主要的更新。&lt;/strong> 而今年发布的第一个版本 v1.27 有近 60 项，第二个版本 v1.28 有 46 项。尽管 Kubernetes 已经发布快 10 年了，Kubernetes 的生命力仍然很旺盛！&lt;/p>
 &lt;p>这个版本中有 19 个增强功能正在进入 Alpha 阶段，19 个将升级到 Beta 阶段，而另外 11 个则将升级到稳定版。&lt;/p>
 &lt;p>可以看出来还是有很多新特性在逐步引入。&lt;/p>
