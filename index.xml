@@ -1,4 +1,69 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.120.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 25 Mar 2024 11:22:51 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>K8S 生态周报| Docker 收购了 Testcontainers 背后的公司</title><link>https://moelove.info/2023/12/17/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-%E6%94%B6%E8%B4%AD%E4%BA%86-Testcontainers-%E8%83%8C%E5%90%8E%E7%9A%84%E5%85%AC%E5%8F%B8/</link><guid isPermaLink="true">https://moelove.info/2023/12/17/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-%E6%94%B6%E8%B4%AD%E4%BA%86-Testcontainers-%E8%83%8C%E5%90%8E%E7%9A%84%E5%85%AC%E5%8F%B8/</guid><pubDate>Sun, 17 Dec 2023 22:45:18 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.120.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Mon, 25 Mar 2024 11:23:54 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>我的 2023 总结</title><link>https://moelove.info/2024/03/24/%E6%88%91%E7%9A%84-2023-%E6%80%BB%E7%BB%93/</link><guid isPermaLink="true">https://moelove.info/2024/03/24/%E6%88%91%E7%9A%84-2023-%E6%80%BB%E7%BB%93/</guid><pubDate>Sun, 24 Mar 2024 19:46:02 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>每年我都会惯例的做个小回顾，不过今年事情比较多，还发生了很多意外情况（主要都是生病之类的），只好拖到现在了。&lt;/p>
+&lt;p>2023 年于我而言有着非比寻常的意义，同时这一年里发生的事情，也让我成长了很多。&lt;/p>
+&lt;h2 id="生活">生活&lt;/h2>
+&lt;p>这一年发生了很多事情，尤其是 &lt;strong>提醒我需要格外关注自己和家人的身体健康&lt;/strong>。&lt;/p>
+&lt;p>我在年中的时候做了个全面的身体检查（实施可观测性），基本上还是比较健康的。&lt;/p>
+&lt;p>但是在 9 月份算是经历了今年最为魔幻的一个月。家里人因疾病做了两台手术，孩子也有些发烧之类的。那段时间确实很难，比较辛苦。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2024/02/17/2EHD9IhzqnoAxpJ.png" alt="image-20240217204403452">&lt;/p>
+&lt;p>在重大疾病面前，人还是会有一些无力感，很多事情并不受自己控制。那段时间闲下来时常会问自己一句“如果之前能 xxx 是不是会更好？” 但是人生就是这样，千金难买早知道，过去的事情已经发生了，我们都需要向前看，珍惜家人，珍惜时间。&lt;/p>
+&lt;p>&lt;strong>好在家里人经过手术后，身体恢复的不错，算是比较好的结果了。&lt;/strong>&lt;/p>
+&lt;h2 id="工作">工作&lt;/h2>
+&lt;p>我在 2023 年 Q3~Q4 期间换了个工作，这个时间点也就是上文中提到的我正遭遇比较多事情的时候，生活和工作同时在发生变化，也面临了比较多的选择。当然期间也发生了一些糟心的事情，不过这些都不重要了，向前看，过去的不愉快不需要过分在意。&lt;/p>
+&lt;p>&lt;strong>我目前在 &lt;a href="https://konghq.com/">Kong Inc.&lt;/a>&lt;/strong> 做 Kubernetes 相关的事情，包括上游的 Gateway API，Kong Kubernetes Ingress controller，Helm chart，Operator 等项目。我所在团队同事多在欧洲，跨时区远程协作对我而言并不是什么挑战，反而我感觉比较开心，所以很容易就适应了。&lt;/p>
+&lt;p>说完基本的现状，我姑且还是对这一年做个总结，然后继续下一年的挑战。&lt;/p>
+&lt;p>&lt;strong>由于不确定性比较多，所以自 8 月份我父亲生病住院后，我就基本上婉拒了所有的活动，感谢各位主办方和小伙伴们的谅解，今年可以再约起来了！&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>演讲&amp;amp;分享&lt;/strong>：2 月份我是从 Conf42 的一场 Chaos Engineering 开始的，全年做了3 场英文的演讲；国内线上线下的活动加起来大概有 13 场左右吧。这里面主要涉及混沌工程，云原生和 AI 相关的内容，对这些内容感兴趣的小伙伴可以在我的 GitHub repo 中拿到可公开版本的 PPT ：https://github.com/tao12345666333/slides&lt;/p>
+&lt;p>&lt;strong>课程&lt;/strong>：我在国内的三节课平台上线了&lt;a href="https://www.sanjieke.cn/teacher_info?id=23151665">一组视频课程&lt;/a>，也做了一些企业的内部培训，我基本上没怎么为这个视频课程做过宣传，目前看起来也还行。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2024/03/24/xFQSdIkB8gGCAtE.png" alt="image-20240324231440799">&lt;/p>
+&lt;p>&lt;strong>文章&lt;/strong>：2023 年我写了 25 篇左右，2022 年写了 36 篇，很明显我断更了...还有一些之前挖的坑，也没来得及填上，争取 2024 年能补上。以下是一些反馈还不错的文章内容。&lt;/p>
+&lt;p>Kubernetes 新版本新特性相关的文章，虽然这类文章官方也会发布，不过&lt;strong>我写的内容是从我的视角来看的，以及结合我个人的一些经验，对这些特性的介绍和评价&lt;/strong>，后面我想我还是会继续更新这个系列的。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;a href="https://moelove.info/2023/12/10/Kubernetes-v1.29-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/">Kubernetes v1.29 新特性一览 | MoeLove&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://moelove.info/2023/08/13/Kubernetes-v1.28-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/">Kubernetes v1.28 新特性一览 | MoeLove&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://moelove.info/2023/04/03/Kubernetes-v1.27-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/">Kubernetes v1.27 新特性一览 | MoeLove&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>涉及 KubeVirt ， Gateway API 和 Docker 的文章：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://moelove.info/2023/09/01/%E8%80%97%E6%97%B6-7-%E5%B9%B4%E7%BB%88%E5%B0%86%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%B8%A6%E5%85%A5-Kubernetes-%E4%B8%96%E7%95%8C/">耗时 7 年终将虚拟机带入 Kubernetes 世界 | MoeLove&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://moelove.info/2023/11/26/Gateway-API-%E5%B0%86%E6%98%AF-Kubernetes-%E4%B8%AD%E6%B5%81%E9%87%8F%E7%AE%A1%E7%90%86%E7%9A%84%E6%9C%AA%E6%9D%A5%E5%90%97/">Gateway API 将是 Kubernetes 中流量管理的未来吗？ | MoeLove&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://moelove.info/2023/03/22/%E7%AA%81%E7%A0%B4%E9%9A%BE%E5%85%B3Docker%E9%95%9C%E5%83%8F%E5%92%8C%E5%AE%B9%E5%99%A8%E7%9A%84%E5%8C%BA%E5%88%AB%E4%BB%A5%E5%8F%8A%E6%9E%84%E5%BB%BA%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">突破难关：Docker镜像和容器的区别以及构建的最佳实践 | MoeLove&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>一篇围绕开源相关的文章：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://moelove.info/2023/07/05/%E5%BC%80%E6%BA%90%E4%B8%8D%E7%AD%89%E4%BA%8E%E5%85%8D%E8%B4%B9Red-Hat-%E8%B0%83%E6%95%B4-CentOS-%E9%A1%B9%E7%9B%AE%E5%B8%A6%E6%9D%A5%E7%9A%84%E6%80%9D%E8%80%83/">开源不等于免费：Red Hat 调整 CentOS 项目带来的思考 | MoeLove&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>社区和其他&lt;/strong>：2023 年整体活跃度不是很高，稍微做了些微小的贡献值得拿出来说说。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>继续搞起来了 PyCon China 2023，兜兜转转在 PyCon China 忙活了也大概六七年了吧，每年都会有一些新体会。随着 AI 的爆火🔥 Python 又迎来一波关注者，AI 部分就侧重较多了。另外就是我们做到了，没有鸽🕊，按计划完成了这次活动，22024 继续；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>小伙伴们有写了新书，我为他们的书写了推荐语。虽然现在很多人都是在读电子书，但读纸质书也还是有它特有的感觉；&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>我和两个小伙伴在几年前翻译了一本书《SLO 与 SLI - 软件可靠性实践指南》，也在年底的时候终于出版了。不得不说出版社是非常靠谱的，我都快忘记这件事情了，没想到编辑还一直在跟进并把它最终完成了！&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://s2.loli.net/2024/03/24/vIZaERBtJFVg5Pd.jpg" alt="SLO &amp;amp; SLI">&lt;/p>
+&lt;ul>
+&lt;li>运作了两个 AI &amp;amp; LLM 相关的群组，产生了很多有价值的内容，感谢大家的支持！&lt;/li>
+&lt;li>到了 2024 年，Docker 也就 11 岁了，我也正式成了 10 年容器经验的开发者 😄 还有 5 年前给 sysdig 提交的一个小 PR 被合并了，参与开源社区有很多有意思的事情，这也是我为什么一直都在持续参与开源的原因。&lt;/li>
+&lt;/ul>
+&lt;p>惯例的贴一张图：&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2024/03/25/6nLrF3cZ1j94ld7.png" alt="image-20240325000203969">&lt;/p>
+&lt;p>这是一篇虽然没什么太多内容，但是断断续续拖了 3 个月才完成的总结... 谢谢大家看到最后。&lt;/p>
+&lt;p>2024 年，我会恢复更新和活动，带来更多有价值的内容！继续愿：平安喜乐！&lt;/p>
+&lt;p>还有文章前的你，感谢你的关注和支持，希望我们能各有收获！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Life/">Life</category></item><item><title>K8S 生态周报| Docker 收购了 Testcontainers 背后的公司</title><link>https://moelove.info/2023/12/17/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-%E6%94%B6%E8%B4%AD%E4%BA%86-Testcontainers-%E8%83%8C%E5%90%8E%E7%9A%84%E5%85%AC%E5%8F%B8/</link><guid isPermaLink="true">https://moelove.info/2023/12/17/K8S-%E7%94%9F%E6%80%81%E5%91%A8%E6%8A%A5-Docker-%E6%94%B6%E8%B4%AD%E4%BA%86-Testcontainers-%E8%83%8C%E5%90%8E%E7%9A%84%E5%85%AC%E5%8F%B8/</guid><pubDate>Sun, 17 Dec 2023 22:45:18 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>「K8S 生态周报」内容主要包含我所接触到的 K8S 生态相关的每周值得推荐的一些信息。欢迎订阅知乎专栏&lt;a href="https://zhuanlan.zhihu.com/container" title="k8s生态">「k8s生态」&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;p>大家好，我是张晋涛。&lt;/p>
