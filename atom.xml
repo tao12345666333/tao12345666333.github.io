@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2024-03-25T11:23:54+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.120.0">Hugo</generator><entry><title type="text">我的 2023 总结</title><link rel="alternate" type="text/html" href="https://moelove.info/2024/03/24/%E6%88%91%E7%9A%84-2023-%E6%80%BB%E7%BB%93/"/><id>https://moelove.info/2024/03/24/%E6%88%91%E7%9A%84-2023-%E6%80%BB%E7%BB%93/</id><updated>2024-03-25T11:23:49+08:00</updated><published>2024-03-24T19:46:02+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 每年我都会惯例的做个小回顾，不过今年事情比较多，还发生了很多意外情况（主要都是生病之类的），只好拖到现在了。……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2024-03-26T16:28:05+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.120.0">Hugo</generator><entry><title type="text">我的 2023 总结</title><link rel="alternate" type="text/html" href="https://moelove.info/2024/03/24/%E6%88%91%E7%9A%84-2023-%E6%80%BB%E7%BB%93/"/><id>https://moelove.info/2024/03/24/%E6%88%91%E7%9A%84-2023-%E6%80%BB%E7%BB%93/</id><updated>2024-03-25T11:23:49+08:00</updated><published>2024-03-24T19:46:02+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 每年我都会惯例的做个小回顾，不过今年事情比较多，还发生了很多意外情况（主要都是生病之类的），只好拖到现在了。……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>每年我都会惯例的做个小回顾，不过今年事情比较多，还发生了很多意外情况（主要都是生病之类的），只好拖到现在了。&lt;/p>
 &lt;p>2023 年于我而言有着非比寻常的意义，同时这一年里发生的事情，也让我成长了很多。&lt;/p>
 &lt;h2 id="生活">生活&lt;/h2>
@@ -11461,7 +11461,7 @@ done
 &lt;/ul>
 &lt;hr>
 &lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
-&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Shell/" term="Shell" label="Shell"/></entry><entry><title type="text">一篇搞懂容器技术的基石： cgroup</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/11/17/%E4%B8%80%E7%AF%87%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-cgroup/"/><id>https://moelove.info/2021/11/17/%E4%B8%80%E7%AF%87%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-cgroup/</id><updated>2023-10-31T01:35:25+08:00</updated><published>2021-11-17T23:16:42+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 目前我们所提到的容器技术、虚拟化技术（不论何种抽象层次下的虚拟化技术）都能做到资源层面上的隔离和限制。 对于容……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Shell/" term="Shell" label="Shell"/></entry><entry><title type="text">一篇搞懂容器技术的基石： cgroup</title><link rel="alternate" type="text/html" href="https://moelove.info/2021/11/17/%E4%B8%80%E7%AF%87%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-cgroup/"/><id>https://moelove.info/2021/11/17/%E4%B8%80%E7%AF%87%E6%90%9E%E6%87%82%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF%E7%9A%84%E5%9F%BA%E7%9F%B3-cgroup/</id><updated>2024-03-26T16:27:58+08:00</updated><published>2021-11-17T23:16:42+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 目前我们所提到的容器技术、虚拟化技术（不论何种抽象层次下的虚拟化技术）都能做到资源层面上的隔离和限制。 对于容……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>目前我们所提到的容器技术、虚拟化技术（不论何种抽象层次下的虚拟化技术）都能做到资源层面上的隔离和限制。&lt;/p>
 &lt;p>对于容器技术而言，它实现资源层面上的限制和隔离，依赖于 Linux 内核所提供的 cgroup 和 namespace 技术。&lt;/p>
 &lt;p>我们先对这两项技术的作用做个概括：&lt;/p>
@@ -11565,7 +11565,7 @@ done
 &lt;/ul>
 &lt;p>在了解了为什么要关注 cgroup 和 namespace 等技术之后，那我们就进入到本篇的重点吧，来一起学习下 cgroup 。&lt;/p>
 &lt;h2 id="什么是-cgroup">什么是 cgroup&lt;/h2>
-&lt;p>cgroup 是 Linux 内核的一个功能，用来限制、控制与分离一个进程组的资源（如CPU、内存、磁盘输入输出等）。它是由 Google 的两位工程师进行开发的，自 2018 年 1 月正式发布的 Linux 内核 v2.6.24 开始提供此能力。&lt;/p>
+&lt;p>cgroup 是 Linux 内核的一个功能，用来限制、控制与分离一个进程组的资源（如CPU、内存、磁盘输入输出等）。它是由 Google 的两位工程师进行开发的，自 2008 年 1 月正式发布的 Linux 内核 v2.6.24 开始提供此能力。&lt;/p>
 &lt;p>cgroup 到目前为止，有两个大版本， cgroup v1 和 v2 。以下内容以 cgroup v2 版本为主，涉及两个版本差别的地方会在下文详细介绍。&lt;/p>
 &lt;p>cgroup 主要限制的资源是：&lt;/p>
 &lt;ul>
@@ -24867,4 +24867,67 @@ sudo yum install ffmpeg ffmpeg-libs gstreamer-ffmpeg libmatroska xvidcore(安装
 &lt;/code>&lt;/pre>&lt;ul>
 &lt;li>Sublime Text
 我也很喜欢因为运行速度快，而且免费。安装方法可以参考我的&lt;a href="http://moelove.info/articles/2013/08/30/fedoraxia-an-zhuang-sublime-text-2de-fang-fa/">fedora下安装sublime text 2&lt;/a>这篇文章。&lt;/li>
-&lt;/ul></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/></entry></feed>
+&lt;/ul></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/></entry><entry><title type="text"/><link rel="alternate" type="text/html" href="https://moelove.info/1/01/01/"/><id>https://moelove.info/1/01/01/</id><updated>2024-03-26T08:20:26+08:00</updated><published>0001-01-01T00:00:00+00:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">你的 Gateway 可以更智能 在这个数字化时代，API（应用程序编程接口）已经成为连接世界的关键纽带。它们使得不同的软件、服务和数据能够无缝地……</summary><content type="html">&lt;h1 id="你的-gateway-可以更智能">&lt;strong>你的 Gateway 可以更智能&lt;/strong>&lt;/h1>
+&lt;p>在这个数字化时代，API（应用程序编程接口）已经成为连接世界的关键纽带。它们使得不同的软件、服务和数据能够无缝地进行交互。然而，随着服务数量的增加，管理这些 API 变得越来越复杂。这正是 API Gateway 发挥作用的地方。&lt;/p>
+&lt;p>但究竟什么是 API Gateway，为什么它对现代应用至关重要，如何让它更智能呢？本文我带你一起深入了解。&lt;/p>
+&lt;h2 id="什么是-api-gateway">&lt;strong>什么是 API Gateway&lt;/strong>&lt;/h2>
+&lt;p>我们以一个很常见的例子作为类比。你去了一家餐厅，这个餐厅的后厨开源提供多种美食。作为顾客，你并不需要直接和厨房进行沟通，而是通过服务员点菜。服务员在知道你的需求后，将订单送到后厨，并且确保你的订单制作完成后送到你的桌上。&lt;/p>
+&lt;p>在这个例子中，服务员扮演的角色就相当于 API Gateway。&lt;/p>
+&lt;p>API Gateway 是位于客户端和后端服务之间的组件，它的任务是处理所有进出的通信。它的工作方式如下：&lt;/p>
+&lt;ul>
+&lt;li>接收来自客户端的请求；&lt;/li>
+&lt;li>可能会对请求进行一些预处理，比如验证、增强或转换；&lt;/li>
+&lt;li>确定请求应该路由到哪个后端服务，并将其转发到对应的后端服务；&lt;/li>
+&lt;li>收到服务的响应后，可能会对其进行一些处理；&lt;/li>
+&lt;li>将响应返回给客户端；&lt;/li>
+&lt;/ul>
+&lt;h3 id="api-gateway-的作用">&lt;strong>API Gateway 的作用&lt;/strong>&lt;/h3>
+&lt;p>&lt;img src="https://s2.loli.net/2024/03/26/hxQZ9XNjqonJDwy.png" alt="API Gateway">&lt;/p>
+&lt;p>API Gateway 并不仅仅是一个简单的请求转发器，它还承担了一系列关键任务，使得它成为现代应用架构中不可或缺的组成部分：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>请求路由&lt;/strong>：API Gateway 决定如何将外部请求转发到内部的不同服务。比如根据请求路径，或者 Header 等进行区分，这涉及到复杂的逻辑判断，以确保请求准确、高效地到达目标服务；&lt;/li>
+&lt;li>&lt;strong>身份验证和授权&lt;/strong>：API Gateway 在接收到来自客户端的请求后，可以验证客户端的身份，并确保他们有权访问请求的资源。这一步骤对于保护敏感数据和服务不被未授权访问至关重要；&lt;/li>
+&lt;li>&lt;strong>限流和熔断&lt;/strong>：API Gateway 能够限制对某一服务的请求频率，避免因过多的请求而导致服务崩溃。在服务响应变慢或失败时，熔断机制可以暂时中断请求，保护系统的稳定性；&lt;/li>
+&lt;li>&lt;strong>数据转换&lt;/strong>：API Gateway 可以转换数据格式，以满足后端服务或客户端的需求。这对于确保不同服务之间的兼容性非常重要，例如，Kong Gateway 提供了 Request Transformer 和 Response Transformer 的插件，可以对请求和响应进行修改；&lt;/li>
+&lt;li>&lt;strong>聚合请求&lt;/strong>：API Gateway 可以将来自客户端的多个请求合并为一个请求，减少网络往返次数，这对于提升应用性能和用户体验非常有帮助；&lt;/li>
+&lt;li>&lt;strong>缓存&lt;/strong>：API Gateway 可以缓存请求和响应，提高响应的速度。这不仅减少了对后端服务的负载，也缩短了用户等待时间；&lt;/li>
+&lt;/ul>
+&lt;h3 id="为什么需要-api-gateway">&lt;strong>为什么需要 API Gateway&lt;/strong>&lt;/h3>
+&lt;p>随着微服务架构的普及，一个应用可能由数十个独立的服务组成，每个服务处理应用的一个方面。这种架构提高了应用的灵活性和可扩展性，但同时也带来了挑战：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>服务发现&lt;/strong>：由于一个完整的功能/请求可能需要多个服务共同完成，如果没有其他替代办法，客户端就需要知道每个服务的位置，这在服务数量众多时变得愈发复杂；&lt;/li>
+&lt;li>&lt;strong>跨服务的一致性&lt;/strong>：如认证、限流等功能需要在多个服务中进行一致的实现，增加了开发和维护的复杂度；&lt;/li>
+&lt;/ul>
+&lt;p>API Gateway 提供了一个统一的入口，简化了客户端与后端服务的交互。它使得在服务架构变化时，客户端无需修改，因为所有变化都隐藏在 API Gateway 之后。此外，它还可以提供一些跨服务的共有功能，如认证、限流等，减轻了各个服务的负担。&lt;/p>
+&lt;h2 id="需要-api-gateway-进行数据内容处理的场景">&lt;strong>需要 API Gateway 进行数据内容处理的场景&lt;/strong>&lt;/h2>
+&lt;p>聊完什么是 API Gateway 以及它的作用之后，我们聚焦到通过 API Gateway 进行数据内容处理的场景，以及传统 API Gateway 在这类场景下的一些限制。&lt;/p>
+&lt;h3 id="1-api-聚合">&lt;strong>1. API 聚合&lt;/strong>&lt;/h3>
+&lt;p>在微服务架构中，客户端可能需要从多个服务获取数据以完成一个操作或显示一个视图。如果客户端直接与所有这些服务通信，将会导致大量的网络请求，增加加载时间并影响用户体验。API Gateway 可以将这些请求聚合成一个单一的请求，由它负责与各个服务通信并聚合结果，然后返回给客户端。&lt;/p>
+&lt;h3 id="2-请求转换">&lt;strong>2. 请求转换&lt;/strong>&lt;/h3>
+&lt;p>不同的后端服务可能需要不同格式的请求。例如，一个服务可能使用XML，而另一个服务可能使用JSON。API Gateway可以在转发请求之前将它们转换为适当的格式，确保服务能够正确处理请求。&lt;/p>
+&lt;h3 id="3-响应重塑">&lt;strong>3. 响应重塑&lt;/strong>&lt;/h3>
+&lt;p>与请求转换类似，不同的客户端可能需要不同格式或不同数据子集的响应。API Gateway可以修改后端服务的响应，以满足客户端的需求。例如，可以为客户端返回部分响应结果（更轻量），或者在响应中增加一些字段，以便兼容不同的版本。&lt;/p>
+&lt;h3 id="api-gateway-在这些场景中的限制">API Gateway 在这些场景中的限制&lt;/h3>
+&lt;p>尽管 API Gateway 在上述场景中非常有用，但它在处理这些场景时也面临一些挑战和限制。&lt;/p>
+&lt;h3 id="1-缺乏灵活性">&lt;strong>1. 缺乏灵活性&lt;/strong>&lt;/h3>
+&lt;p>传统的 API Gateway 通常是以配置为中心的，这意味着它们的行为是通过静态配置文件定义的。这种方法在处理简单和标准化的场景时效果很好，但在需要动态适应不同请求和响应的复杂场景时，可能缺乏必要的灵活性。&lt;/p>
+&lt;h3 id="2-处理复杂逻辑的能力有限">&lt;strong>2. 处理复杂逻辑的能力有限&lt;/strong>&lt;/h3>
+&lt;p>虽然 API Gateway 非常适合执行如路由、限流和认证等标准任务，但当涉及到复杂的业务逻辑，如高度定制的请求聚合或复杂的数据转换时，它的能力可能会受限。这是因为 API Gateway 的设计重点是轻量级和高性能，而不是复杂的数据处理。&lt;/p>
+&lt;h3 id="3-性能考虑">&lt;strong>3. 性能考虑&lt;/strong>&lt;/h3>
+&lt;p>在执行数据聚合或转换等操作时，API Gateway 可能成为性能瓶颈。每个经过 Gateway 的请求都需要额外的处理时间，特别是在高负载情况下，这可能导致延迟增加。&lt;/p>
+&lt;h3 id="4-维护和可扩展性问题">&lt;strong>4. 维护和可扩展性问题&lt;/strong>&lt;/h3>
+&lt;p>随着业务的发展，需要 API Gateway 处理的场景可能会变得越来越复杂。管理和更新 API Gateway 的配置可能变得困难，特别是在大型或快速变化的系统中。此外，如果 API Gateway 的实现不够灵活，扩展其功能以适应新需求可能会非常具有挑战性。&lt;/p>
+&lt;h2 id="kong-如何解决上述问题">Kong 如何解决上述问题？&lt;/h2>
+&lt;p>在面对现代应用架构的复杂性和不断增长的数据处理需求时，传统的 API Gateway 方案显得不够用。幸运的是，Kong 带来了一种创新的解决方案：&lt;strong>AI Gateway&lt;/strong>。通过集成先进的 AI 技术，Kong 的 AI Gateway 为 API 管理和数据处理带来了革命性的改进。&lt;/p>
+&lt;p>Kong Gateway 3.6 版本引入了一系列 AI 功能，特别是 AI Proxy 和 AI Request/Response Transformer 插件。这些插件可以和大语言模型（LLM）进行集成，如 OpenAI，Claude，Azure OpenAI Service 等，或通过 Ollama 运行其他开源的 LLM 。&lt;/p>
+&lt;p>AI Proxy 插件允许开发者在 API 请求和响应流程中直接集成 LLM，使得实时内容生成、转换和增强成为可能。例如，它可以在用户提交请求时，动态生成个性化的响应内容，或者根据用户的查询实时重塑API响应结构。&lt;/p>
+&lt;p>AI Request/Response Transformer插件进一步扩展了这种能力，使开发者能够定义复杂的逻辑和转换规则，这些规则将在API请求和响应过程中自动应用。这不仅极大地增强了API Gateway的灵活性，也为处理复杂的数据转换和增强提供了强大的工具。&lt;/p>
+&lt;h3 id="32-kong-ai-gateway-具备的其他能力">3.2 Kong AI Gateway 具备的其他能力&lt;/h3>
+&lt;p>除了提升数据处理能力外，Kong AI Gateway还引入了AI Prompt Guard, AI Prompt Template, 和 AI Prompt Decorator等插件，这些插件为开发者提供了更多的控制和优化AI提示的工具。&lt;/p>
+&lt;p>AI Prompt Guard插件通过设置规则和条件，帮助开发者确保生成的内容符合特定的合规性和品质标准。这对于避免生成不当或不相关内容尤为重要。&lt;/p>
+&lt;p>AI Prompt Template和AI Prompt Decorator插件则允许开发者定义和重用AI提示模板，以及在运行时装饰和调整这些提示。这些功能简化了管理和优化AI提示的过程，使得开发者可以更有效地利用LLM的能力。&lt;/p>
+&lt;h3 id="33-kong-ai-gateway-可以和更多的-llm-集成以及它的应用场景">3.3 Kong AI Gateway 可以和更多的 LLM 集成以及它的应用场景&lt;/h3>
+&lt;p>Kong AI Gateway的一个关键优势是其对多个LLM的原生支持，包括OpenAI, Azure AI等。这种灵活性意味着企业可以根据特定的应用场景和成本效益考虑，选择最合适的LLM进行集成。&lt;/p>
+&lt;p>更重要的是，Kong AI Gateway使得在不同LLM之间切换变得异常简单，无需大规模的代码重写或配置更改。这不仅为企业节省了宝贵的开发时间和资源，也为利用特定模型的优势提供了更大的灵活性。&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>Kong AI Gateway 在传统 API Gateway 的基础上通过集成 LLM，让它具备了更丰富且灵活的特性。这样可以更好的应对复杂多变的环境，为业务提供更强有力的支持！&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/></entry></feed>
