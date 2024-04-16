@@ -1,4 +1,298 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.120.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 26 Mar 2024 16:28:05 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>我的 2023 总结</title><link>https://moelove.info/2024/03/24/%E6%88%91%E7%9A%84-2023-%E6%80%BB%E7%BB%93/</link><guid isPermaLink="true">https://moelove.info/2024/03/24/%E6%88%91%E7%9A%84-2023-%E6%80%BB%E7%BB%93/</guid><pubDate>Sun, 24 Mar 2024 19:46:02 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.120.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 16 Apr 2024 11:18:09 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>Kubernetes v1.30 新特性一览</title><link>https://moelove.info/2024/04/02/Kubernetes-v1.30-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</link><guid isPermaLink="true">https://moelove.info/2024/04/02/Kubernetes-v1.30-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</guid><pubDate>Tue, 02 Apr 2024 01:37:40 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>&lt;strong>Kubernetes v1.30 是 2024 年发布的第一个大版本，包含了 45 项主要的更新。&lt;/strong> 对比去年的话，v1.27 有近 60 项，v1.28 有 46 项，v1.29 有 49 项。可以看到 Kubernetes 变得更加谨慎了，会更加保守的控制进入其核心的功能。&lt;/p>
+&lt;p>恰好前些天我在 “硬地骇客” 播客上&lt;a href="https://www.xiaoyuzhoufm.com/episode/66140dcf5dae7932c636fa29">录制了一期节目&lt;/a>，正好提到 Kubernetes 现在是不是变得太复杂了，感兴趣的话可以听一下。&lt;/p>
+&lt;p>具体来看 v1.30 版本中有 10 个增强功能正在进入 Alpha 阶段，18 个将升级到 Beta 阶段，而另外 17 个则将升级到稳定版。&lt;/p>
+&lt;p>这次的版本称之为 “Uwernetes” 是 &lt;code>UwU&lt;/code> 和 &lt;code>Kubernetes&lt;/code> 的组合，因为发布团队认为这个版本是最可爱的版本了，也是对所有参与到 Kubernetes 生态中的人的一种致敬。
+让我们一起探索这个充满爱和喜悦的版本吧 UwU&lt;/p>
+&lt;p>我维护的 「k8s生态周报」每篇都有一个叫上游进展的部分，会发一些 Kubernetes 上游中值得关注的内容。
+不过我年终总结中提到了，我断更了一段时间，之后会继续更新的，感谢大家的支持。&lt;/p>
+&lt;h2 id="pod-调度就绪机制达到-ga">Pod 调度就绪机制达到 GA&lt;/h2>
+&lt;p>这个功能实际上是从 Kubernetes v1.26 开始增加的。是 &lt;a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/3521-pod-scheduling-readiness">KEP 3521&lt;/a> 的第一部分。并且在 v1.27 时候达到了 Beta。&lt;/p>
+&lt;p>我们来快速的回顾一下 Pod 的创建过程。&lt;/p>
+&lt;p>当 client 通过 kube-apiserver 创建成功 Pod 资源后，kube-scheduler 会去检查尚未被调度的 Pod，然后为其进行调度，分配 Node。之后 Node 获取到调度到该 Node 上的 Pod 然后进行创建。
+（这里省略了很多细节，但其他的部分与我们此处要介绍的内容关系不太大，就不展开了。）&lt;/p>
+&lt;p>根据上述的过程，我们可以发现，在 Pod 创建成功后，其实就默认该 Pod 是可以被调度了，kube-scheduler 就应该开始工作了。&lt;/p>
+&lt;p>但在实际的场景中，Pod 通常还会需要一些其他的资源，最典型的比如存储。在一些环境中，这些资源是需要预先进行创建的，
+&lt;strong>尤其是在一些云厂商的场景中，还需要检查用户账户中是否还有余额可以用于创建云盘等&lt;/strong>。&lt;/p>
+&lt;p>一但前置的依赖无法满足，假如 kube-scheduler 已经完成了 Pod 的调度，那么 kubelet 侧就会处于尝试创建 Pod ，但失败的情况。&lt;/p>
+&lt;p>这个 KEP 的出现就可以很好的解决这个问题，增加了一个 Pod 是否准备好被调度的机制。
+如果前置依赖不满足，那么 Pod 就无需被调度，这也不会消耗资源。kube-scheduler 和 kubelet 都无需进行处理。
+待条件满足，Pod 再被调度和创建即可。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2024/04/11/hWtfKc52vqoHPRw.png" alt="image-20240411023540509">&lt;/p>
+&lt;p>这个机制我个人感觉还是挺好的，甚至我可以有更灵活的策略来控制应用的副本。
+比如在大流量，需要动态扩容的场景下，我可以利用此机制预先创建一些 Pod 资源以及准备好它的依赖，
+甚至可以在 Node 上准备好镜像等。当需要增加副本时，直接标记 Pod 可被调度，&lt;/p>
+&lt;p>使用时，通过配置 Pod 的 &lt;code>.spec.schedulingGates&lt;/code> 即可。例如：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Pod&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">test-pod&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">schedulingGates&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">moelove.info/disk&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">foo.bar/xyz&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">containers&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">kong&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">kong:3.6&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>注意这里可以为它设置多个 &lt;code>schedulingGates&lt;/code> 但是要确保它们的唯一性。&lt;/p>
+&lt;p>如果将上述配置应用到 Kubernetes 集群中，则会看到&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">➜ ~ kubectl get pods
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">NAME READY STATUS RESTARTS AGE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">test-pod 0/1 SchedulingGated &lt;span class="m">0&lt;/span> 17s
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>.status&lt;/code> 中也会有相关输出：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">status&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">conditions&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">lastProbeTime&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">null&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">lastTransitionTime&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">null&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">message&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Scheduling is blocked due to non-empty scheduling gates&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">reason&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">SchedulingGated&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">status&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;False&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">PodScheduled&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">phase&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Pending&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">qosClass&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">BestEffort&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>那么何时能正常调度呢？我们在实现对应的 controller 或者 operator 时，只需要移除 &lt;code>schedulingGates&lt;/code> 的配置即可。&lt;/p>
+&lt;h2 id="kubectl-交互式删除达到-ga">kubectl 交互式删除达到 GA&lt;/h2>
+&lt;p>很多人都会直接使用 &lt;code>kubectl&lt;/code> 进行 Kubernetes 集群的管理，包括资源的创建和删除等。
+删除操作是很危险的动作，并且不可逆，如果由于错误的拼写，不小心的复制粘贴或者错误的补全等，
+不小心误删了重要的资源，可能会带来一些不小的麻烦。&lt;/p>
+&lt;p>这是一般情况下的删除操作，在回车后就直接执行了。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">moelove@k8s-test:~$ kubectl create secret generic my-secret --from-literal&lt;span class="o">=&lt;/span>&lt;span class="nv">key1&lt;/span>&lt;span class="o">=&lt;/span>supersecret
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">secret/my-secret created
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">moelove@k8s-test:~$ kubectl delete secret my-secret
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">secret &lt;span class="s2">&amp;#34;my-secret&amp;#34;&lt;/span> deleted
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>在 &lt;a href="https://github.com/kubernetes/enhancements/blob/master/keps/sig-cli/3895-kubectl-delete-interactivity/README.md#summary">KEP-3895&lt;/a> 中提出可以为 &lt;code>kubectl delete&lt;/code> 增加一个 &lt;code>-i&lt;/code> 的选项，类似于 Linux 中的 &lt;code>rm -i&lt;/code> 命令那样，在得到用户确认后再进行删除操作，如果用户否认则退出删除操作。&lt;/p>
+&lt;p>我们来看下效果：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">moelove@k8s-test:~$ kubectl create secret generic my-secret2 --from-literal&lt;span class="o">=&lt;/span>&lt;span class="nv">key1&lt;/span>&lt;span class="o">=&lt;/span>supersecret
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">secret/my-secret2 created
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">moelove@k8s-test:~$ kubectl delete -i secret my-secret2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">You are about to delete the following &lt;span class="m">1&lt;/span> resource&lt;span class="o">(&lt;/span>s&lt;span class="o">)&lt;/span>:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">secret/my-secret2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Do you want to &lt;span class="k">continue&lt;/span>? &lt;span class="o">(&lt;/span>y/n&lt;span class="o">)&lt;/span>: n
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">deletion is cancelled
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">moelove@k8s-test:~$ kubectl delete -i secret my-secret2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">You are about to delete the following &lt;span class="m">1&lt;/span> resource&lt;span class="o">(&lt;/span>s&lt;span class="o">)&lt;/span>:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">secret/my-secret2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Do you want to &lt;span class="k">continue&lt;/span>? &lt;span class="o">(&lt;/span>y/n&lt;span class="o">)&lt;/span>: y
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">secret &lt;span class="s2">&amp;#34;my-secret2&amp;#34;&lt;/span> deleted
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>这个特性是在 Kubernetes v1.27 作为 Alpha 特性引入的，在 Alpha 阶段，需要添加 &lt;code>KUBECTL_INTERACTIVE_DELETE=true&lt;/code> 的环境变量进行开启；在 v1.29 达到了 beta 阶段，不再需要环境变量即可使用，如今在 v1.30 达到了 GA，建议大家可以加个 alias 会比较方便。&lt;/p>
+&lt;h2 id="基于-cel-的-adminssion-control-达到-ga">基于 CEL 的 Adminssion Control 达到 GA&lt;/h2>
+&lt;p>对 Kubernetes 中的 Adminssion Control 感兴趣的小伙伴可以看看我之前的文章：&lt;a href="https://moelove.info/2021/11/30/%E7%90%86%E6%B8%85-Kubernetes-%E4%B8%AD%E7%9A%84%E5%87%86%E5%85%A5%E6%8E%A7%E5%88%B6Admission-Controller/">理清 Kubernetes 中的准入控制（Admission Controller) | MoeLove&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/116054">KEP-3488: Implement secondary authz for ValidatingAdmissionPolicy by jpbetz · Pull Request #116054 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/115973">KEP-3488: Implement Enforcement Actions and Audit Annotations by jpbetz · Pull Request #115973 · kubernetes/kubernetes&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Kubernetes 在 v1.26 增加了一项很重要的特性，那就是允许使用 CEL 进行 Admission Control，具体内容可以参考我之前写的文章：
+&lt;a href="https://moelove.info/2022/12/09/Kubernetes-v1.26-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/">Kubernetes v1.26 新特性一览 | MoeLove&lt;/a>&lt;/p>
+&lt;p>其中引入了一个新的资源 ValidatingAdmissionPolicy ，使用起来如下:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="c"># v1.26 使用的 API Version 是 v1alpha1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">admissionregistration.k8s.io/v1alpha1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ValidatingAdmissionPolicy&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;demo-policy.moelove.info&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">Spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">failurePolicy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Fail&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">matchConstraints&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">resourceRules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">apiGroups&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;apps&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">apiVersions&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;v1&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">operations&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;CREATE&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;UPDATE&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">resources&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;deployments&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">validations&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">expression&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;object.spec.replicas &amp;lt;= 2&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>但是在当时也只是实现了 KEP-3488 的一部分。&lt;/p>
+&lt;p>比如实现 Authz 的部分，允许用 CEL 表达式编写复杂的 admission control 规则，
+放置在声明式资源中，而不是构建和部署 webhook。&lt;/p>
+&lt;p>虽然 admission webhook 一直是我们灵活的与第三方工具集成的基石，但是对于新用户来说，它们有很多复杂性，新的 CEL 系统有望接管仅需要对默认规则进行小修改的简单独立案例。&lt;/p>
+&lt;p>以前，表达式上下文会公开有关当前请求和目标资源的信息，现在通过这个 #116054 PR 可以在授权层中动态检查 RBAC 权限。
+一些有用的地方可能是使用 RBAC 进行每个字段的更新权限，允许 RBAC 检查特定对象而不使用 resourceNames 系统，
+或基于请求者身份限制对程序敏感字段（例如 finalizers ）的访问而无需生成复杂的 RBAC 策略。&lt;/p>
+&lt;p>例如：&lt;/p>
+&lt;pre tabindex="0">&lt;code>authorizer.group(&amp;#39;&amp;#39;).resource(&amp;#39;pods&amp;#39;).namespace(&amp;#39;default&amp;#39;).check(&amp;#39;create&amp;#39;).allowed()
+authorizer.path(&amp;#39;/healthz&amp;#39;).check(&amp;#39;GET&amp;#39;).allowed()
+authorizer.requestResource.check(&amp;#39;my-custom-verb&amp;#39;).allowed()
+&lt;/code>&lt;/pre>&lt;p>在 v1.27 还加入了#115973，该功能允许在失败时作为主要操作发出审计日志事件，或者如果需要更多数据，可以编写一个或多个 CEL 表达式，以提供详细的值，
+这些值将发送到审计子系统。&lt;/p>
+&lt;p>这既可以在开发新策略时提供强大的调试选项，也可以进行运行时分析。
+其他 CEL admission 特性包括各种检查，以防止您使用所有这些新功能意外拒绝服务自己的 kube-apiserver，以及改进的类型检查。&lt;/p>
+&lt;p>该特性自 v1.28 升级到 Beta，v1.30 升级到 GA 阶段，API version 也就随之升级到了：&lt;/p>
+&lt;pre tabindex="0">&lt;code>admissionregistration.k8s.io/v1
+&lt;/code>&lt;/pre>&lt;p>此外，还引入了很多值得关注的特性，包括：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/kubernetes/kubernetes/pull/118267">ValidatingAdmissionPolicy: support namespace access by cici37 · Pull Request #118267 · kubernetes/kubernetes&lt;/a> 将 webhook 推入到一个有限的用例空间中（防止滥用）&lt;/li>
+&lt;li>&lt;a href="https://github.com/kubernetes/enhancements/issues/3716">CEL-based admission webhook match conditions · Issue #3716 · kubernetes/enhancements&lt;/a> 这是另一个 KEP，实现的特性称之为 AdmissionWebhookMatchConditions，也在 v1.30 中达到了 GA，这个特性其实就是个条件判断，在进行请求处理时候多了一份过滤&lt;/li>
+&lt;/ul>
+&lt;h2 id="基于-container-资源的-hpa-达到-ga">基于 container 资源的 HPA 达到 GA&lt;/h2>
+&lt;p>Horizontal Pod Autoscaler (HPA) 是 Kubernetes 集群中一个非常重要且实现自动伸缩功能必备组件之一，并支持根据目标 Pod 内部所有 Container 所占系统内存、CPU 等信息来判断是否需要进行 HPA 操作。但是，在某些场景下，默认采取“汇总”模式统计所有 Container 节点数据并作为判断依据就不那么适用了：&lt;/p>
+&lt;ul>
+&lt;li>比如存在 sidecar 模式下运行额外附属服务进程；&lt;/li>
+&lt;li>比如某些业务场景下 CPU 和 Memory 使用完全无法预测、毫无规律可言等特殊状态。&lt;/li>
+&lt;/ul>
+&lt;p>针对以上场景，&lt;a href="https://github.com/kubernetes/enhancements/issues/1610">KEP-1610&lt;/a> 定义了基于 container 资源的 HPA，扩展了之前基于 Pod 的 HPA 机制。
+该特性自 v1.19 引入 Alpha ，到 1.27 达到 Beta，在 v1.30 终于 GA。&lt;/p>
+&lt;p>同时，在具体操作过程中还需注意以下两点：&lt;/p>
+&lt;ol>
+&lt;li>对那些性能极高且需要单独配置各个 container 资源参数（例如 CPU 和 Memory）以达到最优效果业务场景而言，默认 HPA Controller 行为则显得相对简陋；&lt;/li>
+&lt;li>在多数业务场景下，都会需要通过 sidecar 来运行一些额外的服务进程，例如采集日志等。但是由于 sidecar 本身的特殊用途和使用场景，使得它与主业务 container 耦合度较低甚至不存在强关联性，因此统计分析过程中对 sidecar 的资源消耗要独立考虑；&lt;/li>
+&lt;/ol>
+&lt;h2 id="新的-service-流量分配机制">新的 Service 流量分配机制&lt;/h2>
+&lt;p>&lt;a href="https://github.com/kubernetes/enhancements/issues/4444">Traffic Distribution for Services · KEP-#4444&lt;/a> 建议在 Kubernetes service spec 中新增一个名为 &lt;code>trafficDistribution&lt;/code> 的字段，以替代目前使用的 &lt;code>service.kubernetes.io/topology-mode&lt;/code> annotation 和已于 Kubernetes v1.21 弃用的 &lt;code>topologyKeys&lt;/code> 字段。&lt;/p>
+&lt;p>具体来说，&lt;code>trafficDistribution&lt;/code> 目前支持两个配置：&lt;/p>
+&lt;ul>
+&lt;li>nil （默认配置）：没有特别指定任何偏好，用户委派转发决策给底层实现；&lt;/li>
+&lt;li>&lt;code>PreferClose&lt;/code>：即优先选择与客户端所处拓扑结构相邻接口节点进行流量转发。“拓扑结构相邻”的定义会因不同实现而异，例如可能是同一台主机、机架、区域乃至地理位置内部分接口节点等等。&lt;/li>
+&lt;/ul>
+&lt;p>这个特性当前是 Alpha 阶段，未来可能还会有所调整。&lt;/p>
+&lt;h2 id="新的-job-完成成功策略">新的 Job 完成/成功策略&lt;/h2>
+&lt;p>&lt;a href="https://github.com/kubernetes/enhancements/issues/3998">Job success/completion policy KEP-#3998&lt;/a> 介绍了如何通过扩展 Job API 来设置 Indexed Job 的成功条件。对于某些批处理工作负载（如 MPI 和 PyTorch），我们仅希望考虑 leader 上的结果来判断整个任务是否成功。但现有机制要求所有节点均须执行完毕后方能标记 Indexed job 为完成状态。&lt;/p>
+&lt;p>新机制允许用户在 Job 规范中指定 &lt;code>.spec.successPolicy&lt;/code> 参数来定义 indexed Jobs 达成成功所需满足的条件。通过该功能可定义两种判定方式：&lt;/p>
+&lt;ul>
+&lt;li>succeededIndexes：只要指定的 index 成功了就算整个 Job 成功了（即使有其他 index 失败）&lt;/li>
+&lt;li>succeededCount：只有达到指定数量的 index 成功才算 Job 完成&lt;/li>
+&lt;/ul>
+&lt;p>一旦 Job 满足完成条件后，Job 控制器会立即停止所有未完成的 Pods。&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">batch/v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Job&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">parallelism&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">10&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">completions&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">10&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">completionMode&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Indexed&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Required for the success policy&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">successPolicy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">rules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">succeededIndexes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">0&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="m">2-3&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">succeededCount&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">template&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">containers&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">main&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">python&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">command&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Provided that at least one of the Pods with 0, 2, and 3 indexes has succeeded,&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># the overall Job is a success.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">python3&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- -&lt;span class="l">c&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="p">|&lt;/span>&lt;span class="sd">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sd"> import os, sys
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sd"> if os.environ.get(&amp;#34;JOB_COMPLETION_INDEX&amp;#34;) == &amp;#34;2&amp;#34;:
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sd"> sys.exit(0)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sd"> else:
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sd"> sys.exit(1)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>与之前存在的 complete 和 successCriteriaMet 参数相比较而言：&lt;/p>
+&lt;ul>
+&lt;li>complete 表示所有 Pod 均已运行完毕，并且它们全部执行成功或者该任务原本就处于 SuccessCriteriaMet=true 状态；&lt;/li>
+&lt;li>而 SuccessCriteriaMet 则表示当前任务至少符合其中一项 successPolicies 定义。&lt;/li>
+&lt;/ul>
+&lt;p>也就是说，在某些场景下一个 Task 可能既符合 complete 条件又符合 Success Criteria Met 条件。&lt;/p>
+&lt;p>这个特性当前是 Alpha 阶段，而且很明显这个特性出发点是对类似 AI 场景下的任务提供更多支持，也是个方向。&lt;/p>
+&lt;h2 id="kubelet-重启后-volumemanager-重建能力-ga">kubelet 重启后 VolumeManager 重建能力 GA&lt;/h2>
+&lt;p>&lt;a href="https://github.com/kubernetes/enhancements/issues/3756">Robust VolumeManager reconstruction after kubelet restart KEP-3756&lt;/a> KEP-3756 提出了对 Kubernetes 的 VolumeManager 重构过程的改进，在 kubelet 启动时，通过反转启动过程来实现对已挂载卷的更好的恢复。这个 KEP 的目的是在 kubelet 重启后，使其能够更好地恢复已挂载的卷，并为此提出了一个新的 feature gate &lt;code>NewVolumeManagerReconstruction&lt;/code>。&lt;/p>
+&lt;p>这个特性最早是 v1.25 引入的，不过当时是作为 SELinuxMountReadWriteOncePod 的一部分进行实现的。后来在 v1.27 达到 Beta，在 1.28 时候默认启用了，现在 v1.30 正式 GA。&lt;/p>
+&lt;p>它还是很有用的，尤其是如果需要维护 Kubernetes 集群的话，会更喜欢这个特性。毕竟节点异常/重启后，对卷的相关处理一直都比较痛。&lt;/p>
+&lt;h2 id="在卷恢复期间防止未经授权的卷模式转换-ga">在卷恢复期间防止未经授权的卷模式转换 GA&lt;/h2>
+&lt;p>&lt;a href="https://github.com/kubernetes/enhancements/issues/3141">Prevent unauthorised volume mode conversion during volume restore KEP-3141&lt;/a> KEP-3141 提出一种机制来减轻用户在从现有 PVC 创建 VolumeSnapshot 时对卷模式的更改带来的漏洞。&lt;/p>
+&lt;p>这个特性更偏向于对现有 Kubernetes 机制的一种加固。&lt;/p>
+&lt;p>因为在 Kubernetes v1.20 时有一个 GA 的特性 &lt;code>VolumeSnapshot&lt;/code>，用户可以通过使用 &lt;code>VolumeSnapshot&lt;/code> 特性，从卷快照创建新的持久化卷。这是非常有用的，比如说
+DBA 可以在进行数据库大的变更/迁移操作前，对持久化卷做一次快照，如果出现异常，则可以直接从该快照恢复数据库之前的状态。&lt;/p>
+&lt;p>例如通过以下方式可以动态的创建一个快照：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">snapshot.storage.k8s.io/v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">VolumeSnapshotClass&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">test-snapclass&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">driver&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">testdriver.csi.k8s.io&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">deletionPolicy&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Delete&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">parameters&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">csi.storage.k8s.io/snapshotter-secret-name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">mysecret&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">csi.storage.k8s.io/snapshotter-secret-namespace&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">mysecretnamespace&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">snapshot.storage.k8s.io/v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">VolumeSnapshot&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">test-snapshot&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">namespace&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ns1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">volumeSnapshotClassName&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">test-snapclass&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">source&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">persistentVolumeClaimName&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">test-pvc&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>当然，这里也有些需要注意的点，该功能只能用于 CSI 存储驱动，并且该功能是自 Kubernetes v1.17 达到 beta，v1.20 正式 GA 的。&lt;/p>
+&lt;p>VolumeSnapshot 是通过将 PVC 的 &lt;code>spec.dataSource&lt;/code> 参数指向现有 VolumeSnapshot 实例来完成的。然而，没有任何逻辑来验证在此操作期间原始卷模式是否与新创建的 PVC 的卷模式匹配。这个 KEP 引入了一个新的 annotation，&lt;/p>
+&lt;pre tabindex="0">&lt;code>snapshot.storage.kubernetes.io/allow-volume-mode-change
+&lt;/code>&lt;/pre>&lt;p>用户可以通过它来防止未授权的卷模式转换。&lt;/p>
+&lt;h2 id="为-pod-添加-statushostips-ga">为 Pod 添加 &lt;code>status.hostIPs&lt;/code> GA&lt;/h2>
+&lt;p>&lt;a href="https://github.com/kubernetes/enhancements/issues/2681">Field &lt;code>status.hostIPs&lt;/code> added for Pod KEP-2681&lt;/a> 该 KEP 提出为 Pod 添加一个新字段 &lt;code>status.hostIP&lt;/code>，以获取节点的地址。该 KEP 旨在改善 Pod 获取节点地址的能力，尤其是从单栈向双栈迁移的场景。&lt;/p>
+&lt;p>这个特性是 v1.28 引入，到 v1.29 Beta，到 v1.30 GA 并默认启用的。&lt;/p>
+&lt;p>你可能会好奇那之前版本中的 &lt;code>status.hostIP&lt;/code> 还能用吗？是可以用的，这个 &lt;code>.status.hostIPs&lt;/code> 就是为了保证兼容性所以新添加的，它是个列表。效果如下：&lt;/p>
+&lt;ul>
+&lt;li>v1.30 之前&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">➜ ~ kubectl -n kong get pods kong-gateway-649bbf9c47-qk7vh -o&lt;span class="o">=&lt;/span>&lt;span class="nv">jsonpath&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;{.status.hostIP}&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">192.168.1.5
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>v1.30&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">➜ ~ kubectl -n kong get pods kong-gateway-649bbf9c47-qk7vh -o&lt;span class="o">=&lt;/span>&lt;span class="nv">jsonpath&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;{.status.hostIPs}&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[{&lt;/span>&lt;span class="s2">&amp;#34;ip&amp;#34;&lt;/span>:&lt;span class="s2">&amp;#34;192.168.1.5&amp;#34;&lt;/span>&lt;span class="o">}]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="nodelogquery-特性达到-beta">NodeLogQuery 特性达到 Beta&lt;/h2>
+&lt;p>我们通常最习惯使用 &lt;code>kubectl logs&lt;/code> 命令来获取 Kubernetes 集群中运行的应用的日志，也可以通过给它传递一些参数来调整它的过滤范围。&lt;/p>
+&lt;p>比如：&lt;code>kubectl logs job/hello&lt;/code> 来指定获取 hello 这个 job 的日志；也可以增加 &lt;code>-l&lt;/code> / &lt;code>--selector=''&lt;/code> 来基于 label 进行过滤。&lt;/p>
+&lt;p>但这并没有扩展到 Node 级别的日志，无法直接获取到某个 Node 上的全部日志，要想得到这个结果需要写一段很复杂的 Shell 来完成。&lt;/p>
+&lt;p>当前 Kubernetes 社区已经逐渐提供了更多 Node 调试工具，旨在为调试 Node 故障提供统一体验，并更好地支持极简操作系统。通过 &lt;a href="https://github.com/kubernetes/kubernetes/pull/96120">KEP 2258: add node log query by LorbusChris · Pull Request #96120 · kubernetes/kubernetes&lt;/a> ，我们现在可以远程获取底层 Node 日志。与容器日志记录一样，这是 Kubelet API的一部分。&lt;/p>
+&lt;p>对于Linux系统，它查询journald；对于Windows系统，则查询事件日志(Event Log)。目前还没有专门针对此功能的 kubectl 命令，但可以使用如下命令尝试：&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="o">(&lt;/span>MoeLove&lt;span class="o">)&lt;/span> ➜ kubectl get --raw &lt;span class="s2">&amp;#34;/api/v2/nodes/&lt;/span>&lt;span class="nv">$NODE_NAME&lt;/span>&lt;span class="s2">/proxy/logs/?query=kubelet
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>也有一个对应的 kubectl 插件可以尝试：https://github.com/aravindhp/kubectl-node-logs/&lt;/p>
+&lt;p>这个特性是自 v1.27 引入的，在 v1.30 达到 Beta，但是默认并没有启用。&lt;/p>
+&lt;h2 id="node-swap-特性默认启用">Node Swap 特性默认启用&lt;/h2>
+&lt;p>关于 Node Swap 的背景我在 2021 年 Kubernetes v1.22 的文章中就介绍过了，这个话题是从 2016 年开始就一直在讨论了。&lt;/p>
+&lt;p>如今在 v1.30 中默认开始启用，才算是真正的更进一步了。但是需要 &lt;strong>注意它的一些参数修改了&lt;/strong> ，如果是从之前版本升级，并启用了该特性的话，需要注意！&lt;/p>
+&lt;p>具体来说是在 Kubelet 的配置中增加 &lt;code>MemorySwap.SwapBehavior&lt;/code> 字段，它有两个可选值：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>NoSwap&lt;/code>：它就是之前版本中的 &lt;code>UnlimitedSwap&lt;/code>，并且也是默认值；&lt;/li>
+&lt;li>&lt;code>LimitedSwap&lt;/code>：表示可以使用有限的 Swap，Swap 限制与容器的内存请求成比例；&lt;/li>
+&lt;/ul>
+&lt;p>同时，还需要注意，LimitedSwap 仅支持在 cgroup v2 中使用。&lt;/p>
+&lt;h2 id="新增递归只读挂载-rro">新增递归只读挂载 RRO&lt;/h2>
+&lt;p>&lt;a href="https://github.com/kubernetes/enhancements/issues/3857">Recursive Read-only (RRO) mounts KEP-3857&lt;/a> 它允许在一个目录上创建只读挂载，同时也会递归地将该目录下的所有子目录和文件都设置为只读。&lt;/p>
+&lt;p>RRO 挂载可以提高 Kubernetes 的安全性和稳定性，同时也可以减少不必要的读写操作，提高性能。
+这个功能需要 kernel &amp;gt;= 5.12，并且需要使用 runc &amp;gt;= 1.1 或 crun &amp;gt;= 1.4 之一的 OCI 运行时。&lt;/p>
+&lt;p>配置方式如下，主要是增加 &lt;code>recursiveReadOnly: Enabled&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">v1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Pod&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">rro&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">volumes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">mnt&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">hostPath&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># tmpfs is mounted on /mnt/tmpfs&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/mnt&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">containers&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">busybox&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">busybox&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">args&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;sleep&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;infinity&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">volumeMounts&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># /mnt-rro/tmpfs is not writable&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">mnt&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">mountPath&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/mnt-rro&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">readOnly&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">mountPropagation&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">None&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">recursiveReadOnly&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Enabled&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># /mnt-ro/tmpfs is writable&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">mnt&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">mountPath&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/mnt-ro&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">readOnly&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># /mnt-rw/tmpfs is writable&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">mnt&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">mountPath&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/mnt-rw&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="其他">其他&lt;/h2>
+&lt;ul>
+&lt;li>移除了 &lt;code>SecurityContextDeny&lt;/code> adminssion plugin;&lt;/li>
+&lt;li>新增 &lt;code>StorageVersionMigrator&lt;/code> 可以方便的进行 CRD 版本升级；&lt;/li>
+&lt;li>Pod user namespace 从 v1.25 引入，到如今成为 Beta，但是这需要底层容器运行时支持 user namespace;&lt;/li>
+&lt;li>Kubelet &lt;code>ImageMaximumGCAge&lt;/code> 达到 Beta;&lt;/li>
+&lt;li>Kubelet 可以修改 Pod 的日志目录了，默认是 &lt;code>/var/log/pods&lt;/code> 。但是要注意的是，如果你挂了个盘然后它和 /var 不是一个文件系统的话，kubelet 不会感知到文件系统的用量，可能会导致一些异常情况；&lt;/li>
+&lt;/ul>
+&lt;p>好了，这就是我觉得 Kubernetes v1.30 中主要值得关注的内容了。
+欢迎大家交流讨论，下次再见！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category><category domain="https://moelove.info/tags/Weekly/">Weekly</category><category domain="https://moelove.info/tags/Kubernetes/">Kubernetes</category></item><item><title>我的 2023 总结</title><link>https://moelove.info/2024/03/24/%E6%88%91%E7%9A%84-2023-%E6%80%BB%E7%BB%93/</link><guid isPermaLink="true">https://moelove.info/2024/03/24/%E6%88%91%E7%9A%84-2023-%E6%80%BB%E7%BB%93/</guid><pubDate>Sun, 24 Mar 2024 19:46:02 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>每年我都会惯例的做个小回顾，不过今年事情比较多，还发生了很多意外情况（主要都是生病之类的），只好拖到现在了。&lt;/p>
 &lt;p>2023 年于我而言有着非比寻常的意义，同时这一年里发生的事情，也让我成长了很多。&lt;/p>
 &lt;h2 id="生活">生活&lt;/h2>
@@ -24867,67 +25161,4 @@ sudo yum install ffmpeg ffmpeg-libs gstreamer-ffmpeg libmatroska xvidcore(安装
 &lt;/code>&lt;/pre>&lt;ul>
 &lt;li>Sublime Text
 我也很喜欢因为运行速度快，而且免费。安装方法可以参考我的&lt;a href="http://moelove.info/articles/2013/08/30/fedoraxia-an-zhuang-sublime-text-2de-fang-fa/">fedora下安装sublime text 2&lt;/a>这篇文章。&lt;/li>
-&lt;/ul></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category></item><item><title/><link>https://moelove.info/1/01/01/</link><guid isPermaLink="true">https://moelove.info/1/01/01/</guid><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h1 id="你的-gateway-可以更智能">&lt;strong>你的 Gateway 可以更智能&lt;/strong>&lt;/h1>
-&lt;p>在这个数字化时代，API（应用程序编程接口）已经成为连接世界的关键纽带。它们使得不同的软件、服务和数据能够无缝地进行交互。然而，随着服务数量的增加，管理这些 API 变得越来越复杂。这正是 API Gateway 发挥作用的地方。&lt;/p>
-&lt;p>但究竟什么是 API Gateway，为什么它对现代应用至关重要，如何让它更智能呢？本文我带你一起深入了解。&lt;/p>
-&lt;h2 id="什么是-api-gateway">&lt;strong>什么是 API Gateway&lt;/strong>&lt;/h2>
-&lt;p>我们以一个很常见的例子作为类比。你去了一家餐厅，这个餐厅的后厨开源提供多种美食。作为顾客，你并不需要直接和厨房进行沟通，而是通过服务员点菜。服务员在知道你的需求后，将订单送到后厨，并且确保你的订单制作完成后送到你的桌上。&lt;/p>
-&lt;p>在这个例子中，服务员扮演的角色就相当于 API Gateway。&lt;/p>
-&lt;p>API Gateway 是位于客户端和后端服务之间的组件，它的任务是处理所有进出的通信。它的工作方式如下：&lt;/p>
-&lt;ul>
-&lt;li>接收来自客户端的请求；&lt;/li>
-&lt;li>可能会对请求进行一些预处理，比如验证、增强或转换；&lt;/li>
-&lt;li>确定请求应该路由到哪个后端服务，并将其转发到对应的后端服务；&lt;/li>
-&lt;li>收到服务的响应后，可能会对其进行一些处理；&lt;/li>
-&lt;li>将响应返回给客户端；&lt;/li>
-&lt;/ul>
-&lt;h3 id="api-gateway-的作用">&lt;strong>API Gateway 的作用&lt;/strong>&lt;/h3>
-&lt;p>&lt;img src="https://s2.loli.net/2024/03/26/hxQZ9XNjqonJDwy.png" alt="API Gateway">&lt;/p>
-&lt;p>API Gateway 并不仅仅是一个简单的请求转发器，它还承担了一系列关键任务，使得它成为现代应用架构中不可或缺的组成部分：&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>请求路由&lt;/strong>：API Gateway 决定如何将外部请求转发到内部的不同服务。比如根据请求路径，或者 Header 等进行区分，这涉及到复杂的逻辑判断，以确保请求准确、高效地到达目标服务；&lt;/li>
-&lt;li>&lt;strong>身份验证和授权&lt;/strong>：API Gateway 在接收到来自客户端的请求后，可以验证客户端的身份，并确保他们有权访问请求的资源。这一步骤对于保护敏感数据和服务不被未授权访问至关重要；&lt;/li>
-&lt;li>&lt;strong>限流和熔断&lt;/strong>：API Gateway 能够限制对某一服务的请求频率，避免因过多的请求而导致服务崩溃。在服务响应变慢或失败时，熔断机制可以暂时中断请求，保护系统的稳定性；&lt;/li>
-&lt;li>&lt;strong>数据转换&lt;/strong>：API Gateway 可以转换数据格式，以满足后端服务或客户端的需求。这对于确保不同服务之间的兼容性非常重要，例如，Kong Gateway 提供了 Request Transformer 和 Response Transformer 的插件，可以对请求和响应进行修改；&lt;/li>
-&lt;li>&lt;strong>聚合请求&lt;/strong>：API Gateway 可以将来自客户端的多个请求合并为一个请求，减少网络往返次数，这对于提升应用性能和用户体验非常有帮助；&lt;/li>
-&lt;li>&lt;strong>缓存&lt;/strong>：API Gateway 可以缓存请求和响应，提高响应的速度。这不仅减少了对后端服务的负载，也缩短了用户等待时间；&lt;/li>
-&lt;/ul>
-&lt;h3 id="为什么需要-api-gateway">&lt;strong>为什么需要 API Gateway&lt;/strong>&lt;/h3>
-&lt;p>随着微服务架构的普及，一个应用可能由数十个独立的服务组成，每个服务处理应用的一个方面。这种架构提高了应用的灵活性和可扩展性，但同时也带来了挑战：&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>服务发现&lt;/strong>：由于一个完整的功能/请求可能需要多个服务共同完成，如果没有其他替代办法，客户端就需要知道每个服务的位置，这在服务数量众多时变得愈发复杂；&lt;/li>
-&lt;li>&lt;strong>跨服务的一致性&lt;/strong>：如认证、限流等功能需要在多个服务中进行一致的实现，增加了开发和维护的复杂度；&lt;/li>
-&lt;/ul>
-&lt;p>API Gateway 提供了一个统一的入口，简化了客户端与后端服务的交互。它使得在服务架构变化时，客户端无需修改，因为所有变化都隐藏在 API Gateway 之后。此外，它还可以提供一些跨服务的共有功能，如认证、限流等，减轻了各个服务的负担。&lt;/p>
-&lt;h2 id="需要-api-gateway-进行数据内容处理的场景">&lt;strong>需要 API Gateway 进行数据内容处理的场景&lt;/strong>&lt;/h2>
-&lt;p>聊完什么是 API Gateway 以及它的作用之后，我们聚焦到通过 API Gateway 进行数据内容处理的场景，以及传统 API Gateway 在这类场景下的一些限制。&lt;/p>
-&lt;h3 id="1-api-聚合">&lt;strong>1. API 聚合&lt;/strong>&lt;/h3>
-&lt;p>在微服务架构中，客户端可能需要从多个服务获取数据以完成一个操作或显示一个视图。如果客户端直接与所有这些服务通信，将会导致大量的网络请求，增加加载时间并影响用户体验。API Gateway 可以将这些请求聚合成一个单一的请求，由它负责与各个服务通信并聚合结果，然后返回给客户端。&lt;/p>
-&lt;h3 id="2-请求转换">&lt;strong>2. 请求转换&lt;/strong>&lt;/h3>
-&lt;p>不同的后端服务可能需要不同格式的请求。例如，一个服务可能使用XML，而另一个服务可能使用JSON。API Gateway可以在转发请求之前将它们转换为适当的格式，确保服务能够正确处理请求。&lt;/p>
-&lt;h3 id="3-响应重塑">&lt;strong>3. 响应重塑&lt;/strong>&lt;/h3>
-&lt;p>与请求转换类似，不同的客户端可能需要不同格式或不同数据子集的响应。API Gateway可以修改后端服务的响应，以满足客户端的需求。例如，可以为客户端返回部分响应结果（更轻量），或者在响应中增加一些字段，以便兼容不同的版本。&lt;/p>
-&lt;h3 id="api-gateway-在这些场景中的限制">API Gateway 在这些场景中的限制&lt;/h3>
-&lt;p>尽管 API Gateway 在上述场景中非常有用，但它在处理这些场景时也面临一些挑战和限制。&lt;/p>
-&lt;h3 id="1-缺乏灵活性">&lt;strong>1. 缺乏灵活性&lt;/strong>&lt;/h3>
-&lt;p>传统的 API Gateway 通常是以配置为中心的，这意味着它们的行为是通过静态配置文件定义的。这种方法在处理简单和标准化的场景时效果很好，但在需要动态适应不同请求和响应的复杂场景时，可能缺乏必要的灵活性。&lt;/p>
-&lt;h3 id="2-处理复杂逻辑的能力有限">&lt;strong>2. 处理复杂逻辑的能力有限&lt;/strong>&lt;/h3>
-&lt;p>虽然 API Gateway 非常适合执行如路由、限流和认证等标准任务，但当涉及到复杂的业务逻辑，如高度定制的请求聚合或复杂的数据转换时，它的能力可能会受限。这是因为 API Gateway 的设计重点是轻量级和高性能，而不是复杂的数据处理。&lt;/p>
-&lt;h3 id="3-性能考虑">&lt;strong>3. 性能考虑&lt;/strong>&lt;/h3>
-&lt;p>在执行数据聚合或转换等操作时，API Gateway 可能成为性能瓶颈。每个经过 Gateway 的请求都需要额外的处理时间，特别是在高负载情况下，这可能导致延迟增加。&lt;/p>
-&lt;h3 id="4-维护和可扩展性问题">&lt;strong>4. 维护和可扩展性问题&lt;/strong>&lt;/h3>
-&lt;p>随着业务的发展，需要 API Gateway 处理的场景可能会变得越来越复杂。管理和更新 API Gateway 的配置可能变得困难，特别是在大型或快速变化的系统中。此外，如果 API Gateway 的实现不够灵活，扩展其功能以适应新需求可能会非常具有挑战性。&lt;/p>
-&lt;h2 id="kong-如何解决上述问题">Kong 如何解决上述问题？&lt;/h2>
-&lt;p>在面对现代应用架构的复杂性和不断增长的数据处理需求时，传统的 API Gateway 方案显得不够用。幸运的是，Kong 带来了一种创新的解决方案：&lt;strong>AI Gateway&lt;/strong>。通过集成先进的 AI 技术，Kong 的 AI Gateway 为 API 管理和数据处理带来了革命性的改进。&lt;/p>
-&lt;p>Kong Gateway 3.6 版本引入了一系列 AI 功能，特别是 AI Proxy 和 AI Request/Response Transformer 插件。这些插件可以和大语言模型（LLM）进行集成，如 OpenAI，Claude，Azure OpenAI Service 等，或通过 Ollama 运行其他开源的 LLM 。&lt;/p>
-&lt;p>AI Proxy 插件允许开发者在 API 请求和响应流程中直接集成 LLM，使得实时内容生成、转换和增强成为可能。例如，它可以在用户提交请求时，动态生成个性化的响应内容，或者根据用户的查询实时重塑API响应结构。&lt;/p>
-&lt;p>AI Request/Response Transformer插件进一步扩展了这种能力，使开发者能够定义复杂的逻辑和转换规则，这些规则将在API请求和响应过程中自动应用。这不仅极大地增强了API Gateway的灵活性，也为处理复杂的数据转换和增强提供了强大的工具。&lt;/p>
-&lt;h3 id="32-kong-ai-gateway-具备的其他能力">3.2 Kong AI Gateway 具备的其他能力&lt;/h3>
-&lt;p>除了提升数据处理能力外，Kong AI Gateway还引入了AI Prompt Guard, AI Prompt Template, 和 AI Prompt Decorator等插件，这些插件为开发者提供了更多的控制和优化AI提示的工具。&lt;/p>
-&lt;p>AI Prompt Guard插件通过设置规则和条件，帮助开发者确保生成的内容符合特定的合规性和品质标准。这对于避免生成不当或不相关内容尤为重要。&lt;/p>
-&lt;p>AI Prompt Template和AI Prompt Decorator插件则允许开发者定义和重用AI提示模板，以及在运行时装饰和调整这些提示。这些功能简化了管理和优化AI提示的过程，使得开发者可以更有效地利用LLM的能力。&lt;/p>
-&lt;h3 id="33-kong-ai-gateway-可以和更多的-llm-集成以及它的应用场景">3.3 Kong AI Gateway 可以和更多的 LLM 集成以及它的应用场景&lt;/h3>
-&lt;p>Kong AI Gateway的一个关键优势是其对多个LLM的原生支持，包括OpenAI, Azure AI等。这种灵活性意味着企业可以根据特定的应用场景和成本效益考虑，选择最合适的LLM进行集成。&lt;/p>
-&lt;p>更重要的是，Kong AI Gateway使得在不同LLM之间切换变得异常简单，无需大规模的代码重写或配置更改。这不仅为企业节省了宝贵的开发时间和资源，也为利用特定模型的优势提供了更大的灵活性。&lt;/p>
-&lt;h2 id="总结">总结&lt;/h2>
-&lt;p>Kong AI Gateway 在传统 API Gateway 的基础上通过集成 LLM，让它具备了更丰富且灵活的特性。这样可以更好的应对复杂多变的环境，为业务提供更强有力的支持！&lt;/p></description><category domain="https://moelove.info/post/">post</category></item></channel></rss>
+&lt;/ul></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Linux/">Linux</category></item></channel></rss>
