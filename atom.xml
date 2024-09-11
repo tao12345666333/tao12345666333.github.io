@@ -1,4 +1,53 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2024-04-16T11:18:09+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.120.0">Hugo</generator><entry><title type="text">Kubernetes v1.30 新特性一览</title><link rel="alternate" type="text/html" href="https://moelove.info/2024/04/02/Kubernetes-v1.30-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/"/><id>https://moelove.info/2024/04/02/Kubernetes-v1.30-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</id><updated>2024-04-16T11:17:15+08:00</updated><published>2024-04-02T01:37:40+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 Kubernetes v1.30 是 2024 年发布的第一个大版本，包含了 45 项主要的更新。 对比去年的话，v1.27 有近 60 项，v1.28 有 46 项，v1……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2024-09-11T17:32:36+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.120.0">Hugo</generator><entry><title type="text">Kubecon China 2024 Recap</title><link rel="alternate" type="text/html" href="https://moelove.info/2024/09/03/Kubecon-China-2024-Recap/"/><id>https://moelove.info/2024/09/03/Kubecon-China-2024-Recap/</id><updated>2024-09-11T17:31:49+08:00</updated><published>2024-09-03T06:24:08+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 两周前我去参加了 KubeCon China 2024，仔细想来这应该是时隔 5 年，我再次 线下 参加 KubeCon China 了。 前一次线下参加 KubeCon China 应该是 2019 年，……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>两周前我去参加了 KubeCon China 2024，仔细想来这应该是时隔 5 年，我再次 &lt;strong>线下&lt;/strong> 参加 KubeCon China 了。&lt;/p>
+&lt;p>前一次线下参加 KubeCon China 应该是 2019 年，在上海。后来几年因为众所周知的原因要不然是线上举办，要不然就是没有办中国区的活动。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2024/09/06/LeNqjGmvlExB8kC.jpg" alt="">&lt;/p>
+&lt;p>去年线下活动终于回归，但我因为事情比较多没能去参加（有兴趣了解详细的小伙伴，可以查看 &lt;a href="https://moelove.info/2024/03/24/%E6%88%91%E7%9A%84-2023-%E6%80%BB%E7%BB%93/">我的 2023 总结&lt;/a>），所以想着趁这个机会来分享下本次参会的感受。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2024/09/05/IF3phvnRWoGE9yg.jpg" alt="">&lt;/p>
+&lt;h2 id="再遇-linus">再遇 Linus&lt;/h2>
+&lt;p>要说本次活动除了和众多小伙伴面基外，最值得分享的事情就是再次遇到 Linus 了。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2024/09/06/SLpVEBYPOzAojCk.png" alt="image-20240906000939990">&lt;/p>
+&lt;p>这是那天早晨在酒店餐厅碰巧遇到的，我和 Linus 合了影，也顺便做了简短的聊天。&lt;/p>
+&lt;p>事实上这是我和他第二次在 KubeCon China 的现场遇到了。在 2019 年的 KubeCon China 时，主办方也邀请来了 Linus，当时他在台上，我在观众席中。那次我就觉得算是离祖师爷最近的距离了，感谢 Linus 创建了 Linux，我的工作和 Linux 可是息息相关的。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2024/09/06/fXQM6tBEVqPAcaL.jpg" alt="">&lt;/p>
+&lt;p>在本次 KubeCon China 上，Linus 和 Dirk Hohndel 有一场对谈，可以说是最火热的场次之一。Linus 表示自己仍然是一个普通的内核开发者，他仍然专注在内核上，对 AI 等技术仍然持有比较谨慎的态度，但是 AI 的流行让 NVIDIA 在 Linux 内核开发中变得更加活跃。&lt;/p>
+&lt;p>Linus 还是很幽默，录播视频可以在这里看到：https://youtu.be/nJMEuBwMD18&lt;/p>
+&lt;h2 id="istio-和现代-api-gateway">Istio 和现代 API Gateway&lt;/h2>
+&lt;p>KubeCon 第一天，我（Kong Inc.）和来自 Tetrate，阿里云的小伙伴们有&lt;a href="https://kccncossaidevchn2024.sched.com/event/1eYY6/istio-and-modern-api-gateways-navigating-the-future-of-service-meshes-istiorejiong-apijie-daepqiu-jie-zha-jimmy-song-jianpeng-he-tetrate-jiaqi-zhang-alibaba-cloud-jintao-zhang-kong-inc-xunzhuo-liu-tencent">一场圆桌&lt;/a>。主题是 Istio and Modern API Gateways: Exploring the Future of Service Meshes&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2024/09/06/MYihvVJfQFzloRD.jpg" alt="">&lt;/p>
+&lt;p>在这里我们主要讨论了如下方面：&lt;/p>
+&lt;p>Istio 的新版本的核心特性。&lt;/p>
+&lt;p>&lt;strong>对比 Istio 的 Ambient mode 和 Sidecar mode。&lt;/strong>&lt;/p>
+&lt;p>我在这里举了一个例子分享给大家，我觉得 Sidecar mode 和 Ambient mode 可以与 VM 和 Docker 进行类比。曾经我们使用 VM 在主机上部署多个隔离的应用，但是由于 VM 有自己的 guest OS 这样会造成一些资源浪费，所以后来出现了 Docker/容器 技术后，大家都很积极的拥抱了这项技术，因为它可以减去那部分资源浪费。但同时需要注意的是，Docker/容器 是共享主机内核的，所以如何主机出现任何问题，那爆炸半径也是很大的。回到 Istio 中也是同样，Sidecar mode 将一些通用能力下沉到了 sidecar 中，但是每个 Pod 中都运行 sidecar 带来了资源浪费和一些性能损耗。通过 Ambient mode 可以减少这项资源浪费，但同样它是共享在主机上的，所以爆炸半径也是增加的。&lt;/p>
+&lt;p>&lt;strong>服务网格和 API Gateway 的集成&lt;/strong>&lt;/p>
+&lt;p>&lt;strong>AI Gateway 的发展&lt;/strong>&lt;/p>
+&lt;p>录播视频在这里：https://youtu.be/6t-oJQOPaBM&lt;/p>
+&lt;h2 id="容器十年之我所见">容器十年之我所见&lt;/h2>
+&lt;p>&lt;strong>2024 年不仅仅是 Kubernetes 诞生 10 周年的纪念日，它也是我进入容器领域的 10 年里程碑。&lt;/strong> 现在就可以说我自己是有 10+ 年容器技术经验了， 哈哈哈。&lt;/p>
+&lt;p>在 KubeCon 第二天，我和社区中的重磅维护者们来了一场圆桌，重点讨论了 Kubernetes 生态的演进，大家当前主要关注的领域，以及在各位眼中，未来 Kubernetes 的一些发展方向。&lt;/p>
+&lt;p>录播视频在这里：https://youtu.be/NUFcS2Xnd3s&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2024/09/06/RBv3NHlCPDSTVXm.jpg" alt="Kubernetes生态演进">&lt;/p>
+&lt;p>随后我也进行了一场分享，分享在我个人视角下，这十年来我所经历的容器技术和 Kubernetes 的发展，这十年我们做对的，做错的，以及其他的一些经验和教训。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2024/09/06/wGRueb17CagfK8v.jpg" alt="A Decade of Cloud-Native Journey">&lt;/p>
+&lt;p>一些主要的信息我就贴到这里了，当然这里很多内容在我维护的 『k8s生态周报』中都可以看到。&lt;/p>
+&lt;p>录播视频在这里：https://youtu.be/srhXk9Cqo5s&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2024/09/06/ldhqCjW7USYyosZ.png" alt="image-20240906012300217">&lt;/p>
+&lt;h2 id="next-step-of-ingress-nginx">Next Step of Ingress-NGINX&lt;/h2>
+&lt;p>KubeCon 第三天，我分享了 Kubernetes Ingress-NGINX 项目的后续计划。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2024/09/06/n4d8mBjCJzKOxN5.jpg" alt="">&lt;/p>
+&lt;p>Kubernetes Ingress-NGINX 项目仍然是全球范围内使用最为广泛的项目之一。但它目前确实很复杂，包含了很多内容，很多特性，就像我上面照片中写到的，&lt;strong>我们每次要发布一个新版本 CI 需要构建 4 小时才能完成&lt;/strong> 。幸好我们维护者是跨时区团队，这样我们可以触发构建后交给其他时区的伙伴来完成后续操作。&lt;/p>
+&lt;p>此外，&lt;strong>项目中包含上百个 annotations 和上百个配置项，他们彼此进行组合可以实现更复杂的场景。&lt;/strong>&lt;/p>
+&lt;p>但是我们的 maintainer 目前只有 4 个人，加上还有一些上下游供应链的安全问题需要解决，这给我们带来的负担可想而知。&lt;/p>
+&lt;p>后续我们将移除其中 Ingress 对 TCP/UDP 等 L4 协议的支持，并且逐步实现对 Gateway API 的支持，这类 L4 的需求则通过 Gateway API 中原生的 TCPRoute/UDPRoute 等提供支持。&lt;/p>
+&lt;p>录播视频在这里：https://youtu.be/WjRdLwfnIMQ&lt;/p>
+&lt;h2 id="其他">其他&lt;/h2>
+&lt;p>这次我的整体日程安排还是比较满的，每天都有 session，不过也面基了很多小伙伴，听了部分其他的议题。整体感觉 AI 相关的话题还是比较多的，这和整体的趋势是有关系的。&lt;/p>
+&lt;p>但是正如我在其中一个 session 中聊到的，&lt;strong>Kubernetes 和其他的云原生技术作为一种行业事实上的标准，已经成为了现在技术栈的首选项。AI 的发展并不是在取代 Kubernetes 等云原生技术，反而这些 AI 技术所使用的基础设施仍然是构建在 Kubernetes 之上的，这会带来 Kubernetes 等云原生的又一轮增长。&lt;/strong>&lt;/p>
+&lt;p>所以大家并不需要焦虑，深入技术和把握技术趋势即可。&lt;/p>
+&lt;p>此外也要感谢公司和老板对我的支持，香港本地的同事 Alex 对我的招待，以及现场遇到的每位小伙伴。非常难得的一次经历，下次再会！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Weekly/" term="Weekly" label="Weekly"/><category scheme="https://moelove.info/tags/Kubernetes/" term="Kubernetes" label="Kubernetes"/></entry><entry><title type="text">Kubernetes v1.30 新特性一览</title><link rel="alternate" type="text/html" href="https://moelove.info/2024/04/02/Kubernetes-v1.30-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/"/><id>https://moelove.info/2024/04/02/Kubernetes-v1.30-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/</id><updated>2024-04-16T11:17:15+08:00</updated><published>2024-04-02T01:37:40+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 Kubernetes v1.30 是 2024 年发布的第一个大版本，包含了 45 项主要的更新。 对比去年的话，v1.27 有近 60 项，v1.28 有 46 项，v1……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>&lt;strong>Kubernetes v1.30 是 2024 年发布的第一个大版本，包含了 45 项主要的更新。&lt;/strong> 对比去年的话，v1.27 有近 60 项，v1.28 有 46 项，v1.29 有 49 项。可以看到 Kubernetes 变得更加谨慎了，会更加保守的控制进入其核心的功能。&lt;/p>
 &lt;p>恰好前些天我在 “硬地骇客” 播客上&lt;a href="https://www.xiaoyuzhoufm.com/episode/66140dcf5dae7932c636fa29">录制了一期节目&lt;/a>，正好提到 Kubernetes 现在是不是变得太复杂了，感兴趣的话可以听一下。&lt;/p>
 &lt;p>具体来看 v1.30 版本中有 10 个增强功能正在进入 Alpha 阶段，18 个将升级到 Beta 阶段，而另外 17 个则将升级到稳定版。&lt;/p>
