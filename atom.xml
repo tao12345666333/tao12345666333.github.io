@@ -1,4 +1,111 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2024-09-11T17:32:36+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.120.0">Hugo</generator><entry><title type="text">Kubecon China 2024 Recap</title><link rel="alternate" type="text/html" href="https://moelove.info/2024/09/03/Kubecon-China-2024-Recap/"/><id>https://moelove.info/2024/09/03/Kubecon-China-2024-Recap/</id><updated>2024-09-11T17:31:49+08:00</updated><published>2024-09-03T06:24:08+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 两周前我去参加了 KubeCon China 2024，仔细想来这应该是时隔 5 年，我再次 线下 参加 KubeCon China 了。 前一次线下参加 KubeCon China 应该是 2019 年，……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN"><title type="text">MoeLove</title><subtitle type="html">Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</subtitle><updated>2024-12-26T20:59:09+08:00</updated><id>https://moelove.info/</id><link rel="alternate" type="text/html" href="https://moelove.info/"/><link rel="self" type="application/atom+xml" href="https://moelove.info/atom.xml"/><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><generator uri="https://gohugo.io/" version="0.120.0">Hugo</generator><entry><title type="text">我的 Rust 之旅，以及如何学习 Rust</title><link rel="alternate" type="text/html" href="https://moelove.info/2024/11/08/%E6%88%91%E7%9A%84-Rust-%E4%B9%8B%E6%97%85%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0-Rust/"/><id>https://moelove.info/2024/11/08/%E6%88%91%E7%9A%84-Rust-%E4%B9%8B%E6%97%85%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0-Rust/</id><updated>2024-12-26T20:58:26+08:00</updated><published>2024-11-08T06:33:14+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">我将在这篇文章中分享我的 Rust 学习之旅，我是如何学习 Rust 以及一些免费的 Rust 学习资源。这篇文章是去年首发在我的英文博客中的，只是之前一直没……</summary><content type="html">&lt;blockquote>
+&lt;p>我将在这篇文章中分享我的 Rust 学习之旅，我是如何学习 Rust 以及一些免费的 Rust 学习资源。这篇文章是去年首发在我的英文博客中的，只是之前一直没来得及翻译成中文。&lt;/p>
+&lt;/blockquote>
+&lt;p>Rust 已经变的越来越流行，通过 &lt;a href="https://survey.stackoverflow.co/2022/#most-loved-dreaded-and-wanted-language-want">StackOverflow 2022 的调查问卷&lt;/a>，可以看到很多人都在对 Rust 感兴趣。&lt;/p>
+&lt;blockquote>
+&lt;p>Rust is on its seventh year as the most loved language with 87% of developers saying they want to continue using it.&lt;/p>
+&lt;p>Rust also ties with Python as the most wanted technology with TypeScript running a close second&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>Most Wanted&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://s2.loli.net/2023/01/14/mW5X6EgYLSfB3Qk.png" alt="2023-01-14 01-16-33屏幕截图.png">&lt;/p>
+&lt;ul>
+&lt;li>Most Loved vs. Dreaded&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://s2.loli.net/2023/01/14/69Wgk1zcHN8TQeb.png" alt="2023-01-14 01-16-07屏幕截图.png">&lt;/p>
+&lt;p>但是 Rust 的学习曲线比较特殊&lt;/p>
+&lt;p>&lt;img src="https://camo.githubusercontent.com/1d24e64022fd725f1896890b3ce14c560f075dc1f80f0b0baae3ece8981c882a/68747470733a2f2f70617065722d6174746163686d656e74732e64726f70626f782e636f6d2f735f353445314239364546464546443239343536323930324443354239393731443335434436423635304243383744313230303341333041343635313737363230315f313538363531343237353631385f696d6167652e706e67" alt="pic from Rust User Team Samara - &amp;amp;Meetup1">&lt;/p>
+&lt;p>这让我想要回顾一下自己的 Rust 旅程，并且介绍为什么我会选择 Rust，以及如何学习 Rust。&lt;/p>
+&lt;h2 id="和-rust-结缘">和 Rust 结缘&lt;/h2>
+&lt;p>在 Rust 刚发布的时候我就已经听说了它，我对它的印象是可以代替 C/C++ 的一种系统编程语言，并且足够的安全。但是我并没有真正的去学习和使用它。
+（我只用它写过 Hello World!）&lt;/p>
+&lt;p>时间回退到 5 年前，我在主导公司内基础设施向云原生堆栈的改造。&lt;/p>
+&lt;p>其中我需要构造一套完全基于 Prometheus 的监控堆栈，用来替换公司内部一套自己研发的，超过 10 年以上历史的监控软件。
+以及一些其他的监控软件，比如 Nagios, Zabbix, Graphite。&lt;/p>
+&lt;p>是的，你没有看错，我们在用很多监控软件。这有一些原因：&lt;/p>
+&lt;ul>
+&lt;li>单一的软件无法满足所有的需求&lt;/li>
+&lt;li>团队分散，大多数时候仅仅是为了满足特定的需要，便会引入新的软件，而非去真正解决问题&lt;/li>
+&lt;/ul>
+&lt;p>总之，这是一些历史原因。&lt;/p>
+&lt;p>并且，从我上述提到的，我们有一套自己研发的，超过 10 年以上历史的监控软件，你就可以看出来，
+我们的基础设施的迭代速度很慢。&lt;/p>
+&lt;p>而且由于我们有自己的物理机房，这也导致了我们的服务器存在很多老旧的机器没有更新换代。（这也是后来我使用 Rust 的原因之一）&lt;/p>
+&lt;p>我首先在一个新上线的小型机房中进行监控堆栈的替换，大概 400 台机器，效果不错。
+使用 Prometheus 完成了这个小型机房中所有的服务器，以及在上面运行的各种服务的监控，
+还有在 Grafana 中为它们创建了 Dashboard，通过 Alertmanager 创建了报警通知。&lt;/p>
+&lt;p>后来，我又在两个机房中推进这些改造，整体而言也比较顺利，包括 Kubernetes 的监控也是在这个过程中完成的。&lt;/p>
+&lt;p>但是在最后的一个机房中实施的时候，我面临了最大的挑战。&lt;/p>
+&lt;p>node_exporter 在一些机器上无法启动，还有一些机器上出现了运行一段时间后自动崩溃的情况。&lt;/p>
+&lt;p>我开始调查这一问题。&lt;/p>
+&lt;p>对于自动崩溃的问题，我通过增加重启的脚本来临时修复了它。&lt;/p>
+&lt;p>我主要在关注为什么 node_exporter 无法启动的问题。我发现这部分机器的操作系统是 CentOS 5， 内核是 2.6.18 。&lt;/p>
+&lt;p>我发现在社区中已经有了类似的 issue ：
+&lt;a href="https://github.com/prometheus/node_exporter/issues/691">https://github.com/prometheus/node_exporter/issues/691&lt;/a>&lt;/p>
+&lt;p>同时，我也注意到了 Go 的文档中明确写了不支持 CentOS 5，需要至少 2.6.32 以上版本的内核。&lt;/p>
+&lt;p>（我忘记了我当时查看时的最低依赖了，但是通过 &lt;a href="https://web.archive.org/web/20170916192117/https://github.com/golang/go/wiki/MinimumRequirements">web archive &lt;/a> 我看到 2017 年时需要的内核版本最低是 2.6.23）&lt;/p>
+&lt;p>经过一些搜索，我也看到了类似 &lt;a href="https://dave.cheney.net/2013/06/18/how-to-install-go-1-1-on-centos-5">How to install Go 1.1 on CentOS 5.9 | Dave Cheney&lt;/a> 这样的文章，但同时文章中也提到了一些已知的问题。&lt;/p>
+&lt;p>所以我不打算继续和它进行斗争。&lt;/p>
+&lt;p>&lt;strong>我想要自己重新实现一个&lt;/strong>，这样也可以解决上述自动崩溃的问题。&lt;/p>
+&lt;p>最终我用 Rust 实现了一个类似 node_exporter 的工具，并完成了监控系统的升级和改造。&lt;/p>
+&lt;p>这就是我真正在生产环境中开始使用 Rust 的旅程。&lt;/p>
+&lt;p>接下来我介绍一下，为什么我选择 Rust。&lt;/p>
+&lt;h2 id="为什么选择-rust">为什么选择 Rust&lt;/h2>
+&lt;p>上面我已经介绍了一些背景，在当时最简单的选择应该是 Python，足够简单，生态丰富，
+同时，我也有很多年的 Python 开发经验，
+我可以快速的构建出我需要的工具。&lt;/p>
+&lt;p>没有选择 Python 的原因在于：&lt;/p>
+&lt;ul>
+&lt;li>这些机器上并不是都有 Python 环境，并且 Python 的版本也不一样，我被要求尽量不要修改这些机器上的环境；&lt;/li>
+&lt;li>由于我后续可能会进行一些修改，我认为后续的分发可能不太方便；&lt;/li>
+&lt;/ul>
+&lt;p>然后我重新思考了我的目标：&lt;/p>
+&lt;ul>
+&lt;li>可以编译成二进制可执行文件，便于分发和部署，我当时使用了 Ansible 进行统一的部署。&lt;/li>
+&lt;/ul>
+&lt;p>所以比较合适的选项是 C/C++/Rust 。&lt;/p>
+&lt;p>我有比较多的 C 开发经验和一点 C++ 的经验，对于我的第一个需求而言，上述三种语言都可以比较轻松的满足。&lt;/p>
+&lt;p>大多数人在对比 Rust 和 C/C++ 的时候，都在对比它们的性能和安全性等方面。&lt;/p>
+&lt;p>而在我当时的用例中，尽管这些也需要考虑，但我不认为使用其他两种语言实现的结果会比用 Rust 更差。
+并且由于我当时刚开始学习 Rust，可能比我用 C 实现要差一些。&lt;/p>
+&lt;p>不过我想要更多的挑战，尝试一些新鲜的东西，而且在 Prometheus 监控方面，C/C++ 相关的生态不太活跃。
+还有一点我觉得 Rust 在未来会有很大的发展。&lt;/p>
+&lt;p>所以最终我选择了 Rust 。&lt;/p>
+&lt;h2 id="我是如何学习-rust-的">我是如何学习 Rust 的&lt;/h2>
+&lt;p>Rust 并不简单，而且它和其他语言并不完全相同，所以一些在其他语言中的做法在 Rust 中可能并不适用。&lt;/p>
+&lt;p>由于我有特定需要解决的问题，需要实现一个 node_exporter 完成监控堆栈的改造，
+所以我是通过 Learning-by-doing 的模式进行 Rust 学习的。&lt;/p>
+&lt;p>我首先快速的浏览了以下内容：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://doc.rust-lang.org/stable/book/">The Rust Programming Language&lt;/a> ：这本书很完整，我最初并没有完整的阅读它。而是通过它了解了 Rust 中的主要概念和一些用法。&lt;/li>
+&lt;li>&lt;a href="https://doc.rust-lang.org/rust-by-example/">Rust By Example&lt;/a>：这里有很多例子，通过练习这些例子也可以增加对 Rust 的熟悉程度；&lt;/li>
+&lt;li>&lt;a href="https://doc.rust-lang.org/std/index.html">Rust std lib docs&lt;/a>：标准库的文档，快速的浏览，了解一些关键字，模块等。但最初并不需要完整的阅读它。&lt;/li>
+&lt;/ul>
+&lt;p>通过这种方式我很快就实现了一个基础的 node_exporter 版本，
+然后进行持续的迭代，并将它应用到了生产环境，
+完成了 Prometheus 监控堆栈的建设。&lt;/p>
+&lt;p>后来，我持续用 Rust 实现了一些小工具，并学习它的最佳实践，学习一些通过 Rust 实现的开源项目，以此来增加我的 Rust 经验。&lt;/p>
+&lt;h2 id="推荐一些-rust-的学习资源">推荐一些 Rust 的学习资源&lt;/h2>
+&lt;p>现在 Rust 的学习资源有很多，除了我上述列到的那些以外，我推荐如下免费内容：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://learn.microsoft.com/en-us/training/paths/rust-first-steps/">Take your first steps with Rust - Training | Microsoft Learn&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/rust-lang/rustlings">rust-lang/rustlings: Small exercises to get you used to reading and writing Rust code!&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>videos:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://www.youtube.com/watch?v=zF34dRivLOw&amp;amp;utm_source=blog.moelove.info&amp;amp;utm_medium=content">Rust Crash Course | Rustlang - YouTube&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.youtube.com/watch?v=T_KrYLW4jw8&amp;amp;list=PLzMcBGfZo4-nyLTlSRBvo0zjSnCnqjHYQ&amp;amp;utm_source=blog.moelove.info&amp;amp;utm_medium=content">Rust Tutorial - YouTube&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.youtube.com/playlist?list=PLlrxD0HtieHjbTjrchBwOVks_sr8EVW1x&amp;amp;utm_source=blog.moelove.info&amp;amp;utm_medium=content">Rust for Beginners - YouTube&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>这就是我的 Rust 旅程如何开始的，现在它仍然在继续。&lt;/p>
+&lt;p>尽管我的主要方向是 Cloud Native 和 Kubernetes 相关的技术，并且现在写 Go 语言更多一些，
+但我还是会用 Rust 写一些工具，以及在 WebAssembly 中使用 Rust。&lt;/p>
+&lt;p>后续我也会分享相关的内容，&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></content><category scheme="https://moelove.info/post/" term="post" label="post"/><category scheme="https://moelove.info/tags/Linux/" term="Linux" label="Linux"/><category scheme="https://moelove.info/tags/Rust/" term="Rust" label="Rust"/></entry><entry><title type="text">Kubecon China 2024 Recap</title><link rel="alternate" type="text/html" href="https://moelove.info/2024/09/03/Kubecon-China-2024-Recap/"/><id>https://moelove.info/2024/09/03/Kubecon-China-2024-Recap/</id><updated>2024-09-11T17:31:49+08:00</updated><published>2024-09-03T06:24:08+08:00</published><author><name>张晋涛</name><uri>https://moelove.info/</uri><email>zhangjintao9020@gmail.com</email></author><rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">大家好，我是张晋涛。 两周前我去参加了 KubeCon China 2024，仔细想来这应该是时隔 5 年，我再次 线下 参加 KubeCon China 了。 前一次线下参加 KubeCon China 应该是 2019 年，……</summary><content type="html">&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>两周前我去参加了 KubeCon China 2024，仔细想来这应该是时隔 5 年，我再次 &lt;strong>线下&lt;/strong> 参加 KubeCon China 了。&lt;/p>
 &lt;p>前一次线下参加 KubeCon China 应该是 2019 年，在上海。后来几年因为众所周知的原因要不然是线上举办，要不然就是没有办中国区的活动。&lt;/p>
 &lt;p>&lt;img src="https://s2.loli.net/2024/09/06/LeNqjGmvlExB8kC.jpg" alt="">&lt;/p>
