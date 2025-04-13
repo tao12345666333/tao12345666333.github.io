@@ -1,4 +1,60 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.120.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Thu, 26 Dec 2024 20:59:09 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>我的 Rust 之旅，以及如何学习 Rust</title><link>https://moelove.info/2024/11/08/%E6%88%91%E7%9A%84-Rust-%E4%B9%8B%E6%97%85%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0-Rust/</link><guid isPermaLink="true">https://moelove.info/2024/11/08/%E6%88%91%E7%9A%84-Rust-%E4%B9%8B%E6%97%85%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0-Rust/</guid><pubDate>Fri, 08 Nov 2024 06:33:14 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.120.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sun, 13 Apr 2025 21:48:00 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>我的 2024 总结</title><link>https://moelove.info/2025/02/04/%E6%88%91%E7%9A%84-2024-%E6%80%BB%E7%BB%93/</link><guid isPermaLink="true">https://moelove.info/2025/02/04/%E6%88%91%E7%9A%84-2024-%E6%80%BB%E7%BB%93/</guid><pubDate>Tue, 04 Feb 2025 21:42:42 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>每年我都会惯例的做个小回顾，春节前最后一篇文章发布的时候我就计划要写年终总结了，但这篇实际开始写的时候春节已经过了，所幸这次没有像去年那样拖太久。（但实际的完稿时间没想到和去年差不多，年终总结差点写成了年中总结）&lt;/p>
+&lt;p>2024 年于我而言是忙碌的一年，其实回头来看，每年是越来越忙，但 2024 年不仅仅是忙，而且有一些节奏被打乱了，所以很早就关注我的小伙伴可能会发现 2024 年的我和以往是有很大不同的，甚至文章都没怎么更新了。&lt;/p>
+&lt;h2 id="生活">生活&lt;/h2>
+&lt;p>仍然是优先聊聊生活。&lt;/p>
+&lt;p>经过了 2023 年的一系列魔幻的故事，2024 年基本上没再发生什么太大变故，家人和我自己都健健康康，孩子也在快乐长大。&lt;/p>
+&lt;p>这一年趁着孩子稍微大一点了，在节假日带着小可爱和孩子走了好几个城市，去了各种游乐场，动物园和海洋馆之类的，还是很开心的。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2025/03/29/uQADR9mwMz8LjYG.jpg" alt="">&lt;/p>
+&lt;p>这部分还有点值得分享的是，我在 2024 年的时候，把我的手机，耳机，手表等各种电子设备从 Apple 全家桶都切换到了安卓生态。&lt;/p>
+&lt;p>主要原因是：&lt;/p>
+&lt;ul>
+&lt;li>我觉得接下来的一段时间，AI 的普及程度会增加，安卓相比 iOS 可玩性更大一些，也更容易进行多种应用直接的集成来优化体验，权限相对也更开放一些。（当然我写这篇回顾的时候，已经是 2025 年了，结果现在看来，iOS 上的 AI 能力推进还是不如人意，各个软件也还是比较割裂）&lt;/li>
+&lt;li>另一个原因在于 Apple Watch 的电池续航，我不想给自己增加负担，而且每次出差还都得想着给它带着充电线。自从把它换掉之后，现在轻松多了，10 天以上的续航，开开心心，出差也不用为手表带个充电线了。&lt;/li>
+&lt;/ul>
+&lt;h2 id="工作和社区">工作和社区&lt;/h2>
+&lt;p>还是继续用数据开始吧。&lt;/p>
+&lt;h3 id="活动">活动&lt;/h3>
+&lt;p>2024 年全年我有 26 场活动，其中有 3 场是英文的，海外这方面和 2023 年保持了一样。这里面涉及到的主要是 Kubernetes，AI &amp;amp; API，Kong 以及一些其他话题，感兴趣的小伙伴可以在我的 GitHub 拿到这些活动的 PPT。 &lt;a href="https://github.com/tao12345666333/slides">https://github.com/tao12345666333/slides&lt;/a>&lt;/p>
+&lt;p>还有 2 场播客的录制，1 篇文字采访，以及在 Kong 组织了三场活动。&lt;/p>
+&lt;p>&lt;strong>非常感谢大家的支持，无论是我参与的活动，还是我组织的活动，都多亏大家的支持才能顺顺利利。&lt;/strong>&lt;/p>
+&lt;p>这里有不少值得分享的内容，我就写几个大概回顾下。&lt;/p>
+&lt;p>KubeCon China 2024 是 8 月份在香港举办的，这是我参与 KubeCon 这些年来最忙碌的一次。实际上我参与了 4 个 session，除了我原本计划的 3 场外，还额外主持了一场圆桌讨论。我写过一篇 &lt;a href="https://moelove.info/2024/09/03/Kubecon-China-2024-Recap/">KubeCon China 2024 回顾&lt;/a>&lt;/p>
+&lt;p>另外那个月初，在 Kubernetes ingress-nginx 项目恰好披露了一个评分高达 8.8 分的安全漏洞 CVE-2024-7646，我也趁着那段时间把那个漏洞给修复了，所以现场也有一些人来追问我关于那个漏洞的情况。虽然我计划是写篇文章来具体介绍那个漏洞的， 但最终我是在 2025 年 3 月份的 KCD Beijing 通过一场演讲来具体介绍和分析了这个漏洞，感兴趣的小伙伴可以去看这个回放视频：【云原生论坛-5 从一个安全漏洞聊起 深入探究 Kubernetes 的网络和应用安全】 &lt;a href="https://www.bilibili.com/video/BV18aXxYaECD/">https://www.bilibili.com/video/BV18aXxYaECD/&lt;/a>&lt;/p>
+&lt;p>另外不得不提的自然是和 Linus 的合影了，我有好几年没见到他了，再之前可能是在 2019 年的 KubeCon 上。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2025/03/29/kRMBLWIp1zyxAur.jpg" alt="">&lt;/p>
+&lt;p>前面提到了有 2 场播客的录制，我个人觉得内容还是挺有意思的，虽然有一部分是在为 Kong 做的硬广（当然主要还是为了招聘了）。&lt;/p>
+&lt;p>在 Kong 组织的三场活动分别是 OpenResty meetup, Kong meetup 以及 Kong x AWS meetup，其中 Kong meetup 那场是我最为满意的也是规模最大的一场，&lt;strong>再次感谢所有人的帮忙！&lt;/strong>&lt;/p>
+&lt;p>还有一场直播是 GitHub Universe Learn Live 的活动 《使用 markdown 构建强大的 README》，说实话那是我第一次准备纯面向新手的内容，这类内容因为要考虑受众的水平，反而比我平时去讲有技术深度的内容需要更花时间准备。
+当然，这也算是我的一个弱项，通过那一次的活动，我也还是积累了一些经验的。更多的考虑受众，最好找个纯新手来交流一下，这样来验证内容是否真的合理。&lt;/p>
+&lt;p>我后来也表达过同样的观点，很佩服能把非常基础的主题洋洋洒洒一大篇写下来的。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2025/03/29/76hRT3Vo2GWdSID.png" alt="">&lt;/p>
+&lt;h3 id="文章">文章&lt;/h3>
+&lt;p>抛开活动不谈，这一年我只写了 5 篇文章，比往年少的多，这也是我这一年比较遗憾的一件事，也是我在这篇文章开头提到的 『节奏被打乱』的事情。&lt;/p>
+&lt;p>但我现在已经有了一个计划，我想在这篇年终总结发布后，就可以开始公布我的计划了，我要恢复我的节奏。&lt;/p>
+&lt;p>尤其是关于 k8s 生态周报的文章，今年我计划继续更新它，可能也会包含一些 AI 相关的内容。之前接受过一次采访，不能让它断掉。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://mp.weixin.qq.com/s/YMMHM22D9wjW8lUGR5_DNg">更新『k8s生态周报』这件小事，他坚持了5年&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>当然，这里还是要列一下我写的那几篇文章：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://moelove.info/2024/04/02/Kubernetes-v1.30-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%80%E8%A7%88/">Kubernetes v1.30 新特性一览 | MoeLove&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://moelove.info/2024/11/08/%E6%88%91%E7%9A%84-Rust-%E4%B9%8B%E6%97%85%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0-Rust/">我的 Rust 之旅，以及如何学习 Rust | MoeLove&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://moelove.info/2024/09/03/Kubecon-China-2024-Recap/">Kubecon China 2024 Recap | MoeLove&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>关于 Kubernetes 新特性的系列文章，我大概是从 Kubernetes v1.15 开始，到现在写了 11 篇，我想让它继续下去。&lt;/p>
+&lt;h3 id="其他">其他&lt;/h3>
+&lt;p>在 2024 年初，Weaveworks 宣布关闭，我感到很惋惜。十年时间，不长不短，我也见证了太多的事情。
+当然，我现在关注的重点是云原生 + AI，这也是技术发展的更迭。所幸在 2023 年我成立的 LLM + AI 的群组，发展的还不错，一直处于比较活跃的状态。希望大家也能够积极的拥抱新技术，一起前进！&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2025/03/30/8gT3JyzqfkIXhDQ.png" alt="weaveworks closed">&lt;/p>
+&lt;p>惯例的贴一张图：&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2025/03/30/Do14lqxPEiC2dSh.png" alt="2024 GitHub">&lt;/p>
+&lt;p>这篇虽然还是没什么内容，但确实断断续续耗费了我不少时间... 感谢大家的支持，能坚持看到最后。&lt;/p>
+&lt;p>2025 年，活动还会继续，文章也会补起来的！我也会带来更多有价值的内容！继续愿：平安喜乐！&lt;/p>
+&lt;p>还有文章前的你，感谢你的关注和支持，希望我们能各有收获！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Life/">Life</category></item><item><title>我的 Rust 之旅，以及如何学习 Rust</title><link>https://moelove.info/2024/11/08/%E6%88%91%E7%9A%84-Rust-%E4%B9%8B%E6%97%85%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0-Rust/</link><guid isPermaLink="true">https://moelove.info/2024/11/08/%E6%88%91%E7%9A%84-Rust-%E4%B9%8B%E6%97%85%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0-Rust/</guid><pubDate>Fri, 08 Nov 2024 06:33:14 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;blockquote>
 &lt;p>我将在这篇文章中分享我的 Rust 学习之旅，我是如何学习 Rust 以及一些免费的 Rust 学习资源。这篇文章是去年首发在我的英文博客中的，只是之前一直没来得及翻译成中文。&lt;/p>
 &lt;/blockquote>
 &lt;p>Rust 已经变的越来越流行，通过 &lt;a href="https://survey.stackoverflow.co/2022/#most-loved-dreaded-and-wanted-language-want">StackOverflow 2022 的调查问卷&lt;/a>，可以看到很多人都在对 Rust 感兴趣。&lt;/p>
