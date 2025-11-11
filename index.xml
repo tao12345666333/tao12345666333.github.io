@@ -1,4 +1,62 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.120.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Sun, 13 Apr 2025 21:48:00 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>我的 2024 总结</title><link>https://moelove.info/2025/02/04/%E6%88%91%E7%9A%84-2024-%E6%80%BB%E7%BB%93/</link><guid isPermaLink="true">https://moelove.info/2025/02/04/%E6%88%91%E7%9A%84-2024-%E6%80%BB%E7%BB%93/</guid><pubDate>Tue, 04 Feb 2025 21:42:42 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>MoeLove</title><link>https://moelove.info/</link><description>Jintao Zhang's Blog MoeLove. Container, Docker, Go, Kubernetes, Python, Vim.</description><generator>Hugo 0.120.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>zhangjintao9020@gmail.com (张晋涛)</managingEditor><webMaster>zhangjintao9020@gmail.com (张晋涛)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Tue, 11 Nov 2025 16:28:24 +0800</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://moelove.info/rss.xml"/><item><title>从台下到台上，从幕后到台前 - 我与 PyCon China 的 11 年</title><link>https://moelove.info/2025/09/29/%E4%BB%8E%E5%8F%B0%E4%B8%8B%E5%88%B0%E5%8F%B0%E4%B8%8A%E4%BB%8E%E5%B9%95%E5%90%8E%E5%88%B0%E5%8F%B0%E5%89%8D-%E6%88%91%E4%B8%8E-PyCon-China-%E7%9A%84-11-%E5%B9%B4/</link><guid isPermaLink="true">https://moelove.info/2025/09/29/%E4%BB%8E%E5%8F%B0%E4%B8%8B%E5%88%B0%E5%8F%B0%E4%B8%8A%E4%BB%8E%E5%B9%95%E5%90%8E%E5%88%B0%E5%8F%B0%E5%89%8D-%E6%88%91%E4%B8%8E-PyCon-China-%E7%9A%84-11-%E5%B9%B4/</guid><pubDate>Mon, 29 Sep 2025 02:17:33 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
+&lt;p>我们在 9 月 20 日，成功举办了 PyCon China 2025，后续的收尾工作也在最近陆续完成。这次的 PyCon China 与往年相比有很大不同，所以我想专门写一篇文章来记录这次活动的心得体会以及我和 PyCon China 的一些过往。&lt;/p>
+&lt;h2 id="pycon-china-2025">PyCon China 2025&lt;/h2>
+&lt;p>先说整体感受吧，今年明显要更加热闹一些，无论是从现场的氛围，还是在网络上的热度，曾经的感觉又回来了！&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2025/11/03/32BTOuDaHoQPMbe.jpg" alt="中午主会场的一张合照">&lt;/p>
+&lt;p>前几年，每次办完 PyCon China 我都会去主动搜索下关于 PyCon China 的信息，看看大家的讨论，当然有好评也有吐槽。但是有那么一两年，活动举办完后，我甚至都没在社交媒体上看到相关的吐槽，当然，这个并不是说我们做的让大家都很满意，而是热度不足，让我一度担心我们是否还能继续举办下去。&lt;/p>
+&lt;p>但今年情况截然不同。现场有近 500 人参与，我在社交媒体上不仅看到了许多活动当天的照片，还看到很多小伙伴发布的总结文章和转发讨论。&lt;strong>按这个热度，我们完全可以期待 PyCon China 2026 了。&lt;/strong>&lt;/p>
+&lt;p>其次是今年我们聚集了 40 多位讲师，除了有来自大陆各地的讲师外，也有来自台湾，日本和印度的讲师，大家因为 PyCon China 共同相聚到上海，一起交流和学习，这是非常难得的。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2025/11/03/n7AhDeB6JvHkrUa.jpg" alt="部分合影 - 中午想把大家都凑齐也没能如愿">&lt;/p>
+&lt;p>&lt;strong>PyCon China 其实已经办了很多年了&lt;/strong>，已经成为了中国 Python 社区最重要活动。在前几年，我们是选择在统一的时间，在国内多个城市同时举办，这样可以覆盖到各个城市小伙伴们到现场参会的需求，比如说在 2023 年，我们在 北京、上海、成都、杭州、重庆、深圳、广州等 7 个城市联动举办了 PyCon China 2023。虽然这样子覆盖到了多个城市线下参会的需求，但需要同时协调多个城市的人手/物料和其他的资源，对于我们这样非盈利性的活动而言，大家都很辛苦，而且各地的活动规模也无法做大。所以自从 2024 年开始，我们决定切换模式，改为集中所有资源，搞场大的。这也就是为什么近两年都只有上海场的主要原因之一了。&lt;/p>
+&lt;p>这次无论是讲师还是参会的小伙伴，有很多人都是从外地特意赶过来的（&lt;s>由于我们的经费不足，讲师也是不含餐旅的&lt;/s>）非常感谢大家！现场各位讲师们带来很多干货，引起了不少互动和讨论；还有各个合作社区在现场布展，让我们的现场热闹了很多；当然，这一切都要感谢所有线下线上参会的小伙伴和我们的赞助商们，是你们的支持才能让活动得以圆满举办！&lt;/p>
+&lt;h2 id="插曲">插曲&lt;/h2>
+&lt;p>在活动的前夜，我和一群小伙伴先小聚了下，大概 20 人，基本上都是网友，有很多是第一次见面，大家因为这次 PyCon China 而聚在一起，很是难得。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2025/11/11/n8Yc5XSyjKMkJ7Z.jpg" alt="">&lt;/p>
+&lt;p>活动结束后，有个讲师聚餐的环节，这次我们一狠心，选择在白玉兰广场安排的晚宴，我对辛姐在组委会群里说的那句话特别有感触：&lt;strong>“不知道以后还有没有机会，就今年想去一个好点的地”&lt;/strong>。（看现在的情况明年应该是有很大希望的）&lt;/p>
+&lt;p>大家彼此做了下介绍以及和 PyCon China 的渊源，我突然意识到，我已经和它走过 11 年了。&lt;/p>
+&lt;h2 id="我和-pycon-china-的-11-年">我和 PyCon China 的 11 年&lt;/h2>
+&lt;p>恰逢这次在 PyCon China 2025 我们想要搞一场 vibe coding 的 hackathon，我邀请了一个老朋友来做评委，她说她曾经给 PyCon China 做过主持人，而我下意识就想到了是不是 2014 年北京场。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2025/11/03/vweYsbBRgJcVuD1.jpg" alt="">&lt;/p>
+&lt;p>那是我参加的首场 PyCon China，那时候我只是一名听众，在台下听各位讲师们的分享。那时候活动的赞助商还是蛮多的，我也结识了很多朋友，这些年还都有联系。这貌似是仅有的存下来的一张图，渣画质，但应该也能从里面找到一些亮点。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2025/11/03/CPEJyMlqQ1S3xr6.png" alt="image-20251103054149604">&lt;/p>
+&lt;p>2015 年仍然继续参加了 PyCon China，得益于当时和 SegmentFault （也就是现在的 思否）的朋友们关系比较好，去参会的同时，也会去各家展位聊聊天什么的，认识了不少朋友。 当然这期间我也参与过其他的活动，当时我就在想，举办这些活动的流程是什么样的呢？ 是否有机会来了解它的全貌？以及这个时间下，对于这些会议的评价就各有不同了，我也很好奇。&lt;/p>
+&lt;p>时间来到了 2016 年，我也已经开始在一些场合下做讲师演讲了，同时，带着我之前的想法，以及我觉得我可以为 PyCon China 做点什么。 于是就报名了志愿者，主要来维护当年的官网了。&lt;/p>
+&lt;blockquote>
+&lt;p>说起来这个官网其实挺有意思的，有无数个人折腾了无数个版本和方案，但那几年每年可能维护的人都会换，所以最终也没统一。不过幸好最近几年，大概从 2021 年开始主要都是 frostming 来维护官网，所以基本上就逐步趋于稳定了。&lt;/p>
+&lt;/blockquote>
+&lt;p>当然，那一年还有个骄傲的事情，我把当时 Python 流行框架之一的 Tornado 的作者 Ben Darnell 邀请到了中国，参加 PyCon China 并做了个分享。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2025/11/03/HvWILBegXtm3oO8.jpg" alt="">&lt;/p>
+&lt;p>接下来 2017 年，PyCon China 继续，但是各方面存在一些问题，这一年我虽然还是志愿者的身份，不过参与了更多的部分。其实这个部分，时间太久了我有一些模糊，大概是这样。同时&lt;s>另一群人由于对当年 PyCon China 不满意，吐槽严重&lt;/s>，PyCon China 也没在北京办，就在北京搞了另一场 Python meetup 的活动，那时候我已经在很多活动中做讲师了，他们也邀请我去做了讲师，去&lt;strong>分享了 Python 的性能优化&lt;/strong>。也是在这次，我认识了 saka ，当年的他还是彬彬有礼，有点含蓄。&lt;/p>
+&lt;p>然后大概也是因为这个事情，所以在 2018 年的时候，我们决定在新云南皇冠假日酒店搞一场大的，来挽回一下之前的负面评价，同时，组织者结构也都进行了一些调整。这一年我的主要身份是讲师，开始出现在了台上，我好像也参与了些其他组织的部分，有点记不清了。不过这次确实是我们努力搞的最大的规模了， 按官网留下的信息看，当年的主会场是按千人规模来准备的。当然，我们对赞助商的筛选也很严格，加上这次规模很大，门票仅仅是成本价，导致我们整体就入不敷出，出现了很大的亏空。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2025/11/03/Llhd5Ynu7ezBV3j.jpg" alt="PyCon China 2018">&lt;/p>
+&lt;p>然后 2019 年，我参与了前期的组织，但是我没有参与演讲了，因为那一年 PyCon China 的时间，恰逢我和我老婆的婚礼。 （给大家寄了喜糖，一起开心！）&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2025/11/03/dFAQr7ChMJLyzxG.png" alt="image-20251103005004728">&lt;/p>
+&lt;p>那一年我们也邀请到了很多国内外有影响力的讲师，整体评价也还不错。可能那次大家比较熟知的是《Fluent Python》的作者，Flask 框架的作者。以及，那一年虽然我没能去现场，不过也争取到了当时我所在公司的一些支持（尽管后来好像场地网络方面出现了一些问题，就不在这里展开了）&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2025/11/03/jd2ErQAJpPf1SRa.jpg" alt="">&lt;/p>
+&lt;p>再之后，大家知道的，线下活动就很难办了。2020 年我还记得，我们用活动行在线直播的方式，我们还搞了个在线聊天的直播间，我一边带娃，一边线上聊聊天。 那一年，我在 PyCon China 上分享的主题是 eBPF 相关的内容，不过那个时候， eBPF 还不像后面那么流行。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2025/11/03/a6dyhL3OUlA8zts.jpg" alt="2020 年我的演讲">&lt;/p>
+&lt;p>那一年恰逢 PyCon China 的十周年，我们也有幸要请到了老爹 Guido 来视频互动。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2025/11/03/KL6wNRjdgnS2iqX.jpg" alt="">&lt;/p>
+&lt;p>自从 2021 年，我们采用了线上为主，线下小规模聚会的模式（减少聚集），不过规模比之前小了很多，不过我们还是邀请到了很多有影响力的讲师，整体评价也不错。顺便，那一年我们有计划走出中国，参加 PyCon APAC 和亚太区其他国家的 Python 开发者们增加更多交流。（不过最后我们取消了该计划，背后也有一些故事，这里不展开了）&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2025/11/03/TG3vIqodZ6bwM8l.jpg" alt="2021 PyCon China">&lt;/p>
+&lt;p>2022 年其实也同样，受整体环境影响也无法开展线下活动。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2025/11/03/4sdtyWQEqYgJSfo.jpg" alt="">&lt;/p>
+&lt;p>说实话，我对 2022 年的 PyCon China 感受并不是很深，可能是那一年太忙了，我从我的 2022 年总结看到了那一年我确实很忙，参加了很多活动，而且由于那一年 PyCon China 实际上是在年末举办的，而且是线上，所以并不觉得压力太大。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2025/11/03/SatVpjbw6ZdTJgA.png" alt="我的 2022 年总结">&lt;/p>
+&lt;p>到了 2023 年的 PyCon China，那时候就相对好一些了，可以搞线下活动了， 那一年，我们在成都，杭州，深圳，北京，广州，重庆，上海 等城市都同时举办了线下场的活动。&lt;/p>
+&lt;p>我是在北京场，那次活动应该是口罩几年后，我久违的见到了好多个很多年未见的朋友，感觉特别棒！我这次的内容已经是在分享 AI 相关的主题了。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2025/11/03/UIKcoQFSNTZGtP2.jpg" alt="PyCon China 2023 北京场">&lt;/p>
+&lt;p>2024 年我们算是真正的回归线下活动了，这几年大家也发生了很多的变化，结婚生子，工作变化等等，也有一些伙伴的退出和加入，所以正如我开头说的那样， 2024 年，我们决定只搞一场上海站，把我们的组织者从全国各地聚集到上海，为大家组织一场高质量的 PyCon China 活动。AI 的发展很快，我建议组织一场关于 AI 与生成式代码相关的圆桌，放在了上午的主会场，我是圆桌的主持人。同时，我当天也是下午一个分会场的主持人，我有一场演讲主题是 《深入 Python debugger 及其演进》，我当时说 7 年是一个轮回，就是指我 2017 年在 Python Meetup 上分享的也是 Python 调优相关的主题。还有主持另一个圆桌讨论，全天都在努力营业了，哈哈哈。这次的话，就算是逐步走向了台前。&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2025/11/03/yFtNrJB1PCdDQ9l.jpg" alt="PyCon China 2024">&lt;/p>
+&lt;p>2025 年，也就是这次活动，我觉得和上一届活动的成功举办也有一定的关系，以及大家的支持，我们终于到了这次，非常具有影响力的活动。今年我还做了主会场的主持，算是真正意义上的从幕后到台前了。&lt;/p>
+&lt;p>最后放一张照片吧，是我们部分组委会的成员。想来虽然大家合作了这么多年，但确实好像也没有一张完整的照片，希望明年能有机会拍一张大合照！&lt;/p>
+&lt;p>&lt;img src="https://s2.loli.net/2025/11/03/2qGwND9WJZKIH8f.jpg" alt="部分组委会小伙伴">&lt;/p>
+&lt;h2 id="总结">总结&lt;/h2>
+&lt;p>这就是 PyCon China 2025 以及我和 PyCon China 走过的这 11 年，从台下到台上，从幕后到台前。&lt;/p>
+&lt;p>组织活动充满了很多不确定性，过程中也可能发生很多突发情况，每个人都在努力的去解决这些问题，大家全都靠着一腔热情投入在其中，这是一个非常自驱且和谐的组织。希望来年我们举办 PyCon China 2026 的时候，可以有更多的小伙伴加入！&lt;/p>
+&lt;hr>
+&lt;p>欢迎订阅我的文章公众号【MoeLove】&lt;/p>
+&lt;p>&lt;img src="https://gitee.com/tlrr/awesome/raw/master/2020-9-9/1599632564572-mp-qrcode.png" alt="TheMoeLove">&lt;/p></description><category domain="https://moelove.info/post/">post</category><category domain="https://moelove.info/tags/Life/">Life</category><category domain="https://moelove.info/tags/PyCon/">PyCon</category><category domain="https://moelove.info/tags/Python/">Python</category></item><item><title>我的 2024 总结</title><link>https://moelove.info/2025/02/04/%E6%88%91%E7%9A%84-2024-%E6%80%BB%E7%BB%93/</link><guid isPermaLink="true">https://moelove.info/2025/02/04/%E6%88%91%E7%9A%84-2024-%E6%80%BB%E7%BB%93/</guid><pubDate>Tue, 04 Feb 2025 21:42:42 +0800</pubDate><author>zhangjintao9020@gmail.com (张晋涛)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>大家好，我是张晋涛。&lt;/p>
 &lt;p>每年我都会惯例的做个小回顾，春节前最后一篇文章发布的时候我就计划要写年终总结了，但这篇实际开始写的时候春节已经过了，所幸这次没有像去年那样拖太久。（但实际的完稿时间没想到和去年差不多，年终总结差点写成了年中总结）&lt;/p>
 &lt;p>2024 年于我而言是忙碌的一年，其实回头来看，每年是越来越忙，但 2024 年不仅仅是忙，而且有一些节奏被打乱了，所以很早就关注我的小伙伴可能会发现 2024 年的我和以往是有很大不同的，甚至文章都没怎么更新了。&lt;/p>
 &lt;h2 id="生活">生活&lt;/h2>
