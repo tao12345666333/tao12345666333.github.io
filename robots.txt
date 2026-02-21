@@ -1,1 +1,3 @@
 User-agent: *
+Allow: /
+Sitemap: https://moelove.info/sitemap-index.xml
