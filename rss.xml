@@ -4,8 +4,14 @@
     <title>MoeLove</title>
     <description>张晋涛的博客 - 云原生、Kubernetes、Docker</description>
     <link>https://moelove.info/</link>
-    <lastBuildDate>Tue, 24 Feb 2026 21:04:52 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 24 Feb 2026 21:47:03 +0800</lastBuildDate>
     <language>zh-CN</language>
+    <item>
+      <title>如何在 Zed 中为 ACP Server 实现认证流程</title>
+      <link>https://moelove.info/2026/02/23/acp-auth-in-zed/</link>
+      <guid isPermaLink="true">https://moelove.info/2026/02/23/acp-auth-in-zed/</guid>
+      <pubDate>Mon, 23 Feb 2026 12:06:00 +0800</pubDate>
+    </item>
     <item>
       <title>从台下到台上，从幕后到台前 - 我与 PyCon China 的 11 年</title>
       <link>https://moelove.info/2025/09/29/从台下到台上从幕后到台前-我与-PyCon-China-的-11-年/</link>
