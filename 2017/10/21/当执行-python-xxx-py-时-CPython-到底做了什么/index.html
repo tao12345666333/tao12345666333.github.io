@@ -1,0 +1,731 @@
+<!DOCTYPE html><html lang="zh-CN" data-astro-cid-37fxchfa> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="张晋涛的博客 - 云原生、Kubernetes、Docker"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" href="/favicon.ico"><link rel="alternate" type="application/rss+xml" title="MoeLove RSS" href="/rss.xml"><title>当执行 python xxx.py 时，CPython 到底做了什么？ - MoeLove</title><script>
+    // 初始化主题 - 避免闪烁
+    const theme = localStorage.getItem('theme') ||
+      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  </script><!-- Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-37K9XJ1S9C"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-37K9XJ1S9C');
+  </script><link rel="stylesheet" href="/_astro/_path_.ByxC0cBz.css">
+<style>.comments-container[data-astro-cid-jvxsf75u]{min-height:200px}
+</style></head> <body class="min-h-screen transition-colors" data-astro-cid-37fxchfa> <!-- 环境光晕背景 --> <div class="ambient-glow" aria-hidden="true" data-astro-cid-37fxchfa></div> <button id="theme-toggle" class="fixed top-4 right-4 z-50 p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors" aria-label="切换主题"> <svg id="sun-icon" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path> </svg> <svg id="moon-icon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path> </svg> </button> <script type="module">const m=localStorage.getItem("theme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",m);document.getElementById("theme-toggle")?.addEventListener("click",()=>{const t=document.documentElement.getAttribute("data-theme")==="light"?"dark":"light";document.documentElement.setAttribute("data-theme",t),localStorage.setItem("theme",t)});window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",e=>{localStorage.getItem("theme")||document.documentElement.setAttribute("data-theme",e.matches?"dark":"light")});</script> <!-- 头部导航 --> <header class="sticky top-0 z-40 backdrop-blur-xl border-b border-[var(--color-border)] animate-fadeInDown" style="background-color: color-mix(in srgb, var(--color-bg) 85%, transparent)" data-astro-cid-37fxchfa> <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" data-astro-cid-37fxchfa> <div class="flex justify-between items-center h-16" data-astro-cid-37fxchfa> <!-- Logo --> <a href="/" class="text-2xl font-bold transition-all duration-300 hover:scale-105" style="color: var(--color-primary)" data-astro-cid-37fxchfa> <span class="bg-clip-text text-transparent bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-accent)]" data-astro-cid-37fxchfa>
+MoeLove
+</span> </a> <!-- 导航链接 --> <nav class="hidden md:flex space-x-1" data-astro-cid-37fxchfa> <a href="/" class="nav-link px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:scale-105" style="color: var(--color-secondary)" data-astro-cid-37fxchfa> Home </a><a href="/post/" class="nav-link px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:scale-105" style="color: var(--color-secondary)" data-astro-cid-37fxchfa> Posts </a><a href="/talks/" class="nav-link px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:scale-105" style="color: var(--color-secondary)" data-astro-cid-37fxchfa> Talks </a><a href="/about/" class="nav-link px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:scale-105" style="color: var(--color-secondary)" data-astro-cid-37fxchfa> About </a><a href="/friends/" class="nav-link px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:scale-105" style="color: var(--color-secondary)" data-astro-cid-37fxchfa> Blogroll </a> </nav> <!-- 移动端菜单按钮 --> <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg transition-all duration-300 hover:scale-110" style="color: var(--color-text)" aria-label="菜单" data-astro-cid-37fxchfa> <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-37fxchfa> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" data-astro-cid-37fxchfa></path> </svg> </button> </div> <!-- 移动端导航 --> <div id="mobile-menu" class="hidden md:hidden pb-4 animate-fadeInScale" data-astro-cid-37fxchfa> <nav class="flex flex-col space-y-1" data-astro-cid-37fxchfa> <a href="/" class="px-4 py-3 rounded-lg transition-all duration-300 hover:translate-x-2" style="color: var(--color-secondary)" data-astro-cid-37fxchfa> Home </a><a href="/post/" class="px-4 py-3 rounded-lg transition-all duration-300 hover:translate-x-2" style="color: var(--color-secondary)" data-astro-cid-37fxchfa> Posts </a><a href="/about/" class="px-4 py-3 rounded-lg transition-all duration-300 hover:translate-x-2" style="color: var(--color-secondary)" data-astro-cid-37fxchfa> About </a><a href="/friends/" class="px-4 py-3 rounded-lg transition-all duration-300 hover:translate-x-2" style="color: var(--color-secondary)" data-astro-cid-37fxchfa> Blogroll </a><a href="/talks/" class="px-4 py-3 rounded-lg transition-all duration-300 hover:translate-x-2" style="color: var(--color-secondary)" data-astro-cid-37fxchfa> Talks </a> </nav> </div> </div> </header> <!-- 主内容 --> <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-astro-cid-37fxchfa>   <header class="mb-8 pb-8 border-b border-[var(--color-border)]"> <h1 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--color-text)"> 当执行 python xxx.py 时，CPython 到底做了什么？ </h1> <div class="flex flex-wrap items-center gap-4" style="color: var(--color-secondary)"> <div class="flex items-center gap-2"> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path> </svg> <time> 2017年10月21日 </time> </div> <div class="flex items-center gap-2"> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path> </svg> <div class="flex flex-wrap gap-2"> <a href="/tags/python/" class="hover:underline" style="color: var(--color-primary)"> Python </a><a href="/tags/linux/" class="hover:underline" style="color: var(--color-primary)"> Linux </a> </div> </div> </div> </header>  <article class="prose prose-lg dark:prose-invert max-w-none"> <blockquote>
+<p>继续写一篇关于 Python 的内容吧，虽然可能也没什么人关心，但我常用这个作为面试题目来和候选人聊。
+这篇里面用的是 Python v3.5.3 版本。</p>
+</blockquote>
+<p>提到 Python 大家都知道 Python 是解释型语言，很多人也喜欢顺手写个 Python 脚本来处理事情。</p>
+<p>但是当我们执行 <code>python xxx.py</code> 之后，到底具体发生了什么？</p>
+<p>总体来看差不多就是：</p>
+<ul>
+<li>进程入口</li>
+<li>参数解析</li>
+<li><code>Py_Initialize()</code></li>
+<li><code>sys.path</code> 和 import machinery 建立</li>
+<li>打开脚本文件</li>
+<li>源码解码、词法分析、语法分析</li>
+<li>AST 编译成 <code>PyCodeObject</code></li>
+<li>创建 <code>__main__</code> 模块和 <code>PyFrameObject</code></li>
+<li>进入 <code>PyEval_EvalFrameEx()</code></li>
+<li>最终 <code>Py_Finalize()</code></li>
+</ul>
+<p>这样的一条链路。</p>
+<p>如果你之前看过我写的文章，那应该知道我的习惯，我会尽量沿着真实控制流一路往下，跟着程序运行的过程走总是没错的。</p>
+<h2 id="先看看整体调用链是什么">先看看整体调用链是什么</h2>
+<p>如果把 <code>python hello.py</code> 的主路径压成一条链，大概是这样：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="text"><code><span class="line"><span>Programs/python.c::main</span></span>
+<span class="line"><span>  -> Modules/main.c::Py_Main</span></span>
+<span class="line"><span>  -> Python/pylifecycle.c::Py_Initialize</span></span>
+<span class="line"><span>  -> Python/sysmodule.c::PySys_SetArgv</span></span>
+<span class="line"><span>  -> Modules/main.c::run_file</span></span>
+<span class="line"><span>  -> Python/pythonrun.c::PyRun_AnyFileExFlags</span></span>
+<span class="line"><span>  -> Python/pythonrun.c::PyRun_SimpleFileExFlags</span></span>
+<span class="line"><span>  -> Python/pythonrun.c::PyRun_FileExFlags</span></span>
+<span class="line"><span>  -> Python/pythonrun.c::PyParser_ASTFromFileObject</span></span>
+<span class="line"><span>  -> Parser/parsetok.c::PyParser_ParseFileObject</span></span>
+<span class="line"><span>  -> Python/ast.c::PyAST_FromNodeObject</span></span>
+<span class="line"><span>  -> Python/compile.c::PyAST_CompileObject</span></span>
+<span class="line"><span>  -> Python/ceval.c::PyEval_EvalCode</span></span>
+<span class="line"><span>  -> Python/ceval.c::_PyEval_EvalCodeWithName</span></span>
+<span class="line"><span>  -> Objects/frameobject.c::PyFrame_New</span></span>
+<span class="line"><span>  -> Python/ceval.c::PyEval_EvalFrameEx</span></span>
+<span class="line"><span>  -> Python/pylifecycle.c::Py_Finalize</span></span></code></pre>
+<p>看起来好像也不是很复杂对不对，我还想更具体展开一些细节：</p>
+<ul>
+<li><code>Py_Initialize()</code> 到底初始化了什么</li>
+<li><code>__main__</code> 是什么时候出现的</li>
+<li><code>sys.path[0]</code> 又是什么时候插进去的</li>
+<li><code>python xxx.py</code> 会不会直接用 <code>__pycache__</code> 里的 pyc</li>
+<li>顶层脚本到底是不是通过 importlib loader 执行的</li>
+<li>一段源码是怎么一步步变成 <code>PyCodeObject</code> 的</li>
+<li><code>PyCodeObject</code> 又是怎么进入 <code>ceval</code> 的</li>
+</ul>
+<h2 id="举个例子">举个例子</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> math</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">def</span><span style="color:#B392F0"> add</span><span style="color:#E1E4E8">(a, b):</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> a </span><span style="color:#F97583">+</span><span style="color:#E1E4E8"> b</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(add(</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">))</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(math.sqrt(</span><span style="color:#79B8FF">9</span><span style="color:#E1E4E8">))</span></span></code></pre>
+<p>这个例子很简单，但它足够覆盖三类典型行为：</p>
+<ul>
+<li>顶层模块代码执行</li>
+<li>模块倒入</li>
+<li>自定义函数的调用</li>
+</ul>
+<p>接下来我会沿着 <code>python hello.py</code> 的真实执行顺序，把这三件事都串起来。</p>
+<h2 id="第一阶段进程入口先从-main-开始">第一阶段，进程入口，先从 <code>main()</code> 开始</h2>
+<p>在 Unix/macOS 常见路径上，入口在 <code>Programs/python.c::main()</code>。</p>
+<p>它做的第一件事并不是立刻执行 Python，而是先把 C 世界里的 <code>char **argv</code> 转成宽字符参数 <code>wchar_t **argv</code>，这里会调用 <code>Py_DecodeLocale()</code>。之后才进入真正的 Python 入口：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#B392F0">Py_Main</span><span style="color:#E1E4E8">(argc, argv_copy)</span></span></code></pre>
+<p>也就是 <code>Modules/main.c::Py_Main()</code>。</p>
+<p>这个设计的意义很直接，后面的解释器初始化、路径计算、文件名处理，都会统一使用宽字符参数。</p>
+<h2 id="第二阶段py_main-先处理命令行但它不是只扫一遍">第二阶段，<code>Py_Main()</code> 先处理命令行，但它不是只扫一遍</h2>
+<p><code>Modules/main.c::Py_Main()</code> 很有意思的一点是，它对参数做了两遍处理。</p>
+<p>第一遍的目标很明确，只尽早确认一些会影响后续行为的选项，例如：</p>
+<ul>
+<li><code>-E</code>，是否忽略环境变量</li>
+<li><code>-c</code>, 执行代码串</li>
+<li><code>-m</code>，执行模块</li>
+</ul>
+<p>而且在很早的时候，它还会调用 <code>_PyRandom_Init()</code>，这样 hash randomization 可以在更靠前的位置生效。</p>
+<p>第二遍才是真正设置各种全局 flag，例如：</p>
+<ul>
+<li><code>Py_NoSiteFlag</code></li>
+<li><code>Py_DontWriteBytecodeFlag</code></li>
+<li><code>Py_OptimizeFlag</code></li>
+<li><code>Py_InspectFlag</code></li>
+<li><code>Py_IgnoreEnvironmentFlag</code></li>
+</ul>
+<p>然后再去读环境变量，比如 <code>PYTHONINSPECT</code>、<code>PYTHONWARNINGS</code>、<code>PYTHONUNBUFFERED</code> 等。这里也顺便说明一下，<code>PYTHONPATH</code> 虽然同样会影响最终行为，但它不属于这一段参数/环境处理逻辑本身，而是后面 <code>Py_GetPath()</code> 计算路径时才会参与进来。</p>
+<p>如果既不是 <code>-c</code>，也不是 <code>-m</code>，当前参数又不是 <code>-</code>，那么它就会把这个参数视为脚本文件：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#E1E4E8">filename </span><span style="color:#F97583">=</span><span style="color:#FFAB70"> argv</span><span style="color:#E1E4E8">[_PyOS_optind];</span></span></code></pre>
+<p>也就是说，对 <code>python hello.py</code> 这种最普通的执行方式而言，真正的脚本路径就是在这里确定下来的。</p>
+<h2 id="第三阶段脚本还没跑解释器已经初始化了一大堆东西">第三阶段，脚本还没跑，解释器已经初始化了一大堆东西</h2>
+<p>很多人以为 <code>python hello.py</code> 就是“打开文件然后解释执行”，这其实只描述了最后一小段。</p>
+<p>在打开脚本文件之前，CPython 已经完成了一轮很重的 bootstrap。</p>
+<p>在 <code>Py_Main()</code> 中，会先调用：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#B392F0">Py_SetProgramName</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">argv</span><span style="color:#E1E4E8">[</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">]);</span></span>
+<span class="line"><span style="color:#B392F0">Py_Initialize</span><span style="color:#E1E4E8">();</span></span></code></pre>
+<p>真正的初始化逻辑在 <code>Python/pylifecycle.c::_Py_InitializeEx_Private()</code> 里。</p>
+<p>这部分顺序非常关键，大体上会做这些事：</p>
+<ol>
+<li>创建 <code>PyInterpreterState</code> 和 <code>PyThreadState</code></li>
+<li>初始化基础对象类型和核心运行时子系统</li>
+<li>创建 builtins 模块</li>
+<li>创建 sys 模块</li>
+<li>计算 <code>sys.path</code></li>
+<li>初始化 import 机制</li>
+<li>初始化文件系统编码</li>
+<li>创建 <code>__main__</code></li>
+<li>初始化标准输入输出</li>
+<li>导入 <code>site</code></li>
+</ol>
+<p>这几个阶段如果拆开看，会发现不少很有意思的细节。</p>
+<h2 id="第四阶段syspath-是什么时候算出来的">第四阶段，<code>sys.path</code> 是什么时候算出来的</h2>
+<p><code>Py_Initialize()</code> 过程中会调用：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#B392F0">PySys_SetPath</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Py_GetPath</span><span style="color:#E1E4E8">())</span></span></code></pre>
+<p>而 <code>Py_GetPath()</code> 的核心逻辑在 <code>Modules/getpath.c::calculate_path()</code>。</p>
+<p>它会综合考虑：</p>
+<ul>
+<li><code>argv[0]</code></li>
+<li><code>PYTHONHOME</code></li>
+<li><code>PYTHONPATH</code></li>
+<li>编译期的 <code>PREFIX</code> / <code>EXEC_PREFIX</code></li>
+<li><code>pyvenv.cfg</code></li>
+<li>当前可执行文件所在位置</li>
+</ul>
+<p>最后算出：</p>
+<ul>
+<li><code>module_search_path</code></li>
+<li><code>prefix</code></li>
+<li><code>exec_prefix</code></li>
+<li><code>progpath</code></li>
+</ul>
+<p>然后再挂到 <code>sys.path</code> 等相关位置上。</p>
+<p>所以 <code>sys.path</code> 不是 import 的副产品，它在解释器真正执行脚本之前就已经被搭好了主体骨架。</p>
+<h2 id="第五阶段import-主体机制也在脚本运行前就已经装好了">第五阶段，import 主体机制也在脚本运行前就已经装好了</h2>
+<p>这是整个启动阶段里非常重要的一段。</p>
+<p>在 <code>Python/pylifecycle.c::import_init()</code> 中，CPython 会先导入 frozen module <code>_frozen_importlib</code>，然后初始化 <code>_imp</code>，再调用：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">_frozen_importlib._install(sys, _imp)</span></span></code></pre>
+<p>对应逻辑在 <code>Lib/importlib/_bootstrap.py::_install()</code>。</p>
+<p>它会把：</p>
+<ul>
+<li><code>BuiltinImporter</code></li>
+<li><code>FrozenImporter</code></li>
+</ul>
+<p>塞进 <code>sys.meta_path</code>。</p>
+<p>随后还会继续导入 <code>_frozen_importlib_external</code>，对应 <code>Lib/importlib/_bootstrap_external.py::_install()</code>，这一层会继续把：</p>
+<ul>
+<li><code>FileFinder.path_hook(...)</code></li>
+<li><code>PathFinder</code></li>
+</ul>
+<p>这些和文件系统导入相关的能力装到 <code>sys.path_hooks</code> 和 <code>sys.meta_path</code> 里。</p>
+<p>也就是说，当我们的脚本后面第一次执行 <code>import math</code> 时，导入系统并不是“临时现搭的”，而是在 <code>Py_Initialize()</code> 期间就已经准备好了。</p>
+<h2 id="第六阶段encodingsiosite-都是在脚本前导入的">第六阶段，<code>encodings</code>、<code>io</code>、<code>site</code> 都是在脚本前导入的</h2>
+<p>这里还有个很多人可能忽略，但是很重要的东西，那就是 <code>encodings</code>，我之前写过一篇关于 Python 和中文相关的文章，当然很多人也会在 Python 里面遇到需要处理中文的情况，尤其是从 Python2 到 Python3.</p>
+<h3 id="encodings"><code>encodings</code></h3>
+<p>文件系统编码初始化会触发 codec registry 的建立，而这又会导入 <code>encodings</code>。相关逻辑在：</p>
+<ul>
+<li><code>Python/pylifecycle.c::initfsencoding()</code></li>
+<li><code>Python/codecs.c::_PyCodecRegistry_Init()</code></li>
+</ul>
+<p>所以 <code>encodings</code> 并不是“你 import 了才有”，它是解释器自身启动过程的一部分。</p>
+<h3 id="io"><code>io</code></h3>
+<p>在 <code>Python/pylifecycle.c::initstdio()</code> 里，CPython 会导入 <code>io</code>，并把合适的 <code>open</code> 包装器挂到 builtins。</p>
+<h3 id="site"><code>site</code></h3>
+<p>只要没有使用 <code>-S</code>，<code>Py_Initialize()</code> 期间就会执行 <code>initsite()</code>，也就是导入 <code>site</code>。</p>
+<p>这意味着一件很容易被忽略的事：</p>
+<p><strong>在脚本还没执行之前，<code>site</code>、<code>sitecustomize</code>、<code>usercustomize</code> 的副作用就已经可能发生了。</strong></p>
+<h2 id="第七阶段__main__-在脚本打开前就已经存在了">第七阶段，<code>__main__</code> 在脚本打开前就已经存在了</h2>
+<p>这是我觉得最值得记住的一个点。</p>
+<p>在 <code>Python/pylifecycle.c::initmain()</code> 里，CPython 会执行：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#B392F0">PyImport_AddModule</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"__main__"</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<p>也就是说，<code>sys.modules["__main__"]</code> 在脚本文件还没被打开的时候，就已经创建好了。</p>
+<p>并且它还会给这个模块准备好：</p>
+<ul>
+<li><code>__builtins__</code></li>
+<li>初始的 <code>__loader__</code></li>
+</ul>
+<p>所以从运行时视角来看，顶层脚本代码不是在一片真空里执行，而是即将被放进一个已经存在的 <code>__main__</code> 模块字典中运行。</p>
+<h2 id="第八阶段sysargv-和-syspath0-是在初始化之后才设置的">第八阶段，<code>sys.argv</code> 和 <code>sys.path[0]</code> 是在初始化之后才设置的</h2>
+<p><code>Py_Initialize()</code> 结束后，<code>Py_Main()</code> 才会调用：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#B392F0">PySys_SetArgv</span><span style="color:#E1E4E8">(argc</span><span style="color:#F97583">-</span><span style="color:#E1E4E8">_PyOS_optind, argv</span><span style="color:#F97583">+</span><span style="color:#E1E4E8">_PyOS_optind);</span></span></code></pre>
+<p>这一步会做两件关键的事：</p>
+<ol>
+<li>设置 <code>sys.argv</code></li>
+<li>更新 <code>sys.path[0]</code></li>
+</ol>
+<p>而更新 <code>sys.path[0]</code> 的逻辑在 <code>Python/sysmodule.c::sys_update_path()</code> 里，通常会把脚本所在目录插到 <code>sys.path[0]</code>。</p>
+<p>这有个非常容易忽略的副作用：</p>
+<p><strong><code>site</code> 导入发生在 <code>PySys_SetArgv()</code> 之前。</strong></p>
+<p>也就是说，启动阶段的一部分导入，并不一定能看到最终脚本目录已经出现在 <code>sys.path[0]</code>。</p>
+<h2 id="第九阶段真正打开脚本前cpython-还会先试一次导入式执行">第九阶段，真正打开脚本前，CPython 还会先试一次“导入式执行”</h2>
+<p>这一步很多人平时完全不会注意到。</p>
+<p>在普通文件打开之前，<code>Py_Main()</code> 先调用：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#B392F0">RunMainFromImporter</span><span style="color:#E1E4E8">(filename)</span></span></code></pre>
+<p>对应 <code>Modules/main.c::RunMainFromImporter()</code>。</p>
+<p>它会先检查 <code>argv0</code> 能不能被当作 import source 使用，比如它可能是一个目录，或者一个 zip 文件。</p>
+<p>如果是这种情况，CPython 不会走普通脚本文件分支，而是会把它加入 <code>sys.path[0]</code>，然后去运行 <code>__main__</code>。</p>
+<p>这也是为什么像 <code>python some.zip</code> 这种用法能够成立。</p>
+<p>而对于普通的 <code>python hello.py</code>，这一步通常会失败，然后回退到真正的文件执行路径。</p>
+<h2 id="第十阶段脚本文件终于被打开了">第十阶段，脚本文件终于被打开了</h2>
+<p>回退到普通文件路径后，<code>Py_Main()</code> 会调用 <code>_Py_wfopen(filename, L"r")</code> 打开文件。</p>
+<p>然后进入：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#B392F0">run_file</span><span style="color:#E1E4E8">(fp, filename, </span><span style="color:#F97583">&#x26;</span><span style="color:#FFAB70">cf</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<p>也就是 <code>Modules/main.c::run_file()</code>，再继续调用：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#B392F0">PyRun_AnyFileExFlags</span><span style="color:#E1E4E8">()</span></span></code></pre>
+<p>对于普通脚本文件，这一路最终会落到：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#B392F0">PyRun_SimpleFileExFlags</span><span style="color:#E1E4E8">()</span></span></code></pre>
+<p>这里会继续准备 <code>__main__</code> 相关元数据，例如：</p>
+<ul>
+<li><code>__file__</code></li>
+<li><code>__cached__</code></li>
+<li><code>__loader__</code></li>
+</ul>
+<p>其中有个很重要但很容易误解的点：</p>
+<p><strong>这里虽然会给 <code>__main__</code> 设置 <code>SourceFileLoader("__main__", filename)</code> 这类信息，但普通 <code>python xxx.py</code> 的执行主路径，并不是通过 importlib loader 去驱动的。</strong></p>
+<p>真正执行脚本的仍然是后面的 C 路径。</p>
+<h2 id="第十一阶段先判断它是不是-pyc">第十一阶段，先判断它是不是 pyc</h2>
+<p>在 <code>PyRun_SimpleFileExFlags()</code> 里，CPython 会先调用 <code>maybe_pyc_file()</code>。</p>
+<p>这一步会检查：</p>
+<ul>
+<li>扩展名是不是 <code>.pyc</code></li>
+<li>或者当前文件流开头的 magic bytes 看起来像不像 pyc</li>
+</ul>
+<p>如果命中，就直接进入 <code>run_pyc_file()</code>，读取 marshaled code object 然后执行。</p>
+<p>如果没有命中，才会继续把它当源文件处理。</p>
+<p>这里顺便说一个特别关键的结论：</p>
+<p><strong>对于 <code>python hello.py</code> 这种最普通的脚本执行路径，CPython 不会主动去查找旁边 <code>__pycache__</code> 里的 pyc 来跳过编译。</strong></p>
+<p>也就是说：</p>
+<ul>
+<li><code>python hello.py</code>，通常还是现读源码、现编译、现执行</li>
+<li>pyc cache 的主要收益，更多体现在 import 路径上，而不是顶层 <code>__main__</code> 直跑路径上</li>
+</ul>
+<p>这里我就很想留个疑问，在 Python2 的时候，你觉得是不是这样呢？</p>
+<h2 id="第十二阶段从源码文本到-tokenizer">第十二阶段，从源码文本到 tokenizer</h2>
+<p>源文件路径最终会进入：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#B392F0">PyRun_FileExFlags</span><span style="color:#E1E4E8">(...)</span></span></code></pre>
+<p>再调用：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#B392F0">PyParser_ASTFromFileObject</span><span style="color:#E1E4E8">(...)</span></span></code></pre>
+<p>这一步并不是直接“把整个文件读成字符串再 parse”。</p>
+<p>它后面会继续调用：</p>
+<ul>
+<li><code>Parser/parsetok.c::PyParser_ParseFileObject()</code></li>
+<li><code>Parser/tokenizer.c::PyTokenizer_FromFile()</code></li>
+</ul>
+<p>真正处理编码和逐行读取的，是 tokenizer。</p>
+<p>在 <code>Parser/tokenizer.c</code> 里，它会检查：</p>
+<ul>
+<li>有没有 BOM</li>
+<li>前两行有没有 <code>coding:</code> 声明</li>
+<li>如果没有编码声明，源码是否是合法 UTF-8</li>
+</ul>
+<p>所以源码从一开始就不是“普通文本”，而是带着 Python 自己的源码解码规则进入词法分析器的。</p>
+<h2 id="第十三阶段先有-parse-tree再有-ast">第十三阶段，先有 parse tree，再有 AST</h2>
+<p>这一步也常被描述得过于粗糙。</p>
+<p>很多文章会直接说“源码会被解析成 AST”，但在 <code>CPython 3.5.3</code> 里，真实过程是两段：</p>
+<ol>
+<li>tokenizer + parser 先生成 parser tree，也可以理解为更接近 concrete syntax 的结构</li>
+<li>然后再转成 AST</li>
+</ol>
+<p>这条链路大致是：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="text"><code><span class="line"><span>PyParser_ParseFileObject</span></span>
+<span class="line"><span>  -> parsetok()</span></span>
+<span class="line"><span>  -> PyParser_AddToken()</span></span>
+<span class="line"><span>  -> parser tree</span></span>
+<span class="line"><span>  -> PyAST_FromNodeObject()</span></span></code></pre>
+<p>其中 AST 转换入口在 <code>Python/ast.c::PyAST_FromNodeObject()</code>。</p>
+<p>所以从源码到 AST，中间其实还隔着一层更接近语法产物本身的结构。</p>
+<h2 id="第十四阶段从-ast-到-pycodeobject">第十四阶段，从 AST 到 <code>PyCodeObject</code></h2>
+<p>拿到 AST 后，执行流程会进入 <code>Python/pythonrun.c::run_mod()</code>。</p>
+<p>这里是一个非常关键的分界点：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#E1E4E8">co </span><span style="color:#F97583">=</span><span style="color:#B392F0"> PyAST_CompileObject</span><span style="color:#E1E4E8">(mod, filename, flags, </span><span style="color:#F97583">-</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, arena);</span></span>
+<span class="line"><span style="color:#E1E4E8">v </span><span style="color:#F97583">=</span><span style="color:#B392F0"> PyEval_EvalCode</span><span style="color:#E1E4E8">((PyObject</span><span style="color:#F97583">*</span><span style="color:#E1E4E8">)</span><span style="color:#FFAB70">co</span><span style="color:#E1E4E8">, globals, locals);</span></span></code></pre>
+<p>前一句负责“编译”，后一句负责“执行”。</p>
+<h3 id="编译阶段做了什么">编译阶段做了什么</h3>
+<p><code>PyAST_CompileObject()</code> 主要会做几件事：</p>
+<ol>
+<li><code>PyFuture_FromASTObject()</code>，提取 future flags</li>
+<li><code>PySymtable_BuildObject()</code>，构建符号表</li>
+<li><code>compiler_mod()</code>，开始真正代码生成</li>
+<li><code>assemble()</code></li>
+<li><code>makecode()</code></li>
+<li><code>PyCode_New()</code></li>
+</ol>
+<p>最终得到 <code>PyCodeObject</code>。</p>
+<p>这个对象里会固化编译结果中最关键的执行信息：</p>
+<ul>
+<li><code>co_code</code></li>
+<li><code>co_consts</code></li>
+<li><code>co_names</code></li>
+<li><code>co_varnames</code></li>
+<li><code>co_cellvars</code></li>
+<li><code>co_freevars</code></li>
+<li><code>co_stacksize</code></li>
+<li><code>co_flags</code></li>
+</ul>
+<p>也就是说，<strong>到了这里，源码才真正从“语言文本”变成了“虚拟机执行契约”。</strong></p>
+<h2 id="第十五阶段顶层脚本代码在哪个模块里执行">第十五阶段，顶层脚本代码在哪个模块里执行</h2>
+<p>前面 <code>PyRun_SimpleFileExFlags()</code> 拿到的是 <code>__main__</code> 模块对象。</p>
+<p>执行时传进去的 <code>globals</code> 和 <code>locals</code>，本质上都是：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">sys.modules[</span><span style="color:#9ECBFF">"__main__"</span><span style="color:#E1E4E8">].</span><span style="color:#79B8FF">__dict__</span></span></code></pre>
+<p>这意味着：</p>
+<ul>
+<li>顶层 <code>def add(...)</code> 会把 <code>add</code> 绑定到 <code>__main__.__dict__</code></li>
+<li>顶层 <code>import math</code> 也会把 <code>math</code> 绑定到 <code>__main__.__dict__</code></li>
+<li>顶层 <code>print(...)</code> 查名字时，同样以这个字典为主要作用域</li>
+</ul>
+<p>所以脚本执行的本质并不是“在文件里执行”，而是：</p>
+<p><strong>把这个文件编译出来的 <code>PyCodeObject</code>，放进 <code>__main__</code> 这个模块命名空间里执行。</strong></p>
+<h2 id="第十六阶段pycodeobject-如何变成真正运行的-frame">第十六阶段，<code>PyCodeObject</code> 如何变成真正运行的 frame</h2>
+<p><code>run_mod()</code> 调用的是：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#B392F0">PyEval_EvalCode</span><span style="color:#E1E4E8">((PyObject</span><span style="color:#F97583">*</span><span style="color:#E1E4E8">)</span><span style="color:#FFAB70">co</span><span style="color:#E1E4E8">, globals, locals)</span></span></code></pre>
+<p>然后会顺着进入：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="text"><code><span class="line"><span>PyEval_EvalCode</span></span>
+<span class="line"><span>  -> PyEval_EvalCodeEx</span></span>
+<span class="line"><span>  -> _PyEval_EvalCodeWithName</span></span>
+<span class="line"><span>  -> PyFrame_New</span></span>
+<span class="line"><span>  -> PyEval_EvalFrameEx</span></span></code></pre>
+<p>这里最关键的是 <code>Objects/frameobject.c::PyFrame_New()</code>。</p>
+<p>它会创建 <code>PyFrameObject</code>，并把这些状态塞进去：</p>
+<ul>
+<li><code>f_code</code></li>
+<li><code>f_globals</code></li>
+<li><code>f_locals</code></li>
+<li><code>f_builtins</code></li>
+<li><code>f_lasti</code></li>
+<li><code>f_iblock</code></li>
+</ul>
+<p>其中 <code>f_builtins</code> 会优先从 <code>globals["__builtins__"]</code> 来，而前面 <code>initmain()</code> 已经确保了 <code>__main__</code> 拥有这部分内容。</p>
+<p>也就是说，顶层脚本 frame 在创建时，已经天然知道：</p>
+<ul>
+<li>自己属于哪个 code object</li>
+<li>自己的全局名字空间是谁</li>
+<li>builtins 从哪来</li>
+</ul>
+<h2 id="第十七阶段f_localsplus-是-frame-里最重要的一块内存">第十七阶段，<code>f_localsplus</code> 是 frame 里最重要的一块内存</h2>
+<p>这一步虽然已经属于 VM 内部细节，但我特别想补充几句。</p>
+<p>在 <code>Include/frameobject.h</code> 里，<code>PyFrameObject</code> 的尾部定义了：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#E1E4E8">PyObject </span><span style="color:#F97583">*</span><span style="color:#FFAB70">f_localsplus</span><span style="color:#E1E4E8">[</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">];</span></span></code></pre>
+<p>它不是普通数组，而是变长尾部数组。</p>
+<p>在 <code>PyFrame_New()</code> 中，CPython 会按如下布局分配一整块连续内存：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="text"><code><span class="line"><span>| fast locals | cellvars | freevars | value stack |</span></span></code></pre>
+<p>也就是说，这一块空间同时承载：</p>
+<ul>
+<li>局部变量</li>
+<li>闭包相关 cell/free var</li>
+<li>value stack</li>
+</ul>
+<p>这就是为什么后面 <code>LOAD_FAST</code> 这类指令会非常快，本质上就是直接做数组槽位访问。</p>
+<p>所以很多人说 CPython 是个 stack VM，这当然没错，但更准确一点的说法应该是：</p>
+<p><strong>它是一个围绕 frame 连续内存布局展开实现的 stack VM。</strong></p>
+<h2 id="第十八阶段终于进入-pyeval_evalframeex">第十八阶段，终于进入 <code>PyEval_EvalFrameEx()</code></h2>
+<p>到了 <code>Python/ceval.c::PyEval_EvalFrameEx()</code>，脚本才真正开始以 opcode 形式运行。</p>
+<p>对于我们的例子来说，顶层模块代码大致会做这些事：</p>
+<ol>
+<li>执行 <code>import math</code></li>
+<li>创建函数对象 <code>add</code></li>
+<li>调用 <code>print(add(1, 2))</code></li>
+<li>调用 <code>print(math.sqrt(9))</code></li>
+</ol>
+<p>这里有两层执行值得分开看。</p>
+<h3 id="顶层模块代码执行">顶层模块代码执行</h3>
+<p>顶层代码本身是模块级 code object，它也会进入 <code>PyEval_EvalFrameEx()</code>。</p>
+<h3 id="def-add-不是立刻执行函数体"><code>def add(...)</code> 不是立刻执行函数体</h3>
+<p>函数定义语句执行时，不会立刻跑 <code>return a + b</code>。</p>
+<p>它只是：</p>
+<ul>
+<li>先从常量表里取出函数对应的 code object</li>
+<li>然后通过 <code>MAKE_FUNCTION</code></li>
+<li>构造出 <code>PyFunctionObject</code></li>
+<li>最后绑定到 <code>__main__.__dict__["add"]</code></li>
+</ul>
+<p>真正调用 <code>add(1, 2)</code> 的时候，才会再创建一个新的 frame。</p>
+<h2 id="第十九阶段import-math-到底怎么触发-importlib">第十九阶段，<code>import math</code> 到底怎么触发 importlib</h2>
+<p>当顶层模块代码执行到 <code>IMPORT_NAME</code> 时，并不是某个“特殊魔法路径”直接把模块塞进来。</p>
+<p>在 <code>Python/ceval.c::TARGET(IMPORT_NAME)</code> 里，解释器会从当前 frame 的 builtins 中取出 <code>__import__</code>，再以普通函数调用的方式去调用它。</p>
+<p>也就是说，<code>import</code> 在执行期其实仍然服从 Python 运行时的一般调用模型。</p>
+<p>而那个真正干活的 <code>__import__</code>，在 3.5.3 里首先会进入 C 层的 <code>PyImport_ImportModuleLevelObject()</code>。这部分逻辑已经把相当一部分 importlib 语义直接搬到了 C 里，但在真正查找和加载模块时，仍然会接回前面 <code>Py_Initialize()</code> 阶段已经安装好的 frozen importlib 体系上。</p>
+<p>所以这条路径是：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="text"><code><span class="line"><span>顶层字节码 IMPORT_NAME</span></span>
+<span class="line"><span>  -> builtins.__import__</span></span>
+<span class="line"><span>  -> PyImport_ImportModuleLevelObject()</span></span>
+<span class="line"><span>  -> installed importlib bootstrap objects</span></span>
+<span class="line"><span>  -> sys.meta_path / PathFinder / FileFinder</span></span></code></pre>
+<p>这也说明了一个更本质的事实：</p>
+<p><strong><code>import</code> 不是编译器行为，而是运行时行为。</strong></p>
+<h2 id="第二十阶段add1-2-是怎么执行的">第二十阶段，<code>add(1, 2)</code> 是怎么执行的</h2>
+<p>当顶层代码执行到 <code>CALL_FUNCTION</code> 时，解释器会进入 <code>Python/ceval.c::call_function()</code>。</p>
+<p>这里会根据被调用对象类型做分流：</p>
+<ul>
+<li>C 函数走一条路径</li>
+<li>bound method 走一条路径</li>
+<li>普通 Python 函数走 <code>fast_function()</code></li>
+</ul>
+<p>对于 <code>add(1, 2)</code> 这种最普通的 Python 函数，通常会进入 <code>fast_function()</code>。</p>
+<p>它的思路非常直接：</p>
+<ol>
+<li>创建一个新的 <code>PyFrameObject</code></li>
+<li>把参数拷进 <code>f_localsplus</code></li>
+<li>进入 <code>PyEval_EvalFrameEx()</code></li>
+</ol>
+<p>于是函数体对应的 code object 才真正开始执行。</p>
+<p>如果只看核心 opcode，大概就是：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="text"><code><span class="line"><span>LOAD_FAST a</span></span>
+<span class="line"><span>LOAD_FAST b</span></span>
+<span class="line"><span>BINARY_ADD</span></span>
+<span class="line"><span>RETURN_VALUE</span></span></code></pre>
+<p>这里最值得记住的一点是：</p>
+<p><strong>顶层脚本代码和函数体代码，本质上都走同一套执行器。区别只是它们对应的 code object、globals/locals、frame 场景不同。</strong></p>
+<h2 id="第二十一阶段为什么-python-xxxpy-和-import-一个模块不是一回事">第二十一阶段，为什么 <code>python xxx.py</code> 和 import 一个模块不是一回事</h2>
+<p>这经常会被当作是个误区。</p>
+<p>很多人会把“执行脚本”和“导入模块”混为一谈，但在 <code>CPython 3.5.3</code> 里，两者虽然最后都能落到 <code>PyCodeObject + frame + ceval</code> 这条链上，中间路径并不相同。</p>
+<h3 id="python-xxxpy"><code>python xxx.py</code></h3>
+<p>主路径是：</p>
+<ul>
+<li><code>Py_Main()</code></li>
+<li><code>PyRun_SimpleFileExFlags()</code></li>
+<li><code>PyRun_FileExFlags()</code></li>
+<li><code>run_mod()</code></li>
+</ul>
+<p>它主要是 C 层直接驱动。</p>
+<h3 id="import-foo"><code>import foo</code></h3>
+<p>主路径是 importlib machinery 驱动：</p>
+<ul>
+<li><code>PathFinder</code></li>
+<li><code>FileFinder</code></li>
+<li><code>SourceFileLoader</code></li>
+<li><code>get_code()</code></li>
+<li>pyc cache 检查</li>
+<li>需要时重新编译</li>
+</ul>
+<p>也正因此，pyc cache 的标准使用场景主要发生在 import 流程里。</p>
+<p>换句话说：</p>
+<p><strong><code>__main__</code> 直跑路径和普通模块导入路径，并不是同一条路，只是最后都接到了 VM 执行器上。</strong></p>
+<h2 id="第二十二阶段pyc-到底什么时候有用">第二十二阶段，<code>.pyc</code> 到底什么时候有用</h2>
+<p>既然前面提到了这个点，这里顺便展开一下。</p>
+<p>这一段我想单独写得更细一点，因为 <strong>pyc cache 是关于 Python 启动过程里最容易讲错的一个环境。</strong></p>
+<p>很多人脑子里的模型是这样的：</p>
+<blockquote>
+<p>第一次运行 <code>foo.py</code> 时生成 pyc，第二次运行 <code>foo.py</code> 时直接加载 pyc，所以第二次更快。</p>
+</blockquote>
+<p>这个说法只说对了一半，而且更准确地说，<strong>它主要适用于 import 路径，不适用于普通的 <code>python foo.py</code> 顶层脚本直跑路径。</strong></p>
+<p>我们分几种情况来看。</p>
+<h3 id="情况一只运行单个-hellopy">情况一，只运行单个 <code>hello.py</code></h3>
+<p>假设我们只有一个文件：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"hello"</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<p>执行：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">python</span><span style="color:#9ECBFF"> hello.py</span></span></code></pre>
+<p>此时主路径是：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="text"><code><span class="line"><span>Py_Main()</span></span>
+<span class="line"><span>  -> PyRun_SimpleFileExFlags()</span></span>
+<span class="line"><span>  -> maybe_pyc_file()</span></span>
+<span class="line"><span>  -> PyRun_FileExFlags()</span></span>
+<span class="line"><span>  -> PyParser_ASTFromFileObject()</span></span>
+<span class="line"><span>  -> PyAST_CompileObject()</span></span>
+<span class="line"><span>  -> PyEval_EvalCode()</span></span></code></pre>
+<p>这里最关键的是，<code>Python/pythonrun.c::PyRun_SimpleFileExFlags()</code> 并不会去调用：</p>
+<ul>
+<li><code>Lib/importlib/_bootstrap_external.py::cache_from_source()</code></li>
+<li><code>_validate_bytecode_header()</code></li>
+<li><code>_code_to_bytecode()</code></li>
+<li><code>SourceFileLoader.set_data()</code></li>
+</ul>
+<p>也就是说，对普通的 <code>python hello.py</code> 而言：</p>
+<ul>
+<li><strong>第一次运行</strong>，不会去读 <code>__pycache__/hello.cpython-35.pyc</code></li>
+<li><strong>第一次运行</strong>，也不会给这个 <code>hello.py</code> 写 pyc</li>
+<li><strong>第二次运行</strong>，仍然不会去读 <code>__pycache__/hello.cpython-35.pyc</code></li>
+<li><strong>第二次运行</strong>，还是重新走源码解析、AST、编译、执行</li>
+</ul>
+<p>换句话说：</p>
+<p><strong>如果你直接执行的是 <code>python hello.py</code>，那么“第二次运行因为 pyc cache 而更快”这件事，对这个 <code>hello.py</code> 本身通常并不成立。</strong></p>
+<h3 id="为什么会这样">为什么会这样</h3>
+<p>因为 <code>python hello.py</code> 走的是 <code>__main__</code> 直跑路径，核心入口是 <code>PyRun_FileExFlags()</code>，不是 importlib 的 <code>SourceLoader.get_code()</code>。</p>
+<p>而标准 pyc cache 逻辑，就在 <code>Lib/importlib/_bootstrap_external.py::SourceLoader.get_code()</code> 里。</p>
+<p>所以这两条路径虽然最后都会到 <code>PyCodeObject -> PyEval_EvalCode() -> PyEval_EvalFrameEx()</code>，但前半段完全不是同一套机制。</p>
+<h3 id="情况二mainpy-导入了-foopy">情况二，<code>main.py</code> 导入了 <code>foo.py</code></h3>
+<p>这个场景才是 pyc cache 真正发挥作用的典型路径。</p>
+<p>假设有两个文件：</p>
+<p><strong>main.py</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> foo</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"main"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">foo.hello()</span></span></code></pre>
+<p><strong>foo.py</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">def</span><span style="color:#B392F0"> hello</span><span style="color:#E1E4E8">():</span></span>
+<span class="line"><span style="color:#79B8FF">    print</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"hello from foo"</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<p>现在执行：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">python</span><span style="color:#9ECBFF"> main.py</span></span></code></pre>
+<p>这里会同时发生两件事：</p>
+<ol>
+<li><code>main.py</code> 作为 <code>__main__</code> 直跑</li>
+<li><code>foo.py</code> 作为普通模块被 import</li>
+</ol>
+<p>而这两件事的 pyc 行为是不同的。</p>
+<h4 id="mainpy-的行为"><code>main.py</code> 的行为</h4>
+<p>仍然和前一种情况一样：</p>
+<ul>
+<li>不会主动去 <code>__pycache__</code> 找 <code>main.cpython-35.pyc</code></li>
+<li>不会自动给 <code>main.py</code> 写 pyc</li>
+</ul>
+<h4 id="foopy-的行为"><code>foo.py</code> 的行为</h4>
+<p>这时 <code>foo.py</code> 会通过 importlib machinery 进入 <code>SourceLoader.get_code()</code>，于是 pyc cache 机制就开始工作了。</p>
+<h2 id="第二十二阶段之一第一次-import-foo没有-pyc-时发生了什么">第二十二阶段之一，第一次 import <code>foo</code>，没有 pyc 时发生了什么</h2>
+<p>第一次执行 <code>python main.py</code> 时，如果还没有 <code>__pycache__/foo.cpython-35.pyc</code>，那么 <code>foo</code> 的导入会大致沿着这条路径走：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="text"><code><span class="line"><span>IMPORT_NAME</span></span>
+<span class="line"><span>  -> builtins.__import__</span></span>
+<span class="line"><span>  -> PyImport_ImportModuleLevelObject()</span></span>
+<span class="line"><span>  -> installed importlib bootstrap objects</span></span>
+<span class="line"><span>  -> PathFinder.find_spec()</span></span>
+<span class="line"><span>  -> FileFinder.find_spec()</span></span>
+<span class="line"><span>  -> SourceFileLoader.get_code()</span></span></code></pre>
+<p>接下来，<code>Lib/importlib/_bootstrap_external.py::SourceLoader.get_code()</code> 会做这些事：</p>
+<ol>
+<li><code>source_path = self.get_filename(fullname)</code></li>
+<li><code>bytecode_path = cache_from_source(source_path)</code></li>
+<li><code>st = self.path_stats(source_path)</code>，拿到 <code>mtime</code> 和 <code>size</code></li>
+<li>尝试 <code>self.get_data(bytecode_path)</code> 去读 pyc</li>
+<li>因为第一次没有 pyc，这里会抛 <code>OSError</code></li>
+<li>然后退回读源码 <code>self.get_data(source_path)</code></li>
+<li>调 <code>self.source_to_code(source_bytes, source_path)</code></li>
+<li>得到 <code>code_object</code></li>
+<li>如果允许写回，就把 pyc 写到 <code>__pycache__</code></li>
+</ol>
+<p>也就是说，<strong>第一次 import 时，“没有 pyc”并不是错误，它只是让 loader 自然回退到源码编译路径。</strong></p>
+<h3 id="pyc-文件名是怎么来的">pyc 文件名是怎么来的</h3>
+<p>这里使用的是 <code>Lib/importlib/_bootstrap_external.py::cache_from_source()</code>。</p>
+<p>在 <code>3.5.3</code> 中：</p>
+<ul>
+<li>cache 目录固定是 <code>__pycache__</code></li>
+<li>tag 来自 <code>sys.implementation.cache_tag</code></li>
+<li><code>sys.implementation.cache_tag</code> 对应 <code>cpython-35</code></li>
+</ul>
+<p>所以普通情况下：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="text"><code><span class="line"><span>foo.py</span></span>
+<span class="line"><span>-> __pycache__/foo.cpython-35.pyc</span></span></code></pre>
+<p>如果使用优化选项：</p>
+<ul>
+<li><code>python -O</code>，生成 <code>foo.cpython-35.opt-1.pyc</code></li>
+<li><code>python -OO</code>，生成 <code>foo.cpython-35.opt-2.pyc</code></li>
+</ul>
+<h3 id="pyc-里到底存了什么">pyc 里到底存了什么</h3>
+<p>在 <code>Lib/importlib/_bootstrap_external.py::_code_to_bytecode()</code> 里，CPython 会把 pyc 写成这样：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="text"><code><span class="line"><span>[0:4]   MAGIC_NUMBER</span></span>
+<span class="line"><span>[4:8]   mtime</span></span>
+<span class="line"><span>[8:12]  source_size</span></span>
+<span class="line"><span>[12:]   marshal.dumps(code_object)</span></span></code></pre>
+<p>这里的 <code>MAGIC_NUMBER</code> 在 <code>3.5.3</code> 中是：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#79B8FF">MAGIC_NUMBER</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">3351</span><span style="color:#E1E4E8">).to_bytes(</span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'little'</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">+</span><span style="color:#F97583"> b</span><span style="color:#9ECBFF">'</span><span style="color:#79B8FF">\r\n</span><span style="color:#9ECBFF">'</span></span></code></pre>
+<p>这个版本使用的还是非常经典的：</p>
+<p><strong>magic + timestamp + size + marshaled code object</strong></p>
+<p>这也说明一个经常被忽略的事实：</p>
+<p><strong>pyc 缓存的不是 AST，也不是源码文本，而是已经编译好的 code object。</strong></p>
+<h3 id="pyc-是怎么写回去的">pyc 是怎么写回去的</h3>
+<p>第一次 import 成功后，<code>SourceLoader.get_code()</code> 会在满足条件时调用：</p>
+<ul>
+<li><code>_code_to_bytecode()</code></li>
+<li><code>self._cache_bytecode()</code></li>
+<li><code>SourceFileLoader.set_data()</code></li>
+</ul>
+<p><code>SourceFileLoader.set_data()</code> 会：</p>
+<ol>
+<li>逐级创建缺失的目录</li>
+<li>调 <code>_write_atomic(path, data, mode)</code></li>
+</ol>
+<p>而 <code>_write_atomic()</code> 的逻辑也很直接：</p>
+<ol>
+<li>先写入一个临时文件</li>
+<li>写完后用 <code>os.replace()</code> 原子替换目标文件</li>
+</ol>
+<p>这说明 pyc 写入是尽量原子化的，同时如果权限不足、目录不可写、或者别的进程竞争写入，import 本身仍然不应该失败。最坏的情况通常只是：</p>
+<ul>
+<li>模块成功导入</li>
+<li>但 pyc 没写成</li>
+</ul>
+<h2 id="第二十二阶段之二第二次-import-foo已有-pyc-时发生了什么">第二十二阶段之二，第二次 import <code>foo</code>，已有 pyc 时发生了什么</h2>
+<p>现在我们第二次执行：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">python</span><span style="color:#9ECBFF"> main.py</span></span></code></pre>
+<p>这一次：</p>
+<ul>
+<li><code>main.py</code> 仍然作为 <code>__main__</code> 重新编译执行</li>
+<li><code>foo.py</code> 则很有机会命中第一次留下的 <code>__pycache__/foo.cpython-35.pyc</code></li>
+</ul>
+<p>这时 <code>SourceLoader.get_code()</code> 会再次尝试：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">data </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> self</span><span style="color:#E1E4E8">.get_data(bytecode_path)</span></span></code></pre>
+<p>如果读到了 pyc，接下来不会立刻信任它，而是先进入：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">_validate_bytecode_header(data, </span><span style="color:#FFAB70">source_stats</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">st, </span><span style="color:#79B8FF">...</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<h3 id="它会校验什么">它会校验什么</h3>
+<p><code>Lib/importlib/_bootstrap_external.py::_validate_bytecode_header()</code> 会拆出：</p>
+<ul>
+<li><code>magic = data[:4]</code></li>
+<li><code>raw_timestamp = data[4:8]</code></li>
+<li><code>raw_size = data[8:12]</code></li>
+</ul>
+<p>然后做几类检查：</p>
+<ol>
+<li><code>magic</code> 对不对</li>
+<li>header 有没有截断</li>
+<li><code>mtime</code> 是否与当前源码匹配</li>
+<li><code>size</code> 是否与当前源码匹配</li>
+</ol>
+<p>只有都通过，才会把 <code>data[12:]</code> 这部分真正交给 <code>_compile_bytecode()</code>。</p>
+<h3 id="命中-cache-后会发生什么">命中 cache 后会发生什么</h3>
+<p><code>_compile_bytecode()</code> 会：</p>
+<ol>
+<li><code>marshal.loads(data)</code>，把 pyc 里的 code object 反序列化出来</li>
+<li>如果是 source-backed import，再调用 <code>_imp._fix_co_filename(code, source_path)</code></li>
+</ol>
+<p>也就是说，第二次 import 成功命中 pyc 后，<strong>它直接跳过了源码读取、词法分析、语法分析、AST 构造、编译这些步骤。</strong></p>
+<p>这时第二次运行真正省下来的，是被 import 的模块那部分编译成本。</p>
+<p>所以如果你执行的是：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">python</span><span style="color:#9ECBFF"> main.py</span></span></code></pre>
+<p>第二次运行时更可能复用的是：</p>
+<ul>
+<li><code>foo.py</code></li>
+<li><code>bar.py</code></li>
+<li>其他被 import 的模块</li>
+</ul>
+<p>而不是顶层 <code>main.py</code> 本身。</p>
+<h2 id="第二十二阶段之三源码改了之后会怎样">第二十二阶段之三，源码改了之后会怎样</h2>
+<p>如果 <code>foo.py</code> 改了，那么下一次 import 时，header 校验就可能失败。</p>
+<p>在 <code>3.5.3</code> 里，stale pyc 的判定主要依赖：</p>
+<ul>
+<li><code>int(st['mtime'])</code></li>
+<li><code>st['size'] &#x26; 0xFFFFFFFF</code></li>
+</ul>
+<p>也就是说，这个版本还不是后来的 hash-based pyc，而是 timestamp/size 驱动的校验逻辑。</p>
+<p>一旦 <code>_validate_bytecode_header()</code> 发现：</p>
+<ul>
+<li>magic 不匹配</li>
+<li>mtime 不匹配</li>
+<li>size 不匹配</li>
+<li>header 被截断</li>
+</ul>
+<p>那它就会抛 <code>ImportError</code> 或 <code>EOFError</code>。</p>
+<p>而 <code>SourceLoader.get_code()</code> 对这些异常的处理方式非常务实：</p>
+<ul>
+<li>吞掉异常</li>
+<li>回退到源码读取和重新编译</li>
+<li>如果允许写回，再把新的 pyc 覆盖写回去</li>
+</ul>
+<p>所以对于 source-backed import，更准确的说法应该是：</p>
+<p><strong>如果 pyc 缺失、过旧、header 不合法，或者 header 被截断，通常都不是致命问题，因为 loader 会回退到源码重新编译。</strong> 但这句话也不能无限泛化，如果 pyc 的 header 已经通过校验，后面的 marshaled payload 自身坏掉了，那就不一定还能优雅 fallback 了；而如果你直接执行的是 <code>python foo.pyc</code>，那更不会回源码。</p>
+<h2 id="第二十二阶段之四-b-opython-foopyc-分别意味着什么">第二十二阶段之四，<code>-B</code>、<code>-O</code>、<code>python foo.pyc</code> 分别意味着什么</h2>
+<h3 id="-b"><code>-B</code></h3>
+<p><code>-B</code> 对应 <code>Py_DontWriteBytecodeFlag</code>，暴露到 Python 层就是 <code>sys.dont_write_bytecode</code>。</p>
+<p>但有个很容易讲错的点：</p>
+<p><strong><code>-B</code> 只禁止写 pyc，不禁止读 pyc。</strong></p>
+<p>从 <code>SourceLoader.get_code()</code> 的逻辑就能看出来，<code>sys.dont_write_bytecode</code> 只出现在“写回 pyc”的 <code>if</code> 分支里，读取和校验已有 pyc 的逻辑并不会因为 <code>-B</code> 而关闭。</p>
+<h3 id="-o---oo"><code>-O</code> / <code>-OO</code></h3>
+<p>优化级别一方面影响编译行为，另一方面也会影响 pyc 文件名：</p>
+<ul>
+<li><code>-O</code> -> <code>.opt-1.pyc</code></li>
+<li><code>-OO</code> -> <code>.opt-2.pyc</code></li>
+</ul>
+<p>因此不同优化级别下，缓存文件本身也是分开的。</p>
+<h3 id="python-foopyc"><code>python foo.pyc</code></h3>
+<p>如果直接执行的是：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">python</span><span style="color:#9ECBFF"> foo.pyc</span></span></code></pre>
+<p>这就不是 import cache 的故事了，而是 <code>Python/pythonrun.c::run_pyc_file()</code> 的故事。</p>
+<p>它会：</p>
+<ol>
+<li>读取 magic</li>
+<li>跳过 mtime 和 size</li>
+<li>直接 <code>PyMarshal_ReadLastObjectFromFile()</code></li>
+<li><code>PyEval_EvalCode()</code></li>
+</ol>
+<p>注意这和 <code>SourceLoader.get_code()</code> 很不一样：</p>
+<ul>
+<li>它不会去比对真实源码的 mtime/size</li>
+<li>它不会 fallback 到源码</li>
+<li>它也不会帮你修正 source-backed import 那种 <code>co_filename</code></li>
+</ul>
+<p>所以：</p>
+<p><strong>直接跑 <code>.pyc</code>，和通过 import 命中 <code>__pycache__</code>，是两件相似但不相同的事。</strong></p>
+<p>小结一下就是：</p>
+<p><strong>第一次和第二次执行 <code>python main.py</code> 时，真正可能被 pyc cache 加速的，通常不是 <code>main.py</code> 这个顶层脚本本身，而是它 import 进来的那些普通模块。</strong></p>
+<p>再说得更极端一点：</p>
+<ul>
+<li>只有 <code>hello.py</code> 一个文件时，第二次运行通常并不会因为 pyc cache 获得想象中的收益</li>
+<li>但一旦项目里开始有越来越多的 import，pyc cache 的意义就会迅速放大</li>
+</ul>
+<p>这也是为什么 pyc cache 对中大型项目更有感知，而对一段单文件脚本往往没那么显著。</p>
+<h2 id="第二十三阶段程序跑完之后解释器还要收尾">第二十三阶段，程序跑完之后，解释器还要收尾</h2>
+<p>脚本执行完成后，<code>Py_Main()</code> 最终会调用：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;" tabindex="0" data-language="c"><code><span class="line"><span style="color:#B392F0">Py_Finalize</span><span style="color:#E1E4E8">()</span></span></code></pre>
+<p>对应 <code>Python/pylifecycle.c::Py_Finalize()</code>。</p>
+<p>这里会做很多收尾工作，例如：</p>
+<ul>
+<li>等待线程退出</li>
+<li>调用 <code>atexit</code> 相关逻辑</li>
+<li>flush 标准流</li>
+<li>做一轮 GC</li>
+<li>清理 import 系统</li>
+<li>清理解释器状态</li>
+<li>销毁各种对象子系统</li>
+</ul>
+<p>如果脚本里抛的是未捕获的 <code>SystemExit</code>，也不是直接粗暴 <code>exit()</code>，而是会先走 <code>Py_Exit()</code>，内部依然会先调用 <code>Py_Finalize()</code>。</p>
+<p>所以 CPython 的退出路径也不是简单“进程结束”，它仍然努力维持一个相对有序的解释器生命周期。</p>
+<h2 id="总结">总结</h2>
+<p>现在如果再回到开头的问题：</p>
+<blockquote>
+<p>当执行 <code>python xxx.py</code> 时，CPython 到底做了什么？</p>
+</blockquote>
+<p>我会这么说：</p>
+<p>先由 <code>main()</code> 进入 <code>Py_Main()</code>，完成参数处理和解释器初始化，建立 <code>sys</code>、builtins、importlib、<code>sys.path</code>、<code>__main__</code> 等运行时基础设施；然后打开脚本文件，经由 tokenizer、parser、AST、compiler 生成 <code>PyCodeObject</code>；再把它放进 <code>__main__.__dict__</code> 所对应的 frame 中，交给 <code>PyEval_EvalFrameEx()</code> 执行；最后在程序结束后通过 <code>Py_Finalize()</code> 做清理。</p>
+<p>后面大家对这些内容感兴趣，我还可以继续往下写(flag++)，比如专门拆：</p>
+<ul>
+<li><code>import</code> 的完整细节</li>
+<li><code>.pyc</code> 文件格式</li>
+<li>…</li>
+</ul>
+<hr>
+<p>可以通过下面二维码订阅我的文章公众号【MoeLove】</p>
+<p><img src="https://raw.githubusercontent.com/tao12345666333/collection/master/images/my_qrcode.jpg" alt="TheMoeLove"></p> </article>  <section class="mt-12 pt-8 border-t border-[var(--color-border)]"> <h3 class="text-xl font-bold mb-4" style="color: var(--color-text)">Related Posts</h3> <div class="grid md:grid-cols-3 gap-4"> <a href="/2014/03/10/Linux-安装Android-驱动/" class="p-4 rounded-lg transition-colors hover:bg-[var(--color-muted)]" style="background-color: color-mix(in srgb, var(--color-muted) 50%, transparent)"> <h4 class="font-semibold line-clamp-2" style="color: var(--color-text)">Linux 安装Android 驱动</h4> <time class="text-sm" style="color: var(--color-secondary)"> 2014/3/10 </time> </a><a href="/2013/08/07/LAMP环境的快速搭建/" class="p-4 rounded-lg transition-colors hover:bg-[var(--color-muted)]" style="background-color: color-mix(in srgb, var(--color-muted) 50%, transparent)"> <h4 class="font-semibold line-clamp-2" style="color: var(--color-text)">LAMP环境的快速搭建</h4> <time class="text-sm" style="color: var(--color-secondary)"> 2013/8/7 </time> </a><a href="/2013/08/30/fedora下安装sublime-text-2的方法/" class="p-4 rounded-lg transition-colors hover:bg-[var(--color-muted)]" style="background-color: color-mix(in srgb, var(--color-muted) 50%, transparent)"> <h4 class="font-semibold line-clamp-2" style="color: var(--color-text)">fedora下安装sublime text 2的方法</h4> <time class="text-sm" style="color: var(--color-secondary)"> 2013/8/30 </time> </a> </div> </section> <div class="comments-container mt-16 pt-8 border-t border-[var(--color-border)]" data-astro-cid-jvxsf75u> <h3 class="text-xl font-bold mb-6" style="color: var(--color-text)" data-astro-cid-jvxsf75u>Comments</h3> <div id="utterances-container" data-astro-cid-jvxsf75u></div> </div> <script type="module">function r(){return document.documentElement.getAttribute("data-theme")==="dark"?"photon-dark":"github-light"}function n(){const e=document.getElementById("utterances-container");if(!e)return;e.innerHTML="";const t=document.createElement("script");t.src="https://utteranc.es/client.js",t.setAttribute("repo","tao12345666333/tao12345666333.github.io"),t.setAttribute("issue-term","title"),t.setAttribute("label","blog"),t.setAttribute("theme",r()),t.setAttribute("crossorigin","anonymous"),t.async=!0,e.appendChild(t)}const o=new MutationObserver(e=>{e.forEach(t=>{t.attributeName==="data-theme"&&n()})});o.observe(document.documentElement,{attributes:!0,attributeFilter:["data-theme"]});document.addEventListener("DOMContentLoaded",n);</script>   </main> <!-- 页脚 --> <footer class="border-t border-[var(--color-border)] mt-auto animate-on-scroll" style="background-color: color-mix(in srgb, var(--color-bg) 80%, transparent)" data-astro-cid-37fxchfa> <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-astro-cid-37fxchfa> <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0" data-astro-cid-37fxchfa> <div class="text-sm" style="color: var(--color-secondary)" data-astro-cid-37fxchfa>
+© 2013-2026 MoeLove. All rights reserved.
+</div> <div class="flex items-center space-x-6" data-astro-cid-37fxchfa> <a href="/rss.xml" class="social-link" style="color: var(--color-secondary)" aria-label="RSS" data-astro-cid-37fxchfa> <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" data-astro-cid-37fxchfa> <path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19.32 7.38 20 6.18 20 4.99 20 4 19.32 4 17.82a2.18 2.18 0 0 1 2.18-2.18zM4 4.44a15.97 15.97 0 0 1 15.97 15.97h-2.62a13.35 13.35 0 0 0-13.35-13.35V4.44zm0 5.26a10.71 10.71 0 0 1 10.71 10.71h-2.63A8.08 8.08 0 0 0 4 10.07V9.7z" data-astro-cid-37fxchfa></path> </svg> </a> <a href="https://github.com/tao12345666333" target="_blank" rel="noopener" class="social-link" style="color: var(--color-secondary)" aria-label="GitHub" data-astro-cid-37fxchfa> <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" data-astro-cid-37fxchfa> <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" data-astro-cid-37fxchfa></path> </svg> </a> <a href="https://twitter.com/zhangjintao9020" target="_blank" rel="noopener" class="social-link" style="color: var(--color-secondary)" aria-label="Twitter" data-astro-cid-37fxchfa> <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" data-astro-cid-37fxchfa> <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" data-astro-cid-37fxchfa></path> </svg> </a> <a href="https://img1.moelove.info/mp-qrcode.png" target="_blank" rel="noopener" class="social-link" style="color: var(--color-secondary)" aria-label="微信公众号" data-astro-cid-37fxchfa> <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" data-astro-cid-37fxchfa> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" data-astro-cid-37fxchfa></path> </svg> </a> </div> </div> </div> </footer> <script type="module">document.getElementById("mobile-menu-btn")?.addEventListener("click",()=>{document.getElementById("mobile-menu")?.classList.toggle("hidden")});document.querySelectorAll(".nav-link").forEach(e=>{e.addEventListener("mouseenter",()=>{e.style.color="var(--color-primary)",e.style.backgroundColor="color-mix(in srgb, var(--color-muted) 50%, transparent)"}),e.addEventListener("mouseleave",()=>{e.style.color="var(--color-secondary)",e.style.backgroundColor="transparent"})});const t={root:null,rootMargin:"0px",threshold:.1},o=new IntersectionObserver(e=>{e.forEach(r=>{r.isIntersecting&&(r.target.classList.add("visible"),o.unobserve(r.target))})},t);document.querySelectorAll(".animate-on-scroll").forEach(e=>{o.observe(e)});document.querySelectorAll(".social-link").forEach(e=>{e.addEventListener("mouseenter",()=>{e.style.color="var(--color-primary)",e.style.transform="translateY(-3px) scale(1.1)"}),e.addEventListener("mouseleave",()=>{e.style.color="var(--color-secondary)",e.style.transform="translateY(0) scale(1)"})});</script> </body> </html> 

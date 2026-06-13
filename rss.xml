@@ -4,7 +4,7 @@
     <title>MoeLove</title>
     <description>张晋涛的博客 - 云原生、Kubernetes、Docker</description>
     <link>https://moelove.info/</link>
-    <lastBuildDate>Sun, 31 May 2026 16:28:56 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 14 Jun 2026 24:18:23 +0800</lastBuildDate>
     <language>zh-CN</language>
     <item>
       <title>如何在 Zed 中为 ACP Server 实现认证流程</title>
@@ -1337,6 +1337,12 @@
       <link>https://moelove.info/2018/08/05/基于-GitLab-的-CI-实践/</link>
       <guid isPermaLink="true">https://moelove.info/2018/08/05/基于-GitLab-的-CI-实践/</guid>
       <pubDate>Sun, 05 Aug 2018 14:54:59 +0800</pubDate>
+    </item>
+    <item>
+      <title>当执行 python xxx.py 时，CPython 到底做了什么？</title>
+      <link>https://moelove.info/2017/10/21/当执行-python-xxx-py-时-CPython-到底做了什么/</link>
+      <guid isPermaLink="true">https://moelove.info/2017/10/21/当执行-python-xxx-py-时-CPython-到底做了什么/</guid>
+      <pubDate>Sat, 21 Oct 2017 11:18:08 +0800</pubDate>
     </item>
     <item>
       <title>Install-Python3.6-on-CentOS7</title>
